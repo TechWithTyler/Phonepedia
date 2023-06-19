@@ -7,17 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8DA52A262A3D01C500B7546B /* PhoneRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA52A252A3D01C500B7546B /* PhoneRowView.swift */; };
+		8DA52A282A3D04BB00B7546B /* PhoneImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA52A272A3D04BB00B7546B /* PhoneImage.swift */; };
+		8DA52A2A2A3D0D1A00B7546B /* PhoneDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA52A292A3D0D1A00B7546B /* PhoneDetailView.swift */; };
 		8DFC9BF62A3BAB9D00295700 /* Phone_BoothApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DFC9BF52A3BAB9D00295700 /* Phone_BoothApp.swift */; };
-		8DFC9BF82A3BAB9D00295700 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DFC9BF72A3BAB9D00295700 /* Item.swift */; };
+		8DFC9BF82A3BAB9D00295700 /* Phone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DFC9BF72A3BAB9D00295700 /* Phone.swift */; };
 		8DFC9BFA2A3BAB9D00295700 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DFC9BF92A3BAB9D00295700 /* ContentView.swift */; };
 		8DFC9BFC2A3BAB9F00295700 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DFC9BFB2A3BAB9F00295700 /* Assets.xcassets */; };
 		8DFC9C002A3BAB9F00295700 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DFC9BFF2A3BAB9F00295700 /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8DA52A252A3D01C500B7546B /* PhoneRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneRowView.swift; sourceTree = "<group>"; };
+		8DA52A272A3D04BB00B7546B /* PhoneImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneImage.swift; sourceTree = "<group>"; };
+		8DA52A292A3D0D1A00B7546B /* PhoneDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneDetailView.swift; sourceTree = "<group>"; };
 		8DFC9BF22A3BAB9D00295700 /* Phone Booth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Phone Booth.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DFC9BF52A3BAB9D00295700 /* Phone_BoothApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phone_BoothApp.swift; sourceTree = "<group>"; };
-		8DFC9BF72A3BAB9D00295700 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		8DFC9BF72A3BAB9D00295700 /* Phone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phone.swift; sourceTree = "<group>"; };
 		8DFC9BF92A3BAB9D00295700 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		8DFC9BFB2A3BAB9F00295700 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8DFC9BFD2A3BAB9F00295700 /* Phone_Booth.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Phone_Booth.entitlements; sourceTree = "<group>"; };
@@ -36,6 +42,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8DA52A242A3D01B700B7546B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8DFC9BF92A3BAB9D00295700 /* ContentView.swift */,
+				8DA52A252A3D01C500B7546B /* PhoneRowView.swift */,
+				8DA52A272A3D04BB00B7546B /* PhoneImage.swift */,
+				8DA52A292A3D0D1A00B7546B /* PhoneDetailView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		8DFC9BE92A3BAB9D00295700 = {
 			isa = PBXGroup;
 			children = (
@@ -56,8 +73,8 @@
 			isa = PBXGroup;
 			children = (
 				8DFC9BF52A3BAB9D00295700 /* Phone_BoothApp.swift */,
-				8DFC9BF72A3BAB9D00295700 /* Item.swift */,
-				8DFC9BF92A3BAB9D00295700 /* ContentView.swift */,
+				8DFC9BF72A3BAB9D00295700 /* Phone.swift */,
+				8DA52A242A3D01B700B7546B /* Views */,
 				8DFC9BFB2A3BAB9F00295700 /* Assets.xcassets */,
 				8DFC9BFD2A3BAB9F00295700 /* Phone_Booth.entitlements */,
 				8DFC9C012A3BAB9F00295700 /* Info.plist */,
@@ -144,8 +161,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8DFC9BF82A3BAB9D00295700 /* Item.swift in Sources */,
+				8DFC9BF82A3BAB9D00295700 /* Phone.swift in Sources */,
 				8DFC9BF62A3BAB9D00295700 /* Phone_BoothApp.swift in Sources */,
+				8DA52A282A3D04BB00B7546B /* PhoneImage.swift in Sources */,
+				8DA52A262A3D01C500B7546B /* PhoneRowView.swift in Sources */,
+				8DA52A2A2A3D0D1A00B7546B /* PhoneDetailView.swift in Sources */,
 				8DFC9BFA2A3BAB9D00295700 /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -274,7 +294,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Phone Booth/Phone_Booth.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 925;
 				DEVELOPMENT_ASSET_PATHS = "\"Phone Booth/Preview Content\"";
 				DEVELOPMENT_TEAM = 3B6G4T54X3;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -295,7 +315,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2023.11;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tylersheft.Phone-Booth";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
@@ -313,7 +333,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Phone Booth/Phone_Booth.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 925;
 				DEVELOPMENT_ASSET_PATHS = "\"Phone Booth/Preview Content\"";
 				DEVELOPMENT_TEAM = 3B6G4T54X3;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -334,7 +354,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2023.11;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tylersheft.Phone-Booth";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;

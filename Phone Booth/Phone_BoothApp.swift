@@ -15,6 +15,6 @@ struct Phone_BoothApp: App {
         WindowGroup {
             ContentView()
         }
-        .modelContainer(for: Item.self)
+        .modelContainer(for: Phone.self)
     }
 }
