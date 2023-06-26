@@ -21,9 +21,9 @@ struct ContentView: View {
 					List {
 						ForEach(phones) { phone in
 							NavigationLink {
-								Text(phone.model)
+								PhoneDetailView(phone: phone)
 							} label: {
-								Text(phone.model)
+								PhoneRowView(phone: phone)
 							}
 							.contextMenu {
 								Button {
@@ -68,8 +68,7 @@ struct ContentView: View {
     private func addItem() {
         withAnimation {
 			modelContext.insert(
-				object: Phone(brand: "Panasonic",
-							  model: "KX-TGF975S")
+				object: Phone.preview
 			)
         }
     }

@@ -12,13 +12,17 @@ struct PhoneRowView: View {
 	var phone: Phone
 
     var body: some View {
-		VStack {
-//			PhoneImage(phone: phone)
-			Text(phone.brand)
-				.font(.largeTitle)
-			Text(phone.model)
-				.font(.title2)
-				.foregroundStyle(.secondary)
+		HStack {
+			Spacer()
+			PhoneImage(phone: phone, thumb: true)
+			VStack {
+				Text(phone.brand)
+					.font(.largeTitle)
+				Text(phone.model)
+					.font(.title2)
+					.foregroundStyle(.secondary)
+			}
+			Spacer()
 		}
     }
 }

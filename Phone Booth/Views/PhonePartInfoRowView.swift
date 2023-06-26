@@ -7,21 +7,17 @@
 
 import SwiftUI
 
-struct PhonePartInfoRowView: View {
+struct PhoneColorInfoRowView: View {
 
-	var color: String
+	@Binding var color: String
 
 	var part: String
 
     var body: some View {
-		HStack {
-			Text(part)
-			Spacer()
-			Text(color)
-		}
+		TextField("\(part) Color", text: $color)
     }
 }
 
-#Preview {
-	PhonePartInfoRowView(color: Phone.preview.baseColor, part: "Base")
-}
+//#Preview {
+//	PhonePartInfoRowView(color: Phone.preview.baseColor, part: "Base")
+//}
