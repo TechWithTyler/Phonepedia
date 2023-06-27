@@ -21,17 +21,17 @@ struct PhoneDetailView: View {
 						Spacer()
 					}
 					Button {
-						
+						// Action here
 					} label: {
 						Text("Take Photo…")
 					}
 					Button {
-						
+						// Action here
 					} label: {
 						Text("Select From Library…")
 					}
 					Button {
-
+						// Action here
 					} label: {
 						Text("Use Placeholder…")
 					}
