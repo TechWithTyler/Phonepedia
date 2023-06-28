@@ -5,4 +5,16 @@
 //  Created by Tyler Sheft on 6/27/23.
 //
 
-import Foundation
+import SwiftUI
+
+class PhoneViewModel: ObservableObject {
+
+	@Published var phone: Phone
+
+	init(phone: Phone) {
+		self.phone = phone
+	}
+
+	
+
+}

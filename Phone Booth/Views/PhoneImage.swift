@@ -25,7 +25,7 @@ struct PhoneImage: View {
 			.scaledToFit()
 			.frame(width: size, height: size)
 		#elseif os(macOS)
-		Image(nsImage: NSImage(data: phone.photoData!)!)
+		Image(nsImage: NSImage(data: phone.photoData)!)
 			.renderingMode(phone.photoData == getPNGDataFromNSImage(image: NSImage(named: "phone")!) ? .template : .original)
 			.resizable()
 			.scaledToFit()
