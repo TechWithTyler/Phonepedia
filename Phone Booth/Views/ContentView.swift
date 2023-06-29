@@ -69,14 +69,15 @@ struct ContentView: View {
         withAnimation {
 			modelContext.insert(
 				Phone(
-					creationDate: Date(),
 					brand: "Some Brand",
 					model: "M123",
 					photoData: Phone.previewPhotoData,
 					baseColor: "Black",
 					cordedReceiverColor: String(),
-					numberOfCordlessHandsets: 2,
+					numberOfIncludedCordlessHandsets: 2,
 					maxCordlessHandsets: 5,
+					cordlessHandsetsIHave: [],
+					chargersIHave: [],
 					handsetRingtones: 5,
 					handsetMusicRingtones: 5,
 					handsetHasSeparateIntercomTone: false,

@@ -38,7 +38,7 @@ struct PhoneDetailView: View {
 					TextField("Brand", text: $phone.brand)
 					TextField("Model", text: $phone.model)
 					Text(phoneTypeText)
-					Stepper("Number of Cordless Handsets (0 if corded only): \(phone.numberOfCordlessHandsets)", value: $phone.numberOfCordlessHandsets, in: 0...Int.max-1)
+					Stepper("Number of Included Cordless Handsets (0 if corded only): \(phone.numberOfIncludedCordlessHandsets)", value: $phone.numberOfIncludedCordlessHandsets, in: 0...Int.max-1)
 					if phone.isCordless {
 						Group {
 							Stepper("Maximum Number of Cordless Handsets (-1 if using \"security codes must match\"): \(phone.maxCordlessHandsets)", value: $phone.maxCordlessHandsets, in: -1...15)
@@ -49,18 +49,22 @@ struct PhoneDetailView: View {
 										phone.maxCordlessHandsets = -1
 									}
 								}
-								.sensoryFeedback(.error, trigger: phone.numberOfCordlessHandsets) { oldValue, newValue in
+								.sensoryFeedback(.error, trigger: phone.numberOfIncludedCordlessHandsets) { oldValue, newValue in
 									return newValue > phone.maxCordlessHandsets
 								}
-							if phone.numberOfCordlessHandsets > phone.maxCordlessHandsets {
-								Text("The base of the \(phone.brand) \(phone.model) can only register up to \(phone.maxCordlessHandsets) handsets (trying to register \(phone.numberOfCordlessHandsets)).")
+							if phone.numberOfIncludedCordlessHandsets > phone.maxCordlessHandsets {
+								HStack {
+									Image(systemName: "exclamationmark.triangle")
+										.symbolRenderingMode(.multicolor)
+									Text("The base of the \(phone.brand) \(phone.model) can only register up to \(phone.maxCordlessHandsets) handsets (trying to register \(phone.numberOfIncludedCordlessHandsets)).")
+								}
 									.font(.callout)
 									.foregroundStyle(.secondary)
 							}
 						}
 					}
 				}
-				PhoneColorInfoView(phone: phone)
+				PhonePartInfoView(phone: phone)
 				Section(header: Text("Power")) {
 					if !phone.isCordless {
 						Picker("Power Source", selection: $phone.cordedPowerSource) {
