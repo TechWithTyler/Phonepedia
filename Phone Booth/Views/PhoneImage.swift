@@ -19,7 +19,7 @@ struct PhoneImage: View {
 
     var body: some View {
 		#if os(iOS) || os(xrOS)
-		Image(uiImage: UIImage(data: phone.photoData!)!)
+		Image(uiImage: UIImage(data: phone.photoData)!)
 			.renderingMode(phone.photoData == getPNGDataFromUIImage(image: UIImage(named: "phone")!) ? .template : .original)
 			.resizable()
 			.scaledToFit()

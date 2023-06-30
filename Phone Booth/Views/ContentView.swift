@@ -14,15 +14,15 @@ struct ContentView: View {
 	
     @Query private var phones: [Phone]
 
+	@State private var selectedPhone: Phone?
+
 	var body: some View {
 		NavigationSplitView {
 			ZStack {
 				if !phones.isEmpty {
-					List {
+					List(selection: $selectedPhone) {
 						ForEach(phones) { phone in
-							NavigationLink {
-								PhoneDetailView(phone: phone)
-							} label: {
+							NavigationLink(value: phone) {
 								PhoneRowView(phone: phone)
 							}
 							.contextMenu {
@@ -61,8 +61,16 @@ struct ContentView: View {
 				}
 			}
 		} detail: {
-		Text("Select a phone")
-        }
+			if !phones.isEmpty {
+				if let phone = selectedPhone {
+					PhoneDetailView(phone: phone)
+				} else {
+					NoPhoneSelectedView()
+				}
+			} else {
+				EmptyView()
+			}
+		}
     }
 
     private func addItem() {
@@ -145,6 +153,7 @@ struct ContentView: View {
 
 	func deletePhone(_ phone: Phone) {
 		modelContext.delete(phone)
+		selectedPhone = nil
 	}
 }
 

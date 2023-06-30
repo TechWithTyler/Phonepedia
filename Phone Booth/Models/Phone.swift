@@ -21,7 +21,7 @@ final class Phone {
 		return getPNGDataFromNSImage(image: NSImage(named: "phone")!)
 #endif
 	}
-	
+
 	var brand: String
 	
 	var model: String

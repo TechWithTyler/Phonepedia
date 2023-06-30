@@ -40,7 +40,9 @@ struct PhonePartInfoView: View {
 				if phone.cordlessHandsetsIHave.count < phone.maxCordlessHandsets {
 					Button(action: addHandset) {
 						Label("Add", systemImage: "plus")
+							.frame(width: 100, alignment: .leading)
 					}
+					.buttonStyle(.borderless)
 				} else if phone.cordlessHandsetsIHave.count > phone.maxCordlessHandsets {
 					HStack {
 						Image(systemName: "exclamationmark.triangle")
@@ -72,7 +74,9 @@ struct PhonePartInfoView: View {
 				}
 					Button(action: addCharger) {
 						Label("Add", systemImage: "plus")
+							.frame(width: 100, alignment: .leading)
 					}
+					.buttonStyle(.borderless)
 			}
 		}
 	}
