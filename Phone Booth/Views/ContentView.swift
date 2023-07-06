@@ -41,13 +41,6 @@ struct ContentView: View {
 						.foregroundStyle(Color.secondary)
 				}
 			}
-			#if os(macOS)
-			.touchBar {
-				Button(action: addItem) {
-					Label("Add Phone", systemImage: "plus")
-				}
-			}
-			#endif
 			.toolbar {
 #if os(iOS)
 				ToolbarItem(placement: .navigationBarTrailing) {
@@ -57,6 +50,12 @@ struct ContentView: View {
 				ToolbarItem {
 					Button(action: addItem) {
 						Label("Add Phone", systemImage: "plus")
+					}
+				}
+				ToolbarItem {
+					Button(action: deleteAllPhones) {
+						Label("Delete All", systemImage: "trash")
+							.labelStyle(.titleAndIcon)
 					}
 				}
 			}
@@ -154,6 +153,12 @@ struct ContentView: View {
 	func deletePhone(_ phone: Phone) {
 		modelContext.delete(phone)
 		selectedPhone = nil
+	}
+
+	func deleteAllPhones() {
+		for phone in phones {
+			modelContext.delete(phone)
+		}
 	}
 }
 
