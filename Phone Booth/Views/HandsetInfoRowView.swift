@@ -16,7 +16,7 @@ struct HandsetInfoRowView: View {
 	var handsetNumber: Int
 
     var body: some View {
-		HStack {
+		VStack {
 			Text("Handset \(handsetNumber)")
 			TextField("Model", text: $model)
 			Spacer()

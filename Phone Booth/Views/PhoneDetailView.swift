@@ -37,7 +37,7 @@ struct PhoneDetailView: View {
 					}
 					TextField("Brand", text: $phone.brand)
 					TextField("Model", text: $phone.model)
-					Text(phoneTypeText)
+					Text("Phone type: \(phoneTypeText)")
 					Stepper("Number of Included Cordless Handsets (0 if corded only): \(phone.numberOfIncludedCordlessHandsets)", value: $phone.numberOfIncludedCordlessHandsets, in: 0...Int.max-1)
 					if phone.isCordless {
 						Group {
@@ -128,48 +128,98 @@ struct PhoneDetailView: View {
 							}
 						}
 					}
-					if phone.isCordless && phone.hasBaseIntercom {
-						Toggle(isOn: $phone.canChangeHandsetIntercomTone) {
-							Text("Can Change Handset Intercom Tone")
-						}
-						if !phone.canChangeHandsetIntercomTone {
-							Toggle(isOn: $phone.handsetHasSeparateIntercomTone) {
-								Text("Handset Has Separate Intercom Tone")
-							}
-						}
-					}
 					if !phone.isCordless || phone.hasAnsweringSystem > 0 || phone.hasBaseSpeakerphone {
 						Stepper("Base Ringtones: \(phone.baseRingtones)", value: $phone.baseRingtones, in: 1...25)
 						Stepper("Base Music Ringtones: \(phone.baseMusicRingtones)", value: $phone.baseMusicRingtones, in: 0...25)
 					}
+					if phone.isCordless && phone.hasBaseIntercom {
+						Toggle(isOn: $phone.canChangeBaseIntercomTone) {
+							Text("Can Change Base Intercom Tone")
+						}
+						if !phone.canChangeBaseIntercomTone {
+							Toggle(isOn: $phone.baseHasSeparateIntercomTone) {
+								Text("Base Has Separate Intercom Tone")
+							}
+						}
+					}
+				}
+				Section(header: Text("Redial")) {
+					if phone.isCordless {
+						TextField("Redial Capacity (handset)", value: $phone.handsetRedialCapacity, formatter: NumberFormatter())
+							#if os(iOS) || os(tvOS) || os(xrOS)
+							.keyboardType(.numberPad)
+						#endif
+							#if !os(xrOS)
+							.scrollDismissesKeyboard(.interactively)
+						#endif
+					}
+					if phone.hasBaseSpeakerphone || !phone.isCordless || phone.isCordedCordless {
+						TextField(phone.isCordless ? "Redial Capacity (base)" : "Redial Capacity", value: $phone.handsetRedialCapacity, formatter: NumberFormatter())
+						#if os(iOS) || os(tvOS) || os(xrOS)
+							.keyboardType(.numberPad)
+						#endif
+						#if !os(xrOS)
+							.scrollDismissesKeyboard(.interactively)
+						#endif
+					}
 				}
 				Section(header: Text("Phonebook")) {
 					if phone.isCordless {
-						Stepper("Phonebook Capacity (handset): \(phone.handsetPhonebookCapacity)", value: $phone.handsetPhonebookCapacity)
+						TextField("Phonebook Capacity (handset)", value: $phone.handsetPhonebookCapacity, formatter: NumberFormatter())
+							#if os(iOS) || os(tvOS) || os(xrOS)
+							.keyboardType(.numberPad)
+						#endif
+							#if !os(xrOS)
+							.scrollDismissesKeyboard(.interactively)
+						#endif
 						if phone.handsetPhonebookCapacity == 0 && phone.basePhonebookCapacity > 0 {
 							Text("Phonebook is stored in the base and is shared by the base and all registered handsets.")
 								.font(.footnote)
 								.foregroundStyle(.secondary)
 						}
 					}
-					Stepper(phone.isCordless ? "Phonebook Capacity (base): \(phone.basePhonebookCapacity)" : "Phonebook Capacity: \(phone.basePhonebookCapacity)", value: $phone.basePhonebookCapacity)
+					TextField(phone.isCordless ? "Phonebook Capacity (base)" : "Phonebook Capacity", value: $phone.basePhonebookCapacity, formatter: NumberFormatter())
+						#if os(iOS) || os(tvOS) || os(xrOS)
+							.keyboardType(.numberPad)
+						#endif
+						#if !os(xrOS)
+							.scrollDismissesKeyboard(.interactively)
+						#endif
 				}
 				Section(header: Text("Caller ID")) {
 					Toggle(isOn: $phone.hasTalkingCallerID) {
 						Text("Talking Caller ID")
 					}
 					if phone.isCordless {
-						Stepper("Caller ID List Capacity (handset): \(phone.handsetCallerIDCapacity)", value: $phone.handsetCallerIDCapacity)
+						TextField("Caller ID List Capacity (handset)", value: $phone.handsetCallerIDCapacity, formatter: NumberFormatter())
+							#if os(iOS) || os(tvOS) || os(xrOS)
+							.keyboardType(.numberPad)
+						#endif
+							#if !os(xrOS)
+							.scrollDismissesKeyboard(.interactively)
+						#endif
 						if phone.hasSharedPhonebook {
 							Text("Caller ID list is stored in the base and is shared by the base and all registered handsets.")
 								.font(.footnote)
 								.foregroundStyle(.secondary)
 						}
 					}
-					Stepper(phone.isCordless ? "Caller ID List Capacity (base): \(phone.baseCallerIDCapacity)" : "Phonebook capacity: \(phone.baseCallerIDCapacity)", value: $phone.baseCallerIDCapacity)
+					TextField(phone.isCordless ? "Caller ID List Capacity (base)" : "Caller ID List Capacity", value: $phone.baseCallerIDCapacity, formatter: NumberFormatter())
+						#if os(iOS) || os(tvOS) || os(xrOS)
+							.keyboardType(.numberPad)
+						#endif
+						#if !os(xrOS)
+							.scrollDismissesKeyboard(.interactively)
+						#endif
 				}
 				Section(header: Text("Call Block (manual)")) {
-					Stepper("Call Block List Capacity: \(phone.callBlockCapacity)", value: $phone.callBlockCapacity)
+					TextField("Call Block List Capacity", value: $phone.callBlockCapacity, formatter: NumberFormatter())
+						#if os(iOS) || os(tvOS) || os(xrOS)
+							.keyboardType(.numberPad)
+						#endif
+						#if !os(xrOS)
+							.scrollDismissesKeyboard(.interactively)
+						#endif
 					if phone.callBlockCapacity > 0 {
 						Toggle(isOn: $phone.callBlockSupportsPrefixes) {
 							Text("Can Block Number Prefixes")
@@ -184,7 +234,13 @@ struct PhoneDetailView: View {
 							Text("Has One-Touch Call Block")
 						}
 					}
-					Stepper("Pre-Programmed Call Block Database Entry Count: \(phone.callBlockPreProgrammedDatabaseEntryCount)", value: $phone.callBlockPreProgrammedDatabaseEntryCount)
+					TextField("Pre-Programmed Call Block Database Entry Count", value: $phone.callBlockPreProgrammedDatabaseEntryCount, formatter: NumberFormatter())
+						#if os(iOS) || os(tvOS) || os(xrOS)
+							.keyboardType(.numberPad)
+						#endif
+						#if !os(xrOS)
+							.scrollDismissesKeyboard(.interactively)
+						#endif
 				}
 				Section(header: Text("Call Block (pre-screening)"), footer: Text("Call block pre-screening asks callers to press a key so the phone can identify whether they're a human or a robot.\nCallers with numbers stored in the phone's allowed number list/database or phonebook, or callers whose caller ID names are stored in the phone's allowed name list, will always ring through.")) {
 					Picker("Mode", selection: $phone.callBlockPreScreening) {
@@ -193,8 +249,20 @@ struct PhoneDetailView: View {
 						Text("Code").tag(2)
 					}
 					if phone.callBlockPreScreening > 0 {
-						Stepper("Allowed Numbers Capacity: \(phone.callBlockPreScreeningAllowedNumberCapacity)", value: $phone.callBlockPreScreeningAllowedNumberCapacity)
-						Stepper("Allowed Names Capacity: \(phone.callBlockPreScreeningAllowedNameCapacity)", value: $phone.callBlockPreScreeningAllowedNumberCapacity)
+						TextField("Allowed Numbers Capacity", value: $phone.callBlockPreScreeningAllowedNumberCapacity, formatter: NumberFormatter())
+							#if os(iOS) || os(tvOS) || os(xrOS)
+							.keyboardType(.numberPad)
+						#endif
+							#if !os(xrOS)
+							.scrollDismissesKeyboard(.interactively)
+						#endif
+						TextField("Allowed Names Capacity", value: $phone.callBlockPreScreeningAllowedNumberCapacity, formatter: NumberFormatter())
+							#if os(iOS) || os(tvOS) || os(xrOS)
+							.keyboardType(.numberPad)
+						#endif
+							#if !os(xrOS)
+							.scrollDismissesKeyboard(.interactively)
+						#endif
 					}
 				}
 			}
