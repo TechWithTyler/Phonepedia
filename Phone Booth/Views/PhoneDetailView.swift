@@ -143,6 +143,78 @@ struct PhoneDetailView: View {
 						}
 					}
 				}
+				Section(header: Text("Answering System/Voicemail")) {
+					Picker("Answering System", selection: $phone.hasAnsweringSystem) {
+						if phone.isCordless {
+							Text("None").tag(0)
+							Text("Base Only").tag(1)
+							Text("Handset Only").tag(2)
+							Text("Base or Handset").tag(3)
+						} else {
+							Text("No").tag(0)
+							Text("Yes").tag(1)
+						}
+					}
+					if !phone.isCordless && phone.hasAnsweringSystem == 1 {
+						Picker("Answering System Menu", selection: $phone.answeringSystemMenuOnBase) {
+							Text("Voice Prompts").tag(0)
+							Text("Display Menu").tag(1)
+						}
+					} else if phone.isCordless && (phone.hasAnsweringSystem == 1 || phone.hasAnsweringSystem == 3) {
+						Picker("Answering System Menu (base)", selection: $phone.answeringSystemMenuOnBase) {
+							Text("None").tag(0)
+							Text("Voice Prompts").tag(1)
+							Text("Display Menu").tag(2)
+						}
+					}
+					if phone.isCordless && phone.hasAnsweringSystem > 1 {
+					Picker("Answering System Menu (handset)", selection: $phone.answeringSystemMenuOnHandset) {
+						Text("Settings Only (doesn't require link to base").tag(0)
+						Text("Settings Only (requires link to base)").tag(1)
+						Text("Full (doesn't require link to base").tag(2)
+						Text("Full (requires link to base)").tag(3)
+					}
+					}
+					if phone.hasAnsweringSystem == 3 {
+						Picker("Greeting Management From", selection: $phone.greetingRecordingOnBaseOrHandset) {
+							Text("Base Only").tag(0)
+							Text("Handset Only").tag(1)
+							Text("Base or Handset").tag(2)
+						}
+					}
+					if phone.hasAnsweringSystem > 0 {
+						Toggle("Has Greeting Only Mode", isOn: $phone.hasGreetingOnlyMode)
+						Text("Greeting Only, sometimes called Announce Only or Answer Only, answers calls but doesn't accept incoming messages. Some phones allow you to record a separate greeting for both modes, allowing you to easily switch between modes without having to re-record your greeting each time.")
+							.font(.footnote)
+							.foregroundStyle(.secondary)
+						Toggle("Has Message Alert by Call", isOn: $phone.hasMessageAlertByCall)
+						Text("This feature allows the answering system to call out to a stored phone number each time a new message is left, so you don't have to constantly be calling to check for new messages while you're away.")
+							.font(.footnote)
+							.foregroundStyle(.secondary)
+					}
+					Picker("\"New Voicemail\" Detection Method", selection: $phone.voicemailIndication) {
+						Text("None").tag(0)
+						Text("Frequency-Shift-Keying (FSK) Tones").tag(1)
+						Text("Listen For Stutter Dial Tones").tag(2)
+						Text("FSK and Stutter Dial Tone").tag(3)
+					}
+					Text("""
+A phone's voicemail indicator works in one or both of the following ways:
+• Your phone company may send special tones, called Frequency-Shift-Keying (FSK) tones to the phone whenever a new voicemail is left, and another when all new voicemails are played, to tell the phone to turn on or off its voicemail indicator.
+• The phone may go off-hook for a few seconds periodically or when you hang up or it stops ringing, to listen for a stutter dial tone ("bee-bee-bee-beeeeeeeep") which your phone company may use as an audible indication of new voicemails.
+""")
+					Picker("Voicemail Quick Dial", selection: $phone.voicemailQuickDial) {
+						Text("None").tag(0)
+						Text("Button").tag(1)
+						Text("Speed Dial 1").tag(2)
+						Text("Message Menu Item").tag(3)
+						Text("Main Menu Item").tag(4)
+						Text("Main Menu Item and Button").tag(5)
+					}
+					Text("You can store your voicemail access number (e.g. *99) into the phone and quickly dial it using a button or menu item.")
+						.font(.footnote)
+						.foregroundStyle(.secondary)
+				}
 				Section(header: Text("Redial")) {
 					if phone.isCordless {
 						TextField("Redial Capacity (handset)", value: $phone.handsetRedialCapacity, formatter: NumberFormatter())
@@ -161,6 +233,16 @@ struct PhoneDetailView: View {
 						#if !os(xrOS)
 							.scrollDismissesKeyboard(.interactively)
 						#endif
+					}
+					Picker("Redial Name Display", selection: $phone.redialNameDisplay) {
+						Text("None").tag(0)
+						Text("Phonebook Match").tag(1)
+						Text("From Dialed Entry").tag(2)
+					}
+					if phone.redialNameDisplay == 1 && phone.hasSharedPhonebook {
+						Text("Although the redial list is stored in the handset, it may still require you to be in range of the base if the handset doesn't have a fallback to display entries without their names.")
+							.font(.footnote)
+							.foregroundStyle(.secondary)
 					}
 				}
 				Section(header: Text("Phonebook")) {
@@ -224,12 +306,30 @@ struct PhoneDetailView: View {
 						Toggle(isOn: $phone.callBlockSupportsPrefixes) {
 							Text("Can Block Number Prefixes")
 						}
+						Text("When a number prefix (e.g. an area code) is stored in the call block list, all numbers beginning with that prefix are blocked.")
+							.font(.footnote)
+							.foregroundStyle(.secondary)
+						if phone.callBlockPreScreening == 0 {
+							Toggle(isOn: $phone.hasFirstRingSuppression) {
+								Text("Has First Ring Suppression")
+							}
+							Text("""
+Suppressing the first ring means the phone won't ring:
+• Until allowed caller ID is received.
+• At all for calls from blocked numbers.
+""")
+							.font(.footnote)
+							.foregroundStyle(.secondary)
+						}
 						Picker("Blocked Callers Hear", selection: $phone.blockedCallersHear) {
 							Text("Silence").tag(0)
 							Text("Busy Tone (custom)").tag(1)
 							Text("Busy Tone (traditional)").tag(2)
 							Text("Voice Prompt").tag(3)
 						}
+						Text("A custom busy tone is often the same one used for the intercom busy tone on \(phone.brand)'s cordless phones. A traditional busy tone is that of one of the countries where the phone is sold.")
+							.font(.footnote)
+							.foregroundStyle(.secondary)
 						Toggle(isOn: $phone.hasOneTouchCallBlock) {
 							Text("Has One-Touch Call Block")
 						}
@@ -241,8 +341,13 @@ struct PhoneDetailView: View {
 						#if !os(xrOS)
 							.scrollDismissesKeyboard(.interactively)
 						#endif
+					if phone.callBlockPreProgrammedDatabaseEntryCount > 0 {
+						Text("Numbers in the pre-programmed call block database are not visible to the user and might be excluded from the caller ID list. Numbers from this database can be saved to the phonebook if they happen to become safe in the future.")
+							.font(.footnote)
+							.foregroundStyle(.secondary)
+					}
 				}
-				Section(header: Text("Call Block (pre-screening)"), footer: Text("Call block pre-screening asks callers to press a key so the phone can identify whether they're a human or a robot.\nCallers with numbers stored in the phone's allowed number list/database or phonebook, or callers whose caller ID names are stored in the phone's allowed name list, will always ring through.")) {
+				Section(header: Text("Call Block (pre-screening)"), footer: Text("Call block pre-screening asks callers to press a key so the phone can identify whether they're a human or a robot.\nCallers with numbers stored in the phone's allowed number list/database or phonebook, or callers whose caller ID names are stored in the phone's allowed name list, will always ring through. Asking for the caller name allows you to hear the caller's real name in their own voice when you pick up\(phone.hasTalkingCallerID ? " or as the caller ID announcement" : String()).")) {
 					Picker("Mode", selection: $phone.callBlockPreScreening) {
 						Text("Not Supported").tag(0)
 						Text("Caller Name").tag(1)

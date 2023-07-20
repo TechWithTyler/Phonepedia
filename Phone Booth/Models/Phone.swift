@@ -12,7 +12,7 @@ import SwiftUI
 @Model
 final class Phone {
 	
-	static var preview = Phone(brand: "Some Brand", model: "M123", photoData: Phone.previewPhotoData, baseColor: "Black", cordedReceiverColor: String(), numberOfIncludedCordlessHandsets: 2, maxCordlessHandsets: 5, cordlessHandsetsIHave: [], chargersIHave: [], handsetRingtones: 5, handsetMusicRingtones: 5, handsetHasSeparateIntercomTone: false, canChangeHandsetIntercomTone: true, baseRingtones: 1, baseMusicRingtones: 0, baseHasSeparateIntercomTone: false, canChangeBaseIntercomTone: false, hasBaseIntercom: false, landlineInUseStatusOnBase: 0, landlineInUseStatusOnHandset: 1, cellLineInUseStatusOnBase: 1, reversibleHandset: false, hasAnsweringSystem: 3, answeringSystemMenuOnHandset: 2, answeringSystemMenuOnBase: 0, greetingRecordingOnBaseOrHandset: 2, hasMessageAlertByCall: true, hasGreetingOnlyMode: true, indicatesNewVoicemail: true, hasVoicemailQuickDial: true, speedDial1IsReservedForVoicemail: false, hasHandsetSpeakerphone: true, hasBaseSpeakerphone: false, hasBaseKeypad: false, hasTalkingCallerID: true, handsetDisplayType: 1, baseDisplayType: 1, cordedPowerSource: 0, cordlessPowerBackupMode: 1, baseSupportsWiredHeadsets: false, handsetSupportsWiredHeadsets: true, baseSupportsBluetoothHeadphones: true, handsetSupportsBluetoothHeadphones: true, baseBluetoothCellPhonesSupported: 2, hasCellPhoneVoiceControl: true, basePhonebookCapacity: 7000, handsetPhonebookCapacity: 0, baseCallerIDCapacity: 7000, handsetCallerIDCapacity: 0, baseRedialCapacity: 0, handsetRedialCapacity: 5, baseSpeedDialCapacity: 0, handsetSpeedDialCapacity: 10, callBlockCapacity: 7000, callBlockSupportsPrefixes: true, blockedCallersHear: 3, hasOneTouchCallBlock: true, callBlockPreProgrammedDatabaseEntryCount: 20000, callBlockPreScreening: 2, callBlockPreScreeningAllowedNameCapacity: 100, callBlockPreScreeningAllowedNumberCapacity: 100)
+	static var preview = Phone(brand: "Some Brand", model: "M123", photoData: Phone.previewPhotoData, baseColor: "Black", cordedReceiverColor: String(), numberOfIncludedCordlessHandsets: 2, maxCordlessHandsets: 5, cordlessHandsetsIHave: [], chargersIHave: [], handsetRingtones: 5, handsetMusicRingtones: 5, handsetHasSeparateIntercomTone: false, canChangeHandsetIntercomTone: true, baseRingtones: 1, baseMusicRingtones: 0, baseHasSeparateIntercomTone: false, canChangeBaseIntercomTone: false, hasBaseIntercom: false, landlineInUseStatusOnBase: 0, landlineInUseStatusOnHandset: 1, cellLineInUseStatusOnBase: 1, reversibleHandset: false, hasAnsweringSystem: 3, answeringSystemMenuOnHandset: 2, answeringSystemMenuOnBase: 0, greetingRecordingOnBaseOrHandset: 2, hasMessageAlertByCall: true, hasGreetingOnlyMode: true, voicemailIndication: 3, voicemailQuickDial: 3, hasHandsetSpeakerphone: true, hasBaseSpeakerphone: false, hasBaseKeypad: false, hasTalkingCallerID: true, handsetDisplayType: 1, baseDisplayType: 1, cordedPowerSource: 0, cordlessPowerBackupMode: 1, baseSupportsWiredHeadsets: false, handsetSupportsWiredHeadsets: true, baseSupportsBluetoothHeadphones: true, handsetSupportsBluetoothHeadphones: true, baseBluetoothCellPhonesSupported: 2, hasCellPhoneVoiceControl: true, basePhonebookCapacity: 7000, handsetPhonebookCapacity: 0, baseCallerIDCapacity: 7000, handsetCallerIDCapacity: 0, baseRedialCapacity: 0, handsetRedialCapacity: 5, redialNameDisplay: 2, baseSpeedDialCapacity: 0, handsetSpeedDialCapacity: 10, callBlockCapacity: 7000, callBlockSupportsPrefixes: true, blockedCallersHear: 3, hasFirstRingSuppression: true, hasOneTouchCallBlock: true, callBlockPreProgrammedDatabaseEntryCount: 20000, callBlockPreScreening: 2, callBlockPreScreeningAllowedNameCapacity: 100, callBlockPreScreeningAllowedNumberCapacity: 100)
 
 	static var previewPhotoData: Data {
 #if os(iOS) || os(xrOS)
@@ -80,11 +80,9 @@ final class Phone {
 	
 	var hasGreetingOnlyMode: Bool
 	
-	var indicatesNewVoicemail: Bool
+	var voicemailIndication: Int
 	
-	var hasVoicemailQuickDial: Bool
-	
-	var speedDial1IsReservedForVoicemail: Bool
+	var voicemailQuickDial: Int
 	
 	var hasHandsetSpeakerphone: Bool
 	
@@ -125,7 +123,9 @@ final class Phone {
 	var baseRedialCapacity: Int
 	
 	var handsetRedialCapacity: Int
-	
+
+	var redialNameDisplay: Int
+
 	var baseSpeedDialCapacity: Int
 	
 	var handsetSpeedDialCapacity: Int
@@ -135,7 +135,9 @@ final class Phone {
 	var callBlockSupportsPrefixes: Bool
 	
 	var blockedCallersHear: Int
-	
+
+	var hasFirstRingSuppression: Bool
+
 	var hasOneTouchCallBlock: Bool
 	
 	var callBlockPreProgrammedDatabaseEntryCount: Int
@@ -166,7 +168,7 @@ final class Phone {
 		return isCordless && baseCallerIDCapacity > 0 && handsetCallerIDCapacity == 0
 	}
 
-	init(brand: String, model: String, photoData: Data, baseColor: String, cordedReceiverColor: String, numberOfIncludedCordlessHandsets: Int, maxCordlessHandsets: Int, cordlessHandsetsIHave: [CordlessHandset], chargersIHave: [Charger], handsetRingtones: Int, handsetMusicRingtones: Int, handsetHasSeparateIntercomTone: Bool, canChangeHandsetIntercomTone: Bool, baseRingtones: Int, baseMusicRingtones: Int, baseHasSeparateIntercomTone: Bool, canChangeBaseIntercomTone: Bool, hasBaseIntercom: Bool, landlineInUseStatusOnBase: Int, landlineInUseStatusOnHandset: Int, cellLineInUseStatusOnBase: Int, reversibleHandset: Bool, hasAnsweringSystem: Int, answeringSystemMenuOnHandset: Int, answeringSystemMenuOnBase: Int, greetingRecordingOnBaseOrHandset: Int, hasMessageAlertByCall: Bool, hasGreetingOnlyMode: Bool, indicatesNewVoicemail: Bool, hasVoicemailQuickDial: Bool, speedDial1IsReservedForVoicemail: Bool, hasHandsetSpeakerphone: Bool, hasBaseSpeakerphone: Bool, hasBaseKeypad: Bool, hasTalkingCallerID: Bool, handsetDisplayType: Int, baseDisplayType: Int, cordedPowerSource: Int, cordlessPowerBackupMode: Int, baseSupportsWiredHeadsets: Bool, handsetSupportsWiredHeadsets: Bool, baseSupportsBluetoothHeadphones: Bool, handsetSupportsBluetoothHeadphones: Bool, baseBluetoothCellPhonesSupported: Int, hasCellPhoneVoiceControl: Bool, basePhonebookCapacity: Int, handsetPhonebookCapacity: Int, baseCallerIDCapacity: Int, handsetCallerIDCapacity: Int, baseRedialCapacity: Int, handsetRedialCapacity: Int, baseSpeedDialCapacity: Int, handsetSpeedDialCapacity: Int, callBlockCapacity: Int, callBlockSupportsPrefixes: Bool, blockedCallersHear: Int, hasOneTouchCallBlock: Bool, callBlockPreProgrammedDatabaseEntryCount: Int, callBlockPreScreening: Int, callBlockPreScreeningAllowedNameCapacity: Int, callBlockPreScreeningAllowedNumberCapacity: Int) {
+	init(brand: String, model: String, photoData: Data, baseColor: String, cordedReceiverColor: String, numberOfIncludedCordlessHandsets: Int, maxCordlessHandsets: Int, cordlessHandsetsIHave: [CordlessHandset], chargersIHave: [Charger], handsetRingtones: Int, handsetMusicRingtones: Int, handsetHasSeparateIntercomTone: Bool, canChangeHandsetIntercomTone: Bool, baseRingtones: Int, baseMusicRingtones: Int, baseHasSeparateIntercomTone: Bool, canChangeBaseIntercomTone: Bool, hasBaseIntercom: Bool, landlineInUseStatusOnBase: Int, landlineInUseStatusOnHandset: Int, cellLineInUseStatusOnBase: Int, reversibleHandset: Bool, hasAnsweringSystem: Int, answeringSystemMenuOnHandset: Int, answeringSystemMenuOnBase: Int, greetingRecordingOnBaseOrHandset: Int, hasMessageAlertByCall: Bool, hasGreetingOnlyMode: Bool, voicemailIndication: Int, voicemailQuickDial: Int, hasHandsetSpeakerphone: Bool, hasBaseSpeakerphone: Bool, hasBaseKeypad: Bool, hasTalkingCallerID: Bool, handsetDisplayType: Int, baseDisplayType: Int, cordedPowerSource: Int, cordlessPowerBackupMode: Int, baseSupportsWiredHeadsets: Bool, handsetSupportsWiredHeadsets: Bool, baseSupportsBluetoothHeadphones: Bool, handsetSupportsBluetoothHeadphones: Bool, baseBluetoothCellPhonesSupported: Int, hasCellPhoneVoiceControl: Bool, basePhonebookCapacity: Int, handsetPhonebookCapacity: Int, baseCallerIDCapacity: Int, handsetCallerIDCapacity: Int, baseRedialCapacity: Int, handsetRedialCapacity: Int, redialNameDisplay: Int, baseSpeedDialCapacity: Int, handsetSpeedDialCapacity: Int, callBlockCapacity: Int, callBlockSupportsPrefixes: Bool, blockedCallersHear: Int, hasFirstRingSuppression: Bool, hasOneTouchCallBlock: Bool, callBlockPreProgrammedDatabaseEntryCount: Int, callBlockPreScreening: Int, callBlockPreScreeningAllowedNameCapacity: Int, callBlockPreScreeningAllowedNumberCapacity: Int) {
 		self.brand = brand
 		self.model = model
 		self.photoData = photoData
@@ -195,9 +197,8 @@ final class Phone {
 		self.greetingRecordingOnBaseOrHandset = greetingRecordingOnBaseOrHandset
 		self.hasMessageAlertByCall = hasMessageAlertByCall
 		self.hasGreetingOnlyMode = hasGreetingOnlyMode
-		self.indicatesNewVoicemail = indicatesNewVoicemail
-		self.hasVoicemailQuickDial = hasVoicemailQuickDial
-		self.speedDial1IsReservedForVoicemail = speedDial1IsReservedForVoicemail
+		self.voicemailIndication = voicemailIndication
+		self.voicemailQuickDial = voicemailQuickDial
 		self.hasHandsetSpeakerphone = hasHandsetSpeakerphone
 		self.hasBaseSpeakerphone = hasBaseSpeakerphone
 		self.hasBaseKeypad = hasBaseKeypad
@@ -218,11 +219,13 @@ final class Phone {
 		self.handsetCallerIDCapacity = handsetCallerIDCapacity
 		self.baseRedialCapacity = baseRedialCapacity
 		self.handsetRedialCapacity = handsetRedialCapacity
+		self.redialNameDisplay = redialNameDisplay
 		self.baseSpeedDialCapacity = baseSpeedDialCapacity
 		self.handsetSpeedDialCapacity = handsetSpeedDialCapacity
 		self.callBlockCapacity = callBlockCapacity
 		self.callBlockSupportsPrefixes = callBlockSupportsPrefixes
 		self.blockedCallersHear = blockedCallersHear
+		self.hasFirstRingSuppression = hasFirstRingSuppression
 		self.hasOneTouchCallBlock = hasOneTouchCallBlock
 		self.callBlockPreProgrammedDatabaseEntryCount = callBlockPreProgrammedDatabaseEntryCount
 		self.callBlockPreScreening = callBlockPreScreening
