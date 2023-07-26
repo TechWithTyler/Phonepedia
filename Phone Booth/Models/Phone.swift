@@ -12,8 +12,6 @@ import SwiftUI
 @Model
 final class Phone {
 	
-	static var preview = Phone(brand: "Some Brand", model: "M123", photoData: Phone.previewPhotoData, baseColor: String(), cordedReceiverColor: String(), numberOfIncludedCordlessHandsets: 1, maxCordlessHandsets: 5, cordlessHandsetsIHave: [], chargersIHave: [], handsetRingtones: 1, handsetMusicRingtones: 0, handsetHasSeparateIntercomTone: false, canChangeHandsetIntercomTone: false, baseRingtones: 0, baseMusicRingtones: 0, baseHasSeparateIntercomTone: false, canChangeBaseIntercomTone: false, hasBaseIntercom: false, landlineInUseStatusOnBase: 0, landlineInUseStatusOnHandset: 1, cellLineInUseStatusOnBase: 0, reversibleHandset: false, hasAnsweringSystem: 3, answeringSystemMenuOnHandset: 3, answeringSystemMenuOnBase: 0, greetingRecordingOnBaseOrHandset: 1, hasMessageAlertByCall: false, hasGreetingOnlyMode: true, voicemailIndication: 3, voicemailQuickDial: 4, hasHandsetSpeakerphone: true, hasBaseSpeakerphone: false, hasBaseKeypad: false, hasTalkingCallerID: false, handsetDisplayType: 1, baseDisplayType: 1, cordedPowerSource: 0, cordlessPowerBackupMode: 1, baseSupportsWiredHeadsets: false, handsetSupportsWiredHeadsets: false, baseSupportsBluetoothHeadphones: false, handsetSupportsBluetoothHeadphones: false, baseBluetoothCellPhonesSupported: 0, hasCellPhoneVoiceControl: false, basePhonebookCapacity: 0, handsetPhonebookCapacity: 10, baseCallerIDCapacity: 0, handsetCallerIDCapacity: 10, baseRedialCapacity: 0, handsetRedialCapacity: 3, redialNameDisplay: 0, baseSpeedDialCapacity: 0, handsetSpeedDialCapacity: 0, hasSharedSpeedDial: false, handsetOneTouchDialCapacity: 0, baseOneTouchDialCapacity: 0, hasSharedOneTouchDial: false, oneTouchDialSupportsHandsetNumbers: false, speedDialPhonebookEntryMode: 0, callBlockCapacity: 0, callBlockSupportsPrefixes: false, blockedCallersHear: 0, hasFirstRingSuppression: false, hasOneTouchCallBlock: false, callBlockPreProgrammedDatabaseEntryCount: 0, callBlockPreScreening: 0, callBlockPreScreeningAllowedNameCapacity: 0, callBlockPreScreeningAllowedNumberCapacity: 0)
-
 	static var previewPhotoData: Data {
 #if os(iOS) || os(xrOS)
 		return getPNGDataFromUIImage(image: UIImage(named: "phone")!)
@@ -47,22 +45,22 @@ final class Phone {
 	var handsetMusicRingtones: Int
 	
 	var handsetHasSeparateIntercomTone: Bool
-
+	
 	var canChangeHandsetIntercomTone: Bool
 	
 	var baseRingtones: Int
-
+	
 	var baseMusicRingtones: Int
 	
 	var baseHasSeparateIntercomTone: Bool
 	
 	var canChangeBaseIntercomTone: Bool
 	
+	var hasIntercom: Bool
+	
 	var hasBaseIntercom: Bool
 	
 	var landlineInUseStatusOnBase: Int
-	
-	var landlineInUseStatusOnHandset: Int
 	
 	var cellLineInUseStatusOnBase: Int
 	
@@ -104,9 +102,9 @@ final class Phone {
 	
 	var handsetSupportsWiredHeadsets: Bool
 	
-	var baseSupportsBluetoothHeadphones: Bool
+	var baseBluetoothHeadphonesSupported: Int
 	
-	var handsetSupportsBluetoothHeadphones: Bool
+	var handsetBluetoothHeadphonesSupported: Int
 	
 	var baseBluetoothCellPhonesSupported: Int
 	
@@ -180,7 +178,7 @@ final class Phone {
 		return isCordless && baseCallerIDCapacity > 0 && handsetCallerIDCapacity == 0
 	}
 
-	init(brand: String, model: String, photoData: Data, baseColor: String, cordedReceiverColor: String, numberOfIncludedCordlessHandsets: Int, maxCordlessHandsets: Int, cordlessHandsetsIHave: [CordlessHandset], chargersIHave: [Charger], handsetRingtones: Int, handsetMusicRingtones: Int, handsetHasSeparateIntercomTone: Bool, canChangeHandsetIntercomTone: Bool, baseRingtones: Int, baseMusicRingtones: Int, baseHasSeparateIntercomTone: Bool, canChangeBaseIntercomTone: Bool, hasBaseIntercom: Bool, landlineInUseStatusOnBase: Int, landlineInUseStatusOnHandset: Int, cellLineInUseStatusOnBase: Int, reversibleHandset: Bool, hasAnsweringSystem: Int, answeringSystemMenuOnHandset: Int, answeringSystemMenuOnBase: Int, greetingRecordingOnBaseOrHandset: Int, hasMessageAlertByCall: Bool, hasGreetingOnlyMode: Bool, voicemailIndication: Int, voicemailQuickDial: Int, hasHandsetSpeakerphone: Bool, hasBaseSpeakerphone: Bool, hasBaseKeypad: Bool, hasTalkingCallerID: Bool, handsetDisplayType: Int, baseDisplayType: Int, cordedPowerSource: Int, cordlessPowerBackupMode: Int, baseSupportsWiredHeadsets: Bool, handsetSupportsWiredHeadsets: Bool, baseSupportsBluetoothHeadphones: Bool, handsetSupportsBluetoothHeadphones: Bool, baseBluetoothCellPhonesSupported: Int, hasCellPhoneVoiceControl: Bool, basePhonebookCapacity: Int, handsetPhonebookCapacity: Int, baseCallerIDCapacity: Int, handsetCallerIDCapacity: Int, baseRedialCapacity: Int, handsetRedialCapacity: Int, redialNameDisplay: Int, baseSpeedDialCapacity: Int, handsetSpeedDialCapacity: Int, hasSharedSpeedDial: Bool, handsetOneTouchDialCapacity: Int, baseOneTouchDialCapacity: Int, hasSharedOneTouchDial: Bool, oneTouchDialSupportsHandsetNumbers: Bool, speedDialPhonebookEntryMode: Int, callBlockCapacity: Int, callBlockSupportsPrefixes: Bool, blockedCallersHear: Int, hasFirstRingSuppression: Bool, hasOneTouchCallBlock: Bool, callBlockPreProgrammedDatabaseEntryCount: Int, callBlockPreScreening: Int, callBlockPreScreeningAllowedNameCapacity: Int, callBlockPreScreeningAllowedNumberCapacity: Int) {
+	init(brand: String, model: String, photoData: Data, baseColor: String, cordedReceiverColor: String, numberOfIncludedCordlessHandsets: Int, maxCordlessHandsets: Int, cordlessHandsetsIHave: [CordlessHandset], chargersIHave: [Charger], handsetRingtones: Int, handsetMusicRingtones: Int, handsetHasSeparateIntercomTone: Bool, canChangeHandsetIntercomTone: Bool, baseRingtones: Int, baseMusicRingtones: Int, baseHasSeparateIntercomTone: Bool, canChangeBaseIntercomTone: Bool, hasIntercom: Bool, hasBaseIntercom: Bool, landlineInUseStatusOnBase: Int, cellLineInUseStatusOnBase: Int, reversibleHandset: Bool, hasAnsweringSystem: Int, answeringSystemMenuOnHandset: Int, answeringSystemMenuOnBase: Int, greetingRecordingOnBaseOrHandset: Int, hasMessageAlertByCall: Bool, hasGreetingOnlyMode: Bool, voicemailIndication: Int, voicemailQuickDial: Int, hasHandsetSpeakerphone: Bool, hasBaseSpeakerphone: Bool, hasBaseKeypad: Bool, hasTalkingCallerID: Bool, handsetDisplayType: Int, baseDisplayType: Int, cordedPowerSource: Int, cordlessPowerBackupMode: Int, baseSupportsWiredHeadsets: Bool, handsetSupportsWiredHeadsets: Bool, baseBluetoothHeadphonesSupported: Int, handsetBluetoothHeadphonesSupported: Int, baseBluetoothCellPhonesSupported: Int, hasCellPhoneVoiceControl: Bool, basePhonebookCapacity: Int, handsetPhonebookCapacity: Int, baseCallerIDCapacity: Int, handsetCallerIDCapacity: Int, baseRedialCapacity: Int, handsetRedialCapacity: Int, redialNameDisplay: Int, baseSpeedDialCapacity: Int, handsetSpeedDialCapacity: Int, hasSharedSpeedDial: Bool, handsetOneTouchDialCapacity: Int, baseOneTouchDialCapacity: Int, hasSharedOneTouchDial: Bool, oneTouchDialSupportsHandsetNumbers: Bool, speedDialPhonebookEntryMode: Int, callBlockCapacity: Int, callBlockSupportsPrefixes: Bool, blockedCallersHear: Int, hasFirstRingSuppression: Bool, hasOneTouchCallBlock: Bool, callBlockPreProgrammedDatabaseEntryCount: Int, callBlockPreScreening: Int, callBlockPreScreeningAllowedNameCapacity: Int, callBlockPreScreeningAllowedNumberCapacity: Int) {
 		self.brand = brand
 		self.model = model
 		self.photoData = photoData
@@ -198,9 +196,9 @@ final class Phone {
 		self.baseMusicRingtones = baseMusicRingtones
 		self.baseHasSeparateIntercomTone = baseHasSeparateIntercomTone
 		self.canChangeBaseIntercomTone = canChangeBaseIntercomTone
+		self.hasIntercom = hasIntercom
 		self.hasBaseIntercom = hasBaseIntercom
 		self.landlineInUseStatusOnBase = landlineInUseStatusOnBase
-		self.landlineInUseStatusOnHandset = landlineInUseStatusOnHandset
 		self.cellLineInUseStatusOnBase = cellLineInUseStatusOnBase
 		self.reversibleHandset = reversibleHandset
 		self.hasAnsweringSystem = hasAnsweringSystem
@@ -221,8 +219,8 @@ final class Phone {
 		self.cordlessPowerBackupMode = cordlessPowerBackupMode
 		self.baseSupportsWiredHeadsets = baseSupportsWiredHeadsets
 		self.handsetSupportsWiredHeadsets = handsetSupportsWiredHeadsets
-		self.baseSupportsBluetoothHeadphones = baseSupportsBluetoothHeadphones
-		self.handsetSupportsBluetoothHeadphones = handsetSupportsBluetoothHeadphones
+		self.baseBluetoothHeadphonesSupported = baseBluetoothHeadphonesSupported
+		self.handsetBluetoothHeadphonesSupported = handsetBluetoothHeadphonesSupported
 		self.baseBluetoothCellPhonesSupported = baseBluetoothCellPhonesSupported
 		self.hasCellPhoneVoiceControl = hasCellPhoneVoiceControl
 		self.basePhonebookCapacity = basePhonebookCapacity
@@ -250,5 +248,5 @@ final class Phone {
 		self.callBlockPreScreeningAllowedNameCapacity = callBlockPreScreeningAllowedNameCapacity
 		self.callBlockPreScreeningAllowedNumberCapacity = callBlockPreScreeningAllowedNumberCapacity
 	}
-
+	
 }

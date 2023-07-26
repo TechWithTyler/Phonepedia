@@ -88,7 +88,7 @@ struct PhoneDetailView: View {
 					}
 				}
 			}
-			Section(header: Text("Speakerphone/Base Keypad/Base Intercom")) {
+			Section(header: Text("Speakerphone/Intercom/Base Keypad")) {
 				if !phone.isCordedCordless {
 					Toggle(isOn: $phone.hasBaseSpeakerphone) {
 						Text("Has Base Speakerphone")
@@ -108,10 +108,18 @@ struct PhoneDetailView: View {
 					Toggle(isOn: $phone.hasHandsetSpeakerphone) {
 						Text("Has Handset Speakerphone")
 					}
-					if !phone.hasBaseSpeakerphone && !phone.isCordedCordless {
+					Toggle(isOn: $phone.hasIntercom) {
+						Text("Has Intercom")
+					}
+					if phone.hasIntercom && !phone.hasBaseSpeakerphone && !phone.isCordedCordless {
 						Toggle(isOn: $phone.hasBaseIntercom) {
 							Text("Has Base Intercom")
 						}
+					}
+					if phone.hasIntercom && !phone.hasBaseIntercom && phone.cordlessHandsetsIHave.count <= 1 {
+						Text("Intercom requires 2 or more handsets to be registered to the base.")
+							.font(.footnote)
+							.foregroundStyle(.secondary)
 					}
 				}
 			}
@@ -216,6 +224,57 @@ A phone's voicemail indicator works in one or both of the following ways:
 				Text("You can store your voicemail access number (e.g. *99) into the phone and quickly dial it using a button or menu item.")
 					.font(.footnote)
 					.foregroundStyle(.secondary)
+			}
+			Section(header: Text("Audio Devices")) {
+				if !phone.isCordless || phone.hasBaseSpeakerphone {
+					Toggle("Base Supports Wired Headsets", isOn: $phone.baseSupportsWiredHeadsets)
+					Picker("Maximum Number Of Bluetooth Headphones (base)", selection: $phone.baseBluetoothHeadphonesSupported) {
+						Text("None").tag(0)
+						Text("1").tag(1)
+						Text("2").tag(2)
+						Text("4").tag(4)
+					}
+				}
+				if phone.isCordless {
+					Toggle("Handset Supports Wired Headsets", isOn: $phone.handsetSupportsWiredHeadsets)
+					Picker("Maximum Number Of Bluetooth Headphones (handset)", selection: $phone.handsetBluetoothHeadphonesSupported) {
+						Text("None").tag(0)
+						Text("1").tag(1)
+						Text("2").tag(2)
+						Text("4").tag(4)
+					}
+				}
+			}
+			Section(header: Text("Landline")) {
+				Picker("Landline In Use Status On Base", selection: $phone.landlineInUseStatusOnBase) {
+					Text("None").tag(0)
+					Text("Light").tag(1)
+					if phone.baseDisplayType > 1 {
+						Text("Display").tag(2)
+						Text("Display and Light").tag(3)
+					}
+				}
+			}
+			Section(header: Text("Bluetooth Cell Phone Linking")) {
+				Picker("Maximum Number Of Paired Cell Phones", selection: $phone.baseBluetoothCellPhonesSupported) {
+					Text("None/Phonebook Transfers Only").tag(0)
+					Text("1").tag(1)
+					Text("2").tag(2)
+					Text("4").tag(4)
+					Text("5").tag(5)
+					Text("10").tag(10)
+					Text("15").tag(15)
+				}
+				if phone.baseBluetoothCellPhonesSupported > 0 {
+					Picker("Cell Line In Use Status On Base", selection: $phone.cellLineInUseStatusOnBase) {
+						Text("None").tag(0)
+						Text("Light").tag(1)
+						if phone.baseDisplayType > 1 {
+							Text("Display and Light").tag(2)
+						}
+					}
+					Toggle("Has Cell Phone Voice Control", isOn: $phone.hasCellPhoneVoiceControl)
+				}
 			}
 			Section(header: Text("Redial")) {
 				if phone.isCordless {
