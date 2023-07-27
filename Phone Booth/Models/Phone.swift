@@ -27,7 +27,13 @@ final class Phone {
 	var photoData: Data
 	
 	var baseColor: String
-	
+
+	var baseKeyForegroundColor: String
+
+	var baseKeyBackgroundColor: String
+
+	var diamondCutKeys: Int
+
 	var cordedReceiverColor: String
 	
 	var numberOfIncludedCordlessHandsets: Int
@@ -39,15 +45,7 @@ final class Phone {
 	
 	@Relationship(.cascade, inverse: \Charger.phone)
 	var chargersIHave: [Charger]
-	
-	var handsetRingtones: Int
-	
-	var handsetMusicRingtones: Int
-	
-	var handsetHasSeparateIntercomTone: Bool
-	
-	var canChangeHandsetIntercomTone: Bool
-	
+
 	var baseRingtones: Int
 	
 	var baseMusicRingtones: Int
@@ -68,8 +66,6 @@ final class Phone {
 	
 	var hasAnsweringSystem: Int
 	
-	var answeringSystemMenuOnHandset: Int
-	
 	var answeringSystemMenuOnBase: Int
 	
 	var greetingRecordingOnBaseOrHandset: Int
@@ -81,30 +77,34 @@ final class Phone {
 	var voicemailIndication: Int
 	
 	var voicemailQuickDial: Int
-	
-	var hasHandsetSpeakerphone: Bool
-	
+
 	var hasBaseSpeakerphone: Bool
 	
 	var hasBaseKeypad: Bool
 	
 	var hasTalkingCallerID: Bool
-	
-	var handsetDisplayType: Int
-	
+
 	var baseDisplayType: Int
-	
+
+	var baseHasDisplayAndMessageCounter: Bool
+
+	var baseSoftKeys: Int
+
+	var baseLEDMessageCounterColor: String
+
+	var baseDisplayBacklightColor: String
+
+	var baseKeyBacklightColor: String
+
+	var baseKeyBacklightAmount: Int
+
 	var cordedPowerSource: Int
 	
 	var cordlessPowerBackupMode: Int
 	
 	var baseSupportsWiredHeadsets: Bool
 	
-	var handsetSupportsWiredHeadsets: Bool
-	
 	var baseBluetoothHeadphonesSupported: Int
-	
-	var handsetBluetoothHeadphonesSupported: Int
 	
 	var baseBluetoothCellPhonesSupported: Int
 	
@@ -112,29 +112,15 @@ final class Phone {
 	
 	var basePhonebookCapacity: Int
 	
-	var handsetPhonebookCapacity: Int
-	
 	var baseCallerIDCapacity: Int
 	
-	var handsetCallerIDCapacity: Int
-	
 	var baseRedialCapacity: Int
-	
-	var handsetRedialCapacity: Int
-	
+
 	var redialNameDisplay: Int
 	
 	var baseSpeedDialCapacity: Int
-	
-	var handsetSpeedDialCapacity: Int
-	
-	var hasSharedSpeedDial: Bool
-	
-	var handsetOneTouchDialCapacity: Int
-	
+
 	var baseOneTouchDialCapacity: Int
-	
-	var hasSharedOneTouchDial: Bool
 	
 	var oneTouchDialSupportsHandsetNumbers: Bool
 	
@@ -169,29 +155,20 @@ final class Phone {
 	var isCordedCordless: Bool {
 		return isCordless && hasCordedReceiver
 	}
-	
-	var hasSharedPhonebook: Bool {
-		return isCordless && basePhonebookCapacity > 0 && handsetPhonebookCapacity == 0
-	}
-	
-	var hasSharedCID: Bool {
-		return isCordless && baseCallerIDCapacity > 0 && handsetCallerIDCapacity == 0
-	}
 
-	init(brand: String, model: String, photoData: Data, baseColor: String, cordedReceiverColor: String, numberOfIncludedCordlessHandsets: Int, maxCordlessHandsets: Int, cordlessHandsetsIHave: [CordlessHandset], chargersIHave: [Charger], handsetRingtones: Int, handsetMusicRingtones: Int, handsetHasSeparateIntercomTone: Bool, canChangeHandsetIntercomTone: Bool, baseRingtones: Int, baseMusicRingtones: Int, baseHasSeparateIntercomTone: Bool, canChangeBaseIntercomTone: Bool, hasIntercom: Bool, hasBaseIntercom: Bool, landlineInUseStatusOnBase: Int, cellLineInUseStatusOnBase: Int, reversibleHandset: Bool, hasAnsweringSystem: Int, answeringSystemMenuOnHandset: Int, answeringSystemMenuOnBase: Int, greetingRecordingOnBaseOrHandset: Int, hasMessageAlertByCall: Bool, hasGreetingOnlyMode: Bool, voicemailIndication: Int, voicemailQuickDial: Int, hasHandsetSpeakerphone: Bool, hasBaseSpeakerphone: Bool, hasBaseKeypad: Bool, hasTalkingCallerID: Bool, handsetDisplayType: Int, baseDisplayType: Int, cordedPowerSource: Int, cordlessPowerBackupMode: Int, baseSupportsWiredHeadsets: Bool, handsetSupportsWiredHeadsets: Bool, baseBluetoothHeadphonesSupported: Int, handsetBluetoothHeadphonesSupported: Int, baseBluetoothCellPhonesSupported: Int, hasCellPhoneVoiceControl: Bool, basePhonebookCapacity: Int, handsetPhonebookCapacity: Int, baseCallerIDCapacity: Int, handsetCallerIDCapacity: Int, baseRedialCapacity: Int, handsetRedialCapacity: Int, redialNameDisplay: Int, baseSpeedDialCapacity: Int, handsetSpeedDialCapacity: Int, hasSharedSpeedDial: Bool, handsetOneTouchDialCapacity: Int, baseOneTouchDialCapacity: Int, hasSharedOneTouchDial: Bool, oneTouchDialSupportsHandsetNumbers: Bool, speedDialPhonebookEntryMode: Int, callBlockCapacity: Int, callBlockSupportsPrefixes: Bool, blockedCallersHear: Int, hasFirstRingSuppression: Bool, hasOneTouchCallBlock: Bool, callBlockPreProgrammedDatabaseEntryCount: Int, callBlockPreScreening: Int, callBlockPreScreeningAllowedNameCapacity: Int, callBlockPreScreeningAllowedNumberCapacity: Int) {
+	init(brand: String, model: String, photoData: Data, baseColor: String, baseKeyForegroundColor: String, baseKeyBackgroundColor: String, diamondCutKeys: Int, cordedReceiverColor: String, numberOfIncludedCordlessHandsets: Int, maxCordlessHandsets: Int, cordlessHandsetsIHave: [CordlessHandset], chargersIHave: [Charger], baseRingtones: Int, baseMusicRingtones: Int, baseHasSeparateIntercomTone: Bool, canChangeBaseIntercomTone: Bool, hasIntercom: Bool, hasBaseIntercom: Bool, landlineInUseStatusOnBase: Int, cellLineInUseStatusOnBase: Int, reversibleHandset: Bool, hasAnsweringSystem: Int, answeringSystemMenuOnBase: Int, greetingRecordingOnBaseOrHandset: Int, hasMessageAlertByCall: Bool, hasGreetingOnlyMode: Bool, voicemailIndication: Int, voicemailQuickDial: Int, hasBaseSpeakerphone: Bool, hasBaseKeypad: Bool, hasTalkingCallerID: Bool, baseDisplayType: Int, baseHasDisplayAndMessageCounter: Bool, baseSoftKeys: Int, baseLEDMessageCounterColor: String, baseDisplayBacklightColor: String, baseKeyBacklightColor: String, baseKeyBacklightAmount: Int, cordedPowerSource: Int, cordlessPowerBackupMode: Int, baseSupportsWiredHeadsets: Bool, baseBluetoothHeadphonesSupported: Int, baseBluetoothCellPhonesSupported: Int, hasCellPhoneVoiceControl: Bool, basePhonebookCapacity: Int, baseCallerIDCapacity: Int, baseRedialCapacity: Int, redialNameDisplay: Int, baseSpeedDialCapacity: Int, baseOneTouchDialCapacity: Int, oneTouchDialSupportsHandsetNumbers: Bool, speedDialPhonebookEntryMode: Int, callBlockCapacity: Int, callBlockSupportsPrefixes: Bool, blockedCallersHear: Int, hasFirstRingSuppression: Bool, hasOneTouchCallBlock: Bool, callBlockPreProgrammedDatabaseEntryCount: Int, callBlockPreScreening: Int, callBlockPreScreeningAllowedNameCapacity: Int, callBlockPreScreeningAllowedNumberCapacity: Int) {
 		self.brand = brand
 		self.model = model
 		self.photoData = photoData
 		self.baseColor = baseColor
+		self.baseKeyForegroundColor = baseKeyForegroundColor
+		self.baseKeyBackgroundColor = baseKeyBackgroundColor
+		self.diamondCutKeys = diamondCutKeys
 		self.cordedReceiverColor = cordedReceiverColor
 		self.numberOfIncludedCordlessHandsets = numberOfIncludedCordlessHandsets
 		self.maxCordlessHandsets = maxCordlessHandsets
 		self.cordlessHandsetsIHave = cordlessHandsetsIHave
 		self.chargersIHave = chargersIHave
-		self.handsetRingtones = handsetRingtones
-		self.handsetMusicRingtones = handsetMusicRingtones
-		self.handsetHasSeparateIntercomTone = handsetHasSeparateIntercomTone
-		self.canChangeHandsetIntercomTone = canChangeHandsetIntercomTone
 		self.baseRingtones = baseRingtones
 		self.baseMusicRingtones = baseMusicRingtones
 		self.baseHasSeparateIntercomTone = baseHasSeparateIntercomTone
@@ -202,40 +179,34 @@ final class Phone {
 		self.cellLineInUseStatusOnBase = cellLineInUseStatusOnBase
 		self.reversibleHandset = reversibleHandset
 		self.hasAnsweringSystem = hasAnsweringSystem
-		self.answeringSystemMenuOnHandset = answeringSystemMenuOnHandset
 		self.answeringSystemMenuOnBase = answeringSystemMenuOnBase
 		self.greetingRecordingOnBaseOrHandset = greetingRecordingOnBaseOrHandset
 		self.hasMessageAlertByCall = hasMessageAlertByCall
 		self.hasGreetingOnlyMode = hasGreetingOnlyMode
 		self.voicemailIndication = voicemailIndication
 		self.voicemailQuickDial = voicemailQuickDial
-		self.hasHandsetSpeakerphone = hasHandsetSpeakerphone
 		self.hasBaseSpeakerphone = hasBaseSpeakerphone
 		self.hasBaseKeypad = hasBaseKeypad
 		self.hasTalkingCallerID = hasTalkingCallerID
-		self.handsetDisplayType = handsetDisplayType
 		self.baseDisplayType = baseDisplayType
+		self.baseHasDisplayAndMessageCounter = baseHasDisplayAndMessageCounter
+		self.baseSoftKeys = baseSoftKeys
+		self.baseLEDMessageCounterColor = baseLEDMessageCounterColor
+		self.baseDisplayBacklightColor = baseDisplayBacklightColor
+		self.baseKeyBacklightColor = baseKeyBacklightColor
+		self.baseKeyBacklightAmount = baseKeyBacklightAmount
 		self.cordedPowerSource = cordedPowerSource
 		self.cordlessPowerBackupMode = cordlessPowerBackupMode
 		self.baseSupportsWiredHeadsets = baseSupportsWiredHeadsets
-		self.handsetSupportsWiredHeadsets = handsetSupportsWiredHeadsets
 		self.baseBluetoothHeadphonesSupported = baseBluetoothHeadphonesSupported
-		self.handsetBluetoothHeadphonesSupported = handsetBluetoothHeadphonesSupported
 		self.baseBluetoothCellPhonesSupported = baseBluetoothCellPhonesSupported
 		self.hasCellPhoneVoiceControl = hasCellPhoneVoiceControl
 		self.basePhonebookCapacity = basePhonebookCapacity
-		self.handsetPhonebookCapacity = handsetPhonebookCapacity
 		self.baseCallerIDCapacity = baseCallerIDCapacity
-		self.handsetCallerIDCapacity = handsetCallerIDCapacity
 		self.baseRedialCapacity = baseRedialCapacity
-		self.handsetRedialCapacity = handsetRedialCapacity
 		self.redialNameDisplay = redialNameDisplay
 		self.baseSpeedDialCapacity = baseSpeedDialCapacity
-		self.handsetSpeedDialCapacity = handsetSpeedDialCapacity
-		self.hasSharedSpeedDial = hasSharedSpeedDial
-		self.handsetOneTouchDialCapacity = handsetOneTouchDialCapacity
 		self.baseOneTouchDialCapacity = baseOneTouchDialCapacity
-		self.hasSharedOneTouchDial = hasSharedOneTouchDial
 		self.oneTouchDialSupportsHandsetNumbers = oneTouchDialSupportsHandsetNumbers
 		self.speedDialPhonebookEntryMode = speedDialPhonebookEntryMode
 		self.callBlockCapacity = callBlockCapacity
@@ -248,5 +219,5 @@ final class Phone {
 		self.callBlockPreScreeningAllowedNameCapacity = callBlockPreScreeningAllowedNameCapacity
 		self.callBlockPreScreeningAllowedNumberCapacity = callBlockPreScreeningAllowedNumberCapacity
 	}
-	
+
 }

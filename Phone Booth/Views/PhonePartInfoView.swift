@@ -20,19 +20,25 @@ struct PhonePartInfoView: View {
 		if phone.isCordless {
 			Section("Handsets") {
 				if !phone.cordlessHandsetsIHave.isEmpty {
-					List {
 						ForEach($phone.cordlessHandsetsIHave) { handset in
-							HandsetInfoRowView(color: handset.color, model: handset.model, handsetNumber: (phone.cordlessHandsetsIHave.firstIndex(of: handset.wrappedValue) ?? 0) + 1)
-								.contextMenu {
-									Button {
-										deleteHandset(at: phone.cordlessHandsetsIHave.firstIndex(of: handset.wrappedValue)!)
-									} label: {
-										Text("Delete")
-									}
+							NavigationLink {
+								HandsetInfoDetailView(handset: handset, handsetNumber: (phone.cordlessHandsetsIHave.firstIndex(of: handset.wrappedValue) ?? 0) + 1)
+							} label: {
+								VStack {
+									Text("\(handset.wrappedValue.brand) \(handset.wrappedValue.model)")
+									Text("Handset \((phone.cordlessHandsetsIHave.firstIndex(of: handset.wrappedValue) ?? 0) + 1)")
+										.foregroundStyle(.secondary)
 								}
+							}
+							.contextMenu {
+								Button {
+									deleteHandset(at: phone.cordlessHandsetsIHave.firstIndex(of: handset.wrappedValue)!)
+								} label: {
+									Text("Delete")
+								}
+							}
 						}
 						.onDelete(perform: deleteItemsFromHandsetList(offsets:))
-					}
 				} else {
 					Text("No handsets")
 						.foregroundStyle(.secondary)
@@ -82,7 +88,9 @@ struct PhonePartInfoView: View {
 	}
 
 	func addHandset() {
-		phone.cordlessHandsetsIHave.append(CordlessHandset(model: "MH12", color: "Black"))
+		phone.cordlessHandsetsIHave.append(
+			CordlessHandset(phone: phone, brand: phone.brand, model: "MH12", color: phone.baseColor, keyForegroundColor: "White", keyBackgroundColor: "Black", diamondCutKeys: 2, displayType: 2, hasSpeakerphone: true, ringtones: 1, musicRingtones: 0, hasSeparateIntercomTone: false, canChangeIntercomTone: true, oneTouchDialCapacity: 0, speedDialCapacity: 10, redialCapacity: 5, displayBacklightColor: "White", softKeys: 2, keyBacklightColor: "Blue", keyBacklightAmount: 3, supportsWiredHeadsets: false, answeringSystemMenu: 3, phonebookCapacity: 0, usesBasePhonebook: true, usesBaseCallerID: true, usesBaseSpeedDial: true, usesBaseOneTouchDial: true, bluetoothHeadphonesSupported: 0, callerIDCapacity: 0)
+		)
 	}
 
 	func addCharger() {
