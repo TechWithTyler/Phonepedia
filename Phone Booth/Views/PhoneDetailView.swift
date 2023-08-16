@@ -123,7 +123,6 @@ struct PhoneDetailView: View {
   • Detecting the handset being placed on the base for registration.
   • Detecting the handset being lifted off the base to switch from the base speakerphone to the handset.
   In most cases, if the base has a charge light, the completion of the charge circuit turns it on, but sometimes that's handled by the separate data contact if the phone has one.
-  •
   """)
 								.font(.footnote)
 								.foregroundStyle(.secondary)

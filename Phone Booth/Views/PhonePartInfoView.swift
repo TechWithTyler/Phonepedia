@@ -61,9 +61,14 @@ struct PhonePartInfoView: View {
 			}
 			Section("Chargers") {
 				if !phone.chargersIHave.isEmpty {
-					List {
 						ForEach($phone.chargersIHave) { charger in
-							ChargerInfoRowView(charger: charger, chargerNumber: (phone.chargersIHave.firstIndex(of: charger.wrappedValue) ?? 0) + 1)
+							NavigationLink {
+								ChargerInfoDetailView(charger: charger)
+							} label: {
+								VStack {
+									Text("Charger \((phone.chargersIHave.firstIndex(of: charger.wrappedValue) ?? 0) + 1)")
+								}
+							}
 								.contextMenu {
 									Button {
 										deleteCharger(at: phone.chargersIHave.firstIndex(of: charger.wrappedValue)!)
@@ -73,7 +78,6 @@ struct PhonePartInfoView: View {
 								}
 						}
 						.onDelete(perform: deleteItemsFromChargerList(offsets:))
-					}
 				} else {
 					Text("No chargers")
 						.foregroundStyle(.secondary)
