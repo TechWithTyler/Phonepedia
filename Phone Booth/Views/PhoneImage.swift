@@ -18,28 +18,27 @@ struct PhoneImage: View {
 	}
 
     var body: some View {
-//		#if os(iOS) || os(xrOS)
-//		if let image = UIImage(data: phone.photoData) {
-//			Image(uiImage: image)
-//				.renderingMode(phone.photoData == Phone.previewPhotoData ? .template : .original)
-//				.resizable()
-//				.scaledToFit()
-//				.frame(width: size, height: size)
-//		} else {
-//			PhoneImageUnavailableView()
-//		}
-//		#elseif os(macOS)
-//		if let image = NSImage(data: phone.photoData) {
-//			Image(nsImage: image)
-//				.renderingMode(phone.photoData == Phone.previewPhotoData ? .template : .original)
-//				.resizable()
-//				.scaledToFit()
-//				.frame(width: size, height: size)
-//		} else {
-//			PhoneImageUnavailableView()
-//		}
-//		#endif
-		PhoneImageUnavailableView()
+		#if os(iOS) || os(xrOS)
+		if let image = UIImage(data: phone.photoData) {
+			Image(uiImage: image)
+				.renderingMode(phone.photoData == Phone.previewPhotoData ? .template : .original)
+				.resizable()
+				.scaledToFit()
+				.frame(width: size, height: size)
+		} else {
+			PhoneImageUnavailableView()
+		}
+		#elseif os(macOS)
+		if let image = NSImage(data: phone.photoData) {
+			Image(nsImage: image)
+				.renderingMode(phone.photoData == Phone.previewPhotoData ? .template : .original)
+				.resizable()
+				.scaledToFit()
+				.frame(width: size, height: size)
+		} else {
+			PhoneImageUnavailableView()
+		}
+		#endif
     }
 }
 

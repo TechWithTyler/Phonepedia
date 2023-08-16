@@ -32,18 +32,20 @@ final class Phone {
 
 	var baseKeyBackgroundColor: String
 
-	var diamondCutKeys: Int
+	var buttonType: Int
 
 	var cordedReceiverColor: String
 	
 	var numberOfIncludedCordlessHandsets: Int
 	
 	var maxCordlessHandsets: Int
-	
-	@Relationship(.cascade, inverse: \CordlessHandset.phone)
+
+	var frequency: Int
+
+	@Relationship(deleteRule: .cascade, inverse: \CordlessHandset.phone)
 	var cordlessHandsetsIHave: [CordlessHandset]
 	
-	@Relationship(.cascade, inverse: \Charger.phone)
+	@Relationship(deleteRule: .cascade, inverse: \Charger.phone)
 	var chargersIHave: [Charger]
 
 	var baseRingtones: Int
@@ -62,8 +64,14 @@ final class Phone {
 	
 	var cellLineInUseStatusOnBase: Int
 	
-	var reversibleHandset: Bool
-	
+	var baseChargingDirection: Int
+
+	var baseHasSeparateDataContact: Bool
+
+	var baseChargeContactPlacement: Int
+
+	var baseChargeContactMechanism: Int
+
 	var hasAnsweringSystem: Int
 	
 	var answeringSystemMenuOnBase: Int
@@ -88,7 +96,19 @@ final class Phone {
 
 	var baseHasDisplayAndMessageCounter: Bool
 
-	var baseSoftKeys: Int
+	var baseSoftKeysBottom: Int
+
+	var baseSoftKeysSide: Int
+
+	var baseNavigatorKeyType: Int
+
+	var baseNavigatorKeyStandbyShortcuts: Bool
+
+	var baseNavigatorKeyCenterButton: Int
+
+	var baseNavigatorKeyLeftRightRepeatSkip: Bool
+
+	var baseNavigatorKeyUpDownVolume: Bool
 
 	var baseLEDMessageCounterColor: String
 
@@ -156,68 +176,78 @@ final class Phone {
 		return isCordless && hasCordedReceiver
 	}
 
-	init(brand: String, model: String, photoData: Data, baseColor: String, baseKeyForegroundColor: String, baseKeyBackgroundColor: String, diamondCutKeys: Int, cordedReceiverColor: String, numberOfIncludedCordlessHandsets: Int, maxCordlessHandsets: Int, cordlessHandsetsIHave: [CordlessHandset], chargersIHave: [Charger], baseRingtones: Int, baseMusicRingtones: Int, baseHasSeparateIntercomTone: Bool, canChangeBaseIntercomTone: Bool, hasIntercom: Bool, hasBaseIntercom: Bool, landlineInUseStatusOnBase: Int, cellLineInUseStatusOnBase: Int, reversibleHandset: Bool, hasAnsweringSystem: Int, answeringSystemMenuOnBase: Int, greetingRecordingOnBaseOrHandset: Int, hasMessageAlertByCall: Bool, hasGreetingOnlyMode: Bool, voicemailIndication: Int, voicemailQuickDial: Int, hasBaseSpeakerphone: Bool, hasBaseKeypad: Bool, hasTalkingCallerID: Bool, baseDisplayType: Int, baseHasDisplayAndMessageCounter: Bool, baseSoftKeys: Int, baseLEDMessageCounterColor: String, baseDisplayBacklightColor: String, baseKeyBacklightColor: String, baseKeyBacklightAmount: Int, cordedPowerSource: Int, cordlessPowerBackupMode: Int, baseSupportsWiredHeadsets: Bool, baseBluetoothHeadphonesSupported: Int, baseBluetoothCellPhonesSupported: Int, hasCellPhoneVoiceControl: Bool, basePhonebookCapacity: Int, baseCallerIDCapacity: Int, baseRedialCapacity: Int, redialNameDisplay: Int, baseSpeedDialCapacity: Int, baseOneTouchDialCapacity: Int, oneTouchDialSupportsHandsetNumbers: Bool, speedDialPhonebookEntryMode: Int, callBlockCapacity: Int, callBlockSupportsPrefixes: Bool, blockedCallersHear: Int, hasFirstRingSuppression: Bool, hasOneTouchCallBlock: Bool, callBlockPreProgrammedDatabaseEntryCount: Int, callBlockPreScreening: Int, callBlockPreScreeningAllowedNameCapacity: Int, callBlockPreScreeningAllowedNumberCapacity: Int) {
+	init(brand: String, model: String) {
 		self.brand = brand
 		self.model = model
-		self.photoData = photoData
-		self.baseColor = baseColor
-		self.baseKeyForegroundColor = baseKeyForegroundColor
-		self.baseKeyBackgroundColor = baseKeyBackgroundColor
-		self.diamondCutKeys = diamondCutKeys
-		self.cordedReceiverColor = cordedReceiverColor
-		self.numberOfIncludedCordlessHandsets = numberOfIncludedCordlessHandsets
-		self.maxCordlessHandsets = maxCordlessHandsets
-		self.cordlessHandsetsIHave = cordlessHandsetsIHave
-		self.chargersIHave = chargersIHave
-		self.baseRingtones = baseRingtones
-		self.baseMusicRingtones = baseMusicRingtones
-		self.baseHasSeparateIntercomTone = baseHasSeparateIntercomTone
-		self.canChangeBaseIntercomTone = canChangeBaseIntercomTone
-		self.hasIntercom = hasIntercom
-		self.hasBaseIntercom = hasBaseIntercom
-		self.landlineInUseStatusOnBase = landlineInUseStatusOnBase
-		self.cellLineInUseStatusOnBase = cellLineInUseStatusOnBase
-		self.reversibleHandset = reversibleHandset
-		self.hasAnsweringSystem = hasAnsweringSystem
-		self.answeringSystemMenuOnBase = answeringSystemMenuOnBase
-		self.greetingRecordingOnBaseOrHandset = greetingRecordingOnBaseOrHandset
-		self.hasMessageAlertByCall = hasMessageAlertByCall
-		self.hasGreetingOnlyMode = hasGreetingOnlyMode
-		self.voicemailIndication = voicemailIndication
-		self.voicemailQuickDial = voicemailQuickDial
-		self.hasBaseSpeakerphone = hasBaseSpeakerphone
-		self.hasBaseKeypad = hasBaseKeypad
-		self.hasTalkingCallerID = hasTalkingCallerID
-		self.baseDisplayType = baseDisplayType
-		self.baseHasDisplayAndMessageCounter = baseHasDisplayAndMessageCounter
-		self.baseSoftKeys = baseSoftKeys
-		self.baseLEDMessageCounterColor = baseLEDMessageCounterColor
-		self.baseDisplayBacklightColor = baseDisplayBacklightColor
-		self.baseKeyBacklightColor = baseKeyBacklightColor
-		self.baseKeyBacklightAmount = baseKeyBacklightAmount
-		self.cordedPowerSource = cordedPowerSource
-		self.cordlessPowerBackupMode = cordlessPowerBackupMode
-		self.baseSupportsWiredHeadsets = baseSupportsWiredHeadsets
-		self.baseBluetoothHeadphonesSupported = baseBluetoothHeadphonesSupported
-		self.baseBluetoothCellPhonesSupported = baseBluetoothCellPhonesSupported
-		self.hasCellPhoneVoiceControl = hasCellPhoneVoiceControl
-		self.basePhonebookCapacity = basePhonebookCapacity
-		self.baseCallerIDCapacity = baseCallerIDCapacity
-		self.baseRedialCapacity = baseRedialCapacity
-		self.redialNameDisplay = redialNameDisplay
-		self.baseSpeedDialCapacity = baseSpeedDialCapacity
-		self.baseOneTouchDialCapacity = baseOneTouchDialCapacity
-		self.oneTouchDialSupportsHandsetNumbers = oneTouchDialSupportsHandsetNumbers
-		self.speedDialPhonebookEntryMode = speedDialPhonebookEntryMode
-		self.callBlockCapacity = callBlockCapacity
-		self.callBlockSupportsPrefixes = callBlockSupportsPrefixes
-		self.blockedCallersHear = blockedCallersHear
-		self.hasFirstRingSuppression = hasFirstRingSuppression
-		self.hasOneTouchCallBlock = hasOneTouchCallBlock
-		self.callBlockPreProgrammedDatabaseEntryCount = callBlockPreProgrammedDatabaseEntryCount
-		self.callBlockPreScreening = callBlockPreScreening
-		self.callBlockPreScreeningAllowedNameCapacity = callBlockPreScreeningAllowedNameCapacity
-		self.callBlockPreScreeningAllowedNumberCapacity = callBlockPreScreeningAllowedNumberCapacity
+		self.photoData = Phone.previewPhotoData
+		self.baseColor = String()
+		self.baseKeyForegroundColor = String()
+		self.baseKeyBackgroundColor = String()
+		self.buttonType = 0
+		self.cordedReceiverColor = String()
+		self.numberOfIncludedCordlessHandsets = 1
+		self.maxCordlessHandsets = 5
+		self.frequency = 24
+		self.cordlessHandsetsIHave = []
+		self.chargersIHave = []
+		self.baseRingtones = 1
+		self.baseMusicRingtones = 0
+		self.baseHasSeparateIntercomTone = false
+		self.canChangeBaseIntercomTone = false
+		self.hasIntercom = true
+		self.hasBaseIntercom = false
+		self.landlineInUseStatusOnBase = 0
+		self.cellLineInUseStatusOnBase = 0
+		self.baseChargingDirection = 0
+		self.baseHasSeparateDataContact = false
+		self.baseChargeContactPlacement = 0
+		self.baseChargeContactMechanism = 1
+		self.hasAnsweringSystem = 3
+		self.answeringSystemMenuOnBase = 0
+		self.greetingRecordingOnBaseOrHandset = 1
+		self.hasMessageAlertByCall = false
+		self.hasGreetingOnlyMode = true
+		self.voicemailIndication = 3
+		self.voicemailQuickDial = 3
+		self.hasBaseSpeakerphone = false
+		self.hasBaseKeypad = false
+		self.hasTalkingCallerID = false
+		self.baseDisplayType = 1
+		self.baseHasDisplayAndMessageCounter = false
+		self.baseSoftKeysBottom = 0
+		self.baseSoftKeysSide = 0
+		self.baseNavigatorKeyType = 0
+		self.baseNavigatorKeyStandbyShortcuts = false
+		self.baseNavigatorKeyCenterButton = 0
+		self.baseNavigatorKeyLeftRightRepeatSkip = false
+		self.baseNavigatorKeyUpDownVolume = false
+		self.baseLEDMessageCounterColor = String()
+		self.baseDisplayBacklightColor = String()
+		self.baseKeyBacklightColor = String()
+		self.baseKeyBacklightAmount = 0
+		self.cordedPowerSource = 0
+		self.cordlessPowerBackupMode = 1
+		self.baseSupportsWiredHeadsets = false
+		self.baseBluetoothHeadphonesSupported = 0
+		self.baseBluetoothCellPhonesSupported = 0
+		self.hasCellPhoneVoiceControl = false
+		self.basePhonebookCapacity = 100
+		self.baseCallerIDCapacity = 100
+		self.baseRedialCapacity = 0
+		self.redialNameDisplay = 0
+		self.baseSpeedDialCapacity = 0
+		self.baseOneTouchDialCapacity = 0
+		self.oneTouchDialSupportsHandsetNumbers = false
+		self.speedDialPhonebookEntryMode = 0
+		self.callBlockCapacity = 20
+		self.callBlockSupportsPrefixes = false
+		self.blockedCallersHear = 0
+		self.hasFirstRingSuppression = true
+		self.hasOneTouchCallBlock = false
+		self.callBlockPreProgrammedDatabaseEntryCount = 0
+		self.callBlockPreScreening = 0
+		self.callBlockPreScreeningAllowedNameCapacity = 0
+		self.callBlockPreScreeningAllowedNumberCapacity = 0
 	}
 
 }

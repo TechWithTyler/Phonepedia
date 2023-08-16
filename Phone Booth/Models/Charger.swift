@@ -15,8 +15,14 @@ final class Charger {
 
 	var color: String
 
-	init(color: String) {
-		self.color = color
+	var chargingDirection: Int
+
+	var chargeContactPlacement: Int
+
+	var chargeContactMechanism: Int
+
+	init(phone: Phone? = nil) {
+		self.phone = phone
 	}
-	
+
 }

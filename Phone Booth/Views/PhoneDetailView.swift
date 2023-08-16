@@ -39,6 +39,38 @@ struct PhoneDetailView: View {
 					TextField("Brand", text: $phone.brand)
 					TextField("Model", text: $phone.model)
 					Text("Phone type: \(phoneTypeText)")
+					if phone.isCordless {
+						Picker("Wireless Frequency", selection: $phone.frequency) {
+							Text("46-49MHz Analog").tag(0)
+							Text("900MHz Analog").tag(1)
+							Text("900MHz Voice Scramble Analog").tag(2)
+							Text("900MHz Digital").tag(3)
+							Text("900MHz Digital Spread Spectrum (DSS)").tag(4)
+							Text("2.4GHz Analog").tag(5)
+							Text("2.4GHz/900MHz Analog").tag(6)
+							Text("2.4GHz Digital").tag(7)
+							Text("2.4GHz/900MHz Digital").tag(8)
+							Text("2.4GHz Digital Spread Spectrum (DSS)").tag(7)
+							Text("2.4GHz/900MHz Digital Spread Spectrum (DSS)").tag(8)
+							Text("2.4GHz Digital Frequency-Hopping Spread Spectrum (FHSS)").tag(9)
+							Text("2.4GHz/900MHz Digital Frequency-Hopping Spread Spectrum (FHSS)").tag(10)
+							Text("5.8GHz Analog").tag(11)
+							Text("5.8GHz/900MHz Analog").tag(12)
+							Text("5.8GHz/2.4GHz Analog").tag(13)
+							Text("5.8GHz Digital").tag(14)
+							Text("5.8GHz/900MHz Digital").tag(15)
+							Text("5.8GHz/2.4GHz Digital").tag(16)
+							Text("5.8GHz Digital Spread Spectrum (DSS)").tag(17)
+							Text("5.8GHz/900MHz Digital Spread Spectrum (DSS)").tag(18)
+							Text("5.8GHz/2.4GHz Digital Spread Spectrum (DSS)").tag(19)
+							Text("5.8GHz Digital Frequency-Hopping Spread Spectrum (FHSS)").tag(20)
+							Text("5.8GHz/900MHz Digital Frequency-Hopping Spread Spectrum (FHSS)").tag(21)
+							Text("5.8GHz/2.4GHz Digital Frequency-Hopping Spread Spectrum (FHSS)").tag(22)
+							Text("DECT (1.88-1.90GHz)").tag(23)
+							Text("DECT (1.90-1.92GHz)").tag(24)
+							Text("DECT 6.0 (1.92-1.93GHz)").tag(25)
+						}
+					}
 					Stepper("Number of Included Cordless Handsets (0 if corded only): \(phone.numberOfIncludedCordlessHandsets)", value: $phone.numberOfIncludedCordlessHandsets, in: 0...Int.max-1)
 					if phone.isCordless {
 						Group {
@@ -60,6 +92,40 @@ struct PhoneDetailView: View {
 									Text("The base of the \(phone.brand) \(phone.model) can only register up to \(phone.maxCordlessHandsets) handsets (trying to register \(phone.numberOfIncludedCordlessHandsets)).")
 								}
 								.font(.callout)
+								.foregroundStyle(.secondary)
+							}
+						}
+						Group {
+						Picker("Base Charging Direction", selection: $phone.baseChargingDirection) {
+							Text("Forward (stand up)").tag(0)
+							Text("Forward (lean back)").tag(1)
+							Text("Forward (lay down)").tag(2)
+							Text("Backward (lay down)").tag(3)
+							Text("Backward (stand up)").tag(4)
+							Text("Backward (lean back)").tag(5)
+							Text("Forward Or Backward Lay Down (reversible handset)").tag(6)
+						}
+							if !phone.isCordedCordless {
+								Picker("Base Charge Contact Placement", selection: $phone.baseChargeContactPlacement) {
+									Text("Bottom").tag(0)
+									Text("Back").tag(1)
+									Text("One On Each Side").tag(2)
+								}
+								Picker("Base Charge Contact Mechanism", selection: $phone.baseChargeContactMechanism) {
+									Text("Press Down").tag(0)
+									Text("Click").tag(1)
+									Text("Inductive").tag(2)
+								}
+								ChargingContactInfoView()
+								Toggle("Base Has Separate Data Contact", isOn: $phone.baseHasSeparateDataContact)
+								Text("""
+  Most modern cordless phones pass data through the 2 charging contacts for various features including the following. However, many older cordless phones, especially 46-49MHz and 900MHz models, used a separate, 3rd contact for data.
+  • Detecting the handset being placed on the base for registration.
+  • Detecting the handset being lifted off the base to switch from the base speakerphone to the handset.
+  In most cases, if the base has a charge light, the completion of the charge circuit turns it on, but sometimes that's handled by the separate data contact if the phone has one.
+  •
+  """)
+								.font(.footnote)
 								.foregroundStyle(.secondary)
 							}
 						}
@@ -154,13 +220,17 @@ struct PhoneDetailView: View {
 					if !phone.isCordless && phone.hasAnsweringSystem == 1 {
 						Picker("Answering System Menu", selection: $phone.answeringSystemMenuOnBase) {
 							Text("Voice Prompts").tag(0)
-							Text("Display Menu").tag(1)
+							if phone.baseDisplayType > 0 {
+								Text("Display Menu").tag(1)
+							}
 						}
 					} else if phone.isCordless && (phone.hasAnsweringSystem == 1 || phone.hasAnsweringSystem == 3) {
 						Picker("Answering System Menu (base)", selection: $phone.answeringSystemMenuOnBase) {
 							Text("None").tag(0)
 							Text("Voice Prompts").tag(1)
-							Text("Display Menu").tag(2)
+							if phone.baseDisplayType > 0 {
+								Text("Display Menu").tag(2)
+							}
 						}
 					}
 					if phone.hasAnsweringSystem == 3 {
@@ -205,7 +275,14 @@ A phone's voicemail indicator works in one or both of the following ways:
 						.font(.footnote)
 						.foregroundStyle(.secondary)
 				}
-				Section(header: Text("Display/Backlight")) {
+				Section(header: Text("Display/Backlight/Buttons")) {
+					Picker("Button Type", selection: $phone.buttonType) {
+						Text("Spaced").tag(0)
+						Text("Spaced with Click Feel").tag(1)
+						Text("Some Spaced, Some Diamond-Cut").tag(2)
+						Text("Some Spaced with Click Feel, Some Diamond-Cut").tag(3)
+						Text("Diamond-Cut (no space between buttons, click feel)").tag(4)
+					}
 					Picker(phone.isCordless ? "Display Type (base)" : "Display Type", selection: $phone.baseDisplayType) {
 						Text("None").tag(0)
 						if phone.hasAnsweringSystem == 1 || phone.hasAnsweringSystem == 3 {
@@ -215,7 +292,52 @@ A phone's voicemail indicator works in one or both of the following ways:
 						Text("Monochrome Display (traditional)").tag(3)
 						Text("Monochrome Display (full-dot with status items)").tag(4)
 						Text("Monochrome Display (full-dot)").tag(5)
-						Text("Color").tag(6)
+						Text("Color Display").tag(6)
+					}
+					if phone.baseDisplayType >= 3 {
+						Toggle("Base Has LED Message Counter In Addition To Display", isOn: $phone.baseHasDisplayAndMessageCounter)
+					}
+					if phone.baseDisplayType == 1 || phone.baseHasDisplayAndMessageCounter {
+						TextField("LED Message Counter Color", text: $phone.baseLEDMessageCounterColor)
+					}
+					if phone.baseDisplayType > 0 {
+						Picker("Base Navigation Button Type", selection: $phone.baseNavigatorKeyType) {
+							Text("None").tag(0)
+							Text("Up/Down").tag(1)
+							Text("Up/Down/Left/Right").tag(3)
+						}
+						Picker("Base Navigation Button Center Button", selection: $phone.baseNavigatorKeyType) {
+							Text("None").tag(0)
+							Text("Select").tag(1)
+							Text("Menu/Select").tag(2)
+							if phone.hasAnsweringSystem == 1 || phone.hasAnsweringSystem == 3 {
+								Text("Play").tag(3)
+								Text("Play/Select").tag(4)
+							}
+							Text("Other Function").tag(5)
+						}
+						Toggle("Base Navigation Button Up/Down for Volume", isOn: $phone.baseNavigatorKeyUpDownVolume)
+						if phone.hasAnsweringSystem == 1 || phone.hasAnsweringSystem == 3 {
+							Toggle("Base Navigation Button Left/Right for Repeat/Skip", isOn: $phone.baseNavigatorKeyLeftRightRepeatSkip)
+						}
+						Toggle("Base Navigation Button Standby Shortcuts", isOn: $phone.baseNavigatorKeyStandbyShortcuts)
+						Picker("Button Backlight Type", selection: $phone.baseKeyBacklightAmount) {
+							Text("None").tag(0)
+							Text("Numbers Only").tag(1)
+							Text("Numbers + Some Function Buttons").tag(2)
+							Text("Numbers + All Function Buttons").tag(2)
+							Text("Numbers + Navigation Button").tag(3)
+							Text("All Buttons").tag(3)
+						}
+						TextField("Button Backlight Color", text: $phone.baseKeyBacklightColor)
+						TextField("Button Foreground Color", text: $phone.baseKeyForegroundColor)
+						TextField("Button Background Color", text: $phone.baseKeyBackgroundColor)
+						Stepper("Base Soft Keys (bottom): \(phone.baseSoftKeysBottom)", value: $phone.baseSoftKeysBottom, in: 0...4)
+						Stepper("Base Soft Keys (side): \(phone.baseSoftKeysBottom)", value: $phone.baseSoftKeysBottom, in: 0...3)
+						SoftKeyExplanationView()
+						Text("Side soft keys are often used for programmable functions or speed dials in standby or one-touch menu selections in menus. For example, in a menu with 5 options, instead of scrolling up or down through the menu and then pressing the select button, you can press the corresponding side soft key.")
+							.font(.footnote)
+							.foregroundStyle(.secondary)
 					}
 				}
 				Section(header: Text("Audio Devices (e.g. headsets)")) {

@@ -63,7 +63,7 @@ struct PhonePartInfoView: View {
 				if !phone.chargersIHave.isEmpty {
 					List {
 						ForEach($phone.chargersIHave) { charger in
-							ChargerInfoRowView(color: charger.color, chargerNumber: (phone.chargersIHave.firstIndex(of: charger.wrappedValue) ?? 0) + 1)
+							ChargerInfoRowView(charger: charger, chargerNumber: (phone.chargersIHave.firstIndex(of: charger.wrappedValue) ?? 0) + 1)
 								.contextMenu {
 									Button {
 										deleteCharger(at: phone.chargersIHave.firstIndex(of: charger.wrappedValue)!)
@@ -89,12 +89,12 @@ struct PhonePartInfoView: View {
 
 	func addHandset() {
 		phone.cordlessHandsetsIHave.append(
-			CordlessHandset(phone: phone, brand: phone.brand, model: "MH12", color: phone.baseColor, keyForegroundColor: "White", keyBackgroundColor: "Black", diamondCutKeys: 2, displayType: 2, hasSpeakerphone: true, ringtones: 1, musicRingtones: 0, hasSeparateIntercomTone: false, canChangeIntercomTone: true, oneTouchDialCapacity: 0, speedDialCapacity: 10, redialCapacity: 5, displayBacklightColor: "White", softKeys: 2, keyBacklightColor: "Blue", keyBacklightAmount: 3, supportsWiredHeadsets: false, answeringSystemMenu: 3, phonebookCapacity: 0, usesBasePhonebook: true, usesBaseCallerID: true, usesBaseSpeedDial: true, usesBaseOneTouchDial: true, bluetoothHeadphonesSupported: 0, callerIDCapacity: 0)
+			CordlessHandset(phone: phone, brand: phone.brand, model: "MH12")
 		)
 	}
 
 	func addCharger() {
-		phone.chargersIHave.append(Charger(color: "Black"))
+		phone.chargersIHave.append(Charger())
 	}
 
 	private func deleteItemsFromHandsetList(offsets: IndexSet) {

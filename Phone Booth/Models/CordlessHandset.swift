@@ -23,8 +23,8 @@ final class CordlessHandset {
 	
 	var keyBackgroundColor: String
 	
-	var diamondCutKeys: Int
-	
+	var buttonType: Int
+
 	var displayType: Int
 	
 	var hasSpeakerphone: Bool
@@ -46,7 +46,17 @@ final class CordlessHandset {
 	var displayBacklightColor: String
 	
 	var softKeys: Int
-	
+
+	var navigatorKeyType: Int
+
+	var navigatorKeyUpDownVolume: Bool
+
+	var navigatorKeyStandbyShortcuts: Bool
+
+	var navigatorKeyCenterButton: Int
+
+	var sideVolumeButtons: Bool
+
 	var keyBacklightColor: String
 	
 	var keyBacklightAmount: Int
@@ -69,36 +79,41 @@ final class CordlessHandset {
 	
 	var callerIDCapacity: Int
 
-	init(phone: Phone? = nil, brand: String, model: String, color: String, keyForegroundColor: String, keyBackgroundColor: String, diamondCutKeys: Int, displayType: Int, hasSpeakerphone: Bool, ringtones: Int, musicRingtones: Int, hasSeparateIntercomTone: Bool, canChangeIntercomTone: Bool, oneTouchDialCapacity: Int, speedDialCapacity: Int, redialCapacity: Int, displayBacklightColor: String, softKeys: Int, keyBacklightColor: String, keyBacklightAmount: Int, supportsWiredHeadsets: Bool, answeringSystemMenu: Int, phonebookCapacity: Int, usesBasePhonebook: Bool, usesBaseCallerID: Bool, usesBaseSpeedDial: Bool, usesBaseOneTouchDial: Bool, bluetoothHeadphonesSupported: Int, callerIDCapacity: Int) {
+	init(phone: Phone? = nil, brand: String, model: String) {
 		self.phone = phone
 		self.brand = brand
 		self.model = model
-		self.color = color
-		self.keyForegroundColor = keyForegroundColor
-		self.keyBackgroundColor = keyBackgroundColor
-		self.diamondCutKeys = diamondCutKeys
-		self.displayType = displayType
-		self.hasSpeakerphone = hasSpeakerphone
-		self.ringtones = ringtones
-		self.musicRingtones = musicRingtones
-		self.hasSeparateIntercomTone = hasSeparateIntercomTone
-		self.canChangeIntercomTone = canChangeIntercomTone
-		self.oneTouchDialCapacity = oneTouchDialCapacity
-		self.speedDialCapacity = speedDialCapacity
-		self.redialCapacity = redialCapacity
-		self.displayBacklightColor = displayBacklightColor
-		self.softKeys = softKeys
-		self.keyBacklightColor = keyBacklightColor
-		self.keyBacklightAmount = keyBacklightAmount
-		self.supportsWiredHeadsets = supportsWiredHeadsets
-		self.answeringSystemMenu = answeringSystemMenu
-		self.phonebookCapacity = phonebookCapacity
-		self.usesBasePhonebook = usesBasePhonebook
-		self.usesBaseCallerID = usesBaseCallerID
-		self.usesBaseSpeedDial = usesBaseSpeedDial
-		self.usesBaseOneTouchDial = usesBaseOneTouchDial
-		self.bluetoothHeadphonesSupported = bluetoothHeadphonesSupported
-		self.callerIDCapacity = callerIDCapacity
+		self.color = String()
+		self.keyForegroundColor = String()
+		self.keyBackgroundColor = String()
+		self.buttonType = 0
+		self.displayType = 1
+		self.hasSpeakerphone = true
+		self.ringtones = 5
+		self.musicRingtones = 5
+		self.hasSeparateIntercomTone = true
+		self.canChangeIntercomTone = false
+		self.oneTouchDialCapacity = 0
+		self.speedDialCapacity = 10
+		self.redialCapacity = 5
+		self.displayBacklightColor = String()
+		self.softKeys = 2
+		self.navigatorKeyType = 0
+		self.navigatorKeyUpDownVolume = true
+		self.navigatorKeyStandbyShortcuts = true
+		self.navigatorKeyCenterButton = 0
+		self.sideVolumeButtons = false
+		self.keyBacklightColor = String()
+		self.keyBacklightAmount = 0
+		self.supportsWiredHeadsets = false
+		self.answeringSystemMenu = 3
+		self.phonebookCapacity = 0
+		self.usesBasePhonebook = true
+		self.usesBaseCallerID = true
+		self.usesBaseSpeedDial = false
+		self.usesBaseOneTouchDial = false
+		self.bluetoothHeadphonesSupported = 0
+		self.callerIDCapacity = 0
 	}
 
 }
