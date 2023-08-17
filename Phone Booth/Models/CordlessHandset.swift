@@ -16,9 +16,13 @@ final class CordlessHandset {
 	var brand: String
 	
 	var model: String
-	
+
+	var cordlessDeviceType: Int
+
 	var color: String
-	
+
+	var cordedReceiverColor: String
+
 	var keyForegroundColor: String
 	
 	var keyBackgroundColor: String
@@ -74,7 +78,11 @@ final class CordlessHandset {
 	var usesBaseSpeedDial: Bool
 	
 	var usesBaseOneTouchDial: Bool
-	
+
+	var speedDialPhonebookEntryMode: Int
+
+	var redialNameDisplay: Int
+
 	var bluetoothHeadphonesSupported: Int
 	
 	var callerIDCapacity: Int
@@ -84,6 +92,8 @@ final class CordlessHandset {
 		self.brand = brand
 		self.model = model
 		self.color = String()
+		self.cordedReceiverColor = String()
+		self.cordlessDeviceType = 0
 		self.keyForegroundColor = String()
 		self.keyBackgroundColor = String()
 		self.buttonType = 0
@@ -114,6 +124,8 @@ final class CordlessHandset {
 		self.usesBaseOneTouchDial = false
 		self.bluetoothHeadphonesSupported = 0
 		self.callerIDCapacity = 0
+		self.redialNameDisplay = 0
+		self.speedDialPhonebookEntryMode = 0
 	}
 
 }

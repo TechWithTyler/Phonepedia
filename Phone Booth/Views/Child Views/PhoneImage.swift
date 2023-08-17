@@ -14,7 +14,7 @@ struct PhoneImage: View {
 	var thumb: Bool
 
 	var size: CGFloat {
-		return thumb ? 50 : 100
+		return thumb ? 50 : 300
 	}
 
     var body: some View {

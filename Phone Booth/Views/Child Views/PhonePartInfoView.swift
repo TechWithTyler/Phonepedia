@@ -18,7 +18,7 @@ struct PhonePartInfoView: View {
 			TextField("Corded Receiver Color", text: $phone.cordedReceiverColor)
 		}
 		if phone.isCordless {
-			Section("Handsets") {
+			Section("Cordless Handsets/Headsets/Speakerphones/Desksets") {
 				if !phone.cordlessHandsetsIHave.isEmpty {
 						ForEach($phone.cordlessHandsetsIHave) { handset in
 							NavigationLink {

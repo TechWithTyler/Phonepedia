@@ -7,10 +7,19 @@
 
 import SwiftUI
 import SwiftData
+import PhotosUI
 
 struct PhoneDetailView: View {
 
 	@Bindable var phone: Phone
+
+	@State var selectedPhoto: PhotosPickerItem? = nil
+
+	#if os(iOS)
+	@State var takingPhoto: Bool = false
+	#endif
+
+	@State var showingResetAlert: Bool = false
 
 	var body: some View {
 		NavigationStack {
@@ -21,18 +30,25 @@ struct PhoneDetailView: View {
 						PhoneImage(phone: phone, thumb: false)
 						Spacer()
 					}
+					#if os(iOS)
 					Button {
-						// Action here
+						takingPhoto = true
 					} label: {
 						Text("Take Photo…")
 					}
+					#endif
+					PhotosPicker("Select From Library…", selection: $selectedPhoto)
+						.onChange(of: selectedPhoto) { oldValue, newValue in
+							Task {
+								if let data = try? await selectedPhoto?.loadTransferable(type: Data.self) {
+									phone.photoData = data
+								} else {
+									fatalError("Photo picker error!")
+								}
+							}
+						}
 					Button {
-						// Action here
-					} label: {
-						Text("Select From Library…")
-					}
-					Button {
-						// Action here
+						showingResetAlert = true
 					} label: {
 						Text("Use Placeholder…")
 					}
@@ -41,34 +57,44 @@ struct PhoneDetailView: View {
 					Text("Phone type: \(phoneTypeText)")
 					if phone.isCordless {
 						Picker("Wireless Frequency", selection: $phone.frequency) {
-							Text("46-49MHz Analog").tag(0)
-							Text("900MHz Analog").tag(1)
-							Text("900MHz Voice Scramble Analog").tag(2)
-							Text("900MHz Digital").tag(3)
-							Text("900MHz Digital Spread Spectrum (DSS)").tag(4)
-							Text("2.4GHz Analog").tag(5)
-							Text("2.4GHz/900MHz Analog").tag(6)
-							Text("2.4GHz Digital").tag(7)
-							Text("2.4GHz/900MHz Digital").tag(8)
-							Text("2.4GHz Digital Spread Spectrum (DSS)").tag(7)
-							Text("2.4GHz/900MHz Digital Spread Spectrum (DSS)").tag(8)
-							Text("2.4GHz Digital Frequency-Hopping Spread Spectrum (FHSS)").tag(9)
-							Text("2.4GHz/900MHz Digital Frequency-Hopping Spread Spectrum (FHSS)").tag(10)
-							Text("5.8GHz Analog").tag(11)
-							Text("5.8GHz/900MHz Analog").tag(12)
-							Text("5.8GHz/2.4GHz Analog").tag(13)
-							Text("5.8GHz Digital").tag(14)
-							Text("5.8GHz/900MHz Digital").tag(15)
-							Text("5.8GHz/2.4GHz Digital").tag(16)
-							Text("5.8GHz Digital Spread Spectrum (DSS)").tag(17)
-							Text("5.8GHz/900MHz Digital Spread Spectrum (DSS)").tag(18)
-							Text("5.8GHz/2.4GHz Digital Spread Spectrum (DSS)").tag(19)
-							Text("5.8GHz Digital Frequency-Hopping Spread Spectrum (FHSS)").tag(20)
-							Text("5.8GHz/900MHz Digital Frequency-Hopping Spread Spectrum (FHSS)").tag(21)
-							Text("5.8GHz/2.4GHz Digital Frequency-Hopping Spread Spectrum (FHSS)").tag(22)
-							Text("DECT (1.88-1.90GHz)").tag(23)
-							Text("DECT (1.90-1.92GHz)").tag(24)
-							Text("DECT 6.0 (1.92-1.93GHz)").tag(25)
+							Section(header: Text("46-49MHz")) {
+								Text("46-49MHz Analog").tag(0)
+							}
+							Section(header: Text("900MHz")) {
+								Text("900MHz Analog").tag(1)
+								Text("900MHz Voice Scramble Analog").tag(2)
+								Text("900MHz Digital").tag(3)
+								Text("900MHz Digital Spread Spectrum (DSS)").tag(4)
+							}
+							Section(header: Text("2.4GHz")) {
+								Text("2.4GHz Analog").tag(5)
+								Text("2.4GHz/900MHz Analog").tag(6)
+								Text("2.4GHz Digital").tag(7)
+								Text("2.4GHz/900MHz Digital").tag(8)
+								Text("2.4GHz Digital Spread Spectrum (DSS)").tag(7)
+								Text("2.4GHz/900MHz Digital Spread Spectrum (DSS)").tag(8)
+								Text("2.4GHz Digital Frequency-Hopping Spread Spectrum (FHSS)").tag(9)
+								Text("2.4GHz/900MHz Digital Frequency-Hopping Spread Spectrum (FHSS)").tag(10)
+							}
+							Section(header: Text("5.8GHz")) {
+								Text("5.8GHz Analog").tag(11)
+								Text("5.8GHz/900MHz Analog").tag(12)
+								Text("5.8GHz/2.4GHz Analog").tag(13)
+								Text("5.8GHz Digital").tag(14)
+								Text("5.8GHz/900MHz Digital").tag(15)
+								Text("5.8GHz/2.4GHz Digital").tag(16)
+								Text("5.8GHz Digital Spread Spectrum (DSS)").tag(17)
+								Text("5.8GHz/900MHz Digital Spread Spectrum (DSS)").tag(18)
+								Text("5.8GHz/2.4GHz Digital Spread Spectrum (DSS)").tag(19)
+								Text("5.8GHz Digital Frequency-Hopping Spread Spectrum (FHSS)").tag(20)
+								Text("5.8GHz/900MHz Digital Frequency-Hopping Spread Spectrum (FHSS)").tag(21)
+								Text("5.8GHz/2.4GHz Digital Frequency-Hopping Spread Spectrum (FHSS)").tag(22)
+							}
+							Section(header: Text("DECT")) {
+								Text("DECT (1.88-1.90GHz)").tag(23)
+								Text("DECT (1.90-1.92GHz)").tag(24)
+								Text("DECT 6.0 (1.92-1.93GHz)").tag(25)
+							}
 						}
 					}
 					Stepper("Number of Included Cordless Handsets (0 if corded only): \(phone.numberOfIncludedCordlessHandsets)", value: $phone.numberOfIncludedCordlessHandsets, in: 0...Int.max-1)
@@ -392,10 +418,12 @@ A phone's voicemail indicator works in one or both of the following ways:
 								.scrollDismissesKeyboard(.interactively)
 #endif
 						}
-						Picker("Redial Name Display", selection: $phone.redialNameDisplay) {
-							Text("None").tag(0)
-							Text("Phonebook Match").tag(1)
-							Text("From Dialed Entry").tag(2)
+						if phone.baseRedialCapacity > 1 && phone.basePhonebookCapacity > 0 {
+							Picker("Redial Name Display", selection: $phone.redialNameDisplay) {
+								Text("None").tag(0)
+								Text("Phonebook Match").tag(1)
+								Text("From Dialed Entry").tag(2)
+							}
 						}
 					}
 					Section(header: Text("Phonebook")) {
@@ -437,7 +465,7 @@ A phone's voicemail indicator works in one or both of the following ways:
 	   if phone.isCordless && phone.baseOneTouchDialCapacity > 0 {
 		   Toggle("Base One-Touch/Memory Dial Supports Handset Numbers", isOn: $phone.oneTouchDialSupportsHandsetNumbers)
 	   }
-	   if (phone.basePhonebookCapacity > 0 && (phone.baseSpeedDialCapacity > 0 || phone.baseOneTouchDialCapacity > 0)) || (phone.isCordless && !phone.cordlessHandsetsIHave.filter({$0.phonebookCapacity > 0}).isEmpty && (!phone.cordlessHandsetsIHave.filter({$0.speedDialCapacity > 0}).isEmpty || !phone.cordlessHandsetsIHave.filter({$0.oneTouchDialCapacity > 0}).isEmpty)) {
+	   if (phone.basePhonebookCapacity > 0 && (phone.baseSpeedDialCapacity > 0 || phone.baseOneTouchDialCapacity > 0)) {
 		   Picker("Speed Dial Entry Mode", selection: $phone.speedDialPhonebookEntryMode) {
 			   Text("Manual or Phonebook (copy)").tag(0)
 			   Text("Phonebook Only (copy)").tag(1)
@@ -468,6 +496,7 @@ A phone's voicemail indicator works in one or both of the following ways:
 Suppressing the first ring means the phone won't ring:
 • Until allowed caller ID is received.
 • At all for calls from blocked numbers.
+When the first ring is suppressed, the number of rings you hear will be one less than the number of rings of the answering system/voicemail service.
 """)
 								.font(.footnote)
 								.foregroundStyle(.secondary)
@@ -530,6 +559,24 @@ Suppressing the first ring means the phone won't ring:
 			.toggleStyle(.switch)
 #endif
 			.textFieldStyle(.roundedBorder)
+		}
+		#if os(iOS)
+		.sheet(isPresented: $takingPhoto) {
+			CameraViewController(view: self, phone: phone)
+		}
+		#endif
+		.alert("Reset photo?", isPresented: $showingResetAlert) {
+			Button(role: .destructive) {
+				phone.photoData = Phone.previewPhotoData
+				showingResetAlert = false
+			} label: {
+				Text("Delete")
+			}
+			Button(role: .cancel) {
+				showingResetAlert = false
+			} label: {
+				Text("Cancel")
+			}
 		}
 	}
 
