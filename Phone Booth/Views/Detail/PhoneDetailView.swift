@@ -39,9 +39,11 @@ struct PhoneDetailView: View {
 					#endif
 					PhotosPicker("Select From Library…", selection: $selectedPhoto)
 						.onChange(of: selectedPhoto) { oldValue, newValue in
+							guard newValue != nil else { return }
 							Task {
 								if let data = try? await selectedPhoto?.loadTransferable(type: Data.self) {
 									phone.photoData = data
+									selectedPhoto = nil
 								} else {
 									fatalError("Photo picker error!")
 								}
@@ -96,8 +98,41 @@ struct PhoneDetailView: View {
 								Text("DECT 6.0 (1.92-1.93GHz)").tag(25)
 							}
 						}
-					}
+						Toggle("Supports Range Extenders", isOn: $phone.supportsRangeExtenders)
+						Text("A range extender extends the range of the base its registered to. Devices communicating with the base choose the base or a range extender based on which has the strongest signal.")
+							.font(.footnote)
+							.foregroundStyle(.secondary)
+						if !phone.isCordedCordless {
+							Toggle("Base Is Transmit-Only", isOn: $phone.hasTransmitOnlyBase)
+							Text("A transmit-only base doesn't have a charging area for a cordless handset and doesn't have a corded receiver. Sometimes these kinds of bases have speakerphone, but usually they only have a locator button and nothing else. A transmit-only base with no features on it is often called a \"hidden base\".")
+								.font(.footnote)
+								.foregroundStyle(.secondary)
+								.onChange(of: phone.hasTransmitOnlyBase) { oldValue, newValue in
+									if newValue {
+										phone.baseHasSeparateDataContact = false
+										phone.baseChargeContactMechanism = 0
+										phone.baseChargeContactPlacement = 0
+										phone.baseChargingDirection = 0
+										if phone.cordlessPowerBackupMode == 1 {
+											phone.cordlessPowerBackupMode = 0
+										}
+									}
+								}
+						}
+						}
 					Stepper("Number of Included Cordless Handsets (0 if corded only): \(phone.numberOfIncludedCordlessHandsets)", value: $phone.numberOfIncludedCordlessHandsets, in: 0...Int.max-1)
+						.onChange(of: phone.isCordless) { oldValue, newValue in
+							if !newValue {
+								phone.hasTransmitOnlyBase = false
+								phone.supportsRangeExtenders = false
+								phone.baseChargingDirection = 0
+								phone.baseChargeContactMechanism = 0
+								phone.baseChargeContactPlacement = 0
+								phone.baseHasSeparateDataContact = false
+								phone.cordlessHandsetsIHave.removeAll()
+								phone.chargersIHave.removeAll()
+							}
+						}
 					if phone.isCordless {
 						Group {
 							Stepper("Maximum Number of Cordless Handsets (-1 if using \"security codes must match\"): \(phone.maxCordlessHandsets)", value: $phone.maxCordlessHandsets, in: -1...15)
@@ -121,37 +156,39 @@ struct PhoneDetailView: View {
 								.foregroundStyle(.secondary)
 							}
 						}
-						Group {
-						Picker("Base Charging Direction", selection: $phone.baseChargingDirection) {
-							Text("Forward (stand up)").tag(0)
-							Text("Forward (lean back)").tag(1)
-							Text("Forward (lay down)").tag(2)
-							Text("Backward (lay down)").tag(3)
-							Text("Backward (stand up)").tag(4)
-							Text("Backward (lean back)").tag(5)
-							Text("Forward Or Backward Lay Down (reversible handset)").tag(6)
-						}
-							if !phone.isCordedCordless {
-								Picker("Base Charge Contact Placement", selection: $phone.baseChargeContactPlacement) {
-									Text("Bottom").tag(0)
-									Text("Back").tag(1)
-									Text("One On Each Side").tag(2)
+						if !phone.hasTransmitOnlyBase {
+							Group {
+								Picker("Base Charging Direction", selection: $phone.baseChargingDirection) {
+									Text("Forward (stand up)").tag(0)
+									Text("Forward (lean back)").tag(1)
+									Text("Forward (lay down)").tag(2)
+									Text("Backward (lay down)").tag(3)
+									Text("Backward (stand up)").tag(4)
+									Text("Backward (lean back)").tag(5)
+									Text("Forward Or Backward Lay Down (reversible handset)").tag(6)
 								}
-								Picker("Base Charge Contact Mechanism", selection: $phone.baseChargeContactMechanism) {
-									Text("Press Down").tag(0)
-									Text("Click").tag(1)
-									Text("Inductive").tag(2)
-								}
-								ChargingContactInfoView()
-								Toggle("Base Has Separate Data Contact", isOn: $phone.baseHasSeparateDataContact)
-								Text("""
+								if !phone.isCordedCordless {
+									Picker("Base Charge Contact Placement", selection: $phone.baseChargeContactPlacement) {
+										Text("Bottom").tag(0)
+										Text("Back").tag(1)
+										Text("One On Each Side").tag(2)
+									}
+									Picker("Base Charge Contact Mechanism", selection: $phone.baseChargeContactMechanism) {
+										Text("Press Down").tag(0)
+										Text("Click").tag(1)
+										Text("Inductive").tag(2)
+									}
+									ChargingContactInfoView()
+									Toggle("Base Has Separate Data Contact", isOn: $phone.baseHasSeparateDataContact)
+									Text("""
   Most modern cordless phones pass data through the 2 charging contacts for various features including the following. However, many older cordless phones, especially 46-49MHz and 900MHz models, used a separate, 3rd contact for data.
   • Detecting the handset being placed on the base for registration.
   • Detecting the handset being lifted off the base to switch from the base speakerphone to the handset.
   In most cases, if the base has a charge light, the completion of the charge circuit turns it on, but sometimes that's handled by the separate data contact if the phone has one.
   """)
-								.font(.footnote)
-								.foregroundStyle(.secondary)
+									.font(.footnote)
+									.foregroundStyle(.secondary)
+								}
 							}
 						}
 					}
@@ -173,7 +210,9 @@ struct PhoneDetailView: View {
 							if phone.isCordedCordless {
 								Text("Line Power").tag(1)
 							} else {
-								Text("Place Handset On Base").tag(1)
+								if !phone.hasTransmitOnlyBase {
+									Text("Place Handset On Base").tag(1)
+								}
 							}
 							Text("Batteries in Base (non-recharging)").tag(2)
 							Text("Batteries in Base (recharging)").tag(3)
@@ -357,12 +396,14 @@ A phone's voicemail indicator works in one or both of the following ways:
 						TextField("Button Backlight Color", text: $phone.baseKeyBacklightColor)
 						TextField("Button Foreground Color", text: $phone.baseKeyForegroundColor)
 						TextField("Button Background Color", text: $phone.baseKeyBackgroundColor)
-						Stepper("Base Soft Keys (bottom): \(phone.baseSoftKeysBottom)", value: $phone.baseSoftKeysBottom, in: 0...4)
-						Stepper("Base Soft Keys (side): \(phone.baseSoftKeysBottom)", value: $phone.baseSoftKeysBottom, in: 0...3)
-						SoftKeyExplanationView()
-						Text("Side soft keys are often used for programmable functions or speed dials in standby or one-touch menu selections in menus. For example, in a menu with 5 options, instead of scrolling up or down through the menu and then pressing the select button, you can press the corresponding side soft key.")
-							.font(.footnote)
-							.foregroundStyle(.secondary)
+						if phone.baseDisplayType > 2 {
+							Stepper("Base Soft Keys (bottom): \(phone.baseSoftKeysBottom)", value: $phone.baseSoftKeysBottom, in: 0...4)
+							Stepper("Base Soft Keys (side): \(phone.baseSoftKeysBottom)", value: $phone.baseSoftKeysBottom, in: 0...3)
+							SoftKeyExplanationView()
+							Text("Side soft keys are often used for programmable functions or speed dials in standby or one-touch menu selections in menus. For example, in a menu with 5 options, instead of scrolling up or down through the menu and then pressing the select button, you can press the corresponding side soft key.")
+								.font(.footnote)
+								.foregroundStyle(.secondary)
+						}
 					}
 				}
 				Section(header: Text("Audio Devices (e.g. headsets)")) {
@@ -408,8 +449,8 @@ A phone's voicemail indicator works in one or both of the following ways:
 					}
 				}
 				Group {
+					if phone.hasBaseSpeakerphone || !phone.isCordless || phone.isCordedCordless {
 					Section(header: Text("Redial")) {
-						if phone.hasBaseSpeakerphone || !phone.isCordless || phone.isCordedCordless {
 							TextField(phone.isCordless ? "Redial Capacity (base)" : "Redial Capacity", value: $phone.baseRedialCapacity, formatter: NumberFormatter())
 #if os(iOS) || os(tvOS) || os(xrOS)
 								.keyboardType(.numberPad)
@@ -584,6 +625,9 @@ When the first ring is suppressed, the number of rings you hear will be one less
 		if phone.isCordedCordless {
 			return "Corded/Cordless"
 		} else if phone.isCordless {
+			if phone.hasTransmitOnlyBase {
+				return "Cordless with Transmit-Only Base"
+			}
 			return "Cordless"
 		} else {
 			return "Corded"

@@ -21,12 +21,15 @@ final class Charger {
 
 	var chargeContactMechanism: Int
 
+	var hasRangeExtender: Bool
+
 	init(phone: Phone? = nil) {
 		self.phone = phone
 		self.color = String()
 		self.chargingDirection = 0
 		self.chargeContactPlacement = 0
 		self.chargeContactMechanism = 1
+		self.hasRangeExtender = false
 	}
 
 }

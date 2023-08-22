@@ -40,12 +40,16 @@ final class Phone {
 	
 	var maxCordlessHandsets: Int
 
+	var supportsRangeExtenders: Bool
+
+	var hasTransmitOnlyBase: Bool
+
 	var frequency: Int
 
-	@Relationship(deleteRule: .cascade, inverse: \CordlessHandset.phone)
+	@Relationship(deleteRule: .nullify, inverse: \CordlessHandset.phone)
 	var cordlessHandsetsIHave: [CordlessHandset]
 	
-	@Relationship(deleteRule: .cascade, inverse: \Charger.phone)
+	@Relationship(deleteRule: .nullify, inverse: \Charger.phone)
 	var chargersIHave: [Charger]
 
 	var baseRingtones: Int
@@ -248,6 +252,8 @@ final class Phone {
 		self.callBlockPreScreening = 0
 		self.callBlockPreScreeningAllowedNameCapacity = 0
 		self.callBlockPreScreeningAllowedNumberCapacity = 0
+		self.supportsRangeExtenders = false
+		self.hasTransmitOnlyBase = false
 	}
 
 }

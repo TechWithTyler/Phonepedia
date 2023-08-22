@@ -10,9 +10,9 @@ import SwiftData
 
 @Model
 final class CordlessHandset {
-	
+
 	var phone: Phone?
-	
+
 	var brand: String
 	
 	var model: String

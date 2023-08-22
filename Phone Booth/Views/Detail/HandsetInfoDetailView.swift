@@ -56,17 +56,18 @@ struct HandsetInfoDetailView: View {
 						}
 						Picker("Display Type", selection: $handset.displayType) {
 							Text("None").tag(0)
-							Text("Monochrome Display (traditional)").tag(1)
-							Text("Monochrome Display (full-dot with status items)").tag(2)
-							Text("Monochrome Display (full-dot)").tag(3)
+							Text("Monochrome (traditional)").tag(1)
+							Text("Monochrome (full-dot with status items)").tag(2)
+							Text("Monochrome (full-dot)").tag(3)
 							Text("Color").tag(4)
 						}
 						if handset.displayType > 0 {
 							Picker("Navigation Button Type", selection: $handset.navigatorKeyType) {
 								Text("None").tag(0)
 								Text("Up/Down Button").tag(1)
-								Text("Up/Down/Left/Right Buttom").tag(3)
-								Text("Up/Down/Left/Right Joystick").tag(4)
+								Text("Up/Down/Left/Right Button").tag(2)
+								Text("Up/Down/Left/Right Joystick").tag(3)
+								Text("Up/Down Side Buttons, Left/Right Face Buttons").tag(4)
 							}
 							Picker("Navigation Button Center Button", selection: $handset.navigatorKeyCenterButton) {
 								Text("None").tag(0)
@@ -89,12 +90,14 @@ struct HandsetInfoDetailView: View {
 								}
 							SoftKeyExplanationView()
 						}
-						Toggle("Has Side Volume Buttons", isOn: $handset.sideVolumeButtons)
-							.onChange(of: handset.sideVolumeButtons) { oldValue, newValue in
-								if !newValue {
-									handset.navigatorKeyUpDownVolume = true
+						if handset.navigatorKeyType != 4 {
+							Toggle("Has Side Volume Buttons", isOn: $handset.sideVolumeButtons)
+								.onChange(of: handset.sideVolumeButtons) { oldValue, newValue in
+									if !newValue {
+										handset.navigatorKeyUpDownVolume = true
+									}
 								}
-							}
+						}
 						Picker("Button Backlight Type", selection: $handset.keyBacklightAmount) {
 							Text("None").tag(0)
 							Text("Numbers Only").tag(1)

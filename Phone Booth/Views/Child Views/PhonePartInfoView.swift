@@ -16,6 +16,14 @@ struct PhonePartInfoView: View {
 		Section(phone.isCordless ? "Base Colors" : "Colors") {
 			TextField("Base Color", text: $phone.baseColor)
 			TextField("Corded Receiver Color", text: $phone.cordedReceiverColor)
+				.onChange(of: phone.cordedReceiverColor) { oldValue, newValue in
+					if !newValue.isEmpty {
+						phone.hasTransmitOnlyBase = false
+						phone.baseChargingDirection = 0
+						phone.baseChargeContactMechanism = 0
+						phone.baseChargeContactPlacement = 0
+					}
+				}
 		}
 		if phone.isCordless {
 			Section("Cordless Handsets/Headsets/Speakerphones/Desksets") {
@@ -98,7 +106,7 @@ struct PhonePartInfoView: View {
 	}
 
 	func addCharger() {
-		phone.chargersIHave.append(Charger())
+		phone.chargersIHave.append(Charger(phone: phone))
 	}
 
 	private func deleteItemsFromHandsetList(offsets: IndexSet) {
