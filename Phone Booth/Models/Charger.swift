@@ -23,8 +23,7 @@ final class Charger {
 
 	var hasRangeExtender: Bool
 
-	init(phone: Phone? = nil) {
-		self.phone = phone
+	init() {
 		self.color = String()
 		self.chargingDirection = 0
 		self.chargeContactPlacement = 0

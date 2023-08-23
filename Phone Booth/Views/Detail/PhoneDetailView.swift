@@ -575,6 +575,12 @@ When the first ring is suppressed, the number of rings you hear will be one less
 							Text("Code").tag(2)
 						}
 						if phone.callBlockPreScreening > 0 {
+							if phone.hasAnsweringSystem == 0 {
+								Text("Calls can't go to a voicemail service once answered by a call block pre-screening system.")
+									.font(.footnote)
+									.foregroundStyle(.secondary)
+							}
+							Toggle("Supports Custom Greeting", isOn: $phone.callBlockPreScreeningCustomGreeting)
 							TextField("Allowed Numbers Capacity", value: $phone.callBlockPreScreeningAllowedNumberCapacity, formatter: NumberFormatter())
 #if os(iOS) || os(tvOS) || os(xrOS)
 								.keyboardType(.numberPad)
@@ -582,6 +588,7 @@ When the first ring is suppressed, the number of rings you hear will be one less
 #if !os(xrOS)
 								.scrollDismissesKeyboard(.interactively)
 #endif
+							Toggle("Allowed Numbers List Visible To User", isOn: $phone.callBlockPreScreeningAllowedNumberListVisible)
 							TextField("Allowed Names Capacity", value: $phone.callBlockPreScreeningAllowedNumberCapacity, formatter: NumberFormatter())
 #if os(iOS) || os(tvOS) || os(xrOS)
 								.keyboardType(.numberPad)

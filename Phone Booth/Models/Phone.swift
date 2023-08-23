@@ -46,10 +46,10 @@ final class Phone {
 
 	var frequency: Int
 
-	@Relationship(deleteRule: .nullify, inverse: \CordlessHandset.phone)
+	@Relationship(deleteRule: .cascade, inverse: \CordlessHandset.phone)
 	var cordlessHandsetsIHave: [CordlessHandset]
 	
-	@Relationship(deleteRule: .nullify, inverse: \Charger.phone)
+	@Relationship(deleteRule: .cascade, inverse: \Charger.phone)
 	var chargersIHave: [Charger]
 
 	var baseRingtones: Int
@@ -163,11 +163,15 @@ final class Phone {
 	var callBlockPreProgrammedDatabaseEntryCount: Int
 	
 	var callBlockPreScreening: Int
-	
+
+	var callBlockPreScreeningCustomGreeting: Bool
+
 	var callBlockPreScreeningAllowedNameCapacity: Int
 	
 	var callBlockPreScreeningAllowedNumberCapacity: Int
-	
+
+	var callBlockPreScreeningAllowedNumberListVisible: Bool
+
 	var hasCordedReceiver: Bool {
 		return !cordedReceiverColor.isEmpty
 	}
@@ -254,6 +258,8 @@ final class Phone {
 		self.callBlockPreScreeningAllowedNumberCapacity = 0
 		self.supportsRangeExtenders = false
 		self.hasTransmitOnlyBase = false
+		self.callBlockPreScreeningCustomGreeting = false
+		self.callBlockPreScreeningAllowedNumberListVisible = false
 	}
 
 }

@@ -87,8 +87,7 @@ final class CordlessHandset {
 	
 	var callerIDCapacity: Int
 
-	init(phone: Phone? = nil, brand: String, model: String) {
-		self.phone = phone
+	init(brand: String, model: String) {
 		self.brand = brand
 		self.model = model
 		self.color = String()

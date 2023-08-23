@@ -101,12 +101,12 @@ struct PhonePartInfoView: View {
 
 	func addHandset() {
 		phone.cordlessHandsetsIHave.append(
-			CordlessHandset(phone: phone, brand: phone.brand, model: "MH12")
+			CordlessHandset(brand: phone.brand, model: "MH12")
 		)
 	}
 
 	func addCharger() {
-		phone.chargersIHave.append(Charger(phone: phone))
+		phone.chargersIHave.append(Charger())
 	}
 
 	private func deleteItemsFromHandsetList(offsets: IndexSet) {
