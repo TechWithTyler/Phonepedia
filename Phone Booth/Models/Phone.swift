@@ -141,7 +141,9 @@ final class Phone {
 	var baseRedialCapacity: Int
 
 	var redialNameDisplay: Int
-	
+
+	var callerIDPhonebookMatch: Bool
+
 	var baseSpeedDialCapacity: Int
 
 	var baseOneTouchDialCapacity: Int
@@ -260,6 +262,7 @@ final class Phone {
 		self.hasTransmitOnlyBase = false
 		self.callBlockPreScreeningCustomGreeting = false
 		self.callBlockPreScreeningAllowedNumberListVisible = false
+		self.callerIDPhonebookMatch = true
 	}
 
 }

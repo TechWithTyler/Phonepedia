@@ -17,6 +17,8 @@ final class CordlessHandset {
 	
 	var model: String
 
+	var maxBases: Int
+
 	var cordlessDeviceType: Int
 
 	var color: String
@@ -70,7 +72,9 @@ final class CordlessHandset {
 	var answeringSystemMenu: Int
 	
 	var phonebookCapacity: Int
-	
+
+	var callerIDPhonebookMatch: Bool
+
 	var usesBasePhonebook: Bool
 	
 	var usesBaseCallerID: Bool
@@ -91,6 +95,7 @@ final class CordlessHandset {
 		self.brand = brand
 		self.model = model
 		self.color = String()
+		self.maxBases = 1
 		self.cordedReceiverColor = String()
 		self.cordlessDeviceType = 0
 		self.keyForegroundColor = String()
@@ -117,6 +122,7 @@ final class CordlessHandset {
 		self.supportsWiredHeadsets = false
 		self.answeringSystemMenu = 3
 		self.phonebookCapacity = 0
+		self.callerIDPhonebookMatch = false
 		self.usesBasePhonebook = true
 		self.usesBaseCallerID = true
 		self.usesBaseSpeedDial = false

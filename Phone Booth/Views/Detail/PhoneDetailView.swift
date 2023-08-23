@@ -477,6 +477,11 @@ A phone's voicemail indicator works in one or both of the following ways:
 #endif
 					}
 					Section(header: Text("Caller ID")) {
+						if phone.basePhonebookCapacity > 0 {
+							Toggle(isOn: $phone.callerIDPhonebookMatch) {
+								Text("Caller ID Uses Matching Phonebook Entry Name")
+							}
+						}
 						Toggle(isOn: $phone.hasTalkingCallerID) {
 							Text("Talking Caller ID")
 						}
