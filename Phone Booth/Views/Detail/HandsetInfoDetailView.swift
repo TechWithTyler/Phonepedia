@@ -178,7 +178,14 @@ struct HandsetInfoDetailView: View {
 #if !os(xrOS)
 							.scrollDismissesKeyboard(.interactively)
 #endif
-						Toggle("Uses Base Caller ID List", isOn: $handset.usesBaseCallerID)
+							.onChange(of: handset.callerIDCapacity) { oldValue, newValue in
+								if newValue > 0 {
+									handset.usesBaseCallerID = false
+								}
+							}
+						if handset.callerIDCapacity == 0 {
+							Toggle("Uses Base Caller ID List", isOn: $handset.usesBaseCallerID)
+						}
 					}
 					Section(header: Text("Speed Dial")) {
 						Stepper("Dial-Key Speed Dial Capacity: \(handset.speedDialCapacity)", value: $handset.speedDialCapacity, in: 0...10)
