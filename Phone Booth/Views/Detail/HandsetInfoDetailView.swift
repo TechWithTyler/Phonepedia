@@ -73,19 +73,21 @@ struct HandsetInfoDetailView: View {
 								Text("Up/Down/Left/Right Joystick").tag(3)
 								Text("Up/Down Side Buttons, Left/Right Face Buttons").tag(4)
 							}
-							Picker("Navigation Button Center Button", selection: $handset.navigatorKeyCenterButton) {
-								Text("None").tag(0)
-								Text("Select").tag(1)
-								Text("Menu/Select").tag(2)
-								if handset.softKeys == 3 {
-									Text("Middle Soft Key").tag(3)
+							if handset.navigatorKeyType > 0 {
+								Picker("Navigation Button Center Button", selection: $handset.navigatorKeyCenterButton) {
+									Text("None").tag(0)
+									Text("Select").tag(1)
+									Text("Menu/Select").tag(2)
+									if handset.softKeys == 3 {
+										Text("Middle Soft Key").tag(3)
+									}
+									Text("Other Function").tag(4)
 								}
-								Text("Other Function").tag(4)
+								if handset.sideVolumeButtons {
+									Toggle("Navigation Button Up/Down for Volume", isOn: $handset.navigatorKeyUpDownVolume)
+								}
+								Toggle("Navigation Button Standby Shortcuts", isOn: $handset.navigatorKeyStandbyShortcuts)
 							}
-							if handset.sideVolumeButtons {
-								Toggle("Navigation Button Up/Down for Volume", isOn: $handset.navigatorKeyUpDownVolume)
-							}
-							Toggle("Navigation Button Standby Shortcuts", isOn: $handset.navigatorKeyStandbyShortcuts)
 							Stepper("Soft Keys: \(handset.softKeys)", value: $handset.softKeys, in: 0...3)
 								.onChange(of: handset.softKeys) { oldValue, newValue in
 									if newValue < 3 {

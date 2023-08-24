@@ -370,27 +370,31 @@ A phone's voicemail indicator works in one or both of the following ways:
 							Text("Up/Down").tag(1)
 							Text("Up/Down/Left/Right").tag(3)
 						}
-						Picker("Base Navigation Button Center Button", selection: $phone.baseNavigatorKeyType) {
-							Text("None").tag(0)
-							Text("Select").tag(1)
-							Text("Menu/Select").tag(2)
-							if phone.hasAnsweringSystem == 1 || phone.hasAnsweringSystem == 3 {
-								Text("Play").tag(3)
-								Text("Play/Select").tag(4)
+						if phone.baseNavigatorKeyType > 0 {
+							Picker("Base Navigation Button Center Button", selection: $phone.baseNavigatorKeyCenterButton) {
+								Text("None").tag(0)
+								Text("Select").tag(1)
+								Text("Menu/Select").tag(2)
+								if phone.hasAnsweringSystem == 1 || phone.hasAnsweringSystem == 3 {
+									Text("Play").tag(3)
+									Text("Play/Select").tag(4)
+								}
+								Text("Other Function").tag(5)
 							}
-							Text("Other Function").tag(5)
+							Toggle("Base Navigation Button Up/Down for Volume", isOn: $phone.baseNavigatorKeyUpDownVolume)
+							if (phone.hasAnsweringSystem == 1 || phone.hasAnsweringSystem == 3) && phone.baseNavigatorKeyType == 2 {
+								Toggle("Base Navigation Button Left/Right for Repeat/Skip", isOn: $phone.baseNavigatorKeyLeftRightRepeatSkip)
+							}
+							Toggle("Base Navigation Button Standby Shortcuts", isOn: $phone.baseNavigatorKeyStandbyShortcuts)
 						}
-						Toggle("Base Navigation Button Up/Down for Volume", isOn: $phone.baseNavigatorKeyUpDownVolume)
-						if phone.hasAnsweringSystem == 1 || phone.hasAnsweringSystem == 3 {
-							Toggle("Base Navigation Button Left/Right for Repeat/Skip", isOn: $phone.baseNavigatorKeyLeftRightRepeatSkip)
-						}
-						Toggle("Base Navigation Button Standby Shortcuts", isOn: $phone.baseNavigatorKeyStandbyShortcuts)
 						Picker("Button Backlight Type", selection: $phone.baseKeyBacklightAmount) {
 							Text("None").tag(0)
 							Text("Numbers Only").tag(1)
 							Text("Numbers + Some Function Buttons").tag(2)
 							Text("Numbers + All Function Buttons").tag(2)
-							Text("Numbers + Navigation Button").tag(3)
+							if phone.baseNavigatorKeyType > 0 {
+								Text("Numbers + Navigation Button").tag(3)
+							}
 							Text("All Buttons").tag(3)
 						}
 						TextField("Button Backlight Color", text: $phone.baseKeyBacklightColor)
@@ -398,7 +402,7 @@ A phone's voicemail indicator works in one or both of the following ways:
 						TextField("Button Background Color", text: $phone.baseKeyBackgroundColor)
 						if phone.baseDisplayType > 2 {
 							Stepper("Base Soft Keys (bottom): \(phone.baseSoftKeysBottom)", value: $phone.baseSoftKeysBottom, in: 0...4)
-							Stepper("Base Soft Keys (side): \(phone.baseSoftKeysBottom)", value: $phone.baseSoftKeysBottom, in: 0...3)
+							Stepper("Base Soft Keys (side): \(phone.baseSoftKeysSide)", value: $phone.baseSoftKeysSide, in: 0...3)
 							SoftKeyExplanationView()
 							Text("Side soft keys are often used for programmable functions or speed dials in standby or one-touch menu selections in menus. For example, in a menu with 5 options, instead of scrolling up or down through the menu and then pressing the select button, you can press the corresponding side soft key.")
 								.font(.footnote)
