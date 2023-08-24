@@ -450,7 +450,7 @@ A phone's voicemail indicator works in one or both of the following ways:
 				}
 				Group {
 					if phone.hasBaseSpeakerphone || !phone.isCordless || phone.isCordedCordless {
-					Section(header: Text("Redial")) {
+						Section(header: Text("Redial")) {
 							TextField(phone.isCordless ? "Redial Capacity (base)" : "Redial Capacity", value: $phone.baseRedialCapacity, formatter: NumberFormatter())
 #if os(iOS) || os(tvOS) || os(xrOS)
 								.keyboardType(.numberPad)
@@ -458,12 +458,12 @@ A phone's voicemail indicator works in one or both of the following ways:
 #if !os(xrOS)
 								.scrollDismissesKeyboard(.interactively)
 #endif
-						}
-						if phone.baseRedialCapacity > 1 && phone.basePhonebookCapacity > 0 {
-							Picker("Redial Name Display", selection: $phone.redialNameDisplay) {
-								Text("None").tag(0)
-								Text("Phonebook Match").tag(1)
-								Text("From Dialed Entry").tag(2)
+							if phone.baseRedialCapacity > 1 && phone.basePhonebookCapacity > 0 {
+								Picker("Redial Name Display", selection: $phone.redialNameDisplay) {
+									Text("None").tag(0)
+									Text("Phonebook Match").tag(1)
+									Text("From Dialed Entry").tag(2)
+								}
 							}
 						}
 					}
