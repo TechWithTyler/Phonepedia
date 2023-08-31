@@ -454,6 +454,9 @@ A phone's voicemail indicator works in one or both of the following ways:
 						Text("2").tag(2)
 						Text("4").tag(4)
 					}
+					Text("On a 2- or 4-line phone, you can either plug each line into a separate jack, or use a single jack for 2 lines. For example, to plug a 2-line phone into a single 2-line jack, you would plug into the line 1/2 jack, or to plug into 2 single-line jacks, you would plug into both the line 1 and line 2 jacks. To use the one-jack-for-both-lines method, you need to make sure the phone cord has 4 copper contacts instead of just 2. With some phones, the included line cords are color-coded so you can easily tell which line they're for (e.g. black for line 1 and green for line 2).")
+						.font(.footnote)
+						.foregroundStyle(.secondary)
 					Picker("Landline In Use Status On Base", selection: $phone.landlineInUseStatusOnBase) {
 						Text("None").tag(0)
 						Text("Light").tag(1)
