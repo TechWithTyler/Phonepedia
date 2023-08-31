@@ -49,6 +49,7 @@ struct HandsetInfoDetailView: View {
 					Section(header: Text("Ringers")) {
 						Stepper("Ringtones: \(handset.ringtones)", value: $handset.ringtones, in: 1...25)
 						Stepper("Music Ringtones: \(handset.musicRingtones)", value: $handset.musicRingtones, in: 0...25)
+						Text("Total Ringtones: \(phone.baseRingtones + phone.baseMusicRingtones)")
 						Toggle(isOn: $handset.canChangeIntercomTone) {
 							Text("Can Change Intercom Tone")
 						}
@@ -59,6 +60,12 @@ struct HandsetInfoDetailView: View {
 						}
 					}
 					Section(header: Text("Display/Backlight/Buttons")) {
+						Picker("Line Buttons", selection: $handset.lineButtons) {
+							Text("Physical").tag(0)
+							if handset.softKeys > 0 {
+								Text("Soft Keys").tag(1)
+							}
+						}
 						Picker("Button Type", selection: $handset.buttonType) {
 							Text("Spaced").tag(0)
 							Text("Spaced with Click Feel").tag(1)
@@ -68,10 +75,16 @@ struct HandsetInfoDetailView: View {
 						}
 						Picker("Display Type", selection: $handset.displayType) {
 							Text("None").tag(0)
-							Text("Monochrome (traditional)").tag(1)
-							Text("Monochrome (full-dot with status items)").tag(2)
-							Text("Monochrome (full-dot)").tag(3)
-							Text("Color").tag(4)
+							Text("Monochrome (segmented)").tag(1)
+							Text("Monochrome (traditional)").tag(2)
+							Text("Monochrome (full-dot with status items)").tag(3)
+							Text("Monochrome (full-dot)").tag(4)
+							Text("Color").tag(5)
+						}
+						.onChange(of: handset.displayType) { oldValue, newValue in
+							if newValue <= 1 {
+								handset.softKeys = 0
+							}
 						}
 						if handset.displayType > 0 {
 							Picker("Navigation Button Type", selection: $handset.navigatorKeyType) {
@@ -94,13 +107,20 @@ struct HandsetInfoDetailView: View {
 								Toggle("Navigation Button Up/Down for Volume", isOn: $handset.navigatorKeyUpDownVolume)
 							}
 							Toggle("Navigation Button Standby Shortcuts", isOn: $handset.navigatorKeyStandbyShortcuts)
-							Stepper("Soft Keys: \(handset.softKeys)", value: $handset.softKeys, in: 0...3)
-								.onChange(of: handset.softKeys) { oldValue, newValue in
-									if newValue < 3 {
-										handset.navigatorKeyCenterButton = 2
+							if handset.displayType > 1 {
+								Stepper("Soft Keys: \(handset.softKeys)", value: $handset.softKeys, in: 0...3)
+									.onChange(of: handset.softKeys) { oldValue, newValue in
+										if oldValue == 0 && newValue == 1 {
+											handset.softKeys = 2
+										} else if oldValue == 2 && newValue == 1 {
+											handset.softKeys = 0
+										}
+										if newValue < 3 {
+											handset.navigatorKeyCenterButton = 2
+										}
 									}
-								}
-							SoftKeyExplanationView()
+								SoftKeyExplanationView()
+							}
 						}
 						if handset.navigatorKeyType != 4 {
 							Toggle("Has Side Volume Buttons", isOn: $handset.sideVolumeButtons)

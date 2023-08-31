@@ -35,6 +35,8 @@ final class CordlessHandset {
 	
 	var hasSpeakerphone: Bool
 
+	var lineButtons: Int
+
 	var visualRinger: Int
 
 	var ringtones: Int
@@ -134,6 +136,7 @@ final class CordlessHandset {
 		self.redialNameDisplay = 0
 		self.speedDialPhonebookEntryMode = 0
 		self.visualRinger = 0
+		self.lineButtons = 0
 	}
 
 }

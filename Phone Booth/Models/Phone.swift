@@ -205,7 +205,7 @@ final class Phone {
 		self.cordedReceiverColor = String()
 		self.numberOfIncludedCordlessHandsets = 1
 		self.maxCordlessHandsets = 5
-		self.frequency = 24
+		self.frequency = 25
 		self.cordlessHandsetsIHave = []
 		self.chargersIHave = []
 		self.baseRingtones = 1

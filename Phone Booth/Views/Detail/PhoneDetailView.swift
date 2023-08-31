@@ -267,6 +267,7 @@ struct PhoneDetailView: View {
 						if phone.baseRingtones > 0 {
 							Stepper("Base Music Ringtones: \(phone.baseMusicRingtones)", value: $phone.baseMusicRingtones, in: 0...25)
 						}
+						Text("Total Ringtones: \(phone.baseRingtones + phone.baseMusicRingtones)")
 					}
 					if phone.isCordless && phone.hasBaseIntercom {
 						Toggle(isOn: $phone.canChangeBaseIntercomTone) {
@@ -368,6 +369,12 @@ A phone's voicemail indicator works in one or both of the following ways:
 						Text("Monochrome Display (full-dot)").tag(5)
 						Text("Color Display").tag(6)
 					}
+					.onChange(of: phone.baseDisplayType) { oldValue, newValue in
+						if newValue <= 1 {
+							phone.baseSoftKeysBottom = 0
+							phone.baseSoftKeysSide = 0
+						}
+					}
 					if phone.baseDisplayType >= 3 {
 						Toggle("Base Has LED Message Counter In Addition To Display", isOn: $phone.baseHasDisplayAndMessageCounter)
 					}
@@ -408,7 +415,21 @@ A phone's voicemail indicator works in one or both of the following ways:
 						TextField("Button Background Color", text: $phone.baseKeyBackgroundColor)
 						if phone.baseDisplayType > 2 {
 							Stepper("Base Soft Keys (bottom): \(phone.baseSoftKeysBottom)", value: $phone.baseSoftKeysBottom, in: 0...4)
+								.onChange(of: phone.baseSoftKeysBottom) { oldValue, newValue in
+									if oldValue == 0 && newValue == 1 {
+										phone.baseSoftKeysBottom = 2
+									} else if oldValue == 2 && newValue == 1 {
+										phone.baseSoftKeysBottom = 0
+									}
+								}
 							Stepper("Base Soft Keys (side): \(phone.baseSoftKeysBottom)", value: $phone.baseSoftKeysBottom, in: 0...3)
+								.onChange(of: phone.baseSoftKeysSide) { oldValue, newValue in
+									if oldValue == 0 && newValue == 1 {
+										phone.baseSoftKeysSide = 2
+									} else if oldValue == 2 && newValue == 1 {
+										phone.baseSoftKeysSide = 0
+									}
+								}
 							SoftKeyExplanationView()
 							Text("Side soft keys are often used for programmable functions or speed dials in standby or one-touch menu selections in menus. For example, in a menu with 5 options, instead of scrolling up or down through the menu and then pressing the select button, you can press the corresponding side soft key.")
 								.font(.footnote)
@@ -428,6 +449,11 @@ A phone's voicemail indicator works in one or both of the following ways:
 					}
 				}
 				Section(header: Text("Landline")) {
+					Picker("Number Of Lines", selection: $phone.numberOfLandlines) {
+						Text("1").tag(1)
+						Text("2").tag(2)
+						Text("4").tag(4)
+					}
 					Picker("Landline In Use Status On Base", selection: $phone.landlineInUseStatusOnBase) {
 						Text("None").tag(0)
 						Text("Light").tag(1)
