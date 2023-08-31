@@ -156,6 +156,16 @@ struct PhoneDetailView: View {
 								.foregroundStyle(.secondary)
 							}
 						}
+						Picker("Charge Light", selection: $phone.chargeLight) {
+							Text("None").tag(0)
+							if !phone.hasTransmitOnlyBase {
+								Text("Base Only").tag(1)
+								Text("Base/Charger").tag(2)
+							} else {
+								Text("Charger").tag(2)
+							}
+							Text("Handset").tag(3)
+						}
 						if !phone.hasTransmitOnlyBase {
 							Group {
 								Picker("Base Charging Direction", selection: $phone.baseChargingDirection) {
@@ -322,7 +332,7 @@ struct PhoneDetailView: View {
 					}
 					Text("""
 A phone's voicemail indicator works in one or both of the following ways:
-• Your phone company may send special tones, called Frequency-Shift-Keying (FSK) tones to the phone whenever a new voicemail is left, and another when all new voicemails are played, to tell the phone to turn on or off its voicemail indicator.
+• Your phone company may send special tones, called Frequency-Shift-Keying (FSK) tones to the phone whenever a new voicemail is left, and another when all new voicemails are played, to tell the phone to turn on or off its voicemail indicator. You can't hear these tones unless you use a device to listen in on the phone line without picking it up (e.g. a butt-set phone in monitor mode).
 • The phone may go off-hook for a few seconds periodically or when you hang up or it stops ringing, to listen for a stutter dial tone ("bee-bee-bee-beeeeeeeep") which your phone company may use as an audible indication of new voicemails.
 """)
 					.font(.footnote)
@@ -426,6 +436,12 @@ A phone's voicemail indicator works in one or both of the following ways:
 							Text("Display and Light").tag(3)
 						}
 					}
+					if phone.landlineInUseStatusOnBase == 1 {
+						Toggle("Landline In Use Light Follows Ring Signal", isOn: $phone.landlineInUseVisualRingerFollowsRingSignal)
+						Text("An in use light that follows the ring signal starts flashing when the ring signal starts and stops flashing when the ring signal stops. An in use light that ignores the ring signal starts flashing when the ring signal starts and continues flashing for as long as the base is indicating an incoming call.")
+							.font(.footnote)
+							.foregroundStyle(.secondary)
+					}
 				}
 				Section(header: Text("Bluetooth Cell Phone Linking")) {
 					Picker("Maximum Number Of Paired Cell Phones", selection: $phone.baseBluetoothCellPhonesSupported) {
@@ -444,6 +460,11 @@ A phone's voicemail indicator works in one or both of the following ways:
 							if phone.baseDisplayType > 1 {
 								Text("Display and Light").tag(2)
 							}
+						}
+						Picker("Cell Line Only Behavior", selection: $phone.cellLineOnlyBehavior) {
+							Text("Optional \"No Line\" Alert").tag(0)
+							Text("Auto-Suppressed \"No Line\" Alert").tag(1)
+							Text("Cell Line Only Mode").tag(2)
 						}
 						Toggle("Has Cell Phone Voice Control", isOn: $phone.hasCellPhoneVoiceControl)
 					}

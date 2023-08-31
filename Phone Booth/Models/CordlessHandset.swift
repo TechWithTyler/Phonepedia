@@ -34,7 +34,9 @@ final class CordlessHandset {
 	var displayType: Int
 	
 	var hasSpeakerphone: Bool
-	
+
+	var visualRinger: Int
+
 	var ringtones: Int
 	
 	var musicRingtones: Int
@@ -131,6 +133,7 @@ final class CordlessHandset {
 		self.callerIDCapacity = 0
 		self.redialNameDisplay = 0
 		self.speedDialPhonebookEntryMode = 0
+		self.visualRinger = 0
 	}
 
 }

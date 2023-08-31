@@ -36,6 +36,14 @@ struct HandsetInfoDetailView: View {
 					if handset.cordlessDeviceType == 1 {
 						TextField("Corded Receiver Color", text: $handset.cordedReceiverColor)
 					}
+					Picker("Visual Ringer", selection: $handset.visualRinger) {
+						Text("None").tag(0)
+						Text("Ignore Ring Signal").tag(1)
+						Text("Follow Ring Signal").tag(2)
+					}
+					Text("A visual ringer that follows the ring signal starts flashing when the ring signal starts and stops flashing when the ring signal stops. A visual ringer that ignores the ring signal starts flashing when the ring signal starts and continues flashing for as long as the handset is indicating an incoming call.")
+						.font(.footnote)
+						.foregroundStyle(.secondary)
 				}
 				if handset.cordlessDeviceType < 2 {
 					Section(header: Text("Ringers")) {

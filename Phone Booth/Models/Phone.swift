@@ -34,6 +34,8 @@ final class Phone {
 
 	var buttonType: Int
 
+	var chargeLight: Int
+
 	var cordedReceiverColor: String
 	
 	var numberOfIncludedCordlessHandsets: Int
@@ -63,11 +65,17 @@ final class Phone {
 	var hasIntercom: Bool
 	
 	var hasBaseIntercom: Bool
-	
+
+	var numberOfLandlines: Int
+
 	var landlineInUseStatusOnBase: Int
-	
+
+	var landlineInUseVisualRingerFollowsRingSignal: Bool
+
 	var cellLineInUseStatusOnBase: Int
-	
+
+	var cellLineOnlyBehavior: Int
+
 	var baseChargingDirection: Int
 
 	var baseHasSeparateDataContact: Bool
@@ -263,6 +271,10 @@ final class Phone {
 		self.callBlockPreScreeningCustomGreeting = false
 		self.callBlockPreScreeningAllowedNumberListVisible = false
 		self.callerIDPhonebookMatch = true
+		self.chargeLight = 3
+		self.landlineInUseVisualRingerFollowsRingSignal = false
+		self.cellLineOnlyBehavior = 0
+		self.numberOfLandlines = 1
 	}
 
 }
