@@ -22,17 +22,31 @@ struct HandsetInfoDetailView: View {
 					TextField("Model", text: $handset.model)
 					TextField("Color", text: $handset.color)
 					Stepper("Maximum Number Of Bases: \(handset.maxBases)", value: $handset.maxBases, in: 1...4)
-					Text("Registering a handset to more than one base allows you to extend the coverage area and access the answering system, shared lists, etc. of multiple bases without having to register the handset to one of those bases at a time.")
+					HStack {
+						Image(systemName: "info.circle")
+						Text("Registering a handset to more than one base allows you to extend the coverage area and access the answering system, shared lists, etc. of multiple bases without having to register the handset to one of those bases at a time.")
+					}
 						.foregroundStyle(.secondary)
 						.font(.footnote)
 					Picker("Cordless Device Type", selection: $handset.cordlessDeviceType) {
 						Text("Handset").tag(0)
 						Text("Deskset").tag(1)
-						Text("Headset/Speakerphone").tag(1)
+						Text("Headset/Speakerphone").tag(2)
 					}
-					Text("A deskset is a corded phone that connects wirelessly to a main base and is treated like a handset.")
-						.foregroundStyle(.secondary)
-						.font(.footnote)
+					.onChange(of: handset.cordlessDeviceType) { oldValue, newValue in
+						if newValue > 0 {
+							handset.fitsOnBase = false
+						}
+					}
+					HStack {
+						Image(systemName: "info.circle")
+						Text("A deskset is a corded phone that connects wirelessly to a main base and is treated like a handset.")
+					}
+					.foregroundStyle(.secondary)
+					.font(.footnote)
+					if handset.cordlessDeviceType == 0 && !phone.isCordedCordless && !phone.hasTransmitOnlyBase {
+						Toggle("Fits On Base", isOn: $handset.fitsOnBase)
+					}
 					if handset.cordlessDeviceType == 1 {
 						TextField("Corded Receiver Color", text: $handset.cordedReceiverColor)
 					}
@@ -41,7 +55,10 @@ struct HandsetInfoDetailView: View {
 						Text("Ignore Ring Signal").tag(1)
 						Text("Follow Ring Signal").tag(2)
 					}
-					Text("A visual ringer that follows the ring signal starts flashing when the ring signal starts and stops flashing when the ring signal stops. A visual ringer that ignores the ring signal starts flashing when the ring signal starts and continues flashing for as long as the handset is indicating an incoming call.")
+					HStack {
+						Image(systemName: "info.circle")
+						Text("A visual ringer that follows the ring signal starts flashing when the ring signal starts and stops flashing when the ring signal stops. A visual ringer that ignores the ring signal starts flashing when the ring signal starts and continues flashing for as long as the handset is indicating an incoming call.")
+					}
 						.font(.footnote)
 						.foregroundStyle(.secondary)
 				}
@@ -85,8 +102,23 @@ struct HandsetInfoDetailView: View {
 							if newValue <= 1 {
 								handset.softKeys = 0
 							}
+							if newValue == 0 {
+								handset.menuUpdateMode = 0
+								handset.navigatorKeyType = 0
+								handset.navigatorKeyCenterButton = 0
+							}
 						}
 						if handset.displayType > 0 {
+							Picker("Update Available Handset Menus", selection: $handset.menuUpdateMode) {
+								Text("Based on Registered Base").tag(0)
+								Text("In Real-Time").tag(1)
+							}
+							HStack {
+								Image(systemName: "info.circle")
+								Text("When a handset menu is updated based on the base it's registered to, the available options are updated only when registering the handset to a base, and those same options will be available when the handset boots up. When a handset menu is updated in real-time, the available options depend on the state of the registered base (e.g. whether it's on power backup or if there's enough devices to support intercom), and some options might not be available when the handset boots up.")
+							}
+								.foregroundStyle(.secondary)
+								.font(.footnote)
 							Picker("Navigation Button Type", selection: $handset.navigatorKeyType) {
 								Text("None").tag(0)
 								Text("Up/Down Button").tag(1)
@@ -178,7 +210,10 @@ struct HandsetInfoDetailView: View {
 							}
 						}
 						if handset.redialNameDisplay == 1 && handset.usesBasePhonebook {
-							Text("Although the redial list is stored in the handset, it may still require you to be in range of the base if the handset doesn't have a fallback to display entries without their names.")
+							HStack {
+								Image(systemName: "info.circle")
+								Text("Although the redial list is stored in the handset, it may still require you to be in range of the base if the handset doesn't have a fallback to display entries without their names.")
+							}
 								.font(.footnote)
 								.foregroundStyle(.secondary)
 						}

@@ -29,7 +29,10 @@ struct ChargerInfoDetailView: View {
 					ChargingContactInfoView()
 					if phone.supportsRangeExtenders {
 						Toggle("Has Range Extender", isOn: $charger.hasRangeExtender)
-						Text("A charger with a built-in range extender allows you to have a range extender where you have a charger, without having to register and place a separate range extender.")
+						HStack {
+							Image(systemName: "info.circle")
+							Text("A charger with a built-in range extender allows you to have a range extender where you have a charger, without having to register and place a separate range extender.")
+						}
 							.font(.footnote)
 							.foregroundStyle(.secondary)
 					}

@@ -133,7 +133,9 @@ final class Phone {
 	var cordedPowerSource: Int
 	
 	var cordlessPowerBackupMode: Int
-	
+
+	var cordlessPowerBackupReturnBehavior: Int
+
 	var baseSupportsWiredHeadsets: Bool
 	
 	var baseBluetoothHeadphonesSupported: Int
@@ -275,6 +277,7 @@ final class Phone {
 		self.landlineInUseVisualRingerFollowsRingSignal = false
 		self.cellLineOnlyBehavior = 0
 		self.numberOfLandlines = 1
+		self.cordlessPowerBackupReturnBehavior = 0
 	}
 
 }

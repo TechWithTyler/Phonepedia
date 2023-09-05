@@ -17,6 +17,8 @@ final class CordlessHandset {
 	
 	var model: String
 
+	var fitsOnBase: Bool
+
 	var maxBases: Int
 
 	var cordlessDeviceType: Int
@@ -32,7 +34,9 @@ final class CordlessHandset {
 	var buttonType: Int
 
 	var displayType: Int
-	
+
+	var menuUpdateMode: Int
+
 	var hasSpeakerphone: Bool
 
 	var lineButtons: Int
@@ -137,6 +141,8 @@ final class CordlessHandset {
 		self.speedDialPhonebookEntryMode = 0
 		self.visualRinger = 0
 		self.lineButtons = 0
+		self.fitsOnBase = true
+		self.menuUpdateMode = 1
 	}
 
 }
