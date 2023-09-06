@@ -39,15 +39,7 @@ struct PhoneDetailView: View {
 					#endif
 					PhotosPicker("Select From Library…", selection: $selectedPhoto)
 						.onChange(of: selectedPhoto) { oldValue, newValue in
-							guard newValue != nil else { return }
-							Task {
-								if let data = try? await selectedPhoto?.loadTransferable(type: Data.self) {
-									phone.photoData = data
-									selectedPhoto = nil
-								} else {
-									fatalError("Photo picker error!")
-								}
-							}
+							updatePhonePhoto(oldValue: oldValue, newValue: newValue)
 						}
 					Button {
 						showingResetAlert = true
@@ -114,48 +106,19 @@ struct PhoneDetailView: View {
 								.font(.footnote)
 								.foregroundStyle(.secondary)
 								.onChange(of: phone.hasTransmitOnlyBase) { oldValue, newValue in
-									if newValue {
-										for handset in phone.cordlessHandsetsIHave {
-											handset.fitsOnBase = false
-										}
-										phone.baseHasSeparateDataContact = false
-										phone.baseChargeContactMechanism = 0
-										phone.baseChargeContactPlacement = 0
-										phone.baseChargingDirection = 0
-										if phone.cordlessPowerBackupMode == 1 {
-											phone.cordlessPowerBackupMode = 0
-										}
-									}
+									transmitOnlyBaseChanged(oldValue: oldValue, newValue: newValue)
 								}
 						}
 						}
 					Stepper("Number of Included Cordless Handsets (0 if corded only): \(phone.numberOfIncludedCordlessHandsets)", value: $phone.numberOfIncludedCordlessHandsets, in: 0...Int.max-1)
 						.onChange(of: phone.isCordless) { oldValue, newValue in
-							if !newValue {
-								phone.hasTransmitOnlyBase = false
-								phone.supportsRangeExtenders = false
-								phone.baseChargingDirection = 0
-								phone.baseChargeContactMechanism = 0
-								phone.baseChargeContactPlacement = 0
-								phone.baseHasSeparateDataContact = false
-								phone.cordlessHandsetsIHave.removeAll()
-								phone.chargersIHave.removeAll()
-							}
+							isCordlessChanged(oldValue: oldValue, newValue: newValue)
 						}
 					if phone.isCordless {
 						Group {
 							Stepper("Maximum Number of Cordless Handsets (-1 if using \"security codes must match\"): \(phone.maxCordlessHandsets)", value: $phone.maxCordlessHandsets, in: -1...15)
 								.onChange(of: phone.maxCordlessHandsets) { oldValue, newValue in
-									if newValue == -1 {
-										for handset in phone.cordlessHandsetsIHave {
-											handset.fitsOnBase = true
-										}
-									}
-									if newValue == 0 && oldValue == -1 {
-										phone.maxCordlessHandsets = 1
-									} else if newValue == 0 && oldValue == 1 {
-										phone.maxCordlessHandsets = -1
-									}
+									maxCordlessHandsetsChanged(oldValue: oldValue, newValue: newValue)
 								}
 								.sensoryFeedback(.error, trigger: phone.numberOfIncludedCordlessHandsets) { oldValue, newValue in
 									return newValue > phone.maxCordlessHandsets && phone.maxCordlessHandsets != -1
@@ -456,13 +419,7 @@ A phone's voicemail indicator works in one or both of the following ways:
 						Text("Color Display").tag(6)
 					}
 					.onChange(of: phone.baseDisplayType) { oldValue, newValue in
-						if newValue <= 1 {
-							phone.baseSoftKeysBottom = 0
-							phone.baseSoftKeysSide = 0
-						}
-						if newValue < 3 || newValue > 5 {
-							phone.baseDisplayBacklightColor = String()
-						}
+						baseDisplayTypeChanged(oldValue: oldValue, newValue: newValue)
 					}
 					if phone.baseDisplayType > 2 && phone.baseDisplayType < 6 {
 						TextField("Base Display Backlight Color", text: $phone.baseDisplayBacklightColor)
@@ -494,33 +451,14 @@ A phone's voicemail indicator works in one or both of the following ways:
 							Toggle("Base Navigation Button Left/Right for Repeat/Skip", isOn: $phone.baseNavigatorKeyLeftRightRepeatSkip)
 						}
 						Toggle("Base Navigation Button Standby Shortcuts", isOn: $phone.baseNavigatorKeyStandbyShortcuts)
-						Picker("Button Backlight Type", selection: $phone.baseKeyBacklightAmount) {
-							Text("None").tag(0)
-							Text("Numbers Only").tag(1)
-							Text("Numbers + Some Function Buttons").tag(2)
-							Text("Numbers + All Function Buttons").tag(2)
-							Text("Numbers + Navigation Button").tag(3)
-							Text("All Buttons").tag(3)
-						}
-						TextField("Button Backlight Color", text: $phone.baseKeyBacklightColor)
-						TextField("Button Foreground Color", text: $phone.baseKeyForegroundColor)
-						TextField("Button Background Color", text: $phone.baseKeyBackgroundColor)
 						if phone.baseDisplayType > 2 {
 							Stepper("Base Soft Keys (bottom): \(phone.baseSoftKeysBottom)", value: $phone.baseSoftKeysBottom, in: 0...4)
 								.onChange(of: phone.baseSoftKeysBottom) { oldValue, newValue in
-									if oldValue == 0 && newValue == 1 {
-										phone.baseSoftKeysBottom = 2
-									} else if oldValue == 2 && newValue == 1 {
-										phone.baseSoftKeysBottom = 0
-									}
+									baseSoftKeysBottomChanged(oldValue: oldValue, newValue: newValue)
 								}
 							Stepper("Base Soft Keys (side): \(phone.baseSoftKeysBottom)", value: $phone.baseSoftKeysBottom, in: 0...3)
 								.onChange(of: phone.baseSoftKeysSide) { oldValue, newValue in
-									if oldValue == 0 && newValue == 1 {
-										phone.baseSoftKeysSide = 2
-									} else if oldValue == 2 && newValue == 1 {
-										phone.baseSoftKeysSide = 0
-									}
+									baseSoftKeysSideChanged(oldValue: oldValue, newValue: newValue)
 								}
 							SoftKeyExplanationView()
 							HStack {
@@ -531,6 +469,19 @@ A phone's voicemail indicator works in one or both of the following ways:
 								.foregroundStyle(.secondary)
 						}
 					}
+					Picker("Button Backlight Type", selection: $phone.baseKeyBacklightAmount) {
+						Text("None").tag(0)
+						Text("Numbers Only").tag(1)
+						Text("Numbers + Some Function Buttons").tag(2)
+						Text("Numbers + All Function Buttons").tag(2)
+						Text("Numbers + Navigation Button").tag(3)
+						Text("All Buttons").tag(3)
+					}
+					if phone.baseKeyBacklightAmount > 0 {
+						TextField("Button Backlight Color", text: $phone.baseKeyBacklightColor)
+					}
+					TextField("Button Foreground Color", text: $phone.baseKeyForegroundColor)
+					TextField("Button Background Color", text: $phone.baseKeyBackgroundColor)
 				}
 				Section(header: Text("Audio Devices (e.g. headsets)")) {
 					if !phone.isCordless || phone.hasBaseSpeakerphone {
@@ -648,9 +599,7 @@ A phone's voicemail indicator works in one or both of the following ways:
 							}
 							.onChange(of: phone.baseBluetoothCellPhonesSupported) {
 								newValue, oldValue in
-								if oldValue == 0 && newValue > 0 {
-									phone.bluetoothPhonebookTransfers = 1
-								}
+								baseBluetoothCellPhonesSupportedChanged(oldValue: oldValue, newValue: newValue)
 							}
 						}
 					}
@@ -841,6 +790,92 @@ When the first ring is suppressed, the number of rings you hear will be one less
 			return "Corded"
 		}
 	}
+
+	func updatePhonePhoto(oldValue: PhotosPickerItem?, newValue: PhotosPickerItem?) {
+		guard newValue != nil else { return }
+		Task {
+			if let data = try? await selectedPhoto?.loadTransferable(type: Data.self) {
+				phone.photoData = data
+				selectedPhoto = nil
+			} else {
+				fatalError("Photo picker error!")
+			}
+		}
+	}
+
+	func transmitOnlyBaseChanged(oldValue: Bool, newValue: Bool) {
+		if newValue {
+			for handset in phone.cordlessHandsetsIHave {
+				handset.fitsOnBase = false
+			}
+			phone.baseHasSeparateDataContact = false
+			phone.baseChargeContactMechanism = 0
+			phone.baseChargeContactPlacement = 0
+			phone.baseChargingDirection = 0
+			if phone.cordlessPowerBackupMode == 1 {
+				phone.cordlessPowerBackupMode = 0
+			}
+		}
+	}
+
+	func isCordlessChanged(oldValue: Bool, newValue: Bool) {
+		if !newValue {
+			phone.hasTransmitOnlyBase = false
+			phone.supportsRangeExtenders = false
+			phone.baseChargingDirection = 0
+			phone.baseChargeContactMechanism = 0
+			phone.baseChargeContactPlacement = 0
+			phone.baseHasSeparateDataContact = false
+			phone.cordlessHandsetsIHave.removeAll()
+			phone.chargersIHave.removeAll()
+		}
+	}
+
+	func baseDisplayTypeChanged(oldValue: Int, newValue: Int) {
+		if newValue <= 1 {
+			phone.baseSoftKeysBottom = 0
+			phone.baseSoftKeysSide = 0
+		}
+		if newValue < 3 || newValue > 5 {
+			phone.baseDisplayBacklightColor = String()
+		}
+	}
+
+	func maxCordlessHandsetsChanged(oldValue: Int, newValue: Int) {
+		if newValue == -1 {
+			for handset in phone.cordlessHandsetsIHave {
+				handset.fitsOnBase = true
+			}
+		}
+		if newValue == 0 && oldValue == -1 {
+			phone.maxCordlessHandsets = 1
+		} else if newValue == 0 && oldValue == 1 {
+			phone.maxCordlessHandsets = -1
+		}
+	}
+
+	func baseSoftKeysBottomChanged(oldValue: Int, newValue: Int) {
+		if oldValue == 0 && newValue == 1 {
+			phone.baseSoftKeysBottom = 2
+		} else if oldValue == 2 && newValue == 1 {
+			phone.baseSoftKeysBottom = 0
+		}
+	}
+
+	func baseSoftKeysSideChanged(oldValue: Int, newValue: Int) {
+		if oldValue == 0 && newValue == 1 {
+			phone.baseSoftKeysSide = 2
+		} else if oldValue == 2 && newValue == 1 {
+			phone.baseSoftKeysSide = 0
+		}
+	}
+
+	func baseBluetoothCellPhonesSupportedChanged(oldValue: Int, newValue: Int) {
+		if oldValue == 0 && newValue > 0 {
+			phone.bluetoothPhonebookTransfers = 1
+		}
+	}
+
 }
 
 //#Preview {

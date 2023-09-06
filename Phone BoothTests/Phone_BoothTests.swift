@@ -6,6 +6,7 @@
 //
 
 import XCTest
+@testable import Phone_Booth
 
 final class Phone_BoothTests: XCTestCase {
 
@@ -31,5 +32,17 @@ final class Phone_BoothTests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
+
+	func testBaseBluetoothCellPhonesSupportedChanged() {
+		var phone = Phone(brand: "Panasonic", model: "KX-TGF975")
+		phone.bluetoothPhonebookTransfers = 0
+		let oldValue = 0
+		let newValue = 1
+		// Call the function
+		PhoneDetailView(phone: phone).baseBluetoothCellPhonesSupportedChanged(oldValue: oldValue, newValue: newValue)
+		// Assert that the phone's bluetoothPhonebookTransfers property has been updated
+		XCTAssertEqual(phone.bluetoothPhonebookTransfers, 1)
+	}
+
 
 }

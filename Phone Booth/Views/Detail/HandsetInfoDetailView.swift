@@ -185,7 +185,9 @@ struct HandsetInfoDetailView: View {
 							Text("Numbers + Navigation Button").tag(3)
 							Text("All Buttons").tag(3)
 						}
-						TextField("Button Backlight Color", text: $handset.keyBacklightColor)
+						if handset.keyBacklightAmount > 0 {
+							TextField("Button Backlight Color", text: $handset.keyBacklightColor)
+						}
 						TextField("Button Foreground Color", text: $handset.keyForegroundColor)
 						TextField("Button Background Color", text: $handset.keyBackgroundColor)
 					}
