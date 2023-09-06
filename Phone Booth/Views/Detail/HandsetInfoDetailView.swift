@@ -44,8 +44,16 @@ struct HandsetInfoDetailView: View {
 					}
 					.foregroundStyle(.secondary)
 					.font(.footnote)
-					if handset.cordlessDeviceType == 0 && !phone.isCordedCordless && !phone.hasTransmitOnlyBase {
+					if handset.cordlessDeviceType == 0 && !phone.isCordedCordless && !phone.hasTransmitOnlyBase && phone.maxCordlessHandsets != -1 {
 						Toggle("Fits On Base", isOn: $handset.fitsOnBase)
+						if !handset.fitsOnBase {
+							HStack {
+								Image(systemName: "info.circle")
+								Text("A handset which doesn't fit on the base misses out on many features including place-on-base power backup and place-on-base auto-register.")
+							}
+							.foregroundStyle(.secondary)
+							.font(.footnote)
+						}
 					}
 					if handset.cordlessDeviceType == 1 {
 						TextField("Corded Receiver Color", text: $handset.cordedReceiverColor)
@@ -102,11 +110,18 @@ struct HandsetInfoDetailView: View {
 							if newValue <= 1 {
 								handset.softKeys = 0
 							}
+							if newValue == 5 {
+								handset.displayBacklightColor = String()
+							}
 							if newValue == 0 {
+								handset.displayBacklightColor = String()
 								handset.menuUpdateMode = 0
 								handset.navigatorKeyType = 0
 								handset.navigatorKeyCenterButton = 0
 							}
+						}
+						if handset.displayType > 0 && handset.displayType < 5 {
+							TextField("Display Backlight Color", text: $handset.displayBacklightColor)
 						}
 						if handset.displayType > 0 {
 							Picker("Update Available Handset Menus", selection: $handset.menuUpdateMode) {
@@ -227,6 +242,13 @@ struct HandsetInfoDetailView: View {
 							.scrollDismissesKeyboard(.interactively)
 #endif
 						Toggle("Uses Base Phonebook", isOn: $handset.usesBasePhonebook)
+						if handset.phonebookCapacity > 100 {
+							Picker("Bluetooth Phonebook Transfers", selection: $handset.bluetoothPhonebookTransfers) {
+								Text("Not Supported").tag(0)
+								Text("To Home Phonebook").tag(1)
+								Text("To Separate Cell Phonebook").tag(2)
+							}
+						}
 					}
 					Section(header: Text("Caller ID")) {
 						if handset.phonebookCapacity > 0 || (phone.basePhonebookCapacity > 0 && handset.usesBasePhonebook) {

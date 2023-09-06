@@ -28,6 +28,8 @@ final class Phone {
 	
 	var baseColor: String
 
+	var baseDisplayBacklightColor: String
+
 	var baseKeyForegroundColor: String
 
 	var baseKeyBackgroundColor: String
@@ -124,8 +126,6 @@ final class Phone {
 
 	var baseLEDMessageCounterColor: String
 
-	var baseDisplayBacklightColor: String
-
 	var baseKeyBacklightColor: String
 
 	var baseKeyBacklightAmount: Int
@@ -141,7 +141,9 @@ final class Phone {
 	var baseBluetoothHeadphonesSupported: Int
 	
 	var baseBluetoothCellPhonesSupported: Int
-	
+
+	var bluetoothPhonebookTransfers: Int
+
 	var hasCellPhoneVoiceControl: Bool
 	
 	var basePhonebookCapacity: Int
@@ -278,6 +280,7 @@ final class Phone {
 		self.cellLineOnlyBehavior = 0
 		self.numberOfLandlines = 1
 		self.cordlessPowerBackupReturnBehavior = 0
+		self.bluetoothPhonebookTransfers = 0
 	}
 
 }

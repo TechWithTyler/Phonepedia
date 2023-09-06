@@ -96,7 +96,9 @@ final class CordlessHandset {
 	var redialNameDisplay: Int
 
 	var bluetoothHeadphonesSupported: Int
-	
+
+	var bluetoothPhonebookTransfers: Int
+
 	var callerIDCapacity: Int
 
 	init(brand: String, model: String) {
@@ -143,6 +145,8 @@ final class CordlessHandset {
 		self.lineButtons = 0
 		self.fitsOnBase = true
 		self.menuUpdateMode = 1
+		self.bluetoothPhonebookTransfers = 0
+		self.displayBacklightColor = String()
 	}
 
 }

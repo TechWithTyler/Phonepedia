@@ -146,6 +146,11 @@ struct PhoneDetailView: View {
 						Group {
 							Stepper("Maximum Number of Cordless Handsets (-1 if using \"security codes must match\"): \(phone.maxCordlessHandsets)", value: $phone.maxCordlessHandsets, in: -1...15)
 								.onChange(of: phone.maxCordlessHandsets) { oldValue, newValue in
+									if newValue == -1 {
+										for handset in phone.cordlessHandsetsIHave {
+											handset.fitsOnBase = true
+										}
+									}
 									if newValue == 0 && oldValue == -1 {
 										phone.maxCordlessHandsets = 1
 									} else if newValue == 0 && oldValue == 1 {
@@ -455,6 +460,12 @@ A phone's voicemail indicator works in one or both of the following ways:
 							phone.baseSoftKeysBottom = 0
 							phone.baseSoftKeysSide = 0
 						}
+						if newValue < 3 || newValue > 5 {
+							phone.baseDisplayBacklightColor = String()
+						}
+					}
+					if phone.baseDisplayType > 2 && phone.baseDisplayType < 6 {
+						TextField("Base Display Backlight Color", text: $phone.baseDisplayBacklightColor)
 					}
 					if phone.baseDisplayType >= 3 {
 						Toggle("Base Has LED Message Counter In Addition To Display", isOn: $phone.baseHasDisplayAndMessageCounter)
@@ -585,7 +596,19 @@ A phone's voicemail indicator works in one or both of the following ways:
 							Text("Auto-Suppressed \"No Line\" Alert").tag(1)
 							Text("Cell Line Only Mode").tag(2)
 						}
+						HStack {
+							Image(systemName: "info.circle")
+							Text("If you use only cell lines, the \"no line\" alert will be suppressed automatically or can be supressed manually, depending on the phone. A dedicated cell line only mode allows the phone to disable most landline-related features.")
+						}
+						.foregroundStyle(.secondary)
+						.font(.footnote)
 						Toggle("Has Cell Phone Voice Control", isOn: $phone.hasCellPhoneVoiceControl)
+						HStack {
+							Image(systemName: "info.circle")
+							Text("You can talk to your cell phone voice assistant (e.g. Siri or Google Now) using the base or handset.")
+						}
+						.foregroundStyle(.secondary)
+						.font(.footnote)
 					}
 				}
 				Group {
@@ -615,6 +638,21 @@ A phone's voicemail indicator works in one or both of the following ways:
 #if !os(xrOS)
 							.scrollDismissesKeyboard(.interactively)
 #endif
+						if phone.basePhonebookCapacity > 100 {
+							Picker("Bluetooth Phonebook Transfers", selection: $phone.bluetoothPhonebookTransfers) {
+								if phone.baseBluetoothCellPhonesSupported == 0 {
+									Text("Not Supported").tag(0)
+								}
+								Text("To Home Phonebook").tag(1)
+								Text("To Separate Cell Phonebook").tag(2)
+							}
+							.onChange(of: phone.baseBluetoothCellPhonesSupported) {
+								newValue, oldValue in
+								if oldValue == 0 && newValue > 0 {
+									phone.bluetoothPhonebookTransfers = 1
+								}
+							}
+						}
 					}
 					Section(header: Text("Caller ID")) {
 						if phone.basePhonebookCapacity > 0 {
