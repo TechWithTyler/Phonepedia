@@ -14,10 +14,18 @@ final class Phone_BoothTests: XCTestCase {
 
 	var phoneDetailView: PhoneDetailView?
 
+	var handsetInfoDetailView: HandsetInfoDetailView?
+
+	var handset: CordlessHandset?
+
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
 		phone = Phone(brand: "Panasonic", model: "KX-TGF975")
+		handset = CordlessHandset(brand: "Panasonic", model: "KX-TGFA97")
+		phone?.cordlessHandsetsIHave.append(handset!)
 		phoneDetailView = PhoneDetailView(phone: phone!)
+		handsetInfoDetailView = HandsetInfoDetailView(handset: .constant(handset!), handsetNumber: 1)
+		print((phone?.bluetoothPhonebookTransfers)!)
     }
 
     override func tearDownWithError() throws {
@@ -46,6 +54,7 @@ final class Phone_BoothTests: XCTestCase {
 		// Call the function
 		phoneDetailView?.baseBluetoothCellPhonesSupportedChanged(oldValue: oldValue, newValue: newValue)
 		// Assert that the phone's bluetoothPhonebookTransfers property has been updated
+		print((phone?.bluetoothPhonebookTransfers)!)
 		XCTAssertEqual(phone?.bluetoothPhonebookTransfers, 1)
 	}
 
@@ -56,7 +65,27 @@ final class Phone_BoothTests: XCTestCase {
 		// Call the function
 		phoneDetailView?.baseBluetoothCellPhonesSupportedChanged(oldValue: oldValue, newValue: newValue)
 		// Assert that the phone's bluetoothPhonebookTransfers property has not been updated
-		XCTAssertEqual(oldValue, newValue)
+		XCTAssertEqual(phone?.bluetoothPhonebookTransfers, 0)
+	}
+
+	func testHandsetCordlessDeviceTypeChanged() {
+		handset?.fitsOnBase = true
+		let oldValue = 0
+		let newValue = 1
+		// Call the function
+		handsetInfoDetailView?.cordlessDeviceTypeChanged(oldValue: oldValue, newValue: newValue)
+		// Assert that the phone's fitsOnBase property has been updated
+		XCTAssertEqual(handset?.fitsOnBase, false)
+	}
+
+	func testHandsetCordlessDeviceTypeNotChanged() {
+		handset?.fitsOnBase = true
+		let oldValue = 0
+		let newValue = 0
+		// Call the function
+		handsetInfoDetailView?.cordlessDeviceTypeChanged(oldValue: oldValue, newValue: newValue)
+		// Assert that the phone's fitsOnBase property has not been updated
+		XCTAssertEqual(handset?.fitsOnBase, true)
 	}
 
 
