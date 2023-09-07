@@ -10,8 +10,14 @@ import XCTest
 
 final class Phone_BoothTests: XCTestCase {
 
+	var phone: Phone?
+
+	var phoneDetailView: PhoneDetailView?
+
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
+		phone = Phone(brand: "Panasonic", model: "KX-TGF975")
+		phoneDetailView = PhoneDetailView(phone: phone!)
     }
 
     override func tearDownWithError() throws {
@@ -34,14 +40,23 @@ final class Phone_BoothTests: XCTestCase {
     }
 
 	func testBaseBluetoothCellPhonesSupportedChanged() {
-		var phone = Phone(brand: "Panasonic", model: "KX-TGF975")
-		phone.bluetoothPhonebookTransfers = 0
+		phone?.bluetoothPhonebookTransfers = 0
 		let oldValue = 0
 		let newValue = 1
 		// Call the function
-		PhoneDetailView(phone: phone).baseBluetoothCellPhonesSupportedChanged(oldValue: oldValue, newValue: newValue)
+		phoneDetailView?.baseBluetoothCellPhonesSupportedChanged(oldValue: oldValue, newValue: newValue)
 		// Assert that the phone's bluetoothPhonebookTransfers property has been updated
-		XCTAssertEqual(phone.bluetoothPhonebookTransfers, 1)
+		XCTAssertEqual(phone?.bluetoothPhonebookTransfers, 1)
+	}
+
+	func testBaseBluetoothCellPhonesSupportedNotChanged() {
+		phone?.bluetoothPhonebookTransfers = 0
+		let oldValue = 0
+		let newValue = 0
+		// Call the function
+		phoneDetailView?.baseBluetoothCellPhonesSupportedChanged(oldValue: oldValue, newValue: newValue)
+		// Assert that the phone's bluetoothPhonebookTransfers property has not been updated
+		XCTAssertEqual(oldValue, newValue)
 	}
 
 

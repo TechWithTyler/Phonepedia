@@ -34,9 +34,7 @@ struct HandsetInfoDetailView: View {
 						Text("Headset/Speakerphone").tag(2)
 					}
 					.onChange(of: handset.cordlessDeviceType) { oldValue, newValue in
-						if newValue > 0 {
-							handset.fitsOnBase = false
-						}
+						cordlessDeviceTypeChanged(oldValue: oldValue, newValue: newValue)
 					}
 					HStack {
 						Image(systemName: "info.circle")
@@ -107,18 +105,7 @@ struct HandsetInfoDetailView: View {
 							Text("Color").tag(5)
 						}
 						.onChange(of: handset.displayType) { oldValue, newValue in
-							if newValue <= 1 {
-								handset.softKeys = 0
-							}
-							if newValue == 5 {
-								handset.displayBacklightColor = String()
-							}
-							if newValue == 0 {
-								handset.displayBacklightColor = String()
-								handset.menuUpdateMode = 0
-								handset.navigatorKeyType = 0
-								handset.navigatorKeyCenterButton = 0
-							}
+							displayTypeChanged(oldValue: oldValue, newValue: newValue)
 						}
 						if handset.displayType > 0 && handset.displayType < 5 {
 							TextField("Display Backlight Color", text: $handset.displayBacklightColor)
@@ -157,14 +144,7 @@ struct HandsetInfoDetailView: View {
 							if handset.displayType > 1 {
 								Stepper("Soft Keys: \(handset.softKeys)", value: $handset.softKeys, in: 0...3)
 									.onChange(of: handset.softKeys) { oldValue, newValue in
-										if oldValue == 0 && newValue == 1 {
-											handset.softKeys = 2
-										} else if oldValue == 2 && newValue == 1 {
-											handset.softKeys = 0
-										}
-										if newValue < 3 {
-											handset.navigatorKeyCenterButton = 2
-										}
+										softKeysChanged(oldValue: oldValue, newValue: newValue)
 									}
 								SoftKeyExplanationView()
 							}
@@ -172,9 +152,7 @@ struct HandsetInfoDetailView: View {
 						if handset.navigatorKeyType != 4 {
 							Toggle("Has Side Volume Buttons", isOn: $handset.sideVolumeButtons)
 								.onChange(of: handset.sideVolumeButtons) { oldValue, newValue in
-									if !newValue {
-										handset.navigatorKeyUpDownVolume = true
-									}
+									sideVolumeButtonsChanged(oldValue: oldValue, newValue: newValue)
 								}
 						}
 						Picker("Button Backlight Type", selection: $handset.keyBacklightAmount) {
@@ -266,9 +244,7 @@ struct HandsetInfoDetailView: View {
 							.scrollDismissesKeyboard(.interactively)
 #endif
 							.onChange(of: handset.callerIDCapacity) { oldValue, newValue in
-								if newValue > 0 {
-									handset.usesBaseCallerID = false
-								}
+								callerIDCapacityChanged(oldValue: oldValue, newValue: newValue)
 							}
 						if handset.callerIDCapacity == 0 {
 							Toggle("Uses Base Caller ID List", isOn: $handset.usesBaseCallerID)
@@ -298,6 +274,51 @@ struct HandsetInfoDetailView: View {
 			Text("Error")
 		}
 	}
+
+	func cordlessDeviceTypeChanged(oldValue: Int, newValue: Int) {
+		if newValue > 0 {
+			handset.fitsOnBase = false
+		}
+	}
+
+	func displayTypeChanged(oldValue: Int, newValue: Int) {
+		if newValue <= 1 {
+			handset.softKeys = 0
+		}
+		if newValue == 5 {
+			handset.displayBacklightColor = String()
+		}
+		if newValue == 0 {
+			handset.displayBacklightColor = String()
+			handset.menuUpdateMode = 0
+			handset.navigatorKeyType = 0
+			handset.navigatorKeyCenterButton = 0
+		}
+	}
+
+	func softKeysChanged(oldValue: Int, newValue: Int) {
+		if oldValue == 0 && newValue == 1 {
+			handset.softKeys = 2
+		} else if oldValue == 2 && newValue == 1 {
+			handset.softKeys = 0
+		}
+		if newValue < 3 {
+			handset.navigatorKeyCenterButton = 2
+		}
+	}
+
+	func sideVolumeButtonsChanged(oldValue: Bool, newValue: Bool) {
+		if !newValue {
+			handset.navigatorKeyUpDownVolume = true
+		}
+	}
+
+	func callerIDCapacityChanged(oldValue: Int, newValue: Int) {
+		if newValue > 0 {
+			handset.usesBaseCallerID = false
+		}
+	}
+
 }
 
 //#Preview {
