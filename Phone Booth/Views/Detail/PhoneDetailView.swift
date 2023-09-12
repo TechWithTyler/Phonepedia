@@ -765,6 +765,7 @@ When the first ring is suppressed, the number of rings you hear will be one less
 #endif
 			.textFieldStyle(.roundedBorder)
 		}
+		.navigationTitle("Phone Details")
 		#if os(iOS)
 		.sheet(isPresented: $takingPhoto) {
 			CameraViewController(view: self, phone: phone)

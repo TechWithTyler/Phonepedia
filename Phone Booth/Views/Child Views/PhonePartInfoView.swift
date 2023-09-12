@@ -26,6 +26,7 @@ struct PhonePartInfoView: View {
 						ForEach($phone.cordlessHandsetsIHave) { handset in
 							NavigationLink {
 								HandsetInfoDetailView(handset: handset, handsetNumber: (phone.cordlessHandsetsIHave.firstIndex(of: handset.wrappedValue) ?? 0) + 1)
+									.navigationTitle("Handset  Details")
 							} label: {
 								VStack {
 									Text("\(handset.wrappedValue.brand) \(handset.wrappedValue.model)")
@@ -73,6 +74,7 @@ struct PhonePartInfoView: View {
 						ForEach($phone.chargersIHave) { charger in
 							NavigationLink {
 								ChargerInfoDetailView(charger: charger)
+									.navigationTitle("Charger  Details")
 							} label: {
 								VStack {
 									Text("Charger \((phone.chargersIHave.firstIndex(of: charger.wrappedValue) ?? 0) + 1)")
