@@ -14,7 +14,7 @@ final class CordlessHandset {
 	var phone: Phone?
 
 	var brand: String
-	
+
 	var model: String
 
 	var fitsOnBase: Bool
@@ -28,9 +28,9 @@ final class CordlessHandset {
 	var cordedReceiverColor: String
 
 	var keyForegroundColor: String
-	
+
 	var keyBackgroundColor: String
-	
+
 	var buttonType: Int
 
 	var displayType: Int
@@ -44,21 +44,21 @@ final class CordlessHandset {
 	var visualRinger: Int
 
 	var ringtones: Int
-	
+
 	var musicRingtones: Int
-	
+
 	var hasSeparateIntercomTone: Bool
-	
+
 	var canChangeIntercomTone: Bool
-	
+
 	var oneTouchDialCapacity: Int
-	
+
 	var speedDialCapacity: Int
-	
+
 	var redialCapacity: Int
-	
+
 	var displayBacklightColor: String
-	
+
 	var softKeys: Int
 
 	var navigatorKeyType: Int
@@ -72,23 +72,23 @@ final class CordlessHandset {
 	var sideVolumeButtons: Bool
 
 	var keyBacklightColor: String
-	
+
 	var keyBacklightAmount: Int
-	
+
 	var supportsWiredHeadsets: Bool
-	
+
 	var answeringSystemMenu: Int
-	
+
 	var phonebookCapacity: Int
 
 	var callerIDPhonebookMatch: Bool
 
 	var usesBasePhonebook: Bool
-	
+
 	var usesBaseCallerID: Bool
-	
+
 	var usesBaseSpeedDial: Bool
-	
+
 	var usesBaseOneTouchDial: Bool
 
 	var speedDialPhonebookEntryMode: Int
@@ -147,6 +147,53 @@ final class CordlessHandset {
 		self.menuUpdateMode = 1
 		self.bluetoothPhonebookTransfers = 0
 		self.displayBacklightColor = String()
+	}
+
+	func cordlessDeviceTypeChanged(oldValue: Int, newValue: Int) {
+		if newValue > 0 {
+			fitsOnBase = false
+		}
+	}
+
+	func displayTypeChanged(oldValue: Int, newValue: Int) {
+		if newValue <= 1 {
+			softKeys = 0
+		}
+		if newValue == 5 {
+			displayBacklightColor = String()
+		}
+		if newValue == 0 {
+			displayBacklightColor = String()
+			menuUpdateMode = 0
+			navigatorKeyType = 0
+			navigatorKeyCenterButton = 0
+		}
+	}
+
+	func softKeysChanged(oldValue: Int, newValue: Int) {
+		if oldValue == 0 && newValue == 1 {
+			softKeys = 2
+		} else if oldValue == 2 && newValue == 1 {
+			softKeys = 0
+		}
+		if newValue < 3 {
+			navigatorKeyCenterButton = 2
+		}
+		if newValue == 0 {
+			lineButtons = 0
+		}
+	}
+
+	func sideVolumeButtonsChanged(oldValue: Bool, newValue: Bool) {
+		if !newValue {
+			navigatorKeyUpDownVolume = true
+		}
+	}
+
+	func callerIDCapacityChanged(oldValue: Int, newValue: Int) {
+		if newValue > 0 {
+			usesBaseCallerID = false
+		}
 	}
 
 }

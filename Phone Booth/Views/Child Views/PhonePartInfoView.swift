@@ -69,6 +69,12 @@ struct PhonePartInfoView: View {
 					.font(.callout)
 					.foregroundStyle(.secondary)
 				}
+				Button {
+					phone.cordlessHandsetsIHave.removeAll()
+					phone.chargersIHave.removeAll()
+				} label: {
+					Text("Deregister All")
+				}
 			}
 			Section("Chargers") {
 				if !phone.chargersIHave.isEmpty {
