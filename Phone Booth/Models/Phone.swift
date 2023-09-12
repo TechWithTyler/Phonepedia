@@ -376,4 +376,16 @@ final class Phone {
 		}
 	}
 
+	func cordedReceiverColorChanged(oldValue: String, newValue: String) {
+		if !newValue.isEmpty {
+			for handset in cordlessHandsetsIHave {
+				handset.fitsOnBase = false
+			}
+			hasTransmitOnlyBase = false
+			baseChargingDirection = 0
+			baseChargeContactMechanism = 0
+			baseChargeContactPlacement = 0
+		}
+	}
+
 }

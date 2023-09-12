@@ -17,15 +17,7 @@ struct PhonePartInfoView: View {
 			TextField("Base Color", text: $phone.baseColor)
 			TextField("Corded Receiver Color", text: $phone.cordedReceiverColor)
 				.onChange(of: phone.cordedReceiverColor) { oldValue, newValue in
-					if !newValue.isEmpty {
-						for handset in phone.cordlessHandsetsIHave {
-							handset.fitsOnBase = false
-						}
-						phone.hasTransmitOnlyBase = false
-						phone.baseChargingDirection = 0
-						phone.baseChargeContactMechanism = 0
-						phone.baseChargeContactPlacement = 0
-					}
+					phone.cordedReceiverColorChanged(oldValue: oldValue, newValue: newValue)
 				}
 		}
 		if phone.isCordless {
