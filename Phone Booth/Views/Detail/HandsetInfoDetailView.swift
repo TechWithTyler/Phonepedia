@@ -289,6 +289,7 @@ struct HandsetInfoDetailView: View {
 			.toggleStyle(.checkbox)
 #else
 			.toggleStyle(.switch)
+			.pickerStyle(.navigationLink)
 #endif
 			.textFieldStyle(.roundedBorder)
 		} else {

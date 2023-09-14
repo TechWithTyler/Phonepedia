@@ -493,12 +493,12 @@ A phone's voicemail indicator works in one or both of the following ways:
 				Section(header: Text("Audio Devices (e.g. headsets)")) {
 					if !phone.isCordless || phone.hasBaseSpeakerphone {
 						Toggle("Base Supports Wired Headsets", isOn: $phone.baseSupportsWiredHeadsets)
+					}
 						Picker("Maximum Number Of Bluetooth Headphones (base)", selection: $phone.baseBluetoothHeadphonesSupported) {
 							Text("None").tag(0)
 							Text("1").tag(1)
 							Text("2").tag(2)
 							Text("4").tag(4)
-						}
 					}
 				}
 				Section(header: Text("Landline")) {
@@ -787,6 +787,7 @@ When the first ring is suppressed, the number of rings you hear will be one less
 			.toggleStyle(.checkbox)
 #else
 			.toggleStyle(.switch)
+			.pickerStyle(.navigationLink)
 #endif
 			.textFieldStyle(.roundedBorder)
 		}
