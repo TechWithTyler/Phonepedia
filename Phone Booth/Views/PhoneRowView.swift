@@ -27,6 +27,6 @@ struct PhoneRowView: View {
     }
 }
 
-//#Preview {
-//	PhoneRowView(phone: Phone.preview).modelContainer(for: Phone.self, inMemory: true)
-//}
+#Preview {
+	PhoneRowView(phone: Phone(brand: "Panasonic", model: "KX-TGF975")).modelContainer(for: Phone.self, inMemory: true)
+}

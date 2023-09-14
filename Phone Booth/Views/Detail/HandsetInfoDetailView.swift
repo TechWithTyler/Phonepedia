@@ -288,5 +288,7 @@ struct HandsetInfoDetailView: View {
 }
 
 //#Preview {
-//	PhonePartInfoRowView(color: Phone.preview.baseColor, part: "Base")
+//	@State var handset = CordlessHandset(brand: "Panasonic", model: "KX-TGFA97")
+//	handset.phone = Phone(brand: "Panasonic", model: "KX-TGF975")
+//	return HandsetInfoDetailView(handset: $handset, handsetNumber: 1)
 //}

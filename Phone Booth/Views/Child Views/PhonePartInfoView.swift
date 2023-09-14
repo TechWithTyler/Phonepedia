@@ -138,6 +138,6 @@ struct PhonePartInfoView: View {
 
 }
 
-//#Preview {
-//	PhonePartInfoView(phone: Phone.preview)
-//}
+#Preview {
+	PhonePartInfoView(phone: Phone(brand: "Panasonic", model: "KX-TGD892"))
+}
