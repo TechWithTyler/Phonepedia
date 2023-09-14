@@ -101,6 +101,8 @@ final class CordlessHandset {
 
 	var callerIDCapacity: Int
 
+	var keyFindersSupported: Int
+
 	init(brand: String, model: String) {
 		self.brand = brand
 		self.model = model
@@ -147,6 +149,7 @@ final class CordlessHandset {
 		self.menuUpdateMode = 1
 		self.bluetoothPhonebookTransfers = 0
 		self.displayBacklightColor = String()
+		self.keyFindersSupported = 0
 	}
 
 	func cordlessDeviceTypeChanged(oldValue: Int, newValue: Int) {

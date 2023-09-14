@@ -756,6 +756,31 @@ When the first ring is suppressed, the number of rings you hear will be one less
 						}
 					}
 				}
+				Section(header: Text("Special Features")) {
+					Picker("Room/Baby Monitor", selection: $phone.roomMonitor) {
+						Text("Not Supported").tag(0)
+						Text("Call From Handset/Base").tag(1)
+						Text("Call To Handset/Base").tag(2)
+						Text("Sound-Activated Call To Handset/Base/Outside Phone").tag(3)
+					}
+					if phone.roomMonitor == 3 {
+						Picker("External Room Monitor DTMF Entry Handled By", selection: $phone.externalRoomMonitorAutomatedSystem) {
+							Text("Base").tag(0)
+							Text("Handset").tag(1)
+						}
+						Text("When a handset/base detects sound and calls an outside phone number, the outside caller can talk back to the handset/base by dialing a code, or deactivate the feature by dialing another code.")
+							.font(.footnote)
+							.foregroundStyle(.secondary)
+					}
+					Stepper("Smart Home Devices Supported: \(phone.smartHomeDevicesSupported)", value: $phone.smartHomeDevicesSupported, in: 0...50, step: 5)
+					Text("Smart home devices registered to a cordless phone can notify the handset/base when things happen and the handset/base can control these devices.")
+						.font(.footnote)
+						.foregroundStyle(.secondary)
+					Toggle("Answer By Voice", isOn: $phone.answerByVoice)
+					Text("The base and compatible handsets can detect sound when landlne/cell calls come in, allowing calls to be answered by voice. The phone either listens for any sound or is programmed to listen for a specific phrase.")
+						.font(.footnote)
+						.foregroundStyle(.secondary)
+				}
 			}
 			.formStyle(.grouped)
 #if os(macOS)

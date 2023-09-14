@@ -190,6 +190,14 @@ final class Phone {
 
 	var callBlockPreScreeningAllowedNumberListVisible: Bool
 
+	var roomMonitor: Int
+
+	var externalRoomMonitorAutomatedSystem: Int
+
+	var smartHomeDevicesSupported: Int
+
+	var answerByVoice: Bool
+
 	var hasCordedReceiver: Bool {
 		return !cordedReceiverColor.isEmpty
 	}
@@ -287,6 +295,10 @@ final class Phone {
 		self.bluetoothPhonebookTransfers = 0
 		self.locatorButtons = 0
 		self.deregistration = 1
+		self.roomMonitor = 0
+		self.externalRoomMonitorAutomatedSystem = 0
+		self.smartHomeDevicesSupported = 0
+		self.answerByVoice = false
 	}
 
 	func transmitOnlyBaseChanged(oldValue: Bool, newValue: Bool) {
