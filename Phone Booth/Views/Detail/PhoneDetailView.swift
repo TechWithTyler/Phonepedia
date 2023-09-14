@@ -777,7 +777,7 @@ When the first ring is suppressed, the number of rings you hear will be one less
 						.font(.footnote)
 						.foregroundStyle(.secondary)
 					Toggle("Answer By Voice", isOn: $phone.answerByVoice)
-					Text("The base and compatible handsets can detect sound when landlne/cell calls come in, allowing calls to be answered by voice. The phone either listens for any sound or is programmed to listen for a specific phrase.")
+					Text("The base and compatible handsets can detect sound when landline/cell calls come in, allowing calls to be answered by voice. The phone either listens for any sound or is programmed to listen for a specific phrase.")
 						.font(.footnote)
 						.foregroundStyle(.secondary)
 				}
