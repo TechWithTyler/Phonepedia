@@ -44,6 +44,10 @@ final class Phone {
 
 	var cordedReceiverColor: String
 
+	var cordedPhoneType: Int
+
+	var cordedRingerType: Int
+
 	var numberOfIncludedCordlessHandsets: Int
 
 	var maxCordlessHandsets: Int
@@ -198,6 +202,8 @@ final class Phone {
 
 	var answerByVoice: Bool
 
+	var smartphonesAsHandsetsOverWiFi: Int
+
 	var hasCordedReceiver: Bool {
 		return !cordedReceiverColor.isEmpty
 	}
@@ -299,6 +305,9 @@ final class Phone {
 		self.externalRoomMonitorAutomatedSystem = 0
 		self.smartHomeDevicesSupported = 0
 		self.answerByVoice = false
+		self.cordedPhoneType = 0
+		self.cordedRingerType = 1
+		self.smartphonesAsHandsetsOverWiFi = 0
 	}
 
 	func transmitOnlyBaseChanged(oldValue: Bool, newValue: Bool) {
@@ -317,7 +326,10 @@ final class Phone {
 	}
 
 	func isCordlessChanged(oldValue: Bool, newValue: Bool) {
-		if !newValue {
+		if newValue {
+			cordedPhoneType = 0
+			cordedRingerType = 1
+		} else {
 			hasTransmitOnlyBase = false
 			supportsRangeExtenders = false
 			baseChargingDirection = 0
@@ -397,6 +409,41 @@ final class Phone {
 			baseChargingDirection = 0
 			baseChargeContactMechanism = 0
 			baseChargeContactPlacement = 0
+		}
+	}
+
+	func cordedPhoneTypeChanged(oldValue: Int, newValue: Int) {
+		if newValue != 0 {
+			hasBaseSpeakerphone = false
+			hasAnsweringSystem = 0
+			baseMusicRingtones = 0
+			basePhonebookCapacity = 0
+			baseBluetoothHeadphonesSupported = 0
+			baseBluetoothCellPhonesSupported = 0
+			hasTalkingCallerID = false
+		}
+		if newValue == 1 || newValue == 3 {
+			baseRedialCapacity = 0
+			baseSpeedDialCapacity = 0
+			baseCallerIDCapacity = 0
+			baseDisplayType = 0
+			baseSoftKeysSide = 0
+			baseSoftKeysBottom = 0
+			baseDisplayType = 0
+		}
+	}
+
+	func cordedRingerTypeChanged(oldValue: Int, newValue: Int) {
+		if newValue == 0 {
+			hasBaseSpeakerphone = false
+			hasAnsweringSystem = 0
+			baseRingtones = 0
+			baseMusicRingtones = 0
+			basePhonebookCapacity = 0
+			baseCallerIDCapacity = 0
+			baseBluetoothHeadphonesSupported = 0
+			baseBluetoothCellPhonesSupported = 0
+			hasTalkingCallerID = false
 		}
 	}
 

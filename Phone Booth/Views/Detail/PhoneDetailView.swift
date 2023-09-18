@@ -493,12 +493,12 @@ A phone's voicemail indicator works in one or both of the following ways:
 				Section(header: Text("Audio Devices (e.g. headsets)")) {
 					if !phone.isCordless || phone.hasBaseSpeakerphone {
 						Toggle("Base Supports Wired Headsets", isOn: $phone.baseSupportsWiredHeadsets)
-					}
 						Picker("Maximum Number Of Bluetooth Headphones (base)", selection: $phone.baseBluetoothHeadphonesSupported) {
 							Text("None").tag(0)
 							Text("1").tag(1)
 							Text("2").tag(2)
 							Text("4").tag(4)
+						}
 					}
 				}
 				Section(header: Text("Landline")) {
@@ -531,8 +531,8 @@ A phone's voicemail indicator works in one or both of the following ways:
 							.foregroundStyle(.secondary)
 					}
 				}
-				Section(header: Text("Bluetooth Cell Phone Linking")) {
-					Picker("Maximum Number Of Paired Cell Phones", selection: $phone.baseBluetoothCellPhonesSupported) {
+				Section(header: Text("Cell Phone Linking")) {
+					Picker("Maximum Number Of Bluetooth Cell Phones", selection: $phone.baseBluetoothCellPhonesSupported) {
 						Text("None/Phonebook Transfers Only").tag(0)
 						Text("1").tag(1)
 						Text("2").tag(2)
@@ -541,6 +541,24 @@ A phone's voicemail indicator works in one or both of the following ways:
 						Text("10").tag(10)
 						Text("15").tag(15)
 					}
+					HStack {
+						Image(systemName: "info.circle")
+						Text("Pairing a cell phone to the base via Bluetooth allows you to make and receive cell calls on the base or handsets and transfer your cell phone contacts to the phonebook.")
+					}
+					.font(.footnote)
+					.foregroundStyle(.secondary)
+					Picker("Maximum Number Of Smartphones As Handsets", selection: $phone.smartphonesAsHandsetsOverWiFi) {
+						Text("None").tag(0)
+						Text("1").tag(1)
+						Text("2").tag(2)
+						Text("4").tag(4)
+					}
+					HStack {
+						Image(systemName: "info.circle")
+						Text("When a smartphone is registered to a Wi-Fi-compatible base and both devices are on the same network, the smartphone can be used as a handset, and you can transfer its data to the base or handsets.")
+					}
+					.font(.footnote)
+					.foregroundStyle(.secondary)
 					if phone.baseBluetoothCellPhonesSupported > 0 {
 						Picker("Cell Line In Use Status On Base", selection: $phone.cellLineInUseStatusOnBase) {
 							Text("None").tag(0)
@@ -604,6 +622,12 @@ A phone's voicemail indicator works in one or both of the following ways:
 								Text("To Home Phonebook").tag(1)
 								Text("To Separate Cell Phonebook").tag(2)
 							}
+							HStack {
+								Image(systemName: "info.circle")
+								Text("Storing transferred cell phonebooks in the home phonebook allows those entries to work with features such as home line caller ID phonebook match and call block pre-screening. It also allows you to view all your phonebook entries in one place. If transferred cell phonebooks are stored separately from the home phonebook, caller ID phonebook match usually only works with the corresponding cell line.")
+							}
+							.font(.footnote)
+							.foregroundStyle(.secondary)
 							.onChange(of: phone.baseBluetoothCellPhonesSupported) {
 								newValue, oldValue in
 								phone.baseBluetoothCellPhonesSupportedChanged(oldValue: oldValue, newValue: newValue)
@@ -613,7 +637,7 @@ A phone's voicemail indicator works in one or both of the following ways:
 					Section(header: Text("Caller ID")) {
 						if phone.basePhonebookCapacity > 0 {
 							Toggle(isOn: $phone.callerIDPhonebookMatch) {
-								Text("Caller ID Uses Matching Phonebook Entry Name")
+								Text("Caller ID Name Uses Matching Phonebook Entry Name")
 							}
 						}
 						Toggle(isOn: $phone.hasTalkingCallerID) {
@@ -631,15 +655,15 @@ A phone's voicemail indicator works in one or both of the following ways:
    """
    Speed dial is usually used by holding down the desired number key or by pressing a button (usually called "Auto") followed by the desired number key. One-touch/memory dial is when the phone has dedicated speed dial buttons which either start dialing immediately when pressed, or which display/announce the stored number which can be dialed by then going off-hook. Some phones tie the one-touch/memory dial buttons to the first few speed dial locations (e.g. a phone with 10 speed dials (1-9 and 0) and memory dial A-C might use memory dial A-C as a quicker way to dial the number in speed dial 1-3.
    
-   The speed dial entry mode describes how phonebook entries are saved to speed dial locations and whether they allow numbers to be manually entered. "Copy" means the phonebook entry will be copied to the speed dial location, and any changes made to the phonebook entry won't apply to the speed dial entry. "Link" means the speed dial entry is tied to the corresponding phonebook entry, so changing the phonebook entry will change the speed dial entry and vice versa, and the speed dial entry will be deleted if the corresponding phonebook entry is deleted.
-   
+   The speed dial entry mode describes how phonebook entries are saved to speed dial locations and whether they allow numbers to be manually entered. "Copy" means the phonebook entry will be copied to the speed dial location, and editing the phonebook entry won't affect the speed dial entry. "Link" means the speed dial entry is tied to the corresponding phonebook entry, so editing the phonebook entry will affect the speed dial entry and vice versa, and the speed dial entry will be deleted if the corresponding phonebook entry is deleted.
+
    By assigning a handset number to a cordless phone base's one-touch dial button, you can press it to quickly intercom/transfer a call to that handset.
    """)) {
 	   Stepper(phone.isCordless ? "Dial-Key Speed Dial Capacity (base): \(phone.baseSpeedDialCapacity)" : "Dial-Key Speed Dial Capacity: \(phone.baseSpeedDialCapacity)", value: $phone.baseSpeedDialCapacity, in: 0...50)
 	   if phone.baseSpeedDialCapacity > 10 {
 		   HStack {
 			   Image(systemName: "info.circle")
-			   Text("Speed dial locations 11-\(phone.baseSpeedDialCapacity) are accessed by pressing the speed dial button and then entering/scrolling to the desired location number.")
+			   Text("Speed dial \(phone.baseSpeedDialCapacity > 11 ? "locations 11-\(phone.baseSpeedDialCapacity) are" : "location 11 is") accessed by pressing the speed dial button and then entering/scrolling to the desired location number.")
 		   }
 			   .font(.footnote)
 			   .foregroundStyle(.secondary)
@@ -698,7 +722,7 @@ When the first ring is suppressed, the number of rings you hear will be one less
 							}
 							HStack {
 								Image(systemName: "info.circle")
-								Text("A custom busy tone is often the same one used for the intercom busy tone on \(phone.brand)'s cordless phones. A traditional busy tone is that of one of the countries where the phone is sold.")
+								Text("Silence can make callers think your number is broken, making them unlikely to try calling you again.\nA custom busy tone is often the same one used for the intercom busy tone on \(phone.brand)'s cordless phones.\nA traditional busy tone is that of one of the countries where the phone is sold.")
 							}
 									.font(.footnote)
 								.foregroundStyle(.secondary)
@@ -768,16 +792,25 @@ When the first ring is suppressed, the number of rings you hear will be one less
 							Text("Base").tag(0)
 							Text("Handset").tag(1)
 						}
-						Text("When a handset/base detects sound and calls an outside phone number, the outside caller can talk back to the handset/base by dialing a code, or deactivate the feature by dialing another code.")
+						HStack {
+							Image(systemName: "info.circle")
+							Text("When a handset/base detects sound and calls an outside phone number, the outside caller can talk back to the handset/base by dialing a code, or deactivate the feature by dialing another code.")
+						}
 							.font(.footnote)
 							.foregroundStyle(.secondary)
 					}
 					Stepper("Smart Home Devices Supported: \(phone.smartHomeDevicesSupported)", value: $phone.smartHomeDevicesSupported, in: 0...50, step: 5)
-					Text("Smart home devices registered to a cordless phone can notify the handset/base when things happen and the handset/base can control these devices.")
+					HStack {
+						Image(systemName: "info.circle")
+						Text("Smart home devices registered to a cordless phone can notify the handset/base when things happen and the handset/base can control these devices.")
+					}
 						.font(.footnote)
 						.foregroundStyle(.secondary)
 					Toggle("Answer By Voice", isOn: $phone.answerByVoice)
-					Text("The base and compatible handsets can detect sound when landline/cell calls come in, allowing calls to be answered by voice. The phone either listens for any sound or is programmed to listen for a specific phrase.")
+					HStack {
+						Image(systemName: "info.circle")
+						Text("The base and compatible handsets can detect sound when landline/cell calls come in, allowing calls to be answered by voice. The phone either listens for any sound or is programmed to listen for a specific phrase.")
+					}
 						.font(.footnote)
 						.foregroundStyle(.secondary)
 				}
@@ -787,7 +820,6 @@ When the first ring is suppressed, the number of rings you hear will be one less
 			.toggleStyle(.checkbox)
 #else
 			.toggleStyle(.switch)
-			.pickerStyle(.navigationLink)
 #endif
 			.textFieldStyle(.roundedBorder)
 		}

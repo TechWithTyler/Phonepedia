@@ -93,7 +93,7 @@ struct HandsetInfoDetailView: View {
 						}
 					}
 					Section(header: Text("Display/Backlight/Buttons")) {
-						if handset.softKeys > 0 {
+						if handset.softKeys > 0 && (phone.numberOfLandlines > 1 || phone.baseBluetoothCellPhonesSupported > 0) {
 							Picker("Line Buttons", selection: $handset.lineButtons) {
 								Text("Physical").tag(0)
 								Text("Soft Keys").tag(1)
