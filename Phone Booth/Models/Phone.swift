@@ -26,6 +26,8 @@ final class Phone {
 
 	var photoData: Data
 
+	var releaseYear: Int
+
 	var baseColor: String
 
 	var baseDisplayBacklightColor: String
@@ -204,6 +206,8 @@ final class Phone {
 
 	var smartphonesAsHandsetsOverWiFi: Int
 
+	var scamCallDetection: Bool
+
 	var hasCordedReceiver: Bool {
 		return !cordedReceiverColor.isEmpty
 	}
@@ -308,6 +312,8 @@ final class Phone {
 		self.cordedPhoneType = 0
 		self.cordedRingerType = 1
 		self.smartphonesAsHandsetsOverWiFi = 0
+		self.releaseYear = currentYear
+		self.scamCallDetection = false
 	}
 
 	func transmitOnlyBaseChanged(oldValue: Bool, newValue: Bool) {

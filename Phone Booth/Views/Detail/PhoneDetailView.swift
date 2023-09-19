@@ -49,6 +49,7 @@ struct PhoneDetailView: View {
 					TextField("Brand", text: $phone.brand)
 					TextField("Model", text: $phone.model)
 					Text("Phone type: \(phoneTypeText)")
+					Stepper("Release Year: \(String(phone.releaseYear))", value: $phone.releaseYear, in: 1984...Calendar.current.component(.year, from: Date()))
 					if phone.isCordless {
 						Picker("Wireless Frequency", selection: $phone.frequency) {
 							Section(header: Text("46-49MHz")) {
@@ -781,6 +782,13 @@ When the first ring is suppressed, the number of rings you hear will be one less
 					}
 				}
 				Section(header: Text("Special Features")) {
+					if phone.baseCallerIDCapacity > 0 || !phone.cordlessHandsetsIHave.filter({$0.callerIDCapacity > 0}).isEmpty {
+						Toggle("One-Ring Scam Call Detection", isOn: $phone.scamCallDetection)
+						HStack {
+							Image(systemName: "info.circle")
+							Text("If a caller hangs up within 1 or 2 rings and caller ID is received, the phone can mark the call as a one-ring scam call when viewed in the caller ID list, and warn the user when trying to call that caller.")
+						}
+					}
 					Picker("Room/Baby Monitor", selection: $phone.roomMonitor) {
 						Text("Not Supported").tag(0)
 						Text("Call From Handset/Base").tag(1)

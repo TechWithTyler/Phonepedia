@@ -30,6 +30,7 @@ struct HandsetInfoDetailView: View {
 					}
 					TextField("Brand", text: $handset.brand)
 					TextField("Model", text: $handset.model)
+					Stepper("Release Year: \(String(handset.releaseYear))", value: $handset.releaseYear, in: 1984...currentYear)
 					TextField("Color", text: $handset.color)
 					Stepper("Maximum Number Of Bases: \(handset.maxBases)", value: $handset.maxBases, in: 1...4)
 					HStack {

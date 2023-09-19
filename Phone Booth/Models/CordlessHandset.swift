@@ -17,6 +17,8 @@ final class CordlessHandset {
 
 	var model: String
 
+	var releaseYear: Int
+
 	var fitsOnBase: Bool
 
 	var maxBases: Int
@@ -150,6 +152,7 @@ final class CordlessHandset {
 		self.bluetoothPhonebookTransfers = 0
 		self.displayBacklightColor = String()
 		self.keyFindersSupported = 0
+		self.releaseYear = currentYear
 	}
 
 	func cordlessDeviceTypeChanged(oldValue: Int, newValue: Int) {
