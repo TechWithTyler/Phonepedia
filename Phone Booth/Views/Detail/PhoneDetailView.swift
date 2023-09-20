@@ -196,7 +196,7 @@ struct PhoneDetailView: View {
 								Text("One For Each Handset").tag(1)
 								Text("Select + Call Buttons").tag(2)
 							}
-							if !phone.isCordedCordless && !phone.hasTransmitOnlyBase && deregistration > 0 {
+							if !phone.isCordedCordless && !phone.hasTransmitOnlyBase && phone.deregistration > 0 {
 								Toggle("Place-On-Base Auto-Register", isOn: $phone.placeOnBaseAutoRegister)
 								HStack {
 									Image(systemName: "info.circle")
