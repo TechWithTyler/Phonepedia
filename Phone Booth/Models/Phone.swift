@@ -208,6 +208,8 @@ final class Phone {
 
 	var scamCallDetection: Bool
 
+	var placeOnBaseAutoRegister: Bool
+
 	var hasCordedReceiver: Bool {
 		return !cordedReceiverColor.isEmpty
 	}
@@ -314,6 +316,7 @@ final class Phone {
 		self.smartphonesAsHandsetsOverWiFi = 0
 		self.releaseYear = currentYear
 		self.scamCallDetection = false
+		self.placeOnBaseAutoRegister = false
 	}
 
 	func transmitOnlyBaseChanged(oldValue: Bool, newValue: Bool) {
@@ -321,6 +324,7 @@ final class Phone {
 			for handset in cordlessHandsetsIHave {
 				handset.fitsOnBase = false
 			}
+			placeOnBaseAutoRegister = false
 			baseHasSeparateDataContact = false
 			baseChargeContactMechanism = 0
 			baseChargeContactPlacement = 0
@@ -336,6 +340,7 @@ final class Phone {
 			cordedPhoneType = 0
 			cordedRingerType = 1
 		} else {
+			placeOnBaseAutoRegister = false
 			hasTransmitOnlyBase = false
 			supportsRangeExtenders = false
 			baseChargingDirection = 0
@@ -359,6 +364,7 @@ final class Phone {
 
 	func maxCordlessHandsetsChanged(oldValue: Int, newValue: Int) {
 		if newValue == -1 {
+			placeOnBaseAutoRegister = false
 			deregistration = 0
 			locatorButtons = 0
 			for handset in cordlessHandsetsIHave {
@@ -411,6 +417,7 @@ final class Phone {
 			for handset in cordlessHandsetsIHave {
 				handset.fitsOnBase = false
 			}
+			placeOnBaseAutoRegister = false
 			hasTransmitOnlyBase = false
 			baseChargingDirection = 0
 			baseChargeContactMechanism = 0

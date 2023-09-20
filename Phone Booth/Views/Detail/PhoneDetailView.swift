@@ -196,6 +196,15 @@ struct PhoneDetailView: View {
 								Text("One For Each Handset").tag(1)
 								Text("Select + Call Buttons").tag(2)
 							}
+							if !phone.isCordedCordless && !phone.hasTransmitOnlyBase {
+								Toggle("Place-On-Base Auto-Register", $phone.placeOnBaseAutoRegister)
+								HStack {
+									Image(systemName: "info.circle")
+									Text("The base can detect an unregistered handset being placed on it, which will put it into registration mode. Data isn't exchanged through the contacts like it is on phones using the digital security code method.")
+								}
+								.font(.footnote)
+								.foregroundStyle(.secondary)
+							}
 							Picker("Deregistration", selection: $phone.deregistration) {
 								Text("Not Supported").tag(0)
 								Text("From This Handset").tag(1)
@@ -787,6 +796,8 @@ When the first ring is suppressed, the number of rings you hear will be one less
 						HStack {
 							Image(systemName: "info.circle")
 							Text("If a caller hangs up within 1 or 2 rings and caller ID is received, the phone can mark the call as a one-ring scam call when viewed in the caller ID list, and warn the user when trying to call that caller.")
+								.font(.footnote)
+								.foregroundStyle(.secondary)
 						}
 					}
 					Picker("Room/Baby Monitor", selection: $phone.roomMonitor) {
@@ -794,6 +805,12 @@ When the first ring is suppressed, the number of rings you hear will be one less
 						Text("Call From Handset/Base").tag(1)
 						Text("Call To Handset/Base").tag(2)
 						Text("Sound-Activated Call To Handset/Base/Outside Phone").tag(3)
+					}
+					HStack {
+						Image(systemName: "info.circle")
+						Text("Call From: You call the monitored handset/base.\nCall To: The monitored handset/base calls you at another handset/base. Sound-Activated Call To: The monitored handset/base calls you at another handset/base or an outside phone number when sound is detected (e.g., a crying baby or barking dog).")
+							.font(.footnote)
+							.foregroundStyle(.secondary)
 					}
 					if phone.roomMonitor == 3 {
 						Picker("External Room Monitor DTMF Entry Handled By", selection: $phone.externalRoomMonitorAutomatedSystem) {
