@@ -212,6 +212,9 @@ struct PhoneDetailView: View {
 								Text("Multiple From Any Handset/Base").tag(3)
 								Text("All From Base").tag(4)
 							}
+							.onChange(of: phone.deregistration) { oldValue, newValue in
+								phone.deregistrationChanged(oldValue: oldValue, newValue: newValue)
+							}
 						}
 					}
 				}

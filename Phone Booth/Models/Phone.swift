@@ -460,4 +460,10 @@ final class Phone {
 		}
 	}
 
+	func deregistrationChanged(oldValue: Int, newValue: Int) {
+		if newValue == 0 {
+			placeOnBaseAutoRegister = false
+		}
+	}
+
 }
