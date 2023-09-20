@@ -197,7 +197,7 @@ struct PhoneDetailView: View {
 								Text("Select + Call Buttons").tag(2)
 							}
 							if !phone.isCordedCordless && !phone.hasTransmitOnlyBase {
-								Toggle("Place-On-Base Auto-Register", $phone.placeOnBaseAutoRegister)
+								Toggle("Place-On-Base Auto-Register", isOn: $phone.placeOnBaseAutoRegister)
 								HStack {
 									Image(systemName: "info.circle")
 									Text("The base can detect an unregistered handset being placed on it, which will put it into registration mode. Data isn't exchanged through the contacts like it is on phones using the digital security code method.")
