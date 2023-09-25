@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		8D31E1FF2A8D561C003C197C /* ChargerInfoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D31E1FE2A8D561C003C197C /* ChargerInfoDetailView.swift */; };
 		8D31E2042A8D5959003C197C /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D31E2032A8D5959003C197C /* CameraViewController.swift */; };
+		8D3D27902ABCDDF30005FEC2 /* Phone_BoothUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3D278F2ABCDDF30005FEC2 /* Phone_BoothUITests.swift */; };
+		8D3D27922ABCDDF30005FEC2 /* Phone_BoothUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3D27912ABCDDF30005FEC2 /* Phone_BoothUITestsLaunchTests.swift */; };
 		8D61C77C2A8C11EA008703D7 /* ChargingContactInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D61C77B2A8C11EA008703D7 /* ChargingContactInfoView.swift */; };
 		8DA52A262A3D01C500B7546B /* PhoneRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA52A252A3D01C500B7546B /* PhoneRowView.swift */; };
 		8DA80DC92A46190F007950A6 /* HandsetInfoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA80DC52A46184A007950A6 /* HandsetInfoDetailView.swift */; };
@@ -30,6 +32,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		8D3D27932ABCDDF30005FEC2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8DFC9BEA2A3BAB9D00295700 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DFC9BF12A3BAB9D00295700;
+			remoteInfo = "Phone Booth";
+		};
 		8DE6B9672AA905CF00C42E02 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8DFC9BEA2A3BAB9D00295700 /* Project object */;
@@ -42,6 +51,9 @@
 /* Begin PBXFileReference section */
 		8D31E1FE2A8D561C003C197C /* ChargerInfoDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargerInfoDetailView.swift; sourceTree = "<group>"; };
 		8D31E2032A8D5959003C197C /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		8D3D278D2ABCDDF30005FEC2 /* Phone BoothUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Phone BoothUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D3D278F2ABCDDF30005FEC2 /* Phone_BoothUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phone_BoothUITests.swift; sourceTree = "<group>"; };
+		8D3D27912ABCDDF30005FEC2 /* Phone_BoothUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phone_BoothUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		8D61C77B2A8C11EA008703D7 /* ChargingContactInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargingContactInfoView.swift; sourceTree = "<group>"; };
 		8DA52A252A3D01C500B7546B /* PhoneRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneRowView.swift; sourceTree = "<group>"; };
 		8DA52A272A3D04BB00B7546B /* PhoneImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneImage.swift; sourceTree = "<group>"; };
@@ -66,6 +78,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		8D3D278A2ABCDDF30005FEC2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8DE6B9602AA905CF00C42E02 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -114,6 +133,15 @@
 			path = "Supporting View Controllers";
 			sourceTree = "<group>";
 		};
+		8D3D278E2ABCDDF30005FEC2 /* Phone BoothUITests */ = {
+			isa = PBXGroup;
+			children = (
+				8D3D278F2ABCDDF30005FEC2 /* Phone_BoothUITests.swift */,
+				8D3D27912ABCDDF30005FEC2 /* Phone_BoothUITestsLaunchTests.swift */,
+			);
+			path = "Phone BoothUITests";
+			sourceTree = "<group>";
+		};
 		8DA52A242A3D01B700B7546B /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -156,6 +184,7 @@
 			children = (
 				8DFC9BF42A3BAB9D00295700 /* Phone Booth */,
 				8DE6B9642AA905CF00C42E02 /* Phone BoothTests */,
+				8D3D278E2ABCDDF30005FEC2 /* Phone BoothUITests */,
 				8DFC9BF32A3BAB9D00295700 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -165,6 +194,7 @@
 			children = (
 				8DFC9BF22A3BAB9D00295700 /* Phone Booth.app */,
 				8DE6B9632AA905CF00C42E02 /* Phone BoothTests.xctest */,
+				8D3D278D2ABCDDF30005FEC2 /* Phone BoothUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -195,6 +225,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		8D3D278C2ABCDDF30005FEC2 /* Phone BoothUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8D3D27972ABCDDF30005FEC2 /* Build configuration list for PBXNativeTarget "Phone BoothUITests" */;
+			buildPhases = (
+				8D3D27892ABCDDF30005FEC2 /* Sources */,
+				8D3D278A2ABCDDF30005FEC2 /* Frameworks */,
+				8D3D278B2ABCDDF30005FEC2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8D3D27942ABCDDF30005FEC2 /* PBXTargetDependency */,
+			);
+			name = "Phone BoothUITests";
+			productName = "Phone BoothUITests";
+			productReference = 8D3D278D2ABCDDF30005FEC2 /* Phone BoothUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		8DE6B9622AA905CF00C42E02 /* Phone BoothTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8DE6B96B2AA905CF00C42E02 /* Build configuration list for PBXNativeTarget "Phone BoothTests" */;
@@ -240,6 +288,10 @@
 				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
+					8D3D278C2ABCDDF30005FEC2 = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = 8DFC9BF12A3BAB9D00295700;
+					};
 					8DE6B9622AA905CF00C42E02 = {
 						CreatedOnToolsVersion = 15.0;
 						TestTargetID = 8DFC9BF12A3BAB9D00295700;
@@ -264,11 +316,19 @@
 			targets = (
 				8DFC9BF12A3BAB9D00295700 /* Phone Booth */,
 				8DE6B9622AA905CF00C42E02 /* Phone BoothTests */,
+				8D3D278C2ABCDDF30005FEC2 /* Phone BoothUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		8D3D278B2ABCDDF30005FEC2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8DE6B9612AA905CF00C42E02 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -288,6 +348,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		8D3D27892ABCDDF30005FEC2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D3D27922ABCDDF30005FEC2 /* Phone_BoothUITestsLaunchTests.swift in Sources */,
+				8D3D27902ABCDDF30005FEC2 /* Phone_BoothUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8DE6B95F2AA905CF00C42E02 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -323,6 +392,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		8D3D27942ABCDDF30005FEC2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8DFC9BF12A3BAB9D00295700 /* Phone Booth */;
+			targetProxy = 8D3D27932ABCDDF30005FEC2 /* PBXContainerItemProxy */;
+		};
 		8DE6B9682AA905CF00C42E02 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8DFC9BF12A3BAB9D00295700 /* Phone Booth */;
@@ -331,6 +405,48 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		8D3D27952ABCDDF30005FEC2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3B6G4T54X3;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tylersheft.Phone-BoothUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Phone Booth";
+			};
+			name = Debug;
+		};
+		8D3D27962ABCDDF30005FEC2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3B6G4T54X3;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tylersheft.Phone-BoothUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Phone Booth";
+			};
+			name = Release;
+		};
 		8DE6B9692AA905CF00C42E02 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -572,6 +688,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		8D3D27972ABCDDF30005FEC2 /* Build configuration list for PBXNativeTarget "Phone BoothUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8D3D27952ABCDDF30005FEC2 /* Debug */,
+				8D3D27962ABCDDF30005FEC2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		8DE6B96B2AA905CF00C42E02 /* Build configuration list for PBXNativeTarget "Phone BoothTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

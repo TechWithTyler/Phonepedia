@@ -52,7 +52,7 @@ final class Phone_BoothTests: XCTestCase {
 		let oldValue = 0
 		let newValue = 1
 		// Call the function
-		phoneDetailView?.baseBluetoothCellPhonesSupportedChanged(oldValue: oldValue, newValue: newValue)
+		phone?.baseBluetoothCellPhonesSupportedChanged(oldValue: oldValue, newValue: newValue)
 		// Assert that the phone's bluetoothPhonebookTransfers property has been updated
 		print((phone?.bluetoothPhonebookTransfers)!)
 		XCTAssertEqual(phone?.bluetoothPhonebookTransfers, 1)
@@ -63,7 +63,7 @@ final class Phone_BoothTests: XCTestCase {
 		let oldValue = 0
 		let newValue = 0
 		// Call the function
-		phoneDetailView?.baseBluetoothCellPhonesSupportedChanged(oldValue: oldValue, newValue: newValue)
+		phone?.baseBluetoothCellPhonesSupportedChanged(oldValue: oldValue, newValue: newValue)
 		// Assert that the phone's bluetoothPhonebookTransfers property has not been updated
 		XCTAssertEqual(phone?.bluetoothPhonebookTransfers, 0)
 	}
@@ -73,7 +73,7 @@ final class Phone_BoothTests: XCTestCase {
 		let oldValue = 0
 		let newValue = 1
 		// Call the function
-		handsetInfoDetailView?.cordlessDeviceTypeChanged(oldValue: oldValue, newValue: newValue)
+		handset?.cordlessDeviceTypeChanged(oldValue: oldValue, newValue: newValue)
 		// Assert that the phone's fitsOnBase property has been updated
 		XCTAssertEqual(handset?.fitsOnBase, false)
 	}
@@ -83,7 +83,7 @@ final class Phone_BoothTests: XCTestCase {
 		let oldValue = 0
 		let newValue = 0
 		// Call the function
-		handsetInfoDetailView?.cordlessDeviceTypeChanged(oldValue: oldValue, newValue: newValue)
+		handset?.cordlessDeviceTypeChanged(oldValue: oldValue, newValue: newValue)
 		// Assert that the phone's fitsOnBase property has not been updated
 		XCTAssertEqual(handset?.fitsOnBase, true)
 	}
