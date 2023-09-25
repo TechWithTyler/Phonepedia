@@ -53,6 +53,7 @@ struct PhonePartInfoView: View {
 							.frame(width: 100, alignment: .leading)
 					}
 					.buttonStyle(.borderless)
+					.accessibilityIdentifier("AddHandsetButton")
 				} else if phone.cordlessHandsetsIHave.count > phone.maxCordlessHandsets {
 					HStack {
 						Image(systemName: "exclamationmark.triangle")
@@ -98,6 +99,7 @@ struct PhonePartInfoView: View {
 							.frame(width: 100, alignment: .leading)
 					}
 					.buttonStyle(.borderless)
+					.accessibilityIdentifier("AddChargerButton")
 			}
 		}
 	}

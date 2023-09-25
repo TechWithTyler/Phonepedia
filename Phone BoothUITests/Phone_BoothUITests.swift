@@ -9,6 +9,8 @@ import XCTest
 
 final class Phone_BoothUITests: XCTestCase {
 
+	let app = XCUIApplication()
+
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
 
@@ -22,12 +24,30 @@ final class Phone_BoothUITests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws {
+    func testAddPhoneButton() throws {
         // UI tests must launch the application that they test.
-        let app = XCUIApplication()
         app.launch()
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+		XCTAssert(app.buttons["AddPhoneButton"].exists)
 		app.buttons["AddPhoneButton"].firstMatch.click()
+    }
+
+	func testSelectPhone() throws {
+		XCTAssert(app.tables["PhonesList"].exists)
+		app.tables["PhonesList"].cells.staticTexts.firstMatch.click()
+	}
+
+	func testAddHandset() throws {
+		XCTAssert(app.buttons["AddHandsetButton"].exists)
+		app.buttons["AddHandsetButton"].firstMatch.click()
+	}
+
+	func testAddCharger() throws {
+		XCTAssert(app.buttons["AddChargerButton"].exists)
+		app.buttons["AddChargerButton"].firstMatch.click()
+	}
+
+	func testScreenshot() throws {
 		let screenshot = app.windows.firstMatch.screenshot()
 		// Get the Documents directory URL
 		if let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
@@ -48,7 +68,7 @@ final class Phone_BoothUITests: XCTestCase {
 		} else {
 			XCTFail("Failed to access the Documents folder.")
 		}
-    }
+	}
 
     func testLaunchPerformance() throws {
             // This measures how long it takes to launch your application.
