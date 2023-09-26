@@ -31,42 +31,19 @@ final class Phone_BoothUITests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
 		XCTAssert(app.buttons["AddPhoneButton"].exists)
 		app.buttons["AddPhoneButton"].firstMatch.click()
-    }
-
-	func testSelectPhone() throws {
-		let expectation = self.expectation(description: "Wait for asynchronous operation")
-		DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(5)) {
+			print("Starting loop")
 			for i in 0..<self.app.tables.allElementsBoundByIndex.count {
 				print("Phones List Or Other Table \(i+1)")
 				print(self.app.tables.element(boundBy: i).debugDescription)
 			}
-			XCTAssert(self.app.tables["PhonesList"].exists)
-			self.app.tables["PhonesList"].cells.staticTexts.firstMatch.click()
-
-			// Fulfill the expectation
-			expectation.fulfill()
-		}
-
-		// Set a timeout
-		waitForExpectations(timeout: 10)
-	}
-
-	func testAddHandset() throws {
-		DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1000)) {
+			print("Finished loop")
+			print("Type of PhonesList:")
+			XCTAssert(self.app.outlines["PhonesList"].exists)
+			self.app.outlines["PhonesList"].cells.firstMatch.click()
 			XCTAssert(self.app.buttons["AddHandsetButton"].exists)
 			self.app.buttons["AddHandsetButton"].firstMatch.click()
-		}
-	}
-
-	func testAddCharger() throws {
-		DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1000)) {
 			XCTAssert(self.app.buttons["AddChargerButton"].exists)
 			self.app.buttons["AddChargerButton"].firstMatch.click()
-		}
-	}
-
-	func testScreenshot() throws {
-		DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(1000)) {
 			let screenshot = self.app.windows.firstMatch.screenshot()
 			// Get the Documents directory URL
 			if let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
@@ -86,7 +63,6 @@ final class Phone_BoothUITests: XCTestCase {
 				}
 			} else {
 				XCTFail("Failed to access the Documents folder.")
-			}
 		}
 	}
 
