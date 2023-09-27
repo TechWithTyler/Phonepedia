@@ -31,13 +31,6 @@ final class Phone_BoothUITests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
 		XCTAssert(app.buttons["AddPhoneButton"].exists)
 		app.buttons["AddPhoneButton"].firstMatch.click()
-			print("Starting loop")
-			for i in 0..<self.app.tables.allElementsBoundByIndex.count {
-				print("Phones List Or Other Table \(i+1)")
-				print(self.app.tables.element(boundBy: i).debugDescription)
-			}
-			print("Finished loop")
-			print("Type of PhonesList:")
 			XCTAssert(self.app.outlines["PhonesList"].exists)
 			self.app.outlines["PhonesList"].cells.firstMatch.click()
 			XCTAssert(self.app.buttons["AddHandsetButton"].exists)
