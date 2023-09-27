@@ -340,6 +340,9 @@ final class Phone {
 			cordedPhoneType = 0
 			cordedRingerType = 1
 		} else {
+			if hasAnsweringSystem > 1 {
+				hasAnsweringSystem = 1
+			}
 			placeOnBaseAutoRegister = false
 			hasTransmitOnlyBase = false
 			supportsRangeExtenders = false
