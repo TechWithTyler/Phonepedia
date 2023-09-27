@@ -49,7 +49,7 @@ struct HandsetInfoDetailView: View {
 					}
 					HStack {
 						Image(systemName: "info.circle")
-						Text("A deskset is a corded phone that connects wirelessly to a main base and is treated like a handset.")
+						Text("A deskset is a phone that connects wirelessly to a main base and is treated like a handset. Desksets can have a corded receiver or a charging area for a cordless handset.\nA cordless headset/speakerphone can pick up the line and answer/join calls, but can't dial or use other features.")
 					}
 					.foregroundStyle(.secondary)
 					.font(.footnote)
@@ -99,6 +99,12 @@ struct HandsetInfoDetailView: View {
 								Text("Physical").tag(0)
 								Text("Soft Keys").tag(1)
 							}
+							HStack {
+								Image(systemName: "info.circle")
+								Text("A handset with soft keys for the line buttons can easily adapt to bases with different numbers of lines. For example, the same handset can be supplied and used with both the cell phone linking and non-cell phone linking models of a series.\nHandsets with physical line buttons may be programmed to expect all of its lines to be supported, potenailly causing compatibility issues on bases without those lines.")
+							}
+							.font(.footnote)
+							.foregroundStyle(.secondary)
 						}
 						Picker("Button Type", selection: $handset.buttonType) {
 							Text("Spaced").tag(0)
