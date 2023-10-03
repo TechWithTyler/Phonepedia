@@ -13,13 +13,13 @@ struct PhoneDetailView: View {
 
 	@Bindable var phone: Phone
 
-	@State var selectedPhoto: PhotosPickerItem? = nil
+	@State private var selectedPhoto: PhotosPickerItem? = nil
 
 	#if os(iOS)
-	@State var takingPhoto: Bool = false
+	@State private var takingPhoto: Bool = false
 	#endif
 
-	@State var showingResetAlert: Bool = false
+	@State private var showingResetAlert: Bool = false
 
 	var body: some View {
 		NavigationStack {

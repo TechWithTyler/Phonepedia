@@ -83,7 +83,7 @@ struct HandsetInfoDetailView: View {
 					Section(header: Text("Ringers")) {
 						Stepper("Ringtones: \(handset.ringtones)", value: $handset.ringtones, in: 1...25)
 						Stepper("Music Ringtones: \(handset.musicRingtones)", value: $handset.musicRingtones, in: 0...25)
-						Text("Total Ringtones: \(phone.baseRingtones + phone.baseMusicRingtones)")
+						Text("Total Ringtones: \(handset.ringtones + handset.musicRingtones)")
 						Toggle(isOn: $handset.canChangeIntercomTone) {
 							Text("Can Change Intercom Tone")
 						}
@@ -307,7 +307,7 @@ struct HandsetInfoDetailView: View {
 }
 
 //#Preview {
-//	@State var handset = CordlessHandset(brand: "Panasonic", model: "KX-TGFA97")
+//	@State private var handset = CordlessHandset(brand: "Panasonic", model: "KX-TGFA97")
 //	handset.phone = Phone(brand: "Panasonic", model: "KX-TGF975")
 //	return HandsetInfoDetailView(handset: $handset, handsetNumber: 1)
 //}
