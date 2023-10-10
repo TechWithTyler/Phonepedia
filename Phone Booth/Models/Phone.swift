@@ -14,9 +14,9 @@ final class Phone {
 	
 	static var previewPhotoData: Data {
 #if os(iOS) || os(xrOS)
-		return getPNGDataFromUIImage(image: UIImage(named: "phone")!)
+		return getPNGDataFromUIImage(image: .phone)
 #elseif os(macOS)
-		return getPNGDataFromNSImage(image: NSImage(named: "phone")!)
+		return getPNGDataFromNSImage(image: .phone)
 #endif
 	}
 
