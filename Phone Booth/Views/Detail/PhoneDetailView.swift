@@ -16,7 +16,7 @@ struct PhoneDetailView: View {
 	@State private var selectedPhoto: PhotosPickerItem? = nil
 
 	#if os(iOS)
-	@State private var takingPhoto: Bool = false
+	@State var takingPhoto: Bool = false
 	#endif
 
 	@State private var showingResetAlert: Bool = false
