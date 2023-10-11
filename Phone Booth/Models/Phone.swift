@@ -210,6 +210,10 @@ final class Phone {
 
 	var placeOnBaseAutoRegister: Bool
 
+	var wallMountability: Int
+
+	var antennas: Int
+
 	var hasCordedReceiver: Bool {
 		return !cordedReceiverColor.isEmpty
 	}
@@ -317,6 +321,8 @@ final class Phone {
 		self.releaseYear = currentYear
 		self.scamCallDetection = false
 		self.placeOnBaseAutoRegister = false
+		self.wallMountability = 2
+		self.antennas = 0
 	}
 
 	func transmitOnlyBaseChanged(oldValue: Bool, newValue: Bool) {

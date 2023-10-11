@@ -91,6 +91,14 @@ struct PhoneDetailView: View {
 								Text("DECT 6.0 (1.92-1.93GHz)").tag(25)
 							}
 						}
+						Picker("Antennas", selection: $phone.antennas) {
+							Text("Hidden").tag(0)
+							Text("Telescopic").tag(1)
+							Text("Standard (left)").tag(2)
+							Text("Standard (right)").tag(3)
+							Text("One On Each Side").tag(4)
+						}
+						AntennaInfoView()
 						Toggle("Supports Range Extenders", isOn: $phone.supportsRangeExtenders)
 						HStack {
 							Image(systemName: "info.circle")
@@ -108,6 +116,12 @@ struct PhoneDetailView: View {
 							.foregroundStyle(.secondary)
 							.onChange(of: phone.hasTransmitOnlyBase) { oldValue, newValue in
 								phone.transmitOnlyBaseChanged(oldValue: oldValue, newValue: newValue)
+							}
+							Picker("Wall Mounting", selection: $phone.wallMountability) {
+								Text("Not Supported").tag(0)
+								Text("Holes on Back").tag(1)
+								Text("Optional Bracket").tag(2)
+								Text("Built-In Bracket").tag(3)
 							}
 						}
 					} else {
@@ -217,7 +231,7 @@ struct PhoneDetailView: View {
 								Toggle("Place-On-Base Auto-Register", isOn: $phone.placeOnBaseAutoRegister)
 								HStack {
 									Image(systemName: "info.circle")
-									Text("The base can detect an unregistered handset being placed on it, which will put it into registration mode. Data isn't exchanged through the contacts like it is on phones using the digital security code method.")
+									Text("The base can detect an unregistered handset being placed on it, which will put it into registration mode. Aside from putting the base into registration mode, data isn't exchanged through the contacts like it is on phones using the digital security code method.")
 								}
 								.font(.footnote)
 								.foregroundStyle(.secondary)
@@ -289,7 +303,7 @@ struct PhoneDetailView: View {
 							VStack(alignment: .leading) {
 								HStack {
 									Image(systemName: "info.circle")
-									Text("When the power goes out, placing a charged handset on the base can give it power. None of the base buttons will work, however, the display/lights may flash to indicate the base is booting up. Features like the answering system and base Bluetooth aren't available while the handset is powering the base.")
+									Text("When the power goes out, placing a charged handset on the base can give it power. None of the base buttons will work. However, the display/lights may flash to indicate the base is booting up. Features like the answering system and base Bluetooth aren't available while the handset is powering the base. This helps to conserve handset battery power.")
 								}
 								if phone.cordlessHandsetsIHave.filter({$0.fitsOnBase}).isEmpty {
 									HStack {
@@ -317,7 +331,7 @@ struct PhoneDetailView: View {
 							}
 							HStack {
 								Image(systemName: "info.circle")
-								Text("Some cordless phones have a base speakerphone and keypad, which allow you to make calls if the handset isn't nearby or if it needs to charge. Bases with keypads are a great option for office spaces.")
+								Text("Some cordless phones have a base speakerphone and keypad, which allows you to make calls if the handset isn't nearby or if it needs to charge. Bases with keypads are a great option for office spaces.")
 									.foregroundStyle(.secondary)
 									.font(.footnote)
 							}
@@ -351,6 +365,10 @@ struct PhoneDetailView: View {
 						Picker("Ringer Type", selection: $phone.cordedRingerType) {
 							Text("Bell/Mechanical").tag(0)
 							Text("Electronic").tag(1)
+						}
+						HStack {
+							Image(systemName: "info.circle")
+							Text("A bell/mechanical ringer requires more power to ring, so it may not work properly on most VoIP lines, especially if multiple phones are ringing at once, as they're usually designed for modern phones which typically don't have mechanical ringers. Electronic ringers, especially those that are software-driven, don't require much power. The amount of ringing power a phone requires is determined by the Ringer Equivalence Number (REN), usually found on the bottom of the phone. A higher REN means more power required to ring.")
 						}
 					}
 					if phone.isCordless && phone.hasBaseIntercom {
@@ -399,12 +417,18 @@ struct PhoneDetailView: View {
 								Text("Handset Only").tag(1)
 								Text("Base or Handset").tag(2)
 							}
+							HStack {
+								Image(systemName: "info.circle")
+								Text("The greeting, sometimes called the announcement or outgoing message, is the message the answering system plays to callers when it answers, before optionally allowing the caller to leave a message. Example: \"Hello. You have reached \(names.randomElement()!). I'm not available to take your call, so please leave a message after the tone.\"")
+							}
+							.font(.footnote)
+							.foregroundStyle(.secondary)
 						}
 						if phone.hasAnsweringSystem > 0 {
 							Toggle("Has Greeting Only Mode", isOn: $phone.hasGreetingOnlyMode)
 							HStack {
 								Image(systemName: "info.circle")
-								Text("Greeting Only, sometimes called Announce Only or Answer Only, answers calls but doesn't accept incoming messages. Some phones allow you to record a separate greeting for both modes, allowing you to easily switch between modes without having to re-record your greeting each time.")
+								Text("Greeting Only, sometimes called Announce Only or Answer Only, answers calls but doesn't accept incoming messages. Some phones allow you to record a separate greeting for both modes, allowing you to easily switch between modes without having to re-record your greeting each time. Example: \"Hello. You have reached \(names.randomElement()!). I'm not available to take your call, so please call again later.\"")
 							}
 							.font(.footnote)
 							.foregroundStyle(.secondary)
@@ -425,7 +449,7 @@ struct PhoneDetailView: View {
 						HStack {
 							Image(systemName: "info.circle")
 							Text("""
-A phone's voicemail indicator works in one or both of the following ways:
+A phone's voicemail indicator usually works in one or both of the following ways:
 • Your phone company may send special tones, called Frequency-Shift-Keying (FSK) tones to the phone whenever a new voicemail is left, and another when all new voicemails are played, to tell the phone to turn on or off its voicemail indicator. You can't hear these tones unless you use a device to listen in on the phone line without picking it up (e.g. a butt-set phone in monitor mode).
 • The phone may go off-hook for a few seconds periodically or when you hang up or it stops ringing, to listen for a stutter dial tone ("bee-bee-bee-beeeeeeeep") which your phone company may use as an audible indication of new voicemails.
 """)
@@ -804,6 +828,12 @@ When the first ring is suppressed, the number of rings you hear will be one less
 								Text("Code").tag(2)
 							}
 							if phone.callBlockPreScreening > 0 {
+								HStack {
+									Image(systemName: "info.circle")
+									Text("Example screening message: \"Hello. Your call is being screened to make sure you're a person. Please \(phone.callBlockPreScreening == 2 ? "press \(Int.random(in: 0...999))" : "say your name after the tone then press the pound key") to be connected.\"")
+								}
+								.font(.footnote)
+								.foregroundStyle(.secondary)
 								if phone.hasAnsweringSystem == 0 {
 									HStack {
 										Image(systemName: "info.circle")
@@ -848,7 +878,7 @@ When the first ring is suppressed, the number of rings you hear will be one less
 							}
 							HStack {
 								Image(systemName: "info.circle")
-								Text("Call From: You call the monitored handset/base.\nCall To: The monitored handset/base calls you at another handset/base. Sound-Activated Call To: The monitored handset/base calls you at another handset/base or an outside phone number when sound is detected (e.g., a crying baby or barking dog).")
+								Text("Call From: You call the monitored handset/base.\nCall To: The monitored handset/base calls you at another handset/base.\nSound-Activated Call To: The monitored handset/base calls you at another handset/base or an outside phone number when sound is detected (e.g., a crying baby or barking dog).")
 							}
 							.font(.footnote)
 							.foregroundStyle(.secondary)

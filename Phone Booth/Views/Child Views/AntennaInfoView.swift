@@ -9,7 +9,10 @@ import SwiftUI
 
 struct AntennaInfoView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+		HStack {
+			Image(systemName: "info.circle")
+			Text("A telescopic antenna can be extended for more range. These kinds of antennas are most commonly seen on 46-49MHz phones.")
+		}
     }
 }
 

@@ -23,12 +23,15 @@ final class Charger {
 
 	var hasRangeExtender: Bool
 
+	var wallMountability: Int
+
 	init() {
 		self.color = String()
 		self.chargingDirection = 0
 		self.chargeContactPlacement = 0
 		self.chargeContactMechanism = 1
 		self.hasRangeExtender = false
+		self.wallMountability = 0
 	}
 
 }

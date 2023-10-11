@@ -53,6 +53,17 @@ struct HandsetInfoDetailView: View {
 					}
 					.foregroundStyle(.secondary)
 					.font(.footnote)
+					if handset.cordlessDeviceType < 2 {
+						Picker("Antenna", selection: $handset.antenna) {
+							Text("Hidden").tag(0)
+							if handset.cordlessDeviceType == 0 {
+								Text("Style (short)").tag(1)
+							}
+							Text("Transmission (long)").tag(2)
+							Text("Transmission (telescopic)").tag(3)
+						}
+						AntennaInfoView()
+					}
 					if handset.cordlessDeviceType == 0 && !phone.isCordedCordless && !phone.hasTransmitOnlyBase && phone.maxCordlessHandsets != -1 {
 						Toggle("Fits On Base", isOn: $handset.fitsOnBase)
 						if !handset.fitsOnBase {

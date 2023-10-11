@@ -8,6 +8,8 @@
 import Foundation
 import SwiftUI
 
+var names: [String] = ["John Smith", "Pat Fleet", "Allison Smith", "Charlie Johnson", "Apple", "Microsoft", "Tesla", "Toyota", "American Airlines"]
+
 var currentYear = Calendar.current.component(.year, from: Date())
 
 #if os(macOS)

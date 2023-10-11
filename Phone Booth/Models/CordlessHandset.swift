@@ -105,6 +105,8 @@ final class CordlessHandset {
 
 	var keyFindersSupported: Int
 
+	var antenna: Int
+
 	init(brand: String, model: String) {
 		self.brand = brand
 		self.model = model
@@ -153,6 +155,7 @@ final class CordlessHandset {
 		self.displayBacklightColor = String()
 		self.keyFindersSupported = 0
 		self.releaseYear = currentYear
+		self.antenna = 0
 	}
 
 	func cordlessDeviceTypeChanged(oldValue: Int, newValue: Int) {

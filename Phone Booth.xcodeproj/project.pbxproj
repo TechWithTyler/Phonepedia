@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8D28118A2AD72CB7006F2FEF /* AntennaInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2811892AD72CB7006F2FEF /* AntennaInfoView.swift */; };
 		8D31E1FF2A8D561C003C197C /* ChargerInfoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D31E1FE2A8D561C003C197C /* ChargerInfoDetailView.swift */; };
 		8D31E2042A8D5959003C197C /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D31E2032A8D5959003C197C /* CameraViewController.swift */; };
 		8D3D27902ABCDDF30005FEC2 /* Phone_BoothUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3D278F2ABCDDF30005FEC2 /* Phone_BoothUITests.swift */; };
@@ -49,6 +50,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8D2811892AD72CB7006F2FEF /* AntennaInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntennaInfoView.swift; sourceTree = "<group>"; };
 		8D31E1FE2A8D561C003C197C /* ChargerInfoDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargerInfoDetailView.swift; sourceTree = "<group>"; };
 		8D31E2032A8D5959003C197C /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		8D3D278D2ABCDDF30005FEC2 /* Phone BoothUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Phone BoothUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -120,6 +122,7 @@
 				8DA80DC42A46184A007950A6 /* PhonePartInfoView.swift */,
 				8D61C77B2A8C11EA008703D7 /* ChargingContactInfoView.swift */,
 				8DB422562A7B08A6006221C2 /* SoftKeyExplanationView.swift */,
+				8D2811892AD72CB7006F2FEF /* AntennaInfoView.swift */,
 			);
 			path = "Child Views";
 			sourceTree = "<group>";
@@ -381,6 +384,7 @@
 				8DFC9BF62A3BAB9D00295700 /* Phone_BoothApp.swift in Sources */,
 				8DB422572A7B08A6006221C2 /* SoftKeyExplanationView.swift in Sources */,
 				8DA52A262A3D01C500B7546B /* PhoneRowView.swift in Sources */,
+				8D28118A2AD72CB7006F2FEF /* AntennaInfoView.swift in Sources */,
 				8DA80DCF2A463003007950A6 /* Helpers.swift in Sources */,
 				8D31E1FF2A8D561C003C197C /* ChargerInfoDetailView.swift in Sources */,
 				8D31E2042A8D5959003C197C /* CameraViewController.swift in Sources */,
