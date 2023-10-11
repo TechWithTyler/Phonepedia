@@ -214,6 +214,19 @@ final class Phone {
 
 	var antennas: Int
 
+	var phoneTypeText: String {
+		if isCordedCordless {
+			return "Corded/Cordless"
+		} else if isCordless {
+			if hasTransmitOnlyBase {
+				return "Cordless with Transmit-Only Base"
+			}
+			return "Cordless"
+		} else {
+			return "Corded"
+		}
+	}
+
 	var hasCordedReceiver: Bool {
 		return !cordedReceiverColor.isEmpty
 	}

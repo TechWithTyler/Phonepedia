@@ -48,7 +48,7 @@ struct PhoneDetailView: View {
 					}
 					TextField("Brand", text: $phone.brand)
 					TextField("Model", text: $phone.model)
-					Text("Phone type: \(phoneTypeText)")
+					Text("Phone type: \(phone.phoneTypeText)")
 					Stepper("Release Year: \(String(phone.releaseYear))", value: $phone.releaseYear, in: 1984...Calendar.current.component(.year, from: Date()))
 					if phone.isCordless {
 						Picker("Wireless Frequency", selection: $phone.frequency) {
@@ -938,19 +938,6 @@ When the first ring is suppressed, the number of rings you hear will be one less
 			} label: {
 				Text("Cancel")
 			}
-		}
-	}
-
-	var phoneTypeText: String {
-		if phone.isCordedCordless {
-			return "Corded/Cordless"
-		} else if phone.isCordless {
-			if phone.hasTransmitOnlyBase {
-				return "Cordless with Transmit-Only Base"
-			}
-			return "Cordless"
-		} else {
-			return "Corded"
 		}
 	}
 

@@ -21,6 +21,9 @@ struct PhoneRowView: View {
 				Text(phone.model)
 					.font(.title2)
 					.foregroundStyle(.secondary)
+				Text(phone.phoneTypeText)
+					.font(.subheadline)
+					.foregroundStyle(.secondary)
 			}
 			Spacer()
 		}
