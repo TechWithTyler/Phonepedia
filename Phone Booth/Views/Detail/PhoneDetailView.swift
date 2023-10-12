@@ -135,6 +135,7 @@ struct PhoneDetailView: View {
 								Text("Holes on Back").tag(1)
 								Text("Optional Bracket").tag(2)
 								Text("Built-In Bracket").tag(3)
+								Text("Desk/Wall Bracket").tag(4)
 							}
 						}
 					} else {
@@ -202,7 +203,8 @@ struct PhoneDetailView: View {
 									Text("Backward (lay down)").tag(3)
 									Text("Backward (stand up)").tag(4)
 									Text("Backward (lean back)").tag(5)
-									Text("Forward Or Backward Lay Down (reversible handset)").tag(6)
+									Text("Forward Stand Up or Backward Lay Down").tag(6)
+									Text("Forward Or Backward Lay Down (reversible handset)").tag(7)
 								}
 								if !phone.isCordedCordless {
 									Picker("Base Charge Contact Placement", selection: $phone.baseChargeContactPlacement) {
