@@ -115,9 +115,9 @@ struct ContentView: View {
     }
 
 	func deletePhone(_ phone: Phone) {
+		phoneToDelete = nil
 		modelContext.delete(phone)
 		selectedPhone = nil
-		phoneToDelete = nil
 	}
 
 	func deleteAllPhones() {
