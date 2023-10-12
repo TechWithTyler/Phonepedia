@@ -16,7 +16,9 @@ struct ContentView: View {
 
 	@State private var selectedPhone: Phone?
 
-//	@State private var showingDeleteOne: Bool = false
+	@State private var phoneToDelete: Phone? = nil
+
+	@State private var showingDeleteOne: Bool = false
 
 	@State private var showingDeleteAll: Bool = false
 
@@ -28,26 +30,27 @@ struct ContentView: View {
 						ForEach(phones) { phone in
 							NavigationLink(value: phone) {
 								PhoneRowView(phone: phone)
-//									.alert("Delete this phone?", isPresented: $showingDeleteOne, presenting: phone) { phone in
-//										Button(role: .destructive) {
-//											deletePhone(phone)
-//											showingDeleteOne = false
-//										} label: {
-//											Text("Delete")
-//										}
-//										Button(role: .cancel) {
-//											showingDeleteOne = false
-//										} label: {
-//											Text("Cancel")
-//										}
-//									} message: { phone in
-//										Text("\(phone.brand) \(phone.model) will be deleted from your database.")
-//									}
+									.alert("Delete this phone?", isPresented: $showingDeleteOne, presenting: phoneToDelete) { phoneToDelete in
+										Button(role: .destructive) {
+											deletePhone(phoneToDelete)
+											showingDeleteOne = false
+										} label: {
+											Text("Delete")
+										}
+										Button(role: .cancel) {
+											showingDeleteOne = false
+											self.phoneToDelete = nil
+										} label: {
+											Text("Cancel")
+										}
+									} message: { phone in
+										Text("\(phone.brand) \(phone.model) will be deleted from your database.")
+									}
 							}
 							.contextMenu {
 								Button {
-									deletePhone(phone)
-//									showingDeleteOne = true
+									phoneToDelete = phone
+									showingDeleteOne = true
 								} label: {
 									Label("Delete", image: "trash")
 								}
@@ -105,13 +108,14 @@ struct ContentView: View {
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
             for index in offsets {
-//               showingDeleteOne = true
-				deletePhone(phones[index])
+				phoneToDelete = phones[index]
+               showingDeleteOne = true
             }
         }
     }
 
 	func deletePhone(_ phone: Phone) {
+		phoneToDelete = nil
 		modelContext.delete(phone)
 		selectedPhone = nil
 	}
