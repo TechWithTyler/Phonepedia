@@ -8,6 +8,7 @@
 import SwiftUI
 import SwiftData
 import PhotosUI
+import SheftAppsStylishUI
 
 struct PhoneDetailView: View {
 
@@ -30,21 +31,23 @@ struct PhoneDetailView: View {
 						PhoneImage(phone: phone, thumb: false)
 						Spacer()
 					}
+					ConditionalHVStack {
 #if os(iOS)
-					Button {
-						takingPhoto = true
-					} label: {
-						Text("Take Photo…")
-					}
-#endif
-					PhotosPicker("Select From Library…", selection: $selectedPhoto)
-						.onChange(of: selectedPhoto) { oldValue, newValue in
-							updatePhonePhoto(oldValue: oldValue, newValue: newValue)
+						Button {
+							takingPhoto = true
+						} label: {
+							Text("Take Photo…")
 						}
-					Button {
-						showingResetAlert = true
-					} label: {
-						Text("Use Placeholder…")
+#endif
+						PhotosPicker("Select From Library…", selection: $selectedPhoto)
+							.onChange(of: selectedPhoto) { oldValue, newValue in
+								updatePhonePhoto(oldValue: oldValue, newValue: newValue)
+							}
+						Button {
+							showingResetAlert = true
+						} label: {
+							Text("Use Placeholder…")
+						}
 					}
 					TextField("Brand", text: $phone.brand)
 					TextField("Model", text: $phone.model)
