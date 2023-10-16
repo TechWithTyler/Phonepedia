@@ -32,8 +32,8 @@ struct ContentView: View {
 								PhoneRowView(phone: phone)
 									.alert("Delete this phone?", isPresented: $showingDeleteOne, presenting: phoneToDelete) { phoneToDelete in
 										Button(role: .destructive) {
-											deletePhone(phoneToDelete)
 											showingDeleteOne = false
+											deletePhone(phoneToDelete)
 										} label: {
 											Text("Delete")
 										}
@@ -45,6 +45,21 @@ struct ContentView: View {
 										}
 									} message: { phone in
 										Text("\(phone.brand) \(phone.model) will be deleted from your database.")
+									}
+									.alert("Delete all phones?", isPresented: $showingDeleteAll) {
+										Button(role: .destructive) {
+											showingDeleteAll = false
+											deleteAllPhones()
+										} label: {
+											Text("Delete")
+										}
+										Button(role: .cancel) {
+											showingDeleteAll = false
+										} label: {
+											Text("Cancel")
+										}
+									} message: {
+										Text("All phones will be deleted from your database.")
 									}
 							}
 							.contextMenu {
@@ -66,23 +81,7 @@ struct ContentView: View {
 				}
 			}
 			.toolbar {
-#if os(iOS)
-				ToolbarItem(placement: .navigationBarTrailing) {
-					EditButton()
-				}
-#endif
-				ToolbarItem {
-					Button(action: addItem) {
-						Label("Add Phone", systemImage: "plus")
-					}
-					.accessibilityIdentifier("AddPhoneButton")
-				}
-				ToolbarItem {
-					Button(action: deleteAllPhones) {
-						Label("Delete All", systemImage: "trash")
-							.labelStyle(.titleAndIcon)
-					}
-				}
+				toolbarContent
 			}
 		} detail: {
 			if !phones.isEmpty {
@@ -96,6 +95,29 @@ struct ContentView: View {
 			}
 		}
     }
+
+	@ToolbarContentBuilder
+	var toolbarContent: some ToolbarContent {
+#if os(iOS)
+		ToolbarItem(placement: .navigationBarTrailing) {
+			EditButton()
+		}
+#endif
+		ToolbarItem {
+			Button(action: addItem) {
+				Label("Add Phone", systemImage: "plus")
+			}
+			.accessibilityIdentifier("AddPhoneButton")
+		}
+		ToolbarItem {
+			Button {
+				showingDeleteAll = true
+			} label: {
+				Label("Delete All", systemImage: "trash")
+					.labelStyle(.titleAndIcon)
+			}
+		}
+	}
 
     private func addItem() {
         withAnimation {
