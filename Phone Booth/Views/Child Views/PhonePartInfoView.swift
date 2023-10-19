@@ -47,7 +47,7 @@ struct PhonePartInfoView: View {
 					Text("No handsets")
 						.foregroundStyle(.secondary)
 				}
-				if phone.cordlessHandsetsIHave.count < phone.maxCordlessHandsets {
+				if phone.cordlessHandsetsIHave.count < phone.maxCordlessHandsets || phone.maxCordlessHandsets == -1 {
 					Button(action: addHandset) {
 						Label("Add", systemImage: "plus")
 							.frame(width: 100, alignment: .leading)

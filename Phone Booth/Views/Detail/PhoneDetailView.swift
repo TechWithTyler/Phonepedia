@@ -14,6 +14,8 @@ struct PhoneDetailView: View {
 
 	@Bindable var phone: Phone
 
+	@State private var showingFrequenciesExplanation: Bool = false
+
 	@State private var selectedPhoto: PhotosPickerItem? = nil
 
 	#if os(iOS)
@@ -88,25 +90,17 @@ struct PhoneDetailView: View {
 								Text("5.8GHz/900MHz Digital Frequency-Hopping Spread Spectrum (FHSS)").tag(21)
 								Text("5.8GHz/2.4GHz Digital Frequency-Hopping Spread Spectrum (FHSS)").tag(22)
 							}
-							Section(header: Text("DECT")) {
+							Section(header: Text("DECT (Digital Enhanced Cordless Telecommunications)")) {
 								Text("DECT (1.88GHz-1.90GHz)").tag(23)
 								Text("DECT (1.90GHz-1.92GHz)").tag(24)
 								Text("DECT 6.0 (1.92GHz-1.93GHz)").tag(25)
 							}
 						}
-						HStack {
-							Image(systemName: "info.circle")
-							Text("""
-   A lower frequency means more range.
-   Analog phones are prone to interference and their signals can be picked up by anyone using a radio scanner set to the same frequency, which isn't ideal for private conversations.
-   Voice scramble phones scramble the audio before it's transmitted between the base and handset, and is then unscrambled when it's sent to the receiving end. Example: When you say "Hello" into the handset, it becomes "Grblm" before it is sent to the base, and then becomes "Hello" again before it's sent to the caller. This way, anyone using a radio scanner to pick up the signal will hear the scrambled audio, which they won't be able to understand.
-   "Frequency 1/Frequency 2" (e.g. 5.8GHz/900MHz) means that the base transmits to the handset using frequency 1 and the handset transmits to the base using frequency 2. As a result, the phone may lose connection on the transmit side before losing connection on the receiving side, or vice versa.
-   "Frequency 1-Frequency 2" (e.g. 1.92GHz-1.93GHz) means that the phone operates in a range of frequencies, not just one specific frequency.
-   DECT uses encryption, making it the most secure cordless phone frequency. And since it's dedicated to cordless phones, baby monitors, and related devices, other wireless devices won't interfere with the phone.
-   """)
+						Button {
+							showingFrequenciesExplanation = true
+						} label: {
+							Text("Frequencies Explanation…")
 						}
-						.font(.footnote)
-						.foregroundStyle(.secondary)
 						Picker("Antennas", selection: $phone.antennas) {
 							Text("Hidden").tag(0)
 							Text("Telescopic").tag(1)
@@ -126,7 +120,7 @@ struct PhoneDetailView: View {
 							Toggle("Base Is Transmit-Only", isOn: $phone.hasTransmitOnlyBase)
 							HStack {
 								Image(systemName: "info.circle")
-								Text("A transmit-only base doesn't have a charging area for a cordless handset and doesn't have a corded receiver. Sometimes these kinds of bases have speakerphone, but usually they only have a locator button and nothing else. A transmit-only base with no features on it is often called a \"hidden base\".")
+								Text("A transmit-only base doesn't have a charging area for a cordless handset nor does it have a corded receiver. Sometimes these kinds of bases have speakerphone, but usually they only have a locator button and nothing else. A transmit-only base with no features on it is often called a \"hidden base\" as these kinds of bases are often placed out-of-sight.")
 							}
 							.font(.footnote)
 							.foregroundStyle(.secondary)
@@ -249,7 +243,7 @@ struct PhoneDetailView: View {
 								Toggle("Place-On-Base Auto-Register", isOn: $phone.placeOnBaseAutoRegister)
 								HStack {
 									Image(systemName: "info.circle")
-									Text("The base can detect an unregistered handset being placed on it, which will put it into registration mode. Aside from putting the base into registration mode, data isn't exchanged through the contacts like it is on phones using the digital security code method.")
+									Text("The base can detect an unregistered handset being placed on it, which will put it into registration mode. Aside from putting the base into registration mode, data isn't exchanged through the contacts like it is on phones using the digital security code method. Manually putting the base in registration mode is still available for re-registering handsets or for registering handsets which don't fit in the base.")
 								}
 								.font(.footnote)
 								.foregroundStyle(.secondary)
@@ -939,6 +933,9 @@ When the first ring is suppressed, the number of rings you hear will be one less
 			.textFieldStyle(.roundedBorder)
 		}
 		.navigationTitle("Phone Details")
+		.sheet(isPresented: $showingFrequenciesExplanation) {
+			FrequenciesExplanationView()
+		}
 		#if os(iOS)
 		.sheet(isPresented: $takingPhoto) {
 			CameraViewController(view: self, phone: phone)

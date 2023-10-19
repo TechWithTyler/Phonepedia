@@ -15,6 +15,7 @@
 		8D3D27902ABCDDF30005FEC2 /* Phone_BoothUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3D278F2ABCDDF30005FEC2 /* Phone_BoothUITests.swift */; };
 		8D3D27922ABCDDF30005FEC2 /* Phone_BoothUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3D27912ABCDDF30005FEC2 /* Phone_BoothUITestsLaunchTests.swift */; };
 		8D61C77C2A8C11EA008703D7 /* ChargingContactInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D61C77B2A8C11EA008703D7 /* ChargingContactInfoView.swift */; };
+		8D6957F62AE1BD2600FFB9E3 /* FrequenciesExplanationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6957F52AE1BD2600FFB9E3 /* FrequenciesExplanationView.swift */; };
 		8DA52A262A3D01C500B7546B /* PhoneRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA52A252A3D01C500B7546B /* PhoneRowView.swift */; };
 		8DA80DC92A46190F007950A6 /* HandsetInfoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA80DC52A46184A007950A6 /* HandsetInfoDetailView.swift */; };
 		8DA80DCA2A46192E007950A6 /* PhonePartInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA80DC42A46184A007950A6 /* PhonePartInfoView.swift */; };
@@ -74,6 +75,7 @@
 		8D3D278F2ABCDDF30005FEC2 /* Phone_BoothUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phone_BoothUITests.swift; sourceTree = "<group>"; };
 		8D3D27912ABCDDF30005FEC2 /* Phone_BoothUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phone_BoothUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		8D61C77B2A8C11EA008703D7 /* ChargingContactInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargingContactInfoView.swift; sourceTree = "<group>"; };
+		8D6957F52AE1BD2600FFB9E3 /* FrequenciesExplanationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrequenciesExplanationView.swift; sourceTree = "<group>"; };
 		8DA52A252A3D01C500B7546B /* PhoneRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneRowView.swift; sourceTree = "<group>"; };
 		8DA52A272A3D04BB00B7546B /* PhoneImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneImage.swift; sourceTree = "<group>"; };
 		8DA52A292A3D0D1A00B7546B /* PhoneDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneDetailView.swift; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 				8D61C77B2A8C11EA008703D7 /* ChargingContactInfoView.swift */,
 				8DB422562A7B08A6006221C2 /* SoftKeyExplanationView.swift */,
 				8D2811892AD72CB7006F2FEF /* AntennaInfoView.swift */,
+				8D6957F52AE1BD2600FFB9E3 /* FrequenciesExplanationView.swift */,
 			);
 			path = "Child Views";
 			sourceTree = "<group>";
@@ -410,6 +413,7 @@
 				8DFC9BF82A3BAB9D00295700 /* Phone.swift in Sources */,
 				8DA80DCA2A46192E007950A6 /* PhonePartInfoView.swift in Sources */,
 				8DFC9BF62A3BAB9D00295700 /* Phone_BoothApp.swift in Sources */,
+				8D6957F62AE1BD2600FFB9E3 /* FrequenciesExplanationView.swift in Sources */,
 				8DB422572A7B08A6006221C2 /* SoftKeyExplanationView.swift in Sources */,
 				8DA52A262A3D01C500B7546B /* PhoneRowView.swift in Sources */,
 				8D28118A2AD72CB7006F2FEF /* AntennaInfoView.swift in Sources */,
