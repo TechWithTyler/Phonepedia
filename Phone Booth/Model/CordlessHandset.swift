@@ -3,6 +3,7 @@
 //  Phone Booth
 //
 //  Created by Tyler Sheft on 6/28/23.
+//  Copyright © 2023 SheftApps. All rights reserved.
 //
 
 import Foundation

@@ -3,6 +3,7 @@
 //  Phone Booth
 //
 //  Created by Tyler Sheft on 6/19/23.
+//  Copyright © 2023 SheftApps. All rights reserved.
 //
 
 import SwiftData
@@ -35,14 +36,20 @@ struct PhonePartInfoView: View {
 								}
 							}
 							.contextMenu {
-								Button {
+								Button(role: .destructive) {
 									deleteHandset(at: phone.cordlessHandsetsIHave.firstIndex(of: handset.wrappedValue)!)
 								} label: {
-									Text("Delete")
+									Text("Deregister")
+								}
+							}
+							.swipeActions {
+								Button(role: .destructive) {
+									deleteHandset(at: phone.cordlessHandsetsIHave.firstIndex(of: handset.wrappedValue)!)
+								} label: {
+									Text("Deregister")
 								}
 							}
 						}
-						.onDelete(perform: deleteItemsFromHandsetList(offsets:))
 				} else {
 					Text("No handsets")
 						.foregroundStyle(.secondary)
@@ -82,14 +89,20 @@ struct PhonePartInfoView: View {
 								}
 							}
 								.contextMenu {
-									Button {
+									Button(role: .destructive) {
+										deleteCharger(at: phone.chargersIHave.firstIndex(of: charger.wrappedValue)!)
+									} label: {
+										Text("Delete")
+									}
+								}
+								.swipeActions {
+									Button(role: .destructive) {
 										deleteCharger(at: phone.chargersIHave.firstIndex(of: charger.wrappedValue)!)
 									} label: {
 										Text("Delete")
 									}
 								}
 						}
-						.onDelete(perform: deleteItemsFromChargerList(offsets:))
 				} else {
 					Text("No chargers")
 						.foregroundStyle(.secondary)
@@ -114,24 +127,8 @@ struct PhonePartInfoView: View {
 		phone.chargersIHave.append(Charger())
 	}
 
-	private func deleteItemsFromHandsetList(offsets: IndexSet) {
-		withAnimation {
-			for index in offsets {
-				deleteHandset(at: index)
-			}
-		}
-	}
-
 	func deleteHandset(at index: Int) {
 		phone.cordlessHandsetsIHave.remove(at: index)
-	}
-
-	private func deleteItemsFromChargerList(offsets: IndexSet) {
-		withAnimation {
-			for index in offsets {
-				deleteCharger(at: index)
-			}
-		}
 	}
 
 	func deleteCharger(at index: Int) {

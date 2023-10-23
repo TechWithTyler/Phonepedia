@@ -3,6 +3,7 @@
 //  Phone Booth
 //
 //  Created by Tyler Sheft on 6/16/23.
+//  Copyright © 2023 SheftApps. All rights reserved.
 //
 
 import SwiftUI
@@ -33,7 +34,6 @@ struct PhoneDetailView: View {
 						PhoneImage(phone: phone, thumb: false)
 						Spacer()
 					}
-					ConditionalHVStack {
 #if os(iOS)
 						Button {
 							takingPhoto = true
@@ -50,7 +50,6 @@ struct PhoneDetailView: View {
 						} label: {
 							Text("Use Placeholder…")
 						}
-					}
 					TextField("Brand", text: $phone.brand)
 					TextField("Model", text: $phone.model)
 					Text("Phone type: \(phone.phoneTypeText)")
