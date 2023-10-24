@@ -323,8 +323,19 @@ struct PhoneDetailView: View {
 							HStack {
 								Image(systemName: "info.circle")
 								Text("Some cordless phones have a base speakerphone and keypad, which allows you to make calls if the handset isn't nearby or if it needs to charge. Bases with keypads are a great option for office spaces.")
-									.foregroundStyle(.secondary)
-									.font(.footnote)
+							}
+							.foregroundStyle(.secondary)
+							.font(.footnote)
+							if phone.hasBaseKeypad {
+								Toggle(isOn: $phone.hasTalkingKeypad) {
+									Text("Talking Keypad")
+								}
+								HStack {
+									Image(systemName: "info.circle")
+									Text("The phone can announce the keys you press when dialing numbers.")
+								}
+								.foregroundStyle(.secondary)
+								.font(.footnote)
 							}
 						}
 						if phone.isCordless {
@@ -442,7 +453,7 @@ struct PhoneDetailView: View {
 							Text("""
 A phone's voicemail indicator usually works in one or both of the following ways:
 • Your phone company may send special tones, called Frequency-Shift-Keying (FSK) tones to the phone whenever a new voicemail is left, and another when all new voicemails are played, to tell the phone to turn on or off its voicemail indicator. You can't hear these tones unless you use a device to listen in on the phone line without picking it up (e.g. a butt-set phone in monitor mode).
-• The phone may go off-hook for a few seconds periodically or when you hang up or it stops ringing, to listen for a stutter dial tone ("bee-bee-bee-beeeeeeeep") which your phone company may use as an audible indication of new voicemails.
+• The phone may go off-hook for a few seconds periodically, or when you hang up or it stops ringing, to listen for a stutter dial tone ("bee-bee-bee-beeeeeeeep") which your phone company may use as an audible indication of new voicemails.
 """)
 						}
 						.font(.footnote)
@@ -676,6 +687,17 @@ A phone's voicemail indicator usually works in one or both of the following ways
 #if !os(xrOS)
 								.scrollDismissesKeyboard(.interactively)
 #endif
+							if phone.basePhonebookCapacity > 0 && phone.baseDisplayType > 0 {
+								Toggle(isOn: $phone.hasTalkingPhonebook) {
+									Text("Talking Phonebook")
+								}
+								HStack {
+									Image(systemName: "info.circle")
+									Text("The phone can announce the names of phonebook entries as you scroll through them.")
+								}
+								.foregroundStyle(.secondary)
+								.font(.footnote)
+							}
 							if phone.basePhonebookCapacity > 100 {
 								Picker("Bluetooth Phonebook Transfers", selection: $phone.bluetoothPhonebookTransfers) {
 									if phone.baseBluetoothCellPhonesSupported == 0 {
@@ -707,6 +729,12 @@ A phone's voicemail indicator usually works in one or both of the following ways
 							Toggle(isOn: $phone.hasTalkingCallerID) {
 								Text("Talking Caller ID")
 							}
+							HStack {
+								Image(systemName: "info.circle")
+								Text("The phone can announce who's calling after each ring, so you don't have to look at the screen. Example: \"Call from \(names.randomElement()!)\".")
+							}
+							.font(.footnote)
+							.foregroundStyle(.secondary)
 							TextField(phone.isCordless ? "Caller ID List Capacity (base)" : "Caller ID List Capacity", value: $phone.baseCallerIDCapacity, formatter: NumberFormatter())
 #if os(iOS) || os(tvOS) || os(xrOS)
 								.keyboardType(.numberPad)

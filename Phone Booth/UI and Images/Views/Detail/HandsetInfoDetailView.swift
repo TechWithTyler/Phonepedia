@@ -125,6 +125,9 @@ struct HandsetInfoDetailView: View {
 							Text("Some Spaced with Click Feel, Some Diamond-Cut").tag(3)
 							Text("Diamond-Cut (no space between buttons, click feel)").tag(4)
 						}
+						Toggle(isOn: $handset.hasTalkingKeypad) {
+							Text("Talking Keypad")
+						}
 						Picker("Display Type", selection: $handset.displayType) {
 							Text("None").tag(0)
 							Text("Monochrome (segmented)").tag(1)
@@ -250,6 +253,11 @@ struct HandsetInfoDetailView: View {
 #if !os(xrOS)
 							.scrollDismissesKeyboard(.interactively)
 #endif
+						if handset.phonebookCapacity > 0 || handset.usesBasePhonebook {
+							Toggle(isOn: $handset.hasTalkingPhonebook) {
+								Text("Talking Phonebook")
+							}
+						}
 						Toggle("Uses Base Phonebook", isOn: $handset.usesBasePhonebook)
 						if handset.phonebookCapacity > 100 {
 							Picker("Bluetooth Phonebook Transfers", selection: $handset.bluetoothPhonebookTransfers) {
@@ -260,6 +268,9 @@ struct HandsetInfoDetailView: View {
 						}
 					}
 					Section(header: Text("Caller ID")) {
+						Toggle(isOn: $handset.hasTalkingCallerID) {
+							Text("Talking Caller ID")
+						}
 						if handset.phonebookCapacity > 0 || (phone.basePhonebookCapacity > 0 && handset.usesBasePhonebook) {
 							Toggle(isOn: $handset.callerIDPhonebookMatch) {
 								Text("Caller ID Uses Matching Phonebook Entry Name")

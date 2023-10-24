@@ -117,6 +117,10 @@ final class Phone {
 
 	var hasTalkingCallerID: Bool
 
+	var hasTalkingKeypad: Bool
+
+	var hasTalkingPhonebook: Bool
+
 	var baseDisplayType: Int
 
 	var baseHasDisplayAndMessageCounter: Bool
@@ -337,6 +341,8 @@ final class Phone {
 		self.placeOnBaseAutoRegister = false
 		self.wallMountability = 2
 		self.antennas = 0
+		self.hasTalkingKeypad = false
+		self.hasTalkingPhonebook = false
 	}
 
 	func transmitOnlyBaseChanged(oldValue: Bool, newValue: Bool) {
@@ -376,6 +382,9 @@ final class Phone {
 	}
 
 	func baseDisplayTypeChanged(oldValue: Int, newValue: Int) {
+		if newValue == 0 {
+			hasTalkingPhonebook = false
+		}
 		if newValue <= 1 {
 			baseSoftKeysBottom = 0
 			baseSoftKeysSide = 0
@@ -451,6 +460,8 @@ final class Phone {
 	func cordedPhoneTypeChanged(oldValue: Int, newValue: Int) {
 		if newValue != 0 {
 			hasBaseSpeakerphone = false
+			hasTalkingKeypad = false
+			hasTalkingPhonebook = false
 			hasAnsweringSystem = 0
 			baseMusicRingtones = 0
 			basePhonebookCapacity = 0
@@ -480,6 +491,8 @@ final class Phone {
 			baseBluetoothHeadphonesSupported = 0
 			baseBluetoothCellPhonesSupported = 0
 			hasTalkingCallerID = false
+			hasTalkingKeypad = false
+			hasTalkingPhonebook = false
 		}
 	}
 

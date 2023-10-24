@@ -10,7 +10,7 @@ import Foundation
 import SwiftUI
 
 // Names to use for the answering system greeting examples
-var names: [String] = ["SheftApps", "John Smith", "Pat Fleet", "Allison Smith", "Charlie Johnson", "Apple", "Microsoft", "Tesla", "Toyota", "Lucid", "American Airlines"]
+var names: [String] = ["John Smith", "Pat Fleet", "Allison Smith", "Charlie Johnson"]
 
 // The current year to use as the default value of a phone or handset's release year.
 var currentYear = Calendar.current.component(.year, from: Date())

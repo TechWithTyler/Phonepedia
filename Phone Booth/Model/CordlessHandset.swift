@@ -108,6 +108,12 @@ final class CordlessHandset {
 
 	var antenna: Int
 
+	var hasTalkingCallerID: Bool
+
+	var hasTalkingKeypad: Bool
+
+	var hasTalkingPhonebook: Bool
+
 	init(brand: String, model: String) {
 		self.brand = brand
 		self.model = model
@@ -157,6 +163,9 @@ final class CordlessHandset {
 		self.keyFindersSupported = 0
 		self.releaseYear = currentYear
 		self.antenna = 0
+		self.hasTalkingKeypad = false
+		self.hasTalkingPhonebook = false
+		self.hasTalkingCallerID = false
 	}
 
 	func cordlessDeviceTypeChanged(oldValue: Int, newValue: Int) {
@@ -166,6 +175,9 @@ final class CordlessHandset {
 	}
 
 	func displayTypeChanged(oldValue: Int, newValue: Int) {
+		if newValue == 0 {
+			hasTalkingPhonebook = false
+		}
 		if newValue <= 1 {
 			softKeys = 0
 		}
