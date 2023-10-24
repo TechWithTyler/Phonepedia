@@ -13,6 +13,7 @@ struct FrequenciesExplanationView: View {
 	@Environment(\.dismiss) var dismiss
 
     var body: some View {
+		NavigationStack {
 			Text("""
    • A lower frequency means more range.
    • Analog phones are prone to interference and their signals can be picked up by anyone using a radio scanner set to the same frequency, which isn't ideal for private conversations.
@@ -33,6 +34,8 @@ struct FrequenciesExplanationView: View {
 				}
 				.keyboardShortcut(.return)
 			}
+		}
+		.navigationTitle("Frequencies Explanation")
 		}
     }
 }

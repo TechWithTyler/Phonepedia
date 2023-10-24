@@ -47,21 +47,6 @@ struct ContentView: View {
 									} message: { phone in
 										Text("\(phone.brand) \(phone.model) will be deleted from your database.")
 									}
-									.alert("Delete all phones?", isPresented: $showingDeleteAll) {
-										Button(role: .destructive) {
-											showingDeleteAll = false
-											deleteAllPhones()
-										} label: {
-											Text("Delete")
-										}
-										Button(role: .cancel) {
-											showingDeleteAll = false
-										} label: {
-											Text("Cancel")
-										}
-									} message: {
-										Text("All phones will be deleted from your database.")
-									}
 							}
 							.contextMenu {
 								Button {
@@ -80,6 +65,21 @@ struct ContentView: View {
 						.font(.largeTitle)
 						.foregroundStyle(Color.secondary)
 				}
+			}
+			.alert("Delete all phones?", isPresented: $showingDeleteAll) {
+				Button(role: .destructive) {
+					showingDeleteAll = false
+					deleteAllPhones()
+				} label: {
+					Text("Delete")
+				}
+				Button(role: .cancel) {
+					showingDeleteAll = false
+				} label: {
+					Text("Cancel")
+				}
+			} message: {
+				Text("All phones will be deleted from your database.")
 			}
 			.toolbar {
 				toolbarContent

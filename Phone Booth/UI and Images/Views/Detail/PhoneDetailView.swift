@@ -29,27 +29,7 @@ struct PhoneDetailView: View {
 		NavigationStack {
 			Form {
 				Section(header: Text("General")) {
-					HStack {
-						Spacer()
-						PhoneImage(phone: phone, thumb: false)
-						Spacer()
-					}
-#if os(iOS)
-						Button {
-							takingPhoto = true
-						} label: {
-							Text("Take Photo…")
-						}
-#endif
-						PhotosPicker("Select From Library…", selection: $selectedPhoto)
-							.onChange(of: selectedPhoto) { oldValue, newValue in
-								updatePhonePhoto(oldValue: oldValue, newValue: newValue)
-							}
-						Button {
-							showingResetAlert = true
-						} label: {
-							Text("Use Placeholder…")
-						}
+					photo(for: phone)
 					TextField("Brand", text: $phone.brand)
 					TextField("Model", text: $phone.model)
 					Text("Phone type: \(phone.phoneTypeText)")
@@ -519,7 +499,7 @@ A phone's voicemail indicator usually works in one or both of the following ways
 								Text("Up/Down").tag(1)
 								Text("Up/Down/Left/Right").tag(3)
 							}
-							Picker("Base Navigation Button Center Button", selection: $phone.baseNavigatorKeyType) {
+							Picker("Base Navigation Button Center Button", selection: $phone.baseNavigatorKeyCenterButton) {
 								Text("None").tag(0)
 								Text("Select").tag(1)
 								Text("Menu/Select").tag(2)
@@ -951,6 +931,32 @@ When the first ring is suppressed, the number of rings you hear will be one less
 				showingResetAlert = false
 			} label: {
 				Text("Cancel")
+			}
+		}
+	}
+
+	func photo(for phone: Phone) -> some View {
+		Group {
+			HStack {
+				Spacer()
+				PhoneImage(phone: phone, thumb: false)
+				Spacer()
+			}
+#if os(iOS)
+			Button {
+				takingPhoto = true
+			} label: {
+				Text("Take Photo…")
+			}
+#endif
+			PhotosPicker("Select From Library…", selection: $selectedPhoto)
+				.onChange(of: selectedPhoto) { oldValue, newValue in
+					updatePhonePhoto(oldValue: oldValue, newValue: newValue)
+				}
+			Button {
+				showingResetAlert = true
+			} label: {
+				Text("Use Placeholder…")
 			}
 		}
 	}
