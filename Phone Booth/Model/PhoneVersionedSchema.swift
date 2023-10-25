@@ -8,12 +8,6 @@
 import Foundation
 import SwiftData
 
-typealias Phone = PhoneSchemaV1.Phone
-
-typealias CordlessHandset = PhoneSchemaV1.CordlessHandset
-
-typealias Charger = PhoneSchemaV1.Charger
-
 enum PhoneSchemaV1: VersionedSchema {
 	static var versionIdentifier = Schema.Version(1, 0, 0)
 

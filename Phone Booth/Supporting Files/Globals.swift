@@ -9,6 +9,12 @@
 import Foundation
 import SwiftUI
 
+typealias Phone = PhoneSchemaV1.Phone
+
+typealias CordlessHandset = PhoneSchemaV1.CordlessHandset
+
+typealias Charger = PhoneSchemaV1.Charger
+
 // Names to use for the answering system greeting examples
 var names: [String] = ["John Smith", "Pat Fleet", "Allison Smith", "Charlie Johnson"]
 
