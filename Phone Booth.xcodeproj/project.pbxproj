@@ -30,6 +30,7 @@
 		8DDAC8282AE22D180051C86B /* CameraCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDAC8262AE22D180051C86B /* CameraCoordinator.swift */; };
 		8DDAC8292AE22D180051C86B /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDAC8272AE22D180051C86B /* CameraViewController.swift */; };
 		8DE6B9662AA905CF00C42E02 /* Phone_BoothTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE6B9652AA905CF00C42E02 /* Phone_BoothTests.swift */; };
+		8DF5B3192AE9A2F1008DC5A9 /* PhoneVersionedSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF5B3182AE9A2F1008DC5A9 /* PhoneVersionedSchema.swift */; };
 		8DFC9BF62A3BAB9D00295700 /* Phone_BoothApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DFC9BF52A3BAB9D00295700 /* Phone_BoothApp.swift */; };
 		8DFC9BF82A3BAB9D00295700 /* Phone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DFC9BF72A3BAB9D00295700 /* Phone.swift */; };
 		8DFC9BFA2A3BAB9D00295700 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DFC9BF92A3BAB9D00295700 /* ContentView.swift */; };
@@ -91,6 +92,7 @@
 		8DDAC8272AE22D180051C86B /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		8DE6B9632AA905CF00C42E02 /* Phone BoothTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Phone BoothTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DE6B9652AA905CF00C42E02 /* Phone_BoothTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phone_BoothTests.swift; sourceTree = "<group>"; };
+		8DF5B3182AE9A2F1008DC5A9 /* PhoneVersionedSchema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneVersionedSchema.swift; sourceTree = "<group>"; };
 		8DFC9BF22A3BAB9D00295700 /* Phone Booth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Phone Booth.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DFC9BF52A3BAB9D00295700 /* Phone_BoothApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phone_BoothApp.swift; sourceTree = "<group>"; };
 		8DFC9BF72A3BAB9D00295700 /* Phone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phone.swift; sourceTree = "<group>"; };
@@ -199,6 +201,7 @@
 				8DFC9BF72A3BAB9D00295700 /* Phone.swift */,
 				8DD8C8912A4CC52900B1A31D /* CordlessHandset.swift */,
 				8DD8C8932A4CC63200B1A31D /* Charger.swift */,
+				8DF5B3182AE9A2F1008DC5A9 /* PhoneVersionedSchema.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -422,6 +425,7 @@
 				8DA80DCD2A462D07007950A6 /* PhoneImage.swift in Sources */,
 				8DDAC8282AE22D180051C86B /* CameraCoordinator.swift in Sources */,
 				8DA80DCC2A4619E3007950A6 /* PhoneDetailView.swift in Sources */,
+				8DF5B3192AE9A2F1008DC5A9 /* PhoneVersionedSchema.swift in Sources */,
 				8DA80DC92A46190F007950A6 /* HandsetInfoDetailView.swift in Sources */,
 				8D61C77C2A8C11EA008703D7 /* ChargingContactInfoView.swift in Sources */,
 				8DD8C8922A4CC52900B1A31D /* CordlessHandset.swift in Sources */,

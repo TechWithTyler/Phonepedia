@@ -9,30 +9,32 @@
 import Foundation
 import SwiftData
 
-@Model
-final class Charger {
+extension PhoneSchemaV1 {
+	@Model
+	final class Charger {
 
-	var phone: Phone?
+		var phone: Phone?
 
-	var color: String
+		var color: String
 
-	var chargingDirection: Int
+		var chargingDirection: Int
 
-	var chargeContactPlacement: Int
+		var chargeContactPlacement: Int
 
-	var chargeContactMechanism: Int
+		var chargeContactMechanism: Int
 
-	var hasRangeExtender: Bool
+		var hasRangeExtender: Bool
 
-	var wallMountability: Int
+		var wallMountability: Int
 
-	init() {
-		self.color = String()
-		self.chargingDirection = 0
-		self.chargeContactPlacement = 0
-		self.chargeContactMechanism = 1
-		self.hasRangeExtender = false
-		self.wallMountability = 0
+		init() {
+			self.color = String()
+			self.chargingDirection = 0
+			self.chargeContactPlacement = 0
+			self.chargeContactMechanism = 1
+			self.hasRangeExtender = false
+			self.wallMountability = 0
+		}
+
 	}
-
 }
