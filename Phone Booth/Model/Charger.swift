@@ -9,7 +9,6 @@
 import Foundation
 import SwiftData
 
-extension PhoneSchemaV1 {
 	@Model
 	final class Charger {
 
@@ -17,24 +16,18 @@ extension PhoneSchemaV1 {
 
 		var color: String
 
-		var chargingDirection: Int
+		var chargingDirection: Int = 0
 
-		var chargeContactPlacement: Int
+		var chargeContactPlacement: Int = 0
 
-		var chargeContactMechanism: Int
+		var chargeContactMechanism: Int = 1
 
-		var hasRangeExtender: Bool
+		var hasRangeExtender: Bool = false
 
-		var wallMountability: Int
+		var wallMountability: Int = 0
 
-		init() {
-			self.color = String()
-			self.chargingDirection = 0
-			self.chargeContactPlacement = 0
-			self.chargeContactMechanism = 1
-			self.hasRangeExtender = false
-			self.wallMountability = 0
+		init(color: String) {
+			self.color = color
 		}
 
 	}
-}

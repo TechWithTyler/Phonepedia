@@ -9,7 +9,6 @@
 import Foundation
 import SwiftData
 
-extension PhoneSchemaV1 {
 	@Model
 	final class CordlessHandset {
 
@@ -19,154 +18,105 @@ extension PhoneSchemaV1 {
 
 		var model: String
 
-		var releaseYear: Int
+		var releaseYear: Int = currentYear
 
-		var fitsOnBase: Bool
+		var fitsOnBase: Bool = true
 
-		var maxBases: Int
+		var maxBases: Int = 1
 
-		var cordlessDeviceType: Int
+		var cordlessDeviceType: Int = 0
 
-		var color: String
+		var color: String = "Black"
 
-		var cordedReceiverColor: String
+		var cordedReceiverColor: String = String()
 
-		var keyForegroundColor: String
+		var keyForegroundColor: String = "White"
 
-		var keyBackgroundColor: String
+		var keyBackgroundColor: String = "Black"
 
-		var buttonType: Int
+		var buttonType: Int = 1
 
-		var displayType: Int
+		var displayType: Int = 2
 
-		var menuUpdateMode: Int
+		var menuUpdateMode: Int = 0
 
-		var hasSpeakerphone: Bool
+		var hasSpeakerphone: Bool = true
 
-		var lineButtons: Int
+		var lineButtons: Int = 0
 
-		var visualRinger: Int
+		var visualRinger: Int = 0
 
-		var ringtones: Int
+		var ringtones: Int = 5
 
-		var musicRingtones: Int
+		var musicRingtones: Int = 5
 
-		var hasSeparateIntercomTone: Bool
+		var hasSeparateIntercomTone: Bool = true
 
-		var canChangeIntercomTone: Bool
+		var canChangeIntercomTone: Bool = false
 
-		var oneTouchDialCapacity: Int
+		var oneTouchDialCapacity: Int = 0
 
-		var speedDialCapacity: Int
+		var speedDialCapacity: Int = 0
 
-		var redialCapacity: Int
+		var redialCapacity: Int = 5
 
-		var displayBacklightColor: String
+		var displayBacklightColor: String = "White"
 
-		var softKeys: Int
+		var softKeys: Int = 0
 
-		var navigatorKeyType: Int
+		var navigatorKeyType: Int = 1
 
-		var navigatorKeyUpDownVolume: Bool
+		var navigatorKeyUpDownVolume: Bool = true
 
-		var navigatorKeyStandbyShortcuts: Bool
+		var navigatorKeyStandbyShortcuts: Bool = true
 
-		var navigatorKeyCenterButton: Int
+		var navigatorKeyCenterButton: Int = 1
 
-		var sideVolumeButtons: Bool
+		var sideVolumeButtons: Bool = false
 
-		var keyBacklightColor: String
+		var keyBacklightColor: String = String()
 
-		var keyBacklightAmount: Int
+		var keyBacklightAmount: Int = 0
 
-		var supportsWiredHeadsets: Bool
+		var supportsWiredHeadsets: Bool = false
 
-		var answeringSystemMenu: Int
+		var answeringSystemMenu: Int = 3
 
-		var phonebookCapacity: Int
+		var phonebookCapacity: Int = 0
 
-		var callerIDPhonebookMatch: Bool
+		var callerIDPhonebookMatch: Bool = false
 
-		var usesBasePhonebook: Bool
+		var usesBasePhonebook: Bool = true
 
-		var usesBaseCallerID: Bool
+		var usesBaseCallerID: Bool = true
 
-		var usesBaseSpeedDial: Bool
+		var usesBaseSpeedDial: Bool = false
 
-		var usesBaseOneTouchDial: Bool
+		var usesBaseOneTouchDial: Bool = false
 
-		var speedDialPhonebookEntryMode: Int
+		var speedDialPhonebookEntryMode: Int = 0
 
-		var redialNameDisplay: Int
+		var redialNameDisplay: Int = 0
 
-		var bluetoothHeadphonesSupported: Int
+		var bluetoothHeadphonesSupported: Int = 0
 
-		var bluetoothPhonebookTransfers: Int
+		var bluetoothPhonebookTransfers: Int = 0
 
-		var callerIDCapacity: Int
+		var callerIDCapacity: Int = 0
 
-		var keyFindersSupported: Int
+		var keyFindersSupported: Int = 0
 
-		var antenna: Int
+		var antenna: Int = 0
 
-		var hasTalkingCallerID: Bool
+		var hasTalkingCallerID: Bool = false
 
-		var hasTalkingKeypad: Bool
+		var hasTalkingKeypad: Bool = false
 
-		var hasTalkingPhonebook: Bool
+		var hasTalkingPhonebook: Bool = false
 
 		init(brand: String, model: String) {
 			self.brand = brand
 			self.model = model
-			self.color = String()
-			self.maxBases = 1
-			self.cordedReceiverColor = String()
-			self.cordlessDeviceType = 0
-			self.keyForegroundColor = String()
-			self.keyBackgroundColor = String()
-			self.buttonType = 0
-			self.displayType = 1
-			self.hasSpeakerphone = true
-			self.ringtones = 5
-			self.musicRingtones = 5
-			self.hasSeparateIntercomTone = true
-			self.canChangeIntercomTone = false
-			self.oneTouchDialCapacity = 0
-			self.speedDialCapacity = 10
-			self.redialCapacity = 5
-			self.displayBacklightColor = String()
-			self.softKeys = 2
-			self.navigatorKeyType = 0
-			self.navigatorKeyUpDownVolume = true
-			self.navigatorKeyStandbyShortcuts = true
-			self.navigatorKeyCenterButton = 0
-			self.sideVolumeButtons = false
-			self.keyBacklightColor = String()
-			self.keyBacklightAmount = 0
-			self.supportsWiredHeadsets = false
-			self.answeringSystemMenu = 3
-			self.phonebookCapacity = 0
-			self.callerIDPhonebookMatch = false
-			self.usesBasePhonebook = true
-			self.usesBaseCallerID = true
-			self.usesBaseSpeedDial = false
-			self.usesBaseOneTouchDial = false
-			self.bluetoothHeadphonesSupported = 0
-			self.callerIDCapacity = 0
-			self.redialNameDisplay = 0
-			self.speedDialPhonebookEntryMode = 0
-			self.visualRinger = 0
-			self.lineButtons = 0
-			self.fitsOnBase = true
-			self.menuUpdateMode = 1
-			self.bluetoothPhonebookTransfers = 0
-			self.displayBacklightColor = String()
-			self.keyFindersSupported = 0
-			self.releaseYear = currentYear
-			self.antenna = 0
-			self.hasTalkingKeypad = false
-			self.hasTalkingPhonebook = false
-			self.hasTalkingCallerID = false
 		}
 
 		func cordlessDeviceTypeChanged(oldValue: Int, newValue: Int) {
@@ -220,4 +170,3 @@ extension PhoneSchemaV1 {
 		}
 
 	}
-}

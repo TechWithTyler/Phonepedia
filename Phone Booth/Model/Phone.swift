@@ -10,7 +10,6 @@ import Foundation
 import SwiftData
 import SwiftUI
 
-extension PhoneSchemaV1 {
 	@Model
 	final class Phone {
 
@@ -26,199 +25,199 @@ extension PhoneSchemaV1 {
 
 		var model: String
 
-		var photoData: Data
+		var photoData: Data = Phone.previewPhotoData
 
-		var releaseYear: Int
+		var releaseYear: Int = currentYear
 
-		var baseColor: String
+		var baseColor: String = "Black"
 
-		var baseDisplayBacklightColor: String
+		var baseDisplayBacklightColor: String = String()
 
-		var baseKeyForegroundColor: String
+		var baseKeyForegroundColor: String = "White"
 
-		var baseKeyBackgroundColor: String
+		var baseKeyBackgroundColor: String = "Black"
 
-		var locatorButtons: Int
+		var locatorButtons: Int = 0
 
-		var deregistration: Int
+		var deregistration: Int = 2
 
-		var buttonType: Int
+		var buttonType: Int = 0
 
-		var chargeLight: Int
+		var chargeLight: Int = 0
 
-		var cordedReceiverColor: String
+		var cordedReceiverColor: String = String()
 
-		var cordedPhoneType: Int
+		var cordedPhoneType: Int = 0
 
-		var cordedRingerType: Int
+		var cordedRingerType: Int = 0
 
-		var numberOfIncludedCordlessHandsets: Int
+		var numberOfIncludedCordlessHandsets: Int = 1
 
-		var maxCordlessHandsets: Int
+		var maxCordlessHandsets: Int = 5
 
-		var supportsRangeExtenders: Bool
+		var supportsRangeExtenders: Bool = false
 
-		var hasTransmitOnlyBase: Bool
+		var hasTransmitOnlyBase: Bool = false
 
-		var frequency: Int
+		var frequency: Int = 24
 
 		@Relationship(deleteRule: .cascade, inverse: \CordlessHandset.phone)
-		var cordlessHandsetsIHave: [CordlessHandset]
+		var cordlessHandsetsIHave: [CordlessHandset] = []
 
 		@Relationship(deleteRule: .cascade, inverse: \Charger.phone)
-		var chargersIHave: [Charger]
+		var chargersIHave: [Charger] = []
 
-		var baseRingtones: Int
+		var baseRingtones: Int = 1
 
-		var baseMusicRingtones: Int
+		var baseMusicRingtones: Int = 0
 
-		var baseHasSeparateIntercomTone: Bool
+		var baseHasSeparateIntercomTone: Bool = false
 
-		var canChangeBaseIntercomTone: Bool
+		var canChangeBaseIntercomTone: Bool = false
 
-		var hasIntercom: Bool
+		var hasIntercom: Bool = true
 
-		var hasBaseIntercom: Bool
+		var hasBaseIntercom: Bool = false
 
-		var numberOfLandlines: Int
+		var numberOfLandlines: Int = 1
 
-		var landlineInUseStatusOnBase: Int
+		var landlineInUseStatusOnBase: Int = 0
 
-		var landlineInUseVisualRingerFollowsRingSignal: Bool
+		var landlineInUseVisualRingerFollowsRingSignal: Bool = true
 
-		var cellLineInUseStatusOnBase: Int
+		var cellLineInUseStatusOnBase: Int = 0
 
-		var cellLineOnlyBehavior: Int
+		var cellLineOnlyBehavior: Int = 0
 
-		var baseChargingDirection: Int
+		var baseChargingDirection: Int = 0
 
-		var baseHasSeparateDataContact: Bool
+		var baseHasSeparateDataContact: Bool = false
 
-		var baseChargeContactPlacement: Int
+		var baseChargeContactPlacement: Int = 0
 
-		var baseChargeContactMechanism: Int
+		var baseChargeContactMechanism: Int = 1
 
-		var hasAnsweringSystem: Int
+		var hasAnsweringSystem: Int = 3
 
-		var answeringSystemMenuOnBase: Int
+		var answeringSystemMenuOnBase: Int = 0
 
-		var greetingRecordingOnBaseOrHandset: Int
+		var greetingRecordingOnBaseOrHandset: Int = 1
 
-		var hasMessageAlertByCall: Bool
+		var hasMessageAlertByCall: Bool = false
 
-		var hasGreetingOnlyMode: Bool
+		var hasGreetingOnlyMode: Bool = true
 
-		var voicemailIndication: Int
+		var voicemailIndication: Int = 3
 
-		var voicemailQuickDial: Int
+		var voicemailQuickDial: Int = 3
 
-		var hasBaseSpeakerphone: Bool
+		var hasBaseSpeakerphone: Bool = false
 
-		var hasBaseKeypad: Bool
+		var hasBaseKeypad: Bool = false
 
-		var hasTalkingCallerID: Bool
+		var hasTalkingCallerID: Bool = false
 
-		var hasTalkingKeypad: Bool
+		var hasTalkingKeypad: Bool = false
 
-		var hasTalkingPhonebook: Bool
+		var hasTalkingPhonebook: Bool = false
 
-		var baseDisplayType: Int
+		var baseDisplayType: Int = 0
 
-		var baseHasDisplayAndMessageCounter: Bool
+		var baseHasDisplayAndMessageCounter: Bool = false
 
-		var baseSoftKeysBottom: Int
+		var baseSoftKeysBottom: Int = 0
 
-		var baseSoftKeysSide: Int
+		var baseSoftKeysSide: Int = 0
 
-		var baseNavigatorKeyType: Int
+		var baseNavigatorKeyType: Int = 0
 
-		var baseNavigatorKeyStandbyShortcuts: Bool
+		var baseNavigatorKeyStandbyShortcuts: Bool = false
 
-		var baseNavigatorKeyCenterButton: Int
+		var baseNavigatorKeyCenterButton: Int = 0
 
-		var baseNavigatorKeyLeftRightRepeatSkip: Bool
+		var baseNavigatorKeyLeftRightRepeatSkip: Bool = false
 
-		var baseNavigatorKeyUpDownVolume: Bool
+		var baseNavigatorKeyUpDownVolume: Bool = false
 
-		var baseLEDMessageCounterColor: String
+		var baseLEDMessageCounterColor: String = String()
 
-		var baseKeyBacklightColor: String
+		var baseKeyBacklightColor: String = String()
 
-		var baseKeyBacklightAmount: Int
+		var baseKeyBacklightAmount: Int = 0
 
-		var cordedPowerSource: Int
+		var cordedPowerSource: Int = 0
 
-		var cordlessPowerBackupMode: Int
+		var cordlessPowerBackupMode: Int = 0
 
-		var cordlessPowerBackupReturnBehavior: Int
+		var cordlessPowerBackupReturnBehavior: Int = 0
 
-		var baseSupportsWiredHeadsets: Bool
+		var baseSupportsWiredHeadsets: Bool = false
 
-		var baseBluetoothHeadphonesSupported: Int
+		var baseBluetoothHeadphonesSupported: Int = 0
 
-		var baseBluetoothCellPhonesSupported: Int
+		var baseBluetoothCellPhonesSupported: Int = 0
 
-		var bluetoothPhonebookTransfers: Int
+		var bluetoothPhonebookTransfers: Int = 0
 
-		var hasCellPhoneVoiceControl: Bool
+		var hasCellPhoneVoiceControl: Bool = false
 
-		var basePhonebookCapacity: Int
+		var basePhonebookCapacity: Int = 50
 
-		var baseCallerIDCapacity: Int
+		var baseCallerIDCapacity: Int = 50
 
-		var baseRedialCapacity: Int
+		var baseRedialCapacity: Int = 0
 
-		var redialNameDisplay: Int
+		var redialNameDisplay: Int = 0
 
-		var callerIDPhonebookMatch: Bool
+		var callerIDPhonebookMatch: Bool = true
 
-		var baseSpeedDialCapacity: Int
+		var baseSpeedDialCapacity: Int = 0
 
-		var baseOneTouchDialCapacity: Int
+		var baseOneTouchDialCapacity: Int = 0
 
-		var oneTouchDialSupportsHandsetNumbers: Bool
+		var oneTouchDialSupportsHandsetNumbers: Bool = false
 
-		var speedDialPhonebookEntryMode: Int
+		var speedDialPhonebookEntryMode: Int = 0
 
-		var callBlockCapacity: Int
+		var callBlockCapacity: Int = 1000
 
-		var callBlockSupportsPrefixes: Bool
+		var callBlockSupportsPrefixes: Bool = false
 
-		var blockedCallersHear: Int
+		var blockedCallersHear: Int = 0
 
-		var hasFirstRingSuppression: Bool
+		var hasFirstRingSuppression: Bool = true
 
-		var hasOneTouchCallBlock: Bool
+		var hasOneTouchCallBlock: Bool = true
 
-		var callBlockPreProgrammedDatabaseEntryCount: Int
+		var callBlockPreProgrammedDatabaseEntryCount: Int = 0
 
-		var callBlockPreScreening: Int
+		var callBlockPreScreening: Int = 2
 
-		var callBlockPreScreeningCustomGreeting: Bool
+		var callBlockPreScreeningCustomGreeting: Bool = false
 
-		var callBlockPreScreeningAllowedNameCapacity: Int
+		var callBlockPreScreeningAllowedNameCapacity: Int = 100
 
-		var callBlockPreScreeningAllowedNumberCapacity: Int
+		var callBlockPreScreeningAllowedNumberCapacity: Int = 100
 
-		var callBlockPreScreeningAllowedNumberListVisible: Bool
+		var callBlockPreScreeningAllowedNumberListVisible: Bool = true
 
-		var roomMonitor: Int
+		var roomMonitor: Int = 0
 
-		var externalRoomMonitorAutomatedSystem: Int
+		var externalRoomMonitorAutomatedSystem: Int = 0
 
-		var smartHomeDevicesSupported: Int
+		var smartHomeDevicesSupported: Int = 0
 
-		var answerByVoice: Bool
+		var answerByVoice: Bool = false
 
-		var smartphonesAsHandsetsOverWiFi: Int
+		var smartphonesAsHandsetsOverWiFi: Int = 0
 
-		var scamCallDetection: Bool
+		var scamCallDetection: Bool = false
 
-		var placeOnBaseAutoRegister: Bool
+		var placeOnBaseAutoRegister: Bool = true
 
-		var wallMountability: Int
+		var wallMountability: Int = 1
 
-		var antennas: Int
+		var antennas: Int = 0
 
 		var phoneTypeText: String {
 			if isCordedCordless {
@@ -248,102 +247,6 @@ extension PhoneSchemaV1 {
 		init(brand: String, model: String) {
 			self.brand = brand
 			self.model = model
-			self.photoData = Phone.previewPhotoData
-			self.baseColor = String()
-			self.baseKeyForegroundColor = String()
-			self.baseKeyBackgroundColor = String()
-			self.buttonType = 0
-			self.cordedReceiverColor = String()
-			self.numberOfIncludedCordlessHandsets = 1
-			self.maxCordlessHandsets = 5
-			self.frequency = 25
-			self.cordlessHandsetsIHave = []
-			self.chargersIHave = []
-			self.baseRingtones = 1
-			self.baseMusicRingtones = 0
-			self.baseHasSeparateIntercomTone = false
-			self.canChangeBaseIntercomTone = false
-			self.hasIntercom = true
-			self.hasBaseIntercom = false
-			self.landlineInUseStatusOnBase = 0
-			self.cellLineInUseStatusOnBase = 0
-			self.baseChargingDirection = 0
-			self.baseHasSeparateDataContact = false
-			self.baseChargeContactPlacement = 0
-			self.baseChargeContactMechanism = 1
-			self.hasAnsweringSystem = 3
-			self.answeringSystemMenuOnBase = 0
-			self.greetingRecordingOnBaseOrHandset = 1
-			self.hasMessageAlertByCall = false
-			self.hasGreetingOnlyMode = true
-			self.voicemailIndication = 3
-			self.voicemailQuickDial = 3
-			self.hasBaseSpeakerphone = false
-			self.hasBaseKeypad = false
-			self.hasTalkingCallerID = false
-			self.baseDisplayType = 1
-			self.baseHasDisplayAndMessageCounter = false
-			self.baseSoftKeysBottom = 0
-			self.baseSoftKeysSide = 0
-			self.baseNavigatorKeyType = 0
-			self.baseNavigatorKeyStandbyShortcuts = false
-			self.baseNavigatorKeyCenterButton = 0
-			self.baseNavigatorKeyLeftRightRepeatSkip = false
-			self.baseNavigatorKeyUpDownVolume = false
-			self.baseLEDMessageCounterColor = String()
-			self.baseDisplayBacklightColor = String()
-			self.baseKeyBacklightColor = String()
-			self.baseKeyBacklightAmount = 0
-			self.cordedPowerSource = 0
-			self.cordlessPowerBackupMode = 1
-			self.baseSupportsWiredHeadsets = false
-			self.baseBluetoothHeadphonesSupported = 0
-			self.baseBluetoothCellPhonesSupported = 0
-			self.hasCellPhoneVoiceControl = false
-			self.basePhonebookCapacity = 100
-			self.baseCallerIDCapacity = 100
-			self.baseRedialCapacity = 0
-			self.redialNameDisplay = 0
-			self.baseSpeedDialCapacity = 0
-			self.baseOneTouchDialCapacity = 0
-			self.oneTouchDialSupportsHandsetNumbers = false
-			self.speedDialPhonebookEntryMode = 0
-			self.callBlockCapacity = 20
-			self.callBlockSupportsPrefixes = false
-			self.blockedCallersHear = 0
-			self.hasFirstRingSuppression = true
-			self.hasOneTouchCallBlock = false
-			self.callBlockPreProgrammedDatabaseEntryCount = 0
-			self.callBlockPreScreening = 0
-			self.callBlockPreScreeningAllowedNameCapacity = 0
-			self.callBlockPreScreeningAllowedNumberCapacity = 0
-			self.supportsRangeExtenders = false
-			self.hasTransmitOnlyBase = false
-			self.callBlockPreScreeningCustomGreeting = false
-			self.callBlockPreScreeningAllowedNumberListVisible = false
-			self.callerIDPhonebookMatch = true
-			self.chargeLight = 3
-			self.landlineInUseVisualRingerFollowsRingSignal = false
-			self.cellLineOnlyBehavior = 0
-			self.numberOfLandlines = 1
-			self.cordlessPowerBackupReturnBehavior = 0
-			self.bluetoothPhonebookTransfers = 0
-			self.locatorButtons = 0
-			self.deregistration = 1
-			self.roomMonitor = 0
-			self.externalRoomMonitorAutomatedSystem = 0
-			self.smartHomeDevicesSupported = 0
-			self.answerByVoice = false
-			self.cordedPhoneType = 0
-			self.cordedRingerType = 1
-			self.smartphonesAsHandsetsOverWiFi = 0
-			self.releaseYear = currentYear
-			self.scamCallDetection = false
-			self.placeOnBaseAutoRegister = false
-			self.wallMountability = 2
-			self.antennas = 0
-			self.hasTalkingKeypad = false
-			self.hasTalkingPhonebook = false
 		}
 
 		func transmitOnlyBaseChanged(oldValue: Bool, newValue: Bool) {
@@ -504,4 +407,3 @@ extension PhoneSchemaV1 {
 		}
 
 	}
-}

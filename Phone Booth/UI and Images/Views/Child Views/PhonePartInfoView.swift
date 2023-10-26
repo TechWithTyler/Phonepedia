@@ -124,7 +124,7 @@ struct PhonePartInfoView: View {
 	}
 
 	func addCharger() {
-		phone.chargersIHave.append(Charger())
+		phone.chargersIHave.append(Charger(color: "Black"))
 	}
 
 	func deleteHandset(at index: Int) {
