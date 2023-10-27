@@ -9,25 +9,25 @@
 import Foundation
 import SwiftData
 
-	@Model
-	final class Charger {
+@Model
+final class Charger {
 
-		var phone: Phone?
+	var phone: Phone?
 
-		var color: String
+	var color: String
 
-		var chargingDirection: Int = 0
+	var chargingDirection: Int = 0
 
-		var chargeContactPlacement: Int = 0
+	var chargeContactPlacement: Int = 0
 
-		var chargeContactMechanism: Int = 1
+	var chargeContactMechanism: Int = 1
 
-		var hasRangeExtender: Bool = false
+	var hasRangeExtender: Bool = false
 
-		var wallMountability: Int = 0
+	var wallMountability: Int = 0
 
-		init(color: String) {
-			self.color = color
-		}
-
+	init(color: String) {
+		self.color = color
 	}
+
+}

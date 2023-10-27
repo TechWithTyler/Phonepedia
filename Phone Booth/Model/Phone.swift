@@ -10,400 +10,405 @@ import Foundation
 import SwiftData
 import SwiftUI
 
-	@Model
-	final class Phone {
-
-		static var previewPhotoData: Data {
+@Model
+final class Phone {
+	
+	static var previewPhotoData: Data {
 #if os(iOS) || os(xrOS)
-			return getPNGDataFromUIImage(image: .phone)
+		return getPNGDataFromUIImage(image: .phone)
 #elseif os(macOS)
-			return getPNGDataFromNSImage(image: .phone)
+		return getPNGDataFromNSImage(image: .phone)
 #endif
-		}
-
-		var brand: String
-
-		var model: String
-
-		var photoData: Data = Phone.previewPhotoData
-
-		var releaseYear: Int = currentYear
-
-		var baseColor: String = "Black"
-
-		var baseDisplayBacklightColor: String = String()
-
-		var baseKeyForegroundColor: String = "White"
-
-		var baseKeyBackgroundColor: String = "Black"
-
-		var locatorButtons: Int = 0
-
-		var deregistration: Int = 2
-
-		var buttonType: Int = 0
-
-		var chargeLight: Int = 0
-
-		var cordedReceiverColor: String = String()
-
-		var cordedPhoneType: Int = 0
-
-		var cordedRingerType: Int = 0
-
-		var numberOfIncludedCordlessHandsets: Int = 1
-
-		var maxCordlessHandsets: Int = 5
-
-		var supportsRangeExtenders: Bool = false
-
-		var hasTransmitOnlyBase: Bool = false
-
-		var frequency: Int = 24
-
-		@Relationship(deleteRule: .cascade, inverse: \CordlessHandset.phone)
-		var cordlessHandsetsIHave: [CordlessHandset] = []
-
-		@Relationship(deleteRule: .cascade, inverse: \Charger.phone)
-		var chargersIHave: [Charger] = []
-
-		var baseRingtones: Int = 1
-
-		var baseMusicRingtones: Int = 0
-
-		var baseHasSeparateIntercomTone: Bool = false
-
-		var canChangeBaseIntercomTone: Bool = false
-
-		var hasIntercom: Bool = true
-
-		var hasBaseIntercom: Bool = false
-
-		var numberOfLandlines: Int = 1
-
-		var landlineInUseStatusOnBase: Int = 0
-
-		var landlineInUseVisualRingerFollowsRingSignal: Bool = true
-
-		var cellLineInUseStatusOnBase: Int = 0
-
-		var cellLineOnlyBehavior: Int = 0
-
-		var baseChargingDirection: Int = 0
-
-		var baseHasSeparateDataContact: Bool = false
-
-		var baseChargeContactPlacement: Int = 0
-
-		var baseChargeContactMechanism: Int = 1
-
-		var hasAnsweringSystem: Int = 3
-
-		var answeringSystemMenuOnBase: Int = 0
-
-		var greetingRecordingOnBaseOrHandset: Int = 1
-
-		var hasMessageAlertByCall: Bool = false
-
-		var hasGreetingOnlyMode: Bool = true
-
-		var voicemailIndication: Int = 3
-
-		var voicemailQuickDial: Int = 3
-
-		var hasBaseSpeakerphone: Bool = false
-
-		var hasBaseKeypad: Bool = false
-
-		var hasTalkingCallerID: Bool = false
-
-		var hasTalkingKeypad: Bool = false
-
-		var hasTalkingPhonebook: Bool = false
-
-		var baseDisplayType: Int = 0
-
-		var baseHasDisplayAndMessageCounter: Bool = false
-
-		var baseSoftKeysBottom: Int = 0
-
-		var baseSoftKeysSide: Int = 0
-
-		var baseNavigatorKeyType: Int = 0
-
-		var baseNavigatorKeyStandbyShortcuts: Bool = false
-
-		var baseNavigatorKeyCenterButton: Int = 0
-
-		var baseNavigatorKeyLeftRightRepeatSkip: Bool = false
-
-		var baseNavigatorKeyUpDownVolume: Bool = false
-
-		var baseLEDMessageCounterColor: String = String()
-
-		var baseKeyBacklightColor: String = String()
-
-		var baseKeyBacklightAmount: Int = 0
-
-		var cordedPowerSource: Int = 0
-
-		var cordlessPowerBackupMode: Int = 0
-
-		var cordlessPowerBackupReturnBehavior: Int = 0
-
-		var baseSupportsWiredHeadsets: Bool = false
-
-		var baseBluetoothHeadphonesSupported: Int = 0
-
-		var baseBluetoothCellPhonesSupported: Int = 0
-
-		var bluetoothPhonebookTransfers: Int = 0
-
-		var hasCellPhoneVoiceControl: Bool = false
-
-		var basePhonebookCapacity: Int = 50
-
-		var baseCallerIDCapacity: Int = 50
-
-		var baseRedialCapacity: Int = 0
-
-		var redialNameDisplay: Int = 0
-
-		var callerIDPhonebookMatch: Bool = true
-
-		var baseSpeedDialCapacity: Int = 0
-
-		var baseOneTouchDialCapacity: Int = 0
-
-		var oneTouchDialSupportsHandsetNumbers: Bool = false
-
-		var speedDialPhonebookEntryMode: Int = 0
-
-		var callBlockCapacity: Int = 1000
-
-		var callBlockSupportsPrefixes: Bool = false
-
-		var blockedCallersHear: Int = 0
-
-		var hasFirstRingSuppression: Bool = true
-
-		var hasOneTouchCallBlock: Bool = true
-
-		var callBlockPreProgrammedDatabaseEntryCount: Int = 0
-
-		var callBlockPreScreening: Int = 2
-
-		var callBlockPreScreeningCustomGreeting: Bool = false
-
-		var callBlockPreScreeningAllowedNameCapacity: Int = 100
-
-		var callBlockPreScreeningAllowedNumberCapacity: Int = 100
-
-		var callBlockPreScreeningAllowedNumberListVisible: Bool = true
-
-		var roomMonitor: Int = 0
-
-		var externalRoomMonitorAutomatedSystem: Int = 0
-
-		var smartHomeDevicesSupported: Int = 0
-
-		var answerByVoice: Bool = false
-
-		var smartphonesAsHandsetsOverWiFi: Int = 0
-
-		var scamCallDetection: Bool = false
-
-		var placeOnBaseAutoRegister: Bool = true
-
-		var wallMountability: Int = 1
-
-		var antennas: Int = 0
-
-		var phoneTypeText: String {
-			if isCordedCordless {
-				return "Corded/Cordless"
-			} else if isCordless {
-				if hasTransmitOnlyBase {
-					return "Cordless with Transmit-Only Base"
-				}
-				return "Cordless"
-			} else {
-				return "Corded"
-			}
-		}
-
-		var hasCordedReceiver: Bool {
-			return !cordedReceiverColor.isEmpty
-		}
-
-		var isCordless: Bool {
-			return numberOfIncludedCordlessHandsets > 0
-		}
-
-		var isCordedCordless: Bool {
-			return isCordless && hasCordedReceiver
-		}
-
-		init(brand: String, model: String) {
-			self.brand = brand
-			self.model = model
-		}
-
-		func transmitOnlyBaseChanged(oldValue: Bool, newValue: Bool) {
-			if newValue {
-				for handset in cordlessHandsetsIHave {
-					handset.fitsOnBase = false
-				}
-				placeOnBaseAutoRegister = false
-				baseHasSeparateDataContact = false
-				baseChargeContactMechanism = 0
-				baseChargeContactPlacement = 0
-				baseChargingDirection = 0
-				if cordlessPowerBackupMode == 1 {
-					cordlessPowerBackupMode = 0
-				}
-			}
-		}
-
-		func isCordlessChanged(oldValue: Bool, newValue: Bool) {
-			if newValue {
-				cordedPhoneType = 0
-				cordedRingerType = 1
-			} else {
-				if hasAnsweringSystem > 1 {
-					hasAnsweringSystem = 1
-				}
-				placeOnBaseAutoRegister = false
-				hasTransmitOnlyBase = false
-				supportsRangeExtenders = false
-				baseChargingDirection = 0
-				baseChargeContactMechanism = 0
-				baseChargeContactPlacement = 0
-				baseHasSeparateDataContact = false
-				cordlessHandsetsIHave.removeAll()
-				chargersIHave.removeAll()
-			}
-		}
-
-		func baseDisplayTypeChanged(oldValue: Int, newValue: Int) {
-			if newValue == 0 {
-				hasTalkingPhonebook = false
-			}
-			if newValue <= 1 {
-				baseSoftKeysBottom = 0
-				baseSoftKeysSide = 0
-			}
-			if newValue < 3 || newValue > 5 {
-				baseDisplayBacklightColor = String()
-			}
-		}
-
-		func maxCordlessHandsetsChanged(oldValue: Int, newValue: Int) {
-			if newValue == -1 {
-				placeOnBaseAutoRegister = false
-				deregistration = 0
-				locatorButtons = 0
-				for handset in cordlessHandsetsIHave {
-					handset.fitsOnBase = true
-				}
-			}
-			if newValue == 0 && oldValue == -1 {
-				maxCordlessHandsets = 1
-			} else if newValue == 0 && oldValue == 1 {
-				maxCordlessHandsets = -1
-			}
-		}
-
-		func baseSoftKeysBottomChanged(oldValue: Int, newValue: Int) {
-			if oldValue == 0 && newValue == 1 {
-				baseSoftKeysBottom = 2
-			} else if oldValue == 2 && newValue == 1 {
-				baseSoftKeysBottom = 0
-			}
-		}
-
-		func baseSoftKeysSideChanged(oldValue: Int, newValue: Int) {
-			if oldValue == 0 && newValue == 1 {
-				baseSoftKeysSide = 2
-			} else if oldValue == 2 && newValue == 1 {
-				baseSoftKeysSide = 0
-			}
-		}
-
-		func baseBluetoothCellPhonesSupportedChanged(oldValue: Int, newValue: Int) {
-			if oldValue == 0 && newValue > 0 {
-				bluetoothPhonebookTransfers = 1
-			}
-		}
-
-		func cordlessPowerBackupModeChanged(oldValue: Int, newValue: Int) {
-			if newValue != 1 {
-				cordlessPowerBackupReturnBehavior = 0
-			}
-		}
-
-		func locatorButtonsChanged(oldValue: Int, newValue: Int) {
-			if newValue == 0 {
-				deregistration = 1
-			}
-		}
-
-		func cordedReceiverColorChanged(oldValue: String, newValue: String) {
-			if !newValue.isEmpty {
-				for handset in cordlessHandsetsIHave {
-					handset.fitsOnBase = false
-				}
-				placeOnBaseAutoRegister = false
-				hasTransmitOnlyBase = false
-				baseChargingDirection = 0
-				baseChargeContactMechanism = 0
-				baseChargeContactPlacement = 0
-			}
-		}
-
-		func cordedPhoneTypeChanged(oldValue: Int, newValue: Int) {
-			if newValue != 0 {
-				hasBaseSpeakerphone = false
-				hasTalkingKeypad = false
-				hasTalkingPhonebook = false
-				hasAnsweringSystem = 0
-				baseMusicRingtones = 0
-				basePhonebookCapacity = 0
-				baseBluetoothHeadphonesSupported = 0
-				baseBluetoothCellPhonesSupported = 0
-				hasTalkingCallerID = false
-			}
-			if newValue == 1 || newValue == 3 {
-				baseRedialCapacity = 0
-				baseSpeedDialCapacity = 0
-				baseCallerIDCapacity = 0
-				baseDisplayType = 0
-				baseSoftKeysSide = 0
-				baseSoftKeysBottom = 0
-				baseDisplayType = 0
-			}
-		}
-
-		func cordedRingerTypeChanged(oldValue: Int, newValue: Int) {
-			if newValue == 0 {
-				hasBaseSpeakerphone = false
-				hasAnsweringSystem = 0
-				baseRingtones = 0
-				baseMusicRingtones = 0
-				basePhonebookCapacity = 0
-				baseCallerIDCapacity = 0
-				baseBluetoothHeadphonesSupported = 0
-				baseBluetoothCellPhonesSupported = 0
-				hasTalkingCallerID = false
-				hasTalkingKeypad = false
-				hasTalkingPhonebook = false
-			}
-		}
-
-		func deregistrationChanged(oldValue: Int, newValue: Int) {
-			if newValue == 0 {
-				placeOnBaseAutoRegister = false
-			}
-		}
-
 	}
+	
+	var brand: String
+
+	var model: String
+	
+	var photoData: Data = Phone.previewPhotoData
+	
+	var releaseYear: Int = currentYear
+	
+	var baseColor: String = "Black"
+	
+	var baseDisplayBacklightColor: String = String()
+	
+	var baseKeyForegroundColor: String = "White"
+	
+	var baseKeyBackgroundColor: String = "Black"
+	
+	var locatorButtons: Int = 0
+	
+	var deregistration: Int = 2
+	
+	var buttonType: Int = 0
+	
+	var chargeLight: Int = 0
+	
+	var cordedReceiverColor: String = String()
+	
+	var cordedPhoneType: Int = 0
+	
+	var cordedRingerType: Int = 0
+	
+	var numberOfIncludedCordlessHandsets: Int = 1
+	
+	var maxCordlessHandsets: Int = 5
+	
+	var supportsRangeExtenders: Bool = false
+	
+	var hasTransmitOnlyBase: Bool = false
+	
+	var frequency: Int = 24
+	
+	@Relationship(deleteRule: .cascade, inverse: \CordlessHandset.phone)
+	var cordlessHandsetsIHave: [CordlessHandset] = []
+	
+	@Relationship(deleteRule: .cascade, inverse: \Charger.phone)
+	var chargersIHave: [Charger] = []
+	
+	var baseRingtones: Int = 1
+	
+	var baseMusicRingtones: Int = 0
+	
+	var baseHasSeparateIntercomTone: Bool = false
+	
+	var canChangeBaseIntercomTone: Bool = false
+	
+	var hasIntercom: Bool = true
+	
+	var hasBaseIntercom: Bool = false
+	
+	var numberOfLandlines: Int = 1
+	
+	var landlineInUseStatusOnBase: Int = 0
+	
+	var landlineInUseVisualRingerFollowsRingSignal: Bool = true
+	
+	var cellLineInUseStatusOnBase: Int = 0
+	
+	var cellLineOnlyBehavior: Int = 0
+	
+	var baseChargingDirection: Int = 0
+	
+	var baseHasSeparateDataContact: Bool = false
+	
+	var baseChargeContactPlacement: Int = 0
+	
+	var baseChargeContactMechanism: Int = 1
+	
+	var hasAnsweringSystem: Int = 3
+	
+	var answeringSystemMenuOnBase: Int = 0
+	
+	var greetingRecordingOnBaseOrHandset: Int = 1
+	
+	var hasMessageAlertByCall: Bool = false
+	
+	var hasGreetingOnlyMode: Bool = true
+	
+	var voicemailIndication: Int = 3
+	
+	var voicemailQuickDial: Int = 3
+
+	var voicemailFeatureCodes: Bool = false
+
+	var hasBaseSpeakerphone: Bool = false
+	
+	var hasBaseKeypad: Bool = false
+	
+	var hasTalkingCallerID: Bool = false
+	
+	var hasTalkingKeypad: Bool = false
+	
+	var hasTalkingPhonebook: Bool = false
+	
+	var baseDisplayType: Int = 0
+	
+	var baseHasDisplayAndMessageCounter: Bool = false
+	
+	var baseSoftKeysBottom: Int = 0
+	
+	var baseSoftKeysSide: Int = 0
+	
+	var baseNavigatorKeyType: Int = 0
+	
+	var baseNavigatorKeyStandbyShortcuts: Bool = false
+	
+	var baseNavigatorKeyCenterButton: Int = 0
+	
+	var baseNavigatorKeyLeftRightRepeatSkip: Bool = false
+	
+	var baseNavigatorKeyUpDownVolume: Bool = false
+	
+	var baseLEDMessageCounterColor: String = String()
+	
+	var baseKeyBacklightColor: String = String()
+	
+	var baseKeyBacklightAmount: Int = 0
+	
+	var cordedPowerSource: Int = 0
+	
+	var cordlessPowerBackupMode: Int = 0
+	
+	var cordlessPowerBackupReturnBehavior: Int = 0
+	
+	var baseSupportsWiredHeadsets: Bool = false
+	
+	var baseBluetoothHeadphonesSupported: Int = 0
+	
+	var baseBluetoothCellPhonesSupported: Int = 0
+	
+	var bluetoothPhonebookTransfers: Int = 0
+	
+	var hasCellPhoneVoiceControl: Bool = false
+	
+	var basePhonebookCapacity: Int = 50
+	
+	var baseCallerIDCapacity: Int = 50
+	
+	var baseRedialCapacity: Int = 0
+	
+	var redialNameDisplay: Int = 0
+	
+	var callerIDPhonebookMatch: Bool = true
+	
+	var baseSpeedDialCapacity: Int = 0
+	
+	var baseOneTouchDialCapacity: Int = 0
+	
+	var oneTouchDialSupportsHandsetNumbers: Bool = false
+	
+	var speedDialPhonebookEntryMode: Int = 0
+	
+	var callBlockCapacity: Int = 1000
+	
+	var callBlockSupportsPrefixes: Bool = false
+	
+	var blockedCallersHear: Int = 0
+	
+	var hasFirstRingSuppression: Bool = true
+	
+	var hasOneTouchCallBlock: Bool = true
+	
+	var callBlockPreProgrammedDatabaseEntryCount: Int = 0
+	
+	var callBlockPreScreening: Int = 2
+	
+	var callBlockPreScreeningCustomGreeting: Bool = false
+	
+	var callBlockPreScreeningAllowedNameCapacity: Int = 100
+	
+	var callBlockPreScreeningAllowedNumberCapacity: Int = 100
+	
+	var callBlockPreScreeningAllowedNumberListVisible: Bool = true
+	
+	var roomMonitor: Int = 0
+	
+	var externalRoomMonitorAutomatedSystem: Int = 0
+	
+	var smartHomeDevicesSupported: Int = 0
+	
+	var answerByVoice: Bool = false
+	
+	var smartphonesAsHandsetsOverWiFi: Int = 0
+	
+	var scamCallDetection: Bool = false
+	
+	var placeOnBaseAutoRegister: Bool = true
+	
+	var wallMountability: Int = 1
+	
+	var antennas: Int = 0
+	
+	var phoneTypeText: String {
+		if isCordedCordless {
+			return "Corded/Cordless"
+		} else if isCordless {
+			if hasTransmitOnlyBase {
+				return "Cordless with Transmit-Only Base"
+			}
+			return "Cordless"
+		} else {
+			return "Corded"
+		}
+	}
+	
+	var hasCordedReceiver: Bool {
+		return !cordedReceiverColor.isEmpty
+	}
+	
+	var isCordless: Bool {
+		return numberOfIncludedCordlessHandsets > 0
+	}
+	
+	var isCordedCordless: Bool {
+		return isCordless && hasCordedReceiver
+	}
+	
+	init(brand: String, model: String) {
+		self.brand = brand
+		self.model = model
+		self.photoData = Phone.previewPhotoData
+		self.cordlessHandsetsIHave = []
+		self.chargersIHave = []
+	}
+	
+	func transmitOnlyBaseChanged(oldValue: Bool, newValue: Bool) {
+		if newValue {
+			for handset in cordlessHandsetsIHave {
+				handset.fitsOnBase = false
+			}
+			placeOnBaseAutoRegister = false
+			baseHasSeparateDataContact = false
+			baseChargeContactMechanism = 0
+			baseChargeContactPlacement = 0
+			baseChargingDirection = 0
+			if cordlessPowerBackupMode == 1 {
+				cordlessPowerBackupMode = 0
+			}
+		}
+	}
+	
+	func isCordlessChanged(oldValue: Bool, newValue: Bool) {
+		if newValue {
+			cordedPhoneType = 0
+			cordedRingerType = 1
+		} else {
+			if hasAnsweringSystem > 1 {
+				hasAnsweringSystem = 1
+			}
+			placeOnBaseAutoRegister = false
+			hasTransmitOnlyBase = false
+			supportsRangeExtenders = false
+			baseChargingDirection = 0
+			baseChargeContactMechanism = 0
+			baseChargeContactPlacement = 0
+			baseHasSeparateDataContact = false
+			cordlessHandsetsIHave.removeAll()
+			chargersIHave.removeAll()
+		}
+	}
+	
+	func baseDisplayTypeChanged(oldValue: Int, newValue: Int) {
+		if newValue == 0 {
+			hasTalkingPhonebook = false
+		}
+		if newValue <= 1 {
+			baseSoftKeysBottom = 0
+			baseSoftKeysSide = 0
+		}
+		if newValue < 3 || newValue > 5 {
+			baseDisplayBacklightColor = String()
+		}
+	}
+	
+	func maxCordlessHandsetsChanged(oldValue: Int, newValue: Int) {
+		if newValue == -1 {
+			placeOnBaseAutoRegister = false
+			deregistration = 0
+			locatorButtons = 0
+			for handset in cordlessHandsetsIHave {
+				handset.fitsOnBase = true
+			}
+		}
+		if newValue == 0 && oldValue == -1 {
+			maxCordlessHandsets = 1
+		} else if newValue == 0 && oldValue == 1 {
+			maxCordlessHandsets = -1
+		}
+	}
+	
+	func baseSoftKeysBottomChanged(oldValue: Int, newValue: Int) {
+		if oldValue == 0 && newValue == 1 {
+			baseSoftKeysBottom = 2
+		} else if oldValue == 2 && newValue == 1 {
+			baseSoftKeysBottom = 0
+		}
+	}
+	
+	func baseSoftKeysSideChanged(oldValue: Int, newValue: Int) {
+		if oldValue == 0 && newValue == 1 {
+			baseSoftKeysSide = 2
+		} else if oldValue == 2 && newValue == 1 {
+			baseSoftKeysSide = 0
+		}
+	}
+	
+	func baseBluetoothCellPhonesSupportedChanged(oldValue: Int, newValue: Int) {
+		if oldValue == 0 && newValue > 0 {
+			bluetoothPhonebookTransfers = 1
+		}
+	}
+	
+	func cordlessPowerBackupModeChanged(oldValue: Int, newValue: Int) {
+		if newValue != 1 {
+			cordlessPowerBackupReturnBehavior = 0
+		}
+	}
+	
+	func locatorButtonsChanged(oldValue: Int, newValue: Int) {
+		if newValue == 0 {
+			deregistration = 1
+		}
+	}
+	
+	func cordedReceiverColorChanged(oldValue: String, newValue: String) {
+		if !newValue.isEmpty {
+			for handset in cordlessHandsetsIHave {
+				handset.fitsOnBase = false
+			}
+			placeOnBaseAutoRegister = false
+			hasTransmitOnlyBase = false
+			baseChargingDirection = 0
+			baseChargeContactMechanism = 0
+			baseChargeContactPlacement = 0
+		}
+	}
+	
+	func cordedPhoneTypeChanged(oldValue: Int, newValue: Int) {
+		if newValue != 0 {
+			hasBaseSpeakerphone = false
+			hasTalkingKeypad = false
+			hasTalkingPhonebook = false
+			hasAnsweringSystem = 0
+			baseMusicRingtones = 0
+			basePhonebookCapacity = 0
+			baseBluetoothHeadphonesSupported = 0
+			baseBluetoothCellPhonesSupported = 0
+			hasTalkingCallerID = false
+		}
+		if newValue == 1 || newValue == 3 {
+			baseRedialCapacity = 0
+			baseSpeedDialCapacity = 0
+			baseCallerIDCapacity = 0
+			baseDisplayType = 0
+			baseSoftKeysSide = 0
+			baseSoftKeysBottom = 0
+			baseDisplayType = 0
+		}
+	}
+	
+	func cordedRingerTypeChanged(oldValue: Int, newValue: Int) {
+		if newValue == 0 {
+			hasBaseSpeakerphone = false
+			hasAnsweringSystem = 0
+			baseRingtones = 0
+			baseMusicRingtones = 0
+			basePhonebookCapacity = 0
+			baseCallerIDCapacity = 0
+			baseBluetoothHeadphonesSupported = 0
+			baseBluetoothCellPhonesSupported = 0
+			hasTalkingCallerID = false
+			hasTalkingKeypad = false
+			hasTalkingPhonebook = false
+		}
+	}
+	
+	func deregistrationChanged(oldValue: Int, newValue: Int) {
+		if newValue == 0 {
+			placeOnBaseAutoRegister = false
+		}
+	}
+	
+}
