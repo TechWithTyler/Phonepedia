@@ -12,7 +12,11 @@ import SwiftData
 struct ContentView: View {
 
     @Environment(\.modelContext) private var modelContext
-	
+
+	#if os(iOS)
+	@Environment(\.editMode) private var editMode
+	#endif
+
     @Query private var phones: [Phone]
 
 	@State private var selectedPhone: Phone?
@@ -109,14 +113,20 @@ struct ContentView: View {
 				Label("Add Phone", systemImage: "plus")
 			}
 			.accessibilityIdentifier("AddPhoneButton")
+#if os(iOS)
+			.disabled((editMode?.wrappedValue.isEditing)!)
+#endif
 		}
-		ToolbarItem {
-			Button {
-				showingDeleteAll = true
-			} label: {
-				Label("Delete All", systemImage: "trash")
-					.labelStyle(.titleAndIcon)
-			}
+			ToolbarItem {
+				Button {
+					showingDeleteAll = true
+				} label: {
+					Label("Delete All", systemImage: "trash")
+						.labelStyle(.titleAndIcon)
+				}
+#if os(iOS)
+				.disabled((editMode?.wrappedValue.isEditing)!)
+#endif
 		}
 	}
 
