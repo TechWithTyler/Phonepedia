@@ -245,13 +245,10 @@ final class Phone {
 	var isCordedCordless: Bool {
 		return isCordless && hasCordedReceiver
 	}
-	
+
 	init(brand: String, model: String) {
 		self.brand = brand
 		self.model = model
-		self.photoData = Phone.previewPhotoData
-		self.cordlessHandsetsIHave = []
-		self.chargersIHave = []
 	}
 	
 	func transmitOnlyBaseChanged(oldValue: Bool, newValue: Bool) {
