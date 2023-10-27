@@ -33,7 +33,7 @@ struct PhoneDetailView: View {
 					TextField("Brand", text: $phone.brand)
 					TextField("Model", text: $phone.model)
 					Text("Phone type: \(phone.phoneTypeText)")
-					Stepper("Release Year: \(String(phone.releaseYear))", value: $phone.releaseYear, in: 1984...Calendar.current.component(.year, from: Date()))
+					Stepper("Release Year: \(String(phone.releaseYear))", value: $phone.releaseYear, in: 1984...currentYear)
 					if phone.isCordless {
 						Picker("Wireless Frequency", selection: $phone.frequency) {
 							Section(header: Text("46-49MHz")) {
@@ -510,21 +510,23 @@ A phone's voicemail indicator usually works in one or both of the following ways
 								Text("Up/Down").tag(1)
 								Text("Up/Down/Left/Right").tag(3)
 							}
-							Picker("Base Navigation Button Center Button", selection: $phone.baseNavigatorKeyCenterButton) {
-								Text("None").tag(0)
-								Text("Select").tag(1)
-								Text("Menu/Select").tag(2)
-								if phone.hasAnsweringSystem == 1 || phone.hasAnsweringSystem == 3 {
-									Text("Play").tag(3)
-									Text("Play/Select").tag(4)
+							if phone.baseNavigatorKeyType > 0 {
+								Picker("Base Navigation Button Center Button", selection: $phone.baseNavigatorKeyCenterButton) {
+									Text("None").tag(0)
+									Text("Select").tag(1)
+									Text("Menu/Select").tag(2)
+									if phone.hasAnsweringSystem == 1 || phone.hasAnsweringSystem == 3 {
+										Text("Play").tag(3)
+										Text("Play/Select").tag(4)
+									}
+									Text("Other Function").tag(5)
 								}
-								Text("Other Function").tag(5)
+								Toggle("Base Navigation Button Up/Down for Volume", isOn: $phone.baseNavigatorKeyUpDownVolume)
+								if phone.hasAnsweringSystem == 1 || phone.hasAnsweringSystem == 3 {
+									Toggle("Base Navigation Button Left/Right for Repeat/Skip", isOn: $phone.baseNavigatorKeyLeftRightRepeatSkip)
+								}
+								Toggle("Base Navigation Button Standby Shortcuts", isOn: $phone.baseNavigatorKeyStandbyShortcuts)
 							}
-							Toggle("Base Navigation Button Up/Down for Volume", isOn: $phone.baseNavigatorKeyUpDownVolume)
-							if phone.hasAnsweringSystem == 1 || phone.hasAnsweringSystem == 3 {
-								Toggle("Base Navigation Button Left/Right for Repeat/Skip", isOn: $phone.baseNavigatorKeyLeftRightRepeatSkip)
-							}
-							Toggle("Base Navigation Button Standby Shortcuts", isOn: $phone.baseNavigatorKeyStandbyShortcuts)
 							if phone.baseDisplayType > 2 {
 								Stepper("Base Soft Keys (bottom): \(phone.baseSoftKeysBottom)", value: $phone.baseSoftKeysBottom, in: 0...4)
 									.onChange(of: phone.baseSoftKeysBottom) { oldValue, newValue in
@@ -560,6 +562,7 @@ A phone's voicemail indicator usually works in one or both of the following ways
 					Section(header: Text("Audio Devices (e.g. headsets)")) {
 						if !phone.isCordless || phone.hasBaseSpeakerphone {
 							Toggle("Base Supports Wired Headsets", isOn: $phone.baseSupportsWiredHeadsets)
+						}
 							Picker("Maximum Number Of Bluetooth Headphones (base)", selection: $phone.baseBluetoothHeadphonesSupported) {
 								Text("None").tag(0)
 								Text("1").tag(1)
@@ -567,7 +570,6 @@ A phone's voicemail indicator usually works in one or both of the following ways
 								Text("4").tag(4)
 							}
 						}
-					}
 				}
 				Section(header: Text("Landline")) {
 					Picker("Number Of Lines", selection: $phone.numberOfLandlines) {
