@@ -30,7 +30,7 @@ final class Phone {
 	var releaseYear: Int = currentYear
 	
 	var baseColor: String = "Black"
-	
+
 	var baseDisplayBacklightColor: String = String()
 	
 	var baseKeyForegroundColor: String = "White"
