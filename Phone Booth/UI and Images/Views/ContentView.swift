@@ -17,7 +17,7 @@ struct ContentView: View {
 	@Environment(\.editMode) private var editMode
 	#endif
 
-    @Query private var phones: [Phone]
+	@Query private var phones: [Phone]
 
 	@State private var selectedPhone: Phone?
 

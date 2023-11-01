@@ -12,7 +12,7 @@ import SwiftUI
 
 @Model
 final class Phone {
-	
+
 	static var previewPhotoData: Data {
 #if os(iOS) || os(xrOS)
 		return getPNGDataFromUIImage(image: .phone)
@@ -25,8 +25,8 @@ final class Phone {
 
 	var model: String
 	
-	var photoData: Data = Phone.previewPhotoData
-	
+	@Attribute(.externalStorage) var photoData: Data = Phone.previewPhotoData
+
 	var releaseYear: Int = currentYear
 	
 	var baseColor: String = "Black"
@@ -60,7 +60,7 @@ final class Phone {
 	var hasTransmitOnlyBase: Bool = false
 	
 	var frequency: Int = 24
-	
+
 	@Relationship(deleteRule: .cascade, inverse: \CordlessHandset.phone)
 	var cordlessHandsetsIHave: [CordlessHandset] = []
 	
