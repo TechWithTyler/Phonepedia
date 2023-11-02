@@ -961,7 +961,7 @@ When the first ring is suppressed, the number of rings you hear will be one less
 		#endif
 		.alert("Reset photo?", isPresented: $showingResetAlert) {
 			Button(role: .destructive) {
-				phone.photoData = Phone.previewPhotoData
+				phone.photoData = nil
 				showingResetAlert = false
 			} label: {
 				Text("Delete")

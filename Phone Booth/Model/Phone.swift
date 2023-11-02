@@ -25,7 +25,7 @@ final class Phone {
 
 	var model: String
 	
-	@Attribute(.externalStorage) var photoData: Data = Phone.previewPhotoData
+	@Attribute(.externalStorage) var photoData: Data? = nil
 
 	var releaseYear: Int = currentYear
 	

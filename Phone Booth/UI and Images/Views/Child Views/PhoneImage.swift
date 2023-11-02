@@ -20,9 +20,9 @@ struct PhoneImage: View {
 
     var body: some View {
 		#if os(iOS) || os(xrOS)
-		if let image = UIImage(data: phone.photoData) {
+		if let image = UIImage(data: phone.photoData ?? getPNGDataFromUIImage(image: .phone)) {
 			Image(uiImage: image)
-				.renderingMode(phone.photoData == Phone.previewPhotoData ? .template : .original)
+				.renderingMode(phone.photoData == nil ? .template : .original)
 				.resizable()
 				.scaledToFit()
 				.frame(width: size, height: size)
@@ -30,9 +30,9 @@ struct PhoneImage: View {
 			PhoneImageUnavailableView()
 		}
 		#elseif os(macOS)
-		if let image = NSImage(data: phone.photoData) {
+		if let image = NSImage(data: phone.photoData ?? getPNGDataFromNSImage(image: .phone)) {
 			Image(nsImage: image)
-				.renderingMode(phone.photoData == Phone.previewPhotoData ? .template : .original)
+				.renderingMode(phone.photoData == nil ? .template : .original)
 				.resizable()
 				.scaledToFit()
 				.frame(width: size, height: size)
