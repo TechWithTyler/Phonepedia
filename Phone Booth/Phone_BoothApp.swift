@@ -15,7 +15,6 @@ struct Phone_BoothApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-				.sheftAppsStylishUIDesign(buttonBorders: .unmodified)
         }
 		.modelContainer(for: [Phone.self, CordlessHandset.self, Charger.self])
     }
