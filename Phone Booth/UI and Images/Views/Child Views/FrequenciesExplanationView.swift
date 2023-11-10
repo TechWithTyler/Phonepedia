@@ -32,7 +32,6 @@ struct FrequenciesExplanationView: View {
 				} label: {
 					Text("Done")
 				}
-				.keyboardShortcut(.return)
 			}
 		}
 		.navigationTitle("Frequencies Explanation")
