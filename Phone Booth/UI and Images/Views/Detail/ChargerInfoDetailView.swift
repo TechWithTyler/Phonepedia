@@ -3,6 +3,7 @@
 //  Phone Booth
 //
 //  Created by Tyler Sheft on 8/16/23.
+//  Copyright © 2023 SheftApps. All rights reserved.
 //
 
 import SwiftUI
@@ -27,6 +28,11 @@ struct ChargerInfoDetailView: View {
 						Text("Inductive").tag(2)
 					}
 					ChargingContactInfoView()
+					Picker("Wall Mounting", selection: $charger.chargeContactMechanism) {
+						Text("Not Supported").tag(0)
+						Text("Holes On Back").tag(1)
+						Text("Bracket").tag(2)
+					}
 					if phone.supportsRangeExtenders {
 						Toggle("Has Range Extender", isOn: $charger.hasRangeExtender)
 						HStack {

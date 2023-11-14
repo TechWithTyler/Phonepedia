@@ -3,6 +3,7 @@
 //  Phone Booth
 //
 //  Created by Tyler Sheft on 6/19/23.
+//  Copyright © 2023 SheftApps. All rights reserved.
 //
 
 import SwiftData
@@ -35,19 +36,25 @@ struct PhonePartInfoView: View {
 								}
 							}
 							.contextMenu {
-								Button {
+								Button(role: .destructive) {
 									deleteHandset(at: phone.cordlessHandsetsIHave.firstIndex(of: handset.wrappedValue)!)
 								} label: {
-									Text("Delete")
+									Text("Deregister")
+								}
+							}
+							.swipeActions {
+								Button(role: .destructive) {
+									deleteHandset(at: phone.cordlessHandsetsIHave.firstIndex(of: handset.wrappedValue)!)
+								} label: {
+									Text("Deregister")
 								}
 							}
 						}
-						.onDelete(perform: deleteItemsFromHandsetList(offsets:))
 				} else {
 					Text("No handsets")
 						.foregroundStyle(.secondary)
 				}
-				if phone.cordlessHandsetsIHave.count < phone.maxCordlessHandsets {
+				if phone.cordlessHandsetsIHave.count < phone.maxCordlessHandsets || phone.maxCordlessHandsets == -1 {
 					Button(action: addHandset) {
 						Label("Add", systemImage: "plus")
 							.frame(width: 100, alignment: .leading)
@@ -82,14 +89,20 @@ struct PhonePartInfoView: View {
 								}
 							}
 								.contextMenu {
-									Button {
+									Button(role: .destructive) {
+										deleteCharger(at: phone.chargersIHave.firstIndex(of: charger.wrappedValue)!)
+									} label: {
+										Text("Delete")
+									}
+								}
+								.swipeActions {
+									Button(role: .destructive) {
 										deleteCharger(at: phone.chargersIHave.firstIndex(of: charger.wrappedValue)!)
 									} label: {
 										Text("Delete")
 									}
 								}
 						}
-						.onDelete(perform: deleteItemsFromChargerList(offsets:))
 				} else {
 					Text("No chargers")
 						.foregroundStyle(.secondary)
@@ -114,7 +127,7 @@ struct PhonePartInfoView: View {
 
 	func addCharger() {
 		DispatchQueue.main.async { [self] in
-		phone.chargersIHave.append(Charger())
+			phone.chargersIHave.append(Charger(color: "Black"))
 		}
 	}
 
@@ -126,6 +139,7 @@ struct PhonePartInfoView: View {
 				}
 			}
 		}
+		phone.chargersIHave.append(Charger(color: "Black"))
 	}
 
 	func deleteHandset(at index: Int) {
@@ -143,7 +157,7 @@ struct PhonePartInfoView: View {
 			}
 		}
 	}
-
+	
 	func deleteCharger(at index: Int) {
 		DispatchQueue.main.async { [self] in
 			phone.chargersIHave.remove(at: index)

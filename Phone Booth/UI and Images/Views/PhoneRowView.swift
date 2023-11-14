@@ -3,6 +3,7 @@
 //  Phone Booth
 //
 //  Created by Tyler Sheft on 6/16/23.
+//  Copyright © 2023 SheftApps. All rights reserved.
 //
 
 import SwiftUI
@@ -20,6 +21,9 @@ struct PhoneRowView: View {
 					.font(.largeTitle)
 				Text(phone.model)
 					.font(.title2)
+					.foregroundStyle(.secondary)
+				Text(phone.phoneTypeText)
+					.font(.subheadline)
 					.foregroundStyle(.secondary)
 			}
 			Spacer()
