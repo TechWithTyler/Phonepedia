@@ -7,29 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8D2811872AD5ECC4006F2FEF /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2811852AD5ECC4006F2FEF /* Helpers.swift */; };
-		8D2811882AD5ECC4006F2FEF /* DocumentTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2811862AD5ECC4006F2FEF /* DocumentTypes.swift */; };
-		8D31E1FF2A8D561C003C197C /* ChargerInfoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D31E1FE2A8D561C003C197C /* ChargerInfoDetailView.swift */; };
-		8D31E2042A8D5959003C197C /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D31E2032A8D5959003C197C /* CameraViewController.swift */; };
+		8D1257652B041F4500079BC6 /* CordlessHandset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1257442B041F4500079BC6 /* CordlessHandset.swift */; };
+		8D1257662B041F4500079BC6 /* Phone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1257452B041F4500079BC6 /* Phone.swift */; };
+		8D1257672B041F4500079BC6 /* Charger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1257462B041F4500079BC6 /* Charger.swift */; };
+		8D1257682B041F4500079BC6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D1257482B041F4500079BC6 /* Assets.xcassets */; };
+		8D1257692B041F4500079BC6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D12574A2B041F4500079BC6 /* Preview Assets.xcassets */; };
+		8D12576A2B041F4500079BC6 /* CameraCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D12574D2B041F4500079BC6 /* CameraCoordinator.swift */; };
+		8D12576C2B041F4500079BC6 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1257502B041F4500079BC6 /* CameraViewController.swift */; };
+		8D12576D2B041F4500079BC6 /* HandsetInfoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1257532B041F4500079BC6 /* HandsetInfoDetailView.swift */; };
+		8D12576E2B041F4500079BC6 /* NoPhoneSelectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1257542B041F4500079BC6 /* NoPhoneSelectedView.swift */; };
+		8D12576F2B041F4500079BC6 /* PhoneDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1257552B041F4500079BC6 /* PhoneDetailView.swift */; };
+		8D1257702B041F4500079BC6 /* ChargerInfoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1257562B041F4500079BC6 /* ChargerInfoDetailView.swift */; };
+		8D1257712B041F4500079BC6 /* PhoneRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1257572B041F4500079BC6 /* PhoneRowView.swift */; };
+		8D1257722B041F4500079BC6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1257582B041F4500079BC6 /* ContentView.swift */; };
+		8D1257732B041F4500079BC6 /* FrequenciesExplanationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D12575A2B041F4500079BC6 /* FrequenciesExplanationView.swift */; };
+		8D1257742B041F4500079BC6 /* SoftKeyExplanationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D12575B2B041F4500079BC6 /* SoftKeyExplanationView.swift */; };
+		8D1257752B041F4500079BC6 /* PhoneImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D12575C2B041F4500079BC6 /* PhoneImage.swift */; };
+		8D1257762B041F4500079BC6 /* PhonePartInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D12575D2B041F4500079BC6 /* PhonePartInfoView.swift */; };
+		8D1257772B041F4500079BC6 /* AntennaInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D12575E2B041F4500079BC6 /* AntennaInfoView.swift */; };
+		8D1257782B041F4500079BC6 /* ChargingContactInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D12575F2B041F4500079BC6 /* ChargingContactInfoView.swift */; };
+		8D1257792B041F4500079BC6 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1257622B041F4500079BC6 /* Globals.swift */; };
+		8D12577A2B041F4500079BC6 /* DocumentTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1257632B041F4500079BC6 /* DocumentTypes.swift */; };
 		8D3D27902ABCDDF30005FEC2 /* Phone_BoothUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3D278F2ABCDDF30005FEC2 /* Phone_BoothUITests.swift */; };
 		8D3D27922ABCDDF30005FEC2 /* Phone_BoothUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3D27912ABCDDF30005FEC2 /* Phone_BoothUITestsLaunchTests.swift */; };
-		8D61C77C2A8C11EA008703D7 /* ChargingContactInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D61C77B2A8C11EA008703D7 /* ChargingContactInfoView.swift */; };
-		8DA52A262A3D01C500B7546B /* PhoneRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA52A252A3D01C500B7546B /* PhoneRowView.swift */; };
-		8DA80DC92A46190F007950A6 /* HandsetInfoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA80DC52A46184A007950A6 /* HandsetInfoDetailView.swift */; };
-		8DA80DCA2A46192E007950A6 /* PhonePartInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA80DC42A46184A007950A6 /* PhonePartInfoView.swift */; };
-		8DA80DCC2A4619E3007950A6 /* PhoneDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA52A292A3D0D1A00B7546B /* PhoneDetailView.swift */; };
-		8DA80DCD2A462D07007950A6 /* PhoneImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA52A272A3D04BB00B7546B /* PhoneImage.swift */; };
-		8DB2827E2A4E1E1600348C0E /* NoPhoneSelectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB2827D2A4E1E1600348C0E /* NoPhoneSelectedView.swift */; };
-		8DB422572A7B08A6006221C2 /* SoftKeyExplanationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB422562A7B08A6006221C2 /* SoftKeyExplanationView.swift */; };
-		8DD8C8922A4CC52900B1A31D /* CordlessHandset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD8C8912A4CC52900B1A31D /* CordlessHandset.swift */; };
-		8DD8C8942A4CC63200B1A31D /* Charger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD8C8932A4CC63200B1A31D /* Charger.swift */; };
 		8DE6B9662AA905CF00C42E02 /* Phone_BoothTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE6B9652AA905CF00C42E02 /* Phone_BoothTests.swift */; };
-		8DEAE7662A8D5BE20023FE7E /* CameraCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEAE7652A8D5BE20023FE7E /* CameraCoordinator.swift */; };
 		8DFC9BF62A3BAB9D00295700 /* Phone_BoothApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DFC9BF52A3BAB9D00295700 /* Phone_BoothApp.swift */; };
-		8DFC9BF82A3BAB9D00295700 /* Phone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DFC9BF72A3BAB9D00295700 /* Phone.swift */; };
-		8DFC9BFA2A3BAB9D00295700 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DFC9BF92A3BAB9D00295700 /* ContentView.swift */; };
-		8DFC9BFC2A3BAB9F00295700 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DFC9BFB2A3BAB9F00295700 /* Assets.xcassets */; };
-		8DFC9C002A3BAB9F00295700 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DFC9BFF2A3BAB9F00295700 /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,33 +52,36 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		8D2811852AD5ECC4006F2FEF /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
-		8D2811862AD5ECC4006F2FEF /* DocumentTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentTypes.swift; sourceTree = "<group>"; };
-		8D31E1FE2A8D561C003C197C /* ChargerInfoDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargerInfoDetailView.swift; sourceTree = "<group>"; };
-		8D31E2032A8D5959003C197C /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		8D1257442B041F4500079BC6 /* CordlessHandset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CordlessHandset.swift; sourceTree = "<group>"; };
+		8D1257452B041F4500079BC6 /* Phone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Phone.swift; sourceTree = "<group>"; };
+		8D1257462B041F4500079BC6 /* Charger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Charger.swift; sourceTree = "<group>"; };
+		8D1257482B041F4500079BC6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8D12574A2B041F4500079BC6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		8D12574D2B041F4500079BC6 /* CameraCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraCoordinator.swift; sourceTree = "<group>"; };
+		8D1257502B041F4500079BC6 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		8D1257532B041F4500079BC6 /* HandsetInfoDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandsetInfoDetailView.swift; sourceTree = "<group>"; };
+		8D1257542B041F4500079BC6 /* NoPhoneSelectedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoPhoneSelectedView.swift; sourceTree = "<group>"; };
+		8D1257552B041F4500079BC6 /* PhoneDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneDetailView.swift; sourceTree = "<group>"; };
+		8D1257562B041F4500079BC6 /* ChargerInfoDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChargerInfoDetailView.swift; sourceTree = "<group>"; };
+		8D1257572B041F4500079BC6 /* PhoneRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneRowView.swift; sourceTree = "<group>"; };
+		8D1257582B041F4500079BC6 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		8D12575A2B041F4500079BC6 /* FrequenciesExplanationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrequenciesExplanationView.swift; sourceTree = "<group>"; };
+		8D12575B2B041F4500079BC6 /* SoftKeyExplanationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoftKeyExplanationView.swift; sourceTree = "<group>"; };
+		8D12575C2B041F4500079BC6 /* PhoneImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneImage.swift; sourceTree = "<group>"; };
+		8D12575D2B041F4500079BC6 /* PhonePartInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhonePartInfoView.swift; sourceTree = "<group>"; };
+		8D12575E2B041F4500079BC6 /* AntennaInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AntennaInfoView.swift; sourceTree = "<group>"; };
+		8D12575F2B041F4500079BC6 /* ChargingContactInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChargingContactInfoView.swift; sourceTree = "<group>"; };
+		8D1257612B041F4500079BC6 /* Phone_Booth.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Phone_Booth.entitlements; sourceTree = "<group>"; };
+		8D1257622B041F4500079BC6 /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
+		8D1257632B041F4500079BC6 /* DocumentTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentTypes.swift; sourceTree = "<group>"; };
+		8D1257642B041F4500079BC6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D3D278D2ABCDDF30005FEC2 /* Phone BoothUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Phone BoothUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D3D278F2ABCDDF30005FEC2 /* Phone_BoothUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phone_BoothUITests.swift; sourceTree = "<group>"; };
 		8D3D27912ABCDDF30005FEC2 /* Phone_BoothUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phone_BoothUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		8D61C77B2A8C11EA008703D7 /* ChargingContactInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargingContactInfoView.swift; sourceTree = "<group>"; };
-		8DA52A252A3D01C500B7546B /* PhoneRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneRowView.swift; sourceTree = "<group>"; };
-		8DA52A272A3D04BB00B7546B /* PhoneImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneImage.swift; sourceTree = "<group>"; };
-		8DA52A292A3D0D1A00B7546B /* PhoneDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneDetailView.swift; sourceTree = "<group>"; };
-		8DA80DC42A46184A007950A6 /* PhonePartInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhonePartInfoView.swift; sourceTree = "<group>"; };
-		8DA80DC52A46184A007950A6 /* HandsetInfoDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandsetInfoDetailView.swift; sourceTree = "<group>"; };
-		8DB2827D2A4E1E1600348C0E /* NoPhoneSelectedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoPhoneSelectedView.swift; sourceTree = "<group>"; };
-		8DB422562A7B08A6006221C2 /* SoftKeyExplanationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoftKeyExplanationView.swift; sourceTree = "<group>"; };
-		8DD8C8912A4CC52900B1A31D /* CordlessHandset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordlessHandset.swift; sourceTree = "<group>"; };
-		8DD8C8932A4CC63200B1A31D /* Charger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Charger.swift; sourceTree = "<group>"; };
 		8DE6B9632AA905CF00C42E02 /* Phone BoothTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Phone BoothTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DE6B9652AA905CF00C42E02 /* Phone_BoothTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phone_BoothTests.swift; sourceTree = "<group>"; };
-		8DEAE7652A8D5BE20023FE7E /* CameraCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCoordinator.swift; sourceTree = "<group>"; };
 		8DFC9BF22A3BAB9D00295700 /* Phone Booth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Phone Booth.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DFC9BF52A3BAB9D00295700 /* Phone_BoothApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phone_BoothApp.swift; sourceTree = "<group>"; };
-		8DFC9BF72A3BAB9D00295700 /* Phone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phone.swift; sourceTree = "<group>"; };
-		8DFC9BF92A3BAB9D00295700 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		8DFC9BFB2A3BAB9F00295700 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		8DFC9BFD2A3BAB9F00295700 /* Phone_Booth.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Phone_Booth.entitlements; sourceTree = "<group>"; };
-		8DFC9BFF2A3BAB9F00295700 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,44 +109,96 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		8D2811842AD5ECC4006F2FEF /* Helpers */ = {
+		8D1257432B041F4500079BC6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				8D2811852AD5ECC4006F2FEF /* Helpers.swift */,
-				8D2811862AD5ECC4006F2FEF /* DocumentTypes.swift */,
+				8D1257442B041F4500079BC6 /* CordlessHandset.swift */,
+				8D1257452B041F4500079BC6 /* Phone.swift */,
+				8D1257462B041F4500079BC6 /* Charger.swift */,
 			);
-			path = Helpers;
+			path = Model;
 			sourceTree = "<group>";
 		};
-		8D31E2002A8D58C8003C197C /* Detail */ = {
+		8D1257472B041F4500079BC6 /* UI and Images */ = {
 			isa = PBXGroup;
 			children = (
-				8DA52A292A3D0D1A00B7546B /* PhoneDetailView.swift */,
-				8DA80DC52A46184A007950A6 /* HandsetInfoDetailView.swift */,
-				8D31E1FE2A8D561C003C197C /* ChargerInfoDetailView.swift */,
-				8DB2827D2A4E1E1600348C0E /* NoPhoneSelectedView.swift */,
+				8D1257482B041F4500079BC6 /* Assets.xcassets */,
+				8D1257492B041F4500079BC6 /* Preview Content */,
+				8D12574B2B041F4500079BC6 /* Supporting View Controllers */,
+				8D1257512B041F4500079BC6 /* Views */,
+			);
+			path = "UI and Images";
+			sourceTree = "<group>";
+		};
+		8D1257492B041F4500079BC6 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				8D12574A2B041F4500079BC6 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		8D12574B2B041F4500079BC6 /* Supporting View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				8D12574C2B041F4500079BC6 /* Coordinators */,
+				8D1257502B041F4500079BC6 /* CameraViewController.swift */,
+			);
+			path = "Supporting View Controllers";
+			sourceTree = "<group>";
+		};
+		8D12574C2B041F4500079BC6 /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				8D12574D2B041F4500079BC6 /* CameraCoordinator.swift */,
+			);
+			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		8D1257512B041F4500079BC6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8D1257522B041F4500079BC6 /* Detail */,
+				8D1257572B041F4500079BC6 /* PhoneRowView.swift */,
+				8D1257582B041F4500079BC6 /* ContentView.swift */,
+				8D1257592B041F4500079BC6 /* Child Views */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		8D1257522B041F4500079BC6 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				8D1257532B041F4500079BC6 /* HandsetInfoDetailView.swift */,
+				8D1257542B041F4500079BC6 /* NoPhoneSelectedView.swift */,
+				8D1257552B041F4500079BC6 /* PhoneDetailView.swift */,
+				8D1257562B041F4500079BC6 /* ChargerInfoDetailView.swift */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
 		};
-		8D31E2012A8D58D6003C197C /* Child Views */ = {
+		8D1257592B041F4500079BC6 /* Child Views */ = {
 			isa = PBXGroup;
 			children = (
-				8DA52A272A3D04BB00B7546B /* PhoneImage.swift */,
-				8DA80DC42A46184A007950A6 /* PhonePartInfoView.swift */,
-				8D61C77B2A8C11EA008703D7 /* ChargingContactInfoView.swift */,
-				8DB422562A7B08A6006221C2 /* SoftKeyExplanationView.swift */,
+				8D12575A2B041F4500079BC6 /* FrequenciesExplanationView.swift */,
+				8D12575B2B041F4500079BC6 /* SoftKeyExplanationView.swift */,
+				8D12575C2B041F4500079BC6 /* PhoneImage.swift */,
+				8D12575D2B041F4500079BC6 /* PhonePartInfoView.swift */,
+				8D12575E2B041F4500079BC6 /* AntennaInfoView.swift */,
+				8D12575F2B041F4500079BC6 /* ChargingContactInfoView.swift */,
 			);
 			path = "Child Views";
 			sourceTree = "<group>";
 		};
-		8D31E2022A8D5944003C197C /* Supporting View Controllers */ = {
+		8D1257602B041F4500079BC6 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				8D31E2032A8D5959003C197C /* CameraViewController.swift */,
-				8DEAE7642A8D5BD10023FE7E /* Coordinators */,
+				8D1257612B041F4500079BC6 /* Phone_Booth.entitlements */,
+				8D1257622B041F4500079BC6 /* Globals.swift */,
+				8D1257632B041F4500079BC6 /* DocumentTypes.swift */,
+				8D1257642B041F4500079BC6 /* Info.plist */,
 			);
-			path = "Supporting View Controllers";
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		8D3D278E2ABCDDF30005FEC2 /* Phone BoothUITests */ = {
@@ -153,41 +210,12 @@
 			path = "Phone BoothUITests";
 			sourceTree = "<group>";
 		};
-		8DA52A242A3D01B700B7546B /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				8DFC9BF92A3BAB9D00295700 /* ContentView.swift */,
-				8DA52A252A3D01C500B7546B /* PhoneRowView.swift */,
-				8D31E2002A8D58C8003C197C /* Detail */,
-				8D31E2012A8D58D6003C197C /* Child Views */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		8DD8C8952A4CC80E00B1A31D /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				8DFC9BF72A3BAB9D00295700 /* Phone.swift */,
-				8DD8C8912A4CC52900B1A31D /* CordlessHandset.swift */,
-				8DD8C8932A4CC63200B1A31D /* Charger.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		8DE6B9642AA905CF00C42E02 /* Phone BoothTests */ = {
 			isa = PBXGroup;
 			children = (
 				8DE6B9652AA905CF00C42E02 /* Phone_BoothTests.swift */,
 			);
 			path = "Phone BoothTests";
-			sourceTree = "<group>";
-		};
-		8DEAE7642A8D5BD10023FE7E /* Coordinators */ = {
-			isa = PBXGroup;
-			children = (
-				8DEAE7652A8D5BE20023FE7E /* CameraCoordinator.swift */,
-			);
-			path = Coordinators;
 			sourceTree = "<group>";
 		};
 		8DFC9BE92A3BAB9D00295700 = {
@@ -213,24 +241,12 @@
 		8DFC9BF42A3BAB9D00295700 /* Phone Booth */ = {
 			isa = PBXGroup;
 			children = (
-				8D2811842AD5ECC4006F2FEF /* Helpers */,
-				8D31E2022A8D5944003C197C /* Supporting View Controllers */,
+				8D1257472B041F4500079BC6 /* UI and Images */,
+				8D1257432B041F4500079BC6 /* Model */,
+				8D1257602B041F4500079BC6 /* Supporting Files */,
 				8DFC9BF52A3BAB9D00295700 /* Phone_BoothApp.swift */,
-				8DD8C8952A4CC80E00B1A31D /* Models */,
-				8DA52A242A3D01B700B7546B /* Views */,
-				8DFC9BFB2A3BAB9F00295700 /* Assets.xcassets */,
-				8DFC9BFD2A3BAB9F00295700 /* Phone_Booth.entitlements */,
-				8DFC9BFE2A3BAB9F00295700 /* Preview Content */,
 			);
 			path = "Phone Booth";
-			sourceTree = "<group>";
-		};
-		8DFC9BFE2A3BAB9F00295700 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				8DFC9BFF2A3BAB9F00295700 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -351,8 +367,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8DFC9C002A3BAB9F00295700 /* Preview Assets.xcassets in Resources */,
-				8DFC9BFC2A3BAB9F00295700 /* Assets.xcassets in Resources */,
+				8D1257692B041F4500079BC6 /* Preview Assets.xcassets in Resources */,
+				8D1257682B041F4500079BC6 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -380,24 +396,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8DA80DCD2A462D07007950A6 /* PhoneImage.swift in Sources */,
-				8DA80DCC2A4619E3007950A6 /* PhoneDetailView.swift in Sources */,
-				8DA80DC92A46190F007950A6 /* HandsetInfoDetailView.swift in Sources */,
-				8DEAE7662A8D5BE20023FE7E /* CameraCoordinator.swift in Sources */,
-				8D61C77C2A8C11EA008703D7 /* ChargingContactInfoView.swift in Sources */,
-				8DD8C8922A4CC52900B1A31D /* CordlessHandset.swift in Sources */,
-				8DD8C8942A4CC63200B1A31D /* Charger.swift in Sources */,
-				8DFC9BF82A3BAB9D00295700 /* Phone.swift in Sources */,
-				8DA80DCA2A46192E007950A6 /* PhonePartInfoView.swift in Sources */,
+				8D1257782B041F4500079BC6 /* ChargingContactInfoView.swift in Sources */,
+				8D1257672B041F4500079BC6 /* Charger.swift in Sources */,
+				8D12576D2B041F4500079BC6 /* HandsetInfoDetailView.swift in Sources */,
+				8D1257722B041F4500079BC6 /* ContentView.swift in Sources */,
+				8D12576A2B041F4500079BC6 /* CameraCoordinator.swift in Sources */,
+				8D1257712B041F4500079BC6 /* PhoneRowView.swift in Sources */,
+				8D1257792B041F4500079BC6 /* Globals.swift in Sources */,
+				8D1257732B041F4500079BC6 /* FrequenciesExplanationView.swift in Sources */,
+				8D1257652B041F4500079BC6 /* CordlessHandset.swift in Sources */,
+				8D1257662B041F4500079BC6 /* Phone.swift in Sources */,
+				8D1257742B041F4500079BC6 /* SoftKeyExplanationView.swift in Sources */,
 				8DFC9BF62A3BAB9D00295700 /* Phone_BoothApp.swift in Sources */,
-				8D2811872AD5ECC4006F2FEF /* Helpers.swift in Sources */,
-				8DB422572A7B08A6006221C2 /* SoftKeyExplanationView.swift in Sources */,
-				8DA52A262A3D01C500B7546B /* PhoneRowView.swift in Sources */,
-				8D31E1FF2A8D561C003C197C /* ChargerInfoDetailView.swift in Sources */,
-				8D31E2042A8D5959003C197C /* CameraViewController.swift in Sources */,
-				8DB2827E2A4E1E1600348C0E /* NoPhoneSelectedView.swift in Sources */,
-				8D2811882AD5ECC4006F2FEF /* DocumentTypes.swift in Sources */,
-				8DFC9BFA2A3BAB9D00295700 /* ContentView.swift in Sources */,
+				8D1257762B041F4500079BC6 /* PhonePartInfoView.swift in Sources */,
+				8D12576C2B041F4500079BC6 /* CameraViewController.swift in Sources */,
+				8D1257772B041F4500079BC6 /* AntennaInfoView.swift in Sources */,
+				8D12576F2B041F4500079BC6 /* PhoneDetailView.swift in Sources */,
+				8D1257752B041F4500079BC6 /* PhoneImage.swift in Sources */,
+				8D1257702B041F4500079BC6 /* ChargerInfoDetailView.swift in Sources */,
+				8D12577A2B041F4500079BC6 /* DocumentTypes.swift in Sources */,
+				8D12576E2B041F4500079BC6 /* NoPhoneSelectedView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -622,16 +640,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "Phone Booth/Phone_Booth.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Phone Booth/Supporting Files/Phone_Booth.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 925;
-				DEVELOPMENT_ASSET_PATHS = "\"Phone Booth/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Phone Booth/UI and Images/Preview Content\"";
 				DEVELOPMENT_TEAM = 3B6G4T54X3;
 				ENABLE_HARDENED_RUNTIME = YES;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Phone Booth/Info.plist";
+				INFOPLIST_FILE = "Phone Booth/Supporting Files/Info.plist";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Use the camera to take a photo of your phones.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Add photos to your phones by selecting from your photo library.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -665,16 +683,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "Phone Booth/Phone_Booth.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "Phone Booth/Supporting Files/Phone_Booth.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 925;
-				DEVELOPMENT_ASSET_PATHS = "\"Phone Booth/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Phone Booth/UI and Images/Preview Content\"";
 				DEVELOPMENT_TEAM = 3B6G4T54X3;
 				ENABLE_HARDENED_RUNTIME = YES;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Phone Booth/Info.plist";
+				INFOPLIST_FILE = "Phone Booth/Supporting Files/Info.plist";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Use the camera to take a photo of your phones.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Add photos to your phones by selecting from your photo library.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;

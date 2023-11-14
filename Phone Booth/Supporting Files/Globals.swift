@@ -1,9 +1,5 @@
 //
-<<<<<<<< HEAD:Phone Booth/Supporting Files/Helpers.swift
-//  Helpers.swift
-========
 //  Globals.swift
->>>>>>>> main:Phone Booth/Supporting Files/Globals.swift
 //  Phone Booth
 //
 //  Created by Tyler Sheft on 6/23/23.
@@ -13,14 +9,8 @@
 import Foundation
 import SwiftUI
 
-<<<<<<<< HEAD:Phone Booth/Supporting Files/Helpers.swift
-var currentYear = Calendar.current.component(.year, from: Date())
-
-#if os(macOS)
-========
 // Names to use for the answering system greeting examples
 var names: [String] = ["John Smith", "Pat Fleet", "Allison Smith", "Charlie Johnson"]
->>>>>>>> main:Phone Booth/Supporting Files/Globals.swift
 
 // The current year to use as the default value of a phone or handset's release year.
 var currentYear = Calendar.current.component(.year, from: Date())
