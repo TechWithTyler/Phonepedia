@@ -42,9 +42,13 @@ struct PhoneImage: View {
     }
 }
 
-//#Preview {
-//	PhoneImage(phone: Phone.preview)
-//}
+#Preview {
+	PhoneImage(phone: Phone(brand: "Vtech", model: "DS6421-3"), thumb: false)
+}
+
+#Preview {
+	PhoneImage(phone: Phone(brand: "Vtech", model: "DS6421-3"), thumb: true)
+}
 
 struct PhoneImageUnavailableView: View {
 
@@ -53,4 +57,8 @@ struct PhoneImageUnavailableView: View {
 			.font(.largeTitle)
 	}
 
+}
+
+#Preview {
+	PhoneImageUnavailableView()
 }

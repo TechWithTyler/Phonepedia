@@ -55,6 +55,7 @@ struct ContentView: View {
 						}
 						.onDelete(perform: deleteItems)
 					}
+					.accessibilityIdentifier("PhonesList")
 				} else {
 					Text("No phones")
 						.font(.largeTitle)
@@ -71,6 +72,7 @@ struct ContentView: View {
 					Button(action: addItem) {
 						Label("Add Phone", systemImage: "plus")
 					}
+					.accessibilityIdentifier("AddPhoneButton")
 				}
 				ToolbarItem {
 					Button(action: deleteAllPhones) {
@@ -115,6 +117,7 @@ struct ContentView: View {
 	}
 
 	func deleteAllPhones() {
+		selectedPhone = nil
 		for phone in phones {
 			modelContext.delete(phone)
 		}

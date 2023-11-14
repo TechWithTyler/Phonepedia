@@ -17,12 +17,7 @@ struct PhonePartInfoView: View {
 			TextField("Base Color", text: $phone.baseColor)
 			TextField("Corded Receiver Color", text: $phone.cordedReceiverColor)
 				.onChange(of: phone.cordedReceiverColor) { oldValue, newValue in
-					if !newValue.isEmpty {
-						phone.hasTransmitOnlyBase = false
-						phone.baseChargingDirection = 0
-						phone.baseChargeContactMechanism = 0
-						phone.baseChargeContactPlacement = 0
-					}
+					phone.cordedReceiverColorChanged(oldValue: oldValue, newValue: newValue)
 				}
 		}
 		if phone.isCordless {
@@ -31,6 +26,7 @@ struct PhonePartInfoView: View {
 						ForEach($phone.cordlessHandsetsIHave) { handset in
 							NavigationLink {
 								HandsetInfoDetailView(handset: handset, handsetNumber: (phone.cordlessHandsetsIHave.firstIndex(of: handset.wrappedValue) ?? 0) + 1)
+									.navigationTitle("Handset Details")
 							} label: {
 								VStack {
 									Text("\(handset.wrappedValue.brand) \(handset.wrappedValue.model)")
@@ -57,6 +53,7 @@ struct PhonePartInfoView: View {
 							.frame(width: 100, alignment: .leading)
 					}
 					.buttonStyle(.borderless)
+					.accessibilityIdentifier("AddHandsetButton")
 				} else if phone.cordlessHandsetsIHave.count > phone.maxCordlessHandsets {
 					HStack {
 						Image(systemName: "exclamationmark.triangle")
@@ -66,12 +63,19 @@ struct PhonePartInfoView: View {
 					.font(.callout)
 					.foregroundStyle(.secondary)
 				}
+				Button {
+					phone.cordlessHandsetsIHave.removeAll()
+					phone.chargersIHave.removeAll()
+				} label: {
+					Text("Deregister All")
+				}
 			}
 			Section("Chargers") {
 				if !phone.chargersIHave.isEmpty {
 						ForEach($phone.chargersIHave) { charger in
 							NavigationLink {
 								ChargerInfoDetailView(charger: charger)
+									.navigationTitle("Charger Details")
 							} label: {
 								VStack {
 									Text("Charger \((phone.chargersIHave.firstIndex(of: charger.wrappedValue) ?? 0) + 1)")
@@ -95,46 +99,59 @@ struct PhonePartInfoView: View {
 							.frame(width: 100, alignment: .leading)
 					}
 					.buttonStyle(.borderless)
+					.accessibilityIdentifier("AddChargerButton")
 			}
 		}
 	}
 
 	func addHandset() {
-		phone.cordlessHandsetsIHave.append(
-			CordlessHandset(brand: phone.brand, model: "MH12")
-		)
+		DispatchQueue.main.async { [self] in
+			phone.cordlessHandsetsIHave.append(
+				CordlessHandset(brand: phone.brand, model: "MH12")
+			)
+		}
 	}
 
 	func addCharger() {
+		DispatchQueue.main.async { [self] in
 		phone.chargersIHave.append(Charger())
+		}
 	}
 
 	private func deleteItemsFromHandsetList(offsets: IndexSet) {
-		withAnimation {
-			for index in offsets {
-				deleteHandset(at: index)
+		DispatchQueue.main.async { [self] in
+			withAnimation {
+				for index in offsets {
+					deleteHandset(at: index)
+				}
 			}
 		}
 	}
 
 	func deleteHandset(at index: Int) {
-		phone.cordlessHandsetsIHave.remove(at: index)
+		DispatchQueue.main.async { [self] in
+			phone.cordlessHandsetsIHave.remove(at: index)
+		}
 	}
 
 	private func deleteItemsFromChargerList(offsets: IndexSet) {
+		DispatchQueue.main.async { [self] in
 		withAnimation {
-			for index in offsets {
-				deleteCharger(at: index)
+				for index in offsets {
+					deleteCharger(at: index)
+				}
 			}
 		}
 	}
 
 	func deleteCharger(at index: Int) {
-		phone.chargersIHave.remove(at: index)
+		DispatchQueue.main.async { [self] in
+			phone.chargersIHave.remove(at: index)
+		}
 	}
 
 }
 
-//#Preview {
-//	PhonePartInfoView(phone: Phone.preview)
-//}
+#Preview {
+	PhonePartInfoView(phone: Phone(brand: "Panasonic", model: "KX-TGD892"))
+}
