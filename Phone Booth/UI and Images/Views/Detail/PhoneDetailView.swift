@@ -17,13 +17,17 @@ struct PhoneDetailView: View {
 
 	@State private var showingFrequenciesExplanation: Bool = false
 
+	@State private var showingPhonePhotoErrorAlert: Bool = false
+
 	@State private var selectedPhoto: PhotosPickerItem? = nil
 
-	#if os(iOS)
+#if os(iOS)
 	@State var takingPhoto: Bool = false
-	#endif
+#endif
 
 	@State private var showingResetAlert: Bool = false
+
+	@State private var phonePhotoError: Error? = nil
 
 	var body: some View {
 		NavigationStack {
@@ -541,7 +545,7 @@ A phone's voicemail indicator usually works in one or both of the following ways
 									.onChange(of: phone.baseSoftKeysBottom) { oldValue, newValue in
 										phone.baseSoftKeysBottomChanged(oldValue: oldValue, newValue: newValue)
 									}
-								Stepper("Base Soft Keys (side): \(phone.baseSoftKeysBottom)", value: $phone.baseSoftKeysBottom, in: 0...3)
+								Stepper("Base Soft Keys (side): \(phone.baseSoftKeysSide)", value: $phone.baseSoftKeysSide, in: 0...3)
 									.onChange(of: phone.baseSoftKeysSide) { oldValue, newValue in
 										phone.baseSoftKeysSideChanged(oldValue: oldValue, newValue: newValue)
 									}
@@ -572,13 +576,13 @@ A phone's voicemail indicator usually works in one or both of the following ways
 						if !phone.isCordless || phone.hasBaseSpeakerphone {
 							Toggle("Base Supports Wired Headsets", isOn: $phone.baseSupportsWiredHeadsets)
 						}
-							Picker("Maximum Number Of Bluetooth Headphones (base)", selection: $phone.baseBluetoothHeadphonesSupported) {
-								Text("None").tag(0)
-								Text("1").tag(1)
-								Text("2").tag(2)
-								Text("4").tag(4)
-							}
+						Picker("Maximum Number Of Bluetooth Headphones (base)", selection: $phone.baseBluetoothHeadphonesSupported) {
+							Text("None").tag(0)
+							Text("1").tag(1)
+							Text("2").tag(2)
+							Text("4").tag(4)
 						}
+					}
 				}
 				Section(header: Text("Landline")) {
 					Picker("Number Of Lines", selection: $phone.numberOfLandlines) {
@@ -594,82 +598,82 @@ A phone's voicemail indicator usually works in one or both of the following ways
 					.foregroundStyle(.secondary)
 					if phone.isCordless || phone.cordedPhoneType == 0 {
 						Picker("Landline In Use Status On Base", selection: $phone.landlineInUseStatusOnBase) {
-						Text("None").tag(0)
-						Text("Light").tag(1)
-						if phone.baseDisplayType > 1 {
-							Text("Display").tag(2)
-							Text("Display and Light").tag(3)
+							Text("None").tag(0)
+							Text("Light").tag(1)
+							if phone.baseDisplayType > 1 {
+								Text("Display").tag(2)
+								Text("Display and Light").tag(3)
+							}
+						}
+						if phone.landlineInUseStatusOnBase == 1 {
+							Toggle("Landline In Use Light Follows Ring Signal", isOn: $phone.landlineInUseVisualRingerFollowsRingSignal)
+							HStack {
+								Image(systemName: "info.circle")
+								Text("An in use light that follows the ring signal starts flashing when the ring signal starts and stops flashing when the ring signal stops. An in use light that ignores the ring signal starts flashing when the ring signal starts and continues flashing for as long as the base is indicating an incoming call.")
+							}
+							.font(.footnote)
+							.foregroundStyle(.secondary)
 						}
 					}
-					if phone.landlineInUseStatusOnBase == 1 {
-						Toggle("Landline In Use Light Follows Ring Signal", isOn: $phone.landlineInUseVisualRingerFollowsRingSignal)
+				}
+				if phone.isCordless || phone.cordedPhoneType == 0 {
+					Section(header: Text("Cell Phone Linking")) {
+						Picker("Maximum Number Of Bluetooth Cell Phones", selection: $phone.baseBluetoothCellPhonesSupported) {
+							Text("None/Phonebook Transfers Only").tag(0)
+							Text("1").tag(1)
+							Text("2").tag(2)
+							Text("4").tag(4)
+							Text("5").tag(5)
+							Text("10").tag(10)
+							Text("15").tag(15)
+						}
 						HStack {
 							Image(systemName: "info.circle")
-							Text("An in use light that follows the ring signal starts flashing when the ring signal starts and stops flashing when the ring signal stops. An in use light that ignores the ring signal starts flashing when the ring signal starts and continues flashing for as long as the base is indicating an incoming call.")
+							Text("Pairing a cell phone to the base via Bluetooth allows you to make and receive cell calls on the base or handsets and transfer your cell phone contacts to the phonebook.")
 						}
 						.font(.footnote)
 						.foregroundStyle(.secondary)
-					}
-				}
-			}
-				if phone.isCordless || phone.cordedPhoneType == 0 {
-				Section(header: Text("Cell Phone Linking")) {
-				Picker("Maximum Number Of Bluetooth Cell Phones", selection: $phone.baseBluetoothCellPhonesSupported) {
-					Text("None/Phonebook Transfers Only").tag(0)
-					Text("1").tag(1)
-					Text("2").tag(2)
-					Text("4").tag(4)
-					Text("5").tag(5)
-					Text("10").tag(10)
-					Text("15").tag(15)
-				}
-				HStack {
-					Image(systemName: "info.circle")
-					Text("Pairing a cell phone to the base via Bluetooth allows you to make and receive cell calls on the base or handsets and transfer your cell phone contacts to the phonebook.")
-				}
-				.font(.footnote)
-				.foregroundStyle(.secondary)
-				Picker("Maximum Number Of Smartphones As Handsets", selection: $phone.smartphonesAsHandsetsOverWiFi) {
-					Text("None").tag(0)
-					Text("1").tag(1)
-					Text("2").tag(2)
-					Text("4").tag(4)
-				}
-				HStack {
-					Image(systemName: "info.circle")
-					Text("When a smartphone is registered to a Wi-Fi-compatible base and both devices are on the same network, the smartphone can be used as a handset, and you can transfer its data to the base or handsets.")
-				}
-				.font(.footnote)
-				.foregroundStyle(.secondary)
-				if phone.baseBluetoothCellPhonesSupported > 0 {
-					Picker("Cell Line In Use Status On Base", selection: $phone.cellLineInUseStatusOnBase) {
-						Text("None").tag(0)
-						Text("Light").tag(1)
-						if phone.baseDisplayType > 1 {
-							Text("Display and Light").tag(2)
+						Picker("Maximum Number Of Smartphones As Handsets", selection: $phone.smartphonesAsHandsetsOverWiFi) {
+							Text("None").tag(0)
+							Text("1").tag(1)
+							Text("2").tag(2)
+							Text("4").tag(4)
+						}
+						HStack {
+							Image(systemName: "info.circle")
+							Text("When a smartphone is registered to a Wi-Fi-compatible base and both devices are on the same network, the smartphone can be used as a handset, and you can transfer its data to the base or handsets.")
+						}
+						.font(.footnote)
+						.foregroundStyle(.secondary)
+						if phone.baseBluetoothCellPhonesSupported > 0 {
+							Picker("Cell Line In Use Status On Base", selection: $phone.cellLineInUseStatusOnBase) {
+								Text("None").tag(0)
+								Text("Light").tag(1)
+								if phone.baseDisplayType > 1 {
+									Text("Display and Light").tag(2)
+								}
+							}
+							Picker("Cell Line Only Behavior", selection: $phone.cellLineOnlyBehavior) {
+								Text("Optional \"No Line\" Alert").tag(0)
+								Text("Auto-Suppressed \"No Line\" Alert").tag(1)
+								Text("Cell Line Only Mode").tag(2)
+							}
+							HStack {
+								Image(systemName: "info.circle")
+								Text("If you use only cell lines, the \"no line\" alert will be suppressed automatically or can be supressed manually, depending on the phone. A dedicated cell line only mode allows the phone to disable most landline-related features.")
+							}
+							.foregroundStyle(.secondary)
+							.font(.footnote)
+							Toggle("Has Cell Phone Voice Control", isOn: $phone.hasCellPhoneVoiceControl)
+							HStack {
+								Image(systemName: "info.circle")
+								Text("You can talk to your cell phone voice assistant (e.g. Siri or Google Now) using the base or handset.")
+							}
+							.foregroundStyle(.secondary)
+							.font(.footnote)
 						}
 					}
-					Picker("Cell Line Only Behavior", selection: $phone.cellLineOnlyBehavior) {
-						Text("Optional \"No Line\" Alert").tag(0)
-						Text("Auto-Suppressed \"No Line\" Alert").tag(1)
-						Text("Cell Line Only Mode").tag(2)
-					}
-					HStack {
-						Image(systemName: "info.circle")
-						Text("If you use only cell lines, the \"no line\" alert will be suppressed automatically or can be supressed manually, depending on the phone. A dedicated cell line only mode allows the phone to disable most landline-related features.")
-					}
-					.foregroundStyle(.secondary)
-					.font(.footnote)
-					Toggle("Has Cell Phone Voice Control", isOn: $phone.hasCellPhoneVoiceControl)
-					HStack {
-						Image(systemName: "info.circle")
-						Text("You can talk to your cell phone voice assistant (e.g. Siri or Google Now) using the base or handset.")
-					}
-					.foregroundStyle(.secondary)
-					.font(.footnote)
 				}
-			}
-		}
 				Group {
 					if phone.hasBaseSpeakerphone || !phone.isCordless || phone.isCordedCordless {
 						Section(header: Text("Redial")) {
@@ -941,23 +945,35 @@ When the first ring is suppressed, the number of rings you hear will be one less
 						}
 					}
 				}
-		}
+			}
 			.formStyle(.grouped)
 #if os(macOS)
 			.toggleStyle(.checkbox)
 #else
 			.toggleStyle(.switch)
 #endif
-			.textFieldStyle(.roundedBorder)
 		}
 		.navigationTitle("Phone Details")
 		.sheet(isPresented: $showingFrequenciesExplanation) {
 			FrequenciesExplanationView()
 		}
-		#if os(iOS)
+#if os(iOS)
 		.sheet(isPresented: $takingPhoto) {
 			CameraViewController(view: self, phone: phone)
 		}
+#endif
+		.alert("Photo error", isPresented: $showingPhonePhotoErrorAlert, presenting: phonePhotoError) { error in
+			Button("OK") {
+				showingPhonePhotoErrorAlert = false
+				phonePhotoError = nil
+			}
+			.keyboardShortcut(.defaultAction)
+		} message: {
+			error in
+			Text(error.localizedDescription)
+		}
+		#if os(macOS)
+		.dialogSeverity(.critical)
 		#endif
 		.alert("Reset photo?", isPresented: $showingResetAlert) {
 			Button(role: .destructive) {
@@ -988,7 +1004,7 @@ When the first ring is suppressed, the number of rings you hear will be one less
 				Text("Take Photo…")
 			}
 #endif
-			PhotosPicker("Select From Library…", selection: $selectedPhoto)
+			PhotosPicker("Select From Library…", selection: $selectedPhoto, matching: .images)
 				.onChange(of: selectedPhoto) { oldValue, newValue in
 					updatePhonePhoto(oldValue: oldValue, newValue: newValue)
 				}
@@ -1001,13 +1017,15 @@ When the first ring is suppressed, the number of rings you hear will be one less
 	}
 
 	func updatePhonePhoto(oldValue: PhotosPickerItem?, newValue: PhotosPickerItem?) {
-		guard newValue != nil else { return }
+		guard let newValue = newValue else { return }
+		// phone.photoData is of type Data, so get the image data from newValue.
 		Task {
-			if let data = try? await selectedPhoto?.loadTransferable(type: Data.self) {
+			do {
+				let data = try await newValue.loadTransferable(type: Data.self)
 				phone.photoData = data
-				selectedPhoto = nil
-			} else {
-				fatalError("Photo picker error!")
+			} catch {
+				phonePhotoError = error
+				showingPhonePhotoErrorAlert = true
 			}
 		}
 	}

@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import SheftAppsStylishUI
 
 struct HandsetInfoDetailView: View {
 
@@ -113,7 +114,7 @@ struct HandsetInfoDetailView: View {
 							}
 							HStack {
 								Image(systemName: "info.circle")
-								Text("A handset with soft keys for the line buttons can easily adapt to bases with different numbers of lines. For example, the same handset can be supplied and used with both the cell phone linking and non-cell phone linking models of a series.\nHandsets with physical line buttons may be programmed to expect all of its lines to be supported, potenailly causing compatibility issues on bases without those lines.")
+								Text("A handset with soft keys for the line buttons can easily adapt to bases with different numbers of lines. For example, the same handset can be supplied and used with both the cell phone linking and non-cell phone linking models of a series.\nHandsets with physical line buttons may be programmed to expect all of its lines to be supported, potentially causing compatibility issues on bases without those lines.")
 							}
 							.font(.footnote)
 							.foregroundStyle(.secondary)
@@ -322,7 +323,6 @@ struct HandsetInfoDetailView: View {
 #else
 			.toggleStyle(.switch)
 #endif
-			.textFieldStyle(.roundedBorder)
 		} else {
 			Text("Error")
 		}
@@ -330,8 +330,8 @@ struct HandsetInfoDetailView: View {
 
 }
 
-//#Preview {
-//	@State private var handset = CordlessHandset(brand: "Panasonic", model: "KX-TGFA97")
-//	handset.phone = Phone(brand: "Panasonic", model: "KX-TGF975")
-//	return HandsetInfoDetailView(handset: $handset, handsetNumber: 1)
-//}
+#Preview {
+	@State var handset = CordlessHandset(brand: "Panasonic", model: "KX-TGFA97")
+	handset.phone = Phone(brand: "Panasonic", model: "KX-TGF975")
+	return HandsetInfoDetailView(handset: $handset, handsetNumber: 1)
+}

@@ -50,7 +50,6 @@ struct ChargerInfoDetailView: View {
 #else
 			.toggleStyle(.switch)
 #endif
-			.textFieldStyle(.roundedBorder)
 		} else {
 			Text("Error")
 		}

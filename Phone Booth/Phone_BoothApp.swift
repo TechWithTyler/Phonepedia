@@ -13,9 +13,8 @@ import SwiftData
 struct Phone_BoothApp: App {
 
     var body: some Scene {
-        WindowGroup {
+		DocumentGroup(editing: Phone.self, contentType: .phoneBoothDatabase) {
             ContentView()
         }
-		.modelContainer(for: [Phone.self, CordlessHandset.self, Charger.self])
     }
 }
