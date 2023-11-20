@@ -54,9 +54,7 @@ final class CordlessHandset {
 	
 	var musicRingtones: Int = 5
 	
-	var hasSeparateIntercomTone: Bool = true
-	
-	var canChangeIntercomTone: Bool = false
+    var intercomRingtone: Int = 0
 	
 	var oneTouchDialCapacity: Int = 0
 	
@@ -118,6 +116,10 @@ final class CordlessHandset {
 	
 	var hasTalkingPhonebook: Bool = false
     
+    var totalRingtones: Int {
+        return ringtones + musicRingtones
+    }
+    
     // MARK: - Initialization
 	
 	init(brand: String, model: String) {
@@ -132,6 +134,12 @@ final class CordlessHandset {
 			fitsOnBase = false
 		}
 	}
+    
+    func totalRingtonesChanged(oldValue: Int, newValue: Int) {
+        if newValue < oldValue && (intercomRingtone >= (totalRingtones + 1) || intercomRingtone == 1) {
+            intercomRingtone -= 1
+        }
+    }
 	
 	func displayTypeChanged(oldValue: Int, newValue: Int) {
 		if newValue == 0 {

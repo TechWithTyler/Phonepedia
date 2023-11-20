@@ -96,15 +96,22 @@ struct HandsetInfoDetailView: View {
 					Section(header: Text("Ringers")) {
 						Stepper("Ringtones: \(handset.ringtones)", value: $handset.ringtones, in: 1...25)
 						Stepper("Music Ringtones: \(handset.musicRingtones)", value: $handset.musicRingtones, in: 0...25)
-						Text("Total Ringtones: \(handset.ringtones + handset.musicRingtones)")
-						Toggle(isOn: $handset.canChangeIntercomTone) {
-							Text("Can Change Intercom Tone")
-						}
-						if !handset.canChangeIntercomTone {
-							Toggle(isOn: $handset.hasSeparateIntercomTone) {
-								Text("Has Separate Intercom Tone")
-							}
-						}
+						Text("Total Ringtones: \(handset.totalRingtones)")
+                        if phone.hasIntercom {
+                            Picker("Intercom Ringtone", selection: $handset.intercomRingtone) {
+                                Text("Intercom-Specific Ringtone").tag(0)
+                                if handset.totalRingtones > 1 {
+                                Text("Selectable Ringtone").tag(1)
+                                }
+                                ForEach(0..<handset.totalRingtones, id: \.self) { ringtoneNumber in
+                                        Text("Tone \(ringtoneNumber+1)").tag(ringtoneNumber + 2)
+                                }
+                            }
+                            .onChange(of: handset.totalRingtones) {
+                                oldValue, newValue in
+                                handset.totalRingtonesChanged(oldValue: oldValue, newValue: newValue)
+                            }
+                        }
 					}
 					Section(header: Text("Display/Backlight/Buttons")) {
 						if handset.softKeys > 0 && (phone.numberOfLandlines > 1 || phone.baseBluetoothCellPhonesSupported > 0) {

@@ -365,7 +365,7 @@ struct PhoneDetailView: View {
 						if phone.baseRingtones > 0 {
 							Stepper("Base Music Ringtones: \(phone.baseMusicRingtones)", value: $phone.baseMusicRingtones, in: 0...25)
 						}
-						Text("Total Ringtones: \(phone.baseRingtones + phone.baseMusicRingtones)")
+						Text("Total Ringtones: \(phone.totalBaseRingtones)")
 					}
 					else if !phone.isCordless && (phone.cordedPhoneType == 0 || phone.cordedPhoneType == 2) {
 						Picker("Ringer Type", selection: $phone.cordedRingerType) {
@@ -377,16 +377,34 @@ struct PhoneDetailView: View {
 							Text("A bell/mechanical ringer requires more power to ring, so it may not work properly on most VoIP lines, especially if multiple phones are ringing at once, as they're usually designed for modern phones which typically don't have mechanical ringers. Electronic ringers, especially those that are software-driven, don't require much power. The amount of ringing power a phone requires is determined by the Ringer Equivalence Number (REN), usually found on the bottom of the phone. A higher REN means more power required to ring.")
 						}
 					}
-					if phone.isCordless && phone.hasBaseIntercom {
-						Toggle(isOn: $phone.canChangeBaseIntercomTone) {
-							Text("Can Change Base Intercom Tone")
-						}
-						if !phone.canChangeBaseIntercomTone {
-							Toggle(isOn: $phone.baseHasSeparateIntercomTone) {
-								Text("Base Has Separate Intercom Tone")
-							}
-						}
+                    if phone.isCordless && phone.hasBaseIntercom && phone.baseRingtones > 0 {
+                        Picker("Base Intercom Ringtone", selection: $phone.baseIntercomRingtone) {
+                            Text("Intercom-Specific Ringtone/Beep").tag(0)
+                            if phone.totalBaseRingtones > 1 {
+                            Text("Selectable Ringtone").tag(1)
+                            }
+                            ForEach(0..<phone.totalBaseRingtones, id: \.self) { ringtoneNumber in
+                                    Text("Tone \(ringtoneNumber+1)").tag(ringtoneNumber + 2)
+                                }
+                        }
+                        .onChange(of: phone.totalBaseRingtones) {
+                            oldValue, newValue in
+                            phone.totalBaseRingtonesChanged(oldValue: oldValue, newValue: newValue)
+                        }
 					}
+                    if phone.baseBluetoothCellPhonesSupported > 0 && phone.totalBaseRingtones == 1 {
+                        Picker("Base Cell Line Ringtone", selection: $phone.baseCellRingtone) {
+                            if !phone.hasBaseKeypad {
+                                Text("None").tag(0)
+                            }
+                            Text("Landline Ringtone").tag(1)
+                            Text("Cell Line-Specific Ringtone").tag(2)
+                        }
+                        .onChange(of: phone.hasBaseKeypad) {
+                            oldValue, newValue in
+                            phone.hasBaseKeypadChanged(oldValue: oldValue, newValue: newValue)
+                        }
+                    }
 				}
 				if phone.isCordless || phone.cordedPhoneType == 0 {
 					Section(header: Text("Answering System/Voicemail")) {

@@ -73,9 +73,7 @@ final class Phone {
 	
 	var baseMusicRingtones: Int = 0
 	
-	var baseHasSeparateIntercomTone: Bool = false
-	
-	var canChangeBaseIntercomTone: Bool = false
+    var baseIntercomRingtone: Int = 0
 	
 	var hasIntercom: Bool = true
 	
@@ -160,6 +158,8 @@ final class Phone {
 	var baseBluetoothHeadphonesSupported: Int = 0
 	
 	var baseBluetoothCellPhonesSupported: Int = 0
+    
+    var baseCellRingtone: Int = 1
 	
 	var bluetoothPhonebookTransfers: Int = 0
 	
@@ -235,6 +235,10 @@ final class Phone {
 			return "Corded"
 		}
 	}
+    
+    var totalBaseRingtones: Int {
+        return baseRingtones + baseMusicRingtones
+    }
 	
 	var hasCordedReceiver: Bool {
 		return !cordedReceiverColor.isEmpty
@@ -281,6 +285,8 @@ final class Phone {
 			if hasAnsweringSystem > 1 {
 				hasAnsweringSystem = 1
 			}
+            hasIntercom = false
+            baseIntercomRingtone = 0
 			placeOnBaseAutoRegister = false
 			hasTransmitOnlyBase = false
 			supportsRangeExtenders = false
@@ -292,6 +298,13 @@ final class Phone {
 			chargersIHave.removeAll()
 		}
 	}
+    
+    func totalBaseRingtonesChanged(oldValue: Int, newValue: Int) {
+        guard isCordless else { return }
+        if newValue < oldValue && (baseIntercomRingtone >= (totalBaseRingtones + 1) || baseIntercomRingtone == 1) {
+            baseIntercomRingtone -= 1
+        }
+    }
 	
 	func baseDisplayTypeChanged(oldValue: Int, newValue: Int) {
 		if newValue == 0 {
@@ -337,6 +350,12 @@ final class Phone {
 			baseSoftKeysSide = 0
 		}
 	}
+    
+    func hasBaseKeypadChanged(oldValue: Bool, newValue: Bool) {
+        if newValue && baseCellRingtone == 0 {
+            baseCellRingtone = 1
+        }
+    }
 	
 	func baseBluetoothCellPhonesSupportedChanged(oldValue: Int, newValue: Int) {
 		if oldValue == 0 && newValue > 0 {
