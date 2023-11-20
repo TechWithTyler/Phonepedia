@@ -10,7 +10,7 @@ import SwiftUI
 
 struct PhoneImage: View {
 
-	var phone: Phone
+	@Bindable var phone: Phone
 
 	var thumb: Bool
 

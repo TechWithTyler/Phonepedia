@@ -31,6 +31,8 @@
 		8D3D27902ABCDDF30005FEC2 /* Phone_BoothUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3D278F2ABCDDF30005FEC2 /* Phone_BoothUITests.swift */; };
 		8D3D27922ABCDDF30005FEC2 /* Phone_BoothUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3D27912ABCDDF30005FEC2 /* Phone_BoothUITestsLaunchTests.swift */; };
 		8DE6B9662AA905CF00C42E02 /* Phone_BoothTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE6B9652AA905CF00C42E02 /* Phone_BoothTests.swift */; };
+		8DF1E93C2B06D45B00B6D978 /* SheftAppsStylishUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DF1E93B2B06D45B00B6D978 /* SheftAppsStylishUI.framework */; };
+		8DF1E93D2B06D45B00B6D978 /* SheftAppsStylishUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8DF1E93B2B06D45B00B6D978 /* SheftAppsStylishUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8DFC9BF62A3BAB9D00295700 /* Phone_BoothApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DFC9BF52A3BAB9D00295700 /* Phone_BoothApp.swift */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +52,20 @@
 			remoteInfo = "Phone Booth";
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8DF1E93E2B06D45B00B6D978 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				8DF1E93D2B06D45B00B6D978 /* SheftAppsStylishUI.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		8D1257442B041F4500079BC6 /* CordlessHandset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CordlessHandset.swift; sourceTree = "<group>"; };
@@ -80,6 +96,7 @@
 		8D3D27912ABCDDF30005FEC2 /* Phone_BoothUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phone_BoothUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		8DE6B9632AA905CF00C42E02 /* Phone BoothTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Phone BoothTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DE6B9652AA905CF00C42E02 /* Phone_BoothTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phone_BoothTests.swift; sourceTree = "<group>"; };
+		8DF1E93B2B06D45B00B6D978 /* SheftAppsStylishUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SheftAppsStylishUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DFC9BF22A3BAB9D00295700 /* Phone Booth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Phone Booth.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DFC9BF52A3BAB9D00295700 /* Phone_BoothApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phone_BoothApp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -103,6 +120,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8DF1E93C2B06D45B00B6D978 /* SheftAppsStylishUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -169,9 +187,9 @@
 		8D1257522B041F4500079BC6 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
+				8D1257552B041F4500079BC6 /* PhoneDetailView.swift */,
 				8D1257532B041F4500079BC6 /* HandsetInfoDetailView.swift */,
 				8D1257542B041F4500079BC6 /* NoPhoneSelectedView.swift */,
-				8D1257552B041F4500079BC6 /* PhoneDetailView.swift */,
 				8D1257562B041F4500079BC6 /* ChargerInfoDetailView.swift */,
 			);
 			path = Detail;
@@ -218,6 +236,14 @@
 			path = "Phone BoothTests";
 			sourceTree = "<group>";
 		};
+		8DF1E93A2B06D45B00B6D978 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8DF1E93B2B06D45B00B6D978 /* SheftAppsStylishUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		8DFC9BE92A3BAB9D00295700 = {
 			isa = PBXGroup;
 			children = (
@@ -225,6 +251,7 @@
 				8DE6B9642AA905CF00C42E02 /* Phone BoothTests */,
 				8D3D278E2ABCDDF30005FEC2 /* Phone BoothUITests */,
 				8DFC9BF32A3BAB9D00295700 /* Products */,
+				8DF1E93A2B06D45B00B6D978 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -295,6 +322,7 @@
 				8DFC9BEE2A3BAB9D00295700 /* Sources */,
 				8DFC9BEF2A3BAB9D00295700 /* Frameworks */,
 				8DFC9BF02A3BAB9D00295700 /* Resources */,
+				8DF1E93E2B06D45B00B6D978 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

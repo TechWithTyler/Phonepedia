@@ -30,10 +30,10 @@ struct HandsetInfoDetailView: View {
 							Text("Deregister")
 						}
 					}
-					TextField("Brand", text: $handset.brand)
-					TextField("Model", text: $handset.model)
+					FormTextField("Brand", text: $handset.brand)
+					FormTextField("Model", text: $handset.model)
 					Stepper("Release Year: \(String(handset.releaseYear))", value: $handset.releaseYear, in: 1984...currentYear)
-					TextField("Color", text: $handset.color)
+					FormTextField("Color", text: $handset.color)
 					Stepper("Maximum Number Of Bases: \(handset.maxBases)", value: $handset.maxBases, in: 1...4)
 					HStack {
 						Image(systemName: "info.circle")
@@ -78,7 +78,7 @@ struct HandsetInfoDetailView: View {
 						}
 					}
 					if handset.cordlessDeviceType == 1 {
-						TextField("Corded Receiver Color", text: $handset.cordedReceiverColor)
+						FormTextField("Corded Receiver Color", text: $handset.cordedReceiverColor)
 					}
 					Picker("Visual Ringer", selection: $handset.visualRinger) {
 						Text("None").tag(0)
@@ -141,7 +141,7 @@ struct HandsetInfoDetailView: View {
 							handset.displayTypeChanged(oldValue: oldValue, newValue: newValue)
 						}
 						if handset.displayType > 0 && handset.displayType < 5 {
-							TextField("Display Backlight Color", text: $handset.displayBacklightColor)
+							FormTextField("Display Backlight Color", text: $handset.displayBacklightColor)
 						}
 						if handset.displayType > 0 {
 							Picker("Update Available Handset Menus", selection: $handset.menuUpdateMode) {
@@ -199,10 +199,10 @@ struct HandsetInfoDetailView: View {
 							Text("All Buttons").tag(3)
 						}
 						if handset.keyBacklightAmount > 0 {
-							TextField("Button Backlight Color", text: $handset.keyBacklightColor)
+							FormTextField("Button Backlight Color", text: $handset.keyBacklightColor)
 						}
-						TextField("Button Foreground Color", text: $handset.keyForegroundColor)
-						TextField("Button Background Color", text: $handset.keyBackgroundColor)
+						FormTextField("Button Foreground Color", text: $handset.keyForegroundColor)
+						FormTextField("Button Background Color", text: $handset.keyBackgroundColor)
 					}
 					Section(header: Text("Audio")) {
 						Toggle("Has Speakerphone", isOn: $handset.hasSpeakerphone)
@@ -225,10 +225,7 @@ struct HandsetInfoDetailView: View {
 						}
 					}
 					Section(header: Text("Redial")) {
-						TextField("Redial Capacity", value: $handset.redialCapacity, formatter: NumberFormatter())
-#if os(iOS) || os(tvOS) || os(xrOS)
-							.keyboardType(.numberPad)
-#endif
+						FormNumericTextField("Redial Capacity", value: $handset.redialCapacity)
 #if !os(xrOS)
 							.scrollDismissesKeyboard(.interactively)
 #endif
@@ -249,10 +246,7 @@ struct HandsetInfoDetailView: View {
 						}
 					}
 					Section(header: Text("Phonebook")) {
-						TextField("Phonebook Capacity", value: $handset.phonebookCapacity, formatter: NumberFormatter())
-#if os(iOS) || os(tvOS) || os(xrOS)
-							.keyboardType(.numberPad)
-#endif
+						FormNumericTextField("Phonebook Capacity", value: $handset.phonebookCapacity)
 #if !os(xrOS)
 							.scrollDismissesKeyboard(.interactively)
 #endif
@@ -279,10 +273,7 @@ struct HandsetInfoDetailView: View {
 								Text("Caller ID Uses Matching Phonebook Entry Name")
 							}
 						}
-						TextField("Caller ID List Capacity", value: $handset.callerIDCapacity, formatter: NumberFormatter())
-#if os(iOS) || os(tvOS) || os(xrOS)
-							.keyboardType(.numberPad)
-#endif
+						FormNumericTextField("Caller ID List Capacity", value: $handset.callerIDCapacity)
 #if !os(xrOS)
 							.scrollDismissesKeyboard(.interactively)
 #endif

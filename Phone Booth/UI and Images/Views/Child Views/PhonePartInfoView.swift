@@ -8,6 +8,7 @@
 
 import SwiftData
 import SwiftUI
+import SheftAppsStylishUI
 
 struct PhonePartInfoView: View {
 
@@ -15,8 +16,8 @@ struct PhonePartInfoView: View {
 
 	var body: some View {
 		Section(phone.isCordless ? "Base Colors" : "Colors") {
-			TextField("Base Color", text: $phone.baseColor)
-			TextField("Corded Receiver Color", text: $phone.cordedReceiverColor)
+			FormTextField("Base Color", text: $phone.baseColor)
+			FormTextField("Corded Receiver Color", text: $phone.cordedReceiverColor)
 				.onChange(of: phone.cordedReceiverColor) { oldValue, newValue in
 					phone.cordedReceiverColorChanged(oldValue: oldValue, newValue: newValue)
 				}

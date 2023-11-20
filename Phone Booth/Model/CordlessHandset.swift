@@ -11,6 +11,10 @@ import SwiftData
 
 @Model
 final class CordlessHandset {
+    
+    // MARK: - Properties
+    
+    var id = UUID()
 	
 	var phone: Phone?
 	
@@ -34,7 +38,7 @@ final class CordlessHandset {
 	
 	var keyBackgroundColor: String = "Black"
 	
-	var buttonType: Int = 1
+	var buttonType: Int = 0
 	
 	var displayType: Int = 2
 	
@@ -113,11 +117,15 @@ final class CordlessHandset {
 	var hasTalkingKeypad: Bool = false
 	
 	var hasTalkingPhonebook: Bool = false
+    
+    // MARK: - Initialization
 	
 	init(brand: String, model: String) {
 		self.brand = brand
 		self.model = model
 	}
+    
+    // MARK: - Property Change Handlers
 	
 	func cordlessDeviceTypeChanged(oldValue: Int, newValue: Int) {
 		if newValue > 0 {
@@ -149,7 +157,7 @@ final class CordlessHandset {
 		} else if oldValue == 2 && newValue == 1 {
 			softKeys = 0
 		}
-		if newValue < 3 {
+		if newValue < 3 && navigatorKeyCenterButton == 3 {
 			navigatorKeyCenterButton = 2
 		}
 		if newValue == 0 {

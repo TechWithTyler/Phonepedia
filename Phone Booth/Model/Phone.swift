@@ -12,6 +12,8 @@ import SwiftUI
 
 @Model
 final class Phone {
+    
+    // MARK: - Properties
 
 	static var previewPhotoData: Data {
 #if os(iOS) || os(xrOS)
@@ -20,7 +22,7 @@ final class Phone {
 		return getPNGDataFromNSImage(image: .phone)
 #endif
 	}
-	
+    
 	var brand: String
 
 	var model: String
@@ -245,11 +247,15 @@ final class Phone {
 	var isCordedCordless: Bool {
 		return isCordless && hasCordedReceiver
 	}
+    
+    // MARK: - Initialization
 
 	init(brand: String, model: String) {
 		self.brand = brand
 		self.model = model
 	}
+    
+    // MARK: - Property Change Handlers
 	
 	func transmitOnlyBaseChanged(oldValue: Bool, newValue: Bool) {
 		if newValue {

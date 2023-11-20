@@ -32,10 +32,10 @@ struct PhoneDetailView: View {
 	var body: some View {
 		NavigationStack {
 			Form {
-				Section(header: Text("General")) {
-					photo(for: phone)
-					TextField("Brand", text: $phone.brand)
-					TextField("Model", text: $phone.model)
+                Section(header: Text("General")) {
+                    photo(for: phone)
+					FormTextField("Brand", text: $phone.brand)
+					FormTextField("Model", text: $phone.model)
 					Text("Phone type: \(phone.phoneTypeText)")
 					Stepper("Release Year: \(String(phone.releaseYear))", value: $phone.releaseYear, in: 1984...currentYear)
 					if phone.isCordless {
@@ -509,13 +509,13 @@ A phone's voicemail indicator usually works in one or both of the following ways
 							phone.baseDisplayTypeChanged(oldValue: oldValue, newValue: newValue)
 						}
 						if phone.baseDisplayType > 2 && phone.baseDisplayType < 6 {
-							TextField("Base Display Backlight Color", text: $phone.baseDisplayBacklightColor)
+							FormTextField("Base Display Backlight Color", text: $phone.baseDisplayBacklightColor)
 						}
 						if phone.baseDisplayType >= 3 {
 							Toggle("Base Has LED Message Counter In Addition To Display", isOn: $phone.baseHasDisplayAndMessageCounter)
 						}
 						if phone.baseDisplayType == 1 || phone.baseHasDisplayAndMessageCounter {
-							TextField("LED Message Counter Color", text: $phone.baseLEDMessageCounterColor)
+							FormTextField("LED Message Counter Color", text: $phone.baseLEDMessageCounterColor)
 						}
 						if phone.baseDisplayType > 0 {
 							Picker("Base Navigation Button Type", selection: $phone.baseNavigatorKeyType) {
@@ -567,10 +567,10 @@ A phone's voicemail indicator usually works in one or both of the following ways
 							Text("All Buttons").tag(3)
 						}
 						if phone.baseKeyBacklightAmount > 0 {
-							TextField("Button Backlight Color", text: $phone.baseKeyBacklightColor)
+							FormTextField("Button Backlight Color", text: $phone.baseKeyBacklightColor)
 						}
-						TextField("Button Foreground Color", text: $phone.baseKeyForegroundColor)
-						TextField("Button Background Color", text: $phone.baseKeyBackgroundColor)
+						FormTextField("Button Foreground Color", text: $phone.baseKeyForegroundColor)
+						FormTextField("Button Background Color", text: $phone.baseKeyBackgroundColor)
 					}
 					Section(header: Text("Audio Devices (e.g. headsets)")) {
 						if !phone.isCordless || phone.hasBaseSpeakerphone {
@@ -677,10 +677,7 @@ A phone's voicemail indicator usually works in one or both of the following ways
 				Group {
 					if phone.hasBaseSpeakerphone || !phone.isCordless || phone.isCordedCordless {
 						Section(header: Text("Redial")) {
-							TextField(phone.isCordless ? "Redial Capacity (base)" : "Redial Capacity", value: $phone.baseRedialCapacity, formatter: NumberFormatter())
-#if os(iOS) || os(tvOS) || os(xrOS)
-								.keyboardType(.numberPad)
-#endif
+							FormNumericTextField(phone.isCordless ? "Redial Capacity (base)" : "Redial Capacity", value: $phone.baseRedialCapacity)
 #if !os(xrOS)
 								.scrollDismissesKeyboard(.interactively)
 #endif
@@ -695,10 +692,7 @@ A phone's voicemail indicator usually works in one or both of the following ways
 					}
 					if phone.isCordless || phone.cordedPhoneType == 0 {
 						Section(header: Text("Phonebook")) {
-							TextField(phone.isCordless ? "Phonebook Capacity (base)" : "Phonebook Capacity", value: $phone.basePhonebookCapacity, formatter: NumberFormatter())
-#if os(iOS) || os(tvOS) || os(xrOS)
-								.keyboardType(.numberPad)
-#endif
+							FormNumericTextField(phone.isCordless ? "Phonebook Capacity (base)" : "Phonebook Capacity", value: $phone.basePhonebookCapacity)
 #if !os(xrOS)
 								.scrollDismissesKeyboard(.interactively)
 #endif
@@ -750,10 +744,7 @@ A phone's voicemail indicator usually works in one or both of the following ways
 							}
 							.font(.footnote)
 							.foregroundStyle(.secondary)
-							TextField(phone.isCordless ? "Caller ID List Capacity (base)" : "Caller ID List Capacity", value: $phone.baseCallerIDCapacity, formatter: NumberFormatter())
-#if os(iOS) || os(tvOS) || os(xrOS)
-								.keyboardType(.numberPad)
-#endif
+							FormNumericTextField(phone.isCordless ? "Caller ID List Capacity (base)" : "Caller ID List Capacity", value: $phone.baseCallerIDCapacity)
 #if !os(xrOS)
 								.scrollDismissesKeyboard(.interactively)
 #endif
@@ -790,10 +781,7 @@ A phone's voicemail indicator usually works in one or both of the following ways
 					}
 					if phone.isCordless || phone.cordedPhoneType == 0 {
 						Section(header: Text("Call Block (manual)")) {
-							TextField("Call Block List Capacity", value: $phone.callBlockCapacity, formatter: NumberFormatter())
-#if os(iOS) || os(tvOS) || os(xrOS)
-								.keyboardType(.numberPad)
-#endif
+							FormNumericTextField("Call Block List Capacity", value: $phone.callBlockCapacity)
 #if !os(xrOS)
 								.scrollDismissesKeyboard(.interactively)
 #endif
@@ -839,10 +827,7 @@ When the first ring is suppressed, the number of rings you hear will be one less
 									Text("Has One-Touch Call Block")
 								}
 							}
-							TextField("Pre-Programmed Call Block Database Entry Count", value: $phone.callBlockPreProgrammedDatabaseEntryCount, formatter: NumberFormatter())
-#if os(iOS) || os(tvOS) || os(xrOS)
-								.keyboardType(.numberPad)
-#endif
+							FormNumericTextField("Pre-Programmed Call Block Database Entry Count", value: $phone.callBlockPreProgrammedDatabaseEntryCount)
 #if !os(xrOS)
 								.scrollDismissesKeyboard(.interactively)
 #endif
@@ -877,18 +862,12 @@ When the first ring is suppressed, the number of rings you hear will be one less
 									.foregroundStyle(.secondary)
 								}
 								Toggle("Supports Custom Greeting", isOn: $phone.callBlockPreScreeningCustomGreeting)
-								TextField("Allowed Numbers Capacity", value: $phone.callBlockPreScreeningAllowedNumberCapacity, formatter: NumberFormatter())
-#if os(iOS) || os(tvOS) || os(xrOS)
-									.keyboardType(.numberPad)
-#endif
+								FormNumericTextField("Allowed Numbers Capacity", value: $phone.callBlockPreScreeningAllowedNumberCapacity)
 #if !os(xrOS)
 									.scrollDismissesKeyboard(.interactively)
 #endif
 								Toggle("Allowed Numbers List Visible To User", isOn: $phone.callBlockPreScreeningAllowedNumberListVisible)
-								TextField("Allowed Names Capacity", value: $phone.callBlockPreScreeningAllowedNumberCapacity, formatter: NumberFormatter())
-#if os(iOS) || os(tvOS) || os(xrOS)
-									.keyboardType(.numberPad)
-#endif
+								FormNumericTextField("Allowed Names Capacity", value: $phone.callBlockPreScreeningAllowedNameCapacity)
 #if !os(xrOS)
 									.scrollDismissesKeyboard(.interactively)
 #endif
@@ -1018,16 +997,17 @@ When the first ring is suppressed, the number of rings you hear will be one less
 
 	func updatePhonePhoto(oldValue: PhotosPickerItem?, newValue: PhotosPickerItem?) {
 		guard let newValue = newValue else { return }
-		// phone.photoData is of type Data, so get the image data from newValue.
-		Task {
-			do {
-				let data = try await newValue.loadTransferable(type: Data.self)
-				phone.photoData = data
-			} catch {
-				phonePhotoError = error
-				showingPhonePhotoErrorAlert = true
-			}
-		}
+                let progress = newValue.loadTransferable(type: Data.self) { result in
+                    switch result {
+                    case .success(let data):
+                        phone.photoData = data
+                    case .failure(let error):
+                        phonePhotoError = error
+                        showingPhonePhotoErrorAlert = true
+                    }
+                    selectedPhoto = nil
+                }
+        progress.resume()
 	}
 
 }

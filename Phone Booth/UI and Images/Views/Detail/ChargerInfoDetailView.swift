@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import SheftAppsStylishUI
 
 struct ChargerInfoDetailView: View {
 
@@ -16,7 +17,7 @@ struct ChargerInfoDetailView: View {
 		if let phone = charger.phone {
 			Form {
 				Section {
-					TextField("Color", text: $charger.color)
+					FormTextField("Color", text: $charger.color)
 					Picker("Charge Contact Placement", selection: $charger.chargeContactPlacement) {
 						Text("Bottom").tag(0)
 						Text("Back").tag(1)

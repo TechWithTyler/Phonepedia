@@ -10,7 +10,7 @@ import SwiftUI
 
 struct PhoneRowView: View {
 
-	var phone: Phone
+	@Bindable var phone: Phone
 
     var body: some View {
 		HStack {
