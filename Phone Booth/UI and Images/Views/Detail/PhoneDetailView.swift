@@ -24,6 +24,8 @@ struct PhoneDetailView: View {
 #if os(iOS)
 	@State var takingPhoto: Bool = false
 #endif
+    
+    @State private var showingPhotoPicker: Bool = false
 
 	@State private var showingResetAlert: Bool = false
 
@@ -951,6 +953,10 @@ When the first ring is suppressed, the number of rings you hear will be one less
 #endif
 		}
 		.navigationTitle("Phone Details")
+        .photosPicker(isPresented: $showingPhotoPicker, selection: $selectedPhoto, matching: .images, preferredItemEncoding: .automatic)
+        .onChange(of: selectedPhoto, { oldValue, newValue in
+            updatePhonePhoto(oldValue: oldValue, newValue: newValue)
+        })
 		.sheet(isPresented: $showingFrequenciesExplanation) {
 			FrequenciesExplanationView()
 		}
@@ -1001,10 +1007,11 @@ When the first ring is suppressed, the number of rings you hear will be one less
 				Text("Take Photo…")
 			}
 #endif
-			PhotosPicker("Select From Library…", selection: $selectedPhoto, matching: .images)
-				.onChange(of: selectedPhoto) { oldValue, newValue in
-					updatePhonePhoto(oldValue: oldValue, newValue: newValue)
-				}
+            Button {
+                showingPhotoPicker = true
+            } label: {
+                Text("Select From Library…")
+            }
 			Button {
 				showingResetAlert = true
 			} label: {
@@ -1015,15 +1022,18 @@ When the first ring is suppressed, the number of rings you hear will be one less
 
 	func updatePhonePhoto(oldValue: PhotosPickerItem?, newValue: PhotosPickerItem?) {
 		guard let newValue = newValue else { return }
-                let progress = newValue.loadTransferable(type: Data.self) { result in
+        let progress = newValue.loadTransferable(type: Data.self) { result in
                     switch result {
                     case .success(let data):
-                        phone.photoData = data
+                        DispatchQueue.main.async { [self] in
+                            withAnimation {
+                                phone.photoData = data
+                            }
+                        }
                     case .failure(let error):
                         phonePhotoError = error
                         showingPhonePhotoErrorAlert = true
                     }
-                    selectedPhoto = nil
                 }
         progress.resume()
 	}
