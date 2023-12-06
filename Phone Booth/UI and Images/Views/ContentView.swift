@@ -49,15 +49,15 @@ struct ContentView: View {
 											Text("Cancel")
 										}
 									} message: { phone in
-										Text("\(phone.brand) \(phone.model) will be deleted from your database.")
+										Text("\(phone.brand) \(phone.model) will be deleted from this database.")
 									}
 							}
 							.contextMenu {
-								Button {
+                                Button(role: .destructive) {
 									phoneToDelete = phone
 									showingDeleteOne = true
 								} label: {
-									Label("Delete", image: "trash")
+									Label("Delete…", image: "trash")
 								}
 							}
 						}
@@ -70,7 +70,7 @@ struct ContentView: View {
 						.foregroundStyle(Color.secondary)
 				}
 			}
-			.alert("Delete all phones?", isPresented: $showingDeleteAll) {
+			.alert("Delete all phones from this database?", isPresented: $showingDeleteAll) {
 				Button(role: .destructive) {
 					showingDeleteAll = false
 					deleteAllPhones()
@@ -83,7 +83,7 @@ struct ContentView: View {
 					Text("Cancel")
 				}
 			} message: {
-				Text("All phones will be deleted from your database.")
+				Text("All phones will be deleted from this database.")
 			}
 			.toolbar {
 				toolbarContent
@@ -118,11 +118,11 @@ struct ContentView: View {
 #endif
 		}
 			ToolbarItem {
-				Button {
+                Button(role: .destructive) {
 					showingDeleteAll = true
 				} label: {
-					Label("Delete All", systemImage: "trash")
-						.labelStyle(.titleAndIcon)
+					Label("Delete All…", systemImage: "trash.fill")
+						.labelStyle(.iconOnly)
 				}
 #if os(iOS)
 				.disabled((editMode?.wrappedValue.isEditing)!)
