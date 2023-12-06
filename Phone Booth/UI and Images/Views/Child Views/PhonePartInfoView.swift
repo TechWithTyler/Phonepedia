@@ -63,13 +63,7 @@ struct PhonePartInfoView: View {
 					.buttonStyle(.borderless)
 					.accessibilityIdentifier("AddHandsetButton")
 				} else if phone.cordlessHandsetsIHave.count > phone.maxCordlessHandsets {
-					HStack {
-						Image(systemName: "exclamationmark.triangle")
-							.symbolRenderingMode(.multicolor)
-						Text("You have more handsets than the base can handle!")
-					}
-					.font(.callout)
-					.foregroundStyle(.secondary)
+					WarningText("You have more handsets than the base can handle!")
 				}
 				Button {
 					phone.cordlessHandsetsIHave.removeAll()

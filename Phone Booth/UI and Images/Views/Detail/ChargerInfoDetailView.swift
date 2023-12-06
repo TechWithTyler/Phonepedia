@@ -36,12 +36,7 @@ struct ChargerInfoDetailView: View {
 					}
 					if phone.supportsRangeExtenders {
 						Toggle("Has Range Extender", isOn: $charger.hasRangeExtender)
-						HStack {
-							Image(systemName: "info.circle")
-							Text("A charger with a built-in range extender allows you to have a range extender where you have a charger, without having to register and place a separate range extender.")
-						}
-							.font(.footnote)
-							.foregroundStyle(.secondary)
+                        InfoText("A charger with a built-in range extender allows you to have a range extender where you have a charger, without having to register and place a separate range extender.")
 					}
 				}
 			}

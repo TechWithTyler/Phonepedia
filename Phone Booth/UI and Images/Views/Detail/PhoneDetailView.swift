@@ -28,6 +28,8 @@ struct PhoneDetailView: View {
     @State private var showingPhotoPicker: Bool = false
 
 	@State private var showingResetAlert: Bool = false
+    
+    @State private var showingPhoneTypeDefinitions: Bool = false
 
 	@State private var phonePhotoError: Error? = nil
 
@@ -38,54 +40,61 @@ struct PhoneDetailView: View {
                     photo(for: phone)
 					FormTextField("Brand", text: $phone.brand)
 					FormTextField("Model", text: $phone.model)
-					Text("Phone type: \(phone.phoneTypeText)")
+                    HStack {
+                        Text("Phone type: \(phone.phoneTypeText)")
+                        Spacer()
+                        InfoButton {
+                            showingPhoneTypeDefinitions = true
+                        }
+                    }
 					Stepper("Release Year: \(String(phone.releaseYear))", value: $phone.releaseYear, in: 1984...currentYear)
 					if phone.isCordless {
-						Picker("Wireless Frequency", selection: $phone.frequency) {
-							Section(header: Text("46-49MHz")) {
-								Text("46-49MHz Analog or Older").tag(0)
-							}
-							Section(header: Text("900MHz")) {
-								Text("900MHz Analog").tag(1)
-								Text("900MHz Voice Scramble Analog").tag(2)
-								Text("900MHz Digital").tag(3)
-								Text("900MHz Digital Spread Spectrum (DSS)").tag(4)
-							}
-							Section(header: Text("2.4GHz")) {
-								Text("2.4GHz Analog").tag(5)
-								Text("2.4GHz/900MHz Analog").tag(6)
-								Text("2.4GHz Digital").tag(7)
-								Text("2.4GHz/900MHz Digital").tag(8)
-								Text("2.4GHz Digital Spread Spectrum (DSS)").tag(7)
-								Text("2.4GHz/900MHz Digital Spread Spectrum (DSS)").tag(8)
-								Text("2.4GHz Digital Frequency-Hopping Spread Spectrum (FHSS)").tag(9)
-								Text("2.4GHz/900MHz Digital Frequency-Hopping Spread Spectrum (FHSS)").tag(10)
-							}
-							Section(header: Text("5.8GHz")) {
-								Text("5.8GHz Analog").tag(11)
-								Text("5.8GHz/900MHz Analog").tag(12)
-								Text("5.8GHz/2.4GHz Analog").tag(13)
-								Text("5.8GHz Digital").tag(14)
-								Text("5.8GHz/900MHz Digital").tag(15)
-								Text("5.8GHz/2.4GHz Digital").tag(16)
-								Text("5.8GHz Digital Spread Spectrum (DSS)").tag(17)
-								Text("5.8GHz/900MHz Digital Spread Spectrum (DSS)").tag(18)
-								Text("5.8GHz/2.4GHz Digital Spread Spectrum (DSS)").tag(19)
-								Text("5.8GHz Digital Frequency-Hopping Spread Spectrum (FHSS)").tag(20)
-								Text("5.8GHz/900MHz Digital Frequency-Hopping Spread Spectrum (FHSS)").tag(21)
-								Text("5.8GHz/2.4GHz Digital Frequency-Hopping Spread Spectrum (FHSS)").tag(22)
-							}
-							Section(header: Text("DECT (Digital Enhanced Cordless Telecommunications)")) {
-								Text("DECT (1.88GHz-1.90GHz)").tag(23)
-								Text("DECT (1.90GHz-1.92GHz)").tag(24)
-								Text("DECT 6.0 (1.92GHz-1.93GHz)").tag(25)
-							}
-						}
-						Button {
-							showingFrequenciesExplanation = true
-						} label: {
-							Text("Frequencies Explanation…")
-						}
+                        HStack {
+                            Picker("Wireless Frequency", selection: $phone.frequency) {
+                                Section(header: Text("46-49MHz")) {
+                                    Text("46-49MHz Analog or Older").tag(0)
+                                }
+                                Section(header: Text("900MHz")) {
+                                    Text("900MHz Analog").tag(1)
+                                    Text("900MHz Voice Scramble Analog").tag(2)
+                                    Text("900MHz Digital").tag(3)
+                                    Text("900MHz Digital Spread Spectrum (DSS)").tag(4)
+                                }
+                                Section(header: Text("2.4GHz")) {
+                                    Text("2.4GHz Analog").tag(5)
+                                    Text("2.4GHz/900MHz Analog").tag(6)
+                                    Text("2.4GHz Digital").tag(7)
+                                    Text("2.4GHz/900MHz Digital").tag(8)
+                                    Text("2.4GHz Digital Spread Spectrum (DSS)").tag(7)
+                                    Text("2.4GHz/900MHz Digital Spread Spectrum (DSS)").tag(8)
+                                    Text("2.4GHz Digital Frequency-Hopping Spread Spectrum (FHSS)").tag(9)
+                                    Text("2.4GHz/900MHz Digital Frequency-Hopping Spread Spectrum (FHSS)").tag(10)
+                                }
+                                Section(header: Text("5.8GHz")) {
+                                    Text("5.8GHz Analog").tag(11)
+                                    Text("5.8GHz/900MHz Analog").tag(12)
+                                    Text("5.8GHz/2.4GHz Analog").tag(13)
+                                    Text("5.8GHz Digital").tag(14)
+                                    Text("5.8GHz/900MHz Digital").tag(15)
+                                    Text("5.8GHz/2.4GHz Digital").tag(16)
+                                    Text("5.8GHz Digital Spread Spectrum (DSS)").tag(17)
+                                    Text("5.8GHz/900MHz Digital Spread Spectrum (DSS)").tag(18)
+                                    Text("5.8GHz/2.4GHz Digital Spread Spectrum (DSS)").tag(19)
+                                    Text("5.8GHz Digital Frequency-Hopping Spread Spectrum (FHSS)").tag(20)
+                                    Text("5.8GHz/900MHz Digital Frequency-Hopping Spread Spectrum (FHSS)").tag(21)
+                                    Text("5.8GHz/2.4GHz Digital Frequency-Hopping Spread Spectrum (FHSS)").tag(22)
+                                }
+                                Section(header: Text("DECT (Digital Enhanced Cordless Telecommunications)")) {
+                                    Text("DECT (1.88GHz-1.90GHz)").tag(23)
+                                    Text("DECT (1.90GHz-1.92GHz)").tag(24)
+                                    Text("DECT 6.0 (1.92GHz-1.93GHz)").tag(25)
+                                }
+                            }
+                            Spacer()
+                            InfoButton {
+                                showingFrequenciesExplanation = true
+                            }
+                        }
 						Picker("Antennas", selection: $phone.antennas) {
 							Text("Hidden").tag(0)
 							Text("Telescopic").tag(1)
@@ -95,20 +104,10 @@ struct PhoneDetailView: View {
 						}
 						AntennaInfoView()
 						Toggle("Supports Range Extenders", isOn: $phone.supportsRangeExtenders)
-						HStack {
-							Image(systemName: "info.circle")
-							Text("A range extender extends the range of the base its registered to. Devices communicating with the base choose the base or a range extender based on which has the strongest signal.")
-						}
-						.font(.footnote)
-						.foregroundStyle(.secondary)
+						InfoText("A range extender extends the range of the base its registered to. Devices communicating with the base choose the base or a range extender based on which has the strongest signal.")
 						if !phone.isCordedCordless {
 							Toggle("Base Is Transmit-Only", isOn: $phone.hasTransmitOnlyBase)
-							HStack {
-								Image(systemName: "info.circle")
-								Text("A transmit-only base doesn't have a charging area for a cordless handset nor does it have a corded receiver. Sometimes these kinds of bases have speakerphone, but usually they only have a locator button and nothing else. A transmit-only base with no features on it is often called a \"hidden base\" as these kinds of bases are often placed out-of-sight.")
-							}
-							.font(.footnote)
-							.foregroundStyle(.secondary)
+							InfoText("A transmit-only base doesn't have a charging area for a cordless handset nor does it have a corded receiver. Sometimes these kinds of bases have speakerphone, but usually they only have a locator button and nothing else. A transmit-only base with no features on it is often called a \"hidden base\" as these kinds of bases are often placed out-of-sight.")
 							.onChange(of: phone.hasTransmitOnlyBase) { oldValue, newValue in
 								phone.transmitOnlyBaseChanged(oldValue: oldValue, newValue: newValue)
 							}
@@ -149,21 +148,10 @@ struct PhoneDetailView: View {
 									return newValue > phone.maxCordlessHandsets && phone.maxCordlessHandsets != -1
 								}
 							if phone.maxCordlessHandsets == -1 {
-								HStack {
-									Image(systemName: "info.circle")
-									Text("When placing the handset on the base, the handset and base exchange a digital security code, which makes sure the handset only communicates with that base. You can add as many handsets as you want--the base doesn't know or care how many handsets are being used on it.")
-								}
-								.foregroundStyle(.secondary)
-								.font(.footnote)
+								InfoText("When placing the handset on the base, the handset and base exchange a digital security code, which makes sure the handset only communicates with that base. You can add as many handsets as you want--the base doesn't know or care how many handsets are being used on it.")
 							}
 							if phone.numberOfIncludedCordlessHandsets > phone.maxCordlessHandsets && phone.maxCordlessHandsets != -1 {
-								HStack {
-									Image(systemName: "exclamationmark.triangle")
-										.symbolRenderingMode(.multicolor)
-									Text("The base of the \(phone.brand) \(phone.model) can only register up to \(phone.maxCordlessHandsets) handsets (trying to register \(phone.numberOfIncludedCordlessHandsets)).")
-								}
-								.font(.callout)
-								.foregroundStyle(.secondary)
+								WarningText("The base of the \(phone.brand) \(phone.model) can only register up to \(phone.maxCordlessHandsets) handsets (trying to register \(phone.numberOfIncludedCordlessHandsets)).")
 							}
 						}
 						Picker("Charge Light", selection: $phone.chargeLight) {
@@ -201,17 +189,12 @@ struct PhoneDetailView: View {
 									}
 									ChargingContactInfoView()
 									Toggle("Base Has Separate Data Contact", isOn: $phone.baseHasSeparateDataContact)
-									HStack {
-										Image(systemName: "info.circle")
-										Text("""
+									InfoText("""
   Most modern cordless phones pass data through the 2 charging contacts for various features including the following. However, many older cordless phones, especially 46-49MHz and 900MHz models, used a separate, 3rd contact for data.
   • Detecting the handset being placed on the base for registration.
   • Detecting the handset being lifted off the base to switch from the base speakerphone to the handset.
   In most cases, if the base has a charge light, the completion of the charge circuit turns it on, but sometimes that's handled by the separate data contact if the phone has one.
   """)
-									}
-									.font(.footnote)
-									.foregroundStyle(.secondary)
 								}
 							}
 						}
@@ -226,13 +209,8 @@ struct PhoneDetailView: View {
 							}
 							if !phone.isCordedCordless && !phone.hasTransmitOnlyBase && phone.deregistration > 0 {
 								Toggle("Place-On-Base Auto-Register", isOn: $phone.placeOnBaseAutoRegister)
-								HStack {
-									Image(systemName: "info.circle")
-									Text("The base can detect an unregistered handset being placed on it, which will put it into registration mode. Aside from putting the base into registration mode, data isn't exchanged through the contacts like it is on phones using the digital security code method. Manually putting the base in registration mode is still available for re-registering handsets or for registering handsets which don't fit in the base.")
-								}
-								.font(.footnote)
-								.foregroundStyle(.secondary)
-							}
+								InfoText("The base can detect an unregistered handset being placed on it, which will put it into registration mode. Aside from putting the base into registration mode, data isn't exchanged through the contacts like it is on phones using the digital security code method. Manually putting the base in registration mode is still available for re-registering handsets or for registering handsets which don't fit in the base.")
+                            }
 							Picker("Deregistration", selection: $phone.deregistration) {
 								if phone.locatorButtons > 0 {
 									Text("Not Supported").tag(0)
@@ -276,21 +254,10 @@ struct PhoneDetailView: View {
 							phone.cordlessPowerBackupModeChanged(oldValue: oldValue, newValue: newValue)
 						}
 						if phone.cordlessPowerBackupMode == 0 {
-							HStack {
-								Image(systemName: "info.circle")
-								Text("You can plug an external battery into the base power port to use it when the power goes out.")
-							}
-							.font(.footnote)
-							.foregroundStyle(.secondary)
+							InfoText("You can plug an external battery into the base power port to use it when the power goes out.")
 						}
 						if phone.cordlessPowerBackupMode == 3 {
-							HStack {
-								Image(systemName: "exclamationmark.triangle")
-									.symbolRenderingMode(.multicolor)
-								Text("If you use non-rechargeable batteries, you MUST remember to remove them from the base as soon as possible once power returns to prevent leakage!")
-							}
-							.font(.footnote)
-							.foregroundStyle(.secondary)
+							WarningText("If you use non-rechargeable batteries, you MUST remember to remove them from the base as soon as possible once power returns to prevent leakage!")
 						}
 						if phone.cordlessPowerBackupMode == 1 && !phone.hasTransmitOnlyBase && !phone.isCordedCordless {
 							Picker("When Power Returns", selection: $phone.cordlessPowerBackupReturnBehavior) {
@@ -298,20 +265,11 @@ struct PhoneDetailView: View {
 								Text("Restore Full Functionality Without Rebooting").tag(1)
 							}
 							VStack(alignment: .leading) {
-								HStack {
-									Image(systemName: "info.circle")
-									Text("When the power goes out, placing a charged handset on the base can give it power. None of the base buttons will work. However, the display/lights may flash to indicate the base is booting up. Features like the answering system and base Bluetooth aren't available while the handset is powering the base. This helps to conserve handset battery power.")
-								}
+								InfoText("When the power goes out, placing a charged handset on the base can give it power. None of the base buttons will work. However, the display/lights may flash to indicate the base is booting up. Features like the answering system and base Bluetooth aren't available while the handset is powering the base. This helps to conserve handset battery power.")
 								if phone.cordlessHandsetsIHave.filter({$0.fitsOnBase}).isEmpty {
-									HStack {
-										Image(systemName: "exclamationmark.triangle")
-											.symbolRenderingMode(.multicolor)
-										Text("You must have at least one handset which fits on the base to use power backup!")
-									}
-								}
-							}
-							.font(.footnote)
-							.foregroundStyle(.secondary)
+                                    WarningText("You must have at least one handset which fits on the base to use power backup!")
+                                }
+                            }
 						}
 					}
 				}
@@ -326,22 +284,12 @@ struct PhoneDetailView: View {
 							Toggle(isOn: $phone.hasBaseKeypad) {
 								Text("Has Base Keypad")
 							}
-							HStack {
-								Image(systemName: "info.circle")
-								Text("Some cordless phones have a base speakerphone and keypad, which allows you to make calls if the handset isn't nearby or if it needs to charge. Bases with keypads are a great option for office spaces.")
-							}
-							.foregroundStyle(.secondary)
-							.font(.footnote)
+							InfoText("Some cordless phones have a base speakerphone and keypad, which allows you to make calls if the handset isn't nearby or if it needs to charge. Bases with keypads are a great option for office spaces.")
 							if phone.hasBaseKeypad {
 								Toggle(isOn: $phone.hasTalkingKeypad) {
 									Text("Talking Keypad")
 								}
-								HStack {
-									Image(systemName: "info.circle")
-									Text("The phone can announce the keys you press when dialing numbers.")
-								}
-								.foregroundStyle(.secondary)
-								.font(.footnote)
+								InfoText("The phone can announce the keys you press when dialing numbers.")
 							}
 						}
 						if phone.isCordless {
@@ -374,10 +322,7 @@ struct PhoneDetailView: View {
 							Text("Bell/Mechanical").tag(0)
 							Text("Electronic").tag(1)
 						}
-						HStack {
-							Image(systemName: "info.circle")
-							Text("A bell/mechanical ringer requires more power to ring, so it may not work properly on most VoIP lines, especially if multiple phones are ringing at once, as they're usually designed for modern phones which typically don't have mechanical ringers. Electronic ringers, especially those that are software-driven, don't require much power. The amount of ringing power a phone requires is determined by the Ringer Equivalence Number (REN), usually found on the bottom of the phone. A higher REN means more power required to ring.")
-						}
+						InfoText("A bell/mechanical ringer requires more power to ring, so it may not work properly on most VoIP lines, especially if multiple phones are ringing at once, as they're usually designed for modern phones which typically don't have mechanical ringers. Electronic ringers, especially those that are software-driven, don't require much power. The amount of ringing power a phone requires is determined by the Ringer Equivalence Number (REN), usually found on the bottom of the phone. A higher REN means more power required to ring.")
 					}
                     if phone.isCordless && phone.hasBaseIntercom && phone.baseRingtones > 0 {
                         Picker("Base Intercom Ringtone", selection: $phone.baseIntercomRingtone) {
@@ -443,28 +388,13 @@ struct PhoneDetailView: View {
 								Text("Handset Only").tag(1)
 								Text("Base or Handset").tag(2)
 							}
-							HStack {
-								Image(systemName: "info.circle")
-								Text("The greeting, sometimes called the announcement or outgoing message, is the message the answering system plays to callers when it answers, before optionally allowing the caller to leave a message. Example: \"Hello. You have reached \(names.randomElement()!). I'm not available to take your call, so please leave a message after the tone.\"")
-							}
-							.font(.footnote)
-							.foregroundStyle(.secondary)
+							InfoText("The greeting, sometimes called the announcement or outgoing message, is the message the answering system plays to callers when it answers, before optionally allowing the caller to leave a message. Example: \"Hello. You have reached \(names.randomElement()!). I'm not available to take your call, so please leave a message after the tone.\"")
 						}
 						if phone.hasAnsweringSystem > 0 {
 							Toggle("Has Greeting Only Mode", isOn: $phone.hasGreetingOnlyMode)
-							HStack {
-								Image(systemName: "info.circle")
-								Text("Greeting Only, sometimes called Announce Only or Answer Only, answers calls but doesn't accept incoming messages. Some phones allow you to record a separate greeting for both modes, allowing you to easily switch between modes without having to re-record your greeting each time. Example: \"Hello. You have reached \(names.randomElement()!). I'm not available to take your call, so please call again later.\"")
-							}
-							.font(.footnote)
-							.foregroundStyle(.secondary)
+							InfoText("Greeting Only, sometimes called Announce Only or Answer Only, answers calls but doesn't accept incoming messages. Some phones allow you to record a separate greeting for both modes, allowing you to easily switch between modes without having to re-record your greeting each time. Example: \"Hello. You have reached \(names.randomElement()!). I'm not available to take your call, so please call again later.\"")
 							Toggle("Has Message Alert by Call", isOn: $phone.hasMessageAlertByCall)
-							HStack {
-								Image(systemName: "info.circle")
-								Text("This feature allows the answering system to call out to a stored phone number each time a new message is left, so you don't have to constantly be calling to check for new messages while you're away.")
-							}
-							.font(.footnote)
-							.foregroundStyle(.secondary)
+							InfoText("This feature allows the answering system to call out to a stored phone number each time a new message is left, so you don't have to constantly be calling to check for new messages while you're away.")
 						}
 						Picker("\"New Voicemail\" Detection Method", selection: $phone.voicemailIndication) {
 							Text("None").tag(0)
@@ -472,16 +402,11 @@ struct PhoneDetailView: View {
 							Text("Listen For Stutter Dial Tones").tag(2)
 							Text("FSK and Stutter Dial Tone").tag(3)
 						}
-						HStack {
-							Image(systemName: "info.circle")
-							Text("""
+						InfoText("""
 A phone's voicemail indicator usually works in one or both of the following ways:
 • Your phone company may send special tones, called Frequency-Shift-Keying (FSK) tones to the phone whenever a new voicemail is left, and another when all new voicemails are played, to tell the phone to turn on or off its voicemail indicator. You can't hear these tones unless you use a device to listen in on the phone line without picking it up (e.g. a butt-set phone in monitor mode).
 • The phone may go off-hook for a few seconds periodically, or when you hang up or it stops ringing, to listen for a stutter dial tone ("bee-bee-bee-beeeeeeeep") which your phone company may use as an audible indication of new voicemails.
 """)
-						}
-						.font(.footnote)
-						.foregroundStyle(.secondary)
 						Picker("Voicemail Quick Dial", selection: $phone.voicemailQuickDial) {
 							Text("None").tag(0)
 							Text("Button").tag(1)
@@ -490,20 +415,10 @@ A phone's voicemail indicator usually works in one or both of the following ways
 							Text("Main Menu Item").tag(4)
 							Text("Main Menu Item and Button").tag(5)
 						}
-						HStack {
-							Image(systemName: "info.circle")
-							Text("You can store your voicemail access number (e.g. *99) into the phone and quickly dial it using a button or menu item.")
-						}
-						.font(.footnote)
-						.foregroundStyle(.secondary)
+						InfoText("You can store your voicemail access number (e.g. *99) into the phone and quickly dial it using a button or menu item.")
 						if phone.voicemailQuickDial > 0 {
 							Toggle("Can Store Voicemail Feature Codes", isOn: $phone.voicemailFeatureCodes)
-							HStack {
-								Image(systemName: "info.circle")
-								Text("Storing voicemail feature codes allows you to, for example, play and delete messages using a button or menu item once you've dialed into voicemail, just like with built-in answering systems. Example: If your voicemail system's main menu asks you to press 1 to play messages, you can store \"1\" to the Play code and then quickly dial it using a button/menu item.")
-							}
-							.font(.footnote)
-							.foregroundStyle(.secondary)
+							InfoText("Storing voicemail feature codes allows you to, for example, play and delete messages using a button or menu item once you've dialed into voicemail, just like with built-in answering systems. Example: If your voicemail system's main menu asks you to press 1 to play messages, you can store \"1\" to the Play code and then quickly dial it using a button/menu item.")
 						}
 					}
 					Section(header: Text("Display/Backlight/Buttons")) {
@@ -570,12 +485,7 @@ A phone's voicemail indicator usually works in one or both of the following ways
 										phone.baseSoftKeysSideChanged(oldValue: oldValue, newValue: newValue)
 									}
 								SoftKeyExplanationView()
-								HStack {
-									Image(systemName: "info.circle")
-									Text("Side soft keys are often used for programmable functions or speed dials in standby or one-touch menu selections in menus. For example, in a menu with 5 options, instead of scrolling up or down through the menu and then pressing the select button, you can press the corresponding side soft key.")
-								}
-								.font(.footnote)
-								.foregroundStyle(.secondary)
+								InfoText("Side soft keys are often used for programmable functions or speed dials in standby or one-touch menu selections in menus. For example, in a menu with 5 options, instead of scrolling up or down through the menu and then pressing the select button, you can press the corresponding side soft key.")
 							}
 						}
 						Picker("Button Backlight Type", selection: $phone.baseKeyBacklightAmount) {
@@ -610,12 +520,7 @@ A phone's voicemail indicator usually works in one or both of the following ways
 						Text("2").tag(2)
 						Text("4").tag(4)
 					}
-					HStack {
-						Image(systemName: "info.circle")
-						Text("On a 2- or 4-line phone, you can either plug each line into a separate jack, or use a single jack for 2 lines. For example, to plug a 2-line phone into a single 2-line jack, you would plug into the line 1/2 jack, or to plug into 2 single-line jacks, you would plug into both the line 1 and line 2 jacks. To use the one-jack-for-both-lines method, you need to make sure the phone cord has 4 copper contacts instead of just 2. With some phones, the included line cords are color-coded so you can easily tell which line they're for (e.g. black for line 1 and green for line 2).")
-					}
-					.font(.footnote)
-					.foregroundStyle(.secondary)
+					InfoText("On a 2- or 4-line phone, you can either plug each line into a separate jack, or use a single jack for 2 lines. For example, to plug a 2-line phone into a single 2-line jack, you would plug into the line 1/2 jack, or to plug into 2 single-line jacks, you would plug into both the line 1 and line 2 jacks. To use the one-jack-for-both-lines method, you need to make sure the phone cord has 4 copper contacts instead of just 2. With some phones, the included line cords are color-coded so you can easily tell which line they're for (e.g. black for line 1 and green for line 2).")
 					if phone.isCordless || phone.cordedPhoneType == 0 {
 						Picker("Landline In Use Status On Base", selection: $phone.landlineInUseStatusOnBase) {
 							Text("None").tag(0)
@@ -627,12 +532,7 @@ A phone's voicemail indicator usually works in one or both of the following ways
 						}
 						if phone.landlineInUseStatusOnBase == 1 {
 							Toggle("Landline In Use Light Follows Ring Signal", isOn: $phone.landlineInUseVisualRingerFollowsRingSignal)
-							HStack {
-								Image(systemName: "info.circle")
-								Text("An in use light that follows the ring signal starts flashing when the ring signal starts and stops flashing when the ring signal stops. An in use light that ignores the ring signal starts flashing when the ring signal starts and continues flashing for as long as the base is indicating an incoming call.")
-							}
-							.font(.footnote)
-							.foregroundStyle(.secondary)
+							InfoText("An in use light that follows the ring signal starts flashing when the ring signal starts and stops flashing when the ring signal stops. An in use light that ignores the ring signal starts flashing when the ring signal starts and continues flashing for as long as the base is indicating an incoming call.")
 						}
 					}
 				}
@@ -647,24 +547,14 @@ A phone's voicemail indicator usually works in one or both of the following ways
 							Text("10").tag(10)
 							Text("15").tag(15)
 						}
-						HStack {
-							Image(systemName: "info.circle")
-							Text("Pairing a cell phone to the base via Bluetooth allows you to make and receive cell calls on the base or handsets and transfer your cell phone contacts to the phonebook.")
-						}
-						.font(.footnote)
-						.foregroundStyle(.secondary)
+						InfoText("Pairing a cell phone to the base via Bluetooth allows you to make and receive cell calls on the base or handsets and transfer your cell phone contacts to the phonebook.")
 						Picker("Maximum Number Of Smartphones As Handsets", selection: $phone.smartphonesAsHandsetsOverWiFi) {
 							Text("None").tag(0)
 							Text("1").tag(1)
 							Text("2").tag(2)
 							Text("4").tag(4)
 						}
-						HStack {
-							Image(systemName: "info.circle")
-							Text("When a smartphone is registered to a Wi-Fi-compatible base and both devices are on the same network, the smartphone can be used as a handset, and you can transfer its data to the base or handsets.")
-						}
-						.font(.footnote)
-						.foregroundStyle(.secondary)
+						InfoText("When a smartphone is registered to a Wi-Fi-compatible base and both devices are on the same network, the smartphone can be used as a handset, and you can transfer its data to the base or handsets.")
 						if phone.baseBluetoothCellPhonesSupported > 0 {
 							Picker("Cell Line In Use Status On Base", selection: $phone.cellLineInUseStatusOnBase) {
 								Text("None").tag(0)
@@ -678,19 +568,9 @@ A phone's voicemail indicator usually works in one or both of the following ways
 								Text("Auto-Suppressed \"No Line\" Alert").tag(1)
 								Text("Cell Line Only Mode").tag(2)
 							}
-							HStack {
-								Image(systemName: "info.circle")
-								Text("If you use only cell lines, the \"no line\" alert will be suppressed automatically or can be supressed manually, depending on the phone. A dedicated cell line only mode allows the phone to disable most landline-related features.")
-							}
-							.foregroundStyle(.secondary)
-							.font(.footnote)
+							InfoText("If you use only cell lines, the \"no line\" alert will be suppressed automatically or can be supressed manually, depending on the phone. A dedicated cell line only mode allows the phone to disable most landline-related features.")
 							Toggle("Has Cell Phone Voice Control", isOn: $phone.hasCellPhoneVoiceControl)
-							HStack {
-								Image(systemName: "info.circle")
-								Text("You can talk to your cell phone voice assistant (e.g. Siri or Google Now) using the base or handset.")
-							}
-							.foregroundStyle(.secondary)
-							.font(.footnote)
+							InfoText("You can talk to your cell phone voice assistant (e.g. Siri or Google Now) using the base or handset.")
 						}
 					}
 				}
@@ -720,12 +600,7 @@ A phone's voicemail indicator usually works in one or both of the following ways
 								Toggle(isOn: $phone.hasTalkingPhonebook) {
 									Text("Talking Phonebook")
 								}
-								HStack {
-									Image(systemName: "info.circle")
-									Text("The phone can announce the names of phonebook entries as you scroll through them.")
-								}
-								.foregroundStyle(.secondary)
-								.font(.footnote)
+								InfoText("The phone can announce the names of phonebook entries as you scroll through them.")
 							}
 							if phone.basePhonebookCapacity > 100 {
 								Picker("Bluetooth Phonebook Transfers", selection: $phone.bluetoothPhonebookTransfers) {
@@ -735,12 +610,7 @@ A phone's voicemail indicator usually works in one or both of the following ways
 									Text("To Home Phonebook").tag(1)
 									Text("To Separate Cell Phonebook").tag(2)
 								}
-								HStack {
-									Image(systemName: "info.circle")
-									Text("Storing transferred cell phonebooks in the home phonebook allows those entries to work with features such as home line caller ID phonebook match and call block pre-screening. It also allows you to view all your phonebook entries in one place. If transferred cell phonebooks are stored separately from the home phonebook, caller ID phonebook match usually only works with the corresponding cell line.")
-								}
-								.font(.footnote)
-								.foregroundStyle(.secondary)
+								InfoText("Storing transferred cell phonebooks in the home phonebook allows those entries to work with features such as home line caller ID phonebook match and call block pre-screening. It also allows you to view all your phonebook entries in one place. If transferred cell phonebooks are stored separately from the home phonebook, caller ID phonebook match usually only works with the corresponding cell line.")
 								.onChange(of: phone.baseBluetoothCellPhonesSupported) {
 									newValue, oldValue in
 									phone.baseBluetoothCellPhonesSupportedChanged(oldValue: oldValue, newValue: newValue)
@@ -758,12 +628,7 @@ A phone's voicemail indicator usually works in one or both of the following ways
 							Toggle(isOn: $phone.hasTalkingCallerID) {
 								Text("Talking Caller ID")
 							}
-							HStack {
-								Image(systemName: "info.circle")
-								Text("The phone can announce who's calling after each ring, so you don't have to look at the screen. Example: \"Call from \(names.randomElement()!)\".")
-							}
-							.font(.footnote)
-							.foregroundStyle(.secondary)
+							InfoText("The phone can announce who's calling after each ring, so you don't have to look at the screen. Example: \"Call from \(names.randomElement()!)\".")
 							FormNumericTextField(phone.isCordless ? "Caller ID List Capacity (base)" : "Caller ID List Capacity", value: $phone.baseCallerIDCapacity)
 #if !os(xrOS)
 								.scrollDismissesKeyboard(.interactively)
@@ -779,12 +644,7 @@ A phone's voicemail indicator usually works in one or both of the following ways
    """)) {
 	   Stepper(phone.isCordless ? "Dial-Key Speed Dial Capacity (base): \(phone.baseSpeedDialCapacity)" : "Dial-Key Speed Dial Capacity: \(phone.baseSpeedDialCapacity)", value: $phone.baseSpeedDialCapacity, in: 0...50)
 	   if phone.baseSpeedDialCapacity > 10 {
-		   HStack {
-			   Image(systemName: "info.circle")
-			   Text("Speed dial \(phone.baseSpeedDialCapacity > 11 ? "locations 11-\(phone.baseSpeedDialCapacity) are" : "location 11 is") accessed by pressing the speed dial button and then entering/scrolling to the desired location number.")
-		   }
-		   .font(.footnote)
-		   .foregroundStyle(.secondary)
+		   InfoText("Speed dial \(phone.baseSpeedDialCapacity > 11 ? "locations 11-\(phone.baseSpeedDialCapacity) are" : "location 11 is") accessed by pressing the speed dial button and then entering/scrolling to the desired location number.")
 	   }
 	   Stepper(phone.isCordless ? "One-Touch/Memory Dial (base): \(phone.baseOneTouchDialCapacity)" : "One-Touch Dial: \(phone.baseOneTouchDialCapacity)", value: $phone.baseOneTouchDialCapacity, in: 0...20)
 	   if phone.isCordless && phone.baseOneTouchDialCapacity > 0 {
@@ -809,27 +669,17 @@ A phone's voicemail indicator usually works in one or both of the following ways
 								Toggle(isOn: $phone.callBlockSupportsPrefixes) {
 									Text("Can Block Number Prefixes")
 								}
-								HStack {
-									Image(systemName: "info.circle")
-									Text("When a number prefix (e.g. an area code) is stored in the call block list, all numbers beginning with that prefix are blocked.")
-								}
-								.font(.footnote)
-								.foregroundStyle(.secondary)
+								InfoText("When a number prefix (e.g. an area code) is stored in the call block list, all numbers beginning with that prefix are blocked.")
 								if phone.callBlockPreScreening == 0 {
 									Toggle(isOn: $phone.hasFirstRingSuppression) {
 										Text("Has First Ring Suppression")
 									}
-									HStack {
-										Image(systemName: "info.circle")
-										Text("""
+									InfoText("""
 Suppressing the first ring means the phone won't ring:
 • Until allowed caller ID is received.
 • At all for calls from blocked numbers.
 When the first ring is suppressed, the number of rings you hear will be one less than the number of rings of the answering system/voicemail service.
 """)
-									}
-									.font(.footnote)
-									.foregroundStyle(.secondary)
 								}
 								Picker("Blocked Callers Hear", selection: $phone.blockedCallersHear) {
 									Text("Silence").tag(0)
@@ -837,12 +687,7 @@ When the first ring is suppressed, the number of rings you hear will be one less
 									Text("Busy Tone (traditional)").tag(2)
 									Text("Voice Prompt").tag(3)
 								}
-								HStack {
-									Image(systemName: "info.circle")
-									Text("Silence can make callers think your number is broken, making them unlikely to try calling you again.\nA custom busy tone is often the same one used for the intercom busy tone on \(phone.brand)'s cordless phones.\nA traditional busy tone is that of one of the countries where the phone is sold.")
-								}
-								.font(.footnote)
-								.foregroundStyle(.secondary)
+								InfoText("Silence can make callers think your number is broken, making them unlikely to try calling you again.\nA custom busy tone is often the same one used for the intercom busy tone on \(phone.brand)'s cordless phones.\nA traditional busy tone is that of one of the countries where the phone is sold.")
 								Toggle(isOn: $phone.hasOneTouchCallBlock) {
 									Text("Has One-Touch Call Block")
 								}
@@ -852,12 +697,7 @@ When the first ring is suppressed, the number of rings you hear will be one less
 								.scrollDismissesKeyboard(.interactively)
 #endif
 							if phone.callBlockPreProgrammedDatabaseEntryCount > 0 {
-								HStack {
-									Image(systemName: "info.circle")
-									Text("Numbers in the pre-programmed call block database are not visible to the user and might be excluded from the caller ID list. Numbers from this database can be saved to the phonebook if they happen to become safe in the future.")
-								}
-								.font(.footnote)
-								.foregroundStyle(.secondary)
+								InfoText("Numbers in the pre-programmed call block database are not visible to the user and might be excluded from the caller ID list. Numbers from this database can be saved to the phonebook if they happen to become safe in the future.")
 							}
 						}
 						Section(header: Text("Call Block (pre-screening)"), footer: Text("Call block pre-screening asks callers to press a key so the phone can identify whether they're a human or a robot.\nCallers with numbers stored in the phone's allowed number list/database or phonebook, or callers whose caller ID names are stored in the phone's allowed name list, will always ring through. Asking for the caller name allows you to hear the caller's real name in their own voice when you pick up\(phone.hasTalkingCallerID ? " or as the caller ID announcement" : String()).")) {
@@ -867,19 +707,9 @@ When the first ring is suppressed, the number of rings you hear will be one less
 								Text("Code").tag(2)
 							}
 							if phone.callBlockPreScreening > 0 {
-								HStack {
-									Image(systemName: "info.circle")
-									Text("Example screening message: \"Hello. Your call is being screened to make sure you're a person. Please \(phone.callBlockPreScreening == 2 ? "press \(Int.random(in: 0...999))" : "say your name after the tone then press the pound key") to be connected.\"")
-								}
-								.font(.footnote)
-								.foregroundStyle(.secondary)
+								InfoText("Example screening message: \"Hello. Your call is being screened to make sure you're a person. Please \(phone.callBlockPreScreening == 2 ? "press \(Int.random(in: 0...999))" : "say your name after the tone then press the pound key") to be connected.\"")
 								if phone.hasAnsweringSystem == 0 {
-									HStack {
-										Image(systemName: "info.circle")
-										Text("Calls can't go to a voicemail service once answered by a call block pre-screening system.")
-									}
-									.font(.footnote)
-									.foregroundStyle(.secondary)
+									InfoText("Calls can't go to a voicemail service once answered by a call block pre-screening system.")
 								}
 								Toggle("Supports Custom Greeting", isOn: $phone.callBlockPreScreeningCustomGreeting)
 								FormNumericTextField("Allowed Numbers Capacity", value: $phone.callBlockPreScreeningAllowedNumberCapacity)
@@ -896,12 +726,7 @@ When the first ring is suppressed, the number of rings you hear will be one less
 						Section(header: Text("Special Features")) {
 							if phone.baseCallerIDCapacity > 0 || !phone.cordlessHandsetsIHave.filter({$0.callerIDCapacity > 0}).isEmpty {
 								Toggle("One-Ring Scam Call Detection", isOn: $phone.scamCallDetection)
-								HStack {
-									Image(systemName: "info.circle")
-									Text("If a caller hangs up within 1 or 2 rings and caller ID is received, the phone can mark the call as a one-ring scam call when viewed in the caller ID list, and warn the user when trying to call that caller.")
-								}
-								.font(.footnote)
-								.foregroundStyle(.secondary)
+								InfoText("If a caller hangs up within 1 or 2 rings and caller ID is received, the phone can mark the call as a one-ring scam call when viewed in the caller ID list, and warn the user when trying to call that caller.")
 							}
 							Picker("Room/Baby Monitor", selection: $phone.roomMonitor) {
 								Text("Not Supported").tag(0)
@@ -909,38 +734,18 @@ When the first ring is suppressed, the number of rings you hear will be one less
 								Text("Call To Handset/Base").tag(2)
 								Text("Sound-Activated Call To Handset/Base/Outside Phone").tag(3)
 							}
-							HStack {
-								Image(systemName: "info.circle")
-								Text("Call From: You call the monitored handset/base.\nCall To: The monitored handset/base calls you at another handset/base.\nSound-Activated Call To: The monitored handset/base calls you at another handset/base or an outside phone number when sound is detected (e.g., a crying baby or barking dog).")
-							}
-							.font(.footnote)
-							.foregroundStyle(.secondary)
+							InfoText("Call From: You call the monitored handset/base.\nCall To: The monitored handset/base calls you at another handset/base.\nSound-Activated Call To: The monitored handset/base calls you at another handset/base or an outside phone number when sound is detected (e.g., a crying baby or barking dog).")
 							if phone.roomMonitor == 3 {
 								Picker("External Room Monitor DTMF Entry Handled By", selection: $phone.externalRoomMonitorAutomatedSystem) {
 									Text("Base").tag(0)
 									Text("Handset").tag(1)
 								}
-								HStack {
-									Image(systemName: "info.circle")
-									Text("When a handset/base detects sound and calls an outside phone number, the outside caller can talk back to the handset/base by dialing a code, or deactivate the feature by dialing another code.")
-								}
-								.font(.footnote)
-								.foregroundStyle(.secondary)
+								InfoText("When a handset/base detects sound and calls an outside phone number, the outside caller can talk back to the handset/base by dialing a code, or deactivate the feature by dialing another code.")
 							}
 							Stepper("Smart Home Devices Supported: \(phone.smartHomeDevicesSupported)", value: $phone.smartHomeDevicesSupported, in: 0...50, step: 5)
-							HStack {
-								Image(systemName: "info.circle")
-								Text("Smart home devices registered to a cordless phone can notify the handset/base when things happen and the handset/base can control these devices.")
-							}
-							.font(.footnote)
-							.foregroundStyle(.secondary)
+							InfoText("Smart home devices registered to a cordless phone can notify the handset/base when things happen and the handset/base can control these devices.")
 							Toggle("Answer By Voice", isOn: $phone.answerByVoice)
-							HStack {
-								Image(systemName: "info.circle")
-								Text("The base and compatible handsets can detect sound when landline/cell calls come in, allowing calls to be answered by voice. The phone either listens for any sound or is programmed to listen for a specific phrase.")
-							}
-							.font(.footnote)
-							.foregroundStyle(.secondary)
+							InfoText("The base and compatible handsets can detect sound when landline/cell calls come in, allowing calls to be answered by voice. The phone either listens for any sound or is programmed to listen for a specific phrase.")
 						}
 					}
 				}
@@ -960,6 +765,9 @@ When the first ring is suppressed, the number of rings you hear will be one less
 		.sheet(isPresented: $showingFrequenciesExplanation) {
 			FrequenciesExplanationView()
 		}
+        .sheet(isPresented: $showingPhoneTypeDefinitions) {
+            PhoneTypeDefinitionsView()
+        }
 #if os(iOS)
 		.sheet(isPresented: $takingPhoto) {
 			CameraViewController(view: self, phone: phone)
@@ -993,6 +801,7 @@ When the first ring is suppressed, the number of rings you hear will be one less
 		}
 	}
 
+    @ViewBuilder
 	func photo(for phone: Phone) -> some View {
 		Group {
 			HStack {

@@ -35,12 +35,7 @@ struct HandsetInfoDetailView: View {
 					Stepper("Release Year: \(String(handset.releaseYear))", value: $handset.releaseYear, in: 1984...currentYear)
 					FormTextField("Color", text: $handset.color)
 					Stepper("Maximum Number Of Bases: \(handset.maxBases)", value: $handset.maxBases, in: 1...4)
-					HStack {
-						Image(systemName: "info.circle")
-						Text("Registering a handset to more than one base allows you to extend the coverage area and access the answering system, shared lists, etc. of multiple bases without having to register the handset to one of those bases at a time.")
-					}
-						.foregroundStyle(.secondary)
-						.font(.footnote)
+					InfoText("Registering a handset to more than one base allows you to extend the coverage area and access the answering system, shared lists, etc. of multiple bases without having to register the handset to one of those bases at a time.")
 					Picker("Cordless Device Type", selection: $handset.cordlessDeviceType) {
 						Text("Handset").tag(0)
 						Text("Deskset").tag(1)
@@ -49,12 +44,7 @@ struct HandsetInfoDetailView: View {
 					.onChange(of: handset.cordlessDeviceType) { oldValue, newValue in
 						handset.cordlessDeviceTypeChanged(oldValue: oldValue, newValue: newValue)
 					}
-					HStack {
-						Image(systemName: "info.circle")
-						Text("A deskset is a phone that connects wirelessly to a main base and is treated like a handset. Desksets can have a corded receiver or a charging area for a cordless handset.\nA cordless headset/speakerphone can pick up the line and answer/join calls, but can't dial or use other features.")
-					}
-					.foregroundStyle(.secondary)
-					.font(.footnote)
+					InfoText("A deskset is a phone that connects wirelessly to a main base and is treated like a handset. Desksets can have a corded receiver or a charging area for a cordless handset.\nA cordless headset/speakerphone can pick up the line and answer/join calls, but can't dial or use other features.")
 					if handset.cordlessDeviceType < 2 {
 						Picker("Antenna", selection: $handset.antenna) {
 							Text("Hidden").tag(0)
@@ -69,12 +59,7 @@ struct HandsetInfoDetailView: View {
 					if handset.cordlessDeviceType == 0 && !phone.isCordedCordless && !phone.hasTransmitOnlyBase && phone.maxCordlessHandsets != -1 {
 						Toggle("Fits On Base", isOn: $handset.fitsOnBase)
 						if !handset.fitsOnBase {
-							HStack {
-								Image(systemName: "info.circle")
-								Text("A handset which doesn't fit on the base misses out on many features including place-on-base power backup and place-on-base auto-register.")
-							}
-							.foregroundStyle(.secondary)
-							.font(.footnote)
+							InfoText("A handset which doesn't fit on the base misses out on many features including place-on-base power backup and place-on-base auto-register.")
 						}
 					}
 					if handset.cordlessDeviceType == 1 {
@@ -85,12 +70,7 @@ struct HandsetInfoDetailView: View {
 						Text("Ignore Ring Signal").tag(1)
 						Text("Follow Ring Signal").tag(2)
 					}
-					HStack {
-						Image(systemName: "info.circle")
-						Text("A visual ringer that follows the ring signal starts flashing when the ring signal starts and stops flashing when the ring signal stops. A visual ringer that ignores the ring signal starts flashing when the ring signal starts and continues flashing for as long as the handset is indicating an incoming call.")
-					}
-						.font(.footnote)
-						.foregroundStyle(.secondary)
+					InfoText("A visual ringer that follows the ring signal starts flashing when the ring signal starts and stops flashing when the ring signal stops. A visual ringer that ignores the ring signal starts flashing when the ring signal starts and continues flashing for as long as the handset is indicating an incoming call.")
 				}
 				if handset.cordlessDeviceType < 2 {
 					Section(header: Text("Ringers")) {
@@ -119,12 +99,7 @@ struct HandsetInfoDetailView: View {
 								Text("Physical").tag(0)
 								Text("Soft Keys").tag(1)
 							}
-							HStack {
-								Image(systemName: "info.circle")
-								Text("A handset with soft keys for the line buttons can easily adapt to bases with different numbers of lines. For example, the same handset can be supplied and used with both the cell phone linking and non-cell phone linking models of a series.\nHandsets with physical line buttons may be programmed to expect all of its lines to be supported, potentially causing compatibility issues on bases without those lines.")
-							}
-							.font(.footnote)
-							.foregroundStyle(.secondary)
+							InfoText("A handset with soft keys for the line buttons can easily adapt to bases with different numbers of lines. For example, the same handset can be supplied and used with both the cell phone linking and non-cell phone linking models of a series.\nHandsets with physical line buttons may be programmed to expect all of its lines to be supported, potentially causing compatibility issues on bases without those lines.")
 						}
 						Picker("Button Type", selection: $handset.buttonType) {
 							Text("Spaced").tag(0)
@@ -155,12 +130,7 @@ struct HandsetInfoDetailView: View {
 								Text("Based on Registered Base").tag(0)
 								Text("In Real-Time").tag(1)
 							}
-							HStack {
-								Image(systemName: "info.circle")
-								Text("When a handset menu is updated based on the base it's registered to, the available options are updated only when registering the handset to a base, and those same options will be available when the handset boots up. When a handset menu is updated in real-time, the available options depend on the state of the registered base (e.g. whether it's on power backup or if there's enough devices to support intercom), and some options might not be available when the handset boots up.")
-							}
-								.foregroundStyle(.secondary)
-								.font(.footnote)
+							InfoText("When a handset menu is updated based on the base it's registered to, the available options are updated only when registering the handset to a base, and those same options will be available when the handset boots up. When a handset menu is updated in real-time, the available options depend on the state of the registered base (e.g. whether it's on power backup or if there's enough devices to support intercom), and some options might not be available when the handset boots up.")
 							Picker("Navigation Button Type", selection: $handset.navigatorKeyType) {
 								Text("None").tag(0)
 								Text("Up/Down Button").tag(1)
@@ -244,12 +214,7 @@ struct HandsetInfoDetailView: View {
 							}
 						}
 						if handset.redialNameDisplay == 1 && handset.usesBasePhonebook {
-							HStack {
-								Image(systemName: "info.circle")
-								Text("Although the redial list is stored in the handset, it may still require you to be in range of the base if the handset doesn't have a fallback to display entries without their names.")
-							}
-								.font(.footnote)
-								.foregroundStyle(.secondary)
+							InfoText("Although the redial list is stored in the handset, it may still require you to be in range of the base if the handset doesn't have a fallback to display entries without their names.")
 						}
 					}
 					Section(header: Text("Phonebook")) {

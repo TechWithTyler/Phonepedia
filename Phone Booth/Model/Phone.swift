@@ -13,6 +13,18 @@ import SwiftUI
 @Model
 final class Phone {
     
+    enum PhoneType : String {
+        
+        case cordless = "Cordless"
+        
+        case corded = "Corded"
+        
+        case cordedCordless = "Corded-Cordless"
+        
+        case cordlessWithTransmitOnlyBase = "Cordless With Transmit-Only Base"
+        
+    }
+    
     // MARK: - Properties
 
 	static var previewPhotoData: Data {
@@ -225,14 +237,14 @@ final class Phone {
 	
 	var phoneTypeText: String {
 		if isCordedCordless {
-			return "Corded/Cordless"
+            return PhoneType.cordedCordless.rawValue
 		} else if isCordless {
 			if hasTransmitOnlyBase {
-				return "Cordless with Transmit-Only Base"
+                return PhoneType.cordlessWithTransmitOnlyBase.rawValue
 			}
-			return "Cordless"
+            return PhoneType.cordless.rawValue
 		} else {
-			return "Corded"
+            return PhoneType.corded.rawValue
 		}
 	}
     
