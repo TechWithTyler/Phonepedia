@@ -20,6 +20,7 @@ struct WarningText: View {
         HStack {
             Image(systemName: "exclamationmark.triangle")
                 .symbolRenderingMode(.multicolor)
+                .accessibilityHidden(true)
             Text(text)
         }
         .font(.callout)

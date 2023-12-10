@@ -19,6 +19,7 @@ struct InfoText: View {
     var body: some View {
         HStack {
             Image(systemName: "info.circle")
+                .accessibilityHidden(true)
             Text(text)
         }
         .font(.callout)
