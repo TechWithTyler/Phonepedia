@@ -146,8 +146,8 @@
 		8D1257472B041F4500079BC6 /* UI and Images */ = {
 			isa = PBXGroup;
 			children = (
-				8D1257482B041F4500079BC6 /* Assets.xcassets */,
 				8D1257512B041F4500079BC6 /* Views */,
+				8D1257482B041F4500079BC6 /* Assets.xcassets */,
 				8D12574B2B041F4500079BC6 /* Supporting View Controllers */,
 				8D1257492B041F4500079BC6 /* Preview Content */,
 			);
@@ -182,9 +182,9 @@
 		8D1257512B041F4500079BC6 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				8D1257522B041F4500079BC6 /* Detail */,
-				8D1257572B041F4500079BC6 /* PhoneRowView.swift */,
 				8D1257582B041F4500079BC6 /* ContentView.swift */,
+				8D1257572B041F4500079BC6 /* PhoneRowView.swift */,
+				8D1257522B041F4500079BC6 /* Detail */,
 				8D1257592B041F4500079BC6 /* Child Views */,
 			);
 			path = Views;
