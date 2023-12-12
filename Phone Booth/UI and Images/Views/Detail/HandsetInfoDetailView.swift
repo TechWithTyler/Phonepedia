@@ -203,7 +203,7 @@ struct HandsetInfoDetailView: View {
 					}
 					Section(header: Text("Redial")) {
 						FormNumericTextField("Redial Capacity", value: $handset.redialCapacity)
-#if !os(xrOS)
+#if !os(visionOS)
 							.scrollDismissesKeyboard(.interactively)
 #endif
 						if handset.redialCapacity > 1 && (handset.phonebookCapacity > 0 || (phone.basePhonebookCapacity > 0 && handset.usesBasePhonebook)) {
@@ -219,7 +219,7 @@ struct HandsetInfoDetailView: View {
 					}
 					Section(header: Text("Phonebook")) {
 						FormNumericTextField("Phonebook Capacity", value: $handset.phonebookCapacity)
-#if !os(xrOS)
+#if !os(visionOS)
 							.scrollDismissesKeyboard(.interactively)
 #endif
 						if handset.phonebookCapacity > 0 || handset.usesBasePhonebook {
@@ -246,7 +246,7 @@ struct HandsetInfoDetailView: View {
 							}
 						}
 						FormNumericTextField("Caller ID List Capacity", value: $handset.callerIDCapacity)
-#if !os(xrOS)
+#if !os(visionOS)
 							.scrollDismissesKeyboard(.interactively)
 #endif
 							.onChange(of: handset.callerIDCapacity) { oldValue, newValue in

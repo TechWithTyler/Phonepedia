@@ -578,7 +578,7 @@ A phone's voicemail indicator usually works in one or both of the following ways
 					if phone.hasBaseSpeakerphone || !phone.isCordless || phone.isCordedCordless {
 						Section(header: Text("Redial")) {
 							FormNumericTextField(phone.isCordless ? "Redial Capacity (base)" : "Redial Capacity", value: $phone.baseRedialCapacity)
-#if !os(xrOS)
+#if !os(visionOS)
 								.scrollDismissesKeyboard(.interactively)
 #endif
 							if phone.baseRedialCapacity > 1 && phone.basePhonebookCapacity > 0 {
@@ -593,7 +593,7 @@ A phone's voicemail indicator usually works in one or both of the following ways
 					if phone.isCordless || phone.cordedPhoneType == 0 {
 						Section(header: Text("Phonebook")) {
 							FormNumericTextField(phone.isCordless ? "Phonebook Capacity (base)" : "Phonebook Capacity", value: $phone.basePhonebookCapacity)
-#if !os(xrOS)
+#if !os(visionOS)
 								.scrollDismissesKeyboard(.interactively)
 #endif
 							if phone.basePhonebookCapacity > 0 && phone.baseDisplayType > 0 {
@@ -630,7 +630,7 @@ A phone's voicemail indicator usually works in one or both of the following ways
 							}
 							InfoText("The phone can announce who's calling after each ring, so you don't have to look at the screen. Example: \"Call from \(names.randomElement()!)\".")
 							FormNumericTextField(phone.isCordless ? "Caller ID List Capacity (base)" : "Caller ID List Capacity", value: $phone.baseCallerIDCapacity)
-#if !os(xrOS)
+#if !os(visionOS)
 								.scrollDismissesKeyboard(.interactively)
 #endif
 						}
@@ -662,7 +662,7 @@ A phone's voicemail indicator usually works in one or both of the following ways
 					if phone.isCordless || phone.cordedPhoneType == 0 {
 						Section(header: Text("Call Block (manual)")) {
 							FormNumericTextField("Call Block List Capacity", value: $phone.callBlockCapacity)
-#if !os(xrOS)
+#if !os(visionOS)
 								.scrollDismissesKeyboard(.interactively)
 #endif
 							if phone.callBlockCapacity > 0 {
@@ -693,7 +693,7 @@ When the first ring is suppressed, the number of rings you hear will be one less
 								}
 							}
 							FormNumericTextField("Pre-Programmed Call Block Database Entry Count", value: $phone.callBlockPreProgrammedDatabaseEntryCount)
-#if !os(xrOS)
+#if !os(visionOS)
 								.scrollDismissesKeyboard(.interactively)
 #endif
 							if phone.callBlockPreProgrammedDatabaseEntryCount > 0 {
@@ -713,12 +713,12 @@ When the first ring is suppressed, the number of rings you hear will be one less
 								}
 								Toggle("Supports Custom Greeting", isOn: $phone.callBlockPreScreeningCustomGreeting)
 								FormNumericTextField("Allowed Numbers Capacity", value: $phone.callBlockPreScreeningAllowedNumberCapacity)
-#if !os(xrOS)
+#if !os(visionOS)
 									.scrollDismissesKeyboard(.interactively)
 #endif
 								Toggle("Allowed Numbers List Visible To User", isOn: $phone.callBlockPreScreeningAllowedNumberListVisible)
 								FormNumericTextField("Allowed Names Capacity", value: $phone.callBlockPreScreeningAllowedNameCapacity)
-#if !os(xrOS)
+#if !os(visionOS)
 									.scrollDismissesKeyboard(.interactively)
 #endif
 							}
@@ -743,7 +743,7 @@ When the first ring is suppressed, the number of rings you hear will be one less
 								InfoText("When a handset/base detects sound and calls an outside phone number, the outside caller can talk back to the handset/base by dialing a code, or deactivate the feature by dialing another code.")
 							}
 							Stepper("Smart Home Devices Supported: \(phone.smartHomeDevicesSupported)", value: $phone.smartHomeDevicesSupported, in: 0...50, step: 5)
-							InfoText("Smart home devices registered to a cordless phone can notify the handset/base when things happen and the handset/base can control these devices.")
+							InfoText("Smart home devices registered to a cordless phone can notify the handset/base when things happen and the handset/base can control these devices. For example, when a person rings a doorbell, the phone can sound a chime and color display handsets can show a live feed of the doorbell's video.")
 							Toggle("Answer By Voice", isOn: $phone.answerByVoice)
 							InfoText("The base and compatible handsets can detect sound when landline/cell calls come in, allowing calls to be answered by voice. The phone either listens for any sound or is programmed to listen for a specific phrase.")
 						}

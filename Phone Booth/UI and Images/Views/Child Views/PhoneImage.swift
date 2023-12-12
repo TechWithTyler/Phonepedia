@@ -19,7 +19,7 @@ struct PhoneImage: View {
 	}
 
     var body: some View {
-		#if os(iOS) || os(xrOS)
+		#if os(iOS) || os(visionOS)
 		if let image = UIImage(data: phone.photoData ?? getPNGDataFromUIImage(image: .phone)) {
 			Image(uiImage: image)
 				.renderingMode(phone.photoData == nil ? .template : .original)
