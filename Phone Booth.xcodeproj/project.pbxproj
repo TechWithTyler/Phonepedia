@@ -30,6 +30,8 @@
 		8D12577A2B041F4500079BC6 /* DocumentTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1257632B041F4500079BC6 /* DocumentTypes.swift */; };
 		8D3D27902ABCDDF30005FEC2 /* Phone_BoothUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3D278F2ABCDDF30005FEC2 /* Phone_BoothUITests.swift */; };
 		8D3D27922ABCDDF30005FEC2 /* Phone_BoothUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3D27912ABCDDF30005FEC2 /* Phone_BoothUITestsLaunchTests.swift */; };
+		8D5B63E32B2A520F00E86DA8 /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = 8D5B63E22B2A520F00E86DA8 /* Collections */; };
+		8D5B63E52B2A520F00E86DA8 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 8D5B63E42B2A520F00E86DA8 /* OrderedCollections */; };
 		8D64DF8E2B2105D400D7142D /* InfoText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D64DF8D2B2105D400D7142D /* InfoText.swift */; };
 		8D64DF902B21073300D7142D /* PhoneTypeDefinitionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D64DF8F2B21073300D7142D /* PhoneTypeDefinitionsView.swift */; };
 		8D64DF942B21119300D7142D /* WarningText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D64DF932B21119300D7142D /* WarningText.swift */; };
@@ -128,7 +130,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D5B63E32B2A520F00E86DA8 /* Collections in Frameworks */,
 				8DF1E93C2B06D45B00B6D978 /* SheftAppsStylishUI.framework in Frameworks */,
+				8D5B63E52B2A520F00E86DA8 /* OrderedCollections in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,6 +345,10 @@
 			dependencies = (
 			);
 			name = "Phone Booth";
+			packageProductDependencies = (
+				8D5B63E22B2A520F00E86DA8 /* Collections */,
+				8D5B63E42B2A520F00E86DA8 /* OrderedCollections */,
+			);
 			productName = "Phone Booth";
 			productReference = 8DFC9BF22A3BAB9D00295700 /* Phone Booth.app */;
 			productType = "com.apple.product-type.application";
@@ -377,6 +385,9 @@
 				Base,
 			);
 			mainGroup = 8DFC9BE92A3BAB9D00295700;
+			packageReferences = (
+				8D5B63E12B2A520F00E86DA8 /* XCRemoteSwiftPackageReference "swift-collections" */,
+			);
 			productRefGroup = 8DFC9BF32A3BAB9D00295700 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -815,6 +826,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8D5B63E12B2A520F00E86DA8 /* XCRemoteSwiftPackageReference "swift-collections" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-collections.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.5;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8D5B63E22B2A520F00E86DA8 /* Collections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8D5B63E12B2A520F00E86DA8 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = Collections;
+		};
+		8D5B63E42B2A520F00E86DA8 /* OrderedCollections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8D5B63E12B2A520F00E86DA8 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = OrderedCollections;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8DFC9BEA2A3BAB9D00295700 /* Project object */;
 }

@@ -23,6 +23,21 @@ final class Phone {
         
         case cordlessWithTransmitOnlyBase = "Cordless With Transmit-Only Base"
         
+        struct Term: Identifiable {
+            
+            let id: UUID = UUID()
+            
+            let term: String
+            
+            let definition: String
+            
+            init(_ term: String, definition: String) {
+                self.term = term
+                self.definition = definition
+            }
+            
+        }
+        
     }
     
     // MARK: - Properties
