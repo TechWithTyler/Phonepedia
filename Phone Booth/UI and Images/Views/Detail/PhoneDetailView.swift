@@ -596,6 +596,9 @@ A phone's voicemail indicator usually works in one or both of the following ways
 #if !os(visionOS)
                                 .scrollDismissesKeyboard(.interactively)
 #endif
+                            if phone.callBlockPreScreening > 0 {
+                                InfoText("Numbers saved to the base's home phonebook will always ring through. Save frequently-dialed numbers you want to always ring through to the phonebook instead of the allowed numbers list.")
+                            }
                             if phone.basePhonebookCapacity > 0 && phone.baseDisplayType > 0 {
                                 Toggle(isOn: $phone.hasTalkingPhonebook) {
                                     Text("Talking Phonebook")
@@ -700,7 +703,7 @@ When the first ring is suppressed, the number of rings you hear will be one less
                                 InfoText("Numbers in the pre-programmed call block database are not visible to the user and might be excluded from the caller ID list. Numbers from this database can be saved to the phonebook if they happen to become safe in the future.")
                             }
                         }
-                        Section(header: Text("Call Block (pre-screening)"), footer: Text("Call block pre-screening asks callers to press a key so the phone can identify whether they're a human or a robot.\nCallers with numbers stored in the phone's allowed number list/database or phonebook, or callers whose caller ID names are stored in the phone's allowed name list, will always ring through. Asking for the caller name allows you to hear the caller's real name in their own voice when you pick up\(phone.hasTalkingCallerID ? " or as the caller ID announcement" : String()).")) {
+                        Section(header: Text("Call Block (pre-screening)"), footer: Text("Call block pre-screening asks callers to press a key so the phone can identify whether they're a human or a robot.\nCallers with numbers stored in the phone's allowed number list/database or phonebook, or callers whose caller ID names are stored in the phone's allowed name list, will always ring through.\nAsking for the caller name allows you to hear the caller's real name in their own voice when you pick up\(phone.hasTalkingCallerID ? " or as the caller ID announcement" : String()).")) {
                             Picker("Mode", selection: $phone.callBlockPreScreening) {
                                 Text("Not Supported").tag(0)
                                 Text("Caller Name").tag(1)
@@ -717,7 +720,9 @@ When the first ring is suppressed, the number of rings you hear will be one less
                                     .scrollDismissesKeyboard(.interactively)
 #endif
                                 Toggle("Allowed Numbers List Visible To User", isOn: $phone.callBlockPreScreeningAllowedNumberListVisible)
+                                InfoText("Numbers saved to the allowed numbers list will always ring through.")
                                 FormNumericTextField("Allowed Names Capacity", value: $phone.callBlockPreScreeningAllowedNameCapacity)
+                                InfoText("If you don't know a caller's phone number, saving their name as it appears in the incoming caller ID will allow their calls to always ring through. This is a good place to put names of businesses you want to receive automated messages from (e.g. schools, doctor's offices, pharmacies).")
 #if !os(visionOS)
                                     .scrollDismissesKeyboard(.interactively)
 #endif
@@ -732,18 +737,18 @@ When the first ring is suppressed, the number of rings you hear will be one less
                                 Text("Not Supported").tag(0)
                                 Text("Call From Handset/Base").tag(1)
                                 Text("Call To Handset/Base").tag(2)
-                                Text("Sound-Activated Call To Handset/Base/Outside Phone").tag(3)
+                                Text("Sound-Activated Call").tag(3)
                             }
                             InfoText("Call From: You call the monitored handset/base.\nCall To: The monitored handset/base calls you at another handset/base.\nSound-Activated Call To: The monitored handset/base calls you at another handset/base or an outside phone number when sound is detected (e.g., a crying baby or barking dog).")
                             if phone.roomMonitor == 3 {
-                                Picker("External Room Monitor DTMF Entry Handled By", selection: $phone.externalRoomMonitorAutomatedSystem) {
+                                Picker("External Room Monitor Keypad Entry Handled By", selection: $phone.externalRoomMonitorAutomatedSystem) {
                                     Text("Base").tag(0)
                                     Text("Handset").tag(1)
                                 }
                                 InfoText("When a handset/base detects sound and calls an outside phone number, the outside caller can talk back to the handset/base by dialing a code, or deactivate the feature by dialing another code.")
                             }
                             Stepper("Smart Home Devices Supported: \(phone.smartHomeDevicesSupported)", value: $phone.smartHomeDevicesSupported, in: 0...50, step: 5)
-                            InfoText("Smart home devices registered to a cordless phone can notify the handset/base when things happen and the handset/base can control these devices. For example, when a person rings a doorbell, the phone can sound a chime and color display handsets can show a live feed of the doorbell's video.")
+                            InfoText("Smart home devices registered to a cordless phone can notify the handset/base or outside phone when things happen and the handset/base can control these devices. For example, when a person rings a doorbell, the phone can sound a chime and color display handsets can show a live feed of the doorbell's video.")
                             Toggle("Answer By Voice", isOn: $phone.answerByVoice)
                             InfoText("The base and compatible handsets can detect sound when landline/cell calls come in, allowing calls to be answered by voice. The phone either listens for any sound or is programmed to listen for a specific phrase.")
                         }
