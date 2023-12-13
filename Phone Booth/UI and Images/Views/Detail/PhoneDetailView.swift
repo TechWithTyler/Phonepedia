@@ -279,6 +279,9 @@ struct PhoneDetailView: View {
                             Toggle(isOn: $phone.hasBaseSpeakerphone) {
                                 Text("Has Base Speakerphone")
                             }
+                            .onChange(of: phone.hasBaseSpeakerphone) { oldValue, newValue in
+                                phone.hasBaseSpeakerphoneChanged(oldValue: oldValue, newValue: newValue)
+                            }
                         }
                         if !phone.isCordless || (phone.isCordless && phone.hasBaseSpeakerphone) {
                             Toggle(isOn: $phone.hasBaseKeypad) {

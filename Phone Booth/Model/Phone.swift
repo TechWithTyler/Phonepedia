@@ -383,6 +383,12 @@ final class Phone {
             baseCellRingtone = 1
         }
     }
+    
+    func hasBaseSpeakerphoneChanged(oldValue: Bool, newValue: Bool) {
+        if newValue {
+            hasBaseIntercom = true
+        }
+    }
 	
 	func baseBluetoothCellPhonesSupportedChanged(oldValue: Int, newValue: Int) {
 		if oldValue == 0 && newValue > 0 {
