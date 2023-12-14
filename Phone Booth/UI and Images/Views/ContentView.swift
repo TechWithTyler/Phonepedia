@@ -70,7 +70,9 @@ struct ContentView: View {
 						.foregroundStyle(Color.secondary)
 				}
 			}
+            #if os(macOS)
             .navigationSplitViewColumnWidth(300)
+            #endif
 			.alert("Delete all phones from this database?", isPresented: $showingDeleteAll) {
 				Button(role: .destructive) {
 					showingDeleteAll = false
