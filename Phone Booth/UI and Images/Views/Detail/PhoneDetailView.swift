@@ -15,6 +15,8 @@ struct PhoneDetailView: View {
     
     @Bindable var phone: Phone
     
+    var imagePredictor = LandlineOrNotPredictor()
+    
     @State private var showingFrequenciesExplanation: Bool = false
     
     @State private var showingPhonePhotoErrorAlert: Bool = false
@@ -841,6 +843,7 @@ When the first ring is suppressed, the number of rings you hear will be one less
             case .success(let data):
                 DispatchQueue.main.async { [self] in
                     withAnimation {
+                        classifyImage(UIImage(data: data!)!)
                         phone.photoData = data
                     }
                 }
@@ -853,6 +856,30 @@ When the first ring is suppressed, the number of rings you hear will be one less
             }
         }
         progress.resume()
+    }
+    
+    private func classifyImage(_ image: UIImage) {
+        do {
+            try imagePredictor.makePredictions(for: image,
+                                                    completionHandler: imagePredictionHandler)
+        } catch {
+            print("Vision was unable to make a prediction...\n\n\(error.localizedDescription)")
+        }
+    }
+    
+    private func imagePredictionHandler(_ predictions: [LandlineOrNotPredictor.Prediction]?) {
+        guard let predictions = predictions, let firstPrediction = predictions.first else {
+            phonePhotoError = .predictionFailed
+            showingPhonePhotoErrorAlert = true
+            return
+        }
+        if firstPrediction.classification.contains("Landline") {
+            print("Landline: \(firstPrediction.classification)")
+        } else if firstPrediction.classification == "Not A Landline" {
+            print("Not Landline: \(firstPrediction.classification)")
+        } else {
+            print("Couldn't tell: \(firstPrediction.classification)")
+        }
     }
     
 }
