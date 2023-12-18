@@ -21,6 +21,10 @@ struct PhoneDetailView: View {
     
     @State private var showingPhonePhotoErrorAlert: Bool = false
     
+    @State private var showingUnsurePhotoDataAlert: Bool = false
+    
+    @State private var unsurePhotoDataToUse: Data? = nil
+    
     @State private var selectedPhoto: PhotosPickerItem? = nil
     
 #if os(iOS)
@@ -806,6 +810,21 @@ When the first ring is suppressed, the number of rings you hear will be one less
                 Text("Cancel")
             }
         }
+        .alert("Selected photo doesn't appear to contain landline phones. Save anyway?", isPresented: $showingUnsurePhotoDataAlert) {
+            Button {
+                phone.photoData = unsurePhotoDataToUse
+                unsurePhotoDataToUse = nil
+                showingUnsurePhotoDataAlert = false
+            } label: {
+                Text("Save")
+            }
+            .keyboardShortcut(.defaultAction)
+            Button(role: .cancel) {
+                showingUnsurePhotoDataAlert = false
+            } label: {
+                Text("Cancel")
+            }
+        }
     }
     
     @ViewBuilder
@@ -842,10 +861,7 @@ When the first ring is suppressed, the number of rings you hear will be one less
             switch result {
             case .success(let data):
                 DispatchQueue.main.async { [self] in
-                    withAnimation {
-                        classifyImage(UIImage(data: data!)!)
-                        phone.photoData = data
-                    }
+                    checkImageForLandlines(data!)
                 }
             case .failure(let error as NSError):
                 #if(DEBUG)
@@ -858,27 +874,25 @@ When the first ring is suppressed, the number of rings you hear will be one less
         progress.resume()
     }
     
-    private func classifyImage(_ image: UIImage) {
+    private func checkImageForLandlines(_ photoData: Data) {
         do {
-            try imagePredictor.makePredictions(for: image,
-                                                    completionHandler: imagePredictionHandler)
+            try imagePredictor.makePredictions(for: photoData, completionHandler: imagePredictionHandler)
         } catch {
             print("Vision was unable to make a prediction...\n\n\(error.localizedDescription)")
         }
     }
     
-    private func imagePredictionHandler(_ predictions: [LandlineOrNotPredictor.Prediction]?) {
+    private func imagePredictionHandler(_ predictions: [LandlineOrNotPredictor.Prediction]?, photoData: Data) {
         guard let predictions = predictions, let firstPrediction = predictions.first else {
             phonePhotoError = .predictionFailed
             showingPhonePhotoErrorAlert = true
             return
         }
-        if firstPrediction.classification.contains("Landline") {
-            print("Landline: \(firstPrediction.classification)")
-        } else if firstPrediction.classification == "Not A Landline" {
-            print("Not Landline: \(firstPrediction.classification)")
+        if firstPrediction.isLandline {
+            phone.photoData = photoData
         } else {
-            print("Couldn't tell: \(firstPrediction.classification)")
+            unsurePhotoDataToUse = photoData
+            showingUnsurePhotoDataAlert = true
         }
     }
     

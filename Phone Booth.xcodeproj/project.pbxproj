@@ -30,9 +30,8 @@
 		8D12577A2B041F4500079BC6 /* DocumentTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1257632B041F4500079BC6 /* DocumentTypes.swift */; };
 		8D3D27902ABCDDF30005FEC2 /* Phone_BoothUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3D278F2ABCDDF30005FEC2 /* Phone_BoothUITests.swift */; };
 		8D3D27922ABCDDF30005FEC2 /* Phone_BoothUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3D27912ABCDDF30005FEC2 /* Phone_BoothUITestsLaunchTests.swift */; };
-		8D505B0A2B2CF9E900690035 /* Landline Or Not.mlproj in Resources */ = {isa = PBXBuildFile; fileRef = 8D505B082B2CF9E900690035 /* Landline Or Not.mlproj */; };
-		8D505B0B2B2CF9E900690035 /* Landline Or Not 1.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 8D505B092B2CF9E900690035 /* Landline Or Not 1.mlmodel */; };
 		8D505B0D2B2CF9F600690035 /* LandlineOrNotPredictor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D505B0C2B2CF9F600690035 /* LandlineOrNotPredictor.swift */; };
+		8D505B0F2B30EFCB00690035 /* LandlineOrNotV1.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 8D505B0E2B30EFCB00690035 /* LandlineOrNotV1.mlmodel */; };
 		8D5B63E32B2A520F00E86DA8 /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = 8D5B63E22B2A520F00E86DA8 /* Collections */; };
 		8D5B63E52B2A520F00E86DA8 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 8D5B63E42B2A520F00E86DA8 /* OrderedCollections */; };
 		8D64DF8E2B2105D400D7142D /* InfoText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D64DF8D2B2105D400D7142D /* InfoText.swift */; };
@@ -103,9 +102,8 @@
 		8D3D278D2ABCDDF30005FEC2 /* Phone BoothUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Phone BoothUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D3D278F2ABCDDF30005FEC2 /* Phone_BoothUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phone_BoothUITests.swift; sourceTree = "<group>"; };
 		8D3D27912ABCDDF30005FEC2 /* Phone_BoothUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phone_BoothUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		8D505B082B2CF9E900690035 /* Landline Or Not.mlproj */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "Landline Or Not.mlproj"; sourceTree = "<group>"; };
-		8D505B092B2CF9E900690035 /* Landline Or Not 1.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = "Landline Or Not 1.mlmodel"; sourceTree = "<group>"; };
 		8D505B0C2B2CF9F600690035 /* LandlineOrNotPredictor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandlineOrNotPredictor.swift; sourceTree = "<group>"; };
+		8D505B0E2B30EFCB00690035 /* LandlineOrNotV1.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = LandlineOrNotV1.mlmodel; sourceTree = "<group>"; };
 		8D64DF8D2B2105D400D7142D /* InfoText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoText.swift; sourceTree = "<group>"; };
 		8D64DF8F2B21073300D7142D /* PhoneTypeDefinitionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneTypeDefinitionsView.swift; sourceTree = "<group>"; };
 		8D64DF932B21119300D7142D /* WarningText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarningText.swift; sourceTree = "<group>"; };
@@ -254,8 +252,7 @@
 		8D505B072B2CF9E900690035 /* Core ML */ = {
 			isa = PBXGroup;
 			children = (
-				8D505B082B2CF9E900690035 /* Landline Or Not.mlproj */,
-				8D505B092B2CF9E900690035 /* Landline Or Not 1.mlmodel */,
+				8D505B0E2B30EFCB00690035 /* LandlineOrNotV1.mlmodel */,
 				8D505B0C2B2CF9F600690035 /* LandlineOrNotPredictor.swift */,
 			);
 			path = "Core ML";
@@ -437,7 +434,6 @@
 			files = (
 				8D1257692B041F4500079BC6 /* Preview Assets.xcassets in Resources */,
 				8D1257682B041F4500079BC6 /* Assets.xcassets in Resources */,
-				8D505B0A2B2CF9E900690035 /* Landline Or Not.mlproj in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -473,7 +469,6 @@
 				8D1257712B041F4500079BC6 /* PhoneRowView.swift in Sources */,
 				8D1257792B041F4500079BC6 /* Globals.swift in Sources */,
 				8D64DF942B21119300D7142D /* WarningText.swift in Sources */,
-				8D505B0B2B2CF9E900690035 /* Landline Or Not 1.mlmodel in Sources */,
 				8D1257732B041F4500079BC6 /* FrequenciesExplanationView.swift in Sources */,
 				8D505B0D2B2CF9F600690035 /* LandlineOrNotPredictor.swift in Sources */,
 				8D1257652B041F4500079BC6 /* CordlessHandset.swift in Sources */,
@@ -491,6 +486,7 @@
 				8D1257702B041F4500079BC6 /* ChargerInfoDetailView.swift in Sources */,
 				8D12577A2B041F4500079BC6 /* DocumentTypes.swift in Sources */,
 				8D12576E2B041F4500079BC6 /* NoPhoneSelectedView.swift in Sources */,
+				8D505B0F2B30EFCB00690035 /* LandlineOrNotV1.mlmodel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,118 +9,115 @@ import SwiftUI
 import Vision
 
 class LandlineOrNotPredictor {
-    /// - Tag: name
+    
+#if os(macOS)
+    typealias CrossPlatformImage = NSImage
+#else
+    typealias CrossPlatformImage = UIImage
+#endif
+    
+    typealias CurrentLandlineOrNot = LandlineOrNotV1
+    
     static func createImageClassifier() -> VNCoreMLModel {
         // Use a default model configuration.
         let defaultConfig = MLModelConfiguration()
-
         // Create an instance of the image classifier's wrapper class.
-        let imageClassifierWrapper = try? Landline_Or_Not_1(configuration: defaultConfig)
-
+        let imageClassifierWrapper = try? CurrentLandlineOrNot(configuration: defaultConfig)
         guard let imageClassifier = imageClassifierWrapper else {
             fatalError("App failed to create an image classifier model instance.")
         }
-
         // Get the underlying model instance.
         let imageClassifierModel = imageClassifier.model
-
         // Create a Vision instance using the image classifier's model instance.
         guard let imageClassifierVisionModel = try? VNCoreMLModel(for: imageClassifierModel) else {
             fatalError("App failed to create a `VNCoreMLModel` instance.")
         }
-
         return imageClassifierVisionModel
     }
 
-    /// A common image classifier instance that all Image Predictor instances use to generate predictions.
-    ///
-    /// Share one ``VNCoreMLModel`` instance --- for each Core ML model file --- across the app,
-    /// since each can be expensive in time and resources.
+    // A common image classifier instance that all Image Predictor instances use to generate predictions.
     private static let imageClassifier = createImageClassifier()
 
-    /// Stores a classification name and confidence for an image classifier's prediction.
-    /// - Tag: Prediction
+    // Stores a classification name and confidence for an image classifier's prediction.
     struct Prediction {
-        /// The name of the object or scene the image classifier recognizes in an image.
+        
+        // The name of the object or scene the image classifier recognizes in an image.
         let classification: String
 
-        /// The image classifier's confidence as a percentage string.
-        ///
-        /// The prediction string doesn't include the % symbol in the string.
+        // The image classifier's confidence as a percentage string. The prediction string doesn't include the % symbol.
         let confidencePercentage: String
+        
+        var isLandline: Bool {
+            return classification == "Landline"
+        }
+        
     }
 
-    /// The function signature the caller must provide as a completion handler.
-    typealias ImagePredictionHandler = (_ predictions: [Prediction]?) -> Void
+    // The function signature the caller must provide as a completion handler.
+    typealias ImagePredictionHandler = (_ predictions: [Prediction]?, _ photoData: Data) -> Void
 
-    /// A dictionary of prediction handler functions, each keyed by its Vision request.
-    private var predictionHandlers = [VNRequest: ImagePredictionHandler]()
+    // A dictionary of prediction handler functions, each keyed by its Vision request.
+    private var predictionHandlers = [VNRequest : ImagePredictionHandler]()
 
-    /// Generates a new request instance that uses the Image Predictor's image classifier model.
-    private func createImageClassificationRequest() -> VNImageBasedRequest {
+    // Generates a new request instance that uses the Image Predictor's image classifier model.
+    private func createImageClassificationRequest(photoData: Data) -> VNImageBasedRequest {
         // Create an image classification request with an image classifier model.
-
-        let imageClassificationRequest = VNCoreMLRequest(model: LandlineOrNotPredictor.imageClassifier,
-                                                         completionHandler: visionRequestHandler)
-
+        let imageClassificationRequest = VNCoreMLRequest(model: LandlineOrNotPredictor.imageClassifier) {
+            request, error in
+            self.visionRequestHandler(request, error: error, photoData: photoData)
+        }
         imageClassificationRequest.imageCropAndScaleOption = .centerCrop
         return imageClassificationRequest
     }
 
-    /// Generates an image classification prediction for a photo.
-    /// - Parameter photo: An image, typically of an object or a scene.
-    /// - Tag: makePredictions
-    func makePredictions(for photo: UIImage, completionHandler: @escaping ImagePredictionHandler) throws {
-        let orientation = CGImagePropertyOrientation(photo.imageOrientation)
-
-        guard let photoImage = photo.cgImage else {
-            fatalError("Photo doesn't have underlying CGImage.")
+    // Generates an image classification prediction for a photo.
+    func makePredictions(for photoData: Data, completionHandler: @escaping ImagePredictionHandler) throws {
+        guard let photo = CrossPlatformImage(data: photoData) else {
+            fatalError("Failed to create image from data.")
         }
-
-        let imageClassificationRequest = createImageClassificationRequest()
+        #if os(macOS)
+        let orientation = CGImagePropertyOrientation.up
+        var imageRect = CGRect(origin: .zero, size: photo.size)
+        guard let photoImage = photo.cgImage(forProposedRect: &imageRect, context: nil, hints: nil) else {
+            fatalError("NSImage doesn't have underlying CGImage.")
+        }
+        #else
+        let orientation = CGImagePropertyOrientation(photo.imageOrientation)
+        guard let photoImage = photo.cgImage else {
+            fatalError("UIImage doesn't have underlying CGImage.")
+        }
+        #endif
+        let imageClassificationRequest = createImageClassificationRequest(photoData: photoData)
         predictionHandlers[imageClassificationRequest] = completionHandler
-
         let handler = VNImageRequestHandler(cgImage: photoImage, orientation: orientation)
         let requests: [VNRequest] = [imageClassificationRequest]
-
         // Start the image classification request.
         try handler.perform(requests)
     }
 
-    /// The completion handler method that Vision calls when it completes a request.
-    /// - Parameters:
-    ///   - request: A Vision request.
-    ///   - error: An error if the request produced an error; otherwise `nil`.
-    ///
-    ///   The method checks for errors and validates the request's results.
-    /// - Tag: visionRequestHandler
-    private func visionRequestHandler(_ request: VNRequest, error: Error?) {
+    // The completion handler method that Vision calls when it completes a request. The method checks for errors and validates the request's results.
+    private func visionRequestHandler(_ request: VNRequest, error: Error?, photoData: Data) {
         // Remove the caller's handler from the dictionary and keep a reference to it.
         guard let predictionHandler = predictionHandlers.removeValue(forKey: request) else {
             fatalError("Every request must have a prediction handler.")
         }
-
-        // Start with a `nil` value in case there's a problem.
+        // Start with a nil value in case there's a problem.
         var predictions: [Prediction]? = nil
-
         // Call the client's completion handler after the method returns.
         defer {
             // Send the predictions back to the client.
-            predictionHandler(predictions)
+            predictionHandler(predictions, photoData)
         }
-
         // Check for an error first.
         if let error = error {
             print("Vision image classification error...\n\n\(error.localizedDescription)")
             return
         }
-
         // Check that the results aren't `nil`.
         if request.results == nil {
             print("Vision request had no results.")
             return
         }
-
         // Cast the request's results as an `VNClassificationObservation` array.
         guard let observations = request.results as? [VNClassificationObservation] else {
             // Image classifiers, like MobileNet, only produce classification observations.
@@ -129,7 +126,6 @@ class LandlineOrNotPredictor {
             print("VNRequest produced the wrong result type: \(type(of: request.results)).")
             return
         }
-
         // Create a prediction array from the observations.
         predictions = observations.map { observation in
             // Convert each observation into an `ImagePredictor.Prediction` instance.
@@ -139,11 +135,9 @@ class LandlineOrNotPredictor {
     }
 }
 
+#if !os(macOS)
 extension CGImagePropertyOrientation {
-    /// Converts an image orientation to a Core Graphics image property orientation.
-    /// - Parameter orientation: A `UIImage.Orientation` instance.
-    ///
-    /// The two orientation types use different raw values.
+    // Converts an image orientation to a Core Graphics image property orientation. The two orientation types use different raw values.
     init(_ orientation: UIImage.Orientation) {
         switch orientation {
             case .up: self = .up
@@ -158,12 +152,12 @@ extension CGImagePropertyOrientation {
         }
     }
 }
+#endif
 
 extension VNClassificationObservation {
-    /// Generates a string of the observation's confidence as a percentage.
+    // Generates a string of the observation's confidence as a percentage.
     var confidencePercentageString: String {
         let percentage = confidence * 100
-
         switch percentage {
             case 100.0...:
                 return "100%"

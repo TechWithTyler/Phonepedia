@@ -27,7 +27,7 @@ class CameraCoordinator: NSObject, UIImagePickerControllerDelegate, UINavigation
 			fatalError("Camera error!")
 		}
 		if let cameraResultData = cameraResult.jpegData(compressionQuality: 1.0) {
-			parent.phone.photoData = cameraResultData
+            parent.view.checkImageForLandlines(cameraResultData)
 		}
 		parent.view.takingPhoto = false
 		picker.dismiss(animated: true, completion: nil)
