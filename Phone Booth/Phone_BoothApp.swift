@@ -11,10 +11,13 @@ import SwiftData
 
 @main
 struct Phone_BoothApp: App {
+    
+    @ObservedObject var photoViewModel = PhonePhotoViewModel()
 
     var body: some Scene {
 		DocumentGroup(editing: Phone.self, contentType: .phoneBoothDatabase) {
             ContentView()
+                .environmentObject(photoViewModel)
         }
     }
 }

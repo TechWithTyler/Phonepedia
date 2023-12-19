@@ -32,6 +32,7 @@
 		8D3D27922ABCDDF30005FEC2 /* Phone_BoothUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3D27912ABCDDF30005FEC2 /* Phone_BoothUITestsLaunchTests.swift */; };
 		8D505B0D2B2CF9F600690035 /* LandlineOrNotPredictor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D505B0C2B2CF9F600690035 /* LandlineOrNotPredictor.swift */; };
 		8D505B0F2B30EFCB00690035 /* LandlineOrNotV1.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 8D505B0E2B30EFCB00690035 /* LandlineOrNotV1.mlmodel */; };
+		8D505B112B323E8800690035 /* PhonePhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D505B102B323E8800690035 /* PhonePhotoViewModel.swift */; };
 		8D5B63E32B2A520F00E86DA8 /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = 8D5B63E22B2A520F00E86DA8 /* Collections */; };
 		8D5B63E52B2A520F00E86DA8 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 8D5B63E42B2A520F00E86DA8 /* OrderedCollections */; };
 		8D64DF8E2B2105D400D7142D /* InfoText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D64DF8D2B2105D400D7142D /* InfoText.swift */; };
@@ -104,6 +105,7 @@
 		8D3D27912ABCDDF30005FEC2 /* Phone_BoothUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phone_BoothUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		8D505B0C2B2CF9F600690035 /* LandlineOrNotPredictor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandlineOrNotPredictor.swift; sourceTree = "<group>"; };
 		8D505B0E2B30EFCB00690035 /* LandlineOrNotV1.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = LandlineOrNotV1.mlmodel; sourceTree = "<group>"; };
+		8D505B102B323E8800690035 /* PhonePhotoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhonePhotoViewModel.swift; sourceTree = "<group>"; };
 		8D64DF8D2B2105D400D7142D /* InfoText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoText.swift; sourceTree = "<group>"; };
 		8D64DF8F2B21073300D7142D /* PhoneTypeDefinitionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneTypeDefinitionsView.swift; sourceTree = "<group>"; };
 		8D64DF932B21119300D7142D /* WarningText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarningText.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 				8D1257452B041F4500079BC6 /* Phone.swift */,
 				8D1257462B041F4500079BC6 /* Charger.swift */,
 				8D8D86602B283993006E9025 /* PhonePhotoError.swift */,
+				8D505B102B323E8800690035 /* PhonePhotoViewModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -476,6 +479,7 @@
 				8D1257742B041F4500079BC6 /* SoftKeyExplanationView.swift in Sources */,
 				8DFC9BF62A3BAB9D00295700 /* Phone_BoothApp.swift in Sources */,
 				8D1257762B041F4500079BC6 /* PhonePartInfoView.swift in Sources */,
+				8D505B112B323E8800690035 /* PhonePhotoViewModel.swift in Sources */,
 				8D8D86612B283993006E9025 /* PhonePhotoError.swift in Sources */,
 				8D64DF8E2B2105D400D7142D /* InfoText.swift in Sources */,
 				8D12576C2B041F4500079BC6 /* CameraViewController.swift in Sources */,

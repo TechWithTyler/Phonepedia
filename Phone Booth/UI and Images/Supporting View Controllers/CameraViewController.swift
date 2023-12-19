@@ -11,7 +11,7 @@ import SwiftUI
 
 struct CameraViewController: UIViewControllerRepresentable {
 
-	var view: PhoneDetailView
+	@ObservedObject var viewModel: PhonePhotoViewModel
 
 	@Bindable var phone: Phone
 

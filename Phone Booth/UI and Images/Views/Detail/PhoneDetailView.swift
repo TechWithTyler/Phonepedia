@@ -15,29 +15,11 @@ struct PhoneDetailView: View {
     
     @Bindable var phone: Phone
     
-    var imagePredictor = LandlineOrNotPredictor()
-    
     @State private var showingFrequenciesExplanation: Bool = false
-    
-    @State private var showingPhonePhotoErrorAlert: Bool = false
-    
-    @State private var showingUnsurePhotoDataAlert: Bool = false
-    
-    @State private var unsurePhotoDataToUse: Data? = nil
-    
-    @State private var selectedPhoto: PhotosPickerItem? = nil
-    
-#if os(iOS)
-    @State var takingPhoto: Bool = false
-#endif
-    
-    @State private var showingPhotoPicker: Bool = false
-    
-    @State private var showingResetAlert: Bool = false
     
     @State private var showingPhoneTypeDefinitions: Bool = false
     
-    @State private var phonePhotoError: PhonePhotoError? = nil
+    @EnvironmentObject var photoViewModel: PhonePhotoViewModel
     
     var body: some View {
         NavigationStack {
@@ -772,9 +754,9 @@ When the first ring is suppressed, the number of rings you hear will be one less
 #endif
         }
         .navigationTitle("Phone Details")
-        .photosPicker(isPresented: $showingPhotoPicker, selection: $selectedPhoto, matching: .images, preferredItemEncoding: .automatic)
-        .onChange(of: selectedPhoto, { oldValue, newValue in
-            updatePhonePhoto(oldValue: oldValue, newValue: newValue)
+        .photosPicker(isPresented: $photoViewModel.showingPhotoPicker, selection: $photoViewModel.selectedPhoto, matching: .images, preferredItemEncoding: .automatic)
+        .onChange(of: photoViewModel.selectedPhoto, { oldValue, newValue in
+            photoViewModel.updatePhonePhoto(for: phone, oldValue: oldValue, newValue: newValue)
         })
         .sheet(isPresented: $showingFrequenciesExplanation) {
             FrequenciesExplanationView()
@@ -783,44 +765,44 @@ When the first ring is suppressed, the number of rings you hear will be one less
             PhoneTypeDefinitionsView()
         }
 #if os(iOS)
-        .sheet(isPresented: $takingPhoto) {
-            CameraViewController(view: self, phone: phone)
+        .sheet(isPresented: $photoViewModel.takingPhoto) {
+            CameraViewController(viewModel: photoViewModel, phone: phone)
         }
 #endif
-        .alert(isPresented: $showingPhonePhotoErrorAlert, error: phonePhotoError) {
+        .alert(isPresented: $photoViewModel.showingPhonePhotoErrorAlert, error: photoViewModel.phonePhotoError) {
             Button("OK") {
-                showingPhonePhotoErrorAlert = false
-                phonePhotoError = nil
+                photoViewModel.showingPhonePhotoErrorAlert = false
+                photoViewModel.phonePhotoError = nil
             }
             .keyboardShortcut(.defaultAction)
         }
 #if os(macOS)
         .dialogSeverity(.critical)
 #endif
-        .alert("Reset photo?", isPresented: $showingResetAlert) {
+        .alert("Reset photo?", isPresented: $photoViewModel.showingResetAlert) {
             Button(role: .destructive) {
                 phone.photoData = nil
-                showingResetAlert = false
+                photoViewModel.showingResetAlert = false
             } label: {
                 Text("Delete")
             }
             Button(role: .cancel) {
-                showingResetAlert = false
+                photoViewModel.showingResetAlert = false
             } label: {
                 Text("Cancel")
             }
         }
-        .alert("Selected photo doesn't appear to contain landline phones. Save anyway?", isPresented: $showingUnsurePhotoDataAlert) {
+        .alert("Selected photo doesn't appear to contain landline phones. Save anyway?", isPresented: $photoViewModel.showingUnsurePhotoDataAlert) {
             Button {
-                phone.photoData = unsurePhotoDataToUse
-                unsurePhotoDataToUse = nil
-                showingUnsurePhotoDataAlert = false
+                phone.photoData = photoViewModel.unsurePhotoDataToUse
+                photoViewModel.unsurePhotoDataToUse = nil
+                photoViewModel.showingUnsurePhotoDataAlert = false
             } label: {
                 Text("Save")
             }
             .keyboardShortcut(.defaultAction)
             Button(role: .cancel) {
-                showingUnsurePhotoDataAlert = false
+                photoViewModel.showingUnsurePhotoDataAlert = false
             } label: {
                 Text("Cancel")
             }
@@ -837,62 +819,21 @@ When the first ring is suppressed, the number of rings you hear will be one less
             }
 #if os(iOS)
             Button {
-                takingPhoto = true
+                photoViewModel.takingPhoto = true
             } label: {
                 Text("Take Photo…")
             }
 #endif
             Button {
-                showingPhotoPicker = true
+                photoViewModel.showingPhotoPicker = true
             } label: {
                 Text("Select From Library…")
             }
             Button {
-                showingResetAlert = true
+                photoViewModel.showingResetAlert = true
             } label: {
                 Text("Use Placeholder…")
             }
-        }
-    }
-    
-    func updatePhonePhoto(oldValue: PhotosPickerItem?, newValue: PhotosPickerItem?) {
-        guard let newValue = newValue else { return }
-        let progress = newValue.loadTransferable(type: Data.self) { result in
-            switch result {
-            case .success(let data):
-                DispatchQueue.main.async { [self] in
-                    checkImageForLandlines(data!)
-                }
-            case .failure(let error as NSError):
-                #if(DEBUG)
-                print("Error: \(error)")
-                #endif
-                phonePhotoError = .loadFailed
-                showingPhonePhotoErrorAlert = true
-            }
-        }
-        progress.resume()
-    }
-    
-    private func checkImageForLandlines(_ photoData: Data) {
-        do {
-            try imagePredictor.makePredictions(for: photoData, completionHandler: imagePredictionHandler)
-        } catch {
-            print("Vision was unable to make a prediction...\n\n\(error.localizedDescription)")
-        }
-    }
-    
-    private func imagePredictionHandler(_ predictions: [LandlineOrNotPredictor.Prediction]?, photoData: Data) {
-        guard let predictions = predictions, let firstPrediction = predictions.first else {
-            phonePhotoError = .predictionFailed
-            showingPhonePhotoErrorAlert = true
-            return
-        }
-        if firstPrediction.isLandline {
-            phone.photoData = photoData
-        } else {
-            unsurePhotoDataToUse = photoData
-            showingUnsurePhotoDataAlert = true
         }
     }
     

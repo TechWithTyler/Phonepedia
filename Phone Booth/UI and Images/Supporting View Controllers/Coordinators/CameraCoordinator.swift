@@ -18,8 +18,9 @@ class CameraCoordinator: NSObject, UIImagePickerControllerDelegate, UINavigation
 	}
 
 	func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-		parent.view.takingPhoto = false
-		picker.dismiss(animated: true, completion: nil)
+        picker.dismiss(animated: true) {
+            self.parent.viewModel.takingPhoto = false
+        }
 	}
 
 	func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -27,10 +28,11 @@ class CameraCoordinator: NSObject, UIImagePickerControllerDelegate, UINavigation
 			fatalError("Camera error!")
 		}
 		if let cameraResultData = cameraResult.jpegData(compressionQuality: 1.0) {
-            parent.view.checkImageForLandlines(cameraResultData)
+            parent.viewModel.checkImageForLandlines(cameraResultData, phone: parent.phone)
 		}
-		parent.view.takingPhoto = false
-		picker.dismiss(animated: true, completion: nil)
+        picker.dismiss(animated: true) {
+            self.parent.viewModel.takingPhoto = false
+        }
 	}
 }
 #endif

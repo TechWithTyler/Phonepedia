@@ -54,24 +54,24 @@ class LandlineOrNotPredictor {
     }
 
     // The function signature the caller must provide as a completion handler.
-    typealias ImagePredictionHandler = (_ predictions: [Prediction]?, _ photoData: Data) -> Void
+    typealias ImagePredictionHandler = (_ predictions: [Prediction]?, _ photoData: Data, _ phone: Phone) -> Void
 
     // A dictionary of prediction handler functions, each keyed by its Vision request.
     private var predictionHandlers = [VNRequest : ImagePredictionHandler]()
 
     // Generates a new request instance that uses the Image Predictor's image classifier model.
-    private func createImageClassificationRequest(photoData: Data) -> VNImageBasedRequest {
+    private func createImageClassificationRequest(photoData: Data, phone: Phone) -> VNImageBasedRequest {
         // Create an image classification request with an image classifier model.
         let imageClassificationRequest = VNCoreMLRequest(model: LandlineOrNotPredictor.imageClassifier) {
             request, error in
-            self.visionRequestHandler(request, error: error, photoData: photoData)
+            self.visionRequestHandler(request, error: error, photoData: photoData, phone: phone)
         }
         imageClassificationRequest.imageCropAndScaleOption = .centerCrop
         return imageClassificationRequest
     }
 
     // Generates an image classification prediction for a photo.
-    func makePredictions(for photoData: Data, completionHandler: @escaping ImagePredictionHandler) throws {
+    func makePredictions(for photoData: Data, phone: Phone, completionHandler: @escaping ImagePredictionHandler) throws {
         guard let photo = CrossPlatformImage(data: photoData) else {
             fatalError("Failed to create image from data.")
         }
@@ -87,7 +87,7 @@ class LandlineOrNotPredictor {
             fatalError("UIImage doesn't have underlying CGImage.")
         }
         #endif
-        let imageClassificationRequest = createImageClassificationRequest(photoData: photoData)
+        let imageClassificationRequest = createImageClassificationRequest(photoData: photoData, phone: phone)
         predictionHandlers[imageClassificationRequest] = completionHandler
         let handler = VNImageRequestHandler(cgImage: photoImage, orientation: orientation)
         let requests: [VNRequest] = [imageClassificationRequest]
@@ -96,7 +96,7 @@ class LandlineOrNotPredictor {
     }
 
     // The completion handler method that Vision calls when it completes a request. The method checks for errors and validates the request's results.
-    private func visionRequestHandler(_ request: VNRequest, error: Error?, photoData: Data) {
+    private func visionRequestHandler(_ request: VNRequest, error: Error?, photoData: Data, phone: Phone) {
         // Remove the caller's handler from the dictionary and keep a reference to it.
         guard let predictionHandler = predictionHandlers.removeValue(forKey: request) else {
             fatalError("Every request must have a prediction handler.")
@@ -106,7 +106,7 @@ class LandlineOrNotPredictor {
         // Call the client's completion handler after the method returns.
         defer {
             // Send the predictions back to the client.
-            predictionHandler(predictions, photoData)
+            predictionHandler(predictions, photoData, phone)
         }
         // Check for an error first.
         if let error = error {
