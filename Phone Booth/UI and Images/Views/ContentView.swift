@@ -107,7 +107,7 @@ struct ContentView: View {
 	@ToolbarContentBuilder
 	var toolbarContent: some ToolbarContent {
 #if os(iOS)
-		ToolbarItem(placement: .navigationBarTrailing) {
+		ToolbarItem(placement: .topBarTrailing) {
 			EditButton()
 		}
 #endif

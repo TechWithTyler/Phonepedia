@@ -753,7 +753,6 @@ When the first ring is suppressed, the number of rings you hear will be one less
             .toggleStyle(.switch)
 #endif
         }
-        .navigationTitle("Phone Details")
         .photosPicker(isPresented: $photoViewModel.showingPhotoPicker, selection: $photoViewModel.selectedPhoto, matching: .images, preferredItemEncoding: .automatic)
         .onChange(of: photoViewModel.selectedPhoto, { oldValue, newValue in
             photoViewModel.updatePhonePhoto(for: phone, oldValue: oldValue, newValue: newValue)
