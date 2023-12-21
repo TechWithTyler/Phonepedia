@@ -345,6 +345,91 @@ struct PhoneDetailView: View {
                     }
                 }
                 if phone.isCordless || phone.cordedPhoneType == 0 {
+                    Section(header: Text("Display/Backlight/Buttons")) {
+                        Picker("Button Type", selection: $phone.buttonType) {
+                            Text("Spaced").tag(0)
+                            Text("Spaced with Click Feel").tag(1)
+                            Text("Some Spaced, Some Diamond-Cut").tag(2)
+                            Text("Some Spaced with Click Feel, Some Diamond-Cut").tag(3)
+                            Text("Diamond-Cut (no space between buttons, click feel)").tag(4)
+                        }
+                        Picker(phone.isCordless ? "Display Type (base)" : "Display Type", selection: $phone.baseDisplayType) {
+                            Text("None").tag(0)
+                            if phone.hasAnsweringSystem == 1 || phone.hasAnsweringSystem == 3 {
+                                Text("LED Message Counter").tag(1)
+                                Text("LCD Message Counter With Status Items").tag(2)
+                            }
+                            Text("Monochrome Display (traditional)").tag(3)
+                            Text("Monochrome Display (full-dot with status items)").tag(4)
+                            Text("Monochrome Display (full-dot)").tag(5)
+                            Text("Color Display").tag(6)
+                        }
+                        .onChange(of: phone.baseDisplayType) { oldValue, newValue in
+                            phone.baseDisplayTypeChanged(oldValue: oldValue, newValue: newValue)
+                        }
+                        if phone.baseDisplayType > 2 && phone.baseDisplayType < 6 {
+                            FormTextField("Base Display Backlight Color", text: $phone.baseDisplayBacklightColor)
+                        }
+                        if phone.baseDisplayType >= 3 {
+                            Toggle("Base Has LED Message Counter In Addition To Display", isOn: $phone.baseHasDisplayAndMessageCounter)
+                        }
+                        if phone.baseDisplayType == 1 || phone.baseHasDisplayAndMessageCounter {
+                            FormTextField("LED Message Counter Color", text: $phone.baseLEDMessageCounterColor)
+                        }
+                        if phone.baseDisplayType > 0 {
+                            Picker("Base Navigation Button Type", selection: $phone.baseNavigatorKeyType) {
+                                Text("None").tag(0)
+                                Text("Up/Down").tag(1)
+                                Text("Up/Down/Left/Right").tag(3)
+                            }
+                            .onChange(of: phone.baseNavigatorKeyType) { oldValue, newValue in
+                                phone.baseNavigatorKeyTypeChanged(oldValue: oldValue, newValue: newValue)
+                            }
+                            if phone.baseNavigatorKeyType > 0 {
+                                Picker("Base Navigation Button Center Button", selection: $phone.baseNavigatorKeyCenterButton) {
+                                    Text("None").tag(0)
+                                    Text("Select").tag(1)
+                                    Text("Menu/Select").tag(2)
+                                    if phone.hasAnsweringSystem == 1 || phone.hasAnsweringSystem == 3 {
+                                        Text("Play/Stop").tag(3)
+                                        Text("Play/Select").tag(4)
+                                        Text("Play/Stop/Select").tag(5)
+                                    }
+                                    Text("Other Function").tag(6)
+                                }
+                                Toggle("Base Navigation Button Up/Down for Volume", isOn: $phone.baseNavigatorKeyUpDownVolume)
+                                if phone.hasAnsweringSystem == 1 || phone.hasAnsweringSystem == 3 {
+                                    Toggle("Base Navigation Button Left/Right for Repeat/Skip", isOn: $phone.baseNavigatorKeyLeftRightRepeatSkip)
+                                }
+                                Toggle("Base Navigation Button Standby Shortcuts", isOn: $phone.baseNavigatorKeyStandbyShortcuts)
+                            }
+                            if phone.baseDisplayType > 2 {
+                                Stepper("Base Soft Keys (bottom): \(phone.baseSoftKeysBottom)", value: $phone.baseSoftKeysBottom, in: 0...4)
+                                    .onChange(of: phone.baseSoftKeysBottom) { oldValue, newValue in
+                                        phone.baseSoftKeysBottomChanged(oldValue: oldValue, newValue: newValue)
+                                    }
+                                Stepper("Base Soft Keys (side): \(phone.baseSoftKeysSide)", value: $phone.baseSoftKeysSide, in: 0...3)
+                                    .onChange(of: phone.baseSoftKeysSide) { oldValue, newValue in
+                                        phone.baseSoftKeysSideChanged(oldValue: oldValue, newValue: newValue)
+                                    }
+                                SoftKeyExplanationView()
+                                InfoText("Side soft keys are often used for programmable functions or speed dials in standby or one-touch menu selections in menus. For example, in a menu with 5 options, instead of scrolling up or down through the menu and then pressing the select button, you can press the corresponding side soft key.")
+                            }
+                        }
+                        Picker("Button Backlight Type", selection: $phone.baseKeyBacklightAmount) {
+                            Text("None").tag(0)
+                            Text("Numbers Only").tag(1)
+                            Text("Numbers + Some Function Buttons").tag(2)
+                            Text("Numbers + All Function Buttons").tag(2)
+                            Text("Numbers + Navigation Button").tag(3)
+                            Text("All Buttons").tag(3)
+                        }
+                        if phone.baseKeyBacklightAmount > 0 {
+                            FormTextField("Button Backlight Color", text: $phone.baseKeyBacklightColor)
+                        }
+                        FormTextField("Button Foreground Color", text: $phone.baseKeyForegroundColor)
+                        FormTextField("Button Background Color", text: $phone.baseKeyBackgroundColor)
+                    }
                     Section(header: Text("Answering System/Voicemail")) {
                         Picker("Answering System", selection: $phone.hasAnsweringSystem) {
                             if phone.isCordless {
@@ -411,87 +496,6 @@ A phone's voicemail indicator usually works in one or both of the following ways
                             Toggle("Can Store Voicemail Feature Codes", isOn: $phone.voicemailFeatureCodes)
                             InfoText("Storing voicemail feature codes allows you to, for example, play and delete messages using a button or menu item once you've dialed into voicemail, just like with built-in answering systems. Example: If your voicemail system's main menu asks you to press 1 to play messages, you can store \"1\" to the Play code and then quickly dial it using a button/menu item.")
                         }
-                    }
-                    Section(header: Text("Display/Backlight/Buttons")) {
-                        Picker("Button Type", selection: $phone.buttonType) {
-                            Text("Spaced").tag(0)
-                            Text("Spaced with Click Feel").tag(1)
-                            Text("Some Spaced, Some Diamond-Cut").tag(2)
-                            Text("Some Spaced with Click Feel, Some Diamond-Cut").tag(3)
-                            Text("Diamond-Cut (no space between buttons, click feel)").tag(4)
-                        }
-                        Picker(phone.isCordless ? "Display Type (base)" : "Display Type", selection: $phone.baseDisplayType) {
-                            Text("None").tag(0)
-                            if phone.hasAnsweringSystem == 1 || phone.hasAnsweringSystem == 3 {
-                                Text("LED Message Counter").tag(1)
-                                Text("LCD Message Counter With Status Items").tag(2)
-                            }
-                            Text("Monochrome Display (traditional)").tag(3)
-                            Text("Monochrome Display (full-dot with status items)").tag(4)
-                            Text("Monochrome Display (full-dot)").tag(5)
-                            Text("Color Display").tag(6)
-                        }
-                        .onChange(of: phone.baseDisplayType) { oldValue, newValue in
-                            phone.baseDisplayTypeChanged(oldValue: oldValue, newValue: newValue)
-                        }
-                        if phone.baseDisplayType > 2 && phone.baseDisplayType < 6 {
-                            FormTextField("Base Display Backlight Color", text: $phone.baseDisplayBacklightColor)
-                        }
-                        if phone.baseDisplayType >= 3 {
-                            Toggle("Base Has LED Message Counter In Addition To Display", isOn: $phone.baseHasDisplayAndMessageCounter)
-                        }
-                        if phone.baseDisplayType == 1 || phone.baseHasDisplayAndMessageCounter {
-                            FormTextField("LED Message Counter Color", text: $phone.baseLEDMessageCounterColor)
-                        }
-                        if phone.baseDisplayType > 0 {
-                            Picker("Base Navigation Button Type", selection: $phone.baseNavigatorKeyType) {
-                                Text("None").tag(0)
-                                Text("Up/Down").tag(1)
-                                Text("Up/Down/Left/Right").tag(3)
-                            }
-                            if phone.baseNavigatorKeyType > 0 {
-                                Picker("Base Navigation Button Center Button", selection: $phone.baseNavigatorKeyCenterButton) {
-                                    Text("None").tag(0)
-                                    Text("Select").tag(1)
-                                    Text("Menu/Select").tag(2)
-                                    if phone.hasAnsweringSystem == 1 || phone.hasAnsweringSystem == 3 {
-                                        Text("Play").tag(3)
-                                        Text("Play/Select").tag(4)
-                                    }
-                                    Text("Other Function").tag(5)
-                                }
-                                Toggle("Base Navigation Button Up/Down for Volume", isOn: $phone.baseNavigatorKeyUpDownVolume)
-                                if phone.hasAnsweringSystem == 1 || phone.hasAnsweringSystem == 3 {
-                                    Toggle("Base Navigation Button Left/Right for Repeat/Skip", isOn: $phone.baseNavigatorKeyLeftRightRepeatSkip)
-                                }
-                                Toggle("Base Navigation Button Standby Shortcuts", isOn: $phone.baseNavigatorKeyStandbyShortcuts)
-                            }
-                            if phone.baseDisplayType > 2 {
-                                Stepper("Base Soft Keys (bottom): \(phone.baseSoftKeysBottom)", value: $phone.baseSoftKeysBottom, in: 0...4)
-                                    .onChange(of: phone.baseSoftKeysBottom) { oldValue, newValue in
-                                        phone.baseSoftKeysBottomChanged(oldValue: oldValue, newValue: newValue)
-                                    }
-                                Stepper("Base Soft Keys (side): \(phone.baseSoftKeysSide)", value: $phone.baseSoftKeysSide, in: 0...3)
-                                    .onChange(of: phone.baseSoftKeysSide) { oldValue, newValue in
-                                        phone.baseSoftKeysSideChanged(oldValue: oldValue, newValue: newValue)
-                                    }
-                                SoftKeyExplanationView()
-                                InfoText("Side soft keys are often used for programmable functions or speed dials in standby or one-touch menu selections in menus. For example, in a menu with 5 options, instead of scrolling up or down through the menu and then pressing the select button, you can press the corresponding side soft key.")
-                            }
-                        }
-                        Picker("Button Backlight Type", selection: $phone.baseKeyBacklightAmount) {
-                            Text("None").tag(0)
-                            Text("Numbers Only").tag(1)
-                            Text("Numbers + Some Function Buttons").tag(2)
-                            Text("Numbers + All Function Buttons").tag(2)
-                            Text("Numbers + Navigation Button").tag(3)
-                            Text("All Buttons").tag(3)
-                        }
-                        if phone.baseKeyBacklightAmount > 0 {
-                            FormTextField("Button Backlight Color", text: $phone.baseKeyBacklightColor)
-                        }
-                        FormTextField("Button Foreground Color", text: $phone.baseKeyForegroundColor)
-                        FormTextField("Button Background Color", text: $phone.baseKeyBackgroundColor)
                     }
                     Section(header: Text("Audio Devices (e.g. headsets)")) {
                         if !phone.isCordless || phone.hasBaseSpeakerphone {

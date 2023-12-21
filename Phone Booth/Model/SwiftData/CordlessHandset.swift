@@ -178,6 +178,15 @@ final class CordlessHandset {
 			navigatorKeyUpDownVolume = true
 		}
 	}
+    
+    func navigatorKeyTypeChanged(oldValue: Int, newValue: Int) {
+        if newValue == 0 {
+            navigatorKeyCenterButton = 0
+            navigatorKeyUpDownVolume = false
+            sideVolumeButtons = true
+            navigatorKeyStandbyShortcuts = false
+        }
+    }
 	
 	func callerIDCapacityChanged(oldValue: Int, newValue: Int) {
 		if newValue > 0 {

@@ -336,6 +336,9 @@ final class Phone {
 	func baseDisplayTypeChanged(oldValue: Int, newValue: Int) {
 		if newValue == 0 {
 			hasTalkingPhonebook = false
+            baseNavigatorKeyType = 0
+            baseNavigatorKeyCenterButton = 0
+            baseNavigatorKeyStandbyShortcuts = false
 		}
 		if newValue <= 1 {
 			baseSoftKeysBottom = 0
@@ -345,6 +348,15 @@ final class Phone {
 			baseDisplayBacklightColor = String()
 		}
 	}
+    
+    func baseNavigatorKeyTypeChanged(oldValue: Int, newValue: Int) {
+        if newValue == 0 {
+            baseNavigatorKeyCenterButton = 0
+            baseNavigatorKeyUpDownVolume = false
+            baseNavigatorKeyLeftRightRepeatSkip = false
+            baseNavigatorKeyStandbyShortcuts = false
+        }
+    }
 	
 	func maxCordlessHandsetsChanged(oldValue: Int, newValue: Int) {
 		if newValue == -1 {

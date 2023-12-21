@@ -138,6 +138,9 @@ struct HandsetInfoDetailView: View {
 								Text("Up/Down/Left/Right Joystick").tag(3)
 								Text("Up/Down Side Buttons, Left/Right Face Buttons").tag(4)
 							}
+                            .onChange(of: handset.navigatorKeyType) { oldValue, newValue in
+                                handset.navigatorKeyTypeChanged(oldValue: oldValue, newValue: newValue)
+                            }
 							if handset.navigatorKeyType > 0 {
 								Picker("Navigation Button Center Button", selection: $handset.navigatorKeyCenterButton) {
 									Text("None").tag(0)
@@ -162,7 +165,7 @@ struct HandsetInfoDetailView: View {
 							}
 						}
 						if handset.navigatorKeyType != 4 {
-							Toggle("Has Side Volume Buttons", isOn: $handset.sideVolumeButtons)
+							Toggle("Has Dedicated/Side Volume Buttons", isOn: $handset.sideVolumeButtons)
 								.onChange(of: handset.sideVolumeButtons) { oldValue, newValue in
 									handset.sideVolumeButtonsChanged(oldValue: oldValue, newValue: newValue)
 								}
