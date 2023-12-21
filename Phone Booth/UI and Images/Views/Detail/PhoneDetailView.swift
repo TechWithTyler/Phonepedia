@@ -35,7 +35,7 @@ struct PhoneDetailView: View {
                             showingPhoneTypeDefinitions = true
                         }
                     }
-                    Stepper("Release Year: \(String(phone.releaseYear))", value: $phone.releaseYear, in: 1984...currentYear)
+                    Stepper("Release Year: \(String(phone.releaseYear))", value: $phone.releaseYear, in: 1892...currentYear)
                     if phone.isCordless {
                         HStack {
                             Picker("Wireless Frequency", selection: $phone.frequency) {
