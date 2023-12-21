@@ -49,6 +49,7 @@ class LandlineOrNotPredictor {
         // Use a default model configuration.
         let defaultConfig = MLModelConfiguration()
         // Create an instance of the image classifier's wrapper class.
+        // Throwing functions don't have to be called within the do block of a do-catch statement--the result of calling the function can be an Optional value which returns nil if it throws an error.
         let imageClassifierWrapper = try? CurrentLandlineOrNot(configuration: defaultConfig)
         guard let imageClassifier = imageClassifierWrapper else {
             fatalError("App failed to create an image classifier model instance.")

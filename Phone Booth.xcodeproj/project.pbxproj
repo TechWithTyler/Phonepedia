@@ -150,12 +150,10 @@
 		8D1257432B041F4500079BC6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				8DC21BDC2B34DE40006D648F /* SwiftData */,
+				8DC21BDD2B34DE60006D648F /* Photos */,
 				8D505B072B2CF9E900690035 /* Core ML */,
-				8D1257442B041F4500079BC6 /* CordlessHandset.swift */,
-				8D1257452B041F4500079BC6 /* Phone.swift */,
-				8D1257462B041F4500079BC6 /* Charger.swift */,
-				8D8D86602B283993006E9025 /* PhonePhotoError.swift */,
-				8D505B102B323E8800690035 /* PhonePhotoViewModel.swift */,
+				8D1257632B041F4500079BC6 /* DocumentTypes.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -237,9 +235,8 @@
 		8D1257602B041F4500079BC6 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				8D1257612B041F4500079BC6 /* Phone_Booth.entitlements */,
 				8D1257622B041F4500079BC6 /* Globals.swift */,
-				8D1257632B041F4500079BC6 /* DocumentTypes.swift */,
+				8D1257612B041F4500079BC6 /* Phone_Booth.entitlements */,
 				8D1257642B041F4500079BC6 /* Info.plist */,
 			);
 			path = "Supporting Files";
@@ -262,6 +259,25 @@
 				8D505B142B33749100690035 /* CGImagePropertyOrientationExtension.swift */,
 			);
 			path = "Core ML";
+			sourceTree = "<group>";
+		};
+		8DC21BDC2B34DE40006D648F /* SwiftData */ = {
+			isa = PBXGroup;
+			children = (
+				8D1257442B041F4500079BC6 /* CordlessHandset.swift */,
+				8D1257452B041F4500079BC6 /* Phone.swift */,
+				8D1257462B041F4500079BC6 /* Charger.swift */,
+			);
+			path = SwiftData;
+			sourceTree = "<group>";
+		};
+		8DC21BDD2B34DE60006D648F /* Photos */ = {
+			isa = PBXGroup;
+			children = (
+				8D8D86602B283993006E9025 /* PhonePhotoError.swift */,
+				8D505B102B323E8800690035 /* PhonePhotoViewModel.swift */,
+			);
+			path = Photos;
 			sourceTree = "<group>";
 		};
 		8DE6B9642AA905CF00C42E02 /* Phone BoothTests */ = {
