@@ -53,29 +53,29 @@ struct PhoneDetailView: View {
                                     Text("2.4GHz/900MHz Analog").tag(6)
                                     Text("2.4GHz Digital").tag(7)
                                     Text("2.4GHz/900MHz Digital").tag(8)
-                                    Text("2.4GHz Digital Spread Spectrum (DSS)").tag(7)
-                                    Text("2.4GHz/900MHz Digital Spread Spectrum (DSS)").tag(8)
-                                    Text("2.4GHz Digital Frequency-Hopping Spread Spectrum (FHSS)").tag(9)
-                                    Text("2.4GHz/900MHz Digital Frequency-Hopping Spread Spectrum (FHSS)").tag(10)
+                                    Text("2.4GHz Digital Spread Spectrum (DSS)").tag(9)
+                                    Text("2.4GHz/900MHz Digital Spread Spectrum (DSS)").tag(10)
+                                    Text("2.4GHz Digital Frequency-Hopping Spread Spectrum (FHSS)").tag(11)
+                                    Text("2.4GHz/900MHz Digital Frequency-Hopping Spread Spectrum (FHSS)").tag(12)
                                 }
                                 Section(header: Text("5.8GHz")) {
-                                    Text("5.8GHz Analog").tag(11)
-                                    Text("5.8GHz/900MHz Analog").tag(12)
-                                    Text("5.8GHz/2.4GHz Analog").tag(13)
-                                    Text("5.8GHz Digital").tag(14)
-                                    Text("5.8GHz/900MHz Digital").tag(15)
-                                    Text("5.8GHz/2.4GHz Digital").tag(16)
-                                    Text("5.8GHz Digital Spread Spectrum (DSS)").tag(17)
-                                    Text("5.8GHz/900MHz Digital Spread Spectrum (DSS)").tag(18)
-                                    Text("5.8GHz/2.4GHz Digital Spread Spectrum (DSS)").tag(19)
-                                    Text("5.8GHz Digital Frequency-Hopping Spread Spectrum (FHSS)").tag(20)
-                                    Text("5.8GHz/900MHz Digital Frequency-Hopping Spread Spectrum (FHSS)").tag(21)
-                                    Text("5.8GHz/2.4GHz Digital Frequency-Hopping Spread Spectrum (FHSS)").tag(22)
+                                    Text("5.8GHz Analog").tag(13)
+                                    Text("5.8GHz/900MHz Analog").tag(14)
+                                    Text("5.8GHz/2.4GHz Analog").tag(15)
+                                    Text("5.8GHz Digital").tag(16)
+                                    Text("5.8GHz/900MHz Digital").tag(17)
+                                    Text("5.8GHz/2.4GHz Digital").tag(18)
+                                    Text("5.8GHz Digital Spread Spectrum (DSS)").tag(19)
+                                    Text("5.8GHz/900MHz Digital Spread Spectrum (DSS)").tag(20)
+                                    Text("5.8GHz/2.4GHz Digital Spread Spectrum (DSS)").tag(21)
+                                    Text("5.8GHz Digital Frequency-Hopping Spread Spectrum (FHSS)").tag(22)
+                                    Text("5.8GHz/900MHz Digital Frequency-Hopping Spread Spectrum (FHSS)").tag(23)
+                                    Text("5.8GHz/2.4GHz Digital Frequency-Hopping Spread Spectrum (FHSS)").tag(24)
                                 }
                                 Section(header: Text("DECT (Digital Enhanced Cordless Telecommunications)")) {
-                                    Text("DECT (1.88GHz-1.90GHz)").tag(23)
-                                    Text("DECT (1.90GHz-1.92GHz)").tag(24)
-                                    Text("DECT 6.0 (1.92GHz-1.93GHz)").tag(25)
+                                    Text("DECT (1.88GHz-1.90GHz)").tag(25)
+                                    Text("DECT (1.90GHz-1.92GHz)").tag(26)
+                                    Text("DECT 6.0 (1.92GHz-1.93GHz)").tag(27)
                                 }
                             }
                             Spacer()
@@ -145,12 +145,12 @@ struct PhoneDetailView: View {
                         Picker("Charge Light", selection: $phone.chargeLight) {
                             Text("None").tag(0)
                             if !phone.hasTransmitOnlyBase {
-                                Text("Base Only").tag(1)
-                                Text("Base/Charger").tag(2)
+                                Text("On Base Only").tag(1)
+                                Text("On Base/Charger").tag(2)
                             } else {
-                                Text("Charger").tag(2)
+                                Text("On Charger").tag(2)
                             }
-                            Text("Handset").tag(3)
+                            Text("On Handset").tag(3)
                         }
                         if !phone.hasTransmitOnlyBase {
                             Group {
