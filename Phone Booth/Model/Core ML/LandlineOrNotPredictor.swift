@@ -10,6 +10,8 @@ import Vision
 
 class LandlineOrNotPredictor {
     
+    @ObservedObject var photoViewModel: PhonePhotoViewModel
+    
 #if os(macOS)
     typealias CrossPlatformImage = NSImage
 #else
@@ -17,6 +19,31 @@ class LandlineOrNotPredictor {
 #endif
     
     typealias CurrentLandlineOrNot = LandlineOrNotV1
+
+    // A common image classifier instance that all Image Predictor instances use to generate predictions.
+    private static let imageClassifier = createImageClassifier()
+
+    // Stores a classification name and confidence for an image classifier's prediction.
+    struct Prediction {
+        
+        // The name of the object or scene the image classifier recognizes in an image.
+        let classification: String
+        
+        var isLandline: Bool {
+            return classification == "Landline"
+        }
+        
+    }
+
+    // The function signature the caller must provide as a completion handler.
+    typealias ImagePredictionHandler = (_ predictions: [Prediction]?, _ photoData: Data, _ phone: Phone) -> Void
+
+    // A dictionary of prediction handler functions, each keyed by its Vision request.
+    private var predictionHandlers = [VNRequest : ImagePredictionHandler]()
+    
+    init(photoViewModel: PhonePhotoViewModel) {
+        self.photoViewModel = photoViewModel
+    }
     
     static func createImageClassifier() -> VNCoreMLModel {
         // Use a default model configuration.
@@ -30,34 +57,10 @@ class LandlineOrNotPredictor {
         let imageClassifierModel = imageClassifier.model
         // Create a Vision instance using the image classifier's model instance.
         guard let imageClassifierVisionModel = try? VNCoreMLModel(for: imageClassifierModel) else {
-            fatalError("App failed to create a `VNCoreMLModel` instance.")
+            fatalError("App failed to create a VNCoreMLModel instance.")
         }
         return imageClassifierVisionModel
     }
-
-    // A common image classifier instance that all Image Predictor instances use to generate predictions.
-    private static let imageClassifier = createImageClassifier()
-
-    // Stores a classification name and confidence for an image classifier's prediction.
-    struct Prediction {
-        
-        // The name of the object or scene the image classifier recognizes in an image.
-        let classification: String
-
-        // The image classifier's confidence as a percentage string. The prediction string doesn't include the % symbol.
-        let confidencePercentage: String
-        
-        var isLandline: Bool {
-            return classification == "Landline"
-        }
-        
-    }
-
-    // The function signature the caller must provide as a completion handler.
-    typealias ImagePredictionHandler = (_ predictions: [Prediction]?, _ photoData: Data, _ phone: Phone) -> Void
-
-    // A dictionary of prediction handler functions, each keyed by its Vision request.
-    private var predictionHandlers = [VNRequest : ImagePredictionHandler]()
 
     // Generates a new request instance that uses the Image Predictor's image classifier model.
     private func createImageClassificationRequest(photoData: Data, phone: Phone) -> VNImageBasedRequest {
@@ -110,65 +113,24 @@ class LandlineOrNotPredictor {
         }
         // Check for an error first.
         if let error = error {
-            print("Vision image classification error...\n\n\(error.localizedDescription)")
+            photoViewModel.phonePhotoError = .predictionFailed(reason: error.localizedDescription)
             return
         }
-        // Check that the results aren't `nil`.
+        // Check that the results aren't nil.
         if request.results == nil {
             print("Vision request had no results.")
             return
         }
-        // Cast the request's results as an `VNClassificationObservation` array.
+        // Cast the request's results as an VNClassificationObservation array.
         guard let observations = request.results as? [VNClassificationObservation] else {
-            // Image classifiers, like MobileNet, only produce classification observations.
-            // However, other Core ML model types can produce other observations.
-            // For example, a style transfer model produces `VNPixelBufferObservation` instances.
             print("VNRequest produced the wrong result type: \(type(of: request.results)).")
             return
         }
         // Create a prediction array from the observations.
         predictions = observations.map { observation in
-            // Convert each observation into an `ImagePredictor.Prediction` instance.
-            Prediction(classification: observation.identifier,
-                       confidencePercentage: observation.confidencePercentageString)
+            // Convert each observation into a LandlineOrNotPredictor.Prediction instance.
+            Prediction(classification: observation.identifier)
         }
     }
-}
-
-#if !os(macOS)
-extension CGImagePropertyOrientation {
-    // Converts an image orientation to a Core Graphics image property orientation. The two orientation types use different raw values.
-    init(_ orientation: UIImage.Orientation) {
-        switch orientation {
-            case .up: self = .up
-            case .down: self = .down
-            case .left: self = .left
-            case .right: self = .right
-            case .upMirrored: self = .upMirrored
-            case .downMirrored: self = .downMirrored
-            case .leftMirrored: self = .leftMirrored
-            case .rightMirrored: self = .rightMirrored
-            @unknown default: self = .up
-        }
-    }
-}
-#endif
-
-extension VNClassificationObservation {
-    // Generates a string of the observation's confidence as a percentage.
-    var confidencePercentageString: String {
-        let percentage = confidence * 100
-        switch percentage {
-            case 100.0...:
-                return "100%"
-            case 10.0..<100.0:
-                return String(format: "%2.1f", percentage)
-            case 1.0..<10.0:
-                return String(format: "%2.1f", percentage)
-            case ..<1.0:
-                return String(format: "%1.2f", percentage)
-            default:
-                return String(format: "%2.1f", percentage)
-        }
-    }
+    
 }

@@ -3,7 +3,7 @@
 //  Phone Booth
 //
 //  Created by Tyler Sheft on 12/19/23.
-//  Copyright © 2023 SheftApps. All rights reserved.
+//  Copyright © 2023-2024 SheftApps. All rights reserved.
 //
 
 import SwiftUI
@@ -12,7 +12,9 @@ import Vision
 
 class PhonePhotoViewModel: ObservableObject {
     
-    var imagePredictor = LandlineOrNotPredictor()
+    var imagePredictor: LandlineOrNotPredictor {
+        return LandlineOrNotPredictor(photoViewModel: self)
+    }
     
     @Published var showingPhonePhotoErrorAlert: Bool = false
     
@@ -61,7 +63,7 @@ class PhonePhotoViewModel: ObservableObject {
     
     private func imagePredictionHandler(_ predictions: [LandlineOrNotPredictor.Prediction]?, photoData: Data, phone: Phone) {
         guard let predictions = predictions, let firstPrediction = predictions.first else {
-            phonePhotoError = .predictionFailed
+            phonePhotoError = .predictionFailed(reason: "No predictions available.")
             showingPhonePhotoErrorAlert = true
             return
         }

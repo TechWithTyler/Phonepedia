@@ -11,14 +11,14 @@ enum PhonePhotoError: LocalizedError {
     
     case loadFailed
     
-    case predictionFailed
+    case predictionFailed(reason: String)
     
     var errorDescription: String? {
         switch self {
         case .loadFailed:
             return "(Bee-bee-beep) We're sorry, your photo can't be loaded. Please try again later."
-        case .predictionFailed:
-            return "Prediction failed."
+        case .predictionFailed(let reason):
+            return "Prediction failed: \(reason)"
         }
     }
     
