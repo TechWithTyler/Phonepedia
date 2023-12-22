@@ -9,10 +9,12 @@
 import SwiftUI
 
 struct NoPhoneSelectedView: View {
+    
     var body: some View {
         Text("Select a phone")
 			.font(.largeTitle)
     }
+    
 }
 
 #Preview {

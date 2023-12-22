@@ -11,8 +11,12 @@ import SwiftUI
 import SheftAppsStylishUI
 
 struct PhonePartInfoView: View {
+    
+    // MARK: - Properties - Phone
 
 	@Bindable var phone: Phone
+    
+    // MARK: - Body
 
 	var body: some View {
 		Section(phone.isCordless ? "Base Colors" : "Colors") {
@@ -111,6 +115,8 @@ struct PhonePartInfoView: View {
 			}
 		}
 	}
+    
+    // MARK: - Data Management
 
 	func addHandset() {
 		phone.cordlessHandsetsIHave.append(

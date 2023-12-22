@@ -10,12 +10,20 @@ import SwiftUI
 import SheftAppsStylishUI
 
 struct HandsetInfoDetailView: View {
+    
+    // MARK: - Properties - Handset
 
 	@Binding var handset: CordlessHandset
+    
+    // MARK: - Properties - Dismiss Action
 
 	@Environment(\.dismiss) var dismiss
+    
+    // MARK: - Properties - Integers
 
 	var handsetNumber: Int
+    
+    // MARK: - Body
 
 	var body: some View {
 		if let phone = handset.phone {

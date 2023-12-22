@@ -11,7 +11,11 @@ import SheftAppsStylishUI
 
 struct FrequenciesExplanationView: View {
     
+    // MARK: - Properties - Dismiss Action
+    
     @Environment(\.dismiss) var dismiss
+    
+    // MARK: - Body
     
     var body: some View {
         NavigationStack {
@@ -40,8 +44,8 @@ struct FrequenciesExplanationView: View {
             }
         }
     }
+    
 }
-
 
 #Preview {
     FrequenciesExplanationView()

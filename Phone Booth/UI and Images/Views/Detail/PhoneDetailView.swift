@@ -13,13 +13,19 @@ import SheftAppsStylishUI
 
 struct PhoneDetailView: View {
     
+    // MARK: - Properties - Objects
+    
     @Bindable var phone: Phone
+    
+    @EnvironmentObject var photoViewModel: PhonePhotoViewModel
+    
+    // MARK: - Properties - Booleans
     
     @State private var showingFrequenciesExplanation: Bool = false
     
     @State private var showingPhoneTypeDefinitions: Bool = false
     
-    @EnvironmentObject var photoViewModel: PhonePhotoViewModel
+    // MARK: - Body
     
     var body: some View {
         NavigationStack {
@@ -808,6 +814,8 @@ When the first ring is suppressed, the number of rings you hear will be one less
             }
         }
     }
+    
+    // MARK: - Phone Photo/Actions
     
     @ViewBuilder
     func photo(for phone: Phone) -> some View {

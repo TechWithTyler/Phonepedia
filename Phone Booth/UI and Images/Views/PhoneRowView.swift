@@ -9,8 +9,12 @@
 import SwiftUI
 
 struct PhoneRowView: View {
+    
+    // MARK: - Properties - Phone
 
 	@Bindable var phone: Phone
+    
+    // MARK: - Body
 
     var body: some View {
 		HStack {

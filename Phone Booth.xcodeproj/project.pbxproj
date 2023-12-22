@@ -28,6 +28,8 @@
 		8D1257782B041F4500079BC6 /* ChargingContactInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D12575F2B041F4500079BC6 /* ChargingContactInfoView.swift */; };
 		8D1257792B041F4500079BC6 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1257622B041F4500079BC6 /* Globals.swift */; };
 		8D12577A2B041F4500079BC6 /* DocumentTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1257632B041F4500079BC6 /* DocumentTypes.swift */; };
+		8D2ABA082B355D840094D57B /* PhoneListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2ABA072B355D840094D57B /* PhoneListView.swift */; };
+		8D2ABA0A2B3563530094D57B /* PhoneImageUnavailableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2ABA092B3563530094D57B /* PhoneImageUnavailableView.swift */; };
 		8D3D27902ABCDDF30005FEC2 /* Phone_BoothUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3D278F2ABCDDF30005FEC2 /* Phone_BoothUITests.swift */; };
 		8D3D27922ABCDDF30005FEC2 /* Phone_BoothUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3D27912ABCDDF30005FEC2 /* Phone_BoothUITestsLaunchTests.swift */; };
 		8D505B0D2B2CF9F600690035 /* LandlineOrNotPredictor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D505B0C2B2CF9F600690035 /* LandlineOrNotPredictor.swift */; };
@@ -101,6 +103,8 @@
 		8D1257622B041F4500079BC6 /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		8D1257632B041F4500079BC6 /* DocumentTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentTypes.swift; sourceTree = "<group>"; };
 		8D1257642B041F4500079BC6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8D2ABA072B355D840094D57B /* PhoneListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneListView.swift; sourceTree = "<group>"; };
+		8D2ABA092B3563530094D57B /* PhoneImageUnavailableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneImageUnavailableView.swift; sourceTree = "<group>"; };
 		8D3D278D2ABCDDF30005FEC2 /* Phone BoothUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Phone BoothUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D3D278F2ABCDDF30005FEC2 /* Phone_BoothUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phone_BoothUITests.swift; sourceTree = "<group>"; };
 		8D3D27912ABCDDF30005FEC2 /* Phone_BoothUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phone_BoothUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -180,8 +184,8 @@
 		8D12574B2B041F4500079BC6 /* Supporting View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				8D12574C2B041F4500079BC6 /* Coordinators */,
 				8D1257502B041F4500079BC6 /* CameraViewController.swift */,
+				8D12574C2B041F4500079BC6 /* Coordinators */,
 			);
 			path = "Supporting View Controllers";
 			sourceTree = "<group>";
@@ -198,6 +202,7 @@
 			isa = PBXGroup;
 			children = (
 				8D1257582B041F4500079BC6 /* ContentView.swift */,
+				8D2ABA072B355D840094D57B /* PhoneListView.swift */,
 				8D1257572B041F4500079BC6 /* PhoneRowView.swift */,
 				8D1257522B041F4500079BC6 /* Detail */,
 				8D1257592B041F4500079BC6 /* Child Views */,
@@ -228,6 +233,7 @@
 				8D64DF8D2B2105D400D7142D /* InfoText.swift */,
 				8D64DF8F2B21073300D7142D /* PhoneTypeDefinitionsView.swift */,
 				8D64DF932B21119300D7142D /* WarningText.swift */,
+				8D2ABA092B3563530094D57B /* PhoneImageUnavailableView.swift */,
 			);
 			path = "Child Views";
 			sourceTree = "<group>";
@@ -264,8 +270,8 @@
 		8DC21BDC2B34DE40006D648F /* SwiftData */ = {
 			isa = PBXGroup;
 			children = (
-				8D1257442B041F4500079BC6 /* CordlessHandset.swift */,
 				8D1257452B041F4500079BC6 /* Phone.swift */,
+				8D1257442B041F4500079BC6 /* CordlessHandset.swift */,
 				8D1257462B041F4500079BC6 /* Charger.swift */,
 			);
 			path = SwiftData;
@@ -274,8 +280,8 @@
 		8DC21BDD2B34DE60006D648F /* Photos */ = {
 			isa = PBXGroup;
 			children = (
-				8D8D86602B283993006E9025 /* PhonePhotoError.swift */,
 				8D505B102B323E8800690035 /* PhonePhotoViewModel.swift */,
+				8D8D86602B283993006E9025 /* PhonePhotoError.swift */,
 			);
 			path = Photos;
 			sourceTree = "<group>";
@@ -485,6 +491,8 @@
 			files = (
 				8D1257782B041F4500079BC6 /* ChargingContactInfoView.swift in Sources */,
 				8D1257672B041F4500079BC6 /* Charger.swift in Sources */,
+				8D2ABA0A2B3563530094D57B /* PhoneImageUnavailableView.swift in Sources */,
+				8D2ABA082B355D840094D57B /* PhoneListView.swift in Sources */,
 				8D12576D2B041F4500079BC6 /* HandsetInfoDetailView.swift in Sources */,
 				8D1257722B041F4500079BC6 /* ContentView.swift in Sources */,
 				8D12576A2B041F4500079BC6 /* CameraCoordinator.swift in Sources */,

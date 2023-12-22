@@ -10,8 +10,12 @@ import SwiftUI
 import SheftAppsStylishUI
 
 struct ChargerInfoDetailView: View {
+    
+    // MARK: - Properties - Charger
 
 	@Binding var charger: Charger
+    
+    // MARK: - Body
 
 	var body: some View {
 		if let phone = charger.phone {
@@ -50,8 +54,11 @@ struct ChargerInfoDetailView: View {
 			Text("Error")
 		}
 	}
+    
 }
 
-//#Preview {
-//	ChargerInfoDetailView(charger: <#Binding<Charger>#>)
-//}
+#Preview {
+    @State var charger = Charger(color: "Black")
+    charger.phone = Phone(brand: "Panasonic", model: "KX-TGF675")
+	return ChargerInfoDetailView(charger: $charger)
+}

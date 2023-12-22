@@ -10,11 +10,17 @@ import SwiftUI
 
 struct WarningText: View {
     
+    // MARK: - Properties - Strings
+    
     var text: String
+    
+    // MARK: - Initialization
     
     init(_ text: String) {
         self.text = text
     }
+    
+    // MARK: - Body
     
     var body: some View {
         HStack {

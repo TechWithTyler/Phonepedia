@@ -9,14 +9,22 @@
 import SwiftUI
 
 struct PhoneImage: View {
+    
+    // MARK: - Properties - Phone
 
 	@Bindable var phone: Phone
+    
+    // MARK: - Properties - Booleans
 
 	var thumb: Bool
+    
+    // MARK: - Properties - Floats
 
 	var size: CGFloat {
 		return thumb ? 50 : 300
 	}
+    
+    // MARK: - View
 
     var body: some View {
 		#if os(iOS) || os(visionOS)
@@ -43,23 +51,10 @@ struct PhoneImage: View {
     }
 }
 
-#Preview {
+#Preview("Full") {
 	PhoneImage(phone: Phone(brand: "Vtech", model: "DS6421-3"), thumb: false)
 }
 
-#Preview {
+#Preview("Thumbnail") {
 	PhoneImage(phone: Phone(brand: "Vtech", model: "DS6421-3"), thumb: true)
-}
-
-struct PhoneImageUnavailableView: View {
-
-	var body: some View {
-		Text("Phone image unavailable")
-			.font(.largeTitle)
-	}
-
-}
-
-#Preview {
-	PhoneImageUnavailableView()
 }
