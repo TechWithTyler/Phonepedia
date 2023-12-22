@@ -35,14 +35,14 @@ struct PhoneTypeDefinitionsView: View {
                 }
             }
             .navigationTitle("Phone Type Definitions")
-        }
-        .frame(minWidth: 400, maxWidth: 400, minHeight: 200, maxHeight: 200)
-        .toolbar {
-            ToolbarItem(placement: .confirmationAction) {
-                Button {
-                    dismiss()
-                } label: {
-                    Text("Done")
+            .frame(minWidth: 400, maxWidth: 400, minHeight: 200, maxHeight: 200)
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("Done")
+                    }
                 }
             }
         }
