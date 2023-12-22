@@ -35,7 +35,9 @@ struct PhoneTypeDefinitionsView: View {
                 }
             }
             .navigationTitle("Phone Type Definitions")
+            #if os(macOS)
             .frame(minWidth: 400, maxWidth: 400, minHeight: 200, maxHeight: 200)
+            #endif
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button {

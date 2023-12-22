@@ -26,7 +26,9 @@ struct FrequenciesExplanationView: View {
                 Text("DECT uses encryption, making it the most secure cordless phone frequency. And since it's dedicated to cordless phones, baby monitors, and related devices, other wireless devices won't interfere with the phone.")
             }
             .navigationTitle("Frequencies Explanation")
+            #if os(macOS)
             .frame(minWidth: 400, maxWidth: 400, minHeight: 400, maxHeight: 400)
+            #endif
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button {
