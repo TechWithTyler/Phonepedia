@@ -83,7 +83,6 @@ struct PhoneDetailView: View {
                                 Text("DECT 6.0 (1.92GHz-1.93GHz)").tag(27)
                             }
                         }
-                        Spacer()
                         InfoButton(title: "Frequencies Explanation…") {
                             showingFrequenciesExplanation = true
                         }
@@ -372,13 +371,13 @@ struct PhoneDetailView: View {
                             phone.baseDisplayTypeChanged(oldValue: oldValue, newValue: newValue)
                         }
                         if phone.baseDisplayType > 2 && phone.baseDisplayType < 6 {
-                            FormTextField("Base Display Backlight Color", text: $phone.baseDisplayBacklightColor)
+                            ColorPicker("Base Display Backlight Color", selection: phone.baseDisplayBacklightColorBinding)
                         }
                         if phone.baseDisplayType >= 3 {
                             Toggle("Base Has LED Message Counter In Addition To Display", isOn: $phone.baseHasDisplayAndMessageCounter)
                         }
                         if phone.baseDisplayType == 1 || phone.baseHasDisplayAndMessageCounter {
-                            FormTextField("LED Message Counter Color", text: $phone.baseLEDMessageCounterColor)
+                            ClearSupportedColorPicker("LED Message Counter Color", selection: phone.baseLEDMessageCounterColorBinding)
                         }
                         if phone.baseDisplayType > 0 {
                             Picker("Base Navigation Button Type", selection: $phone.baseNavigatorKeyType) {
@@ -429,10 +428,10 @@ struct PhoneDetailView: View {
                             Text("All Buttons").tag(3)
                         }
                         if phone.baseKeyBacklightAmount > 0 {
-                            FormTextField("Button Backlight Color", text: $phone.baseKeyBacklightColor)
+                            ClearSupportedColorPicker("Button Backlight Color", selection: phone.baseKeyBacklightColorBinding)
                         }
-                        FormTextField("Button Foreground Color", text: $phone.baseKeyForegroundColor)
-                        FormTextField("Button Background Color", text: $phone.baseKeyBackgroundColor)
+                        ColorPicker("Button Foreground Color", selection: phone.baseKeyForegroundColorBinding)
+                        ColorPicker("Button Background Color", selection: phone.baseKeyBackgroundColorBinding)
                     }
                     Section(header: Text("Answering System/Voicemail")) {
                         Picker("Answering System", selection: $phone.hasAnsweringSystem) {

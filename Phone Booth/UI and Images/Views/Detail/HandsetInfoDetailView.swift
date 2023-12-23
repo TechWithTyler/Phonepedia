@@ -41,7 +41,13 @@ struct HandsetInfoDetailView: View {
 					FormTextField("Brand", text: $handset.brand)
 					FormTextField("Model", text: $handset.model)
 					Stepper("Release Year: \(String(handset.releaseYear))", value: $handset.releaseYear, in: 1965...currentYear)
-					FormTextField("Color", text: $handset.color)
+                    ColorPicker("Main Color", selection: handset.mainColorBinding)
+                    HStack {
+                        ColorPicker("Secondary/Accent Color", selection: handset.secondaryColorBinding)
+                        Button("Use Main Color") {
+                            handset.secondaryColorBinding.wrappedValue = handset.mainColorBinding.wrappedValue
+                        }
+                    }
 					Stepper("Maximum Number Of Bases: \(handset.maxBases)", value: $handset.maxBases, in: 1...4)
 					InfoText("Registering a handset to more than one base allows you to extend the coverage area and access the answering system, shared lists, etc. of multiple bases without having to register the handset to one of those bases at a time.")
 					Picker("Cordless Device Type", selection: $handset.cordlessDeviceType) {
@@ -71,7 +77,8 @@ struct HandsetInfoDetailView: View {
 						}
 					}
 					if handset.cordlessDeviceType == 1 {
-						FormTextField("Corded Receiver Color", text: $handset.cordedReceiverColor)
+						ColorPicker("Corded Receiver Main Color", selection: handset.cordedReceiverMainColorBinding)
+                        ColorPicker("Corded Receiver Secondary/Accent Color", selection: handset.cordedReceiverSecondaryColorBinding)
 					}
 					Picker("Visual Ringer", selection: $handset.visualRinger) {
 						Text("None").tag(0)
@@ -131,7 +138,7 @@ struct HandsetInfoDetailView: View {
 							handset.displayTypeChanged(oldValue: oldValue, newValue: newValue)
 						}
 						if handset.displayType > 0 && handset.displayType < 5 {
-							FormTextField("Display Backlight Color", text: $handset.displayBacklightColor)
+							ColorPicker("Display Backlight Color", selection: handset.displayBacklightColorBinding)
 						}
 						if handset.displayType > 0 {
 							Picker("Update Available Handset Menus", selection: $handset.menuUpdateMode) {
@@ -187,10 +194,10 @@ struct HandsetInfoDetailView: View {
 							Text("All Buttons").tag(3)
 						}
 						if handset.keyBacklightAmount > 0 {
-							FormTextField("Button Backlight Color", text: $handset.keyBacklightColor)
+							ColorPicker("Button Backlight Color", selection: handset.keyBacklightColorBinding)
 						}
-						FormTextField("Button Foreground Color", text: $handset.keyForegroundColor)
-						FormTextField("Button Background Color", text: $handset.keyBackgroundColor)
+						ColorPicker("Button Foreground Color", selection: handset.keyForegroundColorBinding)
+						ColorPicker("Button Background Color", selection: handset.keyBackgroundColorBinding)
 					}
 					Section(header: Text("Audio")) {
 						Toggle("Has Speakerphone", isOn: $handset.hasSpeakerphone)

@@ -6,7 +6,7 @@
 //  Copyright © 2023-2024 SheftApps. All rights reserved.
 //
 
-import Foundation
+import SwiftUI
 import SwiftData
 
 @Model
@@ -29,14 +29,54 @@ final class CordlessHandset {
 	var maxBases: Int = 1
 	
 	var cordlessDeviceType: Int = 0
-	
-	var color: String = "Black"
-	
-	var cordedReceiverColor: String = String()
-	
-	var keyForegroundColor: String = "White"
-	
-	var keyBackgroundColor: String = "Black"
+    
+    var mainColorRed: Double = 0
+    
+    var mainColorGreen: Double = 0
+    
+    var mainColorBlue: Double = 0
+    
+    var secondaryColorRed: Double = 0
+    
+    var secondaryColorGreen: Double = 0
+    
+    var secondaryColorBlue: Double = 0
+
+    var displayBacklightColorRed: Double = 255
+    
+    var displayBacklightColorGreen: Double = 255
+    
+    var displayBacklightColorBlue: Double = 255
+    
+    var keyForegroundColorRed: Double = 255
+    
+    var keyForegroundColorGreen: Double = 255
+    
+    var keyForegroundColorBlue: Double = 255
+    
+    var keyBackgroundColorRed: Double = 0
+    
+    var keyBackgroundColorGreen: Double = 0
+    
+    var keyBackgroundColorBlue: Double = 0
+    
+    var cordedReceiverMainColorRed: Double = 0
+    
+    var cordedReceiverMainColorGreen: Double = 0
+    
+    var cordedReceiverMainColorBlue: Double = 0
+    
+    var cordedReceiverSecondaryColorRed: Double = 0
+    
+    var cordedReceiverSecondaryColorGreen: Double = 0
+    
+    var cordedReceiverSecondaryColorBlue: Double = 0
+    
+    var keyBacklightColorRed: Double = 0
+    
+    var keyBacklightColorGreen: Double = 0
+    
+    var keyBacklightColorBlue: Double = 0
 	
 	var buttonType: Int = 0
 	
@@ -62,8 +102,6 @@ final class CordlessHandset {
 	
 	var redialCapacity: Int = 5
 	
-	var displayBacklightColor: String = "White"
-	
 	var softKeys: Int = 0
 	
 	var navigatorKeyType: Int = 1
@@ -75,8 +113,6 @@ final class CordlessHandset {
 	var navigatorKeyCenterButton: Int = 1
 	
 	var sideVolumeButtons: Bool = false
-	
-	var keyBacklightColor: String = String()
 	
 	var keyBacklightAmount: Int = 0
 	
@@ -120,6 +156,96 @@ final class CordlessHandset {
         return ringtones + musicRingtones
     }
     
+    // MARK: - Color Bindings
+    
+    var mainColorBinding: Binding<Color> {
+        Binding<Color> { [self] in
+            Color(red: mainColorRed, green: mainColorGreen, blue: mainColorBlue)
+        } set: { [self] newColor in
+            let components = newColor.components
+            mainColorRed = components.red
+            mainColorGreen = components.green
+            mainColorBlue = components.blue
+        }
+    }
+    
+    var secondaryColorBinding: Binding<Color> {
+        Binding<Color> { [self] in
+            Color(red: secondaryColorRed, green: secondaryColorGreen, blue: secondaryColorBlue)
+        } set: { [self] newColor in
+            let components = newColor.components
+            secondaryColorRed = components.red
+            secondaryColorGreen = components.green
+            secondaryColorBlue = components.blue
+        }
+    }
+    
+    var cordedReceiverMainColorBinding: Binding<Color> {
+        Binding<Color> { [self] in
+            Color(red: cordedReceiverMainColorRed, green: cordedReceiverMainColorGreen, blue: cordedReceiverMainColorBlue)
+        } set: { [self] newColor in
+            let components = newColor.components
+            cordedReceiverMainColorRed = components.red
+            cordedReceiverMainColorGreen = components.green
+            cordedReceiverMainColorBlue = components.blue
+        }
+    }
+    
+    var cordedReceiverSecondaryColorBinding: Binding<Color> {
+        Binding<Color> { [self] in
+            Color(red: cordedReceiverSecondaryColorRed, green: cordedReceiverSecondaryColorGreen, blue: cordedReceiverSecondaryColorBlue)
+        } set: { [self] newColor in
+            let components = newColor.components
+            cordedReceiverSecondaryColorRed = components.red
+            cordedReceiverSecondaryColorGreen = components.green
+            cordedReceiverSecondaryColorBlue = components.blue
+        }
+    }
+    
+    var displayBacklightColorBinding: Binding<Color> {
+        Binding<Color> { [self] in
+            Color(red: displayBacklightColorRed, green: displayBacklightColorGreen, blue: displayBacklightColorBlue)
+        } set: { [self] newColor in
+            let components = newColor.components
+            displayBacklightColorRed = components.red
+            displayBacklightColorGreen = components.green
+            displayBacklightColorBlue = components.blue
+        }
+    }
+    
+    var keyBacklightColorBinding: Binding<Color> {
+        Binding<Color> { [self] in
+            Color(red: keyBacklightColorRed, green: keyBacklightColorGreen, blue: keyBacklightColorBlue)
+        } set: { [self] newColor in
+            let components = newColor.components
+            keyBacklightColorRed = components.red
+            keyBacklightColorGreen = components.green
+            keyBacklightColorBlue = components.blue
+        }
+    }
+    
+    var keyForegroundColorBinding: Binding<Color> {
+        Binding<Color> { [self] in
+            Color(red: keyForegroundColorRed, green: keyForegroundColorGreen, blue: keyForegroundColorBlue)
+        } set: { [self] newColor in
+            let components = newColor.components
+            keyForegroundColorRed = components.red
+            keyForegroundColorGreen = components.green
+            keyForegroundColorBlue = components.blue
+        }
+    }
+    
+    var keyBackgroundColorBinding: Binding<Color> {
+        Binding<Color> { [self] in
+            Color(red: keyBackgroundColorRed, green: keyBackgroundColorGreen, blue: keyBackgroundColorBlue)
+        } set: { [self] newColor in
+            let components = newColor.components
+            keyBackgroundColorRed = components.red
+            keyBackgroundColorGreen = components.green
+            keyBackgroundColorBlue = components.blue
+        }
+    }
+    
     // MARK: - Initialization
 	
 	init(brand: String, model: String) {
@@ -149,10 +275,10 @@ final class CordlessHandset {
 			softKeys = 0
 		}
 		if newValue == 5 {
-			displayBacklightColor = String()
+            displayBacklightColorBinding.wrappedValue = .white
 		}
 		if newValue == 0 {
-			displayBacklightColor = String()
+            displayBacklightColorBinding.wrappedValue = .white
 			menuUpdateMode = 0
 			navigatorKeyType = 0
 			navigatorKeyCenterButton = 0

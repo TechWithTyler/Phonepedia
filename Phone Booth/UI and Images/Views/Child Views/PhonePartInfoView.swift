@@ -20,11 +20,23 @@ struct PhonePartInfoView: View {
 
 	var body: some View {
 		Section(phone.isCordless ? "Base Colors" : "Colors") {
-			FormTextField("Base Color", text: $phone.baseColor)
-			FormTextField("Corded Receiver Color", text: $phone.cordedReceiverColor)
-				.onChange(of: phone.cordedReceiverColor) { oldValue, newValue in
-					phone.cordedReceiverColorChanged(oldValue: oldValue, newValue: newValue)
-				}
+            ColorPicker("Base Main Color", selection: phone.baseMainColorBinding)
+            HStack {
+                ColorPicker("Base Secondary/Accent Color", selection: phone.baseSecondaryColorBinding)
+                Button("Use Main Color") {
+                    phone.baseSecondaryColorBinding.wrappedValue = phone.baseMainColorBinding.wrappedValue
+                }
+            }
+            InfoText("The main color is the top color of a base/charger or the front color of a handset. The secondary color is the color for the sides of a base/charger/handset and the back of a handset.\nSometimes, the base/charger/handset is all one color, with the secondary color used as an accent color in various places such as around the edges.")
+            ClearSupportedColorPicker("Corded Receiver Main Color", selection: phone.cordedReceiverMainColorBinding) {
+                Text("Make Cordless-Only")
+            }
+                .onChange(of: phone.cordedReceiverMainColorBinding.wrappedValue) { oldValue, newValue in
+                    phone.cordedReceiverColorChanged(oldValue: oldValue, newValue: newValue)
+                }
+            if phone.hasCordedReceiver {
+                ColorPicker("Corded Receiver Secondary/Accent Color", selection: phone.cordedReceiverSecondaryColorBinding)
+            }
 		}
 		if phone.isCordless {
 			Section("Cordless Handsets/Headsets/Speakerphones/Desksets") {
@@ -125,7 +137,7 @@ struct PhonePartInfoView: View {
 	}
 
 	func addCharger() {
-		phone.chargersIHave.append(Charger(color: "Black"))
+		phone.chargersIHave.append(Charger())
 	}
 
 	func deleteHandset(at index: Int) {

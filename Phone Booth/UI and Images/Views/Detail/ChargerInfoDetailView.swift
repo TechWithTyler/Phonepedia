@@ -21,7 +21,8 @@ struct ChargerInfoDetailView: View {
 		if let phone = charger.phone {
 			Form {
 				Section {
-					FormTextField("Color", text: $charger.color)
+					ColorPicker("Main Color", selection: charger.mainColorBinding)
+                    ColorPicker("Secondary Color", selection: charger.secondaryColorBinding)
 					Picker("Charge Contact Placement", selection: $charger.chargeContactPlacement) {
 						Text("Bottom").tag(0)
 						Text("Back").tag(1)
@@ -58,7 +59,7 @@ struct ChargerInfoDetailView: View {
 }
 
 #Preview {
-    @State var charger = Charger(color: "Black")
+    @State var charger = Charger()
     charger.phone = Phone(brand: "Panasonic", model: "KX-TGF675")
 	return ChargerInfoDetailView(charger: $charger)
 }
