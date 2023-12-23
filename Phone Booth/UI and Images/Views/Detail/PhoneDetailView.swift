@@ -42,6 +42,29 @@ struct PhoneDetailView: View {
                         }
                     }
                     Stepper("Release Year: \(String(phone.releaseYear))", value: $phone.releaseYear, in: 1892...currentYear)
+                }
+                PhonePartInfoView(phone: phone)
+                    Section("Basic Features/Cordless Capabilities") {
+                    Stepper("Number of Included Cordless Handsets (0 if corded only): \(phone.numberOfIncludedCordlessHandsets)", value: $phone.numberOfIncludedCordlessHandsets, in: 0...Int.max-1)
+                        .onChange(of: phone.isCordless) { oldValue, newValue in
+                            phone.isCordlessChanged(oldValue: oldValue, newValue: newValue)
+                        }
+                    if phone.isCordless {
+                        Group {
+                            Stepper("Maximum Number of Cordless Handsets (-1 if using \"security codes must match\"): \(phone.maxCordlessHandsets)", value: $phone.maxCordlessHandsets, in: -1...15)
+                                .onChange(of: phone.maxCordlessHandsets) { oldValue, newValue in
+                                    phone.maxCordlessHandsetsChanged(oldValue: oldValue, newValue: newValue)
+                                }
+                                .sensoryFeedback(.error, trigger: phone.numberOfIncludedCordlessHandsets) { oldValue, newValue in
+                                    return newValue > phone.maxCordlessHandsets && phone.maxCordlessHandsets != -1
+                                }
+                            if phone.maxCordlessHandsets == -1 {
+                                InfoText("When placing the handset on the base, the handset and base exchange a digital security code, which makes sure the handset only communicates with that base. You can add as many handsets as you want--the base doesn't know or care how many handsets are being used on it.")
+                            }
+                            if phone.numberOfIncludedCordlessHandsets > phone.maxCordlessHandsets && phone.maxCordlessHandsets != -1 {
+                                WarningText("The base of the \(phone.brand) \(phone.model) can only register up to \(phone.maxCordlessHandsets) handsets (trying to register \(phone.numberOfIncludedCordlessHandsets)).")
+                            }
+                        }
                     if phone.isCordless {
                         Picker("Wireless Frequency", selection: $phone.frequency) {
                             Section(header: Text("46-49MHz")) {
@@ -125,26 +148,6 @@ struct PhoneDetailView: View {
                             phone.cordedPhoneTypeChanged(oldValue: oldValue, newValue: newValue)
                         }
                     }
-                    Stepper("Number of Included Cordless Handsets (0 if corded only): \(phone.numberOfIncludedCordlessHandsets)", value: $phone.numberOfIncludedCordlessHandsets, in: 0...Int.max-1)
-                        .onChange(of: phone.isCordless) { oldValue, newValue in
-                            phone.isCordlessChanged(oldValue: oldValue, newValue: newValue)
-                        }
-                    if phone.isCordless {
-                        Group {
-                            Stepper("Maximum Number of Cordless Handsets (-1 if using \"security codes must match\"): \(phone.maxCordlessHandsets)", value: $phone.maxCordlessHandsets, in: -1...15)
-                                .onChange(of: phone.maxCordlessHandsets) { oldValue, newValue in
-                                    phone.maxCordlessHandsetsChanged(oldValue: oldValue, newValue: newValue)
-                                }
-                                .sensoryFeedback(.error, trigger: phone.numberOfIncludedCordlessHandsets) { oldValue, newValue in
-                                    return newValue > phone.maxCordlessHandsets && phone.maxCordlessHandsets != -1
-                                }
-                            if phone.maxCordlessHandsets == -1 {
-                                InfoText("When placing the handset on the base, the handset and base exchange a digital security code, which makes sure the handset only communicates with that base. You can add as many handsets as you want--the base doesn't know or care how many handsets are being used on it.")
-                            }
-                            if phone.numberOfIncludedCordlessHandsets > phone.maxCordlessHandsets && phone.maxCordlessHandsets != -1 {
-                                WarningText("The base of the \(phone.brand) \(phone.model) can only register up to \(phone.maxCordlessHandsets) handsets (trying to register \(phone.numberOfIncludedCordlessHandsets)).")
-                            }
-                        }
                         Picker("Charge Light", selection: $phone.chargeLight) {
                             Text("None").tag(0)
                             if !phone.hasTransmitOnlyBase {
@@ -217,7 +220,6 @@ struct PhoneDetailView: View {
                         }
                     }
                 }
-                PhonePartInfoView(phone: phone)
                 Section(header: Text("Power")) {
                     if !phone.isCordless {
                         Picker("Power Source", selection: $phone.cordedPowerSource) {
@@ -428,7 +430,7 @@ struct PhoneDetailView: View {
                             Text("All Buttons").tag(3)
                         }
                         if phone.baseKeyBacklightAmount > 0 {
-                            ClearSupportedColorPicker("Button Backlight Color", selection: phone.baseKeyBacklightColorBinding)
+                            ColorPicker("Button Backlight Color", selection: phone.baseKeyBacklightColorBinding)
                         }
                         ColorPicker("Button Foreground Color", selection: phone.baseKeyForegroundColorBinding)
                         ColorPicker("Button Background Color", selection: phone.baseKeyBackgroundColorBinding)
