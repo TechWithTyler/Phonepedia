@@ -12,33 +12,6 @@ import SwiftData
 @Model
 final class Phone {
     
-    enum PhoneType : String {
-        
-        case cordless = "Cordless"
-        
-        case corded = "Corded"
-        
-        case cordedCordless = "Corded-Cordless"
-        
-        case cordlessWithTransmitOnlyBase = "Cordless With Transmit-Only Base"
-        
-        struct Term: Identifiable {
-            
-            let id: UUID = UUID()
-            
-            let term: String
-            
-            let definition: String
-            
-            init(_ term: String, definition: String) {
-                self.term = term
-                self.definition = definition
-            }
-            
-        }
-        
-    }
-    
     // MARK: - Properties
 
 	static var previewPhotoData: Data {
@@ -428,6 +401,8 @@ final class Phone {
 		self.brand = brand
 		self.model = model
 	}
+    
+    // MARK: - Set Secondary Color to Main
     
     func setBaseSecondaryColorToMain() {
         let components = baseMainColorBinding.wrappedValue.components

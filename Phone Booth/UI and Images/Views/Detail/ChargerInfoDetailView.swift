@@ -22,7 +22,12 @@ struct ChargerInfoDetailView: View {
 			Form {
 				Section {
 					ColorPicker("Main Color", selection: charger.mainColorBinding)
-                    ColorPicker("Secondary Color", selection: charger.secondaryColorBinding)
+                    HStack {
+                        ColorPicker("Secondary/Accent Color", selection: charger.secondaryColorBinding)
+                        Button("Use Main Color") {
+                            charger.setSecondaryColorToMain()
+                        }
+                    }
 					Picker("Charge Contact Placement", selection: $charger.chargeContactPlacement) {
 						Text("Bottom").tag(0)
 						Text("Back").tag(1)

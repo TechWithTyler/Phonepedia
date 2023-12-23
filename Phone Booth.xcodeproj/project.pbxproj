@@ -38,6 +38,7 @@
 		8D505B152B33749100690035 /* CGImagePropertyOrientationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D505B142B33749100690035 /* CGImagePropertyOrientationExtension.swift */; };
 		8D5B63E32B2A520F00E86DA8 /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = 8D5B63E22B2A520F00E86DA8 /* Collections */; };
 		8D5B63E52B2A520F00E86DA8 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 8D5B63E42B2A520F00E86DA8 /* OrderedCollections */; };
+		8D6115742B3694D200CFD904 /* PhoneType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6115732B3694D200CFD904 /* PhoneType.swift */; };
 		8D64DF8E2B2105D400D7142D /* InfoText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D64DF8D2B2105D400D7142D /* InfoText.swift */; };
 		8D64DF902B21073300D7142D /* PhoneTypeDefinitionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D64DF8F2B21073300D7142D /* PhoneTypeDefinitionsView.swift */; };
 		8D64DF942B21119300D7142D /* WarningText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D64DF932B21119300D7142D /* WarningText.swift */; };
@@ -112,6 +113,7 @@
 		8D505B0E2B30EFCB00690035 /* LandlineOrNotV1.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = LandlineOrNotV1.mlmodel; sourceTree = "<group>"; };
 		8D505B102B323E8800690035 /* PhonePhotoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhonePhotoViewModel.swift; sourceTree = "<group>"; };
 		8D505B142B33749100690035 /* CGImagePropertyOrientationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGImagePropertyOrientationExtension.swift; sourceTree = "<group>"; };
+		8D6115732B3694D200CFD904 /* PhoneType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneType.swift; sourceTree = "<group>"; };
 		8D64DF8D2B2105D400D7142D /* InfoText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoText.swift; sourceTree = "<group>"; };
 		8D64DF8F2B21073300D7142D /* PhoneTypeDefinitionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneTypeDefinitionsView.swift; sourceTree = "<group>"; };
 		8D64DF932B21119300D7142D /* WarningText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarningText.swift; sourceTree = "<group>"; };
@@ -271,6 +273,7 @@
 			isa = PBXGroup;
 			children = (
 				8D1257452B041F4500079BC6 /* Phone.swift */,
+				8D6115732B3694D200CFD904 /* PhoneType.swift */,
 				8D1257442B041F4500079BC6 /* CordlessHandset.swift */,
 				8D1257462B041F4500079BC6 /* Charger.swift */,
 			);
@@ -500,6 +503,7 @@
 				8D1257792B041F4500079BC6 /* Globals.swift in Sources */,
 				8D64DF942B21119300D7142D /* WarningText.swift in Sources */,
 				8D1257732B041F4500079BC6 /* FrequenciesExplanationView.swift in Sources */,
+				8D6115742B3694D200CFD904 /* PhoneType.swift in Sources */,
 				8D505B0D2B2CF9F600690035 /* LandlineOrNotPredictor.swift in Sources */,
 				8D1257652B041F4500079BC6 /* CordlessHandset.swift in Sources */,
 				8D1257662B041F4500079BC6 /* Phone.swift in Sources */,

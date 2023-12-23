@@ -13,7 +13,7 @@ struct PhoneTypeDefinitionsView: View {
     
     // MARK: - Type Aliases
     
-    typealias Term = Phone.PhoneType.Term
+    typealias DictionaryEntry = Phone.PhoneType.DictionaryEntry
     
     // MARK: - Properties - Dismiss Action
     
@@ -21,11 +21,11 @@ struct PhoneTypeDefinitionsView: View {
     
     // MARK: - Properties - Arrays
     
-    let dictionary: [Term] = [
-        Term("\(Phone.PhoneType.cordless.rawValue)", definition: "A phone with a main transmitting base that connects to the phone line and charges a cordless handset. Cordless phones with 2 or more handsets have one or more chargers, which are small bases which only connect to power and charge a cordless handset."),
-        Term("\(Phone.PhoneType.corded.rawValue)", definition: "A traditional phone with a corded receiver. These can have either mechanical/bell or electronic ringers and come in a range of styles from slim, basic wall phones to fully-featured desk phones."),
-        Term("\(Phone.PhoneType.cordedCordless.rawValue)", definition: "A corded phone that acts as a transmitting base for cordless handsets. All cordless handsets charge on chargers."),
-        Term("\(Phone.PhoneType.cordlessWithTransmitOnlyBase.rawValue)", definition: "A cordless phone where the base doesn't have a cordless handset charging area or corded receiver. All cordless handsets charge on chargers.")
+    let dictionary: [DictionaryEntry] = [
+        DictionaryEntry("\(Phone.PhoneType.cordless.rawValue)", definition: "A phone with a main transmitting base that connects to the phone line and charges a cordless handset. Cordless phones with 2 or more handsets have one or more chargers, which are small bases which only connect to power and charge a cordless handset."),
+        DictionaryEntry("\(Phone.PhoneType.corded.rawValue)", definition: "A traditional phone with a corded receiver. These can have either mechanical/bell or electronic ringers and come in a range of styles from slim, basic wall phones to fully-featured desk phones."),
+        DictionaryEntry("\(Phone.PhoneType.cordedCordless.rawValue)", definition: "A corded phone that acts as a transmitting base for cordless handsets. All cordless handsets charge on chargers."),
+        DictionaryEntry("\(Phone.PhoneType.cordlessWithTransmitOnlyBase.rawValue)", definition: "A cordless phone where the base doesn't have a cordless handset charging area or corded receiver. All cordless handsets charge on chargers.")
     ]
     
     // MARK: - Body

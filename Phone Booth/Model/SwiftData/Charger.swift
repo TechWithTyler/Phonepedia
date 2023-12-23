@@ -74,5 +74,14 @@ final class Charger {
         self.secondaryColorGreen = 0
         self.secondaryColorBlue = 0
 	}
+    
+    // MARK: - Set Secondary Color to Main
+    
+    func setSecondaryColorToMain() {
+        let components = mainColorBinding.wrappedValue.components
+        secondaryColorRed = components.red
+        secondaryColorGreen = components.green
+        secondaryColorBlue = components.blue
+    }
 
 }

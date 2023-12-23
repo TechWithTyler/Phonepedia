@@ -253,6 +253,15 @@ final class CordlessHandset {
 		self.model = model
 	}
     
+    // MARK: - Set Secondary Color to Main
+    
+    func setSecondaryColorToMain() {
+        let components = mainColorBinding.wrappedValue.components
+        secondaryColorRed = components.red
+        secondaryColorGreen = components.green
+        secondaryColorBlue = components.blue
+    }
+    
     // MARK: - Property Change Handlers
 	
 	func cordlessDeviceTypeChanged(oldValue: Int, newValue: Int) {

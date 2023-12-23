@@ -45,7 +45,7 @@ struct HandsetInfoDetailView: View {
                     HStack {
                         ColorPicker("Secondary/Accent Color", selection: handset.secondaryColorBinding)
                         Button("Use Main Color") {
-                            handset.secondaryColorBinding.wrappedValue = handset.mainColorBinding.wrappedValue
+                            handset.setSecondaryColorToMain()
                         }
                     }
 					Stepper("Maximum Number Of Bases: \(handset.maxBases)", value: $handset.maxBases, in: 1...4)
