@@ -31,7 +31,7 @@ struct FrequenciesExplanationView: View {
             }
             .navigationTitle("Frequencies Explanation")
             #if os(macOS)
-            .frame(minWidth: 400, maxWidth: 400, minHeight: 400, maxHeight: 400)
+            .frame(minWidth: 600, maxWidth: 600, minHeight: 400, maxHeight: 400)
             #endif
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
