@@ -2,18 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>LSSupportsOpeningDocumentsInPlace</key>
-	<true/>
-	<key>UISupportsDocumentBrowser</key>
-	<true/>
 	<key>CFBundleDocumentTypes</key>
 	<array>
-		<dict>
-			<key>CFBundleTypeName</key>
-			<string></string>
-			<key>LSHandlerRank</key>
-			<string>Default</string>
-		</dict>
 		<dict>
 			<key>CFBundleTypeIconSystemGenerated</key>
 			<integer>1</integer>
@@ -25,7 +15,7 @@
 			<string>Default</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>com.tylersheft.phoneBoothDatabase</string>
+				<string>com.tylersheft.PhoneBoothDatabase</string>
 			</array>
 		</dict>
 	</array>
@@ -46,7 +36,7 @@
 			<key>UTTypeIcons</key>
 			<dict/>
 			<key>UTTypeIdentifier</key>
-			<string>com.tylersheft.phoneBoothDatabase</string>
+			<string>com.tylersheft.PhoneBoothDatabase</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
