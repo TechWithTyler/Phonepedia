@@ -86,6 +86,17 @@ struct HandsetInfoDetailView: View {
 						Text("Follow Ring Signal").tag(2)
 					}
 					InfoText("A visual ringer that follows the ring signal starts flashing when the ring signal starts and stops flashing when the ring signal stops. A visual ringer that ignores the ring signal starts flashing when the ring signal starts and continues flashing for as long as the handset is indicating an incoming call.")
+                    if handset.cordlessDeviceType == 1 {
+                        Toggle("Supports Backup Batteries", isOn: $handset.desksetSupportsBackupBatteries)
+                    }
+                    if handset.cordlessDeviceType == 0 || (handset.cordlessDeviceType == 1 && handset.desksetSupportsBackupBatteries) {
+                        Picker(handset.cordlessDeviceType == 0 ? "Battery Type" : "Backup Battery Type", selection: $handset.batteryType) {
+                            Text("Pack with Plug").tag(0)
+                            Text("Pack with Contacts").tag(1)
+                            Text("Standard Rechargeable").tag(2)
+                        }
+                        BatteryInfoView()
+                    }
 				}
 				if handset.cordlessDeviceType < 2 {
 					Section(header: Text("Ringers")) {

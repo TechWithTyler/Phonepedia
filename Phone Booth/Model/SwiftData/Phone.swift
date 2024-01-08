@@ -86,6 +86,8 @@ final class Phone {
     
     var baseKeyBacklightColorBlue: Double = 0
     
+    var baseBackupBatteryType: Int = 0
+    
     var locatorButtons: Int = 0
     
     var deregistration: Int = 2

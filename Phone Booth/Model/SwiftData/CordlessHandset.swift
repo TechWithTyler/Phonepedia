@@ -81,6 +81,10 @@ final class CordlessHandset {
 	var buttonType: Int = 0
 	
 	var displayType: Int = 2
+    
+    var batteryType: Int = 0
+    
+    var desksetSupportsBackupBatteries: Bool = true
 	
 	var menuUpdateMode: Int = 0
 	
@@ -267,7 +271,11 @@ final class CordlessHandset {
 	func cordlessDeviceTypeChanged(oldValue: Int, newValue: Int) {
 		if newValue > 0 {
 			fitsOnBase = false
+            batteryType = 0
 		}
+        if newValue != 1 {
+            desksetSupportsBackupBatteries = false
+        }
 	}
     
     func totalRingtonesChanged(oldValue: Int, newValue: Int) {

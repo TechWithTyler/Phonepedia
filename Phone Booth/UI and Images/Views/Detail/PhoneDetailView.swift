@@ -74,17 +74,17 @@ struct PhoneDetailView: View {
                                 Text("900MHz Analog").tag(1)
                                 Text("900MHz Voice Scramble Analog").tag(2)
                                 Text("900MHz Digital").tag(3)
-                                Text("900MHz Digital Spread Spectrum (DSS)").tag(4)
+                                Text("900MHz DSS").tag(4)
                             }
                             Section(header: Text("2.4GHz")) {
                                 Text("2.4GHz Analog").tag(5)
                                 Text("2.4GHz/900MHz Analog").tag(6)
                                 Text("2.4GHz Digital").tag(7)
                                 Text("2.4GHz/900MHz Digital").tag(8)
-                                Text("2.4GHz Digital Spread Spectrum (DSS)").tag(9)
-                                Text("2.4GHz/900MHz Digital Spread Spectrum (DSS)").tag(10)
-                                Text("2.4GHz Digital Frequency-Hopping Spread Spectrum (FHSS)").tag(11)
-                                Text("2.4GHz/900MHz Digital Frequency-Hopping Spread Spectrum (FHSS)").tag(12)
+                                Text("2.4GHz DSS").tag(9)
+                                Text("2.4GHz/900MHz DSS").tag(10)
+                                Text("2.4GHz FHSS").tag(11)
+                                Text("2.4GHz/900MHz FHSS").tag(12)
                             }
                             Section(header: Text("5.8GHz")) {
                                 Text("5.8GHz Analog").tag(13)
@@ -93,12 +93,12 @@ struct PhoneDetailView: View {
                                 Text("5.8GHz Digital").tag(16)
                                 Text("5.8GHz/900MHz Digital").tag(17)
                                 Text("5.8GHz/2.4GHz Digital").tag(18)
-                                Text("5.8GHz Digital Spread Spectrum (DSS)").tag(19)
-                                Text("5.8GHz/900MHz Digital Spread Spectrum (DSS)").tag(20)
-                                Text("5.8GHz/2.4GHz Digital Spread Spectrum (DSS)").tag(21)
-                                Text("5.8GHz Digital Frequency-Hopping Spread Spectrum (FHSS)").tag(22)
-                                Text("5.8GHz/900MHz Digital Frequency-Hopping Spread Spectrum (FHSS)").tag(23)
-                                Text("5.8GHz/2.4GHz Digital Frequency-Hopping Spread Spectrum (FHSS)").tag(24)
+                                Text("5.8GHz DSS").tag(19)
+                                Text("5.8GHz/900MHz DSS").tag(20)
+                                Text("5.8GHz/2.4GHz DSS").tag(21)
+                                Text("5.8GHz Digital FHSS").tag(22)
+                                Text("5.8GHz/900MHz FHSS").tag(23)
+                                Text("5.8GHz/2.4GHz FHSS").tag(24)
                             }
                             Section(header: Text("DECT (Digital Enhanced Cordless Telecommunications)")) {
                                 Text("DECT (1.88GHz-1.90GHz)").tag(25)
@@ -247,10 +247,18 @@ struct PhoneDetailView: View {
                             phone.cordlessPowerBackupModeChanged(oldValue: oldValue, newValue: newValue)
                         }
                         if phone.cordlessPowerBackupMode == 0 {
-                            InfoText("You can plug an external battery into the base power port to use it when the power goes out.")
+                            InfoText("You can plug an external battery into the base power port to use it when the power goes out. Plug the base power cord into the battery/battery box instead of the base in this case.")
                         }
                         if phone.cordlessPowerBackupMode == 3 {
-                            WarningText("If you use non-rechargeable batteries, you MUST remember to remove them from the base as soon as possible once power returns to prevent leakage!")
+                            Picker("Base Backup Battery Type", selection: $phone.baseBackupBatteryType) {
+                                Text("Pack with Plug").tag(0)
+                                Text("Pack with Contacts").tag(1)
+                                Text("Standard Batteries").tag(2)
+                            }
+                            BatteryInfoView()
+                            if phone.baseBackupBatteryType == 2 {
+                                WarningText("If you use non-rechargeable batteries, you MUST remember to remove them from the base as soon as possible once power returns to prevent leakage if the base can't detect non-rechargeable batteries!")
+                            }
                         }
                         if phone.cordlessPowerBackupMode == 1 && !phone.hasTransmitOnlyBase && !phone.isCordedCordless {
                             Picker("When Power Returns", selection: $phone.cordlessPowerBackupReturnBehavior) {
