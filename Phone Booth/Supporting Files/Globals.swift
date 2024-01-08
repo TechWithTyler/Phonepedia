@@ -9,8 +9,15 @@
 import Foundation
 import SwiftUI
 
-// Names to use for the answering system greeting examples
+// Names to use for the answering system greeting/talking caller ID examples
 var names: [String] = ["John Smith", "Pat Fleet", "Allison Smith", "Charlie Johnson"]
+
+func cnamForName(_ name: String) -> String {
+    let splitName = name.components(separatedBy: " ")
+    let firstName = splitName.first?.uppercased()
+    let lastName = splitName.last?.uppercased()
+    return "\(lastName!), \(firstName!)"
+}
 
 // The current year to use as the default value of a phone or handset's release year.
 var currentYear = Calendar.current.component(.year, from: Date())

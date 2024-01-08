@@ -635,6 +635,8 @@ A phone's voicemail indicator usually works in one or both of the following ways
                                 Toggle(isOn: $phone.callerIDPhonebookMatch) {
                                     Text("Caller ID Name Uses Matching Phonebook Entry Name")
                                 }
+                                let exampleName = names.randomElement()!
+                                InfoText("If the incoming caller ID phone number matches an entry in the phonebook, the entry name is displayed instead of the caller ID name. For example, if the incoming caller ID name is \"\(cnamForName(exampleName))\" and the number is 555-555-1234, and you store that number to the phonebook with name \"\(exampleName)\", the incoming caller ID will be \"\(exampleName)\" instead of \"\(cnamForName(exampleName))\".")
                             }
                             Toggle(isOn: $phone.hasTalkingCallerID) {
                                 Text("Talking Caller ID")
@@ -700,8 +702,9 @@ When the first ring is suppressed, the number of rings you hear will be one less
                                 }
                                 InfoText("Silence can make callers think your number is broken, making them unlikely to try calling you again.\nA custom busy tone is often the same one used for the intercom busy tone on \(phone.brand)'s cordless phones.\nA traditional busy tone is that of one of the countries where the phone is sold.")
                                 Toggle(isOn: $phone.hasOneTouchCallBlock) {
-                                    Text("Has One-Touch Call Block")
+                                    Text("Has One-Touch/Quick Call Block")
                                 }
+                                InfoText("One-touch/quick call block allows you to press the dedicated call block button or select the call block menu item to block an incoming call as it rings or while talking on the phone. On most phones, if it's not a soft key or menu option, it can also be used to access the call block menu.")
                             }
                             FormNumericTextField("Pre-Programmed Call Block Database Entry Count", value: $phone.callBlockPreProgrammedDatabaseEntryCount)
 #if !os(visionOS)
@@ -711,7 +714,7 @@ When the first ring is suppressed, the number of rings you hear will be one less
                                 InfoText("Numbers in the pre-programmed call block database are not visible to the user and might be excluded from the caller ID list. Numbers from this database can be saved to the phonebook if they happen to become safe in the future.")
                             }
                         }
-                        Section(header: Text("Call Block (pre-screening)"), footer: Text("Call block pre-screening asks callers to press a key so the phone can identify whether they're a human or a robot.\nCallers with numbers stored in the phone's allowed number list/database or phonebook, or callers whose caller ID names are stored in the phone's allowed name list, will always ring through.\nAsking for the caller name allows you to hear the caller's real name in their own voice when you pick up\(phone.hasTalkingCallerID ? " or as the caller ID announcement" : String()).")) {
+                        Section(header: Text("Call Block (pre-screening)"), footer: Text("Call block pre-screening picks up the line and plays a message asking callers to press a key so the phone can identify whether they're a human or a robot.\nCallers with numbers stored in the phone's allowed number list/database or phonebook, or callers whose caller ID names are stored in the phone's allowed name list, will always ring through.\nAsking for the caller name allows you to hear the caller's real name in their own voice when you pick up\(phone.hasTalkingCallerID ? " or as the caller ID announcement" : String()).")) {
                             Picker("Mode", selection: $phone.callBlockPreScreening) {
                                 Text("Not Supported").tag(0)
                                 Text("Caller Name").tag(1)
@@ -747,7 +750,7 @@ When the first ring is suppressed, the number of rings you hear will be one less
                                 Text("Call To Handset/Base").tag(2)
                                 Text("Sound-Activated Call").tag(3)
                             }
-                            InfoText("Call From: You call the monitored handset/base.\nCall To: The monitored handset/base calls you at another handset/base.\nSound-Activated Call To: The monitored handset/base calls you at another handset/base or an outside phone number when sound is detected (e.g., a crying baby or barking dog).")
+                            InfoText("Call From: You call the monitored handset/base.\nCall To: The monitored handset/base calls you at another handset/base.\nSound-Activated Call: The monitored handset/base calls you at another handset/base or an outside phone number when sound is detected (e.g., a crying baby or barking dog).")
                             if phone.roomMonitor == 3 {
                                 Picker("External Room Monitor Keypad Entry Handled By", selection: $phone.externalRoomMonitorAutomatedSystem) {
                                     Text("Base").tag(0)
