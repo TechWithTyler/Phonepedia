@@ -55,9 +55,11 @@ struct PhoneDetailView: View {
                                 .onChange(of: phone.maxCordlessHandsets) { oldValue, newValue in
                                     phone.maxCordlessHandsetsChanged(oldValue: oldValue, newValue: newValue)
                                 }
+                            #if os(iOS)
                                 .sensoryFeedback(.error, trigger: phone.numberOfIncludedCordlessHandsets) { oldValue, newValue in
                                     return newValue > phone.maxCordlessHandsets && phone.maxCordlessHandsets != -1
                                 }
+                            #endif
                             if phone.maxCordlessHandsets == -1 {
                                 InfoText("When placing the handset on the base, the handset and base exchange a digital security code, which makes sure the handset only communicates with that base. You can add as many handsets as you want--the base doesn't know or care how many handsets are being used on it.")
                             }
