@@ -308,9 +308,7 @@ struct PhoneDetailView: View {
                                 }
                             }
                             if phone.hasIntercom && !phone.hasBaseIntercom && phone.cordlessHandsetsIHave.count <= 1 {
-                                Text("Intercom requires 2 or more handsets to be registered to the base.")
-                                    .font(.footnote)
-                                    .foregroundStyle(.secondary)
+                                WarningText("Intercom requires 2 or more handsets to be registered to the base.")
                             }
                         }
                     }
@@ -770,7 +768,7 @@ When the first ring is suppressed, the number of rings you hear will be one less
             }
             .formStyle(.grouped)
             .toggleStyle(.automaticPicker(labelPair: .yesNo))
-#if !os(macOS)
+#if os(iOS)
             .pickerStyle(.navigationLink)
 #endif
         }

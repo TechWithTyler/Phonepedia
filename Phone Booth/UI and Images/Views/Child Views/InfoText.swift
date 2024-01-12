@@ -37,10 +37,12 @@ struct InfoText: View {
             if lines.count == 1 {
                 Text(text)
             } else {
-                List(lines, id: \.self) { line in
-                    Text(line)
+                VStack(alignment: .listRowSeparatorLeading) {
+                    List(lines, id: \.self) { line in
+                        Text(line)
+                    }
+                    .listRowSeparator(.hidden)
                 }
-                .listRowSeparator(.hidden)
             }
         }
         .font(.callout)
