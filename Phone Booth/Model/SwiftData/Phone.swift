@@ -9,12 +9,13 @@
 import SwiftUI
 import SwiftData
 
+// The structure of a SwiftData model class is very simple--a Swift class with @Model before its declaration.
 @Model
 final class Phone {
     
-    // MARK: - Properties
+    // MARK: - Properties - Default Photo Data
 
-	static var previewPhotoData: Data {
+	static var defaultPhotoData: Data {
 #if os(iOS) || os(visionOS)
 		return getPNGDataFromUIImage(image: .phone)
 #elseif os(macOS)
@@ -22,10 +23,15 @@ final class Phone {
 #endif
 	}
     
+    // MARK: - Properties - Persistent Data
+    
+    // At least one property should be created without a default value, being assigned the default in init(), to reduce performance issues.
 	var brand: String
 
 	var model: String
 	
+    // There must be one or more properties declared with an initial value for automatic (lightweight) migration to work.
+    // Use @Attribute(_:) to specify an attribute for a SwiftData property.
 	@Attribute(.externalStorage) var photoData: Data? = nil
 
 	var releaseYear: Int = currentYear
@@ -110,6 +116,8 @@ final class Phone {
 	
 	var frequency: Int = 24
 
+    // Use @Relationship(deleteRule:inverse:) to define a relationship between a property and its type. The type of an @Relationship property must contain an Optional property of this object's type. In this case, a relationship is established between a CordlessHandset and its corresponding Phone.
+    // This is a one-to-many relationship--each Phone can have multiple CordlessHandsets but each CordlessHandset can only be assigned to one Phone.
 	@Relationship(deleteRule: .cascade, inverse: \CordlessHandset.phone)
 	var cordlessHandsetsIHave: [CordlessHandset] = []
 	
@@ -265,7 +273,11 @@ final class Phone {
 	var wallMountability: Int = 1
 	
 	var antennas: Int = 0
+    
+    // MARK: - Properties - Transient (Non-Persistent) Properties
 	
+    // Properties marked with the @Transient property wrapper won't persist their values to SwiftData.
+    @Transient
 	var phoneTypeText: String {
 		if isCordedCordless {
             return PhoneType.cordedCordless.rawValue
@@ -279,24 +291,31 @@ final class Phone {
 		}
 	}
     
+    @Transient
     var totalBaseRingtones: Int {
         return baseRingtones + baseMusicRingtones
     }
 	
+    @Transient
 	var hasCordedReceiver: Bool {
         return cordedReceiverMainColorBinding.wrappedValue != .clear
 	}
 	
+    @Transient
 	var isCordless: Bool {
 		return numberOfIncludedCordlessHandsets > 0
 	}
 	
+    @Transient
 	var isCordedCordless: Bool {
 		return isCordless && hasCordedReceiver
 	}
     
     // MARK: - Color Bindings
     
+    // SwiftData can only store Codable types like String, Int, Double, and Bool, not complex types like Color. To allow ColorPicker to work with SwiftData, a custom Color binding is created, which gets and sets color component Double values stored in SwiftData.
+    
+    @Transient
     var baseMainColorBinding: Binding<Color> {
         Binding<Color> { [self] in
             Color(red: baseMainColorRed, green: baseMainColorGreen, blue: baseMainColorBlue)
@@ -308,6 +327,7 @@ final class Phone {
         }
     }
     
+    @Transient
     var baseSecondaryColorBinding: Binding<Color> {
         Binding<Color> { [self] in
             Color(red: baseSecondaryColorRed, green: baseSecondaryColorGreen, blue: baseSecondaryColorBlue)
@@ -319,6 +339,7 @@ final class Phone {
         }
     }
     
+    @Transient
     var cordedReceiverMainColorBinding: Binding<Color> {
         Binding<Color> { [self] in
             Color(red: cordedReceiverMainColorRed, green: cordedReceiverMainColorGreen, blue: cordedReceiverMainColorBlue, opacity: cordedReceiverMainColorAlpha)
@@ -331,6 +352,7 @@ final class Phone {
         }
     }
     
+    @Transient
     var cordedReceiverSecondaryColorBinding: Binding<Color> {
         Binding<Color> { [self] in
             Color(red: cordedReceiverSecondaryColorRed, green: cordedReceiverSecondaryColorGreen, blue: cordedReceiverSecondaryColorBlue)
@@ -342,6 +364,7 @@ final class Phone {
         }
     }
     
+    @Transient
     var baseDisplayBacklightColorBinding: Binding<Color> {
         Binding<Color> { [self] in
             Color(red: baseDisplayBacklightColorRed, green: baseDisplayBacklightColorGreen, blue: baseDisplayBacklightColorBlue)
@@ -353,6 +376,7 @@ final class Phone {
         }
     }
     
+    @Transient
     var baseKeyBacklightColorBinding: Binding<Color> {
         Binding<Color> { [self] in
             Color(red: baseKeyBacklightColorRed, green: baseKeyBacklightColorGreen, blue: baseKeyBacklightColorBlue)
@@ -364,6 +388,7 @@ final class Phone {
         }
     }
     
+    @Transient
     var baseKeyForegroundColorBinding: Binding<Color> {
         Binding<Color> { [self] in
             Color(red: baseKeyForegroundColorRed, green: baseKeyForegroundColorGreen, blue: baseKeyForegroundColorBlue)
@@ -375,6 +400,7 @@ final class Phone {
         }
     }
     
+    @Transient
     var baseKeyBackgroundColorBinding: Binding<Color> {
         Binding<Color> { [self] in
             Color(red: baseKeyBackgroundColorRed, green: baseKeyBackgroundColorGreen, blue: baseKeyBackgroundColorBlue)
@@ -386,6 +412,7 @@ final class Phone {
         }
     }
     
+    @Transient
     var baseLEDMessageCounterColorBinding: Binding<Color> {
         Binding<Color> { [self] in
             Color(red: baseLEDMessageCounterColorRed, green: baseLEDMessageCounterColorGreen, blue: baseLEDMessageCounterColorBlue)
