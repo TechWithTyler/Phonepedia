@@ -767,9 +767,11 @@ When the first ring is suppressed, the number of rings you hear will be one less
                 }
             }
             .formStyle(.grouped)
-            .toggleStyle(.automaticPicker(labelPair: .yesNo))
 #if os(iOS)
             .pickerStyle(.navigationLink)
+            .toggleStyle(.navigationLink(labelPair: .yesNo))
+#else
+            .toggleStyle(.automaticPicker(labelPair: .yesNo))
 #endif
         }
         .photosPicker(isPresented: $photoViewModel.showingPhotoPicker, selection: $photoViewModel.selectedPhoto, matching: .images, preferredItemEncoding: .automatic)
