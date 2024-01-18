@@ -767,9 +767,8 @@ When the first ring is suppressed, the number of rings you hear will be one less
                 }
             }
             .formStyle(.grouped)
-            #if os(macOS)
-            .toggleStyle(.checkbox)
-            #else
+            .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
+            #if os(iOS)
             .pickerStyle(.navigationLink)
             #endif
         }
