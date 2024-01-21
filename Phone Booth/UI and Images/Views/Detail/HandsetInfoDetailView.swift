@@ -231,7 +231,7 @@ struct HandsetInfoDetailView: View {
 						}
 					}
 					Section(header: Text("Redial")) {
-						FormNumericTextField("Redial Capacity", value: $handset.redialCapacity)
+						FormNumericTextField("Redial Capacity", value: $handset.redialCapacity, valueRange: .zeroToMax(20))
 #if !os(visionOS)
 							.scrollDismissesKeyboard(.interactively)
 #endif
@@ -247,7 +247,7 @@ struct HandsetInfoDetailView: View {
 						}
 					}
 					Section(header: Text("Phonebook")) {
-						FormNumericTextField("Phonebook Capacity", value: $handset.phonebookCapacity)
+						FormNumericTextField("Phonebook Capacity", value: $handset.phonebookCapacity, valueRange: .allPositivesIncludingZero)
 #if !os(visionOS)
 							.scrollDismissesKeyboard(.interactively)
 #endif
@@ -274,7 +274,7 @@ struct HandsetInfoDetailView: View {
 								Text("Caller ID Uses Matching Phonebook Entry Name")
 							}
 						}
-						FormNumericTextField("Caller ID List Capacity", value: $handset.callerIDCapacity)
+						FormNumericTextField("Caller ID List Capacity", value: $handset.callerIDCapacity, valueRange: .allPositivesIncludingZero)
 #if !os(visionOS)
 							.scrollDismissesKeyboard(.interactively)
 #endif
