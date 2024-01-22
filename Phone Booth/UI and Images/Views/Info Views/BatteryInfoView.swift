@@ -3,6 +3,7 @@
 //  Phone Booth
 //
 //  Created by Tyler Sheft on 1/8/24.
+//  Copyright © 2023-2024 SheftApps. All rights reserved.
 //
 
 import SwiftUI

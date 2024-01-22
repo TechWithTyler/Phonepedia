@@ -3,6 +3,7 @@
 //  Phone Booth
 //
 //  Created by Tyler Sheft on 12/6/23.
+//  Copyright © 2023-2024 SheftApps. All rights reserved.
 //
 
 import SwiftUI
@@ -43,9 +44,6 @@ struct PhoneTypeDefinitionsView: View {
                 }
             }
             .navigationTitle("Phone Type Definitions")
-            #if os(macOS)
-            .frame(minWidth: 550, maxWidth: 550, minHeight: 350, maxHeight: 350)
-            #endif
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button {
@@ -56,6 +54,9 @@ struct PhoneTypeDefinitionsView: View {
                 }
             }
         }
+#if os(macOS)
+        .frame(minWidth: 550, maxWidth: 550, minHeight: 350, maxHeight: 350)
+#endif
     }
     
 }

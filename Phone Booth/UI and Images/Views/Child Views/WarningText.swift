@@ -8,17 +8,16 @@
 
 import SwiftUI
 
-/// Displays an exclamation mark triangle icon and the given text.
+// Displays an exclamation mark triangle icon and the given text.
 struct WarningText: View {
     
     // MARK: - Properties - Strings
     
-    /// The text to display.
+    // The text to display.
     var text: String
     
     // MARK: - Initialization
     
-    /// Creates a new `WarningText` with the given text.
     init(_ text: String) {
         self.text = text
     }

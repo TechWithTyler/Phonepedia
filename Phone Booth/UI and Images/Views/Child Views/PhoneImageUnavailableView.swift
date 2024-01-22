@@ -11,8 +11,10 @@ import SwiftUI
 struct PhoneImageUnavailableView: View {
 
     var body: some View {
-        Text("Phone image unavailable")
-            .font(.largeTitle)
+        ContentUnavailableView {
+            Text("Phone image unavailable")
+                .font(.largeTitle)
+        }
     }
 
 }
