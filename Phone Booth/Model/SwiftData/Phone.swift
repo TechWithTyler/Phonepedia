@@ -441,6 +441,16 @@ final class Phone {
     }
     
     // MARK: - Property Change Handlers
+    
+    func numberOfLandlinesChanged(oldValue: Int, newValue: Int) {
+        if newValue < 2 {
+            for handset in cordlessHandsetsIHave {
+                if handset.talkOffButtonType == 4 {
+                    handset.talkOffButtonType = 1
+                }
+            }
+        }
+    }
 	
 	func transmitOnlyBaseChanged(oldValue: Bool, newValue: Bool) {
 		if newValue {

@@ -44,6 +44,7 @@
 		8D64DF942B21119300D7142D /* WarningText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D64DF932B21119300D7142D /* WarningText.swift */; };
 		8D8D86612B283993006E9025 /* PhonePhotoError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8D86602B283993006E9025 /* PhonePhotoError.swift */; };
 		8D8F39BC2B4CA2A2005D5CA2 /* BatteryInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8F39BB2B4CA2A2005D5CA2 /* BatteryInfoView.swift */; };
+		8DD43B082B630DED00A8A1E8 /* PhoneButtonLegendItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD43B072B630DED00A8A1E8 /* PhoneButtonLegendItem.swift */; };
 		8DE6B9662AA905CF00C42E02 /* Phone_BoothTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE6B9652AA905CF00C42E02 /* Phone_BoothTests.swift */; };
 		8DF1E93C2B06D45B00B6D978 /* SheftAppsStylishUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DF1E93B2B06D45B00B6D978 /* SheftAppsStylishUI.framework */; };
 		8DF1E93D2B06D45B00B6D978 /* SheftAppsStylishUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8DF1E93B2B06D45B00B6D978 /* SheftAppsStylishUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -120,6 +121,7 @@
 		8D64DF932B21119300D7142D /* WarningText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarningText.swift; sourceTree = "<group>"; };
 		8D8D86602B283993006E9025 /* PhonePhotoError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhonePhotoError.swift; sourceTree = "<group>"; };
 		8D8F39BB2B4CA2A2005D5CA2 /* BatteryInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryInfoView.swift; sourceTree = "<group>"; };
+		8DD43B072B630DED00A8A1E8 /* PhoneButtonLegendItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneButtonLegendItem.swift; sourceTree = "<group>"; };
 		8DE6B9632AA905CF00C42E02 /* Phone BoothTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Phone BoothTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DE6B9652AA905CF00C42E02 /* Phone_BoothTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phone_BoothTests.swift; sourceTree = "<group>"; };
 		8DF1E93B2B06D45B00B6D978 /* SheftAppsStylishUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SheftAppsStylishUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -276,6 +278,7 @@
 				8D12575F2B041F4500079BC6 /* ChargingContactInfoView.swift */,
 				8D64DF8F2B21073300D7142D /* PhoneTypeDefinitionsView.swift */,
 				8D8F39BB2B4CA2A2005D5CA2 /* BatteryInfoView.swift */,
+				8DD43B072B630DED00A8A1E8 /* PhoneButtonLegendItem.swift */,
 			);
 			path = "Info Views";
 			sourceTree = "<group>";
@@ -525,6 +528,7 @@
 				8D8F39BC2B4CA2A2005D5CA2 /* BatteryInfoView.swift in Sources */,
 				8D505B112B323E8800690035 /* PhonePhotoViewModel.swift in Sources */,
 				8D8D86612B283993006E9025 /* PhonePhotoError.swift in Sources */,
+				8DD43B082B630DED00A8A1E8 /* PhoneButtonLegendItem.swift in Sources */,
 				8D64DF8E2B2105D400D7142D /* InfoText.swift in Sources */,
 				8D12576C2B041F4500079BC6 /* CameraViewController.swift in Sources */,
 				8D1257772B041F4500079BC6 /* AntennaInfoView.swift in Sources */,

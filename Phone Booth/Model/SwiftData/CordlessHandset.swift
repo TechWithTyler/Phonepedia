@@ -156,8 +156,21 @@ final class CordlessHandset {
 	
 	var hasTalkingPhonebook: Bool = false
     
+    var talkOffButtonType = 1
+    
+    var talkOffColorLayer: Int = 1
+    
+    var speakerphoneColorLayer: Int = 1
+    
+    var hasSpeakerphoneButtonLight: Bool = false
+    
     var totalRingtones: Int {
         return ringtones + musicRingtones
+    }
+    
+    var hasPhysicalCellButton: Bool {
+        guard let phone = phone else { return false }
+        return softKeys > 0 && phone.baseBluetoothCellPhonesSupported > 0 && lineButtons == 0
     }
     
     // MARK: - Color Bindings
@@ -270,6 +283,8 @@ final class CordlessHandset {
 	
 	func cordlessDeviceTypeChanged(oldValue: Int, newValue: Int) {
 		if newValue > 0 {
+            talkOffButtonType = 0
+            talkOffColorLayer = 0
 			fitsOnBase = false
             batteryType = 0
 		}

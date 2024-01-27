@@ -120,6 +120,30 @@ struct HandsetInfoDetailView: View {
                         }
 					}
 					Section(header: Text("Display/Backlight/Buttons")) {
+                        if handset.cordlessDeviceType == 0 {
+                            Picker("Talk/Off Button Type", selection: $handset.talkOffButtonType) {
+                                Text("Single Talk/Off Button").tag(0)
+                                Text("Talk and Off").tag(1)
+                                Text("Talk/Flash and Off").tag(2)
+                                if handset.hasSpeakerphone {
+                                    Text("Talk/Speaker and Off").tag(3)
+                                }
+                                if phone.numberOfLandlines > 1 {
+                                    Text("Line Buttons + Off").tag(4)
+                                }
+                            }
+                            InfoText("Sometimes, the talk button will have a function during a call, either switching between the earpiece and speakerphone or acting as the flash button.\nOn Bluetooth cell phone linking-capable models, if the cell button is a physical button and not a soft key, the talk button is often labeled \"Home\".\nOn multi-landline phones, the handset usually has multiple line buttons instead of a talk button.")
+                            if handset.talkOffButtonType > 0 && handset.talkOffButtonType < 4 {
+                                Picker("Talk/Off Button Coloring", selection: $handset.talkOffColorLayer) {
+                                    Text("None").tag(0)
+                                    Text("Foreground").tag(1)
+                                    Text("Background").tag(2)
+                                }
+                                InfoText("Foreground: The text/icon is colored.\nBackground: The button is filled with the color.")
+                                PhoneButtonLegendItem(button: handset.hasPhysicalCellButton ? .home : .talk, colorLayer: handset.talkOffColorLayer)
+                                PhoneButtonLegendItem(button: .off, colorLayer: handset.talkOffColorLayer)
+                            }
+                        }
 						if handset.softKeys > 0 && (phone.numberOfLandlines > 1 || phone.baseBluetoothCellPhonesSupported > 0) {
 							Picker("Line Buttons", selection: $handset.lineButtons) {
 								Text("Physical").tag(0)
@@ -127,6 +151,9 @@ struct HandsetInfoDetailView: View {
 							}
 							InfoText("A handset with soft keys for the line buttons can easily adapt to bases with different numbers of lines. For example, the same handset can be supplied and used with both the cell phone linking and non-cell phone linking models of a series.\nHandsets with physical line buttons may be programmed to expect all of its lines to be supported, potentially causing compatibility issues on bases without those lines.")
 						}
+                        if handset.lineButtons == 0 && phone.baseBluetoothCellPhonesSupported > 0 {
+                            PhoneButtonLegendItem(button: .cell, colorLayer: 1)
+                        }
 						Picker("Button Type", selection: $handset.buttonType) {
 							Text("Spaced").tag(0)
 							Text("Spaced with Click Feel").tag(1)
@@ -212,6 +239,18 @@ struct HandsetInfoDetailView: View {
 					}
 					Section(header: Text("Audio")) {
 						Toggle("Has Speakerphone", isOn: $handset.hasSpeakerphone)
+                        if handset.hasSpeakerphone {
+                            Picker("Speakerphone Button Coloring", selection: $handset.speakerphoneColorLayer) {
+                                Text("None").tag(0)
+                                Text("Foreground").tag(1)
+                                Text("Background").tag(2)
+                            }
+                            PhoneButtonLegendItem(button: .speakerphone, colorLayer: handset.speakerphoneColorLayer)
+                            if handset.speakerphoneColorLayer > 0 {
+                                Toggle("Speakerphone Button Light", isOn: $handset.hasSpeakerphoneButtonLight)
+                                InfoText("The speakerphone button lights up when speakerphone is on.")
+                            }
+                        }
 						Toggle("Supports Wired Headsets", isOn: $handset.supportsWiredHeadsets)
 						Picker("Maximum Number Of Bluetooth Headphones", selection: $handset.bluetoothHeadphonesSupported) {
 							Text("None").tag(0)
