@@ -777,11 +777,6 @@ When the first ring is suppressed, the number of rings you hear will be one less
                 }
             }
             .formStyle(.grouped)
-            .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
-            #if os(iOS)
-            .pickerStyle(.navigationLink)
-            #endif
-            .formNumericTextFieldStepperVisibility(true)
         }
         .photosPicker(isPresented: $photoViewModel.showingPhotoPicker, selection: $photoViewModel.selectedPhoto, matching: .images, preferredItemEncoding: .automatic)
         .onChange(of: photoViewModel.selectedPhoto, { oldValue, newValue in

@@ -349,11 +349,6 @@ struct HandsetInfoDetailView: View {
 				}
 			}
 			.formStyle(.grouped)
-#if os(macOS)
-			.toggleStyle(.checkbox)
-#else
-			.toggleStyle(.switch)
-#endif
 		} else {
 			Text("Error")
 		}

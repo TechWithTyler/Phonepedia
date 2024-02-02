@@ -35,6 +35,11 @@ struct ContentView: View {
 				EmptyView()
 			}
 		}
+        .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
+        #if os(iOS)
+        .pickerStyle(.navigationLink)
+        #endif
+        .formNumericTextFieldStepperVisibility(true)
     }
 
 }
