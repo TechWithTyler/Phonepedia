@@ -274,6 +274,12 @@ final class Phone {
 	
 	var antennas: Int = 0
     
+    var musicOnHoldPreset: Bool = false
+    
+    var musicOnHoldRecord: Bool = false
+    
+    var musicOnHoldLive: Bool = false
+    
     // MARK: - Properties - Transient (Non-Persistent) Properties
 	
     // Properties marked with the @Transient property wrapper won't persist their values to SwiftData.
@@ -310,6 +316,11 @@ final class Phone {
 	var isCordedCordless: Bool {
 		return isCordless && hasCordedReceiver
 	}
+    
+    @Transient
+    var supportsWiredHeadsets: Bool {
+        return baseSupportsWiredHeadsets || !cordlessHandsetsIHave.filter({$0.supportsWiredHeadsets}).isEmpty
+    }
     
     // MARK: - Color Bindings
     
@@ -441,6 +452,12 @@ final class Phone {
     }
     
     // MARK: - Property Change Handlers
+    
+    func supportsWiredHeadsetsChanged(oldValue: Bool, newValue: Bool) {
+        if !newValue && musicOnHoldLive {
+            musicOnHoldLive = false
+        }
+    }
     
     func numberOfLandlinesChanged(oldValue: Int, newValue: Int) {
         if newValue < 2 {

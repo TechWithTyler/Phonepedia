@@ -357,6 +357,13 @@ struct PhoneDetailView: View {
                         }
                     }
                 }
+                Section(header: Text("Music/Message On Hold (MOH)"), footer: Text("When a call is put on hold, the caller can hear music or a message, which can be audio built into the phone, recorded by the user, or a live feed of a connected audio device for phones that support wired headsets. For phones without MOH, the caller just hears silence.")) {
+                    Toggle("Preset Audio", isOn: $phone.musicOnHoldPreset)
+                    Toggle("User-Recorded", isOn: $phone.musicOnHoldRecord)
+                    if phone.supportsWiredHeadsets {
+                        Toggle("Live Input", isOn: $phone.musicOnHoldPreset)
+                    }
+                }
                 if phone.isCordless || phone.cordedPhoneType == 0 {
                     Section(header: Text("Display/Backlight/Buttons")) {
                         Picker("Button Type", selection: $phone.buttonType) {
