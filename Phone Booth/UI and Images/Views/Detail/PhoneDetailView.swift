@@ -25,6 +25,8 @@ struct PhoneDetailView: View {
     
     @State private var showingPhoneTypeDefinitions: Bool = false
     
+    @State private var showingAboutDialingCodes: Bool = false
+    
     // MARK: - Body
     
     var body: some View {
@@ -518,7 +520,7 @@ A phone's voicemail indicator usually works in one or both of the following ways
                         }
                     }
                     Section(header: Text("Audio Devices (e.g. headsets)")) {
-                        if !phone.isCordless || phone.hasBaseSpeakerphone {
+                        if phone.hasCordedReceiver || phone.hasBaseSpeakerphone {
                             Toggle("Base Supports Wired Headsets", isOn: $phone.baseSupportsWiredHeadsets)
                         }
                         Picker("Maximum Number Of Bluetooth Headphones (base)", selection: $phone.baseBluetoothHeadphonesSupported) {
@@ -573,6 +575,12 @@ A phone's voicemail indicator usually works in one or both of the following ways
                             Text("4").tag(4)
                         }
                         InfoText("When a smartphone is registered to a Wi-Fi-compatible base and both devices are on the same network, the smartphone can be used as a handset, and you can transfer its data to the base or handsets.")
+                        if phone.baseBluetoothCellPhonesSupported > 0 || phone.smartphonesAsHandsetsOverWiFi > 0 {
+                            Toggle("Can Store Dialing Codes For Phonebook Transfer", isOn: $phone.supportsPhonebookTransferDialingCodes)
+                            InfoButton(title: "About Dialing Codes…") {
+                                showingAboutDialingCodes = true
+                            }
+    }
                         if phone.baseBluetoothCellPhonesSupported > 0 {
                             Picker("Cell Line In Use Status On Base", selection: $phone.cellLineInUseStatusOnBase) {
                                 Text("None").tag(0)
@@ -787,6 +795,9 @@ When the first ring is suppressed, the number of rings you hear will be one less
         }
         .sheet(isPresented: $showingPhoneTypeDefinitions) {
             PhoneTypeDefinitionsView()
+        }
+        .sheet(isPresented: $showingAboutDialingCodes) {
+            AboutDialingCodesView()
         }
 #if os(iOS)
         .sheet(isPresented: $photoViewModel.takingPhoto) {

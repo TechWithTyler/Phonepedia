@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8D1015F82B71887800D10DEC /* AboutDialingCodesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1015F72B71887800D10DEC /* AboutDialingCodesView.swift */; };
 		8D1257652B041F4500079BC6 /* CordlessHandset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1257442B041F4500079BC6 /* CordlessHandset.swift */; };
 		8D1257662B041F4500079BC6 /* Phone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1257452B041F4500079BC6 /* Phone.swift */; };
 		8D1257672B041F4500079BC6 /* Charger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1257462B041F4500079BC6 /* Charger.swift */; };
@@ -83,6 +84,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8D1015F72B71887800D10DEC /* AboutDialingCodesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutDialingCodesView.swift; sourceTree = "<group>"; };
 		8D1257442B041F4500079BC6 /* CordlessHandset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CordlessHandset.swift; sourceTree = "<group>"; };
 		8D1257452B041F4500079BC6 /* Phone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Phone.swift; sourceTree = "<group>"; };
 		8D1257462B041F4500079BC6 /* Charger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Charger.swift; sourceTree = "<group>"; };
@@ -279,6 +281,7 @@
 				8D64DF8F2B21073300D7142D /* PhoneTypeDefinitionsView.swift */,
 				8D8F39BB2B4CA2A2005D5CA2 /* BatteryInfoView.swift */,
 				8DD43B072B630DED00A8A1E8 /* PhoneButtonLegendItem.swift */,
+				8D1015F72B71887800D10DEC /* AboutDialingCodesView.swift */,
 			);
 			path = "Info Views";
 			sourceTree = "<group>";
@@ -509,6 +512,7 @@
 			files = (
 				8D1257782B041F4500079BC6 /* ChargingContactInfoView.swift in Sources */,
 				8D1257672B041F4500079BC6 /* Charger.swift in Sources */,
+				8D1015F82B71887800D10DEC /* AboutDialingCodesView.swift in Sources */,
 				8D2ABA0A2B3563530094D57B /* PhoneImageUnavailableView.swift in Sources */,
 				8D2ABA082B355D840094D57B /* PhoneListView.swift in Sources */,
 				8D12576D2B041F4500079BC6 /* HandsetInfoDetailView.swift in Sources */,

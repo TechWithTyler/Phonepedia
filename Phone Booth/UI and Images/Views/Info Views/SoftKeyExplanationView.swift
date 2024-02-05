@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import SheftAppsStylishUI
 
 struct SoftKeyExplanationView: View {
     
@@ -44,7 +45,7 @@ struct SoftKeyExplanationView: View {
             Spacer()
             VStack {
                 Text("Examples of soft key designs")
-                HStack {
+                ConditionalHVStack {
                     VStack {
                         Text("MENU")
                         Image(systemName: "minus.rectangle")
@@ -85,7 +86,7 @@ struct SoftKeyExplanationView: View {
                         Image(systemName: "rectangle")
                             .font(.system(size: 24))
                     }
-                    .frame(width: 60)
+                    .frame(width: 80)
                     .accessibilityElement(children: .ignore)
                     .accessibilityLabel(softKeyAccessibilityDescription(placement: .bottom, marking: .none, textCase: .capitalized, hasTextBackground: false))
                     Divider()

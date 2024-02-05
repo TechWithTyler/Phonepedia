@@ -210,6 +210,8 @@ final class Phone {
 	
 	var baseBluetoothCellPhonesSupported: Int = 0
     
+    var supportsPhonebookTransferDialingCodes: Bool = false
+    
     var baseCellRingtone: Int = 1
 	
 	var bluetoothPhonebookTransfers: Int = 0
