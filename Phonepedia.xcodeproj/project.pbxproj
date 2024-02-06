@@ -1,0 +1,942 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8D3D27902ABCDDF30005FEC2 /* PhonepediaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3D278F2ABCDDF30005FEC2 /* PhonepediaUITests.swift */; };
+		8D3D27922ABCDDF30005FEC2 /* PhonepediaUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3D27912ABCDDF30005FEC2 /* PhonepediaUITestsLaunchTests.swift */; };
+		8D5B63E32B2A520F00E86DA8 /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = 8D5B63E22B2A520F00E86DA8 /* Collections */; };
+		8D5B63E52B2A520F00E86DA8 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 8D5B63E42B2A520F00E86DA8 /* OrderedCollections */; };
+		8DA844CE2B72E1D7006CBCA7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DA8449B2B72E1D7006CBCA7 /* Assets.xcassets */; };
+		8DA844CF2B72E1D7006CBCA7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DA8449D2B72E1D7006CBCA7 /* Preview Assets.xcassets */; };
+		8DA844D02B72E1D7006CBCA7 /* CameraCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844A02B72E1D7006CBCA7 /* CameraCoordinator.swift */; };
+		8DA844D12B72E1D7006CBCA7 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844A12B72E1D7006CBCA7 /* CameraViewController.swift */; };
+		8DA844D22B72E1D7006CBCA7 /* PhoneListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844A32B72E1D7006CBCA7 /* PhoneListView.swift */; };
+		8DA844D32B72E1D7006CBCA7 /* HandsetInfoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844A52B72E1D7006CBCA7 /* HandsetInfoDetailView.swift */; };
+		8DA844D42B72E1D7006CBCA7 /* NoPhoneSelectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844A62B72E1D7006CBCA7 /* NoPhoneSelectedView.swift */; };
+		8DA844D52B72E1D7006CBCA7 /* PhoneDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844A72B72E1D7006CBCA7 /* PhoneDetailView.swift */; };
+		8DA844D62B72E1D7006CBCA7 /* ChargerInfoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844A82B72E1D7006CBCA7 /* ChargerInfoDetailView.swift */; };
+		8DA844D72B72E1D7006CBCA7 /* AboutDialingCodesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844AA2B72E1D7006CBCA7 /* AboutDialingCodesView.swift */; };
+		8DA844D82B72E1D7006CBCA7 /* FrequenciesExplanationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844AB2B72E1D7006CBCA7 /* FrequenciesExplanationView.swift */; };
+		8DA844D92B72E1D7006CBCA7 /* SoftKeyExplanationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844AC2B72E1D7006CBCA7 /* SoftKeyExplanationView.swift */; };
+		8DA844DA2B72E1D7006CBCA7 /* PhoneButtonLegendItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844AD2B72E1D7006CBCA7 /* PhoneButtonLegendItem.swift */; };
+		8DA844DB2B72E1D7006CBCA7 /* BatteryInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844AE2B72E1D7006CBCA7 /* BatteryInfoView.swift */; };
+		8DA844DC2B72E1D7006CBCA7 /* PhonePartInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844AF2B72E1D7006CBCA7 /* PhonePartInfoView.swift */; };
+		8DA844DD2B72E1D7006CBCA7 /* PhoneTypeDefinitionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844B02B72E1D7006CBCA7 /* PhoneTypeDefinitionsView.swift */; };
+		8DA844DE2B72E1D7006CBCA7 /* AntennaInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844B12B72E1D7006CBCA7 /* AntennaInfoView.swift */; };
+		8DA844DF2B72E1D7006CBCA7 /* ChargingContactInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844B22B72E1D7006CBCA7 /* ChargingContactInfoView.swift */; };
+		8DA844E02B72E1D7006CBCA7 /* PhoneRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844B32B72E1D7006CBCA7 /* PhoneRowView.swift */; };
+		8DA844E12B72E1D7006CBCA7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844B42B72E1D7006CBCA7 /* ContentView.swift */; };
+		8DA844E22B72E1D7006CBCA7 /* PhoneImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844B62B72E1D7006CBCA7 /* PhoneImage.swift */; };
+		8DA844E32B72E1D7006CBCA7 /* InfoText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844B72B72E1D7006CBCA7 /* InfoText.swift */; };
+		8DA844E42B72E1D7006CBCA7 /* PhoneImageUnavailableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844B82B72E1D7006CBCA7 /* PhoneImageUnavailableView.swift */; };
+		8DA844E52B72E1D7006CBCA7 /* WarningText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844B92B72E1D7006CBCA7 /* WarningText.swift */; };
+		8DA844E62B72E1D7006CBCA7 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844BC2B72E1D7006CBCA7 /* Globals.swift */; };
+		8DA844E82B72E1D7006CBCA7 /* CordlessHandset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844C02B72E1D7006CBCA7 /* CordlessHandset.swift */; };
+		8DA844E92B72E1D7006CBCA7 /* Phone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844C12B72E1D7006CBCA7 /* Phone.swift */; };
+		8DA844EA2B72E1D7006CBCA7 /* Charger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844C22B72E1D7006CBCA7 /* Charger.swift */; };
+		8DA844EB2B72E1D7006CBCA7 /* PhoneType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844C32B72E1D7006CBCA7 /* PhoneType.swift */; };
+		8DA844EC2B72E1D7006CBCA7 /* DocumentTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844C42B72E1D7006CBCA7 /* DocumentTypes.swift */; };
+		8DA844ED2B72E1D7006CBCA7 /* Landline Or Not.mlproj in Resources */ = {isa = PBXBuildFile; fileRef = 8DA844C62B72E1D7006CBCA7 /* Landline Or Not.mlproj */; };
+		8DA844EE2B72E1D7006CBCA7 /* CGImagePropertyOrientationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844C72B72E1D7006CBCA7 /* CGImagePropertyOrientationExtension.swift */; };
+		8DA844EF2B72E1D7006CBCA7 /* LandlineOrNotPredictor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844C82B72E1D7006CBCA7 /* LandlineOrNotPredictor.swift */; };
+		8DA844F02B72E1D7006CBCA7 /* LandlineOrNotV1.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844C92B72E1D7006CBCA7 /* LandlineOrNotV1.mlmodel */; };
+		8DA844F12B72E1D7006CBCA7 /* PhonePhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844CB2B72E1D7006CBCA7 /* PhonePhotoViewModel.swift */; };
+		8DA844F22B72E1D7006CBCA7 /* PhonePhotoError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844CC2B72E1D7006CBCA7 /* PhonePhotoError.swift */; };
+		8DA844F32B72E1D7006CBCA7 /* PhonepediaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844CD2B72E1D7006CBCA7 /* PhonepediaApp.swift */; };
+		8DE6B9662AA905CF00C42E02 /* PhonepediaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE6B9652AA905CF00C42E02 /* PhonepediaTests.swift */; };
+		8DF1E93C2B06D45B00B6D978 /* SheftAppsStylishUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DF1E93B2B06D45B00B6D978 /* SheftAppsStylishUI.framework */; };
+		8DF1E93D2B06D45B00B6D978 /* SheftAppsStylishUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8DF1E93B2B06D45B00B6D978 /* SheftAppsStylishUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8D3D27932ABCDDF30005FEC2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8DFC9BEA2A3BAB9D00295700 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DFC9BF12A3BAB9D00295700;
+			remoteInfo = "Phone Booth";
+		};
+		8DE6B9672AA905CF00C42E02 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8DFC9BEA2A3BAB9D00295700 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DFC9BF12A3BAB9D00295700;
+			remoteInfo = "Phone Booth";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8DF1E93E2B06D45B00B6D978 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				8DF1E93D2B06D45B00B6D978 /* SheftAppsStylishUI.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		8D3D278D2ABCDDF30005FEC2 /* PhonepediaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhonepediaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D3D278F2ABCDDF30005FEC2 /* PhonepediaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhonepediaUITests.swift; sourceTree = "<group>"; };
+		8D3D27912ABCDDF30005FEC2 /* PhonepediaUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhonepediaUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		8DA8449B2B72E1D7006CBCA7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8DA8449D2B72E1D7006CBCA7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		8DA844A02B72E1D7006CBCA7 /* CameraCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraCoordinator.swift; sourceTree = "<group>"; };
+		8DA844A12B72E1D7006CBCA7 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		8DA844A32B72E1D7006CBCA7 /* PhoneListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneListView.swift; sourceTree = "<group>"; };
+		8DA844A52B72E1D7006CBCA7 /* HandsetInfoDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandsetInfoDetailView.swift; sourceTree = "<group>"; };
+		8DA844A62B72E1D7006CBCA7 /* NoPhoneSelectedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoPhoneSelectedView.swift; sourceTree = "<group>"; };
+		8DA844A72B72E1D7006CBCA7 /* PhoneDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneDetailView.swift; sourceTree = "<group>"; };
+		8DA844A82B72E1D7006CBCA7 /* ChargerInfoDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChargerInfoDetailView.swift; sourceTree = "<group>"; };
+		8DA844AA2B72E1D7006CBCA7 /* AboutDialingCodesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutDialingCodesView.swift; sourceTree = "<group>"; };
+		8DA844AB2B72E1D7006CBCA7 /* FrequenciesExplanationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrequenciesExplanationView.swift; sourceTree = "<group>"; };
+		8DA844AC2B72E1D7006CBCA7 /* SoftKeyExplanationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoftKeyExplanationView.swift; sourceTree = "<group>"; };
+		8DA844AD2B72E1D7006CBCA7 /* PhoneButtonLegendItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneButtonLegendItem.swift; sourceTree = "<group>"; };
+		8DA844AE2B72E1D7006CBCA7 /* BatteryInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatteryInfoView.swift; sourceTree = "<group>"; };
+		8DA844AF2B72E1D7006CBCA7 /* PhonePartInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhonePartInfoView.swift; sourceTree = "<group>"; };
+		8DA844B02B72E1D7006CBCA7 /* PhoneTypeDefinitionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneTypeDefinitionsView.swift; sourceTree = "<group>"; };
+		8DA844B12B72E1D7006CBCA7 /* AntennaInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AntennaInfoView.swift; sourceTree = "<group>"; };
+		8DA844B22B72E1D7006CBCA7 /* ChargingContactInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChargingContactInfoView.swift; sourceTree = "<group>"; };
+		8DA844B32B72E1D7006CBCA7 /* PhoneRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneRowView.swift; sourceTree = "<group>"; };
+		8DA844B42B72E1D7006CBCA7 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		8DA844B62B72E1D7006CBCA7 /* PhoneImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneImage.swift; sourceTree = "<group>"; };
+		8DA844B72B72E1D7006CBCA7 /* InfoText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoText.swift; sourceTree = "<group>"; };
+		8DA844B82B72E1D7006CBCA7 /* PhoneImageUnavailableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneImageUnavailableView.swift; sourceTree = "<group>"; };
+		8DA844B92B72E1D7006CBCA7 /* WarningText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WarningText.swift; sourceTree = "<group>"; };
+		8DA844BB2B72E1D7006CBCA7 /* Phonepedia.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Phonepedia.entitlements; sourceTree = "<group>"; };
+		8DA844BC2B72E1D7006CBCA7 /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
+		8DA844BD2B72E1D7006CBCA7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8DA844C02B72E1D7006CBCA7 /* CordlessHandset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CordlessHandset.swift; sourceTree = "<group>"; };
+		8DA844C12B72E1D7006CBCA7 /* Phone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Phone.swift; sourceTree = "<group>"; };
+		8DA844C22B72E1D7006CBCA7 /* Charger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Charger.swift; sourceTree = "<group>"; };
+		8DA844C32B72E1D7006CBCA7 /* PhoneType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneType.swift; sourceTree = "<group>"; };
+		8DA844C42B72E1D7006CBCA7 /* DocumentTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentTypes.swift; sourceTree = "<group>"; };
+		8DA844C62B72E1D7006CBCA7 /* Landline Or Not.mlproj */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "Landline Or Not.mlproj"; sourceTree = "<group>"; };
+		8DA844C72B72E1D7006CBCA7 /* CGImagePropertyOrientationExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGImagePropertyOrientationExtension.swift; sourceTree = "<group>"; };
+		8DA844C82B72E1D7006CBCA7 /* LandlineOrNotPredictor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandlineOrNotPredictor.swift; sourceTree = "<group>"; };
+		8DA844C92B72E1D7006CBCA7 /* LandlineOrNotV1.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = LandlineOrNotV1.mlmodel; sourceTree = "<group>"; };
+		8DA844CB2B72E1D7006CBCA7 /* PhonePhotoViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhonePhotoViewModel.swift; sourceTree = "<group>"; };
+		8DA844CC2B72E1D7006CBCA7 /* PhonePhotoError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhonePhotoError.swift; sourceTree = "<group>"; };
+		8DA844CD2B72E1D7006CBCA7 /* PhonepediaApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhonepediaApp.swift; sourceTree = "<group>"; };
+		8DE6B9632AA905CF00C42E02 /* PhonepediaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhonepediaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8DE6B9652AA905CF00C42E02 /* PhonepediaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhonepediaTests.swift; sourceTree = "<group>"; };
+		8DF1E93B2B06D45B00B6D978 /* SheftAppsStylishUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SheftAppsStylishUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8DFC9BF22A3BAB9D00295700 /* Phonepedia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Phonepedia.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D3D278A2ABCDDF30005FEC2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8DE6B9602AA905CF00C42E02 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8DFC9BEF2A3BAB9D00295700 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D5B63E32B2A520F00E86DA8 /* Collections in Frameworks */,
+				8DF1E93C2B06D45B00B6D978 /* SheftAppsStylishUI.framework in Frameworks */,
+				8D5B63E52B2A520F00E86DA8 /* OrderedCollections in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8D3D278E2ABCDDF30005FEC2 /* PhonepediaUITests */ = {
+			isa = PBXGroup;
+			children = (
+				8D3D278F2ABCDDF30005FEC2 /* PhonepediaUITests.swift */,
+				8D3D27912ABCDDF30005FEC2 /* PhonepediaUITestsLaunchTests.swift */,
+			);
+			path = PhonepediaUITests;
+			sourceTree = "<group>";
+		};
+		8DA844992B72E1D7006CBCA7 /* Phonepedia */ = {
+			isa = PBXGroup;
+			children = (
+				8DA8449A2B72E1D7006CBCA7 /* UI and Images */,
+				8DA844BA2B72E1D7006CBCA7 /* Supporting Files */,
+				8DA844BE2B72E1D7006CBCA7 /* Model */,
+				8DA844CD2B72E1D7006CBCA7 /* PhonepediaApp.swift */,
+			);
+			path = Phonepedia;
+			sourceTree = "<group>";
+		};
+		8DA8449A2B72E1D7006CBCA7 /* UI and Images */ = {
+			isa = PBXGroup;
+			children = (
+				8DA8449B2B72E1D7006CBCA7 /* Assets.xcassets */,
+				8DA8449C2B72E1D7006CBCA7 /* Preview Content */,
+				8DA8449E2B72E1D7006CBCA7 /* Supporting View Controllers */,
+				8DA844A22B72E1D7006CBCA7 /* Views */,
+			);
+			path = "UI and Images";
+			sourceTree = "<group>";
+		};
+		8DA8449C2B72E1D7006CBCA7 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				8DA8449D2B72E1D7006CBCA7 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		8DA8449E2B72E1D7006CBCA7 /* Supporting View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				8DA8449F2B72E1D7006CBCA7 /* Coordinators */,
+				8DA844A12B72E1D7006CBCA7 /* CameraViewController.swift */,
+			);
+			path = "Supporting View Controllers";
+			sourceTree = "<group>";
+		};
+		8DA8449F2B72E1D7006CBCA7 /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				8DA844A02B72E1D7006CBCA7 /* CameraCoordinator.swift */,
+			);
+			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		8DA844A22B72E1D7006CBCA7 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8DA844A32B72E1D7006CBCA7 /* PhoneListView.swift */,
+				8DA844A42B72E1D7006CBCA7 /* Detail */,
+				8DA844A92B72E1D7006CBCA7 /* Info Views */,
+				8DA844B32B72E1D7006CBCA7 /* PhoneRowView.swift */,
+				8DA844B42B72E1D7006CBCA7 /* ContentView.swift */,
+				8DA844B52B72E1D7006CBCA7 /* Child Views */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		8DA844A42B72E1D7006CBCA7 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				8DA844A52B72E1D7006CBCA7 /* HandsetInfoDetailView.swift */,
+				8DA844A62B72E1D7006CBCA7 /* NoPhoneSelectedView.swift */,
+				8DA844A72B72E1D7006CBCA7 /* PhoneDetailView.swift */,
+				8DA844A82B72E1D7006CBCA7 /* ChargerInfoDetailView.swift */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
+		8DA844A92B72E1D7006CBCA7 /* Info Views */ = {
+			isa = PBXGroup;
+			children = (
+				8DA844AA2B72E1D7006CBCA7 /* AboutDialingCodesView.swift */,
+				8DA844AB2B72E1D7006CBCA7 /* FrequenciesExplanationView.swift */,
+				8DA844AC2B72E1D7006CBCA7 /* SoftKeyExplanationView.swift */,
+				8DA844AD2B72E1D7006CBCA7 /* PhoneButtonLegendItem.swift */,
+				8DA844AE2B72E1D7006CBCA7 /* BatteryInfoView.swift */,
+				8DA844AF2B72E1D7006CBCA7 /* PhonePartInfoView.swift */,
+				8DA844B02B72E1D7006CBCA7 /* PhoneTypeDefinitionsView.swift */,
+				8DA844B12B72E1D7006CBCA7 /* AntennaInfoView.swift */,
+				8DA844B22B72E1D7006CBCA7 /* ChargingContactInfoView.swift */,
+			);
+			path = "Info Views";
+			sourceTree = "<group>";
+		};
+		8DA844B52B72E1D7006CBCA7 /* Child Views */ = {
+			isa = PBXGroup;
+			children = (
+				8DA844B62B72E1D7006CBCA7 /* PhoneImage.swift */,
+				8DA844B72B72E1D7006CBCA7 /* InfoText.swift */,
+				8DA844B82B72E1D7006CBCA7 /* PhoneImageUnavailableView.swift */,
+				8DA844B92B72E1D7006CBCA7 /* WarningText.swift */,
+			);
+			path = "Child Views";
+			sourceTree = "<group>";
+		};
+		8DA844BA2B72E1D7006CBCA7 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8DA844BB2B72E1D7006CBCA7 /* Phonepedia.entitlements */,
+				8DA844BC2B72E1D7006CBCA7 /* Globals.swift */,
+				8DA844BD2B72E1D7006CBCA7 /* Info.plist */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8DA844BE2B72E1D7006CBCA7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8DA844BF2B72E1D7006CBCA7 /* SwiftData */,
+				8DA844C42B72E1D7006CBCA7 /* DocumentTypes.swift */,
+				8DA844C52B72E1D7006CBCA7 /* Core ML */,
+				8DA844CA2B72E1D7006CBCA7 /* Photos */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		8DA844BF2B72E1D7006CBCA7 /* SwiftData */ = {
+			isa = PBXGroup;
+			children = (
+				8DA844C02B72E1D7006CBCA7 /* CordlessHandset.swift */,
+				8DA844C12B72E1D7006CBCA7 /* Phone.swift */,
+				8DA844C22B72E1D7006CBCA7 /* Charger.swift */,
+				8DA844C32B72E1D7006CBCA7 /* PhoneType.swift */,
+			);
+			path = SwiftData;
+			sourceTree = "<group>";
+		};
+		8DA844C52B72E1D7006CBCA7 /* Core ML */ = {
+			isa = PBXGroup;
+			children = (
+				8DA844C62B72E1D7006CBCA7 /* Landline Or Not.mlproj */,
+				8DA844C72B72E1D7006CBCA7 /* CGImagePropertyOrientationExtension.swift */,
+				8DA844C82B72E1D7006CBCA7 /* LandlineOrNotPredictor.swift */,
+				8DA844C92B72E1D7006CBCA7 /* LandlineOrNotV1.mlmodel */,
+			);
+			path = "Core ML";
+			sourceTree = "<group>";
+		};
+		8DA844CA2B72E1D7006CBCA7 /* Photos */ = {
+			isa = PBXGroup;
+			children = (
+				8DA844CB2B72E1D7006CBCA7 /* PhonePhotoViewModel.swift */,
+				8DA844CC2B72E1D7006CBCA7 /* PhonePhotoError.swift */,
+			);
+			path = Photos;
+			sourceTree = "<group>";
+		};
+		8DE6B9642AA905CF00C42E02 /* PhonepediaTests */ = {
+			isa = PBXGroup;
+			children = (
+				8DE6B9652AA905CF00C42E02 /* PhonepediaTests.swift */,
+			);
+			path = PhonepediaTests;
+			sourceTree = "<group>";
+		};
+		8DF1E93A2B06D45B00B6D978 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8DF1E93B2B06D45B00B6D978 /* SheftAppsStylishUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8DFC9BE92A3BAB9D00295700 = {
+			isa = PBXGroup;
+			children = (
+				8DA844992B72E1D7006CBCA7 /* Phonepedia */,
+				8DE6B9642AA905CF00C42E02 /* PhonepediaTests */,
+				8D3D278E2ABCDDF30005FEC2 /* PhonepediaUITests */,
+				8DFC9BF32A3BAB9D00295700 /* Products */,
+				8DF1E93A2B06D45B00B6D978 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		8DFC9BF32A3BAB9D00295700 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8DFC9BF22A3BAB9D00295700 /* Phonepedia.app */,
+				8DE6B9632AA905CF00C42E02 /* PhonepediaTests.xctest */,
+				8D3D278D2ABCDDF30005FEC2 /* PhonepediaUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D3D278C2ABCDDF30005FEC2 /* PhonepediaUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8D3D27972ABCDDF30005FEC2 /* Build configuration list for PBXNativeTarget "PhonepediaUITests" */;
+			buildPhases = (
+				8D3D27892ABCDDF30005FEC2 /* Sources */,
+				8D3D278A2ABCDDF30005FEC2 /* Frameworks */,
+				8D3D278B2ABCDDF30005FEC2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8D3D27942ABCDDF30005FEC2 /* PBXTargetDependency */,
+			);
+			name = PhonepediaUITests;
+			productName = "Phone BoothUITests";
+			productReference = 8D3D278D2ABCDDF30005FEC2 /* PhonepediaUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		8DE6B9622AA905CF00C42E02 /* PhonepediaTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8DE6B96B2AA905CF00C42E02 /* Build configuration list for PBXNativeTarget "PhonepediaTests" */;
+			buildPhases = (
+				8DE6B95F2AA905CF00C42E02 /* Sources */,
+				8DE6B9602AA905CF00C42E02 /* Frameworks */,
+				8DE6B9612AA905CF00C42E02 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8DE6B9682AA905CF00C42E02 /* PBXTargetDependency */,
+			);
+			name = PhonepediaTests;
+			productName = "Phone BoothTests";
+			productReference = 8DE6B9632AA905CF00C42E02 /* PhonepediaTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		8DFC9BF12A3BAB9D00295700 /* Phonepedia */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8DFC9C042A3BAB9F00295700 /* Build configuration list for PBXNativeTarget "Phonepedia" */;
+			buildPhases = (
+				8DFC9BEE2A3BAB9D00295700 /* Sources */,
+				8DFC9BEF2A3BAB9D00295700 /* Frameworks */,
+				8DFC9BF02A3BAB9D00295700 /* Resources */,
+				8DF1E93E2B06D45B00B6D978 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Phonepedia;
+			packageProductDependencies = (
+				8D5B63E22B2A520F00E86DA8 /* Collections */,
+				8D5B63E42B2A520F00E86DA8 /* OrderedCollections */,
+			);
+			productName = "Phone Booth";
+			productReference = 8DFC9BF22A3BAB9D00295700 /* Phonepedia.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8DFC9BEA2A3BAB9D00295700 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1510;
+				ORGANIZATIONNAME = SheftApps;
+				TargetAttributes = {
+					8D3D278C2ABCDDF30005FEC2 = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = 8DFC9BF12A3BAB9D00295700;
+					};
+					8DE6B9622AA905CF00C42E02 = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = 8DFC9BF12A3BAB9D00295700;
+					};
+					8DFC9BF12A3BAB9D00295700 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = 8DFC9BED2A3BAB9D00295700 /* Build configuration list for PBXProject "Phonepedia" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 8DFC9BE92A3BAB9D00295700;
+			packageReferences = (
+				8D5B63E12B2A520F00E86DA8 /* XCRemoteSwiftPackageReference "swift-collections" */,
+			);
+			productRefGroup = 8DFC9BF32A3BAB9D00295700 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8DFC9BF12A3BAB9D00295700 /* Phonepedia */,
+				8DE6B9622AA905CF00C42E02 /* PhonepediaTests */,
+				8D3D278C2ABCDDF30005FEC2 /* PhonepediaUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D3D278B2ABCDDF30005FEC2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8DE6B9612AA905CF00C42E02 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8DFC9BF02A3BAB9D00295700 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DA844CF2B72E1D7006CBCA7 /* Preview Assets.xcassets in Resources */,
+				8DA844ED2B72E1D7006CBCA7 /* Landline Or Not.mlproj in Resources */,
+				8DA844CE2B72E1D7006CBCA7 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D3D27892ABCDDF30005FEC2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D3D27922ABCDDF30005FEC2 /* PhonepediaUITestsLaunchTests.swift in Sources */,
+				8D3D27902ABCDDF30005FEC2 /* PhonepediaUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8DE6B95F2AA905CF00C42E02 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DE6B9662AA905CF00C42E02 /* PhonepediaTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8DFC9BEE2A3BAB9D00295700 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DA844D62B72E1D7006CBCA7 /* ChargerInfoDetailView.swift in Sources */,
+				8DA844D02B72E1D7006CBCA7 /* CameraCoordinator.swift in Sources */,
+				8DA844E22B72E1D7006CBCA7 /* PhoneImage.swift in Sources */,
+				8DA844DB2B72E1D7006CBCA7 /* BatteryInfoView.swift in Sources */,
+				8DA844F12B72E1D7006CBCA7 /* PhonePhotoViewModel.swift in Sources */,
+				8DA844DE2B72E1D7006CBCA7 /* AntennaInfoView.swift in Sources */,
+				8DA844E92B72E1D7006CBCA7 /* Phone.swift in Sources */,
+				8DA844E52B72E1D7006CBCA7 /* WarningText.swift in Sources */,
+				8DA844D72B72E1D7006CBCA7 /* AboutDialingCodesView.swift in Sources */,
+				8DA844DD2B72E1D7006CBCA7 /* PhoneTypeDefinitionsView.swift in Sources */,
+				8DA844D42B72E1D7006CBCA7 /* NoPhoneSelectedView.swift in Sources */,
+				8DA844EF2B72E1D7006CBCA7 /* LandlineOrNotPredictor.swift in Sources */,
+				8DA844D12B72E1D7006CBCA7 /* CameraViewController.swift in Sources */,
+				8DA844DC2B72E1D7006CBCA7 /* PhonePartInfoView.swift in Sources */,
+				8DA844F02B72E1D7006CBCA7 /* LandlineOrNotV1.mlmodel in Sources */,
+				8DA844E32B72E1D7006CBCA7 /* InfoText.swift in Sources */,
+				8DA844E42B72E1D7006CBCA7 /* PhoneImageUnavailableView.swift in Sources */,
+				8DA844EE2B72E1D7006CBCA7 /* CGImagePropertyOrientationExtension.swift in Sources */,
+				8DA844EB2B72E1D7006CBCA7 /* PhoneType.swift in Sources */,
+				8DA844D82B72E1D7006CBCA7 /* FrequenciesExplanationView.swift in Sources */,
+				8DA844E82B72E1D7006CBCA7 /* CordlessHandset.swift in Sources */,
+				8DA844F32B72E1D7006CBCA7 /* PhonepediaApp.swift in Sources */,
+				8DA844EA2B72E1D7006CBCA7 /* Charger.swift in Sources */,
+				8DA844EC2B72E1D7006CBCA7 /* DocumentTypes.swift in Sources */,
+				8DA844D22B72E1D7006CBCA7 /* PhoneListView.swift in Sources */,
+				8DA844D52B72E1D7006CBCA7 /* PhoneDetailView.swift in Sources */,
+				8DA844D92B72E1D7006CBCA7 /* SoftKeyExplanationView.swift in Sources */,
+				8DA844F22B72E1D7006CBCA7 /* PhonePhotoError.swift in Sources */,
+				8DA844E62B72E1D7006CBCA7 /* Globals.swift in Sources */,
+				8DA844D32B72E1D7006CBCA7 /* HandsetInfoDetailView.swift in Sources */,
+				8DA844E12B72E1D7006CBCA7 /* ContentView.swift in Sources */,
+				8DA844DF2B72E1D7006CBCA7 /* ChargingContactInfoView.swift in Sources */,
+				8DA844E02B72E1D7006CBCA7 /* PhoneRowView.swift in Sources */,
+				8DA844DA2B72E1D7006CBCA7 /* PhoneButtonLegendItem.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8D3D27942ABCDDF30005FEC2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8DFC9BF12A3BAB9D00295700 /* Phonepedia */;
+			targetProxy = 8D3D27932ABCDDF30005FEC2 /* PBXContainerItemProxy */;
+		};
+		8DE6B9682AA905CF00C42E02 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8DFC9BF12A3BAB9D00295700 /* Phonepedia */;
+			targetProxy = 8DE6B9672AA905CF00C42E02 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		8D3D27952ABCDDF30005FEC2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = 3B6G4T54X3;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tylersheft.Phonepedia;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Phone Booth";
+			};
+			name = Debug;
+		};
+		8D3D27962ABCDDF30005FEC2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = 3B6G4T54X3;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tylersheft.Phonepedia;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Phone Booth";
+			};
+			name = Release;
+		};
+		8DE6B9692AA905CF00C42E02 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = 3B6G4T54X3;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tylersheft.PhonepediaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Phonepedia.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Phonepedia";
+			};
+			name = Debug;
+		};
+		8DE6B96A2AA905CF00C42E02 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = 3B6G4T54X3;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tylersheft.PhonepediaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Phonepedia.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Phonepedia";
+			};
+			name = Release;
+		};
+		8DFC9C022A3BAB9F00295700 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		8DFC9C032A3BAB9F00295700 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		8DFC9C052A3BAB9F00295700 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Phonepedia/Supporting Files/Phonepedia.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 925;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"Phonepedia/UI and Images/Preview Content\"";
+				DEVELOPMENT_TEAM = 3B6G4T54X3;
+				ENABLE_HARDENED_RUNTIME = YES;
+				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Phonepedia/Supporting Files/Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.reference";
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Use the camera to take a photo of your phones.";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023-2024 SheftApps. All rights reserved.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Add photos to your phones by selecting from your photo library.";
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportsDocumentBrowser = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 2024.5;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tylersheft.Phonepedia;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,6,7";
+			};
+			name = Debug;
+		};
+		8DFC9C062A3BAB9F00295700 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Phonepedia/Supporting Files/Phonepedia.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 925;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"Phonepedia/UI and Images/Preview Content\"";
+				DEVELOPMENT_TEAM = 3B6G4T54X3;
+				ENABLE_HARDENED_RUNTIME = YES;
+				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Phonepedia/Supporting Files/Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.reference";
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Use the camera to take a photo of your phones.";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023-2024 SheftApps. All rights reserved.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Add photos to your phones by selecting from your photo library.";
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportsDocumentBrowser = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 2024.5;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tylersheft.Phonepedia;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,6,7";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8D3D27972ABCDDF30005FEC2 /* Build configuration list for PBXNativeTarget "PhonepediaUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8D3D27952ABCDDF30005FEC2 /* Debug */,
+				8D3D27962ABCDDF30005FEC2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8DE6B96B2AA905CF00C42E02 /* Build configuration list for PBXNativeTarget "PhonepediaTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8DE6B9692AA905CF00C42E02 /* Debug */,
+				8DE6B96A2AA905CF00C42E02 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8DFC9BED2A3BAB9D00295700 /* Build configuration list for PBXProject "Phonepedia" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8DFC9C022A3BAB9F00295700 /* Debug */,
+				8DFC9C032A3BAB9F00295700 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8DFC9C042A3BAB9F00295700 /* Build configuration list for PBXNativeTarget "Phonepedia" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8DFC9C052A3BAB9F00295700 /* Debug */,
+				8DFC9C062A3BAB9F00295700 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8D5B63E12B2A520F00E86DA8 /* XCRemoteSwiftPackageReference "swift-collections" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-collections.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.5;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8D5B63E22B2A520F00E86DA8 /* Collections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8D5B63E12B2A520F00E86DA8 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = Collections;
+		};
+		8D5B63E42B2A520F00E86DA8 /* OrderedCollections */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8D5B63E12B2A520F00E86DA8 /* XCRemoteSwiftPackageReference "swift-collections" */;
+			productName = OrderedCollections;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 8DFC9BEA2A3BAB9D00295700 /* Project object */;
+}
