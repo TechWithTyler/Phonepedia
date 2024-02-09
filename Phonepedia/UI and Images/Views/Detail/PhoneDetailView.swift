@@ -575,12 +575,6 @@ A phone's voicemail indicator usually works in one or both of the following ways
                             Text("4").tag(4)
                         }
                         InfoText("When a smartphone is registered to a Wi-Fi-compatible base and both devices are on the same network, the smartphone can be used as a handset, and you can transfer its data to the base or handsets.")
-                        if phone.baseBluetoothCellPhonesSupported > 0 || phone.smartphonesAsHandsetsOverWiFi > 0 {
-                            Toggle("Can Store Dialing Codes For Phonebook Transfer", isOn: $phone.supportsPhonebookTransferDialingCodes)
-                            InfoButton(title: "About Dialing Codes…") {
-                                showingAboutDialingCodes = true
-                            }
-    }
                         if phone.baseBluetoothCellPhonesSupported > 0 {
                             Picker("Cell Line In Use Status On Base", selection: $phone.cellLineInUseStatusOnBase) {
                                 Text("None").tag(0)
@@ -617,6 +611,27 @@ A phone's voicemail indicator usually works in one or both of the following ways
                         }
                     }
                     if phone.isCordless || phone.cordedPhoneType == 0 {
+                        Section(header: Text("Dialing Codes (e.g., international, area code, country code)")) {
+                            if phone.hasCallerIDList {
+                                Picker("Landline Local Area Code Features", selection: $phone.landlineLocalAreaCodeFeatures) {
+                                    Text("None").tag(0)
+                                    Text("Your Area Code").tag(1)
+                                    Text("Yours + Overlay").tag(2)
+                                    Text("Auto-Format").tag(3)
+                                }
+                                InfoText("Your Area Code: You can store your area code so calls from that area code will appear as 7 digits. This is useful if your provider requires local calls to be dialed with only 7 digits.\nYours + Overlay: You can store the additional area code(s) for your area (overlay area codes) in addition to your area code. The phone can choose which area code to use when dialing only 7 digits, by remembering a number's prefix (the digits after the area code but before the last digits) when calling back the 10-digit number in the caller ID list.\nAuto-Format: Instead of storing area codes yourself, you can edit the format of a caller ID entry and the phone will display all caller ID entries from that area code in the desired format. Different formats, including whether the trunk prefix should be included, can be remembered for multiple area codes (e.g., your area code and your area's overlay area code(s)).\nThese features only apply to numbers dialed from the caller ID list.")
+                            }
+                            if phone.baseBluetoothCellPhonesSupported > 0 {
+                                Toggle("Can Add Area Code To 7-Digit Cell Calls", isOn: $phone.supportsAddingOfCellAreaCode)
+                                InfoText("Storing your cell area code allows you to:\n• For phones where transferred cell phonebook entries are stored separately from the home phonebook, edit the format of an entry to include the cell area code so it can be dialed on the landline if it requires 10-digit dialing.\n• Auto-add the cell area code to 7-digit numbers dialed on the cell line if your cell phone requires 10-digit dialing.\nThe available uses of the stored cell area code depends on the phone's features.")
+                            }
+                            Toggle("Supports Dialing Of International Code", isOn: $phone.supportsDialingOfInternationalCode)
+                            InfoText("Storing your international code for automatic dialing includes the international dialing prefix (+) as one of the options for editing the format of a displayed phone number (e.g., in the caller ID list). For example, if a caller ID list entry's phone number is 442034567890, you can edit the format to include the international dialing prefix so it will be dialed as <stored international code>442034567890.")
+                            Toggle("Can Store Dialing Codes For Phonebook Transfer", isOn: $phone.supportsPhonebookTransferDialingCodes)
+                            InfoButton(title: "About Dialing Codes…") {
+                                showingAboutDialingCodes = true
+                            }
+                        }
                         Section(header: Text("Phonebook")) {
                             FormNumericTextField(phone.isCordless ? "Phonebook Capacity (base)" : "Phonebook Capacity", value: $phone.basePhonebookCapacity, valueRange: .allPositivesIncludingZero)
 #if !os(visionOS)

@@ -212,6 +212,12 @@ final class Phone {
     
     var supportsPhonebookTransferDialingCodes: Bool = false
     
+    var supportsDialingOfInternationalCode: Bool = false
+    
+    var supportsAddingOfCellAreaCode: Bool = false
+    
+    var landlineLocalAreaCodeFeatures: Int = 0
+    
     var baseCellRingtone: Int = 1
 	
 	var bluetoothPhonebookTransfers: Int = 0
@@ -322,6 +328,11 @@ final class Phone {
     @Transient
     var supportsWiredHeadsets: Bool {
         return baseSupportsWiredHeadsets || !cordlessHandsetsIHave.filter({$0.supportsWiredHeadsets}).isEmpty
+    }
+    
+    @Transient
+    var hasCallerIDList: Bool {
+        return baseCallerIDCapacity > 0 || !cordlessHandsetsIHave.filter({$0.callerIDCapacity > 0}).isEmpty
     }
     
     // MARK: - Color Bindings
