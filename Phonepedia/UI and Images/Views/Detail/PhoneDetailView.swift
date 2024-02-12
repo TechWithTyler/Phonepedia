@@ -555,6 +555,8 @@ A phone's voicemail indicator usually works in one or both of the following ways
                             InfoText("An in use light that follows the ring signal starts flashing when the ring signal starts and stops flashing when the ring signal stops. An in use light that ignores the ring signal starts flashing when the ring signal starts and continues flashing for as long as the base is indicating an incoming call.")
                         }
                     }
+                    Toggle("Has \"No Line\" Alert", isOn: $phone.hasNoLineAlert)
+                    InfoText("When another phone on the same line is in use, the phone will indicate that the line is in use if it has line in use indication, by detecting a drop in line power. If it drops too much (the line isn't connected or too many phones are in use), the no line alert, if available, will be displayed.\nDetecting drops in line power is also what causes automated systems, phones on hold, and some speakerphones to hang up when another phone on the line is picked up.\nThe phone will first detect \"line in use\" before detecting \"no line\", and the status won't change the moment the line power drops, as the phone needs to wait for the line power to stabalize before indicating the proper status.")
                 }
                 if phone.isCordless || phone.cordedPhoneType == 0 {
                     Section(header: Text("Cell Phone Linking")) {

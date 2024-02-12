@@ -21,6 +21,14 @@ struct PhoneListView: View {
     
     @State private var phoneToDelete: Phone? = nil
     
+    // MARK: - Properties - Strings
+    
+    var phoneCount: String {
+        let count = phones.count
+        let phoneSingularOrPlural = count == 1 ? "phone" : "phones"
+        return "\(count) \(phoneSingularOrPlural)"
+    }
+    
     // MARK: - Properties - Booleans
     
     @State private var showingDeleteOne: Bool = false
@@ -31,40 +39,44 @@ struct PhoneListView: View {
     
     var body: some View {
         ZStack {
-            if !phones.isEmpty  {
-                List(selection: $selectedPhone) {
-                    ForEach(phones) { phone in
-                        NavigationLink(value: phone) {
-                            PhoneRowView(phone: phone)
-                                .alert("Delete this phone?", isPresented: $showingDeleteOne, presenting: phoneToDelete) { phoneToDelete in
-                                    Button(role: .destructive) {
-                                        showingDeleteOne = false
-                                        deletePhone(phoneToDelete)
-                                    } label: {
-                                        Text("Delete")
+            if !phones.isEmpty {
+                VStack {
+                    Text(phoneCount)
+                    Divider()
+                    List(selection: $selectedPhone) {
+                        ForEach(phones) { phone in
+                            NavigationLink(value: phone) {
+                                PhoneRowView(phone: phone)
+                                    .alert("Delete this phone?", isPresented: $showingDeleteOne, presenting: phoneToDelete) { phoneToDelete in
+                                        Button(role: .destructive) {
+                                            showingDeleteOne = false
+                                            deletePhone(phoneToDelete)
+                                        } label: {
+                                            Text("Delete")
+                                        }
+                                        Button(role: .cancel) {
+                                            showingDeleteOne = false
+                                            self.phoneToDelete = nil
+                                        } label: {
+                                            Text("Cancel")
+                                        }
+                                    } message: { phone in
+                                        Text("\(phone.brand) \(phone.model) will be deleted from this database.")
                                     }
-                                    Button(role: .cancel) {
-                                        showingDeleteOne = false
-                                        self.phoneToDelete = nil
-                                    } label: {
-                                        Text("Cancel")
-                                    }
-                                } message: { phone in
-                                    Text("\(phone.brand) \(phone.model) will be deleted from this database.")
+                            }
+                            .contextMenu {
+                                Button(role: .destructive) {
+                                    phoneToDelete = phone
+                                    showingDeleteOne = true
+                                } label: {
+                                    Label("Delete…", systemImage: "trash")
                                 }
-                        }
-                        .contextMenu {
-                            Button(role: .destructive) {
-                                phoneToDelete = phone
-                                showingDeleteOne = true
-                            } label: {
-                                Label("Delete…", systemImage: "trash")
                             }
                         }
+                        .onDelete(perform: deleteItems)
                     }
-                    .onDelete(perform: deleteItems)
+                    .accessibilityIdentifier("PhonesList")
                 }
-                .accessibilityIdentifier("PhonesList")
             } else {
                 Text("No phones")
                     .font(.largeTitle)
