@@ -16,6 +16,16 @@ struct PhonePartInfoView: View {
 
 	@Bindable var phone: Phone
     
+    // MARK: - Properties - Integers
+    
+    var handsetCount: Int {
+        return phone.cordlessHandsetsIHave.count
+    }
+    
+    var chargerCount: Int {
+        return phone.chargersIHave.count
+    }
+    
     // MARK: - Body
 
 	var body: some View {
@@ -39,7 +49,7 @@ struct PhonePartInfoView: View {
             }
 		}
 		if phone.isCordless {
-			Section("Cordless Handsets/Headsets/Speakerphones/Desksets") {
+			Section("Cordless Handsets/Headsets/Speakerphones/Desksets (\(handsetCount))") {
 				if !phone.cordlessHandsetsIHave.isEmpty {
 						ForEach($phone.cordlessHandsetsIHave) { handset in
 							NavigationLink {
@@ -88,7 +98,7 @@ struct PhonePartInfoView: View {
 					Text("Deregister All")
 				}
 			}
-			Section("Chargers") {
+			Section("Chargers (\(chargerCount))") {
 				if !phone.chargersIHave.isEmpty {
 						ForEach($phone.chargersIHave) { charger in
 							NavigationLink {

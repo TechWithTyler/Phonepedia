@@ -33,13 +33,13 @@ struct ChargerInfoDetailView: View {
 						Text("Back").tag(1)
 						Text("One On Each Side").tag(2)
 					}
-					Picker("Charge Contact Mechanism", selection: $charger.chargeContactMechanism) {
+					Picker("Charge Contact Type", selection: $charger.chargeContactType) {
 						Text("Press Down").tag(0)
 						Text("Click").tag(1)
 						Text("Inductive").tag(2)
 					}
 					ChargingContactInfoView()
-					Picker("Wall Mounting", selection: $charger.chargeContactMechanism) {
+					Picker("Wall Mounting", selection: $charger.chargeContactType) {
 						Text("Not Supported").tag(0)
 						Text("Holes On Back").tag(1)
 						Text("Bracket").tag(2)

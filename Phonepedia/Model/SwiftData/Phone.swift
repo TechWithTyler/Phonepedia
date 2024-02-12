@@ -152,7 +152,7 @@ final class Phone {
 	
 	var baseChargeContactPlacement: Int = 0
 	
-	var baseChargeContactMechanism: Int = 1
+	var baseChargeContactType: Int = 1
 	
 	var hasAnsweringSystem: Int = 3
 	
@@ -328,6 +328,11 @@ final class Phone {
 	}
     
     @Transient
+    var baseChargesHandset: Bool {
+        return isCordless && !hasCordedReceiver && !hasTransmitOnlyBase
+    }
+    
+    @Transient
     var supportsWiredHeadsets: Bool {
         return baseSupportsWiredHeadsets || !cordlessHandsetsIHave.filter({$0.supportsWiredHeadsets}).isEmpty
     }
@@ -491,7 +496,7 @@ final class Phone {
 			}
 			placeOnBaseAutoRegister = false
 			baseHasSeparateDataContact = false
-			baseChargeContactMechanism = 0
+			baseChargeContactType = 0
 			baseChargeContactPlacement = 0
 			baseChargingDirection = 0
 			if cordlessPowerBackupMode == 1 {
@@ -514,7 +519,7 @@ final class Phone {
 			hasTransmitOnlyBase = false
 			supportsRangeExtenders = false
 			baseChargingDirection = 0
-			baseChargeContactMechanism = 0
+			baseChargeContactType = 0
 			baseChargeContactPlacement = 0
 			baseHasSeparateDataContact = false
 			cordlessHandsetsIHave.removeAll()
@@ -627,7 +632,7 @@ final class Phone {
 			placeOnBaseAutoRegister = false
 			hasTransmitOnlyBase = false
 			baseChargingDirection = 0
-			baseChargeContactMechanism = 0
+			baseChargeContactType = 0
 			baseChargeContactPlacement = 0
 		}
 	}

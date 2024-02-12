@@ -34,7 +34,7 @@ final class Charger {
 
 	var chargeContactPlacement: Int = 0
 
-	var chargeContactMechanism: Int = 1
+	var chargeContactType: Int = 1
 
 	var hasRangeExtender: Bool = false
 
