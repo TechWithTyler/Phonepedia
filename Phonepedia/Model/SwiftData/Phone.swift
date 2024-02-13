@@ -606,12 +606,6 @@ final class Phone {
         }
     }
 	
-	func baseBluetoothCellPhonesSupportedChanged(oldValue: Int, newValue: Int) {
-		if oldValue == 0 && newValue > 0 {
-			bluetoothPhonebookTransfers = 1
-		}
-	}
-	
 	func cordlessPowerBackupModeChanged(oldValue: Int, newValue: Int) {
 		if newValue != 1 {
 			cordlessPowerBackupReturnBehavior = 0

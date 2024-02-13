@@ -142,7 +142,7 @@ final class CordlessHandset {
 	
 	var bluetoothHeadphonesSupported: Int = 0
 	
-	var bluetoothPhonebookTransfers: Int = 0
+	var bluetoothPhonebookTransfers: Bool = false
 	
 	var callerIDCapacity: Int = 0
 	

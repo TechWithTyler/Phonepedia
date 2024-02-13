@@ -296,12 +296,8 @@ struct HandsetInfoDetailView: View {
 							}
 						}
 						Toggle("Uses Base Phonebook", isOn: $handset.usesBasePhonebook)
-						if handset.phonebookCapacity > 100 {
-							Picker("Bluetooth Phonebook Transfers", selection: $handset.bluetoothPhonebookTransfers) {
-								Text("Not Supported").tag(0)
-								Text("To Home Phonebook").tag(1)
-								Text("To Separate Cell Phonebook").tag(2)
-							}
+						if handset.phonebookCapacity >= 150 {
+							Toggle("Supports Bluetooth Phonebook Transfers", isOn: $handset.bluetoothPhonebookTransfers)
 						}
 					}
 					Section(header: Text("Caller ID")) {

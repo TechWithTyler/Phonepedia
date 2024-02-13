@@ -565,7 +565,7 @@ A phone's voicemail indicator usually works in one or both of the following ways
                 if phone.isCordless || phone.cordedPhoneType == 0 {
                     Section(header: Text("Cell Phone Linking")) {
                         Picker("Maximum Number Of Bluetooth Cell Phones", selection: $phone.baseBluetoothCellPhonesSupported) {
-                            Text("None/Phonebook Transfers Only").tag(0)
+                            Text("None").tag(0)
                             Text("1").tag(1)
                             Text("2").tag(2)
                             Text("4").tag(4)
@@ -616,7 +616,7 @@ A phone's voicemail indicator usually works in one or both of the following ways
                             }
                         }
                     }
-                    if phone.isCordless || phone.cordedPhoneType == 0 {
+                    if phone.isCordless || (phone.cordedPhoneType == 0 && phone.baseDisplayType > 0) {
                         Section(header: Text("Dialing Codes (e.g., international, area code, country code)")) {
                             if phone.hasCallerIDList {
                                 Picker("Landline Local Area Code Features", selection: $phone.landlineLocalAreaCodeFeatures) {
@@ -633,10 +633,12 @@ A phone's voicemail indicator usually works in one or both of the following ways
                             }
                             Toggle("Supports Dialing Of International Code", isOn: $phone.supportsDialingOfInternationalCode)
                             InfoText("Storing your international code for automatic dialing includes the international dialing prefix (+) as one of the options for editing the format of a displayed phone number (e.g., in the caller ID list). For example, if a caller ID list entry's phone number is 442034567890, you can edit the format to include the international dialing prefix so it will be dialed as <stored international code>442034567890.")
-                            Toggle("Can Store Dialing Codes For Phonebook Transfer", isOn: $phone.supportsPhonebookTransferDialingCodes)
-                            InfoButton(title: "About Dialing Codes…") {
-                                showingAboutDialingCodes = true
+                            if phone.bluetoothPhonebookTransfers > 0 {
+                                Toggle("Can Store Dialing Codes For Phonebook Transfer", isOn: $phone.supportsPhonebookTransferDialingCodes)
                             }
+                                InfoButton(title: "About Dialing Codes…") {
+                                    showingAboutDialingCodes = true
+                                }
                         }
                         Section(header: Text("Phonebook")) {
                             FormNumericTextField(phone.isCordless ? "Phonebook Capacity (base)" : "Phonebook Capacity", value: $phone.basePhonebookCapacity, valueRange: .allPositivesIncludingZero)
@@ -652,19 +654,15 @@ A phone's voicemail indicator usually works in one or both of the following ways
                                 }
                                 InfoText("The phone can announce the names of phonebook entries as you scroll through them.")
                             }
-                            if phone.basePhonebookCapacity > 100 {
-                                Picker("Bluetooth Phonebook Transfers", selection: $phone.bluetoothPhonebookTransfers) {
-                                    if phone.baseBluetoothCellPhonesSupported == 0 {
-                                        Text("Not Supported").tag(0)
-                                    }
+                            if phone.basePhonebookCapacity >= 150 {
+                                Picker("Bluetooth Cell Phone Phonebook Transfers", selection: $phone.bluetoothPhonebookTransfers) {
+                                    Text("Not Supported").tag(0)
                                     Text("To Home Phonebook").tag(1)
+                                if phone.baseBluetoothCellPhonesSupported > 0 {
                                     Text("To Separate Cell Phonebook").tag(2)
                                 }
-                                InfoText("Storing transferred cell phonebooks in the home phonebook allows those entries to work with features such as home line caller ID phonebook match and call block pre-screening. It also allows you to view all your phonebook entries in one place. If transferred cell phonebooks are stored separately from the home phonebook, caller ID phonebook match usually only works with the corresponding cell line.")
-                                    .onChange(of: phone.baseBluetoothCellPhonesSupported) {
-                                        newValue, oldValue in
-                                        phone.baseBluetoothCellPhonesSupportedChanged(oldValue: oldValue, newValue: newValue)
-                                    }
+                                }
+                                InfoText("Storing transferred cell phonebook entries in the home phonebook allows those entries to work with features such as home line caller ID phonebook match and call block pre-screening. It also allows you to view all your phonebook entries in one place. If transferred cell phonebooks are stored separately from the home phonebook, caller ID phonebook match usually only works with the corresponding cell line.\nSome phones support Bluetooth cell phone phonebook transfers even if they don't support cell phone linking.")
                             }
                         }
                     }
@@ -681,24 +679,26 @@ A phone's voicemail indicator usually works in one or both of the following ways
                                 Text("Talking Caller ID")
                             }
                             InfoText("The phone can announce who's calling after each ring, so you don't have to look at the screen. Example: \"Call from \(names.randomElement()!)\".")
-                            FormNumericTextField(phone.isCordless ? "Caller ID List Capacity (base)" : "Caller ID List Capacity", value: $phone.baseCallerIDCapacity, valueRange: .allPositivesIncludingZero)
+                            if phone.isCordless || phone.baseDisplayType > 0 {
+                                FormNumericTextField(phone.isCordless ? "Caller ID List Capacity (base)" : "Caller ID List Capacity", value: $phone.baseCallerIDCapacity, valueRange: .allPositivesIncludingZero)
 #if !os(visionOS)
-                                .scrollDismissesKeyboard(.interactively)
+                                    .scrollDismissesKeyboard(.interactively)
 #endif
+                            }
                         }
                         Section(header: Text("Speed Dial"), footer: Text(
    """
-   Speed dial is usually used by holding down the desired number key or by pressing a button (usually called "Auto") followed by the desired number key. One-touch/memory dial is when the phone has dedicated speed dial buttons which either start dialing immediately when pressed, or which display/announce the stored number which can be dialed by then going off-hook. Some phones tie the one-touch/memory dial buttons to the first few speed dial locations (e.g. a phone with 10 speed dials (1-9 and 0) and memory dial A-C might use memory dial A-C as a quicker way to dial the number in speed dial 1-3.
+   Speed dial is usually used by holding down the desired number key or by pressing a button (usually called "Auto", "Mem", or "Memory") followed by the desired number key. One-touch/memory dial is when the phone has dedicated speed dial buttons which either start dialing immediately when pressed, or which display/announce the stored number which can be dialed by then going off-hook. Some phones tie the one-touch/memory dial buttons to the first few speed dial locations (e.g. a phone with 10 speed dials (1-9 and 0) and memory dial A-C might use memory dial A-C as a quicker way to dial the number in speed dial 1-3.
    
    The speed dial entry mode describes how phonebook entries are saved to speed dial locations and whether they allow numbers to be manually entered. "Copy" means the phonebook entry will be copied to the speed dial location, and editing the phonebook entry won't affect the speed dial entry. "Link" means the speed dial entry is tied to the corresponding phonebook entry, so editing the phonebook entry will affect the speed dial entry and vice versa, and the speed dial entry will be deleted if the corresponding phonebook entry is deleted.
    
-   By assigning a handset number to a cordless phone base's one-touch dial button, you can press it to quickly intercom/transfer a call to that handset.
+   By assigning a handset number to a cordless or corded/cordless phone base's one-touch dial button, you can press it to quickly intercom/transfer a call to that handset.
    """)) {
        Stepper(phone.isCordless ? "Dial-Key Speed Dial Capacity (base): \(phone.baseSpeedDialCapacity)" : "Dial-Key Speed Dial Capacity: \(phone.baseSpeedDialCapacity)", value: $phone.baseSpeedDialCapacity, in: 0...50)
        if phone.baseSpeedDialCapacity > 10 {
            InfoText("Speed dial \(phone.baseSpeedDialCapacity > 11 ? "locations 11-\(phone.baseSpeedDialCapacity) are" : "location 11 is") accessed by pressing the speed dial button and then entering/scrolling to the desired location number.")
        }
-       Stepper(phone.isCordless ? "One-Touch/Memory Dial (base): \(phone.baseOneTouchDialCapacity)" : "One-Touch Dial: \(phone.baseOneTouchDialCapacity)", value: $phone.baseOneTouchDialCapacity, in: 0...20)
+       Stepper(phone.isCordless ? "One-Touch/Memory Dial Capacity (base): \(phone.baseOneTouchDialCapacity)" : "One-Touch/Memory Dial Capacity: \(phone.baseOneTouchDialCapacity)", value: $phone.baseOneTouchDialCapacity, in: 0...20)
        if phone.isCordless && phone.baseOneTouchDialCapacity > 0 {
            Toggle("Base One-Touch/Memory Dial Supports Handset Numbers", isOn: $phone.oneTouchDialSupportsHandsetNumbers)
        }
