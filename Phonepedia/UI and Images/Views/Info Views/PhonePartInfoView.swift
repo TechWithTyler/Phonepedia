@@ -97,7 +97,7 @@ struct PhonePartInfoView: View {
 					phone.cordlessHandsetsIHave.removeAll()
 					phone.chargersIHave.removeAll()
 				} label: {
-					Text("Deregister All")
+					Label("Deregister All", systemImage: "minus.circle.fill")
 				}
                 .buttonStyle(.borderless)
 			}
