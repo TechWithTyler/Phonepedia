@@ -93,12 +93,13 @@ struct PhonePartInfoView: View {
 				} else if phone.cordlessHandsetsIHave.count > phone.maxCordlessHandsets {
 					WarningText("You have more handsets than the base can handle!")
 				}
-				Button {
+                Button(role: .destructive) {
 					phone.cordlessHandsetsIHave.removeAll()
 					phone.chargersIHave.removeAll()
 				} label: {
 					Text("Deregister All")
 				}
+                .buttonStyle(.borderless)
 			}
             Section("Chargers (\(chargerCount))") {
 				if !phone.chargersIHave.isEmpty {
