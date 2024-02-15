@@ -107,6 +107,8 @@ final class CordlessHandset {
 	var redialCapacity: Int = 5
 	
 	var softKeys: Int = 0
+    
+    var standbySoftKeysCustomizable: Bool = false
 	
 	var navigatorKeyType: Int = 1
 	

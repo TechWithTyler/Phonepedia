@@ -1,5 +1,5 @@
 //
-//  HandsetInfoRowView.swift
+//  HandsetInfoDetailView.swift
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 6/19/23.
@@ -215,6 +215,8 @@ struct HandsetInfoDetailView: View {
 										handset.softKeysChanged(oldValue: oldValue, newValue: newValue)
 									}
 								SoftKeyExplanationView()
+                                Toggle("Standby Soft Keys Customizable", isOn: $handset.standbySoftKeysCustomizable)
+                                InfoText("Some handsets offer the ability to customize the soft key functions that are available in standby.")
 							}
 						}
 						if handset.navigatorKeyType != 4 {

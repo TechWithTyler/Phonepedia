@@ -434,7 +434,7 @@ struct PhoneDetailView: View {
                                     .onChange(of: phone.baseSoftKeysBottom) { oldValue, newValue in
                                         phone.baseSoftKeysBottomChanged(oldValue: oldValue, newValue: newValue)
                                     }
-                                Stepper("Base Soft Keys (side): \(phone.baseSoftKeysSide)", value: $phone.baseSoftKeysSide, in: 0...3)
+                                Stepper("Base Soft Keys (side): \(phone.baseSoftKeysSide) On Each Side (\(phone.baseSoftKeysSide * 2) total)", value: $phone.baseSoftKeysSide, in: 0...5)
                                     .onChange(of: phone.baseSoftKeysSide) { oldValue, newValue in
                                         phone.baseSoftKeysSideChanged(oldValue: oldValue, newValue: newValue)
                                     }
