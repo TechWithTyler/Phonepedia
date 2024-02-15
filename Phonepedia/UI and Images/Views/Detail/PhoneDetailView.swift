@@ -27,12 +27,50 @@ struct PhoneDetailView: View {
     
     @State private var showingAboutDialingCodes: Bool = false
     
+    @State private var generalExpanded: Bool = true
+    
+    @State private var basicsExpanded: Bool = false
+    
+    @State private var powerExpanded: Bool = false
+    
+    @State private var displayExpanded: Bool = false
+    
+    @State private var comExpanded: Bool = false
+    
+    @State private var phonebookExpanded: Bool = false
+    
+    @State private var callerIDExpanded: Bool = false
+    
+    @State private var speedDialExpanded: Bool = false
+    
+    @State private var callBlockExpanded: Bool = false
+    
+    @State private var callBlockPreScreeningExpanded: Bool = false
+    
+    @State private var redialExpanded: Bool = false
+    
+    @State private var landlineExpanded: Bool = false
+    
+    @State private var cellLinkingExpanded: Bool = false
+    
+    @State private var ringersExpanded: Bool = false
+    
+    @State private var mohExpanded: Bool = false
+    
+    @State private var messagingExpanded: Bool = false
+    
+    @State private var audioExpanded: Bool = false
+    
+    @State private var dialingCodesExpanded: Bool = false
+    
+    @State private var specialFeaturesExpanded: Bool = false
+    
     // MARK: - Body
     
     var body: some View {
         NavigationStack {
             Form {
-                Section(header: Text("General")) {
+                Section("General", isExpanded: $generalExpanded) {
                     photo(for: phone)
                     FormTextField("Brand", text: $phone.brand)
                     FormTextField("Model", text: $phone.model)
@@ -46,7 +84,7 @@ struct PhoneDetailView: View {
                     Stepper("Release Year: \(String(phone.releaseYear))", value: $phone.releaseYear, in: 1892...currentYear)
                 }
                 PhonePartInfoView(phone: phone)
-                    Section("Basic Features/Cordless Capabilities") {
+                Section("Basic Features/Cordless Capabilities", isExpanded: $basicsExpanded) {
                     Stepper("Number of Included Cordless Handsets (0 if corded only): \(phone.numberOfIncludedCordlessHandsets)", value: $phone.numberOfIncludedCordlessHandsets, in: 0...Int.max-1)
                         .onChange(of: phone.isCordless) { oldValue, newValue in
                             phone.isCordlessChanged(oldValue: oldValue, newValue: newValue)
@@ -57,11 +95,11 @@ struct PhoneDetailView: View {
                                 .onChange(of: phone.maxCordlessHandsets) { oldValue, newValue in
                                     phone.maxCordlessHandsetsChanged(oldValue: oldValue, newValue: newValue)
                                 }
-                            #if os(iOS)
+#if os(iOS)
                                 .sensoryFeedback(.error, trigger: phone.numberOfIncludedCordlessHandsets) { oldValue, newValue in
                                     return newValue > phone.maxCordlessHandsets && phone.maxCordlessHandsets != -1
                                 }
-                            #endif
+#endif
                             if phone.maxCordlessHandsets == -1 {
                                 InfoText("When placing the handset on the base, the handset and base exchange a digital security code, which makes sure the handset only communicates with that base. You can add as many handsets as you want--the base doesn't know or care how many handsets are being used on it.")
                             }
@@ -69,99 +107,99 @@ struct PhoneDetailView: View {
                                 WarningText("The base of the \(phone.brand) \(phone.model) can only register up to \(phone.maxCordlessHandsets) handsets (trying to register \(phone.numberOfIncludedCordlessHandsets)).")
                             }
                         }
-                    if phone.isCordless {
-                        Picker("Wireless Frequency", selection: $phone.frequency) {
-                            Section(header: Text("46-49MHz")) {
-                                Text("46-49MHz Analog or Older").tag(0)
-                            }
-                            Section(header: Text("900MHz")) {
-                                Text("900MHz Analog").tag(1)
-                                Text("900MHz Voice Scramble Analog").tag(2)
-                                Text("900MHz Digital").tag(3)
-                                Text("900MHz DSS").tag(4)
-                            }
-                            Section(header: Text("2.4GHz")) {
-                                Text("2.4GHz Analog").tag(5)
-                                Text("2.4GHz/900MHz Analog").tag(6)
-                                Text("2.4GHz Digital").tag(7)
-                                Text("2.4GHz/900MHz Digital").tag(8)
-                                Text("2.4GHz DSS").tag(9)
-                                Text("2.4GHz/900MHz DSS").tag(10)
-                                Text("2.4GHz FHSS").tag(11)
-                                Text("2.4GHz/900MHz FHSS").tag(12)
-                            }
-                            Section(header: Text("5.8GHz")) {
-                                Text("5.8GHz Analog").tag(13)
-                                Text("5.8GHz/900MHz Analog").tag(14)
-                                Text("5.8GHz/2.4GHz Analog").tag(15)
-                                Text("5.8GHz Digital").tag(16)
-                                Text("5.8GHz/900MHz Digital").tag(17)
-                                Text("5.8GHz/2.4GHz Digital").tag(18)
-                                Text("5.8GHz DSS").tag(19)
-                                Text("5.8GHz/900MHz DSS").tag(20)
-                                Text("5.8GHz/2.4GHz DSS").tag(21)
-                                Text("5.8GHz Digital FHSS").tag(22)
-                                Text("5.8GHz/900MHz FHSS").tag(23)
-                                Text("5.8GHz/2.4GHz FHSS").tag(24)
-                            }
-                            Section(header: Text("DECT (Digital Enhanced Cordless Telecommunications)")) {
-                                Text("DECT (1.88GHz-1.90GHz)").tag(25)
-                                Text("DECT (1.90GHz-1.92GHz)").tag(26)
-                                Text("DECT 6.0 (1.92GHz-1.93GHz)").tag(27)
-                            }
-                        }
-                        InfoButton(title: "Frequencies Explanation…") {
-                            showingFrequenciesExplanation = true
-                        }
-                        Picker("Antennas", selection: $phone.antennas) {
-                            Text("Hidden").tag(0)
-                            Text("Telescopic").tag(1)
-                            Text("Standard (left)").tag(2)
-                            Text("Standard (right)").tag(3)
-                            Text("One On Each Side").tag(4)
-                        }
-                        AntennaInfoView()
-                        Toggle("Supports Range Extenders", isOn: $phone.supportsRangeExtenders)
-                        InfoText("A range extender extends the range of the base its registered to. Devices communicating with the base choose the base or a range extender based on which has the strongest signal.")
-                        if !phone.isCordedCordless {
-                            Toggle("Base Is Transmit-Only", isOn: $phone.hasTransmitOnlyBase)
-                            InfoText("A transmit-only base doesn't have a charging area for a cordless handset nor does it have a corded receiver. Sometimes these kinds of bases have speakerphone, but usually they only have a locator button and nothing else. A transmit-only base with no features on it is often called a \"hidden base\" as these kinds of bases are often placed out-of-sight.")
-                                .onChange(of: phone.hasTransmitOnlyBase) { oldValue, newValue in
-                                    phone.transmitOnlyBaseChanged(oldValue: oldValue, newValue: newValue)
+                        if phone.isCordless {
+                            Picker("Wireless Frequency", selection: $phone.frequency) {
+                                Section(header: Text("46-49MHz")) {
+                                    Text("46-49MHz Analog or Older").tag(0)
                                 }
-                            Picker("Wall Mounting", selection: $phone.wallMountability) {
-                                Text("Not Supported").tag(0)
-                                Text("Holes on Back").tag(1)
-                                Text("Optional Bracket").tag(2)
-                                Text("Built-In Bracket").tag(3)
-                                Text("Desk/Wall Bracket").tag(4)
+                                Section(header: Text("900MHz")) {
+                                    Text("900MHz Analog").tag(1)
+                                    Text("900MHz Voice Scramble Analog").tag(2)
+                                    Text("900MHz Digital").tag(3)
+                                    Text("900MHz DSS").tag(4)
+                                }
+                                Section(header: Text("2.4GHz")) {
+                                    Text("2.4GHz Analog").tag(5)
+                                    Text("2.4GHz/900MHz Analog").tag(6)
+                                    Text("2.4GHz Digital").tag(7)
+                                    Text("2.4GHz/900MHz Digital").tag(8)
+                                    Text("2.4GHz DSS").tag(9)
+                                    Text("2.4GHz/900MHz DSS").tag(10)
+                                    Text("2.4GHz FHSS").tag(11)
+                                    Text("2.4GHz/900MHz FHSS").tag(12)
+                                }
+                                Section(header: Text("5.8GHz")) {
+                                    Text("5.8GHz Analog").tag(13)
+                                    Text("5.8GHz/900MHz Analog").tag(14)
+                                    Text("5.8GHz/2.4GHz Analog").tag(15)
+                                    Text("5.8GHz Digital").tag(16)
+                                    Text("5.8GHz/900MHz Digital").tag(17)
+                                    Text("5.8GHz/2.4GHz Digital").tag(18)
+                                    Text("5.8GHz DSS").tag(19)
+                                    Text("5.8GHz/900MHz DSS").tag(20)
+                                    Text("5.8GHz/2.4GHz DSS").tag(21)
+                                    Text("5.8GHz Digital FHSS").tag(22)
+                                    Text("5.8GHz/900MHz FHSS").tag(23)
+                                    Text("5.8GHz/2.4GHz FHSS").tag(24)
+                                }
+                                Section(header: Text("DECT (Digital Enhanced Cordless Telecommunications)")) {
+                                    Text("DECT (1.88GHz-1.90GHz)").tag(25)
+                                    Text("DECT (1.90GHz-1.92GHz)").tag(26)
+                                    Text("DECT 6.0 (1.92GHz-1.93GHz)").tag(27)
+                                }
+                            }
+                            InfoButton(title: "Frequencies Explanation…") {
+                                showingFrequenciesExplanation = true
+                            }
+                            Picker("Antennas", selection: $phone.antennas) {
+                                Text("Hidden").tag(0)
+                                Text("Telescopic").tag(1)
+                                Text("Standard (left)").tag(2)
+                                Text("Standard (right)").tag(3)
+                                Text("One On Each Side").tag(4)
+                            }
+                            AntennaInfoView()
+                            Toggle("Supports Range Extenders", isOn: $phone.supportsRangeExtenders)
+                            InfoText("A range extender extends the range of the base its registered to. Devices communicating with the base choose the base or a range extender based on which has the strongest signal.")
+                            if !phone.isCordedCordless {
+                                Toggle("Base Is Transmit-Only", isOn: $phone.hasTransmitOnlyBase)
+                                InfoText("A transmit-only base doesn't have a charging area for a cordless handset nor does it have a corded receiver. Sometimes these kinds of bases have speakerphone, but usually they only have a locator button and nothing else. A transmit-only base with no features on it is often called a \"hidden base\" as these kinds of bases are often placed out-of-sight.")
+                                    .onChange(of: phone.hasTransmitOnlyBase) { oldValue, newValue in
+                                        phone.transmitOnlyBaseChanged(oldValue: oldValue, newValue: newValue)
+                                    }
+                                Picker("Wall Mounting", selection: $phone.wallMountability) {
+                                    Text("Not Supported").tag(0)
+                                    Text("Holes on Back").tag(1)
+                                    Text("Optional Bracket").tag(2)
+                                    Text("Built-In Bracket").tag(3)
+                                    Text("Desk/Wall Bracket").tag(4)
+                                }
+                            }
+                            Picker("Charge Light", selection: $phone.chargeLight) {
+                                Text("None").tag(0)
+                                if phone.baseChargesHandset {
+                                    Text("On Base Only").tag(1)
+                                    Text("On Base/Charger").tag(2)
+                                } else {
+                                    Text("On Charger").tag(2)
+                                }
+                                Text("On Handset").tag(3)
+                            }
+                        } else {
+                            Picker("Corded Phone Type", selection: $phone.cordedPhoneType) {
+                                Section(header: Text("Desk")) {
+                                    Text("Push-Button Desk").tag(0)
+                                    Text("Rotary Desk").tag(1)
+                                }
+                                Section(header: Text("Slim/Wall")) {
+                                    Text("Push-Button Slim/Wall").tag(2)
+                                    Text("Rotary Slim/Wall").tag(3)
+                                }
+                            }
+                            .onChange(of: phone.cordedPhoneType) { oldValue, newValue in
+                                phone.cordedPhoneTypeChanged(oldValue: oldValue, newValue: newValue)
                             }
                         }
-                        Picker("Charge Light", selection: $phone.chargeLight) {
-                            Text("None").tag(0)
-                            if phone.baseChargesHandset {
-                                Text("On Base Only").tag(1)
-                                Text("On Base/Charger").tag(2)
-                            } else {
-                                Text("On Charger").tag(2)
-                            }
-                            Text("On Handset").tag(3)
-                        }
-                    } else {
-                        Picker("Corded Phone Type", selection: $phone.cordedPhoneType) {
-                            Section(header: Text("Desk")) {
-                                Text("Push-Button Desk").tag(0)
-                                Text("Rotary Desk").tag(1)
-                            }
-                            Section(header: Text("Slim/Wall")) {
-                                Text("Push-Button Slim/Wall").tag(2)
-                                Text("Rotary Slim/Wall").tag(3)
-                            }
-                        }
-                        .onChange(of: phone.cordedPhoneType) { oldValue, newValue in
-                            phone.cordedPhoneTypeChanged(oldValue: oldValue, newValue: newValue)
-                        }
-                    }
                         if phone.baseChargesHandset {
                             Group {
                                 Picker("Base Charging Direction", selection: $phone.baseChargingDirection) {
@@ -224,7 +262,7 @@ struct PhoneDetailView: View {
                         }
                     }
                 }
-                Section(header: Text("Power")) {
+                Section("Power", isExpanded: $powerExpanded) {
                     if !phone.isCordless {
                         Picker("Power Source", selection: $phone.cordedPowerSource) {
                             Text("Line Power Only").tag(0)
@@ -283,7 +321,7 @@ struct PhoneDetailView: View {
                     }
                 }
                 if phone.isCordless || phone.cordedPhoneType == 0 {
-                    Section(header: Text("Speakerphone/Intercom/Base Keypad")) {
+                    Section("Speakerphone/Intercom/Base Keypad", isExpanded: $comExpanded) {
                         if !phone.isCordedCordless {
                             Toggle(isOn: $phone.hasBaseSpeakerphone) {
                                 Text("Has Base Speakerphone")
@@ -319,7 +357,7 @@ struct PhoneDetailView: View {
                         }
                     }
                 }
-                Section(header: Text("Ringers")) {
+                Section("Ringers", isExpanded: $ringersExpanded) {
                     if (phone.hasAnsweringSystem == 1 || phone.hasAnsweringSystem == 3) || phone.hasBaseSpeakerphone {
                         Stepper("Base Ringtones: \(phone.baseRingtones)", value: $phone.baseRingtones, in: !phone.isCordless || phone.hasBaseSpeakerphone ? 1...25 : 0...25)
                         if phone.baseRingtones > 0 {
@@ -363,15 +401,16 @@ struct PhoneDetailView: View {
                         }
                     }
                 }
-                Section(header: Text("Music/Message On Hold (MOH)"), footer: Text("When a call is put on hold, the caller can hear music or a message, which can be audio built into the phone, recorded by the user, or a live feed of a connected audio device for phones that support wired headsets. For phones without MOH, the caller just hears silence.")) {
+                            Section("Music/Message On Hold (MOH)", isExpanded: $mohExpanded) {
                     Toggle("Preset Audio", isOn: $phone.musicOnHoldPreset)
                     Toggle("User-Recorded", isOn: $phone.musicOnHoldRecord)
                     if phone.supportsWiredHeadsets {
                         Toggle("Live Input", isOn: $phone.musicOnHoldPreset)
                     }
+                    InfoText("When a call is put on hold, the caller can hear music or a message, which can be audio built into the phone, recorded by the user, or a live feed of a connected audio device for phones that support wired headsets. For phones without MOH, the caller just hears silence.")
                 }
                 if phone.isCordless || phone.cordedPhoneType == 0 {
-                    Section(header: Text("Display/Backlight/Buttons")) {
+                    Section("Display/Backlight/Buttons", isExpanded: $displayExpanded) {
                         Picker("Button Type", selection: $phone.buttonType) {
                             Text("Spaced").tag(0)
                             Text("Spaced with Click Feel").tag(1)
@@ -456,7 +495,7 @@ struct PhoneDetailView: View {
                         ColorPicker("Button Foreground Color", selection: phone.baseKeyForegroundColorBinding)
                         ColorPicker("Button Background Color", selection: phone.baseKeyBackgroundColorBinding)
                     }
-                    Section(header: Text("Answering System/Voicemail")) {
+                    Section("Answering System/Voicemail", isExpanded: $messagingExpanded) {
                         Picker("Answering System", selection: $phone.hasAnsweringSystem) {
                             if phone.isCordless {
                                 Text("None").tag(0)
@@ -523,7 +562,7 @@ A phone's voicemail indicator usually works in one or both of the following ways
                             InfoText("Storing voicemail feature codes allows you to, for example, play and delete messages using a button or menu item once you've dialed into voicemail, just like with built-in answering systems. Example: If your voicemail system's main menu asks you to press 1 to play messages, you can store \"1\" to the Play code and then quickly dial it using a button/menu item.")
                         }
                     }
-                    Section(header: Text("Audio Devices (e.g. headsets)")) {
+                    Section("Audio Devices (e.g. headsets)", isExpanded: $audioExpanded) {
                         if phone.hasCordedReceiver || phone.hasBaseSpeakerphone {
                             Toggle("Base Supports Wired Headsets", isOn: $phone.baseSupportsWiredHeadsets)
                         }
@@ -535,7 +574,7 @@ A phone's voicemail indicator usually works in one or both of the following ways
                         }
                     }
                 }
-                Section(header: Text("Landline")) {
+                Section("Landline", isExpanded: $landlineExpanded) {
                     Picker("Number Of Lines", selection: $phone.numberOfLandlines) {
                         Text("1").tag(1)
                         Text("2").tag(2)
@@ -563,7 +602,7 @@ A phone's voicemail indicator usually works in one or both of the following ways
                     InfoText("When another phone on the same line is in use, the phone will indicate that the line is in use if it has line in use indication, by detecting a drop in line power. If it drops too much (the line isn't connected or too many phones are in use), the no line alert, if available, will be displayed.\nDetecting drops in line power is also what causes automated systems, phones on hold, and some speakerphones to hang up when another phone on the line is picked up.\nThe phone will first detect \"line in use\" before detecting \"no line\", and the status won't change the moment the line power drops, as the phone needs to wait for the line power to stabalize before indicating the proper status.")
                 }
                 if phone.isCordless || phone.cordedPhoneType == 0 {
-                    Section(header: Text("Cell Phone Linking")) {
+                    Section("Cell Phone Linking", isExpanded: $cellLinkingExpanded) {
                         Picker("Maximum Number Of Bluetooth Cell Phones", selection: $phone.baseBluetoothCellPhonesSupported) {
                             Text("None").tag(0)
                             Text("1").tag(1)
@@ -602,7 +641,7 @@ A phone's voicemail indicator usually works in one or both of the following ways
                 }
                 Group {
                     if phone.hasBaseSpeakerphone || !phone.isCordless || phone.isCordedCordless {
-                        Section(header: Text("Redial")) {
+                        Section("Redial", isExpanded: $redialExpanded) {
                             FormNumericTextField(phone.isCordless ? "Redial Capacity (base)" : "Redial Capacity", value: $phone.baseRedialCapacity, valueRange: .zeroToMax(20))
 #if !os(visionOS)
                                 .scrollDismissesKeyboard(.interactively)
@@ -617,7 +656,7 @@ A phone's voicemail indicator usually works in one or both of the following ways
                         }
                     }
                     if phone.isCordless || (phone.cordedPhoneType == 0 && phone.baseDisplayType > 0) {
-                        Section(header: Text("Dialing Codes (e.g., international, area code, country code)")) {
+                        Section("Dialing Codes (e.g., international, area code, country code)", isExpanded: $dialingCodesExpanded) {
                             if phone.hasCallerIDList {
                                 Picker("Landline Local Area Code Features", selection: $phone.landlineLocalAreaCodeFeatures) {
                                     Text("None").tag(0)
@@ -636,11 +675,11 @@ A phone's voicemail indicator usually works in one or both of the following ways
                             if phone.bluetoothPhonebookTransfers > 0 {
                                 Toggle("Can Store Dialing Codes For Phonebook Transfer", isOn: $phone.supportsPhonebookTransferDialingCodes)
                             }
-                                InfoButton(title: "About Dialing Codes…") {
-                                    showingAboutDialingCodes = true
-                                }
+                            InfoButton(title: "About Dialing Codes…") {
+                                showingAboutDialingCodes = true
+                            }
                         }
-                        Section(header: Text("Phonebook")) {
+                        Section("Phonebook", isExpanded: $phonebookExpanded) {
                             FormNumericTextField(phone.isCordless ? "Phonebook Capacity (base)" : "Phonebook Capacity", value: $phone.basePhonebookCapacity, valueRange: .allPositivesIncludingZero)
 #if !os(visionOS)
                                 .scrollDismissesKeyboard(.interactively)
@@ -658,16 +697,16 @@ A phone's voicemail indicator usually works in one or both of the following ways
                                 Picker("Bluetooth Cell Phone Phonebook Transfers", selection: $phone.bluetoothPhonebookTransfers) {
                                     Text("Not Supported").tag(0)
                                     Text("To Home Phonebook").tag(1)
-                                if phone.baseBluetoothCellPhonesSupported > 0 {
-                                    Text("To Separate Cell Phonebook").tag(2)
-                                }
+                                    if phone.baseBluetoothCellPhonesSupported > 0 {
+                                        Text("To Separate Cell Phonebook").tag(2)
+                                    }
                                 }
                                 InfoText("Storing transferred cell phonebook entries in the home phonebook allows those entries to work with features such as home line caller ID phonebook match and call block pre-screening. It also allows you to view all your phonebook entries in one place. If transferred cell phonebooks are stored separately from the home phonebook, caller ID phonebook match usually only works with the corresponding cell line.\nSome phones support Bluetooth cell phone phonebook transfers even if they don't support cell phone linking.")
                             }
                         }
                     }
                     if phone.isCordless || phone.cordedPhoneType == 0 || phone.cordedPhoneType == 2 {
-                        Section(header: Text("Caller ID")) {
+                        Section("Caller ID", isExpanded: $callerIDExpanded) {
                             if phone.basePhonebookCapacity > 0 {
                                 Toggle(isOn: $phone.callerIDPhonebookMatch) {
                                     Text("Caller ID Name Uses Matching Phonebook Entry Name")
@@ -686,33 +725,35 @@ A phone's voicemail indicator usually works in one or both of the following ways
 #endif
                             }
                         }
-                        Section(header: Text("Speed Dial"), footer: Text(
-   """
-   Speed dial is usually used by holding down the desired number key or by pressing a button (usually called "Auto", "Mem", or "Memory") followed by the desired number key. One-touch/memory dial is when the phone has dedicated speed dial buttons which either start dialing immediately when pressed, or which display/announce the stored number which can be dialed by then going off-hook. Some phones tie the one-touch/memory dial buttons to the first few speed dial locations (e.g. a phone with 10 speed dials (1-9 and 0) and memory dial A-C might use memory dial A-C as a quicker way to dial the number in speed dial 1-3.
-   
-   The speed dial entry mode describes how phonebook entries are saved to speed dial locations and whether they allow numbers to be manually entered. "Copy" means the phonebook entry will be copied to the speed dial location, and editing the phonebook entry won't affect the speed dial entry. "Link" means the speed dial entry is tied to the corresponding phonebook entry, so editing the phonebook entry will affect the speed dial entry and vice versa, and the speed dial entry will be deleted if the corresponding phonebook entry is deleted.
-   
-   By assigning a handset number to a cordless or corded/cordless phone base's one-touch dial button, you can press it to quickly intercom/transfer a call to that handset.
-   """)) {
-       Stepper(phone.isCordless ? "Dial-Key Speed Dial Capacity (base): \(phone.baseSpeedDialCapacity)" : "Dial-Key Speed Dial Capacity: \(phone.baseSpeedDialCapacity)", value: $phone.baseSpeedDialCapacity, in: 0...50)
-       if phone.baseSpeedDialCapacity > 10 {
-           InfoText("Speed dial \(phone.baseSpeedDialCapacity > 11 ? "locations 11-\(phone.baseSpeedDialCapacity) are" : "location 11 is") accessed by pressing the speed dial button and then entering/scrolling to the desired location number.")
-       }
-       Stepper(phone.isCordless ? "One-Touch/Memory Dial Capacity (base): \(phone.baseOneTouchDialCapacity)" : "One-Touch/Memory Dial Capacity: \(phone.baseOneTouchDialCapacity)", value: $phone.baseOneTouchDialCapacity, in: 0...20)
-       if phone.isCordless && phone.baseOneTouchDialCapacity > 0 {
-           Toggle("Base One-Touch/Memory Dial Supports Handset Numbers", isOn: $phone.oneTouchDialSupportsHandsetNumbers)
-       }
-       if (phone.basePhonebookCapacity > 0 && (phone.baseSpeedDialCapacity > 0 || phone.baseOneTouchDialCapacity > 0)) {
-           Picker("Speed Dial Entry Mode", selection: $phone.speedDialPhonebookEntryMode) {
-               Text("Manual or Phonebook (copy)").tag(0)
-               Text("Phonebook Only (copy)").tag(1)
-               Text("Phonebook Only (link)").tag(2)
-           }
-       }
-   }
+                        Section("Speed Dial", isExpanded: $speedDialExpanded) {
+                            Stepper(phone.isCordless ? "Dial-Key Speed Dial Capacity (base): \(phone.baseSpeedDialCapacity)" : "Dial-Key Speed Dial Capacity: \(phone.baseSpeedDialCapacity)", value: $phone.baseSpeedDialCapacity, in: 0...50)
+                            if phone.baseSpeedDialCapacity > 10 {
+                                InfoText("Speed dial \(phone.baseSpeedDialCapacity > 11 ? "locations 11-\(phone.baseSpeedDialCapacity) are" : "location 11 is") accessed by pressing the speed dial button and then entering/scrolling to the desired location number.")
+                            }
+                            Stepper(phone.isCordless ? "One-Touch/Memory Dial Capacity (base): \(phone.baseOneTouchDialCapacity)" : "One-Touch/Memory Dial Capacity: \(phone.baseOneTouchDialCapacity)", value: $phone.baseOneTouchDialCapacity, in: 0...20)
+                            if phone.isCordless && phone.baseOneTouchDialCapacity > 0 {
+                                Toggle("Base One-Touch/Memory Dial Supports Handset Numbers", isOn: $phone.oneTouchDialSupportsHandsetNumbers)
+                            }
+                            if (phone.basePhonebookCapacity > 0 && (phone.baseSpeedDialCapacity > 0 || phone.baseOneTouchDialCapacity > 0)) {
+                                Picker("Speed Dial Entry Mode", selection: $phone.speedDialPhonebookEntryMode) {
+                                    Text("Manual or Phonebook (copy)").tag(0)
+                                    Text("Phonebook Only (copy)").tag(1)
+                                    Text("Phonebook Only (link)").tag(2)
+                                }
+                            }
+                            InfoText(
+       """
+       Speed dial is usually used by holding down the desired number key or by pressing a button (usually called "Auto", "Mem", or "Memory") followed by the desired number key.
+       One-touch/memory dial is when the phone has dedicated speed dial buttons which either start dialing immediately when pressed, or which display/announce the stored number which can be dialed by then going off-hook. Some phones tie the one-touch/memory dial buttons to the first few speed dial locations (e.g. a phone with 10 speed dials (1-9 and 0) and memory dial A-C might use memory dial A-C as a quicker way to dial the number in speed dial 1-3.
+       The speed dial entry mode describes how phonebook entries are saved to speed dial locations and whether they allow numbers to be manually entered. "Copy" means the phonebook entry will be copied to the speed dial location, and editing the phonebook entry won't affect the speed dial entry. "Link" means the speed dial entry is tied to the corresponding phonebook entry, so editing the phonebook entry will affect the speed dial entry and vice versa, and the speed dial entry will be deleted if the corresponding phonebook entry is deleted.
+       By assigning a handset number to a cordless or corded/cordless phone base's one-touch dial button, you can press it to quickly intercom/transfer a call to that handset.
+       """)
+                        }
                     }
+                }
                     if phone.isCordless || phone.cordedPhoneType == 0 {
-                        Section(header: Text("Call Block (manual)")) {
+                        Group {
+                        Section("Call Block (manual)", isExpanded: $callBlockExpanded) {
                             FormNumericTextField("Call Block List Capacity", value: $phone.callBlockCapacity, valueRange: .allPositivesIncludingZero)
 #if !os(visionOS)
                                 .scrollDismissesKeyboard(.interactively)
@@ -753,12 +794,13 @@ When the first ring is suppressed, the number of rings you hear will be one less
                                 InfoText("Numbers in the pre-programmed call block database are not visible to the user and might be excluded from the caller ID list. Numbers from this database can be saved to the phonebook if they happen to become safe in the future.")
                             }
                         }
-                        Section(header: Text("Call Block (pre-screening)"), footer: Text("Call block pre-screening picks up the line and plays a message asking callers to press a key so the phone can identify whether they're a human or a robot.\nCallers with numbers stored in the phone's allowed number list/database or phonebook, or callers whose caller ID names are stored in the phone's allowed name list, will always ring through.\nAsking for the caller name allows you to hear the caller's real name in their own voice when you pick up\(phone.hasTalkingCallerID ? " or as the caller ID announcement" : String()).")) {
+                        Section("Call Block (pre-screening)", isExpanded: $callBlockPreScreeningExpanded) {
                             Picker("Mode", selection: $phone.callBlockPreScreening) {
                                 Text("Not Supported").tag(0)
                                 Text("Caller Name").tag(1)
                                 Text("Code").tag(2)
                             }
+                            InfoText("Call block pre-screening picks up the line and plays a message asking callers to press a key so the phone can identify whether they're a human or a robot.\nCallers with numbers stored in the phone's allowed number list/database or phonebook, or callers whose caller ID names are stored in the phone's allowed name list, will always ring through.\nAsking for the caller name allows you to hear the caller's real name in their own voice when you pick up\(phone.hasTalkingCallerID ? " or as the caller ID announcement" : String()).")
                             if phone.callBlockPreScreening > 0 {
                                 InfoText("Example screening message: \"Hello. Your call is being screened to make sure you're a person. Please \(phone.callBlockPreScreening == 2 ? "press \(Int.random(in: 0...999))" : "say your name after the tone then press the pound key") to be connected.\"")
                                 if phone.hasAnsweringSystem == 0 {
@@ -778,7 +820,7 @@ When the first ring is suppressed, the number of rings you hear will be one less
 #endif
                             }
                         }
-                        Section(header: Text("Special Features")) {
+                        Section("Special Features", isExpanded: $specialFeaturesExpanded) {
                             if phone.baseCallerIDCapacity > 0 || !phone.cordlessHandsetsIHave.filter({$0.callerIDCapacity > 0}).isEmpty {
                                 Toggle("One-Ring Scam Call Detection", isOn: $phone.scamCallDetection)
                                 InfoText("If a caller hangs up within 1 or 2 rings and caller ID is received, the phone can mark the call as a one-ring scam call when viewed in the caller ID list, and warn the user when trying to call that caller.")

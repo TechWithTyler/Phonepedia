@@ -26,10 +26,12 @@ struct PhonePartInfoView: View {
         return phone.chargersIHave.count
     }
     
+    @State private var colorsExpanded: Bool = false
+    
     // MARK: - Body
 
 	var body: some View {
-		Section(phone.isCordless ? "Base Colors" : "Colors") {
+        Section(phone.isCordless ? "Base Colors" : "Colors", isExpanded: $colorsExpanded) {
             ColorPicker("Base Main Color", selection: phone.baseMainColorBinding)
             HStack {
                 ColorPicker("Base Secondary/Accent Color", selection: phone.baseSecondaryColorBinding)
@@ -49,7 +51,7 @@ struct PhonePartInfoView: View {
             }
 		}
 		if phone.isCordless {
-			Section("Cordless Handsets/Headsets/Speakerphones/Desksets (\(handsetCount))") {
+            Section("Cordless Handsets/Headsets/Speakerphones/Desksets (\(handsetCount))") {
 				if !phone.cordlessHandsetsIHave.isEmpty {
 						ForEach($phone.cordlessHandsetsIHave) { handset in
 							NavigationLink {
@@ -98,7 +100,7 @@ struct PhonePartInfoView: View {
 					Text("Deregister All")
 				}
 			}
-			Section("Chargers (\(chargerCount))") {
+            Section("Chargers (\(chargerCount))") {
 				if !phone.chargersIHave.isEmpty {
 						ForEach($phone.chargersIHave) { charger in
 							NavigationLink {

@@ -12,23 +12,43 @@ import SheftAppsStylishUI
 struct HandsetInfoDetailView: View {
     
     // MARK: - Properties - Handset
-
-	@Binding var handset: CordlessHandset
+    
+    @Binding var handset: CordlessHandset
     
     // MARK: - Properties - Dismiss Action
-
-	@Environment(\.dismiss) var dismiss
+    
+    @Environment(\.dismiss) var dismiss
     
     // MARK: - Properties - Integers
-
-	var handsetNumber: Int
+    
+    var handsetNumber: Int
+    
+    @State private var generalExpanded: Bool = true
+    
+    @State private var ringersExpanded: Bool = false
+    
+    @State private var audioExpanded: Bool = false
+    
+    @State private var answeringSystemExpanded: Bool = false
+    
+    @State private var redialExpanded: Bool = false
+    
+    @State private var phonebookExpanded: Bool = false
+    
+    @State private var callerIDExpanded: Bool = false
+    
+    @State private var speedDialExpanded: Bool = false
+    
+    @State private var displayExpanded: Bool = false
+    
+    @State private var specialFeaturesExpanded: Bool = false
     
     // MARK: - Body
 
 	var body: some View {
 		if let phone = handset.phone {
 			Form {
-				Section(header: Text("General")) {
+                Section(isExpanded: $generalExpanded) {
 					HStack {
 						Text("Registered as: Handset \(handsetNumber)")
 						Button {
@@ -97,9 +117,9 @@ struct HandsetInfoDetailView: View {
                         }
                         BatteryInfoView()
                     }
-				}
+                } header: {Text("General")}
 				if handset.cordlessDeviceType < 2 {
-					Section(header: Text("Ringers")) {
+                    Section(isExpanded: $ringersExpanded) {
 						Stepper("Ringtones: \(handset.ringtones)", value: $handset.ringtones, in: 1...25)
 						Stepper("Music Ringtones: \(handset.musicRingtones)", value: $handset.musicRingtones, in: 0...25)
 						Text("Total Ringtones: \(handset.totalRingtones)")
@@ -118,8 +138,8 @@ struct HandsetInfoDetailView: View {
                                 handset.totalRingtonesChanged(oldValue: oldValue, newValue: newValue)
                             }
                         }
-					}
-					Section(header: Text("Display/Backlight/Buttons")) {
+                    } header: {Text("Ringers")}
+                    Section(isExpanded: $displayExpanded) {
                         if handset.cordlessDeviceType == 0 {
                             Picker("Talk/Off Button Type", selection: $handset.talkOffButtonType) {
                                 Text("Single Talk/Off Button").tag(0)
@@ -238,8 +258,8 @@ struct HandsetInfoDetailView: View {
 						}
 						ColorPicker("Button Foreground Color", selection: handset.keyForegroundColorBinding)
 						ColorPicker("Button Background Color", selection: handset.keyBackgroundColorBinding)
-					}
-					Section(header: Text("Audio")) {
+                    } header: {Text("Display/Backlight/Buttons")}
+                    Section(isExpanded: $audioExpanded) {
 						Toggle("Has Speakerphone", isOn: $handset.hasSpeakerphone)
                         if handset.hasSpeakerphone {
                             Picker("Speakerphone Button Coloring", selection: $handset.speakerphoneColorLayer) {
@@ -260,8 +280,8 @@ struct HandsetInfoDetailView: View {
 							Text("2").tag(2)
 							Text("4").tag(4)
 						}
-					}
-					Section(header: Text("Answering System")) {
+                    } header: {Text("Audio")}
+                    Section(isExpanded: $answeringSystemExpanded) {
 						if phone.hasAnsweringSystem > 1 {
 							Picker("Answering System Menu", selection: $handset.answeringSystemMenu) {
 								Text("Settings Only (doesn't require link to base").tag(0)
@@ -270,8 +290,8 @@ struct HandsetInfoDetailView: View {
 								Text("Full (requires link to base)").tag(3)
 							}
 						}
-					}
-					Section(header: Text("Redial")) {
+                    } header: {Text("Answering System")}
+                    Section(isExpanded: $redialExpanded) {
 						FormNumericTextField("Redial Capacity", value: $handset.redialCapacity, valueRange: .zeroToMax(20))
 #if !os(visionOS)
 							.scrollDismissesKeyboard(.interactively)
@@ -286,8 +306,8 @@ struct HandsetInfoDetailView: View {
 						if handset.redialNameDisplay == 1 && handset.usesBasePhonebook {
 							InfoText("Although the redial list is stored in the handset, it may still require you to be in range of the base if the handset doesn't have a fallback to display entries without their names.")
 						}
-					}
-					Section(header: Text("Phonebook")) {
+                    } header: {Text("Redial")}
+                    Section(isExpanded: $phonebookExpanded) {
 						FormNumericTextField("Phonebook Capacity", value: $handset.phonebookCapacity, valueRange: .allPositivesIncludingZero)
 #if !os(visionOS)
 							.scrollDismissesKeyboard(.interactively)
@@ -301,8 +321,8 @@ struct HandsetInfoDetailView: View {
 						if handset.phonebookCapacity >= 150 {
 							Toggle("Supports Bluetooth Phonebook Transfers", isOn: $handset.bluetoothPhonebookTransfers)
 						}
-					}
-					Section(header: Text("Caller ID")) {
+                    } header: {Text("Phonebook")}
+                    Section(isExpanded: $callerIDExpanded) {
 						Toggle(isOn: $handset.hasTalkingCallerID) {
 							Text("Talking Caller ID")
 						}
@@ -321,8 +341,8 @@ struct HandsetInfoDetailView: View {
 						if handset.callerIDCapacity == 0 {
 							Toggle("Uses Base Caller ID List", isOn: $handset.usesBaseCallerID)
 						}
-					}
-					Section(header: Text("Speed Dial")) {
+                    } header: {Text("Caller ID")}
+                    Section(isExpanded: $speedDialExpanded) {
 						Stepper("Dial-Key Speed Dial Capacity: \(handset.speedDialCapacity)", value: $handset.speedDialCapacity, in: 0...10)
 						Stepper("One-Touch/Memory Dial: \(handset.oneTouchDialCapacity)", value: $handset.oneTouchDialCapacity, in: 0...4)
 						Toggle("Uses Base Speed Dial", isOn: $handset.usesBaseSpeedDial)
@@ -332,9 +352,9 @@ struct HandsetInfoDetailView: View {
 							Text("Phonebook Only (copy)").tag(1)
 							Text("Phonebook Only (link)").tag(2)
 						}
-					}
+                    } header: {Text("Speed Dial")}
 				}
-				Section(header: Text("Special Features")) {
+                Section(isExpanded: $specialFeaturesExpanded) {
 					Picker("Key Finders Supported", selection: $handset.keyFindersSupported) {
 						Text("None").tag(0)
 						Text("1").tag(1)
@@ -344,7 +364,7 @@ struct HandsetInfoDetailView: View {
 					Text("By registering a key finder to a handset, you can use the handset to find lost items easily. If the handset is registered to a compatible base, key finder registrations can be used by any handset. Handsets in range will access the base's registration information and store it in the handset, while handsets out of range will access the registration information stored in them.")
 						.font(.footnote)
 						.foregroundStyle(.secondary)
-				}
+                } header: {Text("Special Features")}
 			}
 			.formStyle(.grouped)
 		} else {
