@@ -160,7 +160,7 @@ struct PhoneDetailView: View {
                             }
                             AntennaInfoView()
                             Toggle("Supports Range Extenders", isOn: $phone.supportsRangeExtenders)
-                            InfoText("A range extender extends the range of the base its registered to. Devices communicating with the base choose the base or a range extender based on which has the strongest signal.")
+                            InfoText("A range extender extends the range of the base it's registered to. Devices communicating with the base choose the base or a range extender based on which has the strongest signal.")
                             if !phone.isCordedCordless {
                                 Toggle("Base Is Transmit-Only", isOn: $phone.hasTransmitOnlyBase)
                                 InfoText("A transmit-only base doesn't have a charging area for a cordless handset nor does it have a corded receiver. Sometimes these kinds of bases have speakerphone, but usually they only have a locator button and nothing else. A transmit-only base with no features on it is often called a \"hidden base\" as these kinds of bases are often placed out-of-sight.")
