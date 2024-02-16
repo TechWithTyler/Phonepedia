@@ -163,7 +163,6 @@ struct PhoneDetailView: View {
                             InfoText("A range extender extends the range of the base it's registered to. Devices communicating with the base choose the base or a range extender based on which has the strongest signal.")
                             if !phone.isCordedCordless {
                                 Toggle("Base Is Transmit-Only", isOn: $phone.hasTransmitOnlyBase)
-                                InfoText("A transmit-only base doesn't have a charging area for a cordless handset nor does it have a corded receiver. Sometimes these kinds of bases have speakerphone, but usually they only have a locator button and nothing else. A transmit-only base with no features on it is often called a \"hidden base\" as these kinds of bases are often placed out-of-sight.")
                                     .onChange(of: phone.hasTransmitOnlyBase) { oldValue, newValue in
                                         phone.transmitOnlyBaseChanged(oldValue: oldValue, newValue: newValue)
                                     }
@@ -173,6 +172,10 @@ struct PhoneDetailView: View {
                                     Text("Optional Bracket").tag(2)
                                     Text("Built-In Bracket").tag(3)
                                     Text("Desk/Wall Bracket").tag(4)
+                                }
+                                if !phone.hasBaseKeypad && !phone.hasTransmitOnlyBase {
+                                    Toggle("Has Charger-Style Base", isOn: $phone.hasChargerSizeBase)
+                                    InfoText("Some cordless phone bases look similar/have a similar size to chargers. In some cases, such as when the base has no answering system controls, they can be easily mistaken for chargers, although a base is always slightly bigger than a charger. Tip: The main base has at least a phone jack or handset locator button. Chargers just plug into power.\nThese kinds of bases are ideal for those who want a small-footprint base. The differentiating factor between a charger-style base vs a standard base is that the handset charging area is in the same position as that of the charger (usually the center).")
                                 }
                             }
                             Picker("Charge Light", selection: $phone.chargeLight) {

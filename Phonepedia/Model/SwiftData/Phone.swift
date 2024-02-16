@@ -290,6 +290,8 @@ final class Phone {
     
     var musicOnHoldLive: Bool = false
     
+    var hasChargerSizeBase: Bool = false
+    
     // MARK: - Properties - Transient (Non-Persistent) Properties
 	
     // Properties marked with the @Transient property wrapper won't persist their values to SwiftData.
@@ -494,6 +496,7 @@ final class Phone {
 			for handset in cordlessHandsetsIHave {
 				handset.fitsOnBase = false
 			}
+            hasChargerSizeBase = false
 			placeOnBaseAutoRegister = false
 			baseHasSeparateDataContact = false
 			baseChargeContactType = 0
@@ -595,6 +598,9 @@ final class Phone {
 	}
     
     func hasBaseKeypadChanged(oldValue: Bool, newValue: Bool) {
+        if newValue && hasChargerSizeBase {
+            hasChargerSizeBase = false
+        }
         if newValue && baseCellRingtone == 0 {
             baseCellRingtone = 1
         }

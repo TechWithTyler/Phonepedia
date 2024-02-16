@@ -233,6 +233,7 @@
 		8DA844A42B72E1D7006CBCA7 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
+				8DA844AF2B72E1D7006CBCA7 /* PhonePartInfoView.swift */,
 				8DA844A52B72E1D7006CBCA7 /* HandsetInfoDetailView.swift */,
 				8DA844A62B72E1D7006CBCA7 /* NoPhoneSelectedView.swift */,
 				8DA844A72B72E1D7006CBCA7 /* PhoneDetailView.swift */,
@@ -249,7 +250,6 @@
 				8DA844AC2B72E1D7006CBCA7 /* SoftKeyExplanationView.swift */,
 				8DA844AD2B72E1D7006CBCA7 /* PhoneButtonLegendItem.swift */,
 				8DA844AE2B72E1D7006CBCA7 /* BatteryInfoView.swift */,
-				8DA844AF2B72E1D7006CBCA7 /* PhonePartInfoView.swift */,
 				8DA844B02B72E1D7006CBCA7 /* PhoneTypeDefinitionsView.swift */,
 				8DA844B12B72E1D7006CBCA7 /* AntennaInfoView.swift */,
 				8DA844B22B72E1D7006CBCA7 /* ChargingContactInfoView.swift */,
