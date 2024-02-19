@@ -166,6 +166,8 @@ final class CordlessHandset {
     
     var hasSpeakerphoneButtonLight: Bool = false
     
+    var storageOrSetup: Int = 0
+    
     var totalRingtones: Int {
         return ringtones + musicRingtones
     }

@@ -117,6 +117,14 @@ struct HandsetInfoDetailView: View {
                         }
                         BatteryInfoView()
                     }
+                    Picker("Place In My Collection", selection: $handset.storageOrSetup) {
+                        Text("Box/Bin (working)").tag(0)
+                        Text("Box/Bin (broken)").tag(1)
+                        Text("Shelf (working)").tag(2)
+                        Text("Shelf (broken)").tag(3)
+                        Text("Active (working)").tag(4)
+                        Text("Active (broken)").tag(5)
+                    }
                 } header: {Text("General")}
 				if handset.cordlessDeviceType < 2 {
                     Section(isExpanded: $ringersExpanded) {

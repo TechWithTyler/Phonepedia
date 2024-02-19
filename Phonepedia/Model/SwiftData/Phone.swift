@@ -292,6 +292,10 @@ final class Phone {
     
     var hasChargerSizeBase: Bool = false
     
+    var storageOrSetup: Int = 0
+    
+    var phoneDescription: String = String()
+    
     // MARK: - Properties - Transient (Non-Persistent) Properties
 	
     // Properties marked with the @Transient property wrapper won't persist their values to SwiftData.

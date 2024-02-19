@@ -19,6 +19,8 @@ struct PhoneDetailView: View {
     
     @EnvironmentObject var photoViewModel: PhonePhotoViewModel
     
+    @AppStorage("phoneDescriptionTextSize") var phoneDescriptionTextSize: Double = SATextViewMinFontSize
+    
     // MARK: - Properties - Booleans
     
     @State private var showingFrequenciesExplanation: Bool = false
@@ -84,6 +86,23 @@ struct PhoneDetailView: View {
                         }
                     }
                     Stepper("Release Year: \(String(phone.releaseYear))", value: $phone.releaseYear, in: 1892...currentYear)
+                    Picker("Place In My Collection", selection: $phone.storageOrSetup) {
+                        Text("Box/Bin (working)").tag(0)
+                        Text("Box/Bin (broken)").tag(1)
+                        Text("Shelf (working)").tag(2)
+                        Text("Shelf (broken)").tag(3)
+                        Text("Active (working)").tag(4)
+                        Text("Active (broken)").tag(5)
+                    }
+                    VStack {
+                        Text("Write more about your phone (e.g., the story behind why you got it, when/where you got it, whether you had to replace broken parts) in the text area below.")
+                            .lineLimit(nil)
+                        Stepper("Font Size: \(Int(phoneDescriptionTextSize))", value: $phoneDescriptionTextSize)
+                        ContrastingTextEditor(text: $phone.phoneDescription)
+                            .frame(minHeight: 300)
+                            .padding()
+                            .font(.system(size: phoneDescriptionTextSize))
+                    }
                 }
                 PhonePartInfoView(phone: phone)
                 Section("Basic Features/Cordless Capabilities", isExpanded: $basicsExpanded) {
