@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8D3D27902ABCDDF30005FEC2 /* PhonepediaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3D278F2ABCDDF30005FEC2 /* PhonepediaUITests.swift */; };
 		8D3D27922ABCDDF30005FEC2 /* PhonepediaUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3D27912ABCDDF30005FEC2 /* PhonepediaUITestsLaunchTests.swift */; };
+		8D40612D2B8011E800F182DA /* AboutConnectionTypesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D40612C2B8011E800F182DA /* AboutConnectionTypesView.swift */; };
 		8D5B63E32B2A520F00E86DA8 /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = 8D5B63E22B2A520F00E86DA8 /* Collections */; };
 		8D5B63E52B2A520F00E86DA8 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 8D5B63E42B2A520F00E86DA8 /* OrderedCollections */; };
 		8DA844CE2B72E1D7006CBCA7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DA8449B2B72E1D7006CBCA7 /* Assets.xcassets */; };
@@ -88,6 +89,7 @@
 		8D3D278D2ABCDDF30005FEC2 /* PhonepediaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhonepediaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D3D278F2ABCDDF30005FEC2 /* PhonepediaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhonepediaUITests.swift; sourceTree = "<group>"; };
 		8D3D27912ABCDDF30005FEC2 /* PhonepediaUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhonepediaUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		8D40612C2B8011E800F182DA /* AboutConnectionTypesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutConnectionTypesView.swift; sourceTree = "<group>"; };
 		8DA8449B2B72E1D7006CBCA7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8DA8449D2B72E1D7006CBCA7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8DA844A02B72E1D7006CBCA7 /* CameraCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraCoordinator.swift; sourceTree = "<group>"; };
@@ -222,7 +224,7 @@
 			children = (
 				8DA844A32B72E1D7006CBCA7 /* PhoneListView.swift */,
 				8DA844A42B72E1D7006CBCA7 /* Detail */,
-				8DA844A92B72E1D7006CBCA7 /* Info Views */,
+				8DA844A92B72E1D7006CBCA7 /* Info */,
 				8DA844B32B72E1D7006CBCA7 /* PhoneRowView.swift */,
 				8DA844B42B72E1D7006CBCA7 /* ContentView.swift */,
 				8DA844B52B72E1D7006CBCA7 /* Child Views */,
@@ -242,7 +244,7 @@
 			path = Detail;
 			sourceTree = "<group>";
 		};
-		8DA844A92B72E1D7006CBCA7 /* Info Views */ = {
+		8DA844A92B72E1D7006CBCA7 /* Info */ = {
 			isa = PBXGroup;
 			children = (
 				8DA844AA2B72E1D7006CBCA7 /* AboutDialingCodesView.swift */,
@@ -253,8 +255,9 @@
 				8DA844B02B72E1D7006CBCA7 /* PhoneTypeDefinitionsView.swift */,
 				8DA844B12B72E1D7006CBCA7 /* AntennaInfoView.swift */,
 				8DA844B22B72E1D7006CBCA7 /* ChargingContactInfoView.swift */,
+				8D40612C2B8011E800F182DA /* AboutConnectionTypesView.swift */,
 			);
-			path = "Info Views";
+			path = Info;
 			sourceTree = "<group>";
 		};
 		8DA844B52B72E1D7006CBCA7 /* Child Views */ = {
@@ -522,6 +525,7 @@
 				8DA844DE2B72E1D7006CBCA7 /* AntennaInfoView.swift in Sources */,
 				8DA844E92B72E1D7006CBCA7 /* Phone.swift in Sources */,
 				8DA844E52B72E1D7006CBCA7 /* WarningText.swift in Sources */,
+				8D40612D2B8011E800F182DA /* AboutConnectionTypesView.swift in Sources */,
 				8DA844D72B72E1D7006CBCA7 /* AboutDialingCodesView.swift in Sources */,
 				8DA844DD2B72E1D7006CBCA7 /* PhoneTypeDefinitionsView.swift in Sources */,
 				8DA844D42B72E1D7006CBCA7 /* NoPhoneSelectedView.swift in Sources */,
