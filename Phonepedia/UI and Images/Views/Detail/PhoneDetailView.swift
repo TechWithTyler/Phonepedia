@@ -598,7 +598,54 @@ A phone's voicemail indicator usually works in one or both of the following ways
                         }
                     }
                 }
-                
+                Section("Landline", isExpanded: $landlineExpanded) {
+                    Picker("Connection Type", selection: $phone.landlineConnectionType) {
+                        Text("Analog").tag(0)
+                        Text("Digital").tag(1)
+                        Text("VoIP (Ethernet)").tag(2)
+                        Text("VoIP (Wi-Fi)").tag(3)
+                        Text("Built-In Cellular").tag(4)
+                    }
+                    if phone.landlineConnectionType == 0 && phone.storageOrSetup >= 4 {
+                        Picker("Connected To", selection: $phone.landlineConnectedTo) {
+                            Text("No Line").tag(0)
+                            Text("Copper Line").tag(1)
+                            Text("VoIP Modem/ATA").tag(2)
+                            Text("Cell-to-Landline Bluetooth").tag(3)
+                            Text("Cellular Jack/Base").tag(4)
+                            Text("PBX").tag(5)
+                            Text("Phone Line Simulator").tag(6)
+                        }
+                    }
+                    InfoButton(title: "About Connection Types/Devices…") {
+                        showingAboutConnectionTypes = true
+                    }
+                    Picker("Number Of Lines", selection: $phone.numberOfLandlines) {
+                        Text("1").tag(1)
+                        Text("2").tag(2)
+                        Text("4").tag(4)
+                    }
+                    .onChange(of: phone.numberOfLandlines) { oldValue, newValue in
+                        phone.numberOfLandlinesChanged(oldValue: oldValue, newValue: newValue)
+                    }
+                    InfoText("On a 2- or 4-line phone, you can either plug each line into a separate jack, or use a single jack for 2 lines. For example, to plug a 2-line phone into a single 2-line jack, you would plug into the line 1/2 jack, or to plug into 2 single-line jacks, you would plug into both the line 1 and line 2 jacks. To use the one-jack-for-both-lines method, you need to make sure the phone cord has 4 copper contacts instead of just 2. With some phones, the included line cords are color-coded so you can easily tell which line they're for (e.g. black for line 1 and green for line 2).")
+                    if phone.isCordless || phone.cordedPhoneType == 0 {
+                        Picker("Landline In Use Status On Base", selection: $phone.landlineInUseStatusOnBase) {
+                            Text("None").tag(0)
+                            Text("Light").tag(1)
+                            if phone.baseDisplayType > 1 {
+                                Text("Display").tag(2)
+                                Text("Display and Light").tag(3)
+                            }
+                        }
+                        if phone.landlineInUseStatusOnBase == 1 {
+                            Toggle("Landline In Use Light Follows Ring Signal", isOn: $phone.landlineInUseVisualRingerFollowsRingSignal)
+                            InfoText("An in use light that follows the ring signal starts flashing when the ring signal starts and stops flashing when the ring signal stops. An in use light that ignores the ring signal starts flashing when the ring signal starts and continues flashing for as long as the base is indicating an incoming call.")
+                        }
+                    }
+                    Toggle("Has \"No Line\" Alert", isOn: $phone.hasNoLineAlert)
+                    InfoText("When another phone on the same line is in use, the phone will indicate that the line is in use if it has line in use indication, by detecting a drop in line power. If it drops too much (the line isn't connected or too many phones are in use), the no line alert, if available, will be displayed.\nDetecting drops in line power is also what causes automated systems, phones on hold, and some speakerphones to hang up when another phone on the line is picked up.\nThe phone will first detect \"line in use\" before detecting \"no line\", and the status won't change the moment the line power drops, as the phone needs to wait for the line power to stabalize before indicating the proper status.")
+                }
                 if phone.isCordless || phone.cordedPhoneType == 0 {
                     Section("Cell Phone Linking", isExpanded: $cellLinkingExpanded) {
                         Picker("Maximum Number Of Bluetooth Cell Phones", selection: $phone.baseBluetoothCellPhonesSupported) {

@@ -292,6 +292,10 @@ final class Phone {
     
     var hasChargerSizeBase: Bool = false
     
+    var landlineConnectionType: Int = 0
+    
+    var landlineConnectedTo: Int = 2
+    
     var storageOrSetup: Int = 0
     
     var phoneDescription: String = String()
