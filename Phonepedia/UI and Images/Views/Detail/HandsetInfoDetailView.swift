@@ -93,7 +93,7 @@ struct HandsetInfoDetailView: View {
 						}
 						AntennaInfoView()
 					}
-					if handset.cordlessDeviceType == 0 && !phone.isCordedCordless && !phone.hasTransmitOnlyBase && phone.maxCordlessHandsets != -1 {
+					if handset.cordlessDeviceType == 0 && !phone.isCordedCordless && !phone.hasTransmitOnlyBase && phone.hasRegistration {
 						Toggle("Fits On Base", isOn: $handset.fitsOnBase)
 						if !handset.fitsOnBase {
 							InfoText("A handset which doesn't fit on the base misses out on many features including place-on-base power backup and place-on-base auto-register.")

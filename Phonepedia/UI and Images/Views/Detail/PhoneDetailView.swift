@@ -123,7 +123,7 @@ struct PhoneDetailView: View {
                                 }
 #if os(iOS)
                                 .sensoryFeedback(.error, trigger: phone.numberOfIncludedCordlessHandsets) { oldValue, newValue in
-                                    return newValue > phone.maxCordlessHandsets && phone.maxCordlessHandsets != -1
+                                    return newValue > phone.maxCordlessHandsets && phone.hasRegistration
                                 }
 #endif
                             if phone.maxCordlessHandsets == -1 {
@@ -133,7 +133,7 @@ struct PhoneDetailView: View {
                                     showingRegistrationExplanation = true
                                 }
                             }
-                            if phone.numberOfIncludedCordlessHandsets > phone.maxCordlessHandsets && phone.maxCordlessHandsets != -1 {
+                            if phone.numberOfIncludedCordlessHandsets > phone.maxCordlessHandsets && phone.hasRegistration {
                                 WarningText("The base of the \(phone.brand) \(phone.model) can only register up to \(phone.maxCordlessHandsets) handsets (trying to register \(phone.numberOfIncludedCordlessHandsets)).")
                             }
                         }
@@ -189,8 +189,10 @@ struct PhoneDetailView: View {
                                 Text("One On Each Side").tag(4)
                             }
                             AntennaInfoView()
-                            Toggle("Supports Range Extenders", isOn: $phone.supportsRangeExtenders)
+                            if phone.hasRegistration {
+                                Toggle("Supports Range Extenders", isOn: $phone.supportsRangeExtenders)
                             InfoText("A range extender extends the range of the base it's registered to. Devices communicating with the base choose the base or a range extender based on which has the strongest signal.")
+                            }
                             if !phone.isCordedCordless {
                                 Toggle("Base Is Transmit-Only", isOn: $phone.hasTransmitOnlyBase)
                                     .onChange(of: phone.hasTransmitOnlyBase) { oldValue, newValue in

@@ -1,5 +1,5 @@
 //
-//  PhoneColorInfoView.swift
+//  PhonePartInfoView.swift
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 6/19/23.

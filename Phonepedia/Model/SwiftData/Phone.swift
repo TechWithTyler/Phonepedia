@@ -340,6 +340,11 @@ final class Phone {
 	}
     
     @Transient
+    var hasRegistration: Bool {
+        return maxCordlessHandsets != -1
+    }
+    
+    @Transient
     var baseChargesHandset: Bool {
         return isCordless && !hasCordedReceiver && !hasTransmitOnlyBase
     }
@@ -506,6 +511,9 @@ final class Phone {
 			for handset in cordlessHandsetsIHave {
 				handset.fitsOnBase = false
 			}
+            if maxCordlessHandsets == -1 {
+                maxCordlessHandsets = 1
+            }
             hasChargerSizeBase = false
 			placeOnBaseAutoRegister = false
 			baseHasSeparateDataContact = false
@@ -588,6 +596,8 @@ final class Phone {
 	
 	func maxCordlessHandsetsChanged(oldValue: Int, newValue: Int) {
 		if newValue == -1 {
+            hasTransmitOnlyBase = false
+            cordedReceiverMainColorBinding.wrappedValue = .clear
 			placeOnBaseAutoRegister = false
 			deregistration = 0
 			locatorButtons = 0
@@ -650,6 +660,9 @@ final class Phone {
 			for handset in cordlessHandsetsIHave {
 				handset.fitsOnBase = false
 			}
+            if maxCordlessHandsets == -1 {
+                maxCordlessHandsets = 1
+            }
 			placeOnBaseAutoRegister = false
 			hasTransmitOnlyBase = false
 			baseChargingDirection = 0
