@@ -25,6 +25,8 @@ struct PhoneDetailView: View {
     
     @State private var showingFrequenciesExplanation: Bool = false
     
+    @State private var showingRegistrationExplanation: Bool = false
+    
     @State private var showingPhoneTypeDefinitions: Bool = false
     
     @State private var showingAboutDialingCodes: Bool = false
@@ -85,7 +87,10 @@ struct PhoneDetailView: View {
                             showingPhoneTypeDefinitions = true
                         }
                     }
-                    Stepper("Release Year: \(String(phone.releaseYear))", value: $phone.releaseYear, in: 1892...currentYear)
+                    Stepper("Release Year (-1 if unknown): \(String(phone.releaseYear))", value: $phone.releaseYear, in: -1...currentYear)
+                        .onChange(of: phone.releaseYear) { oldValue, newValue in
+                            phone.releaseYearChanged(oldValue: oldValue, newValue: newValue)
+                        }
                     Picker("Place In My Collection", selection: $phone.storageOrSetup) {
                         Text("Box/Bin (working)").tag(0)
                         Text("Box/Bin (broken)").tag(1)
@@ -122,7 +127,11 @@ struct PhoneDetailView: View {
                                 }
 #endif
                             if phone.maxCordlessHandsets == -1 {
-                                InfoText("When placing the handset on the base, the handset and base exchange a digital security code, which makes sure the handset only communicates with that base. You can add as many handsets as you want--the base doesn't know or care how many handsets are being used on it.")
+                                InfoText("When placing the handset on the base, the handset and base exchange a digital security code, which makes sure the handset only communicates with that base. You can add as many handsets as you want--the base doesn't know or care how many handsets are being used on it. You can change which base the handset is used on by placing it on a different one.")
+                            } else if phone.maxCordlessHandsets >= 1 {
+                                InfoButton(title: "Registration Explanation…") {
+                                    showingRegistrationExplanation = true
+                                }
                             }
                             if phone.numberOfIncludedCordlessHandsets > phone.maxCordlessHandsets && phone.maxCordlessHandsets != -1 {
                                 WarningText("The base of the \(phone.brand) \(phone.model) can only register up to \(phone.maxCordlessHandsets) handsets (trying to register \(phone.numberOfIncludedCordlessHandsets)).")
@@ -258,11 +267,12 @@ struct PhoneDetailView: View {
                                 }
                             }
                         }
-                        if phone.maxCordlessHandsets != -1 {
+                        if phone.maxCordlessHandsets > 1 {
                             Picker("Handset Locator", selection: $phone.locatorButtons) {
                                 Text(phone.hasBaseKeypad ? "One For All Handsets/Keypad Entry" : "One For All Handsets").tag(0)
                                 Text("One For Each Handset").tag(1)
-                                Text("Select + Call Buttons").tag(2)
+                                Text("Single HS + All").tag(2)
+                                Text("Select + Call Buttons").tag(3)
                             }
                             .onChange(of: phone.locatorButtons) { oldValue, newValue in
                                 phone.locatorButtonsChanged(oldValue: oldValue, newValue: newValue)
@@ -283,6 +293,14 @@ struct PhoneDetailView: View {
                             .onChange(of: phone.deregistration) { oldValue, newValue in
                                 phone.deregistrationChanged(oldValue: oldValue, newValue: newValue)
                             }
+                            Picker("Handset/Base Renaming", selection: $phone.handsetRenaming) {
+                                Text("Not Supported").tag(0)
+                                Text("Handset").tag(1)
+                                if phone.baseDisplayType > 0 {
+                                    Text("Handset/Base").tag(2)
+                                }
+                            }
+                            InfoText("Renaming the handset/base makes it easier to find the desired one in a list (e.g., when making intercom calls) and/or so you know where to put it. For example, if you have a handset in your kitchen, living room, and master bedroom, you might give each handset the names \"Kitchen\", \"Living RM\", and \"Bedroom\", respectively.\nIf the handset name shows in handset lists, the name is stored in the base, and the handset either links to the base when showing handset lists or syncs the list from the base.")
                         }
                     }
                 }
@@ -900,6 +918,9 @@ When the first ring is suppressed, the number of rings you hear will be one less
         })
         .sheet(isPresented: $showingFrequenciesExplanation) {
             FrequenciesExplanationView()
+        }
+        .sheet(isPresented: $showingRegistrationExplanation) {
+            RegistrationExplanationView()
         }
         .sheet(isPresented: $showingPhoneTypeDefinitions) {
             PhoneTypeDefinitionsView()

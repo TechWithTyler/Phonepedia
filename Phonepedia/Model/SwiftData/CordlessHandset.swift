@@ -297,6 +297,14 @@ final class CordlessHandset {
         }
 	}
     
+    func releaseYearChanged(oldValue: Int, newValue: Int) {
+        if newValue == 0 && oldValue == -1 {
+            releaseYear = 1965
+        } else if newValue < 1965 {
+            releaseYear = -1
+        }
+    }
+    
     func totalRingtonesChanged(oldValue: Int, newValue: Int) {
         if newValue < oldValue && (intercomRingtone >= (totalRingtones + 1) || intercomRingtone == 1) {
             intercomRingtone -= 1

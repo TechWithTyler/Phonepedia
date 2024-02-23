@@ -60,7 +60,10 @@ struct HandsetInfoDetailView: View {
 					}
 					FormTextField("Brand", text: $handset.brand)
 					FormTextField("Model", text: $handset.model)
-					Stepper("Release Year: \(String(handset.releaseYear))", value: $handset.releaseYear, in: 1965...currentYear)
+                    Stepper("Release Year (-1 if unknown): \(String(handset.releaseYear))", value: $handset.releaseYear, in: -1...currentYear)
+                        .onChange(of: handset.releaseYear) { oldValue, newValue in
+                            handset.releaseYearChanged(oldValue: oldValue, newValue: newValue)
+                        }
                     ColorPicker("Main Color", selection: handset.mainColorBinding)
                     HStack {
                         ColorPicker("Secondary/Accent Color", selection: handset.secondaryColorBinding)

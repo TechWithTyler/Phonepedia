@@ -181,6 +181,8 @@ final class Phone {
 	var hasTalkingPhonebook: Bool = false
 	
 	var baseDisplayType: Int = 0
+    
+    var handsetRenaming: Int = 0
 	
 	var baseHasDisplayAndMessageCounter: Bool = false
 	
@@ -515,6 +517,14 @@ final class Phone {
 			}
 		}
 	}
+    
+    func releaseYearChanged(oldValue: Int, newValue: Int) {
+        if newValue == 0 && oldValue == -1 {
+            releaseYear = 1892
+        } else if newValue < 1892 {
+            releaseYear = -1
+        }
+    }
 	
 	func isCordlessChanged(oldValue: Bool, newValue: Bool) {
 		if newValue {
@@ -547,6 +557,9 @@ final class Phone {
 	
 	func baseDisplayTypeChanged(oldValue: Int, newValue: Int) {
 		if newValue == 0 {
+            if handsetRenaming == 2 {
+                handsetRenaming = 1
+            }
 			hasTalkingPhonebook = false
             baseNavigatorKeyType = 0
             baseNavigatorKeyCenterButton = 0
