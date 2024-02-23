@@ -138,18 +138,18 @@ struct PhoneDetailView: View {
                             }
                         }
                         if phone.isCordless {
-                            Picker("Wireless Frequency", selection: $phone.frequency) {
+                            Picker("Wireless Frequency/Communication Technology", selection: $phone.frequency) {
                                 Section(header: Text("46-49MHz")) {
-                                    Text("46-49MHz Analog or Older").tag(0)
+                                    Text("46-49MHz or Lower Analog").tag(0)
                                 }
                                 Section(header: Text("900MHz")) {
-                                    Text("900MHz Analog").tag(1)
+                                    Text("900MHz Analog/Unknown").tag(1)
                                     Text("900MHz Voice Scramble Analog").tag(2)
                                     Text("900MHz Digital").tag(3)
                                     Text("900MHz DSS").tag(4)
                                 }
                                 Section(header: Text("2.4GHz")) {
-                                    Text("2.4GHz Analog").tag(5)
+                                    Text("2.4GHz Analog/Unknown").tag(5)
                                     Text("2.4GHz/900MHz Analog").tag(6)
                                     Text("2.4GHz Digital").tag(7)
                                     Text("2.4GHz/900MHz Digital").tag(8)
@@ -159,7 +159,7 @@ struct PhoneDetailView: View {
                                     Text("2.4GHz/900MHz FHSS").tag(12)
                                 }
                                 Section(header: Text("5.8GHz")) {
-                                    Text("5.8GHz Analog").tag(13)
+                                    Text("5.8GHz Analog/Unknown").tag(13)
                                     Text("5.8GHz/900MHz Analog").tag(14)
                                     Text("5.8GHz/2.4GHz Analog").tag(15)
                                     Text("5.8GHz Digital").tag(16)
