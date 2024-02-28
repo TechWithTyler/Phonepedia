@@ -31,7 +31,7 @@ struct PhonePartInfoView: View {
     // MARK: - Body
 
 	var body: some View {
-        Section(phone.isCordless ? "Base Colors" : "Colors", isExpanded: $colorsExpanded) {
+        Section(phone.isCordless ? "Base Colors" : "Colors") {
             ColorPicker("Base Main Color", selection: phone.baseMainColorBinding)
             HStack {
                 ColorPicker("Base Secondary/Accent Color", selection: phone.baseSecondaryColorBinding)

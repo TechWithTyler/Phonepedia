@@ -48,7 +48,6 @@ struct HandsetInfoDetailView: View {
 	var body: some View {
 		if let phone = handset.phone {
 			Form {
-                Section(isExpanded: $generalExpanded) {
 					HStack {
 						Text("Registered as: Handset \(handsetNumber)")
 						Button {
@@ -128,20 +127,19 @@ struct HandsetInfoDetailView: View {
                         Text("Active (working)").tag(4)
                         Text("Active (broken)").tag(5)
                     }
-                } header: {Text("General")}
 				if handset.cordlessDeviceType < 2 {
-                    Section(isExpanded: $ringersExpanded) {
-						Stepper("Ringtones: \(handset.ringtones)", value: $handset.ringtones, in: 1...25)
-						Stepper("Music Ringtones: \(handset.musicRingtones)", value: $handset.musicRingtones, in: 0...25)
-						Text("Total Ringtones: \(handset.totalRingtones)")
+                    Section("Ringers") {
+                        Stepper("Ringtones: \(handset.ringtones)", value: $handset.ringtones, in: 1...25)
+                        Stepper("Music Ringtones: \(handset.musicRingtones)", value: $handset.musicRingtones, in: 0...25)
+                        Text("Total Ringtones: \(handset.totalRingtones)")
                         if phone.hasIntercom {
                             Picker("Intercom Ringtone", selection: $handset.intercomRingtone) {
                                 Text("Intercom-Specific Ringtone").tag(0)
                                 if handset.totalRingtones > 1 {
-                                Text("Selectable Ringtone").tag(1)
+                                    Text("Selectable Ringtone").tag(1)
                                 }
                                 ForEach(0..<handset.totalRingtones, id: \.self) { ringtoneNumber in
-                                        Text("Tone \(ringtoneNumber+1)").tag(ringtoneNumber + 2)
+                                    Text("Tone \(ringtoneNumber+1)").tag(ringtoneNumber + 2)
                                 }
                             }
                             .onChange(of: handset.totalRingtones) {
@@ -149,8 +147,8 @@ struct HandsetInfoDetailView: View {
                                 handset.totalRingtonesChanged(oldValue: oldValue, newValue: newValue)
                             }
                         }
-                    } header: {Text("Ringers")}
-                    Section(isExpanded: $displayExpanded) {
+                    }
+                    Section("Display/Backlight/Buttons") {
                         if handset.cordlessDeviceType == 0 {
                             Picker("Talk/Off Button Type", selection: $handset.talkOffButtonType) {
                                 Text("Single Talk/Off Button").tag(0)
@@ -175,102 +173,102 @@ struct HandsetInfoDetailView: View {
                                 PhoneButtonLegendItem(button: .off, colorLayer: handset.talkOffColorLayer)
                             }
                         }
-						if handset.softKeys > 0 && (phone.numberOfLandlines > 1 || phone.baseBluetoothCellPhonesSupported > 0) {
-							Picker("Line Buttons", selection: $handset.lineButtons) {
-								Text("Physical").tag(0)
-								Text("Soft Keys").tag(1)
-							}
-							InfoText("A handset with soft keys for the line buttons can easily adapt to bases with different numbers of lines. For example, the same handset can be supplied and used with both the cell phone linking and non-cell phone linking models of a series.\nHandsets with physical line buttons may be programmed to expect all of its lines to be supported, potentially causing compatibility issues on bases without those lines.")
-						}
+                        if handset.softKeys > 0 && (phone.numberOfLandlines > 1 || phone.baseBluetoothCellPhonesSupported > 0) {
+                            Picker("Line Buttons", selection: $handset.lineButtons) {
+                                Text("Physical").tag(0)
+                                Text("Soft Keys").tag(1)
+                            }
+                            InfoText("A handset with soft keys for the line buttons can easily adapt to bases with different numbers of lines. For example, the same handset can be supplied and used with both the cell phone linking and non-cell phone linking models of a series.\nHandsets with physical line buttons may be programmed to expect all of its lines to be supported, potentially causing compatibility issues on bases without those lines.")
+                        }
                         if handset.lineButtons == 0 && phone.baseBluetoothCellPhonesSupported > 0 {
                             PhoneButtonLegendItem(button: .cell, colorLayer: 1)
                         }
-						Picker("Button Type", selection: $handset.buttonType) {
-							Text("Spaced").tag(0)
-							Text("Spaced with Click Feel").tag(1)
-							Text("Some Spaced, Some Diamond-Cut").tag(2)
-							Text("Some Spaced with Click Feel, Some Diamond-Cut").tag(3)
-							Text("Diamond-Cut (no space between buttons, click feel)").tag(4)
-						}
-						Toggle(isOn: $handset.hasTalkingKeypad) {
-							Text("Talking Keypad")
-						}
-						Picker("Display Type", selection: $handset.displayType) {
-							Text("None").tag(0)
-							Text("Monochrome (segmented)").tag(1)
-							Text("Monochrome (traditional)").tag(2)
-							Text("Monochrome (full-dot with status items)").tag(3)
-							Text("Monochrome (full-dot)").tag(4)
-							Text("Color").tag(5)
-						}
-						.onChange(of: handset.displayType) { oldValue, newValue in
-							handset.displayTypeChanged(oldValue: oldValue, newValue: newValue)
-						}
-						if handset.displayType > 0 && handset.displayType < 5 {
-							ColorPicker("Display Backlight Color", selection: handset.displayBacklightColorBinding)
-						}
-						if handset.displayType > 0 {
-							Picker("Update Available Handset Menus", selection: $handset.menuUpdateMode) {
-								Text("Based on Registered Base").tag(0)
-								Text("In Real-Time").tag(1)
-							}
-							InfoText("When a handset menu is updated based on the base it's registered to, the available options are updated only when registering the handset to a base, and those same options will be available when the handset boots up. When a handset menu is updated in real-time, the available options depend on the state of the registered base (e.g. whether it's on power backup or if there's enough devices to support intercom), and some options might not be available when the handset boots up.")
-							Picker("Navigation Button Type", selection: $handset.navigatorKeyType) {
-								Text("None").tag(0)
-								Text("Up/Down Button").tag(1)
-								Text("Up/Down/Left/Right Button").tag(2)
-								Text("Up/Down/Left/Right Joystick").tag(3)
-								Text("Up/Down Side Buttons, Left/Right Face Buttons").tag(4)
-							}
+                        Picker("Button Type", selection: $handset.buttonType) {
+                            Text("Spaced").tag(0)
+                            Text("Spaced with Click Feel").tag(1)
+                            Text("Some Spaced, Some Diamond-Cut").tag(2)
+                            Text("Some Spaced with Click Feel, Some Diamond-Cut").tag(3)
+                            Text("Diamond-Cut (no space between buttons, click feel)").tag(4)
+                        }
+                        Toggle(isOn: $handset.hasTalkingKeypad) {
+                            Text("Talking Keypad")
+                        }
+                        Picker("Display Type", selection: $handset.displayType) {
+                            Text("None").tag(0)
+                            Text("Monochrome (segmented)").tag(1)
+                            Text("Monochrome (traditional)").tag(2)
+                            Text("Monochrome (full-dot with status items)").tag(3)
+                            Text("Monochrome (full-dot)").tag(4)
+                            Text("Color").tag(5)
+                        }
+                        .onChange(of: handset.displayType) { oldValue, newValue in
+                            handset.displayTypeChanged(oldValue: oldValue, newValue: newValue)
+                        }
+                        if handset.displayType > 0 && handset.displayType < 5 {
+                            ColorPicker("Display Backlight Color", selection: handset.displayBacklightColorBinding)
+                        }
+                        if handset.displayType > 0 {
+                            Picker("Update Available Handset Menus", selection: $handset.menuUpdateMode) {
+                                Text("Based on Registered Base").tag(0)
+                                Text("In Real-Time").tag(1)
+                            }
+                            InfoText("When a handset menu is updated based on the base it's registered to, the available options are updated only when registering the handset to a base, and those same options will be available when the handset boots up. When a handset menu is updated in real-time, the available options depend on the state of the registered base (e.g. whether it's on power backup or if there's enough devices to support intercom), and some options might not be available when the handset boots up.")
+                            Picker("Navigation Button Type", selection: $handset.navigatorKeyType) {
+                                Text("None").tag(0)
+                                Text("Up/Down Button").tag(1)
+                                Text("Up/Down/Left/Right Button").tag(2)
+                                Text("Up/Down/Left/Right Joystick").tag(3)
+                                Text("Up/Down Side Buttons, Left/Right Face Buttons").tag(4)
+                            }
                             .onChange(of: handset.navigatorKeyType) { oldValue, newValue in
                                 handset.navigatorKeyTypeChanged(oldValue: oldValue, newValue: newValue)
                             }
-							if handset.navigatorKeyType > 0 {
-								Picker("Navigation Button Center Button", selection: $handset.navigatorKeyCenterButton) {
-									Text("None").tag(0)
-									Text("Select").tag(1)
-									Text("Menu/Select").tag(2)
-									if handset.softKeys == 3 {
-										Text("Middle Soft Key").tag(3)
-									}
-									Text("Other Function").tag(4)
-								}
-								if handset.sideVolumeButtons {
-									Toggle("Navigation Button Up/Down for Volume", isOn: $handset.navigatorKeyUpDownVolume)
-								}
-								Toggle("Navigation Button Standby Shortcuts", isOn: $handset.navigatorKeyStandbyShortcuts)
-							}
-							if handset.displayType > 1 {
-								Stepper("Soft Keys: \(handset.softKeys)", value: $handset.softKeys, in: 0...3)
-									.onChange(of: handset.softKeys) { oldValue, newValue in
-										handset.softKeysChanged(oldValue: oldValue, newValue: newValue)
-									}
-								SoftKeyExplanationView()
+                            if handset.navigatorKeyType > 0 {
+                                Picker("Navigation Button Center Button", selection: $handset.navigatorKeyCenterButton) {
+                                    Text("None").tag(0)
+                                    Text("Select").tag(1)
+                                    Text("Menu/Select").tag(2)
+                                    if handset.softKeys == 3 {
+                                        Text("Middle Soft Key").tag(3)
+                                    }
+                                    Text("Other Function").tag(4)
+                                }
+                                if handset.sideVolumeButtons {
+                                    Toggle("Navigation Button Up/Down for Volume", isOn: $handset.navigatorKeyUpDownVolume)
+                                }
+                                Toggle("Navigation Button Standby Shortcuts", isOn: $handset.navigatorKeyStandbyShortcuts)
+                            }
+                            if handset.displayType > 1 {
+                                Stepper("Soft Keys: \(handset.softKeys)", value: $handset.softKeys, in: 0...3)
+                                    .onChange(of: handset.softKeys) { oldValue, newValue in
+                                        handset.softKeysChanged(oldValue: oldValue, newValue: newValue)
+                                    }
+                                SoftKeyExplanationView()
                                 Toggle("Standby Soft Keys Customizable", isOn: $handset.standbySoftKeysCustomizable)
                                 InfoText("Some handsets offer the ability to customize the soft key functions that are available in standby.")
-							}
-						}
-						if handset.navigatorKeyType != 4 {
-							Toggle("Has Dedicated/Side Volume Buttons", isOn: $handset.sideVolumeButtons)
-								.onChange(of: handset.sideVolumeButtons) { oldValue, newValue in
-									handset.sideVolumeButtonsChanged(oldValue: oldValue, newValue: newValue)
-								}
-						}
-						Picker("Button Backlight Type", selection: $handset.keyBacklightAmount) {
-							Text("None").tag(0)
-							Text("Numbers Only").tag(1)
-							Text("Numbers + Some Function Buttons").tag(2)
-							Text("Numbers + All Function Buttons").tag(2)
-							Text("Numbers + Navigation Button").tag(3)
-							Text("All Buttons").tag(3)
-						}
-						if handset.keyBacklightAmount > 0 {
-							ColorPicker("Button Backlight Color", selection: handset.keyBacklightColorBinding)
-						}
-						ColorPicker("Button Foreground Color", selection: handset.keyForegroundColorBinding)
-						ColorPicker("Button Background Color", selection: handset.keyBackgroundColorBinding)
-                    } header: {Text("Display/Backlight/Buttons")}
-                    Section(isExpanded: $audioExpanded) {
+                            }
+                        }
+                        if handset.navigatorKeyType != 4 {
+                            Toggle("Has Dedicated/Side Volume Buttons", isOn: $handset.sideVolumeButtons)
+                                .onChange(of: handset.sideVolumeButtons) { oldValue, newValue in
+                                    handset.sideVolumeButtonsChanged(oldValue: oldValue, newValue: newValue)
+                                }
+                        }
+                        Picker("Button Backlight Type", selection: $handset.keyBacklightAmount) {
+                            Text("None").tag(0)
+                            Text("Numbers Only").tag(1)
+                            Text("Numbers + Some Function Buttons").tag(2)
+                            Text("Numbers + All Function Buttons").tag(2)
+                            Text("Numbers + Navigation Button").tag(3)
+                            Text("All Buttons").tag(3)
+                        }
+                        if handset.keyBacklightAmount > 0 {
+                            ColorPicker("Button Backlight Color", selection: handset.keyBacklightColorBinding)
+                        }
+                        ColorPicker("Button Foreground Color", selection: handset.keyForegroundColorBinding)
+                        ColorPicker("Button Background Color", selection: handset.keyBackgroundColorBinding)
+                    }
+                    Section("Audio") {
 						Toggle("Has Speakerphone", isOn: $handset.hasSpeakerphone)
                         if handset.hasSpeakerphone {
                             Picker("Speakerphone Button Coloring", selection: $handset.speakerphoneColorLayer) {
@@ -291,9 +289,9 @@ struct HandsetInfoDetailView: View {
 							Text("2").tag(2)
 							Text("4").tag(4)
 						}
-                    } header: {Text("Audio")}
-                    Section(isExpanded: $answeringSystemExpanded) {
-						if phone.hasAnsweringSystem > 1 {
+                    }
+                    if phone.hasAnsweringSystem > 1 {
+                    Section("Answering System") {
 							Picker("Answering System Menu", selection: $handset.answeringSystemMenu) {
 								Text("Settings Only (doesn't require link to base").tag(0)
 								Text("Settings Only (requires link to base)").tag(1)
@@ -301,24 +299,24 @@ struct HandsetInfoDetailView: View {
 								Text("Full (requires link to base)").tag(3)
 							}
 						}
-                    } header: {Text("Answering System")}
-                    Section(isExpanded: $redialExpanded) {
-						FormNumericTextField("Redial Capacity", value: $handset.redialCapacity, valueRange: .zeroToMax(20))
+                    }
+                    Section("Redial") {
+                        FormNumericTextField("Redial Capacity", value: $handset.redialCapacity, valueRange: .zeroToMax(20))
 #if !os(visionOS)
-							.scrollDismissesKeyboard(.interactively)
+                            .scrollDismissesKeyboard(.interactively)
 #endif
-						if handset.redialCapacity > 1 && (handset.phonebookCapacity > 0 || (phone.basePhonebookCapacity > 0 && handset.usesBasePhonebook)) {
-							Picker("Redial Name Display", selection: $handset.redialNameDisplay) {
-								Text("None").tag(0)
-								Text("Phonebook Match").tag(1)
-								Text("From Dialed Entry").tag(2)
-							}
-						}
-						if handset.redialNameDisplay == 1 && handset.usesBasePhonebook {
-							InfoText("Although the redial list is stored in the handset, it may still require you to be in range of the base if the handset doesn't have a fallback to display entries without their names.")
-						}
-                    } header: {Text("Redial")}
-                    Section(isExpanded: $phonebookExpanded) {
+                        if handset.redialCapacity > 1 && (handset.phonebookCapacity > 0 || (phone.basePhonebookCapacity > 0 && handset.usesBasePhonebook)) {
+                            Picker("Redial Name Display", selection: $handset.redialNameDisplay) {
+                                Text("None").tag(0)
+                                Text("Phonebook Match").tag(1)
+                                Text("From Dialed Entry").tag(2)
+                            }
+                        }
+                        if handset.redialNameDisplay == 1 && handset.usesBasePhonebook {
+                            InfoText("Although the redial list is stored in the handset, it may still require you to be in range of the base if the handset doesn't have a fallback to display entries without their names.")
+                        }
+                    }
+                    Section("Phonebook") {
 						FormNumericTextField("Phonebook Capacity", value: $handset.phonebookCapacity, valueRange: .allPositivesIncludingZero)
 #if !os(visionOS)
 							.scrollDismissesKeyboard(.interactively)
@@ -332,40 +330,40 @@ struct HandsetInfoDetailView: View {
 						if handset.phonebookCapacity >= 150 {
 							Toggle("Supports Bluetooth Phonebook Transfers", isOn: $handset.bluetoothPhonebookTransfers)
 						}
-                    } header: {Text("Phonebook")}
-                    Section(isExpanded: $callerIDExpanded) {
-						Toggle(isOn: $handset.hasTalkingCallerID) {
-							Text("Talking Caller ID")
-						}
-						if handset.phonebookCapacity > 0 || (phone.basePhonebookCapacity > 0 && handset.usesBasePhonebook) {
-							Toggle(isOn: $handset.callerIDPhonebookMatch) {
-								Text("Caller ID Uses Matching Phonebook Entry Name")
-							}
-						}
-						FormNumericTextField("Caller ID List Capacity", value: $handset.callerIDCapacity, valueRange: .allPositivesIncludingZero)
+                    }
+                    Section("Caller ID") {
+                        Toggle(isOn: $handset.hasTalkingCallerID) {
+                            Text("Talking Caller ID")
+                        }
+                        if handset.phonebookCapacity > 0 || (phone.basePhonebookCapacity > 0 && handset.usesBasePhonebook) {
+                            Toggle(isOn: $handset.callerIDPhonebookMatch) {
+                                Text("Caller ID Uses Matching Phonebook Entry Name")
+                            }
+                        }
+                        FormNumericTextField("Caller ID List Capacity", value: $handset.callerIDCapacity, valueRange: .allPositivesIncludingZero)
 #if !os(visionOS)
-							.scrollDismissesKeyboard(.interactively)
+                            .scrollDismissesKeyboard(.interactively)
 #endif
-							.onChange(of: handset.callerIDCapacity) { oldValue, newValue in
-								handset.callerIDCapacityChanged(oldValue: oldValue, newValue: newValue)
-							}
-						if handset.callerIDCapacity == 0 {
-							Toggle("Uses Base Caller ID List", isOn: $handset.usesBaseCallerID)
-						}
-                    } header: {Text("Caller ID")}
-                    Section(isExpanded: $speedDialExpanded) {
-						Stepper("Dial-Key Speed Dial Capacity: \(handset.speedDialCapacity)", value: $handset.speedDialCapacity, in: 0...10)
-						Stepper("One-Touch/Memory Dial: \(handset.oneTouchDialCapacity)", value: $handset.oneTouchDialCapacity, in: 0...4)
-						Toggle("Uses Base Speed Dial", isOn: $handset.usesBaseSpeedDial)
-						Toggle("Uses Base One-Touch Dial", isOn: $handset.usesBaseOneTouchDial)
-						Picker("Speed Dial Entry Mode", selection: $handset.speedDialPhonebookEntryMode) {
-							Text("Manual or Phonebook (copy)").tag(0)
-							Text("Phonebook Only (copy)").tag(1)
-							Text("Phonebook Only (link)").tag(2)
-						}
-                    } header: {Text("Speed Dial")}
+                            .onChange(of: handset.callerIDCapacity) { oldValue, newValue in
+                                handset.callerIDCapacityChanged(oldValue: oldValue, newValue: newValue)
+                            }
+                        if handset.callerIDCapacity == 0 {
+                            Toggle("Uses Base Caller ID List", isOn: $handset.usesBaseCallerID)
+                        }
+                    }
+                    Section("Speed Dial") {
+                        Stepper("Dial-Key Speed Dial Capacity: \(handset.speedDialCapacity)", value: $handset.speedDialCapacity, in: 0...10)
+                        Stepper("One-Touch/Memory Dial: \(handset.oneTouchDialCapacity)", value: $handset.oneTouchDialCapacity, in: 0...4)
+                        Toggle("Uses Base Speed Dial", isOn: $handset.usesBaseSpeedDial)
+                        Toggle("Uses Base One-Touch Dial", isOn: $handset.usesBaseOneTouchDial)
+                        Picker("Speed Dial Entry Mode", selection: $handset.speedDialPhonebookEntryMode) {
+                            Text("Manual or Phonebook (copy)").tag(0)
+                            Text("Phonebook Only (copy)").tag(1)
+                            Text("Phonebook Only (link)").tag(2)
+                        }
+                    }
 				}
-                Section(isExpanded: $specialFeaturesExpanded) {
+                Section("Special Features") {
 					Picker("Key Finders Supported", selection: $handset.keyFindersSupported) {
 						Text("None").tag(0)
 						Text("1").tag(1)
@@ -375,7 +373,7 @@ struct HandsetInfoDetailView: View {
 					Text("By registering a key finder to a handset, you can use the handset to find lost items easily. If the handset is registered to a compatible base, key finder registrations can be used by any handset. Handsets in range will access the base's registration information and store it in the handset, while handsets out of range will access the registration information stored in them.")
 						.font(.footnote)
 						.foregroundStyle(.secondary)
-                } header: {Text("Special Features")}
+                }
 			}
 			.formStyle(.grouped)
 		} else {

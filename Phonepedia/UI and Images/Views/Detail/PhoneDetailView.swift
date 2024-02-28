@@ -76,7 +76,6 @@ struct PhoneDetailView: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section("General", isExpanded: $generalExpanded) {
                     photo(for: phone)
                     FormTextField("Brand", text: $phone.brand)
                     FormTextField("Model", text: $phone.model)
@@ -108,9 +107,8 @@ struct PhoneDetailView: View {
                             .padding()
                             .font(.system(size: phoneDescriptionTextSize))
                     }
-                }
                 PhonePartInfoView(phone: phone)
-                Section("Basic Features/Cordless Capabilities", isExpanded: $basicsExpanded) {
+                Section("Basic Features/Cordless Capabilities") {
                     Stepper("Number of Included Cordless Handsets (0 if corded only): \(phone.numberOfIncludedCordlessHandsets)", value: $phone.numberOfIncludedCordlessHandsets, in: 0...Int.max-1)
                         .onChange(of: phone.isCordless) { oldValue, newValue in
                             phone.isCordlessChanged(oldValue: oldValue, newValue: newValue)
@@ -306,7 +304,7 @@ struct PhoneDetailView: View {
                         }
                     }
                 }
-                Section("Power", isExpanded: $powerExpanded) {
+                Section("Power") {
                     if !phone.isCordless {
                         Picker("Power Source", selection: $phone.cordedPowerSource) {
                             Text("Line Power Only").tag(0)
@@ -365,7 +363,7 @@ struct PhoneDetailView: View {
                     }
                 }
                 if phone.isCordless || phone.cordedPhoneType == 0 {
-                    Section("Speakerphone/Intercom/Base Keypad", isExpanded: $comExpanded) {
+                    Section("Speakerphone/Intercom/Base Keypad") {
                         if !phone.isCordedCordless {
                             Toggle(isOn: $phone.hasBaseSpeakerphone) {
                                 Text("Has Base Speakerphone")
@@ -401,7 +399,7 @@ struct PhoneDetailView: View {
                         }
                     }
                 }
-                Section("Ringers", isExpanded: $ringersExpanded) {
+                Section("Ringers") {
                     if (phone.hasAnsweringSystem == 1 || phone.hasAnsweringSystem == 3) || phone.hasBaseSpeakerphone {
                         Stepper("Base Ringtones: \(phone.baseRingtones)", value: $phone.baseRingtones, in: !phone.isCordless || phone.hasBaseSpeakerphone ? 1...25 : 0...25)
                         if phone.baseRingtones > 0 {
@@ -445,7 +443,7 @@ struct PhoneDetailView: View {
                         }
                     }
                 }
-                            Section("Music/Message On Hold (MOH)", isExpanded: $mohExpanded) {
+                            Section("Music/Message On Hold (MOH)") {
                     Toggle("Preset Audio", isOn: $phone.musicOnHoldPreset)
                     Toggle("User-Recorded", isOn: $phone.musicOnHoldRecord)
                     if phone.supportsWiredHeadsets {
@@ -454,7 +452,7 @@ struct PhoneDetailView: View {
                     InfoText("When a call is put on hold, the caller can hear music or a message, which can be audio built into the phone, recorded by the user, or a live feed of a connected audio device for phones that support wired headsets. For phones without MOH, the caller just hears silence.")
                 }
                 if phone.isCordless || phone.cordedPhoneType == 0 {
-                    Section("Display/Backlight/Buttons", isExpanded: $displayExpanded) {
+                    Section("Display/Backlight/Buttons") {
                         Picker("Button Type", selection: $phone.buttonType) {
                             Text("Spaced").tag(0)
                             Text("Spaced with Click Feel").tag(1)
@@ -539,7 +537,7 @@ struct PhoneDetailView: View {
                         ColorPicker("Button Foreground Color", selection: phone.baseKeyForegroundColorBinding)
                         ColorPicker("Button Background Color", selection: phone.baseKeyBackgroundColorBinding)
                     }
-                    Section("Answering System/Voicemail", isExpanded: $messagingExpanded) {
+                    Section("Answering System/Voicemail") {
                         Picker("Answering System", selection: $phone.hasAnsweringSystem) {
                             if phone.isCordless {
                                 Text("None").tag(0)
@@ -606,7 +604,7 @@ A phone's voicemail indicator usually works in one or both of the following ways
                             InfoText("Storing voicemail feature codes allows you to, for example, play and delete messages using a button or menu item once you've dialed into voicemail, just like with built-in answering systems. Example: If your voicemail system's main menu asks you to press 1 to play messages, you can store \"1\" to the Play code and then quickly dial it using a button/menu item.")
                         }
                     }
-                    Section("Audio Devices (e.g. headsets)", isExpanded: $audioExpanded) {
+                    Section("Audio Devices (e.g. headsets)") {
                         if phone.hasCordedReceiver || phone.hasBaseSpeakerphone {
                             Toggle("Base Supports Wired Headsets", isOn: $phone.baseSupportsWiredHeadsets)
                         }
@@ -618,7 +616,7 @@ A phone's voicemail indicator usually works in one or both of the following ways
                         }
                     }
                 }
-                Section("Landline", isExpanded: $landlineExpanded) {
+                Section("Landline") {
                     Picker("Connection Type", selection: $phone.landlineConnectionType) {
                         Text("Analog").tag(0)
                         Text("Digital").tag(1)
@@ -667,7 +665,7 @@ A phone's voicemail indicator usually works in one or both of the following ways
                     InfoText("When another phone on the same line is in use, the phone will indicate that the line is in use if it has line in use indication, by detecting a drop in line power. If it drops too much (the line isn't connected or too many phones are in use), the no line alert, if available, will be displayed.\nDetecting drops in line power is also what causes automated systems, phones on hold, and some speakerphones to hang up when another phone on the line is picked up.\nThe phone will first detect \"line in use\" before detecting \"no line\", and the status won't change the moment the line power drops, as the phone needs to wait for the line power to stabalize before indicating the proper status.")
                 }
                 if phone.isCordless || phone.cordedPhoneType == 0 {
-                    Section("Cell Phone Linking", isExpanded: $cellLinkingExpanded) {
+                    Section("Cell Phone Linking") {
                         Picker("Maximum Number Of Bluetooth Cell Phones", selection: $phone.baseBluetoothCellPhonesSupported) {
                             Text("None").tag(0)
                             Text("1").tag(1)
@@ -706,7 +704,7 @@ A phone's voicemail indicator usually works in one or both of the following ways
                 }
                 Group {
                     if phone.hasBaseSpeakerphone || !phone.isCordless || phone.isCordedCordless {
-                        Section("Redial", isExpanded: $redialExpanded) {
+                        Section("Redial") {
                             FormNumericTextField(phone.isCordless ? "Redial Capacity (base)" : "Redial Capacity", value: $phone.baseRedialCapacity, valueRange: .zeroToMax(20))
 #if !os(visionOS)
                                 .scrollDismissesKeyboard(.interactively)
@@ -721,7 +719,7 @@ A phone's voicemail indicator usually works in one or both of the following ways
                         }
                     }
                     if phone.isCordless || (phone.cordedPhoneType == 0 && phone.baseDisplayType > 0) {
-                        Section("Dialing Codes (e.g., international, area code, country code)", isExpanded: $dialingCodesExpanded) {
+                        Section("Dialing Codes (e.g., international, area code, country code)") {
                             if phone.hasCallerIDList {
                                 Picker("Landline Local Area Code Features", selection: $phone.landlineLocalAreaCodeFeatures) {
                                     Text("None").tag(0)
@@ -744,7 +742,7 @@ A phone's voicemail indicator usually works in one or both of the following ways
                                 showingAboutDialingCodes = true
                             }
                         }
-                        Section("Phonebook", isExpanded: $phonebookExpanded) {
+                        Section("Phonebook") {
                             FormNumericTextField(phone.isCordless ? "Phonebook Capacity (base)" : "Phonebook Capacity", value: $phone.basePhonebookCapacity, valueRange: .allPositivesIncludingZero)
 #if !os(visionOS)
                                 .scrollDismissesKeyboard(.interactively)
@@ -771,7 +769,7 @@ A phone's voicemail indicator usually works in one or both of the following ways
                         }
                     }
                     if phone.isCordless || phone.cordedPhoneType == 0 || phone.cordedPhoneType == 2 {
-                        Section("Caller ID", isExpanded: $callerIDExpanded) {
+                        Section("Caller ID") {
                             if phone.basePhonebookCapacity > 0 {
                                 Toggle(isOn: $phone.callerIDPhonebookMatch) {
                                     Text("Caller ID Name Uses Matching Phonebook Entry Name")
@@ -790,7 +788,7 @@ A phone's voicemail indicator usually works in one or both of the following ways
 #endif
                             }
                         }
-                        Section("Speed Dial", isExpanded: $speedDialExpanded) {
+                        Section("Speed Dial") {
                             Stepper(phone.isCordless ? "Dial-Key Speed Dial Capacity (base): \(phone.baseSpeedDialCapacity)" : "Dial-Key Speed Dial Capacity: \(phone.baseSpeedDialCapacity)", value: $phone.baseSpeedDialCapacity, in: 0...50)
                             if phone.baseSpeedDialCapacity > 10 {
                                 InfoText("Speed dial \(phone.baseSpeedDialCapacity > 11 ? "locations 11-\(phone.baseSpeedDialCapacity) are" : "location 11 is") accessed by pressing the speed dial button and then entering/scrolling to the desired location number.")
@@ -818,7 +816,7 @@ A phone's voicemail indicator usually works in one or both of the following ways
                 }
                     if phone.isCordless || phone.cordedPhoneType == 0 {
                         Group {
-                        Section("Call Block (manual)", isExpanded: $callBlockExpanded) {
+                        Section("Call Block (manual)") {
                             FormNumericTextField("Call Block List Capacity", value: $phone.callBlockCapacity, valueRange: .allPositivesIncludingZero)
 #if !os(visionOS)
                                 .scrollDismissesKeyboard(.interactively)
@@ -859,7 +857,7 @@ When the first ring is suppressed, the number of rings you hear will be one less
                                 InfoText("Numbers in the pre-programmed call block database are not visible to the user and might be excluded from the caller ID list. Numbers from this database can be saved to the phonebook if they happen to become safe in the future.")
                             }
                         }
-                        Section("Call Block (pre-screening)", isExpanded: $callBlockPreScreeningExpanded) {
+                        Section("Call Block (pre-screening)") {
                             Picker("Mode", selection: $phone.callBlockPreScreening) {
                                 Text("Not Supported").tag(0)
                                 Text("Caller Name").tag(1)
@@ -885,7 +883,7 @@ When the first ring is suppressed, the number of rings you hear will be one less
 #endif
                             }
                         }
-                        Section("Special Features", isExpanded: $specialFeaturesExpanded) {
+                        Section("Special Features") {
                             if phone.baseCallerIDCapacity > 0 || !phone.cordlessHandsetsIHave.filter({$0.callerIDCapacity > 0}).isEmpty {
                                 Toggle("One-Ring Scam Call Detection", isOn: $phone.scamCallDetection)
                                 InfoText("If a caller hangs up within 1 or 2 rings and caller ID is received, the phone can mark the call as a one-ring scam call when viewed in the caller ID list, and warn the user when trying to call that caller.")
