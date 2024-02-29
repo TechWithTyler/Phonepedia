@@ -460,6 +460,8 @@ struct PhoneDetailView: View {
                             Text("Some Spaced with Click Feel, Some Diamond-Cut").tag(3)
                             Text("Diamond-Cut (no space between buttons, click feel)").tag(4)
                         }
+                        Toggle("7 Has Q and 9 Has Z", isOn: phone.baseDisplayType == 0 ? $phone.hasQZ : .constant(true))
+                        PhoneNumberLetterInfoView()
                         Picker(phone.isCordless ? "Display Type (base)" : "Display Type", selection: $phone.baseDisplayType) {
                             Text("None").tag(0)
                             if phone.hasAnsweringSystem == 1 || phone.hasAnsweringSystem == 3 {

@@ -149,6 +149,8 @@ struct HandsetInfoDetailView: View {
                         }
                     }
                     Section("Display/Backlight/Buttons") {
+                        Toggle("7 Has Q and 9 Has Z", isOn: handset.displayType == 0 ? $handset.hasQZ : .constant(true))
+                            PhoneNumberLetterInfoView()
                         if handset.cordlessDeviceType == 0 {
                             Picker("Talk/Off Button Type", selection: $handset.talkOffButtonType) {
                                 Text("Single Talk/Off Button").tag(0)

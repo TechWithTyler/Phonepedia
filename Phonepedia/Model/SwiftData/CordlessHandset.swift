@@ -168,6 +168,8 @@ final class CordlessHandset {
     
     var storageOrSetup: Int = 0
     
+    var hasQZ: Bool = true
+    
     var totalRingtones: Int {
         return ringtones + musicRingtones
     }

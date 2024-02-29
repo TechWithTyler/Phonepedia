@@ -302,6 +302,8 @@ final class Phone {
     
     var phoneDescription: String = String()
     
+    var hasQZ: Bool = true
+    
     // MARK: - Properties - Transient (Non-Persistent) Properties
 	
     // Properties marked with the @Transient property wrapper won't persist their values to SwiftData.
@@ -353,6 +355,8 @@ final class Phone {
     var supportsWiredHeadsets: Bool {
         return baseSupportsWiredHeadsets || !cordlessHandsetsIHave.filter({$0.supportsWiredHeadsets}).isEmpty
     }
+    
+    // The following computed properties check whether the base and/or cordless handsets of a cordless phone have a given feature. For corded phones, the cordless handset checks don't apply.
     
     @Transient
     var hasCallerIDList: Bool {

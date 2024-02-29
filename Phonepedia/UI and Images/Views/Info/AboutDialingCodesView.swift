@@ -42,7 +42,7 @@ struct AboutDialingCodesView: View {
                     Text("For Domestic Calls")
                 }
                 DisclosureGroup {
-                    Text("Dial the internaional exit code, then the country code, then the area/city code and number.")
+                    Text("Dial the international exit code, then the country code, then the area/city code and number.")
                 } label: {
                     Text("For International Calls")
                 }
