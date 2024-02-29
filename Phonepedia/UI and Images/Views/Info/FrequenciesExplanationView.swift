@@ -23,11 +23,12 @@ struct FrequenciesExplanationView: View {
                 // A List doesn't need to rely on a collection like NSTableView or UITableView--you can simply give it a bunch of views if you want!
                 Text("Different cordless phones use different wireless frequencies and communication technologies. Expand the sections below to learn more.")
                 DisclosureGroup("General") {
-                    Text("A lower frequency means a longer wavelength and thus more range.")
+                        Text("Cordless phones, like any wireless device, use radio waves, and with all radio waves, a lower frequency means a longer wavelength and thus more range.")
+                        WaveView()
                     Text("\"Analog\", \"Digital\", and \"Spread Spectrum\" all refer to cordless telecommunication technologies, not the type of network/device it connects to.")
                 }
                 DisclosureGroup("Analog") {
-                    Text("Analog phones are prone to interference and their signals can be picked up by anyone using a radio scanner set to the same frequency, which isn't ideal for private conversations (e.g., when giving out your credit card number to a bank). When hanging up an analog phone, communication between the handset and base is abruptly terminated, which causes the other end to hear a short burst of noise.")
+                    Text("Analog phones are prone to interference and their signals can be picked up by anyone using a radio scanner set to the same frequency, which isn't ideal for private conversations (e.g., when giving out your credit card number to a bank). When hanging up an analog phone, communication between the handset and base is abruptly terminated, which causes the other end to hear a short burst of noise. Another way you can tell you're using an analog phone is if you or the other end hear static when going out of range, vs the audio clipping in and out on a digital cordless phone.")
                     Text("Voice scramble analog phones scramble the audio before it's transmitted between the base and handset, and is then unscrambled when it's sent to the receiving end. For example, when you say \"Hello\" into the handset, it becomes \"Grblm\" (gibberish used as example of scrambled speech) before it's sent to the base, where it then becomes \"Hello\" again before it's sent to the caller. This way, anyone using a radio scanner to pick up the signal will hear the scrambled audio, which they won't be able to understand, while you and the caller hear it as if there wasn't any scrambling at all.")
                 }
                 DisclosureGroup("Digital") {

@@ -42,7 +42,7 @@ struct PhoneDetailView: View {
                     FormTextField("Brand", text: $phone.brand)
                     FormTextField("Model", text: $phone.model)
                     HStack {
-                        Text("Phone type: \(phone.phoneTypeText)")
+                        Text("Phone Type: \(phone.phoneTypeText)")
                         Spacer()
                         InfoButton {
                             showingPhoneTypeDefinitions = true
