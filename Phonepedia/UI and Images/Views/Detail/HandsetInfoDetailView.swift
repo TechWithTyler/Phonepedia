@@ -22,27 +22,7 @@ struct HandsetInfoDetailView: View {
     // MARK: - Properties - Integers
     
     var handsetNumber: Int
-    
-    @State private var generalExpanded: Bool = true
-    
-    @State private var ringersExpanded: Bool = false
-    
-    @State private var audioExpanded: Bool = false
-    
-    @State private var answeringSystemExpanded: Bool = false
-    
-    @State private var redialExpanded: Bool = false
-    
-    @State private var phonebookExpanded: Bool = false
-    
-    @State private var callerIDExpanded: Bool = false
-    
-    @State private var speedDialExpanded: Bool = false
-    
-    @State private var displayExpanded: Bool = false
-    
-    @State private var specialFeaturesExpanded: Bool = false
-    
+
     // MARK: - Body
 
 	var body: some View {

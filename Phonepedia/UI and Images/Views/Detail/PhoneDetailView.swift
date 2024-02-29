@@ -33,44 +33,6 @@ struct PhoneDetailView: View {
     
     @State private var showingAboutConnectionTypes: Bool = false
     
-    @State private var generalExpanded: Bool = true
-    
-    @State private var basicsExpanded: Bool = false
-    
-    @State private var powerExpanded: Bool = false
-    
-    @State private var displayExpanded: Bool = false
-    
-    @State private var comExpanded: Bool = false
-    
-    @State private var phonebookExpanded: Bool = false
-    
-    @State private var callerIDExpanded: Bool = false
-    
-    @State private var speedDialExpanded: Bool = false
-    
-    @State private var callBlockExpanded: Bool = false
-    
-    @State private var callBlockPreScreeningExpanded: Bool = false
-    
-    @State private var redialExpanded: Bool = false
-    
-    @State private var landlineExpanded: Bool = false
-    
-    @State private var cellLinkingExpanded: Bool = false
-    
-    @State private var ringersExpanded: Bool = false
-    
-    @State private var mohExpanded: Bool = false
-    
-    @State private var messagingExpanded: Bool = false
-    
-    @State private var audioExpanded: Bool = false
-    
-    @State private var dialingCodesExpanded: Bool = false
-    
-    @State private var specialFeaturesExpanded: Bool = false
-    
     // MARK: - Body
     
     var body: some View {

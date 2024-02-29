@@ -26,8 +26,6 @@ struct PhonePartInfoView: View {
         return phone.chargersIHave.count
     }
     
-    @State private var colorsExpanded: Bool = false
-    
     // MARK: - Body
 
 	var body: some View {
