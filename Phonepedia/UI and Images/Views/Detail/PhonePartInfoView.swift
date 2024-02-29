@@ -78,7 +78,7 @@ struct PhonePartInfoView: View {
 							}
 						}
 				} else {
-					Text("No handsets")
+					Text("No cordless devices")
 						.foregroundStyle(.secondary)
 				}
 				if phone.cordlessHandsetsIHave.count < phone.maxCordlessHandsets || phone.maxCordlessHandsets == -1 {
@@ -91,13 +91,6 @@ struct PhonePartInfoView: View {
 				} else if phone.cordlessHandsetsIHave.count > phone.maxCordlessHandsets {
 					WarningText("You have more handsets than the base can handle!")
 				}
-                Button(role: .destructive) {
-					phone.cordlessHandsetsIHave.removeAll()
-					phone.chargersIHave.removeAll()
-				} label: {
-					Label("Deregister All", systemImage: "minus.circle.fill")
-				}
-                .buttonStyle(.borderless)
 			}
             Section("Chargers (\(chargerCount))") {
 				if !phone.chargersIHave.isEmpty {
@@ -136,6 +129,14 @@ struct PhonePartInfoView: View {
 					.buttonStyle(.borderless)
 					.accessibilityIdentifier("AddChargerButton")
 			}
+            Section {
+                Button(role: .destructive) {
+                    phone.cordlessHandsetsIHave.removeAll()
+                    phone.chargersIHave.removeAll()
+                } label: {
+                    Text("Delete All Handsets/Chargers")
+                }
+            }
 		}
 	}
     
