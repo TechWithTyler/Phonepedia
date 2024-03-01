@@ -99,43 +99,45 @@ struct PhoneDetailView: View {
                         }
                         if phone.isCordless {
                             Picker("Wireless Frequency/Communication Technology", selection: $phone.frequency) {
-                                Section(header: Text("46-49MHz")) {
-                                    Text("46-49MHz or Lower Analog").tag(0)
+                                Section(header: Text("Older")) {
+                                    Text("1.7MHz Analog").tag(1)
+                                    Text("30-37MHz Analog").tag(30)
+                                    Text("46-49MHz Analog").tag(46)
                                 }
                                 Section(header: Text("900MHz")) {
-                                    Text("900MHz Analog/Unknown").tag(1)
-                                    Text("900MHz Voice Scramble Analog").tag(2)
-                                    Text("900MHz Digital").tag(3)
-                                    Text("900MHz DSS").tag(4)
+                                    Text("900MHz Analog/Unknown").tag(900)
+                                    Text("900MHz Voice Scramble Analog").tag(900.1)
+                                    Text("900MHz Digital").tag(900.2)
+                                    Text("900MHz DSS").tag(900.3)
                                 }
                                 Section(header: Text("2.4GHz")) {
-                                    Text("2.4GHz Analog/Unknown").tag(5)
-                                    Text("2.4GHz/900MHz Analog").tag(6)
-                                    Text("2.4GHz Digital").tag(7)
-                                    Text("2.4GHz/900MHz Digital").tag(8)
-                                    Text("2.4GHz DSS").tag(9)
-                                    Text("2.4GHz/900MHz DSS").tag(10)
-                                    Text("2.4GHz FHSS").tag(11)
-                                    Text("2.4GHz/900MHz FHSS").tag(12)
+                                    Text("2.4GHz Analog/Unknown").tag(2400.0)
+                                    Text("2.4GHz/900MHz Analog").tag(2400.900)
+                                    Text("2.4GHz Digital").tag(2400.1)
+                                    Text("2.4GHz/900MHz Digital").tag(2400.901)
+                                    Text("2.4GHz DSS").tag(2400.2)
+                                    Text("2.4GHz/900MHz DSS").tag(2400.902)
+                                    Text("2.4GHz FHSS").tag(2400.3)
+                                    Text("2.4GHz/900MHz FHSS").tag(2400.903)
                                 }
                                 Section(header: Text("5.8GHz")) {
-                                    Text("5.8GHz Analog/Unknown").tag(13)
-                                    Text("5.8GHz/900MHz Analog").tag(14)
-                                    Text("5.8GHz/2.4GHz Analog").tag(15)
-                                    Text("5.8GHz Digital").tag(16)
-                                    Text("5.8GHz/900MHz Digital").tag(17)
-                                    Text("5.8GHz/2.4GHz Digital").tag(18)
-                                    Text("5.8GHz DSS").tag(19)
-                                    Text("5.8GHz/900MHz DSS").tag(20)
-                                    Text("5.8GHz/2.4GHz DSS").tag(21)
-                                    Text("5.8GHz Digital FHSS").tag(22)
-                                    Text("5.8GHz/900MHz FHSS").tag(23)
-                                    Text("5.8GHz/2.4GHz FHSS").tag(24)
+                                    Text("5.8GHz Analog/Unknown").tag(5800)
+                                    Text("5.8GHz/900MHz Analog").tag(5800.900)
+                                    Text("5.8GHz/2.4GHz Analog").tag(5800.2400)
+                                    Text("5.8GHz Digital").tag(5800.1)
+                                    Text("5.8GHz/900MHz Digital").tag(5800.901)
+                                    Text("5.8GHz/2.4GHz Digital").tag(5800.2401)
+                                    Text("5.8GHz DSS").tag(5800.2)
+                                    Text("5.8GHz/900MHz DSS").tag(5800.902)
+                                    Text("5.8GHz/2.4GHz DSS").tag(5800.2402)
+                                    Text("5.8GHz Digital FHSS").tag(5800.3)
+                                    Text("5.8GHz/900MHz FHSS").tag(5800.903)
+                                    Text("5.8GHz/2.4GHz FHSS").tag(5800.2403)
                                 }
                                 Section(header: Text("DECT (Digital Enhanced Cordless Telecommunications)")) {
-                                    Text("DECT (1.88GHz-1.90GHz)").tag(25)
-                                    Text("DECT (1.90GHz-1.92GHz)").tag(26)
-                                    Text("DECT 6.0 (1.92GHz-1.93GHz)").tag(27)
+                                    Text("DECT (1.88GHz-1.90GHz)").tag(1880)
+                                    Text("DECT (1.90GHz-1.92GHz)").tag(1900)
+                                    Text("DECT 6.0 (1.92GHz-1.93GHz)").tag(1920)
                                 }
                             }
                             InfoButton(title: "Frequencies Explanation…") {
