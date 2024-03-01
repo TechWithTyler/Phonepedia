@@ -99,6 +99,7 @@ struct PhoneDetailView: View {
                         }
                         if phone.isCordless {
                             Picker("Wireless Frequency/Communication Technology", selection: $phone.frequency) {
+                                Text("Unknown").tag(0)
                                 Section(header: Text("Older")) {
                                     Text("1.7MHz Analog").tag(1)
                                     Text("30-37MHz Analog").tag(30)
