@@ -18,17 +18,9 @@ final class Charger {
     
     var id = UUID()
 
-    var mainColorRed: Double = 0
+    var mainColorHex: String = Color.black.hex!
     
-    var mainColorGreen: Double = 0
-    
-    var mainColorBlue: Double = 0
-    
-    var secondaryColorRed: Double = 0
-    
-    var secondaryColorGreen: Double = 0
-    
-    var secondaryColorBlue: Double = 0
+    var secondaryColorHex: String = Color.black.hex!
 
 	var chargingDirection: Int = 0
 
@@ -44,44 +36,31 @@ final class Charger {
     
     var mainColorBinding: Binding<Color> {
         Binding<Color> { [self] in
-            Color(red: mainColorRed, green: mainColorGreen, blue: mainColorBlue)
+            Color(hexString: mainColorHex)!
         } set: { [self] newColor in
-            let components = newColor.components
-            mainColorRed = components.red
-            mainColorGreen = components.green
-            mainColorBlue = components.blue
+            mainColorHex = newColor.hex!
         }
     }
     
     var secondaryColorBinding: Binding<Color> {
         Binding<Color> { [self] in
-            Color(red: secondaryColorRed, green: secondaryColorGreen, blue: secondaryColorBlue)
+            Color(hexString: secondaryColorHex)!
         } set: { [self] newColor in
-            let components = newColor.components
-            secondaryColorRed = components.red
-            secondaryColorGreen = components.green
-            secondaryColorBlue = components.blue
+            secondaryColorHex = newColor.hex!
         }
     }
     
     // MARK: - Initialization
 
 	init() {
-		self.mainColorRed = 0
-        self.mainColorGreen = 0
-        self.mainColorBlue = 0
-        self.secondaryColorRed = 0
-        self.secondaryColorGreen = 0
-        self.secondaryColorBlue = 0
+        self.mainColorHex = Color.black.hex!
+        self.secondaryColorHex = Color.black.hex!
 	}
     
     // MARK: - Set Secondary Color to Main
     
     func setSecondaryColorToMain() {
-        let components = mainColorBinding.wrappedValue.components
-        secondaryColorRed = components.red
-        secondaryColorGreen = components.green
-        secondaryColorBlue = components.blue
+        secondaryColorHex = mainColorHex
     }
 
 }

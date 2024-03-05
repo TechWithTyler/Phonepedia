@@ -35,62 +35,24 @@ final class Phone {
 	@Attribute(.externalStorage) var photoData: Data? = nil
 
 	var releaseYear: Int = currentYear
-	
-    var baseMainColorRed: Double = 0
     
-    var baseMainColorGreen: Double = 0
+    var baseMainColorHex: String = Color.black.hex!
     
-    var baseMainColorBlue: Double = 0
+    var baseSecondaryColorHex: String = Color.black.hex!
     
-    var baseSecondaryColorRed: Double = 0
+    var cordedReceiverMainColorHex: String = Color.clear.hex!
     
-    var baseSecondaryColorGreen: Double = 0
+    var cordedReceiverSecondaryColorHex: String = Color.black.hex!
     
-    var baseSecondaryColorBlue: Double = 0
-
-    var baseDisplayBacklightColorRed: Double = 255
+    var baseDisplayBacklightColorHex: String = Color.white.hex!
     
-    var baseDisplayBacklightColorGreen: Double = 255
+    var baseKeyBacklightColorHex: String = Color.white.hex!
     
-    var baseDisplayBacklightColorBlue: Double = 255
-	
-    var baseKeyForegroundColorRed: Double = 255
+    var baseKeyForegroundColorHex: String = Color.white.hex!
     
-    var baseKeyForegroundColorGreen: Double = 255
+    var baseKeyBackgroundColorHex: String = Color.black.hex!
     
-    var baseKeyForegroundColorBlue: Double = 255
-	
-    var baseKeyBackgroundColorRed: Double = 0
-    
-    var baseKeyBackgroundColorGreen: Double = 0
-    
-    var baseKeyBackgroundColorBlue: Double = 0
-    
-    var cordedReceiverMainColorRed: Double = 0
-    
-    var cordedReceiverMainColorGreen: Double = 0
-    
-    var cordedReceiverMainColorBlue: Double = 0
-    
-    var cordedReceiverMainColorAlpha: Double = 0
-    
-    var cordedReceiverSecondaryColorRed: Double = 0
-    
-    var cordedReceiverSecondaryColorGreen: Double = 0
-    
-    var cordedReceiverSecondaryColorBlue: Double = 0
-    
-    var baseLEDMessageCounterColorRed: Double = 0
-    
-    var baseLEDMessageCounterColorGreen: Double = 0
-    
-    var baseLEDMessageCounterColorBlue: Double = 0
-    
-    var baseKeyBacklightColorRed: Double = 0
-    
-    var baseKeyBacklightColorGreen: Double = 0
-    
-    var baseKeyBacklightColorBlue: Double = 0
+    var baseLEDMessageCounterColorHex: String = Color.black.hex!
     
     var baseBackupBatteryType: Int = 0
     
@@ -300,7 +262,7 @@ final class Phone {
     
     var storageOrSetup: Int = 0
     
-    var phoneDescription: String = String()
+    var phoneDescription: String
     
     var hasQZ: Bool = true
     
@@ -370,126 +332,96 @@ final class Phone {
     @Transient
     var baseMainColorBinding: Binding<Color> {
         Binding<Color> { [self] in
-            Color(red: baseMainColorRed, green: baseMainColorGreen, blue: baseMainColorBlue)
+            Color(hexString: baseMainColorHex)!
         } set: { [self] newColor in
-            let components = newColor.components
-            baseMainColorRed = components.red
-            baseMainColorGreen = components.green
-            baseMainColorBlue = components.blue
+            baseMainColorHex = newColor.hex!
         }
     }
     
     @Transient
     var baseSecondaryColorBinding: Binding<Color> {
         Binding<Color> { [self] in
-            Color(red: baseSecondaryColorRed, green: baseSecondaryColorGreen, blue: baseSecondaryColorBlue)
+            Color(hexString: baseSecondaryColorHex)!
         } set: { [self] newColor in
-            let components = newColor.components
-            baseSecondaryColorRed = components.red
-            baseSecondaryColorGreen = components.green
-            baseSecondaryColorBlue = components.blue
+                baseSecondaryColorHex = newColor.hex!
         }
     }
     
     @Transient
     var cordedReceiverMainColorBinding: Binding<Color> {
         Binding<Color> { [self] in
-            Color(red: cordedReceiverMainColorRed, green: cordedReceiverMainColorGreen, blue: cordedReceiverMainColorBlue, opacity: cordedReceiverMainColorAlpha)
+            Color(hexString: cordedReceiverMainColorHex)!
         } set: { [self] newColor in
-            let components = newColor.components
-            cordedReceiverMainColorRed = components.red
-            cordedReceiverMainColorGreen = components.green
-            cordedReceiverMainColorBlue = components.blue
-            cordedReceiverMainColorAlpha = components.opacity
+                cordedReceiverMainColorHex = newColor.hex!
         }
     }
     
     @Transient
     var cordedReceiverSecondaryColorBinding: Binding<Color> {
         Binding<Color> { [self] in
-            Color(red: cordedReceiverSecondaryColorRed, green: cordedReceiverSecondaryColorGreen, blue: cordedReceiverSecondaryColorBlue)
+            Color(hexString: cordedReceiverSecondaryColorHex)!
         } set: { [self] newColor in
-            let components = newColor.components
-            cordedReceiverSecondaryColorRed = components.red
-            cordedReceiverSecondaryColorGreen = components.green
-            cordedReceiverSecondaryColorBlue = components.blue
+                cordedReceiverSecondaryColorHex = newColor.hex!
         }
     }
     
     @Transient
     var baseDisplayBacklightColorBinding: Binding<Color> {
         Binding<Color> { [self] in
-            Color(red: baseDisplayBacklightColorRed, green: baseDisplayBacklightColorGreen, blue: baseDisplayBacklightColorBlue)
+            Color(hexString: baseDisplayBacklightColorHex)!
         } set: { [self] newColor in
-            let components = newColor.components
-            baseDisplayBacklightColorRed = components.red
-            baseDisplayBacklightColorGreen = components.green
-            baseDisplayBacklightColorBlue = components.blue
+                baseDisplayBacklightColorHex = newColor.hex!
         }
     }
     
     @Transient
     var baseKeyBacklightColorBinding: Binding<Color> {
         Binding<Color> { [self] in
-            Color(red: baseKeyBacklightColorRed, green: baseKeyBacklightColorGreen, blue: baseKeyBacklightColorBlue)
+            Color(hexString: baseKeyBacklightColorHex)!
         } set: { [self] newColor in
-            let components = newColor.components
-            baseKeyBacklightColorRed = components.red
-            baseKeyBacklightColorGreen = components.green
-            baseKeyBacklightColorBlue = components.blue
+                baseKeyBacklightColorHex = newColor.hex!
         }
     }
     
     @Transient
     var baseKeyForegroundColorBinding: Binding<Color> {
         Binding<Color> { [self] in
-            Color(red: baseKeyForegroundColorRed, green: baseKeyForegroundColorGreen, blue: baseKeyForegroundColorBlue)
+            Color(hexString: baseKeyForegroundColorHex)!
         } set: { [self] newColor in
-            let components = newColor.components
-            baseKeyForegroundColorRed = components.red
-            baseKeyForegroundColorGreen = components.green
-            baseKeyForegroundColorBlue = components.blue
+                baseKeyForegroundColorHex = newColor.hex!
         }
     }
     
     @Transient
     var baseKeyBackgroundColorBinding: Binding<Color> {
         Binding<Color> { [self] in
-            Color(red: baseKeyBackgroundColorRed, green: baseKeyBackgroundColorGreen, blue: baseKeyBackgroundColorBlue)
+            Color(hexString: baseKeyBackgroundColorHex)!
         } set: { [self] newColor in
-            let components = newColor.components
-            baseKeyBackgroundColorRed = components.red
-            baseKeyBackgroundColorGreen = components.green
-            baseKeyBackgroundColorBlue = components.blue
+                baseKeyBackgroundColorHex = newColor.hex!
         }
     }
     
     @Transient
     var baseLEDMessageCounterColorBinding: Binding<Color> {
         Binding<Color> { [self] in
-            Color(red: baseLEDMessageCounterColorRed, green: baseLEDMessageCounterColorGreen, blue: baseLEDMessageCounterColorBlue)
+            Color(hexString: baseLEDMessageCounterColorHex)!
         } set: { [self] newColor in
-            let components = newColor.components
-            baseLEDMessageCounterColorRed = components.red
-            baseLEDMessageCounterColorGreen = components.green
-            baseLEDMessageCounterColorBlue = components.blue
+        baseLEDMessageCounterColorHex = newColor.hex!
         }
     }
     
     // MARK: - Initialization
 
-	init(brand: String, model: String) {
+    init(brand: String, model: String, phoneDescription: String = String()) {
 		self.brand = brand
 		self.model = model
+        self.phoneDescription = phoneDescription
 	}
     
     // MARK: - Set Secondary Color to Main
     
     func setBaseSecondaryColorToMain() {
-        let components = baseMainColorBinding.wrappedValue.components
-        baseSecondaryColorRed = components.red
-        baseSecondaryColorGreen = components.green
-        baseSecondaryColorBlue = components.blue
+        baseSecondaryColorHex = baseMainColorHex
     }
     
     // MARK: - Property Change Handlers
@@ -582,10 +514,7 @@ final class Phone {
 			baseSoftKeysSide = 0
 		}
 		if newValue < 3 || newValue > 5 {
-            let colorComponents = Color.Components(fromColor: .clear)
-            baseDisplayBacklightColorRed = colorComponents.red
-            baseDisplayBacklightColorGreen = colorComponents.green
-            baseDisplayBacklightColorBlue = colorComponents.blue
+            baseDisplayBacklightColorHex = Color.white.hex!
 		}
 	}
     

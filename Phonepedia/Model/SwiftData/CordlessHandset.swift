@@ -30,53 +30,21 @@ final class CordlessHandset {
 	
 	var cordlessDeviceType: Int = 0
     
-    var mainColorRed: Double = 0
+    var mainColorHex: String = Color.black.hex!
     
-    var mainColorGreen: Double = 0
+    var secondaryColorHex: String = Color.black.hex!
     
-    var mainColorBlue: Double = 0
+    var cordedReceiverMainColorHex: String = Color.clear.hex!
     
-    var secondaryColorRed: Double = 0
+    var cordedReceiverSecondaryColorHex: String = Color.black.hex!
     
-    var secondaryColorGreen: Double = 0
+    var displayBacklightColorHex: String = Color.white.hex!
     
-    var secondaryColorBlue: Double = 0
-
-    var displayBacklightColorRed: Double = 255
+    var keyBacklightColorHex: String = Color.white.hex!
     
-    var displayBacklightColorGreen: Double = 255
+    var keyForegroundColorHex: String = Color.white.hex!
     
-    var displayBacklightColorBlue: Double = 255
-    
-    var keyForegroundColorRed: Double = 255
-    
-    var keyForegroundColorGreen: Double = 255
-    
-    var keyForegroundColorBlue: Double = 255
-    
-    var keyBackgroundColorRed: Double = 0
-    
-    var keyBackgroundColorGreen: Double = 0
-    
-    var keyBackgroundColorBlue: Double = 0
-    
-    var cordedReceiverMainColorRed: Double = 0
-    
-    var cordedReceiverMainColorGreen: Double = 0
-    
-    var cordedReceiverMainColorBlue: Double = 0
-    
-    var cordedReceiverSecondaryColorRed: Double = 0
-    
-    var cordedReceiverSecondaryColorGreen: Double = 0
-    
-    var cordedReceiverSecondaryColorBlue: Double = 0
-    
-    var keyBacklightColorRed: Double = 0
-    
-    var keyBacklightColorGreen: Double = 0
-    
-    var keyBacklightColorBlue: Double = 0
+    var keyBackgroundColorHex: String = Color.black.hex!
 	
 	var buttonType: Int = 0
 	
@@ -183,89 +151,65 @@ final class CordlessHandset {
     
     var mainColorBinding: Binding<Color> {
         Binding<Color> { [self] in
-            Color(red: mainColorRed, green: mainColorGreen, blue: mainColorBlue)
+            Color(hexString: mainColorHex)!
         } set: { [self] newColor in
-            let components = newColor.components
-            mainColorRed = components.red
-            mainColorGreen = components.green
-            mainColorBlue = components.blue
+                mainColorHex = newColor.hex!
         }
     }
     
     var secondaryColorBinding: Binding<Color> {
         Binding<Color> { [self] in
-            Color(red: secondaryColorRed, green: secondaryColorGreen, blue: secondaryColorBlue)
+            Color(hexString: secondaryColorHex)!
         } set: { [self] newColor in
-            let components = newColor.components
-            secondaryColorRed = components.red
-            secondaryColorGreen = components.green
-            secondaryColorBlue = components.blue
+                secondaryColorHex = newColor.hex!
         }
     }
     
     var cordedReceiverMainColorBinding: Binding<Color> {
         Binding<Color> { [self] in
-            Color(red: cordedReceiverMainColorRed, green: cordedReceiverMainColorGreen, blue: cordedReceiverMainColorBlue)
+            Color(hexString: cordedReceiverMainColorHex)!
         } set: { [self] newColor in
-            let components = newColor.components
-            cordedReceiverMainColorRed = components.red
-            cordedReceiverMainColorGreen = components.green
-            cordedReceiverMainColorBlue = components.blue
+                cordedReceiverMainColorHex = newColor.hex!
         }
     }
     
     var cordedReceiverSecondaryColorBinding: Binding<Color> {
         Binding<Color> { [self] in
-            Color(red: cordedReceiverSecondaryColorRed, green: cordedReceiverSecondaryColorGreen, blue: cordedReceiverSecondaryColorBlue)
+            Color(hexString: cordedReceiverSecondaryColorHex)!
         } set: { [self] newColor in
-            let components = newColor.components
-            cordedReceiverSecondaryColorRed = components.red
-            cordedReceiverSecondaryColorGreen = components.green
-            cordedReceiverSecondaryColorBlue = components.blue
+                cordedReceiverSecondaryColorHex = newColor.hex!
         }
     }
     
     var displayBacklightColorBinding: Binding<Color> {
         Binding<Color> { [self] in
-            Color(red: displayBacklightColorRed, green: displayBacklightColorGreen, blue: displayBacklightColorBlue)
+            Color(hexString: displayBacklightColorHex)!
         } set: { [self] newColor in
-            let components = newColor.components
-            displayBacklightColorRed = components.red
-            displayBacklightColorGreen = components.green
-            displayBacklightColorBlue = components.blue
+                displayBacklightColorHex = newColor.hex!
         }
     }
     
     var keyBacklightColorBinding: Binding<Color> {
         Binding<Color> { [self] in
-            Color(red: keyBacklightColorRed, green: keyBacklightColorGreen, blue: keyBacklightColorBlue)
+            Color(hexString: keyBacklightColorHex)!
         } set: { [self] newColor in
-            let components = newColor.components
-            keyBacklightColorRed = components.red
-            keyBacklightColorGreen = components.green
-            keyBacklightColorBlue = components.blue
+                keyBacklightColorHex = newColor.hex!
         }
     }
     
     var keyForegroundColorBinding: Binding<Color> {
         Binding<Color> { [self] in
-            Color(red: keyForegroundColorRed, green: keyForegroundColorGreen, blue: keyForegroundColorBlue)
+            Color(hexString: keyForegroundColorHex)!
         } set: { [self] newColor in
-            let components = newColor.components
-            keyForegroundColorRed = components.red
-            keyForegroundColorGreen = components.green
-            keyForegroundColorBlue = components.blue
+                keyForegroundColorHex = newColor.hex!
         }
     }
     
     var keyBackgroundColorBinding: Binding<Color> {
         Binding<Color> { [self] in
-            Color(red: keyBackgroundColorRed, green: keyBackgroundColorGreen, blue: keyBackgroundColorBlue)
+            Color(hexString: keyBackgroundColorHex)!
         } set: { [self] newColor in
-            let components = newColor.components
-            keyBackgroundColorRed = components.red
-            keyBackgroundColorGreen = components.green
-            keyBackgroundColorBlue = components.blue
+                keyBackgroundColorHex = newColor.hex!
         }
     }
     
@@ -279,10 +223,7 @@ final class CordlessHandset {
     // MARK: - Set Secondary Color to Main
     
     func setSecondaryColorToMain() {
-        let components = mainColorBinding.wrappedValue.components
-        secondaryColorRed = components.red
-        secondaryColorGreen = components.green
-        secondaryColorBlue = components.blue
+        secondaryColorHex = mainColorHex
     }
     
     // MARK: - Property Change Handlers
