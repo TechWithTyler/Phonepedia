@@ -221,7 +221,9 @@ final class Phone {
     var supportsAddingOfCellAreaCode: Bool = false
     
     var landlineLocalAreaCodeFeatures: Int = 0
-    
+
+    var supportsAddingOfPBXLineAccessNumber: Bool = false
+
     var baseCellRingtone: Int = 1
 	
 	var bluetoothPhonebookTransfers: Int = 0

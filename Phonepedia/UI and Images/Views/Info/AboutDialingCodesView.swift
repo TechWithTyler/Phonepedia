@@ -37,6 +37,14 @@ struct AboutDialingCodesView: View {
                     Text("Trunk Prefix Code")
                 }
                 DisclosureGroup {
+                    Text("If you're using a phone on a PBX (private branch exchange) system, you need to dial one or more digits (e.g., 9) to tell it that you want to make a normal outside call, rather than an internal call to another one of its extensions. This is called the PBX line access number. Depending on how quickly the outside line is activated upon entering the code, when storing the line access number + outside phone number as a phonebook/speed dial/one-touch dial entry, you may need to add one or more pauses between the code and outside number. The length of a single pause digit varies by phone, so you may have to use different numbers of pauses on different phones.")
+                    Text("In hotels, the extension number of a room is either the same as the room number, or one or more digits and the room number. For example, if you want to call room 925, you would dial one or more digits followed by 925, or you would simply dial 925, depending on the hotel's PBX system. Instructions in the room or on the phone's faceplate tell guests how to make room-to-room calls and that they have to dial 9 before an outside phone number to make an outside call.")
+                    Text("Some PBXs allow you to dial the emergency number (e.g., 911 in the US or 999/112 in the UK) directly, without first dialing the line access number. Upon dialing the emergency number, the PBX would activate the outside line and \"repeat\" the dialed number's DTMF tones or pulses to it.")
+                    Text("If you want to reach a specific PBX extension when calling in from an outside phone, call the main number of the outside line the PBX is connected to. You'll be connected to an automated system or a live operator to help direct your call to the desired extension. You can use a PBX's automated system as a call block pre-screening system.")
+                } label: {
+                    Text("Dialing With a PBX")
+                }
+                DisclosureGroup {
                     Text("Dial the trunk prefix, then the area code and phone number. Depending on your area, local calls must be dialed without the trunk prefix (and sometimes area code) and long-distance calls must be dialed with the trunk prefix.")
                 } label: {
                     Text("For Domestic Calls")
