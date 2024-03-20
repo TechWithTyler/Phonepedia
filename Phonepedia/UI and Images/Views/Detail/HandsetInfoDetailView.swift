@@ -51,7 +51,7 @@ struct HandsetInfoDetailView: View {
                         }
                     }
 					Stepper("Maximum Number Of Bases: \(handset.maxBases)", value: $handset.maxBases, in: 1...4)
-					InfoText("Registering a handset to more than one base allows you to extend the coverage area and access the answering system, shared lists, etc. of multiple bases without having to register the handset to one of those bases at a time.")
+					InfoText("Registering a cordless device to more than one base allows you to extend the coverage area and access the answering system, shared lists, etc. of multiple bases without having to register the device to one of those bases at a time.\nIf you want extended range but the same lines/shared lists/base features, and/or you don't want calls to disconnect when the device decides to communicate with a different base, use range extenders instead of multiple bases.")
 					Picker("Cordless Device Type", selection: $handset.cordlessDeviceType) {
 						Text("Handset").tag(0)
 						Text("Deskset").tag(1)

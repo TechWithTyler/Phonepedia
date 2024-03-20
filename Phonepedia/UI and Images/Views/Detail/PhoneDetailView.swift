@@ -154,7 +154,7 @@ struct PhoneDetailView: View {
                             AntennaInfoView()
                             if phone.hasRegistration {
                                 Toggle("Supports Range Extenders", isOn: $phone.supportsRangeExtenders)
-                            InfoText("A range extender extends the range of the base it's registered to. Devices communicating with the base choose the base or a range extender based on which has the strongest signal.")
+                            InfoText("A range extender extends the range of the base it's registered to. Devices communicating with the base choose the base or a range extender based on which has the strongest signal.\nIf you register 2 or more range extenders, they can be \"daisy-chained\" (one can communicate with the base via another) to create a larger useable coverage area.\nWhen a cordless device moves between the base or range extender(s), your call may briefly cut out.")
                             }
                             if !phone.isCordedCordless {
                                 Toggle("Base Is Transmit-Only", isOn: $phone.hasTransmitOnlyBase)
