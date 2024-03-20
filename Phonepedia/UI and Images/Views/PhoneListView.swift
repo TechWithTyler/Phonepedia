@@ -111,7 +111,7 @@ struct PhoneListView: View {
     @ToolbarContentBuilder
     var toolbarContent: some ToolbarContent {
         ToolbarItem {
-            OptionsMenu("Menu") {
+            OptionsMenu(title: .menu) {
                 Button(action: addItem) {
                     Label("Add Phone", systemImage: "plus")
                 }
