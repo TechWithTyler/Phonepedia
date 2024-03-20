@@ -94,7 +94,7 @@ struct PhoneDetailView: View {
                                 }
                             }
                             if phone.numberOfIncludedCordlessHandsets > phone.maxCordlessHandsets && phone.hasRegistration {
-                                WarningText("The base of the \(phone.brand) \(phone.model) can only register up to \(phone.maxCordlessHandsets) handsets (trying to register \(phone.numberOfIncludedCordlessHandsets)).")
+                                WarningText("The base of the \(phone.brand) \(phone.model) can only register up to \(phone.maxCordlessHandsets) handsets (you specified that it includes \(phone.numberOfIncludedCordlessHandsets)).")
                             }
                         }
                         if phone.isCordless {
@@ -144,7 +144,7 @@ struct PhoneDetailView: View {
                             InfoButton(title: "Frequencies Explanation…") {
                                 showingFrequenciesExplanation = true
                             }
-                            Picker("Antennas", selection: $phone.antennas) {
+                            Picker("Antenna(s)", selection: $phone.antennas) {
                                 Text("Hidden").tag(0)
                                 Text("Telescopic").tag(1)
                                 Text("Standard (left)").tag(2)

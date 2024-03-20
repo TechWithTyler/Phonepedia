@@ -81,15 +81,15 @@ struct PhonePartInfoView: View {
 					Text("No cordless devices")
 						.foregroundStyle(.secondary)
 				}
-				if phone.cordlessHandsetsIHave.count < phone.maxCordlessHandsets || phone.maxCordlessHandsets == -1 {
 					Button(action: addHandset) {
 						Label("Add", systemImage: "plus")
 							.frame(width: 100, alignment: .leading)
 					}
 					.buttonStyle(.borderless)
 					.accessibilityIdentifier("AddHandsetButton")
-				} else if phone.cordlessHandsetsIHave.count > phone.maxCordlessHandsets {
-					WarningText("You have more handsets than the base can handle!")
+                    .disabled(phone.cordlessHandsetsIHave.count >= phone.maxCordlessHandsets && phone.maxCordlessHandsets != -1)
+				if phone.cordlessHandsetsIHave.count > phone.maxCordlessHandsets {
+					WarningText("You have more cordless devices than the base can handle!")
 				}
 			}
             Section("Chargers (\(chargerCount))") {
