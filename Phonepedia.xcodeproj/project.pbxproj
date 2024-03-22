@@ -194,10 +194,10 @@
 		8DA8449A2B72E1D7006CBCA7 /* UI and Images */ = {
 			isa = PBXGroup;
 			children = (
+				8DA844A22B72E1D7006CBCA7 /* Views */,
+				8DA8449E2B72E1D7006CBCA7 /* Supporting View Controllers */,
 				8DA8449B2B72E1D7006CBCA7 /* Assets.xcassets */,
 				8DA8449C2B72E1D7006CBCA7 /* Preview Content */,
-				8DA8449E2B72E1D7006CBCA7 /* Supporting View Controllers */,
-				8DA844A22B72E1D7006CBCA7 /* Views */,
 			);
 			path = "UI and Images";
 			sourceTree = "<group>";
@@ -230,14 +230,12 @@
 		8DA844A22B72E1D7006CBCA7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8DA844B42B72E1D7006CBCA7 /* ContentView.swift */,
 				8DA844A32B72E1D7006CBCA7 /* PhoneListView.swift */,
+				8DA844B32B72E1D7006CBCA7 /* PhoneRowView.swift */,
 				8DA844A42B72E1D7006CBCA7 /* Detail */,
 				8DA844A92B72E1D7006CBCA7 /* Info */,
-				8DA844B32B72E1D7006CBCA7 /* PhoneRowView.swift */,
-				8DA844B42B72E1D7006CBCA7 /* ContentView.swift */,
 				8DA844B52B72E1D7006CBCA7 /* Child Views */,
-				8D94EE0B2B912B9E00B04EBF /* WaveView.swift */,
-				8D94EE0D2B912FB900B04EBF /* Wave.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -245,11 +243,11 @@
 		8DA844A42B72E1D7006CBCA7 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
-				8DA844AF2B72E1D7006CBCA7 /* PhonePartInfoView.swift */,
-				8DA844A52B72E1D7006CBCA7 /* HandsetInfoDetailView.swift */,
-				8DA844A62B72E1D7006CBCA7 /* NoPhoneSelectedView.swift */,
 				8DA844A72B72E1D7006CBCA7 /* PhoneDetailView.swift */,
+				8DA844A52B72E1D7006CBCA7 /* HandsetInfoDetailView.swift */,
 				8DA844A82B72E1D7006CBCA7 /* ChargerInfoDetailView.swift */,
+				8DA844AF2B72E1D7006CBCA7 /* PhonePartInfoView.swift */,
+				8DA844A62B72E1D7006CBCA7 /* NoPhoneSelectedView.swift */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -279,6 +277,8 @@
 				8DA844B72B72E1D7006CBCA7 /* InfoText.swift */,
 				8DA844B82B72E1D7006CBCA7 /* PhoneImageUnavailableView.swift */,
 				8DA844B92B72E1D7006CBCA7 /* WarningText.swift */,
+				8D94EE0B2B912B9E00B04EBF /* WaveView.swift */,
+				8D94EE0D2B912FB900B04EBF /* Wave.swift */,
 			);
 			path = "Child Views";
 			sourceTree = "<group>";
