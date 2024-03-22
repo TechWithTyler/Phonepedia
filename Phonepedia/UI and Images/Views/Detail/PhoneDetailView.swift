@@ -297,7 +297,7 @@ struct PhoneDetailView: View {
                             phone.cordlessPowerBackupModeChanged(oldValue: oldValue, newValue: newValue)
                         }
                         if phone.cordlessPowerBackupMode == 0 {
-                            InfoText("If available for your phone, you can plug an external battery into the base power port to use it when the power goes out. Plug the base power cord into the battery/battery box instead of the base in this case. If not available for your phone, it won't work when the power is out.")
+                            InfoText("If available for your phone, you can plug an external battery into the base power port to use it when the power goes out. Plug the base power cord into the battery/battery box, then the battery/battery box into the base. If not available for your phone, it won't work when the power is out.")
                         }
                         if phone.cordlessPowerBackupMode == 3 {
                             Picker("Base Backup Battery Type", selection: $phone.baseBackupBatteryType) {
@@ -319,9 +319,9 @@ struct PhoneDetailView: View {
                                 Text("Restore Full Functionality Without Rebooting").tag(1)
                             }
                             VStack(alignment: .leading) {
-                                InfoText("When the power goes out, placing a charged handset on the base can give it power. None of the base buttons will work. However, the display/lights may flash to indicate the base is booting up. Features like the answering system and base Bluetooth aren't available while the handset is powering the base. This helps to conserve handset battery power.")
+                                InfoText("When the power goes out, placing a charged handset on the base can give it power. The base buttons might not work, and features like the answering system and base Bluetooth might not be available while the handset is powering the base, to help conserve handset battery power.\nRemember that when the handset is powering the base, the battery will drain faster than normal, because some of the battery power is being used to power the base. This is especially true if you're using the handset that's powering the base--you may find that the handset powering the base runs out of charge before the other handset(s). For this reason, the manuals of such phones often advise you to leave a handset on the base specifically for power, and use the other handsets, if you have more than one.")
                                 if phone.cordlessHandsetsIHave.filter({$0.fitsOnBase}).isEmpty {
-                                    WarningText("You must have at least one handset which fits on the base to use power backup!")
+                                    WarningText("You must have at least one handset which fits on the base to use place-on-base power backup!")
                                 }
                             }
                         }
@@ -341,18 +341,19 @@ struct PhoneDetailView: View {
                             Toggle(isOn: $phone.hasBaseKeypad) {
                                 Text("Has Base Keypad")
                             }
-                            InfoText("Some cordless phones have a base speakerphone and keypad, which allows you to make calls if the handset isn't nearby or if it needs to charge. Bases with keypads are a great option for office spaces.")
+                            InfoText("Some cordless phones have a base speakerphone and keypad, which allows you to make calls if the handset isn't nearby or if it needs to charge. Bases with keypads are a great option for office spaces as they combine a cordless-only phone with the design people expect from an office phone.")
                             if phone.hasBaseKeypad {
                                 Toggle(isOn: $phone.hasTalkingKeypad) {
                                     Text("Talking Keypad")
                                 }
-                                InfoText("The phone can announce the keys you press when dialing numbers.")
+                                InfoText("The phone can announce the keys you press when dialing numbers. Sometimes, this announcement plays instead of the DTMF tones (the tones heard when you dial numbers) on your end.")
                             }
                         }
                         if phone.isCordless {
                             Toggle(isOn: $phone.hasIntercom) {
                                 Text("Has Intercom")
                             }
+                            InfoText("Intercom allows you to have a conversation between 2 handsets/the base and a handset.")
                             if phone.hasIntercom && !phone.hasBaseSpeakerphone && !phone.isCordedCordless {
                                 Toggle(isOn: $phone.hasBaseIntercom) {
                                     Text("Has Base Intercom")
