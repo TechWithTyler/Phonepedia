@@ -97,7 +97,9 @@ final class CordlessHandset {
 	var ringtones: Int = 5
 	
 	var musicRingtones: Int = 5
-	
+
+    var customRingtonesSource: Int = 0
+
     var intercomRingtone: Int = 0
 	
 	var oneTouchDialCapacity: Int = 0
