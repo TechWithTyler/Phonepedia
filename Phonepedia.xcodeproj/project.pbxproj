@@ -12,8 +12,6 @@
 		8D3D27922ABCDDF30005FEC2 /* PhonepediaUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3D27912ABCDDF30005FEC2 /* PhonepediaUITestsLaunchTests.swift */; };
 		8D40612D2B8011E800F182DA /* AboutConnectionTypesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D40612C2B8011E800F182DA /* AboutConnectionTypesView.swift */; };
 		8D4E2A582B8FD4E600FF4FE5 /* PhoneNumberLetterInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4E2A572B8FD4E600FF4FE5 /* PhoneNumberLetterInfoView.swift */; };
-		8D5B63E32B2A520F00E86DA8 /* Collections in Frameworks */ = {isa = PBXBuildFile; productRef = 8D5B63E22B2A520F00E86DA8 /* Collections */; };
-		8D5B63E52B2A520F00E86DA8 /* OrderedCollections in Frameworks */ = {isa = PBXBuildFile; productRef = 8D5B63E42B2A520F00E86DA8 /* OrderedCollections */; };
 		8D94EE0C2B912B9E00B04EBF /* WaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D94EE0B2B912B9E00B04EBF /* WaveView.swift */; };
 		8D94EE0E2B912FB900B04EBF /* Wave.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D94EE0D2B912FB900B04EBF /* Wave.swift */; };
 		8DA844CE2B72E1D7006CBCA7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DA8449B2B72E1D7006CBCA7 /* Assets.xcassets */; };
@@ -162,9 +160,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D5B63E32B2A520F00E86DA8 /* Collections in Frameworks */,
 				8DF1E93C2B06D45B00B6D978 /* SheftAppsStylishUI.framework in Frameworks */,
-				8D5B63E52B2A520F00E86DA8 /* OrderedCollections in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -426,8 +422,6 @@
 			);
 			name = Phonepedia;
 			packageProductDependencies = (
-				8D5B63E22B2A520F00E86DA8 /* Collections */,
-				8D5B63E42B2A520F00E86DA8 /* OrderedCollections */,
 			);
 			productName = "Phone Booth";
 			productReference = 8DFC9BF22A3BAB9D00295700 /* Phonepedia.app */;
@@ -944,19 +938,6 @@
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		8D5B63E22B2A520F00E86DA8 /* Collections */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 8D5B63E12B2A520F00E86DA8 /* XCRemoteSwiftPackageReference "swift-collections" */;
-			productName = Collections;
-		};
-		8D5B63E42B2A520F00E86DA8 /* OrderedCollections */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 8D5B63E12B2A520F00E86DA8 /* XCRemoteSwiftPackageReference "swift-collections" */;
-			productName = OrderedCollections;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8DFC9BEA2A3BAB9D00295700 /* Project object */;
 }

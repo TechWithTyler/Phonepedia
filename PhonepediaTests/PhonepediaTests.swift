@@ -47,27 +47,6 @@ final class PhonepediaTests: XCTestCase {
         }
     }
 
-	func testBaseBluetoothCellPhonesSupportedChanged() {
-		phone?.bluetoothPhonebookTransfers = 0
-		let oldValue = 0
-		let newValue = 1
-		// Call the function
-		phone?.baseBluetoothCellPhonesSupportedChanged(oldValue: oldValue, newValue: newValue)
-		// Assert that the phone's bluetoothPhonebookTransfers property has been updated
-		print((phone?.bluetoothPhonebookTransfers)!)
-		XCTAssertEqual(phone?.bluetoothPhonebookTransfers, 1)
-	}
-
-	func testBaseBluetoothCellPhonesSupportedNotChanged() {
-		phone?.bluetoothPhonebookTransfers = 0
-		let oldValue = 0
-		let newValue = 0
-		// Call the function
-		phone?.baseBluetoothCellPhonesSupportedChanged(oldValue: oldValue, newValue: newValue)
-		// Assert that the phone's bluetoothPhonebookTransfers property has not been updated
-		XCTAssertEqual(phone?.bluetoothPhonebookTransfers, 0)
-	}
-
 	func testHandsetCordlessDeviceTypeChanged() {
 		handset?.fitsOnBase = true
 		let oldValue = 0

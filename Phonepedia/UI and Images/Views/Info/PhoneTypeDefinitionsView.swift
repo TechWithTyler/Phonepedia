@@ -8,7 +8,6 @@
 
 import SwiftUI
 import SheftAppsStylishUI
-import Collections
 
 struct PhoneTypeDefinitionsView: View {
     
