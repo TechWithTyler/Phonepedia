@@ -8,14 +8,14 @@
 			<key>CFBundleTypeIconSystemGenerated</key>
 			<integer>1</integer>
 			<key>CFBundleTypeName</key>
-			<string>PhonePedia Database</string>
+			<string>Phonepedia Database</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>LSHandlerRank</key>
 			<string>Default</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>com.tylersheft.PhonePediaDatabase</string>
+				<string>com.tylersheft.PhonepediaDatabase</string>
 			</array>
 		</dict>
 	</array>
@@ -23,7 +23,7 @@
 	<false/>
 	<key>UIBackgroundModes</key>
 	<array/>
-	<key>UTExportedTypeDeclarations</key>
+	<key>UTImportedTypeDeclarations</key>
 	<array>
 		<dict>
 			<key>UTTypeConformsTo</key>

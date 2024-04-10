@@ -15,6 +15,7 @@ final class Phone {
     
     // MARK: - Properties - Default Photo Data
 
+    @Transient
 	static var defaultPhotoData: Data {
 #if os(iOS) || os(visionOS)
 		return getPNGDataFromUIImage(image: .phone)

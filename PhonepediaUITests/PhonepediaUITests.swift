@@ -49,8 +49,13 @@ final class PhonepediaUITests: XCTestCase {
 				do {
 					try screenshot.pngRepresentation.write(to: screenshotURL)
 					print("Screenshot saved to: \(screenshotURL.path)")
+                    #if os(macOS)
 					NSWorkspace.shared.open(documentsURL)
 					NSWorkspace.shared.open(screenshotURL)
+                    #else
+                    UIApplication.shared.open(documentsURL)
+                    UIApplication.shared.open(screenshotURL)
+                    #endif
 				} catch {
 					XCTFail("Failed to save screenshot: \(error.localizedDescription)")
 				}

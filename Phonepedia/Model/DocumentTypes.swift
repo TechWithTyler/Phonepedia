@@ -11,7 +11,9 @@ import UniformTypeIdentifiers
 
 extension UTType {
 
-	static var phonepediaDatabase = UTType(exportedAs: "com.tylersheft.PhonepediaDatabase")
+    static var phonepediaDatabase: UTType {
+        UTType(importedAs: "com.tylersheft.PhonepediaDatabase")
+    }
 
 }
 
