@@ -58,8 +58,8 @@ struct ChargerInfoDetailView: View {
     
 }
 
-#Preview {
-    @State var charger = Charger()
-    charger.phone = Phone(brand: "Panasonic", model: "KX-TGF675")
-	return ChargerInfoDetailView(charger: $charger)
-}
+//#Preview {
+//    @State var charger = Charger()
+//    charger.phone = Phone(brand: "Panasonic", model: "KX-TGF675")
+//	return ChargerInfoDetailView(charger: $charger)
+//}

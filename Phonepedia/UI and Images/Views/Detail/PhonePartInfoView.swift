@@ -163,5 +163,7 @@ struct PhonePartInfoView: View {
 }
 
 #Preview {
-	PhonePartInfoView(phone: Phone(brand: "Panasonic", model: "KX-TGD892"))
+    Form {
+        PhonePartInfoView(phone: Phone(brand: "Panasonic", model: "KX-TGD892"))
+    }.formStyle(.grouped)
 }

@@ -57,4 +57,6 @@ struct PhoneImage: View {
 
 #Preview("Thumbnail") {
 	PhoneImage(phone: Phone(brand: "Vtech", model: "DS6421-3"), thumb: true)
+    // Make the thumbnail preview large enough to show its window title.
+        .frame(width: 200, height: 200)
 }

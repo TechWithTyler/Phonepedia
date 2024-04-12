@@ -57,4 +57,5 @@ struct Wave: Shape {
 
 #Preview {
     Wave(frequency: .lowMoreRange)
+        .stroke(lineWidth: 1)
 }

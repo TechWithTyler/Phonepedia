@@ -160,11 +160,10 @@ struct PhoneListView: View {
     
 }
 
-#Preview {
-    @State var selectedPhone: Phone?
-    @State var phones: [Phone] = []
-    return NavigationStack {
-        PhoneListView(phones: phones, selectedPhone: $selectedPhone)
-    }
-    .modelContainer(for: [Phone.self, CordlessHandset.self, Charger.self])
-}
+//#Preview {
+//    @State var selectedPhone: Phone?
+//    @State var phones: [Phone] = []
+//    return NavigationStack {
+//        PhoneListView(phones: phones, selectedPhone: $selectedPhone)
+//    }
+//}
