@@ -115,7 +115,7 @@ final class Phone {
 	
 	var hasTransmitOnlyBase: Bool = false
 	
-	var frequency: Int = 24
+	var frequency: Int = 1920
     
     var hasNoLineAlert: Bool = false
 
