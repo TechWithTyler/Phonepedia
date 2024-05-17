@@ -960,18 +960,21 @@ When the first ring is suppressed, the number of rings you hear will be one less
             Button {
                 photoViewModel.takingPhoto = true
             } label: {
-                Text("Take Photo…")
+                Label("Take Photo…", systemImage: "camera")
             }
 #endif
             Button {
                 photoViewModel.showingPhotoPicker = true
             } label: {
-                Text("Select From Library…")
+                Label("Select From Library…", systemImage: "photo")
             }
-            Button {
+            Button(role: .destructive) {
                 photoViewModel.showingResetAlert = true
             } label: {
-                Text("Use Placeholder…")
+                Label("Reset to Placeholder…", systemImage: "arrow.clockwise")
+                #if !os(macOS)
+                    .foregroundStyle(.red)
+                #endif
             }
         }
     }
