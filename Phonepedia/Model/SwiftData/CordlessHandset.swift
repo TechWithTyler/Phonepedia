@@ -23,7 +23,9 @@ final class CordlessHandset {
 	var model: String
 	
 	var releaseYear: Int = currentYear
-	
+
+    var acquisitionYear: Int = currentYear
+
 	var fitsOnBase: Bool = true
 	
 	var maxBases: Int = 1
@@ -304,13 +306,24 @@ final class CordlessHandset {
 	}
     
     func releaseYearChanged(oldValue: Int, newValue: Int) {
+        if acquisitionYear < newValue {
+            acquisitionYear = releaseYear
+        }
         if newValue == 0 && oldValue == -1 {
             releaseYear = 1965
         } else if newValue < 1965 {
             releaseYear = -1
         }
     }
-    
+
+    func acquisitionYearChanged(oldValue: Int, newValue: Int) {
+        if newValue == 0 && oldValue == -1 {
+            acquisitionYear = releaseYear
+        } else if newValue < releaseYear {
+            acquisitionYear = -1
+        }
+    }
+
     func totalRingtonesChanged(oldValue: Int, newValue: Int) {
         if newValue < oldValue && (intercomRingtone >= (totalRingtones + 1) || intercomRingtone == 1) {
             intercomRingtone -= 1

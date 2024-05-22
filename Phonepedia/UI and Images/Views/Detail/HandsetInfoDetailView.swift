@@ -43,6 +43,17 @@ struct HandsetInfoDetailView: View {
                         .onChange(of: handset.releaseYear) { oldValue, newValue in
                             handset.releaseYearChanged(oldValue: oldValue, newValue: newValue)
                         }
+                Stepper("Acquisition/Purchase Year (-1 if unknown): \(String(handset.acquisitionYear))", value: $handset.acquisitionYear, in: -1...currentYear)
+                    .onChange(of: handset.acquisitionYear) { oldValue, newValue in
+                        handset.acquisitionYearChanged(oldValue: oldValue, newValue: newValue)
+                    }
+                if handset.acquisitionYear == handset.releaseYear {
+                    HStack {
+                        Image(systemName: "balloon.2.fill")
+                        Text("You got the \(String(handset.releaseYear)) \(handset.brand) \(handset.model) the year it was released!")
+                            .font(.callout)
+                    }
+                }
                     ColorPicker("Main Color", selection: handset.mainColorBinding)
                     HStack {
                         ColorPicker("Secondary/Accent Color", selection: handset.secondaryColorBinding)

@@ -36,7 +36,9 @@ final class Phone {
 	@Attribute(.externalStorage) var photoData: Data? = nil
 
 	var releaseYear: Int = currentYear
-	
+
+    var acquisitionYear: Int = currentYear
+
     var baseMainColorRed: Double = 0
     
     var baseMainColorGreen: Double = 0
@@ -534,13 +536,24 @@ final class Phone {
 	}
     
     func releaseYearChanged(oldValue: Int, newValue: Int) {
+        if acquisitionYear < newValue {
+            acquisitionYear = releaseYear
+        }
         if newValue == 0 && oldValue == -1 {
             releaseYear = 1892
         } else if newValue < 1892 {
             releaseYear = -1
         }
     }
-	
+
+    func acquisitionYearChanged(oldValue: Int, newValue: Int) {
+        if newValue == 0 && oldValue == -1 {
+            acquisitionYear = releaseYear
+        } else if newValue < releaseYear {
+            acquisitionYear = -1
+        }
+    }
+
 	func isCordlessChanged(oldValue: Bool, newValue: Bool) {
 		if newValue {
 			cordedPhoneType = 0

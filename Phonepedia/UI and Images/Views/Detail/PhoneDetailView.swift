@@ -52,6 +52,17 @@ struct PhoneDetailView: View {
                         .onChange(of: phone.releaseYear) { oldValue, newValue in
                             phone.releaseYearChanged(oldValue: oldValue, newValue: newValue)
                         }
+                Stepper("Acquisition/Purchase Year (-1 if unknown): \(String(phone.acquisitionYear))", value: $phone.acquisitionYear, in: -1...currentYear)
+                    .onChange(of: phone.acquisitionYear) { oldValue, newValue in
+                        phone.acquisitionYearChanged(oldValue: oldValue, newValue: newValue)
+                    }
+                if phone.acquisitionYear == phone.releaseYear {
+                    HStack {
+                        Image(systemName: "balloon.2.fill")
+                        Text("You got the \(String(phone.releaseYear)) \(phone.brand) \(phone.model) the year it was released!")
+                            .font(.callout)
+                    }
+                }
                     Picker("Place In My Collection", selection: $phone.storageOrSetup) {
                         Text("Box/Bin (working)").tag(0)
                         Text("Box/Bin (broken)").tag(1)
