@@ -159,7 +159,9 @@ final class CordlessHandset {
 	var hasTalkingKeypad: Bool = false
 	
 	var hasTalkingPhonebook: Bool = false
-    
+
+    var audibleLowBatteryAlert: Int = 0
+
     var talkOffButtonType = 1
     
     var talkOffColorLayer: Int = 1

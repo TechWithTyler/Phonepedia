@@ -99,6 +99,16 @@ struct HandsetInfoDetailView: View {
                         }
                         BatteryInfoView()
                     }
+                if handset.cordlessDeviceType == 0 {
+                    Picker("Audible Low Battery Alert", selection: $handset.audibleLowBatteryAlert) {
+                        Text("In-Call Beep").tag(0)
+                        Text("Hangup Beep").tag(1)
+                        Text("Standby Beep").tag(2)
+                        Text("Hangup Beep/Voice").tag(3)
+                        Text("Standby/Hangup Voice").tag(4)
+                    }
+                    InfoText("The handset can audibly alert you when the battery is low or needs to be charged.")
+                }
                     Picker("Place In My Collection", selection: $handset.storageOrSetup) {
                         Text("Box/Bin (working)").tag(0)
                         Text("Box/Bin (broken)").tag(1)
