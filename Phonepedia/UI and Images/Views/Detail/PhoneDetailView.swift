@@ -58,7 +58,7 @@ struct PhoneDetailView: View {
                     }
                 if phone.acquisitionYear == phone.releaseYear {
                     HStack {
-                        Image(systemName: "balloon.2.fill")
+                        Image(systemName: "sparkle")
                         Text("You got the \(String(phone.releaseYear)) \(phone.brand) \(phone.model) the year it was released!")
                             .font(.callout)
                     }

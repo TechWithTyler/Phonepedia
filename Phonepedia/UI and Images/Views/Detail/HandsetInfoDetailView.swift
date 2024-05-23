@@ -49,7 +49,7 @@ struct HandsetInfoDetailView: View {
                     }
                 if handset.acquisitionYear == handset.releaseYear {
                     HStack {
-                        Image(systemName: "balloon.2.fill")
+                        Image(systemName: "sparkle")
                         Text("You got the \(String(handset.releaseYear)) \(handset.brand) \(handset.model) the year it was released!")
                             .font(.callout)
                     }
