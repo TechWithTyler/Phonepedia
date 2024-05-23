@@ -29,6 +29,15 @@ struct PhoneRowView: View {
 				Text(phone.phoneTypeText)
 					.font(.subheadline)
 					.foregroundStyle(.secondary)
+                if phone.acquisitionYear == phone.releaseYear {
+                    HStack {
+                        Image(systemName: "sparkle")
+                        Text("Purchased/acquired the year it was released!")
+                            .font(.callout)
+                            .multilineTextAlignment(.center)
+                            .lineLimit(2)
+                    }
+                }
 			}
 			Spacer()
 		}
