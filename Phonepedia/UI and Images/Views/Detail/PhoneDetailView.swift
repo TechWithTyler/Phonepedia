@@ -108,7 +108,6 @@ struct PhoneDetailView: View {
                                 WarningText("The base of the \(phone.brand) \(phone.model) can only register up to \(phone.maxCordlessHandsets) handsets (you specified that it includes \(phone.numberOfIncludedCordlessHandsets)).")
                             }
                         }
-                        if phone.isCordless {
                             Picker("Wireless Frequency/Communication Technology", selection: $phone.frequency) {
                                 Text("Unknown").tag(0)
                                 Section(header: Text("Older")) {
@@ -194,21 +193,6 @@ struct PhoneDetailView: View {
                                 }
                                 Text("On Handset").tag(3)
                             }
-                        } else {
-                            Picker("Corded Phone Type", selection: $phone.cordedPhoneType) {
-                                Section(header: Text("Desk")) {
-                                    Text("Push-Button Desk").tag(0)
-                                    Text("Rotary Desk").tag(1)
-                                }
-                                Section(header: Text("Slim/Wall")) {
-                                    Text("Push-Button Slim/Wall").tag(2)
-                                    Text("Rotary Slim/Wall").tag(3)
-                                }
-                            }
-                            .onChange(of: phone.cordedPhoneType) { oldValue, newValue in
-                                phone.cordedPhoneTypeChanged(oldValue: oldValue, newValue: newValue)
-                            }
-                        }
                         if phone.baseChargesHandset {
                             Group {
                                 Picker("Base Charging Direction", selection: $phone.baseChargingDirection) {
@@ -278,6 +262,30 @@ struct PhoneDetailView: View {
                             }
                             InfoText("Renaming the handset/base makes it easier to find the desired one in a list (e.g., when making intercom calls) and/or so you know where to put it. For example, if you have a handset in your kitchen, living room, and master bedroom, you might give each handset the names \"Kitchen\", \"Living RM\", and \"Bedroom\", respectively.\nIf the handset name shows in handset lists, the name is stored in the base, and the handset either links to the base when showing handset lists or syncs the list from the base.")
                         }
+                    } else {
+                        Picker("Corded Phone Type", selection: $phone.cordedPhoneType) {
+                            Section(header: Text("Desk")) {
+                                Text("Push-Button Desk").tag(0)
+                                Text("Rotary Desk").tag(1)
+                            }
+                            Section(header: Text("Slim/Wall")) {
+                                Text("Push-Button Slim/Wall").tag(2)
+                                Text("Rotary Slim/Wall").tag(3)
+                            }
+                            Section(header: Text("Other")) {
+                                Text("Base-less").tag(4)
+                                Text("Novelty").tag(5)
+                            }
+                        }
+                        .onChange(of: phone.cordedPhoneType) { oldValue, newValue in
+                            phone.cordedPhoneTypeChanged(oldValue: oldValue, newValue: newValue)
+                        }
+                        InfoText("""
+                                • A desk phone has a base, with or without speakerphone, and a corded receiver. These phones may also have other features like a caller ID display or answering system.
+                                • A slim/wall phone doesn't have speakerphone or an answering system, but may have a caller ID display. The keypad or rotary dial can be either in the receiver or in the base. Caller ID buttons are on the back of the receiver, not the face where the keypad is.
+                                • A base-less phone is a corded phone that doesn't have a base. The phone is a single device that plugs into the line.
+                                • A novelty phone is a corded phone that's designed to look like something else, like a hamburger you flip open, a piano whose keys are used to dial numbers, a slim phone that's shaped like a pair of lips, or an animated character that serves as the phone's base.
+                                """)
                     }
                 }
                 Section("Power") {
@@ -350,9 +358,9 @@ struct PhoneDetailView: View {
                         }
                         if !phone.isCordless || (phone.isCordless && phone.hasBaseSpeakerphone) {
                             Toggle(isOn: $phone.hasBaseKeypad) {
-                                Text("Has Base Keypad")
+                                Text(phone.isCordless ? "Has Base Keypad" : "Has User-Accessible Keypad")
                             }
-                            InfoText("Some cordless phones have a base speakerphone and keypad, which allows you to make calls if the handset isn't nearby or if it needs to charge. Bases with keypads are a great option for office spaces as they combine a cordless-only phone with the design people expect from an office phone.")
+                            InfoText("Some cordless phones have a base speakerphone and keypad, which allows you to make calls if the handset isn't nearby or if it needs to charge. Bases with keypads are a great option for office spaces as they combine a cordless-only phone with the design people expect from an office phone.\nSome corded phones, such as those found in hotel lobbies, don't have a user-accessible keypad and are used only for answering calls, checking voicemail, or calling a specific number when picking it up. The keypad and other programming controls are hidden behind a removable faceplate or within the phone's casing.")
                             if phone.hasBaseKeypad {
                                 Toggle(isOn: $phone.hasTalkingKeypad) {
                                     Text("Talking Keypad")
