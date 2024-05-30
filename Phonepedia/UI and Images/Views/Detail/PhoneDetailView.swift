@@ -63,6 +63,13 @@ struct PhoneDetailView: View {
                             .font(.callout)
                     }
                 }
+                Picker("How I Got This Phone", selection: $phone.whereAcquired) {
+                    Text("Thrift Store/Sale").tag(0)
+                    Text("Electronics Store (new)").tag(1)
+                    Text("Online (used)").tag(2)
+                    Text("Online (new)").tag(3)
+                    Text("Gift").tag(4)
+                }
                     Picker("Place In My Collection", selection: $phone.storageOrSetup) {
                         Text("Box/Bin (working)").tag(0)
                         Text("Box/Bin (broken)").tag(1)

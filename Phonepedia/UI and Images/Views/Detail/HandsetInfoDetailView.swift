@@ -54,6 +54,13 @@ struct HandsetInfoDetailView: View {
                             .font(.callout)
                     }
                 }
+                Picker("How I Got This Handset", selection: $handset.whereAcquired) {
+                    Text("Thrift Store/Sale").tag(0)
+                    Text("Electronics Store (new)").tag(1)
+                    Text("Online (used)").tag(2)
+                    Text("Online (new)").tag(3)
+                    Text("Gift").tag(4)
+                }
                     ColorPicker("Main Color", selection: handset.mainColorBinding)
                     HStack {
                         ColorPicker("Secondary/Accent Color", selection: handset.secondaryColorBinding)

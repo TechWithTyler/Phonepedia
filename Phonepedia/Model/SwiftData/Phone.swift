@@ -39,6 +39,8 @@ final class Phone {
 
     var acquisitionYear: Int = currentYear
 
+    var whereAcquired: Int = 0
+
     var baseMainColorRed: Double = 0
     
     var baseMainColorGreen: Double = 0

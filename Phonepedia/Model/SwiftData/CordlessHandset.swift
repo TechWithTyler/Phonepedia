@@ -26,6 +26,8 @@ final class CordlessHandset {
 
     var acquisitionYear: Int = currentYear
 
+    var whereAcquired: Int = 0
+
 	var fitsOnBase: Bool = true
 	
 	var maxBases: Int = 1
