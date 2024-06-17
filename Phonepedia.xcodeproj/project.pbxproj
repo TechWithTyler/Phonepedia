@@ -21,7 +21,6 @@
 		8DA844D22B72E1D7006CBCA7 /* PhoneListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844A32B72E1D7006CBCA7 /* PhoneListView.swift */; };
 		8DA844D32B72E1D7006CBCA7 /* HandsetInfoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844A52B72E1D7006CBCA7 /* HandsetInfoDetailView.swift */; };
 		8DA844D42B72E1D7006CBCA7 /* NoPhoneSelectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844A62B72E1D7006CBCA7 /* NoPhoneSelectedView.swift */; };
-		8DA844D52B72E1D7006CBCA7 /* PhoneDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844A72B72E1D7006CBCA7 /* PhoneDetailView.swift */; };
 		8DA844D62B72E1D7006CBCA7 /* ChargerInfoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844A82B72E1D7006CBCA7 /* ChargerInfoDetailView.swift */; };
 		8DA844D72B72E1D7006CBCA7 /* AboutDialingCodesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844AA2B72E1D7006CBCA7 /* AboutDialingCodesView.swift */; };
 		8DA844D82B72E1D7006CBCA7 /* FrequenciesExplanationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844AB2B72E1D7006CBCA7 /* FrequenciesExplanationView.swift */; };
@@ -50,6 +49,7 @@
 		8DA844F22B72E1D7006CBCA7 /* PhonePhotoError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844CC2B72E1D7006CBCA7 /* PhonePhotoError.swift */; };
 		8DA844F32B72E1D7006CBCA7 /* PhonepediaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844CD2B72E1D7006CBCA7 /* PhonepediaApp.swift */; };
 		8DE6B9662AA905CF00C42E02 /* PhonepediaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE6B9652AA905CF00C42E02 /* PhonepediaTests.swift */; };
+		8DEC01642C20D78D006E0233 /* PhoneDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844A72B72E1D7006CBCA7 /* PhoneDetailView.swift */; };
 		8DF1E93C2B06D45B00B6D978 /* SheftAppsStylishUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DF1E93B2B06D45B00B6D978 /* SheftAppsStylishUI.framework */; };
 		8DF1E93D2B06D45B00B6D978 /* SheftAppsStylishUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8DF1E93B2B06D45B00B6D978 /* SheftAppsStylishUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -544,7 +544,6 @@
 				8DA844EA2B72E1D7006CBCA7 /* Charger.swift in Sources */,
 				8DA844EC2B72E1D7006CBCA7 /* DocumentTypes.swift in Sources */,
 				8DA844D22B72E1D7006CBCA7 /* PhoneListView.swift in Sources */,
-				8DA844D52B72E1D7006CBCA7 /* PhoneDetailView.swift in Sources */,
 				8D394FA22B87F4CE0047C2F8 /* RegistrationExplanationView.swift in Sources */,
 				8DA844D92B72E1D7006CBCA7 /* SoftKeyExplanationView.swift in Sources */,
 				8DA844F22B72E1D7006CBCA7 /* PhonePhotoError.swift in Sources */,
@@ -553,6 +552,7 @@
 				8DA844E12B72E1D7006CBCA7 /* ContentView.swift in Sources */,
 				8DA844DF2B72E1D7006CBCA7 /* ChargingContactInfoView.swift in Sources */,
 				8DA844E02B72E1D7006CBCA7 /* PhoneRowView.swift in Sources */,
+				8DEC01642C20D78D006E0233 /* PhoneDetailView.swift in Sources */,
 				8DA844DA2B72E1D7006CBCA7 /* PhoneButtonLegendItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
