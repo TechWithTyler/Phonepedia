@@ -15,9 +15,23 @@ struct PhonepediaApp: App {
     @ObservedObject var photoViewModel = PhonePhotoViewModel()
 
     var body: some Scene {
-		DocumentGroup(editing: Phone.self, contentType: .phonepediaDatabase) {
+        DocumentGroup(editing: .phonepediaDatabase, migrationPlan: PhonepediaMigrationPlan.self) {
             ContentView()
                 .environmentObject(photoViewModel)
         }
+        #if os(iOS) || os(visionOS)
+        DocumentGroupLaunchScene {
+            NewDocumentButton("New Phone Database")
+        } background: {
+            ZStack {
+                Rectangle()
+                    .scaledToFill()
+                    .foregroundStyle(Color.accentColor)
+                Image(.phones)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+            }
+        }
+        #endif
     }
 }
