@@ -23,14 +23,7 @@ struct PhonepediaApp: App {
         DocumentGroupLaunchScene {
             NewDocumentButton("New Phone Database")
         } background: {
-            ZStack {
-                Rectangle()
-                    .scaledToFill()
-                    .foregroundStyle(Color.accentColor)
-                Image(.phones)
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-            }
+            Color.accentColor
         }
         #endif
     }
