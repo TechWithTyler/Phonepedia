@@ -21,7 +21,7 @@ struct PhonepediaApp: App {
         }
         #if os(iOS) || os(visionOS)
         DocumentGroupLaunchScene {
-            NewDocumentButton("New Phone Database")
+            NewDocumentButton("New Phone Catalog")
         } background: {
             Color.accentColor
         }
