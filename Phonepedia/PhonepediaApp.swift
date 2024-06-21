@@ -24,6 +24,8 @@ struct PhonepediaApp: App {
             NewDocumentButton("New Phone Catalog")
         } background: {
             Color.accentColor
+        } backgroundAccessoryView: { geometry in
+            DocumentLaunchPhonesAccessoryView()
         }
         #endif
     }

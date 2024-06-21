@@ -12,6 +12,7 @@
 		8D3D27922ABCDDF30005FEC2 /* PhonepediaUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3D27912ABCDDF30005FEC2 /* PhonepediaUITestsLaunchTests.swift */; };
 		8D40612D2B8011E800F182DA /* AboutConnectionTypesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D40612C2B8011E800F182DA /* AboutConnectionTypesView.swift */; };
 		8D4E2A582B8FD4E600FF4FE5 /* PhoneNumberLetterInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4E2A572B8FD4E600FF4FE5 /* PhoneNumberLetterInfoView.swift */; };
+		8D7A74A42C26203E00C5329E /* DocumentLaunchPhonesAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7A74A32C26203E00C5329E /* DocumentLaunchPhonesAccessoryView.swift */; };
 		8D94EE0C2B912B9E00B04EBF /* WaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D94EE0B2B912B9E00B04EBF /* WaveView.swift */; };
 		8D94EE0E2B912FB900B04EBF /* Wave.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D94EE0D2B912FB900B04EBF /* Wave.swift */; };
 		8D95997D2C22212400FEED40 /* Migration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D95997C2C22212400FEED40 /* Migration.swift */; };
@@ -93,6 +94,7 @@
 		8D3D27912ABCDDF30005FEC2 /* PhonepediaUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhonepediaUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		8D40612C2B8011E800F182DA /* AboutConnectionTypesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutConnectionTypesView.swift; sourceTree = "<group>"; };
 		8D4E2A572B8FD4E600FF4FE5 /* PhoneNumberLetterInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberLetterInfoView.swift; sourceTree = "<group>"; };
+		8D7A74A32C26203E00C5329E /* DocumentLaunchPhonesAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentLaunchPhonesAccessoryView.swift; sourceTree = "<group>"; };
 		8D94EE0B2B912B9E00B04EBF /* WaveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveView.swift; sourceTree = "<group>"; };
 		8D94EE0D2B912FB900B04EBF /* Wave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wave.swift; sourceTree = "<group>"; };
 		8D95997C2C22212400FEED40 /* Migration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Migration.swift; sourceTree = "<group>"; };
@@ -230,6 +232,7 @@
 				8DA844A42B72E1D7006CBCA7 /* Detail */,
 				8DA844A92B72E1D7006CBCA7 /* Info */,
 				8DA844B52B72E1D7006CBCA7 /* Child Views */,
+				8D7A74A32C26203E00C5329E /* DocumentLaunchPhonesAccessoryView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -524,6 +527,7 @@
 				8DA844D02B72E1D7006CBCA7 /* CameraCoordinator.swift in Sources */,
 				8DA844E22B72E1D7006CBCA7 /* PhoneImage.swift in Sources */,
 				8DA844DB2B72E1D7006CBCA7 /* BatteryInfoView.swift in Sources */,
+				8D7A74A42C26203E00C5329E /* DocumentLaunchPhonesAccessoryView.swift in Sources */,
 				8DA844F12B72E1D7006CBCA7 /* PhonePhotoViewModel.swift in Sources */,
 				8DA844DE2B72E1D7006CBCA7 /* AntennaInfoView.swift in Sources */,
 				8DA844E92B72E1D7006CBCA7 /* Phone.swift in Sources */,
