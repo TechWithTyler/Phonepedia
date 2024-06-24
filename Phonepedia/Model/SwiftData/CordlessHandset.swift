@@ -279,9 +279,15 @@ final class CordlessHandset {
     
     // MARK: - Initialization
 	
-	init(brand: String, model: String) {
+    init(brand: String, model: String, mainColorRed: Double, mainColorGreen: Double, mainColorBlue: Double, secondaryColorRed: Double, secondaryColorGreen: Double, secondaryColorBlue: Double) {
 		self.brand = brand
 		self.model = model
+        self.mainColorRed = mainColorRed
+        self.mainColorGreen = mainColorGreen
+        self.mainColorBlue = mainColorBlue
+        self.secondaryColorRed = secondaryColorRed
+        self.secondaryColorGreen = secondaryColorGreen
+        self.secondaryColorBlue = secondaryColorBlue
 	}
     
     // MARK: - Set Secondary Color to Main

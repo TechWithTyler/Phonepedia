@@ -146,7 +146,8 @@ struct PhonePartInfoView: View {
 
 	func addHandset() {
 		phone.cordlessHandsetsIHave.append(
-            CordlessHandset(brand: phone.brand, model: phone.mainHandsetModel)
+            // Newly-added handsets default to the phone's brand, the phone's main handset model number, and the phone base's colors.
+            CordlessHandset(brand: phone.brand, model: phone.mainHandsetModel, mainColorRed: phone.baseMainColorRed, mainColorGreen: phone.baseMainColorGreen, mainColorBlue: phone.baseMainColorBlue, secondaryColorRed: phone.baseSecondaryColorRed, secondaryColorGreen: phone.baseSecondaryColorGreen, secondaryColorBlue: phone.baseSecondaryColorBlue)
 		)
 	}
 
