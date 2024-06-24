@@ -41,6 +41,8 @@ final class Phone {
 
     var whereAcquired: Int = 0
 
+    var mainHandsetModel: String = "MH12"
+
     var baseMainColorRed: Double = 0
     
     var baseMainColorGreen: Double = 0

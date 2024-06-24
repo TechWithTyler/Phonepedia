@@ -81,6 +81,8 @@ struct PhonePartInfoView: View {
 					Text("No cordless devices")
 						.foregroundStyle(.secondary)
 				}
+                FormTextField("Main Cordless Device Model", text: $phone.mainHandsetModel)
+                InfoText("Enter the model number of the main cordless handset or deskset included with the \(phone.brand) \(phone.model) so newly-added cordless devices will default to that model number.")
 					Button(action: addHandset) {
 						Label("Add", systemImage: "plus")
 							.frame(width: 100, alignment: .leading)
@@ -144,7 +146,7 @@ struct PhonePartInfoView: View {
 
 	func addHandset() {
 		phone.cordlessHandsetsIHave.append(
-			CordlessHandset(brand: phone.brand, model: "MH12")
+            CordlessHandset(brand: phone.brand, model: phone.mainHandsetModel)
 		)
 	}
 
