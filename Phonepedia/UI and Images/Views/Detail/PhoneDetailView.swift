@@ -530,6 +530,9 @@ struct PhoneDetailView: View {
                         }
                         ColorPicker("Button Foreground Color", selection: phone.baseKeyForegroundColorBinding)
                         ColorPicker("Button Background Color", selection: phone.baseKeyBackgroundColorBinding)
+                        Button("Swap Foreground/Background Colors", systemImage: "arrow.swap") {
+                            phone.swapKeyBackgroundAndForegroundColors()
+                        }
                     }
                     Section("Answering System/Voicemail") {
                         Picker("Answering System", selection: $phone.hasAnsweringSystem) {

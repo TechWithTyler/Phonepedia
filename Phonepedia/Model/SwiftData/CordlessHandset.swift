@@ -290,15 +290,27 @@ final class CordlessHandset {
         self.secondaryColorBlue = secondaryColorBlue
 	}
     
-    // MARK: - Set Secondary Color to Main
-    
+    // MARK: - Color Methods
+
     func setSecondaryColorToMain() {
         let components = mainColorBinding.wrappedValue.components
         secondaryColorRed = components.red
         secondaryColorGreen = components.green
         secondaryColorBlue = components.blue
     }
-    
+
+    func swapKeyBackgroundAndForegroundColors() {
+        let previousBackgroundRed = keyBackgroundColorRed
+        let previousBackgroundGreen = keyBackgroundColorGreen
+        let previousBackgroundBlue = keyBackgroundColorBlue
+        keyBackgroundColorRed = keyForegroundColorRed
+        keyBackgroundColorGreen = keyForegroundColorGreen
+        keyBackgroundColorBlue = keyForegroundColorBlue
+        keyForegroundColorRed = previousBackgroundRed
+        keyForegroundColorGreen = previousBackgroundGreen
+        keyForegroundColorBlue = previousBackgroundBlue
+    }
+
     // MARK: - Property Change Handlers
 	
 	func cordlessDeviceTypeChanged(oldValue: Int, newValue: Int) {

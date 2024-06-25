@@ -492,15 +492,27 @@ final class Phone {
 		self.model = model
 	}
     
-    // MARK: - Set Secondary Color to Main
-    
+    // MARK: - Color Methods
+
     func setBaseSecondaryColorToMain() {
         let components = baseMainColorBinding.wrappedValue.components
         baseSecondaryColorRed = components.red
         baseSecondaryColorGreen = components.green
         baseSecondaryColorBlue = components.blue
     }
-    
+
+    func swapKeyBackgroundAndForegroundColors() {
+        let previousBackgroundRed = baseKeyBackgroundColorRed
+        let previousBackgroundGreen = baseKeyBackgroundColorGreen
+        let previousBackgroundBlue = baseKeyBackgroundColorBlue
+        baseKeyBackgroundColorRed = baseKeyForegroundColorRed
+        baseKeyBackgroundColorGreen = baseKeyForegroundColorGreen
+        baseKeyBackgroundColorBlue = baseKeyForegroundColorBlue
+        baseKeyForegroundColorRed = previousBackgroundRed
+        baseKeyForegroundColorGreen = previousBackgroundGreen
+        baseKeyForegroundColorBlue = previousBackgroundBlue
+    }
+
     // MARK: - Property Change Handlers
     
     func supportsWiredHeadsetsChanged(oldValue: Bool, newValue: Bool) {

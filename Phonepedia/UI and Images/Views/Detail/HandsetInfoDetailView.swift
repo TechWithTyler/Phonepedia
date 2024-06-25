@@ -284,6 +284,9 @@ struct HandsetInfoDetailView: View {
                         }
                         ColorPicker("Button Foreground Color", selection: handset.keyForegroundColorBinding)
                         ColorPicker("Button Background Color", selection: handset.keyBackgroundColorBinding)
+                        Button("Swap Foreground/Background Colors", systemImage: "arrow.swap") {
+                            handset.swapKeyBackgroundAndForegroundColors()
+                        }
                     }
                     Section("Audio") {
 						Toggle("Has Speakerphone", isOn: $handset.hasSpeakerphone)
