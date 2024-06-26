@@ -514,7 +514,7 @@ struct PhoneDetailView: View {
                                         phone.baseSoftKeysSideChanged(oldValue: oldValue, newValue: newValue)
                                     }
                                 SoftKeyExplanationView()
-                                InfoText("Side soft keys are often used for programmable functions or speed dials in standby or one-touch menu selections in menus. For example, in a menu with 5 options, instead of scrolling up or down through the menu and then pressing the select button, you can press the corresponding side soft key.")
+                                InfoText("Side soft keys are often used for programmable functions or speed dials in standby or one-touch menu selections in menus. For example, in a menu with 5 options, instead of scrolling up or down through the menu and then pressing the select button, you can press the corresponding side soft key. Side soft keys are often seen on business-grade phones, especially those used on a system with multiple lines and/or extensions.")
                             }
                         }
                         Picker("Button Backlight Type", selection: $phone.baseKeyBacklightAmount) {
