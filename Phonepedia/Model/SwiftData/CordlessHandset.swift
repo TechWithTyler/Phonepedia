@@ -177,11 +177,27 @@ final class CordlessHandset {
     var storageOrSetup: Int = 0
     
     var hasQZ: Bool = true
-    
+
+    // MARK: - Properties - Transient (Non-Persistent) Properties
+
+    var phonebookTypeText: String {
+        if usesBasePhonebook && phonebookCapacity > 0 {
+            return CordlessHandset.HandsetPhonebookType.sharedAndIndividual.rawValue
+        } else if usesBasePhonebook {
+            return CordlessHandset.HandsetPhonebookType.shared.rawValue
+        } else if phonebookCapacity > 0 {
+            return CordlessHandset.HandsetPhonebookType.individual.rawValue
+        } else {
+            return "None"
+        }
+    }
+
+    @Transient
     var totalRingtones: Int {
         return ringtones + musicRingtones
     }
     
+    @Transient
     var hasPhysicalCellButton: Bool {
         guard let phone = phone else { return false }
         return softKeys > 0 && phone.baseBluetoothCellPhonesSupported > 0 && lineButtons == 0
@@ -189,6 +205,7 @@ final class CordlessHandset {
     
     // MARK: - Color Bindings
     
+    @Transient
     var mainColorBinding: Binding<Color> {
         Binding<Color> { [self] in
             Color(red: mainColorRed, green: mainColorGreen, blue: mainColorBlue)
@@ -200,6 +217,7 @@ final class CordlessHandset {
         }
     }
     
+    @Transient
     var secondaryColorBinding: Binding<Color> {
         Binding<Color> { [self] in
             Color(red: secondaryColorRed, green: secondaryColorGreen, blue: secondaryColorBlue)
@@ -211,6 +229,7 @@ final class CordlessHandset {
         }
     }
     
+    @Transient
     var cordedReceiverMainColorBinding: Binding<Color> {
         Binding<Color> { [self] in
             Color(red: cordedReceiverMainColorRed, green: cordedReceiverMainColorGreen, blue: cordedReceiverMainColorBlue)
@@ -222,6 +241,7 @@ final class CordlessHandset {
         }
     }
     
+    @Transient
     var cordedReceiverSecondaryColorBinding: Binding<Color> {
         Binding<Color> { [self] in
             Color(red: cordedReceiverSecondaryColorRed, green: cordedReceiverSecondaryColorGreen, blue: cordedReceiverSecondaryColorBlue)
@@ -233,6 +253,7 @@ final class CordlessHandset {
         }
     }
     
+    @Transient
     var displayBacklightColorBinding: Binding<Color> {
         Binding<Color> { [self] in
             Color(red: displayBacklightColorRed, green: displayBacklightColorGreen, blue: displayBacklightColorBlue)
@@ -244,6 +265,7 @@ final class CordlessHandset {
         }
     }
     
+    @Transient
     var keyBacklightColorBinding: Binding<Color> {
         Binding<Color> { [self] in
             Color(red: keyBacklightColorRed, green: keyBacklightColorGreen, blue: keyBacklightColorBlue)
@@ -255,6 +277,7 @@ final class CordlessHandset {
         }
     }
     
+    @Transient
     var keyForegroundColorBinding: Binding<Color> {
         Binding<Color> { [self] in
             Color(red: keyForegroundColorRed, green: keyForegroundColorGreen, blue: keyForegroundColorBlue)
@@ -266,6 +289,7 @@ final class CordlessHandset {
         }
     }
     
+    @Transient
     var keyBackgroundColorBinding: Binding<Color> {
         Binding<Color> { [self] in
             Color(red: keyBackgroundColorRed, green: keyBackgroundColorGreen, blue: keyBackgroundColorBlue)

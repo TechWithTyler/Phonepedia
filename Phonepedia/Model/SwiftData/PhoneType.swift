@@ -9,7 +9,7 @@
 import Foundation
 
 extension Phone {
-    
+
     enum PhoneType : String {
         
         // MARK: - Phone Types

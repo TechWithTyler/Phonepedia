@@ -339,14 +339,16 @@ struct HandsetInfoDetailView: View {
                     Section("Phonebook") {
 						FormNumericTextField("Phonebook Capacity", value: $handset.phonebookCapacity, valueRange: .allPositivesIncludingZero)
 #if !os(visionOS)
-							.scrollDismissesKeyboard(.interactively)
+                            .scrollDismissesKeyboard(.interactively)
 #endif
-						if handset.phonebookCapacity > 0 || handset.usesBasePhonebook {
-							Toggle(isOn: $handset.hasTalkingPhonebook) {
-								Text("Talking Phonebook")
-							}
-						}
-						Toggle("Uses Base Phonebook", isOn: $handset.usesBasePhonebook)
+                        Toggle("Uses Base Phonebook", isOn: $handset.usesBasePhonebook)
+                        Text("Phonebook Type: \(handset.phonebookTypeText)")
+                        InfoText("\(CordlessHandset.HandsetPhonebookType.shared.rawValue): The phonebook is stored in the base and is shared by the base (if it has a display) and all registered handsets/desksets. Changes made to the phonebook of the base or any registered, shared phonebook-supported handset/deskset will be visible on the base and all registered, shared phonebook-supported handsets/desksets, and only one can access the phonebook at a time.\n\(CordlessHandset.HandsetPhonebookType.individual.rawValue): The phonebook is stored in the base/each handset/deskset separately. On some phones, entries can be copied between the base and handsets/desksets.\n\(CordlessHandset.HandsetPhonebookType.sharedAndIndividual.rawValue): The handset/deskset has its own phonebook but can also access the shared phonebook. On some phones, entries can be copied between the shared phonebook and the individual phonebook of a handset/deskset.")
+                        if handset.phonebookCapacity > 0 || handset.usesBasePhonebook {
+                            Toggle(isOn: $handset.hasTalkingPhonebook) {
+                                Text("Talking Phonebook")
+                            }
+                        }
 						if handset.phonebookCapacity >= 150 {
 							Toggle("Supports Bluetooth Phonebook Transfers", isOn: $handset.bluetoothPhonebookTransfers)
 						}
