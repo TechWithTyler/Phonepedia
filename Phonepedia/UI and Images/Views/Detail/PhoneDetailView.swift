@@ -636,9 +636,9 @@ A phone's voicemail indicator usually works in one or both of the following ways
                         showingAboutConnectionTypes = true
                     }
                     Picker("Number Of Lines", selection: $phone.numberOfLandlines) {
-                        Text("1").tag(1)
-                        Text("2").tag(2)
-                        Text("4").tag(4)
+                        Text("Single-Line").tag(1)
+                        Text("2-Line").tag(2)
+                        Text("4-Line").tag(4)
                     }
                     .onChange(of: phone.numberOfLandlines) { oldValue, newValue in
                         phone.numberOfLandlinesChanged(oldValue: oldValue, newValue: newValue)
