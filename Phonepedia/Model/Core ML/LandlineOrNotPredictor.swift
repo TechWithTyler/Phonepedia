@@ -18,6 +18,7 @@ class LandlineOrNotPredictor {
     typealias CrossPlatformImage = UIImage
 #endif
     
+    // Change the number after V when a new version is created. Make sure to name new versions "LandlineOrNotVX" where X represents the version number.
     typealias CurrentLandlineOrNot = LandlineOrNotV1
 
     // A common image classifier instance that all Image Predictor instances use to generate predictions.
@@ -29,6 +30,7 @@ class LandlineOrNotPredictor {
         // The name of the object or scene the image classifier recognizes in an image.
         let classification: String
         
+        // Whether the image contains landline phones.
         var isLandline: Bool {
             return classification == "Landline"
         }
