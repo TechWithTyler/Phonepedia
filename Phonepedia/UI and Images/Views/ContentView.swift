@@ -44,7 +44,8 @@ struct ContentView: View {
 
 }
 
-//#Preview {
-//    ContentView()
-//        .modelContainer(for: [Phone.self, CordlessHandset.self, Charger.self], inMemory: true)
-//}
+#Preview {
+    ContentView()
+        .modelContainer(for: [Phone.self, CordlessHandset.self, Charger.self], inMemory: true)
+        .environmentObject(PhonePhotoViewModel())
+}

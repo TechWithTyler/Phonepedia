@@ -130,9 +130,8 @@ struct PhoneListView: View {
     
     private func addItem() {
         withAnimation {
-            modelContext.insert(
-                Phone(brand: "Some Brand", model: "M123")
-            )
+            let newPhone = Phone(brand: "Some Brand", model: "M123")
+            modelContext.insert(newPhone)
         }
     }
     
@@ -160,10 +159,13 @@ struct PhoneListView: View {
     
 }
 
-//#Preview {
-//    @State var selectedPhone: Phone?
-//    @State var phones: [Phone] = []
-//    return NavigationStack {
-//        PhoneListView(phones: phones, selectedPhone: $selectedPhone)
-//    }
-//}
+#Preview {
+    @State @Previewable var selectedPhone: Phone?
+    @Previewable @Query var phones: [Phone] = []
+    NavigationStack {
+        PhoneListView(phones: phones, selectedPhone: $selectedPhone)
+    }
+    .modelContainer(for: [Phone.self, CordlessHandset.self, Charger.self], inMemory: true)
+    .padding()
+    .frame(minWidth: 400, minHeight: 400)
+}
