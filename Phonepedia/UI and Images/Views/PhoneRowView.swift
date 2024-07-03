@@ -19,7 +19,7 @@ struct PhoneRowView: View {
     var body: some View {
 		HStack {
 			Spacer()
-			PhoneImage(phone: phone, thumb: true)
+			PhoneImage(phone: phone, isThumbnail: true)
 			VStack {
 				Text(phone.brand)
 					.font(.largeTitle)

@@ -16,12 +16,12 @@ struct PhoneImage: View {
     
     // MARK: - Properties - Booleans
 
-	var thumb: Bool
+	var isThumbnail: Bool
     
     // MARK: - Properties - Floats
 
 	var size: CGFloat {
-		return thumb ? 50 : 300
+		return isThumbnail ? 50 : 300
 	}
     
     // MARK: - View
@@ -53,11 +53,11 @@ struct PhoneImage: View {
 }
 
 #Preview("Full") {
-	PhoneImage(phone: Phone(brand: "Panasonic", model: "KX-TGU432"), thumb: false)
+	PhoneImage(phone: Phone(brand: "Panasonic", model: "KX-TGU432"), isThumbnail: false)
 }
 
 #Preview("Thumbnail") {
-	PhoneImage(phone: Phone(brand: "Panasonic", model: "KX-TGU432"), thumb: true)
+	PhoneImage(phone: Phone(brand: "Panasonic", model: "KX-TGU432"), isThumbnail: true)
     // Make the thumbnail preview large enough to show its window title.
         .frame(width: 200, height: 200)
 }
