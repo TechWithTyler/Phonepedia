@@ -44,6 +44,7 @@ struct PhoneImage: View {
 				.resizable()
 				.scaledToFit()
 				.frame(width: size, height: size)
+                .accessibilityLabel("\(phone.brand) \(phone.model)")
 		} else {
 			PhoneImageUnavailableView()
 		}
@@ -52,11 +53,11 @@ struct PhoneImage: View {
 }
 
 #Preview("Full") {
-	PhoneImage(phone: Phone(brand: "Vtech", model: "DS6421-3"), thumb: false)
+	PhoneImage(phone: Phone(brand: "Panasonic", model: "KX-TGU432"), thumb: false)
 }
 
 #Preview("Thumbnail") {
-	PhoneImage(phone: Phone(brand: "Vtech", model: "DS6421-3"), thumb: true)
+	PhoneImage(phone: Phone(brand: "Panasonic", model: "KX-TGU432"), thumb: true)
     // Make the thumbnail preview large enough to show its window title.
         .frame(width: 200, height: 200)
 }
