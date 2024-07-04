@@ -10,7 +10,12 @@ import Foundation
 import SwiftUI
 
 // Names to use for the answering system greeting/talking caller ID examples
-var names: [String] = ["John Smith", "Pat Fleet", "Allison Smith", "Charlie Johnson"]
+var names: [String] = [
+    "John Smith",
+    "Pat Fleet",
+    "Allison Smith",
+    "Charlie Johnson"
+]
 
 // Takes the given name and converts it from "First Last" to "LAST, FIRST".
 func cnamForName(_ name: String) -> String {
