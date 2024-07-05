@@ -475,7 +475,7 @@ struct PhoneDetailView: View {
                             Toggle("Base Has LED Message Counter In Addition To Display", isOn: $phone.baseHasDisplayAndMessageCounter)
                         }
                         if phone.baseDisplayType == 1 || phone.baseHasDisplayAndMessageCounter {
-                            ClearSupportedColorPicker("LED Message Counter Color", selection: phone.baseLEDMessageCounterColorBinding)
+                            ColorPicker("LED Message Counter Color", selection: phone.baseLEDMessageCounterColorBinding)
                         }
                         if phone.baseDisplayType > 0 {
                             Picker("Base Navigation Button Type", selection: $phone.baseNavigatorKeyType) {
