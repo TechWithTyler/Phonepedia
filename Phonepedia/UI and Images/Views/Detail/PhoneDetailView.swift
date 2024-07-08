@@ -12,46 +12,46 @@ import PhotosUI
 import SheftAppsStylishUI
 
 struct PhoneDetailView: View {
-    
+
     // MARK: - Properties - Objects
-    
+
     @Bindable var phone: Phone
-    
+
     @EnvironmentObject var photoViewModel: PhonePhotoViewModel
-    
+
     @AppStorage("phoneDescriptionTextSize") var phoneDescriptionTextSize: Double = SATextViewMinFontSize
 
     // MARK: - Properties - Booleans
-    
+
     @State private var showingFrequenciesExplanation: Bool = false
-    
+
     @State private var showingRegistrationExplanation: Bool = false
-    
+
     @State private var showingPhoneTypeDefinitions: Bool = false
-    
+
     @State private var showingAboutDialingCodes: Bool = false
-    
+
     @State private var showingAboutConnectionTypes: Bool = false
-    
+
     // MARK: - Body
-    
+
     var body: some View {
         NavigationStack {
             Form {
-                    photo(for: phone)
-                    FormTextField("Brand", text: $phone.brand)
-                    FormTextField("Model", text: $phone.model)
-                    HStack {
-                        Text("Phone Type: \(phone.phoneTypeText)")
-                        Spacer()
-                        InfoButton {
-                            showingPhoneTypeDefinitions = true
-                        }
+                photo(for: phone)
+                FormTextField("Brand", text: $phone.brand)
+                FormTextField("Model", text: $phone.model)
+                HStack {
+                    Text("Phone Type: \(phone.phoneTypeText)")
+                    Spacer()
+                    InfoButton {
+                        showingPhoneTypeDefinitions = true
                     }
-                    Stepper("Release Year (-1 if unknown): \(String(phone.releaseYear))", value: $phone.releaseYear, in: -1...currentYear)
-                        .onChange(of: phone.releaseYear) { oldValue, newValue in
-                            phone.releaseYearChanged(oldValue: oldValue, newValue: newValue)
-                        }
+                }
+                Stepper("Release Year (-1 if unknown): \(String(phone.releaseYear))", value: $phone.releaseYear, in: -1...currentYear)
+                    .onChange(of: phone.releaseYear) { oldValue, newValue in
+                        phone.releaseYearChanged(oldValue: oldValue, newValue: newValue)
+                    }
                 Stepper("Acquisition/Purchase Year (-1 if unknown): \(String(phone.acquisitionYear))", value: $phone.acquisitionYear, in: -1...currentYear)
                     .onChange(of: phone.acquisitionYear) { oldValue, newValue in
                         phone.acquisitionYearChanged(oldValue: oldValue, newValue: newValue)
@@ -70,23 +70,23 @@ struct PhoneDetailView: View {
                     Text("Online (new)").tag(3)
                     Text("Gift").tag(4)
                 }
-                    Picker("Place In My Collection", selection: $phone.storageOrSetup) {
-                        Text("Box/Bin (working)").tag(0)
-                        Text("Box/Bin (broken)").tag(1)
-                        Text("Shelf (working)").tag(2)
-                        Text("Shelf (broken)").tag(3)
-                        Text("Active (working)").tag(4)
-                        Text("Active (broken)").tag(5)
-                    }
-                    VStack {
-                        Text("Write more about your phone (e.g., the story behind why you got it, when/where you got it, whether you had to replace broken parts) in the text area below.")
-                            .lineLimit(nil)
-                        Stepper("Font Size: \(Int(phoneDescriptionTextSize))", value: $phoneDescriptionTextSize)
-                        ContrastingTextEditor(text: $phone.phoneDescription)
-                            .frame(minHeight: 300)
-                            .padding()
-                            .font(.system(size: phoneDescriptionTextSize))
-                    }
+                Picker("Place In My Collection", selection: $phone.storageOrSetup) {
+                    Text("Box/Bin (working)").tag(0)
+                    Text("Box/Bin (broken)").tag(1)
+                    Text("Shelf (working)").tag(2)
+                    Text("Shelf (broken)").tag(3)
+                    Text("Active (working)").tag(4)
+                    Text("Active (broken)").tag(5)
+                }
+                VStack {
+                    Text("Write more about your phone (e.g., the story behind why you got it, when/where you got it, whether you had to replace broken parts) in the text area below.")
+                        .lineLimit(nil)
+                    Stepper("Font Size: \(Int(phoneDescriptionTextSize))", value: $phoneDescriptionTextSize)
+                    ContrastingTextEditor(text: $phone.phoneDescription)
+                        .frame(minHeight: 300)
+                        .padding()
+                        .font(.system(size: phoneDescriptionTextSize))
+                }
                 PhonePartInfoView(phone: phone)
                 Section("Basic Features/Cordless Capabilities") {
                     Stepper("Number of Included Cordless Handsets (0 if corded only): \(phone.numberOfIncludedCordlessHandsets)", value: $phone.numberOfIncludedCordlessHandsets, in: 0...Int.max-1)
@@ -115,91 +115,91 @@ struct PhoneDetailView: View {
                                 WarningText("The base of the \(phone.brand) \(phone.model) can only register up to \(phone.maxCordlessHandsets) handsets (you specified that it includes \(phone.numberOfIncludedCordlessHandsets)).")
                             }
                         }
-                            Picker("Wireless Frequency/Communication Technology", selection: $phone.frequency) {
-                                Text("Unknown").tag(0)
-                                Section(header: Text("Older")) {
-                                    Text("1.7MHz Analog").tag(1)
-                                    Text("30-37MHz Analog").tag(30)
-                                    Text("46-49MHz Analog").tag(46)
-                                }
-                                Section(header: Text("900MHz")) {
-                                    Text("900MHz Analog/Unknown").tag(900)
-                                    Text("900MHz Voice Scramble Analog").tag(900.1)
-                                    Text("900MHz Digital").tag(900.2)
-                                    Text("900MHz DSS").tag(900.3)
-                                }
-                                Section(header: Text("2.4GHz")) {
-                                    Text("2.4GHz Analog/Unknown").tag(2400.0)
-                                    Text("2.4GHz/900MHz Analog").tag(2400.900)
-                                    Text("2.4GHz Digital").tag(2400.1)
-                                    Text("2.4GHz/900MHz Digital").tag(2400.901)
-                                    Text("2.4GHz DSS").tag(2400.2)
-                                    Text("2.4GHz/900MHz DSS").tag(2400.902)
-                                    Text("2.4GHz FHSS").tag(2400.3)
-                                    Text("2.4GHz/900MHz FHSS").tag(2400.903)
-                                }
-                                Section(header: Text("5.8GHz")) {
-                                    Text("5.8GHz Analog/Unknown").tag(5800)
-                                    Text("5.8GHz/900MHz Analog").tag(5800.900)
-                                    Text("5.8GHz/2.4GHz Analog").tag(5800.2400)
-                                    Text("5.8GHz Digital").tag(5800.1)
-                                    Text("5.8GHz/900MHz Digital").tag(5800.901)
-                                    Text("5.8GHz/2.4GHz Digital").tag(5800.2401)
-                                    Text("5.8GHz DSS").tag(5800.2)
-                                    Text("5.8GHz/900MHz DSS").tag(5800.902)
-                                    Text("5.8GHz/2.4GHz DSS").tag(5800.2402)
-                                    Text("5.8GHz Digital FHSS").tag(5800.3)
-                                    Text("5.8GHz/900MHz FHSS").tag(5800.903)
-                                    Text("5.8GHz/2.4GHz FHSS").tag(5800.2403)
-                                }
-                                Section(header: Text("DECT (Digital Enhanced Cordless Telecommunications)")) {
-                                    Text("DECT (1.88GHz-1.90GHz)").tag(1880)
-                                    Text("DECT (1.90GHz-1.92GHz)").tag(1900)
-                                    Text("DECT 6.0 (1.92GHz-1.93GHz)").tag(1920)
-                                }
+                        Picker("Wireless Frequency/Communication Technology", selection: $phone.frequency) {
+                            Text("Unknown").tag(0)
+                            Section(header: Text("Older")) {
+                                Text("1.7MHz Analog").tag(1)
+                                Text("30-37MHz Analog").tag(30)
+                                Text("46-49MHz Analog").tag(46)
                             }
-                            InfoButton(title: "Frequencies Explanation…") {
-                                showingFrequenciesExplanation = true
+                            Section(header: Text("900MHz")) {
+                                Text("900MHz Analog/Unknown").tag(900)
+                                Text("900MHz Voice Scramble Analog").tag(900.1)
+                                Text("900MHz Digital").tag(900.2)
+                                Text("900MHz DSS").tag(900.3)
                             }
-                            Picker("Antenna(s)", selection: $phone.antennas) {
-                                Text("Hidden").tag(0)
-                                Text("Telescopic").tag(1)
-                                Text("Standard (left)").tag(2)
-                                Text("Standard (right)").tag(3)
-                                Text("One On Each Side").tag(4)
+                            Section(header: Text("2.4GHz")) {
+                                Text("2.4GHz Analog/Unknown").tag(2400.0)
+                                Text("2.4GHz/900MHz Analog").tag(2400.900)
+                                Text("2.4GHz Digital").tag(2400.1)
+                                Text("2.4GHz/900MHz Digital").tag(2400.901)
+                                Text("2.4GHz DSS").tag(2400.2)
+                                Text("2.4GHz/900MHz DSS").tag(2400.902)
+                                Text("2.4GHz FHSS").tag(2400.3)
+                                Text("2.4GHz/900MHz FHSS").tag(2400.903)
                             }
-                            AntennaInfoView()
-                            if phone.hasRegistration {
-                                Toggle("Supports Range Extenders", isOn: $phone.supportsRangeExtenders)
+                            Section(header: Text("5.8GHz")) {
+                                Text("5.8GHz Analog/Unknown").tag(5800)
+                                Text("5.8GHz/900MHz Analog").tag(5800.900)
+                                Text("5.8GHz/2.4GHz Analog").tag(5800.2400)
+                                Text("5.8GHz Digital").tag(5800.1)
+                                Text("5.8GHz/900MHz Digital").tag(5800.901)
+                                Text("5.8GHz/2.4GHz Digital").tag(5800.2401)
+                                Text("5.8GHz DSS").tag(5800.2)
+                                Text("5.8GHz/900MHz DSS").tag(5800.902)
+                                Text("5.8GHz/2.4GHz DSS").tag(5800.2402)
+                                Text("5.8GHz Digital FHSS").tag(5800.3)
+                                Text("5.8GHz/900MHz FHSS").tag(5800.903)
+                                Text("5.8GHz/2.4GHz FHSS").tag(5800.2403)
+                            }
+                            Section(header: Text("DECT (Digital Enhanced Cordless Telecommunications)")) {
+                                Text("DECT (1.88GHz-1.90GHz)").tag(1880)
+                                Text("DECT (1.90GHz-1.92GHz)").tag(1900)
+                                Text("DECT 6.0 (1.92GHz-1.93GHz)").tag(1920)
+                            }
+                        }
+                        InfoButton(title: "Frequencies Explanation…") {
+                            showingFrequenciesExplanation = true
+                        }
+                        Picker("Antenna(s)", selection: $phone.antennas) {
+                            Text("Hidden").tag(0)
+                            Text("Telescopic").tag(1)
+                            Text("Standard (left)").tag(2)
+                            Text("Standard (right)").tag(3)
+                            Text("One On Each Side").tag(4)
+                        }
+                        AntennaInfoView()
+                        if phone.hasRegistration {
+                            Toggle("Supports Range Extenders", isOn: $phone.supportsRangeExtenders)
                             InfoText("A range extender extends the range of the base it's registered to. Devices communicating with the base choose the base or a range extender based on which has the strongest signal.\nIf you register 2 or more range extenders, they can be \"daisy-chained\" (one can communicate with the base via another) to create a larger useable coverage area.\nWhen a cordless device moves between the base or range extender(s), your call may briefly cut out.")
-                            }
-                            if !phone.isCordedCordless {
-                                Toggle("Base Is Transmit-Only", isOn: $phone.hasTransmitOnlyBase)
-                                    .onChange(of: phone.hasTransmitOnlyBase) { oldValue, newValue in
-                                        phone.transmitOnlyBaseChanged(oldValue: oldValue, newValue: newValue)
-                                    }
-                                Picker("Wall Mounting", selection: $phone.wallMountability) {
-                                    Text("Not Supported").tag(0)
-                                    Text("Holes on Back").tag(1)
-                                    Text("Optional Bracket").tag(2)
-                                    Text("Built-In Bracket").tag(3)
-                                    Text("Desk/Wall Bracket").tag(4)
+                        }
+                        if !phone.isCordedCordless {
+                            Toggle("Base Is Transmit-Only", isOn: $phone.hasTransmitOnlyBase)
+                                .onChange(of: phone.hasTransmitOnlyBase) { oldValue, newValue in
+                                    phone.transmitOnlyBaseChanged(oldValue: oldValue, newValue: newValue)
                                 }
-                                if !phone.hasBaseKeypad && !phone.hasTransmitOnlyBase {
-                                    Toggle("Has Charger-Style Base", isOn: $phone.hasChargerSizeBase)
-                                    InfoText("Some cordless phone bases look similar/have a similar size to chargers. In some cases, such as when the base has no answering system controls, they can be easily mistaken for chargers, although a base is always slightly bigger than a charger. Tip: The main base has at least a phone jack or handset locator button. Chargers just plug into power.\nThese kinds of bases are ideal for those who want a small-footprint base. The differentiating factor between a charger-style base vs a standard base is that the handset charging area is in the same position as that of the charger (usually the center).")
-                                }
+                            Picker("Wall Mounting", selection: $phone.wallMountability) {
+                                Text("Not Supported").tag(0)
+                                Text("Holes on Back").tag(1)
+                                Text("Optional Bracket").tag(2)
+                                Text("Built-In Bracket").tag(3)
+                                Text("Desk/Wall Bracket").tag(4)
                             }
-                            Picker("Charge Light", selection: $phone.chargeLight) {
-                                Text("None").tag(0)
-                                if phone.baseChargesHandset {
-                                    Text("On Base Only").tag(1)
-                                    Text("On Base/Charger").tag(2)
-                                } else {
-                                    Text("On Charger").tag(2)
-                                }
-                                Text("On Handset").tag(3)
+                            if !phone.hasBaseKeypad && !phone.hasTransmitOnlyBase {
+                                Toggle("Has Charger-Style Base", isOn: $phone.hasChargerSizeBase)
+                                InfoText("Some cordless phone bases look similar/have a similar size to chargers. In some cases, such as when the base has no answering system controls, they can be easily mistaken for chargers, although a base is always slightly bigger than a charger. Tip: The main base has at least a phone jack or handset locator button. Chargers just plug into power.\nThese kinds of bases are ideal for those who want a small-footprint base. The differentiating factor between a charger-style base vs a standard base is that the handset charging area is in the same position as that of the charger (usually the center).")
                             }
+                        }
+                        Picker("Charge Light", selection: $phone.chargeLight) {
+                            Text("None").tag(0)
+                            if phone.baseChargesHandset {
+                                Text("On Base Only").tag(1)
+                                Text("On Base/Charger").tag(2)
+                            } else {
+                                Text("On Charger").tag(2)
+                            }
+                            Text("On Handset").tag(3)
+                        }
                         if phone.baseChargesHandset {
                             Group {
                                 Picker("Base Charging Direction", selection: $phone.baseChargingDirection) {
@@ -435,7 +435,7 @@ struct PhoneDetailView: View {
                         }
                     }
                 }
-                            Section("Music/Message On Hold (MOH)") {
+                Section("Music/Message On Hold (MOH)") {
                     Toggle("Preset Audio", isOn: $phone.musicOnHoldPreset)
                     Toggle("User-Recorded", isOn: $phone.musicOnHoldRecord)
                     if phone.supportsWiredHeadsets {
@@ -813,8 +813,8 @@ A phone's voicemail indicator usually works in one or both of the following ways
                         }
                     }
                 }
-                    if phone.isCordless || phone.cordedPhoneType == 0 {
-                        Group {
+                if phone.isCordless || phone.cordedPhoneType == 0 {
+                    Group {
                         Section("Call Block (manual)") {
                             FormNumericTextField("Call Block List Capacity", value: $phone.callBlockCapacity, valueRange: .allPositivesIncludingZero)
 #if !os(visionOS)
@@ -974,9 +974,9 @@ When the first ring is suppressed, the number of rings you hear will be one less
             }
         }
     }
-    
+
     // MARK: - Phone Photo/Actions
-    
+
     @ViewBuilder
     func photo(for phone: Phone) -> some View {
         Group {
@@ -1001,13 +1001,13 @@ When the first ring is suppressed, the number of rings you hear will be one less
                 photoViewModel.showingResetAlert = true
             } label: {
                 Label("Reset to Placeholder…", systemImage: "arrow.clockwise")
-                #if !os(macOS)
+#if !os(macOS)
                     .foregroundStyle(.red)
-                #endif
+#endif
             }
         }
     }
-    
+
 }
 
 #Preview {
