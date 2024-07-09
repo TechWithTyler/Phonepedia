@@ -86,7 +86,7 @@ struct PhoneButtonLegendItem: View {
     }
     
     var body: some View {
-        HStack {
+        VStack {
             Text("\(button.rawValue.capitalized) Button Label Example:")
             switch button {
             case .talk:
@@ -100,12 +100,17 @@ struct PhoneButtonLegendItem: View {
             case .speakerphone:
                 speakerphoneButton
             }
+            if colorLayer > 0 {
+                Text("The \(button.rawValue) button color scheme shown is an example--your handset may differ.")
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+            }
         }
     }
     
     @ViewBuilder
     var talkButton: some View {
-        Label("Talk", systemImage: "phone.fill")
+        Label(PhoneButtonDescription.talk.rawValue.capitalized, systemImage: "phone.fill")
             .foregroundStyle(talkButtonForegroundColor)
             .padding(.horizontal)
             .background(
@@ -116,7 +121,7 @@ struct PhoneButtonLegendItem: View {
     
     @ViewBuilder
     var homeButton: some View {
-        Label("Home", systemImage: "house.fill")
+        Label(PhoneButtonDescription.home.rawValue.capitalized, systemImage: "house.fill")
             .foregroundStyle(talkButtonForegroundColor)
             .padding(.horizontal)
             .background(
@@ -127,14 +132,14 @@ struct PhoneButtonLegendItem: View {
     
     @ViewBuilder
     var cellButton: some View {
-        Label("Cell", systemImage: "antenna.radiowaves.left.and.right")
+        Label(PhoneButtonDescription.cell.rawValue.capitalized, systemImage: "antenna.radiowaves.left.and.right")
             .foregroundStyle(cellButtonForegroundColor)
             .padding(.horizontal)
     }
     
     @ViewBuilder
     var offButton: some View {
-        Label("Off", systemImage: "phone.down.fill")
+        Label(PhoneButtonDescription.off.rawValue.capitalized, systemImage: "phone.down.fill")
             .foregroundStyle(offButtonForegroundColor)
             .padding(.horizontal)
             .background(
