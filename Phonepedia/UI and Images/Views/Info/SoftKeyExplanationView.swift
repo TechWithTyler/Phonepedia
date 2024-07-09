@@ -11,8 +11,6 @@ import SheftAppsStylishUI
 
 struct SoftKeyExplanationView: View {
     
-    // (placement: SoftKeyPlacement, marking: SoftKeyMarking, textStyle: SoftKeyTextStyle)
-    
     enum SoftKeyPlacement: String {
         
         case bottom = "bottom"
