@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8D380B252C3DD35D00505B89 /* PhoneCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D380B242C3DD35D00505B89 /* PhoneCountView.swift */; };
 		8D394FA22B87F4CE0047C2F8 /* RegistrationExplanationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D394FA12B87F4CE0047C2F8 /* RegistrationExplanationView.swift */; };
 		8D3D27902ABCDDF30005FEC2 /* PhonepediaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3D278F2ABCDDF30005FEC2 /* PhonepediaUITests.swift */; };
 		8D3D27922ABCDDF30005FEC2 /* PhonepediaUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3D27912ABCDDF30005FEC2 /* PhonepediaUITestsLaunchTests.swift */; };
@@ -90,6 +91,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8D380B242C3DD35D00505B89 /* PhoneCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneCountView.swift; sourceTree = "<group>"; };
 		8D394FA12B87F4CE0047C2F8 /* RegistrationExplanationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationExplanationView.swift; sourceTree = "<group>"; };
 		8D3D278D2ABCDDF30005FEC2 /* PhonepediaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhonepediaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D3D278F2ABCDDF30005FEC2 /* PhonepediaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhonepediaUITests.swift; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 				8DA844A92B72E1D7006CBCA7 /* Info */,
 				8DA844B52B72E1D7006CBCA7 /* Child Views */,
 				8D7A74A32C26203E00C5329E /* DocumentLaunchPhonesAccessoryView.swift */,
+				8D380B242C3DD35D00505B89 /* PhoneCountView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -565,6 +568,7 @@
 				8DA844E62B72E1D7006CBCA7 /* Globals.swift in Sources */,
 				8DA844D32B72E1D7006CBCA7 /* HandsetInfoDetailView.swift in Sources */,
 				8DA844E12B72E1D7006CBCA7 /* ContentView.swift in Sources */,
+				8D380B252C3DD35D00505B89 /* PhoneCountView.swift in Sources */,
 				8DA844DF2B72E1D7006CBCA7 /* ChargingContactInfoView.swift in Sources */,
 				8DA844E02B72E1D7006CBCA7 /* PhoneRowView.swift in Sources */,
 				8DEC01642C20D78D006E0233 /* PhoneDetailView.swift in Sources */,

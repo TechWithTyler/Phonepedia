@@ -28,20 +28,29 @@ struct PhoneListView: View {
         let phoneSingularOrPlural = count == 1 ? "phone" : "phones"
         return "\(count) \(phoneSingularOrPlural)"
     }
-    
+
     // MARK: - Properties - Booleans
     
     @State private var showingDeleteOne: Bool = false
     
     @State private var showingDeleteAll: Bool = false
-    
+
+    @State private var showingPhoneCount: Bool = false
+
     // MARK: - Body
     
     var body: some View {
         ZStack {
             if !phones.isEmpty {
                 VStack {
-                    Text(phoneCount)
+                    Button(phoneCount) {
+                        showingPhoneCount = true
+                    }
+                    #if os(macOS)
+                    .buttonStyle(.accessoryBar)
+                    #else
+                    .hoverEffect(.highlight)
+                    #endif
                     Divider()
                     List(selection: $selectedPhone) {
                         ForEach(phones) { phone in
@@ -82,6 +91,10 @@ struct PhoneListView: View {
                     .font(.largeTitle)
                     .foregroundStyle(Color.secondary)
             }
+        }
+        .popover(isPresented: $showingPhoneCount) {
+            PhoneCountView(phones: phones)
+                .presentationDetents([.medium])
         }
 #if os(macOS)
         .navigationSplitViewColumnWidth(300)
