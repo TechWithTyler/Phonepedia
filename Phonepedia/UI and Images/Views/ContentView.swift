@@ -18,16 +18,18 @@ struct ContentView: View {
     @Query private var phones: [Phone]
     
     @State var selectedPhone: Phone?
-    
+
+    @State private var showingPhoneTypeDefinitions: Bool = false
+
     // MARK: - Body
 
 	var body: some View {
 		NavigationSplitView {
-            PhoneListView(phones: phones, selectedPhone: $selectedPhone)
+            PhoneListView(phones: phones, selectedPhone: $selectedPhone, showingPhoneTypeDefinitions: $showingPhoneTypeDefinitions)
 		} detail: {
 			if !phones.isEmpty {
 				if let phone = selectedPhone {
-					PhoneDetailView(phone: phone)
+                    PhoneDetailView(phone: phone, showingPhoneTypeDefinitions: $showingPhoneTypeDefinitions)
 				} else {
 					NoPhoneSelectedView()
 				}
@@ -35,6 +37,9 @@ struct ContentView: View {
 				EmptyView()
 			}
 		}
+        .sheet(isPresented: $showingPhoneTypeDefinitions) {
+            PhoneTypeDefinitionsView()
+        }
         .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
         #if os(iOS)
         .pickerStyle(.navigationLink)

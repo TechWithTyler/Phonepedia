@@ -60,69 +60,90 @@ struct PhoneCountView: View {
     }
 
     var body: some View {
-        VStack(spacing: 10) {
-            HStack {
-                Text("Total Phone Sets")
-                    .foregroundStyle(.primary)
-                    .multilineTextAlignment(.leading)
+        NavigationStack {
+            List {
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text("Total Phone Sets")
+                            .foregroundStyle(.primary)
+                            .multilineTextAlignment(.leading)
+                        excludingHandsetsText
+                    }
+                    Spacer()
+                    Text(totalPhoneCount, format: .number)
+                        .foregroundStyle(.secondary)
+                        .multilineTextAlignment(.trailing)
+                }
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text("Cordless Phone Sets")
+                            .foregroundStyle(.primary)
+                            .multilineTextAlignment(.leading)
+                        excludingHandsetsText
+                    }
+                    Spacer()
+                    Text(cordlessPhoneCount, format: .number)
+                        .foregroundStyle(.secondary)
+                        .multilineTextAlignment(.trailing)
+                }
+                HStack {
+                    Text("Corded Phones")
+                        .foregroundStyle(.primary)
+                        .multilineTextAlignment(.leading)
+                    Spacer()
+                    Text(cordedPhoneCount, format: .number)
+                        .foregroundStyle(.secondary)
+                        .multilineTextAlignment(.trailing)
+                }
+                HStack {
+                    Text("Cordless Handsets")
+                        .foregroundStyle(.primary)
+                        .multilineTextAlignment(.leading)
+                    Spacer()
+                    Text(handsetCount, format: .number)
+                        .foregroundStyle(.secondary)
+                        .multilineTextAlignment(.trailing)
+                }
+                HStack {
+                    Text("Cordless Desksets")
+                        .foregroundStyle(.primary)
+                        .multilineTextAlignment(.leading)
+                    Spacer()
+                    Text(desksetCount, format: .number)
+                        .foregroundStyle(.secondary)
+                        .multilineTextAlignment(.trailing)
+                }
+                HStack {
+                    Text("Cordless Headsets/Speakerphones")
+                        .foregroundStyle(.primary)
+                        .multilineTextAlignment(.leading)
+                    Spacer()
+                    Text(headsetCount, format: .number)
+                        .foregroundStyle(.secondary)
+                        .multilineTextAlignment(.trailing)
+                }
                 Spacer()
-                Text(totalPhoneCount, format: .number)
-                    .foregroundStyle(.secondary)
-                    .multilineTextAlignment(.trailing)
             }
-            HStack {
-                Text("Cordless Phone Sets")
-                    .foregroundStyle(.primary)
-                    .multilineTextAlignment(.leading)
-                Spacer()
-                Text(cordlessPhoneCount, format: .number)
-                    .foregroundStyle(.secondary)
-                    .multilineTextAlignment(.trailing)
-            }
-            HStack {
-                Text("Corded Phones")
-                    .foregroundStyle(.primary)
-                    .multilineTextAlignment(.leading)
-                Spacer()
-                Text(cordedPhoneCount, format: .number)
-                    .foregroundStyle(.secondary)
-                    .multilineTextAlignment(.trailing)
-            }
-            HStack {
-                Text("Cordless Handsets")
-                    .foregroundStyle(.primary)
-                    .multilineTextAlignment(.leading)
-                Spacer()
-                Text(handsetCount, format: .number)
-                    .foregroundStyle(.secondary)
-                    .multilineTextAlignment(.trailing)
-            }
-            HStack {
-                Text("Cordless Desksets")
-                    .foregroundStyle(.primary)
-                    .multilineTextAlignment(.leading)
-                Spacer()
-                Text(desksetCount, format: .number)
-                    .foregroundStyle(.secondary)
-                    .multilineTextAlignment(.trailing)
-            }
-            HStack {
-                Text("Cordless Headsets/Speakerphones")
-                    .foregroundStyle(.primary)
-                    .multilineTextAlignment(.leading)
-                Spacer()
-                Text(headsetCount, format: .number)
-                    .foregroundStyle(.secondary)
-                    .multilineTextAlignment(.trailing)
-            }
-            Spacer()
-            Button("OK") {
-                dismiss()
-            }
-            .buttonStyle(.borderedProminent)
+            .padding()
         }
-        .padding()
+        .frame(height: 300)
+        .toolbar {
+            ToolbarItem(placement: .confirmationAction) {
+                Button("OK") {
+                    dismiss()
+                }
+                    .keyboardShortcut(.defaultAction)
+            }
+        }
     }
+
+    @ViewBuilder
+    var excludingHandsetsText: some View {
+        Text("Excluding individual handsets")
+            .foregroundStyle(.secondary)
+            .font(.footnote)
+    }
+
 }
 
 #Preview {

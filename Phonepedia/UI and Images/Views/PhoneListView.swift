@@ -20,17 +20,11 @@ struct PhoneListView: View {
     @Binding var selectedPhone: Phone?
     
     @State private var phoneToDelete: Phone? = nil
-    
-    // MARK: - Properties - Strings
-    
-    var phoneCount: String {
-        let count = phones.count
-        let phoneSingularOrPlural = count == 1 ? "phone" : "phones"
-        return "\(count) \(phoneSingularOrPlural)"
-    }
 
     // MARK: - Properties - Booleans
-    
+
+    @Binding var showingPhoneTypeDefinitions: Bool
+
     @State private var showingDeleteOne: Bool = false
     
     @State private var showingDeleteAll: Bool = false
@@ -42,16 +36,6 @@ struct PhoneListView: View {
     var body: some View {
         ZStack {
             if !phones.isEmpty {
-                VStack {
-                    Button(phoneCount) {
-                        showingPhoneCount = true
-                    }
-                    #if os(macOS)
-                    .buttonStyle(.accessoryBar)
-                    #else
-                    .hoverEffect(.highlight)
-                    #endif
-                    Divider()
                     List(selection: $selectedPhone) {
                         ForEach(phones) { phone in
                             NavigationLink(value: phone) {
@@ -85,16 +69,14 @@ struct PhoneListView: View {
                         .onDelete(perform: deleteItems)
                     }
                     .accessibilityIdentifier("PhonesList")
-                }
             } else {
                 Text("No phones")
                     .font(.largeTitle)
                     .foregroundStyle(Color.secondary)
             }
         }
-        .popover(isPresented: $showingPhoneCount) {
+        .sheet(isPresented: $showingPhoneCount) {
             PhoneCountView(phones: phones)
-                .presentationDetents([.medium])
         }
 #if os(macOS)
         .navigationSplitViewColumnWidth(300)
@@ -129,6 +111,13 @@ struct PhoneListView: View {
                     Label("Add Phone", systemImage: "plus")
                 }
                 .accessibilityIdentifier("AddPhoneButton")
+                Button("Phone Count…") {
+                    showingPhoneCount = true
+                }
+                .badge(phones.count)
+                Button("Phone Type Definitions…") {
+                    showingPhoneTypeDefinitions = true
+                }
                 Divider()
                 Button(role: .destructive) {
                     showingDeleteAll = true
@@ -175,8 +164,9 @@ struct PhoneListView: View {
 #Preview {
     @State @Previewable var selectedPhone: Phone?
     @Previewable @Query var phones: [Phone] = []
+    @State @Previewable var showingPhoneTypeDefinitions: Bool = false
     NavigationStack {
-        PhoneListView(phones: phones, selectedPhone: $selectedPhone)
+        PhoneListView(phones: phones, selectedPhone: $selectedPhone, showingPhoneTypeDefinitions: $showingPhoneTypeDefinitions)
     }
     .modelContainer(for: [Phone.self, CordlessHandset.self, Charger.self], inMemory: true)
     .padding()

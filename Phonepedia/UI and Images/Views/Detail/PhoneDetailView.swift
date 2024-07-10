@@ -27,7 +27,7 @@ struct PhoneDetailView: View {
 
     @State private var showingRegistrationExplanation: Bool = false
 
-    @State private var showingPhoneTypeDefinitions: Bool = false
+    @Binding var showingPhoneTypeDefinitions: Bool
 
     @State private var showingAboutDialingCodes: Bool = false
 
@@ -122,9 +122,6 @@ struct PhoneDetailView: View {
         }
         .sheet(isPresented: $showingRegistrationExplanation) {
             RegistrationExplanationView()
-        }
-        .sheet(isPresented: $showingPhoneTypeDefinitions) {
-            PhoneTypeDefinitionsView()
         }
         .sheet(isPresented: $showingAboutDialingCodes) {
             AboutDialingCodesView()
@@ -1053,6 +1050,6 @@ When the first ring is suppressed, the number of rings you hear will be one less
 }
 
 #Preview {
-    PhoneDetailView(phone: Phone(brand: "AT&T", model: "CL83207"))
+    PhoneDetailView(phone: Phone(brand: "AT&T", model: "CL83207"), showingPhoneTypeDefinitions: .constant(false))
         .environmentObject(PhonePhotoViewModel())
 }
