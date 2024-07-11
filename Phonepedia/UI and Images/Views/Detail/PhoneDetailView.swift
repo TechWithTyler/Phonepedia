@@ -539,6 +539,9 @@ In most cases, if the base has a charge light/display message, the completion of
                         }
                         Text("Landline Ringtone").tag(1)
                         Text("Cell Line-Specific Ringtone").tag(2)
+                        if phone.baseDisplayType >= 1 && phone.totalBaseRingtones > 1 {
+                            Text("Selectable Ringtone").tag(3)
+                        }
                     }
                     .onChange(of: phone.hasBaseKeypad) {
                         oldValue, newValue in
@@ -793,14 +796,10 @@ A phone's voicemail indicator usually works in one or both of the following ways
                         Text("10").tag(10)
                         Text("15").tag(15)
                     }
-                    InfoText("Pairing a cell phone to the base via Bluetooth allows you to make and receive cell calls on the base or handsets and transfer your cell phone contacts to the phonebook.")
-                    Picker("Maximum Number Of Smartphones As Handsets", selection: $phone.smartphonesAsHandsetsOverWiFi) {
-                        Text("None").tag(0)
-                        Text("1").tag(1)
-                        Text("2").tag(2)
-                        Text("4").tag(4)
+                    .onChange(of: phone.baseBluetoothCellPhonesSupported) { oldValue, newValue in
+                        phone.baseBluetoothCellPhonesSupportedChanged(oldValue: oldValue, newValue: newValue)
                     }
-                    InfoText("When a smartphone is registered to a Wi-Fi-compatible base and both devices are on the same network, the smartphone can be used as a handset, and you can transfer its data to the base or handsets.")
+                    InfoText("Pairing a cell phone to the base via Bluetooth allows you to make and receive cell calls on the base or handsets and transfer your cell phone contacts to the phonebook.")
                     if phone.baseBluetoothCellPhonesSupported > 0 {
                         Picker("Cell Line In Use Status On Base", selection: $phone.cellLineInUseStatusOnBase) {
                             Text("None").tag(0)
@@ -815,9 +814,18 @@ A phone's voicemail indicator usually works in one or both of the following ways
                             Text("Cell Line Only Mode").tag(2)
                         }
                         InfoText("If you use only cell lines, the \"no line\" alert will be suppressed automatically or can be supressed manually, depending on the phone. A dedicated cell line only mode allows the phone to disable most landline-related features.")
+                        Toggle("Supports Cell Phone Alerts", isOn: $phone.supportsCellAlerts)
+                        InfoText("The base and handsets can alert you when a paired cell phone receives a text message or other alerts by sounding a tone and/or displaying/announcing the alert.")
                         Toggle("Has Cell Phone Voice Control", isOn: $phone.hasCellPhoneVoiceControl)
                         InfoText("You can talk to your cell phone voice assistant (e.g. Siri or Google Now) using the base or handset.")
                     }
+                    Picker("Maximum Number Of Smartphones As Handsets", selection: $phone.smartphonesAsHandsetsOverWiFi) {
+                        Text("None").tag(0)
+                        Text("1").tag(1)
+                        Text("2").tag(2)
+                        Text("4").tag(4)
+                    }
+                    InfoText("When a smartphone is registered to a Wi-Fi-compatible base and both devices are on the same network, the smartphone can be used as a handset, and you can transfer its data to the base or handsets.")
                 }
             }
         }
@@ -872,6 +880,10 @@ A phone's voicemail indicator usually works in one or both of the following ways
 #if !os(visionOS)
                         .scrollDismissesKeyboard(.interactively)
 #endif
+                        .onChange(of: phone.basePhonebookCapacity) {
+                            oldValue, newValue in
+                            phone.basePhonebookCapacityChanged(oldValue: oldValue, newValue: newValue)
+                        }
                     if phone.callBlockPreScreening > 0 {
                         InfoText("Numbers saved to the base's home phonebook will always ring through. Save frequently-dialed numbers you want to always ring through to the phonebook instead of the allowed numbers list.")
                     }
@@ -881,7 +893,7 @@ A phone's voicemail indicator usually works in one or both of the following ways
                         }
                         InfoText("The phone can announce the names of phonebook entries as you scroll through them.")
                     }
-                    if phone.basePhonebookCapacity >= 150 {
+                    if phone.basePhonebookCapacity >= phonebookTransferRequiredMaxCapacity {
                         Picker("Bluetooth Cell Phone Phonebook Transfers", selection: $phone.bluetoothPhonebookTransfers) {
                             Text("Not Supported").tag(0)
                             Text("To Home Phonebook").tag(1)
@@ -889,7 +901,14 @@ A phone's voicemail indicator usually works in one or both of the following ways
                                 Text("To Separate Cell Phonebook").tag(2)
                             }
                         }
+                        .onChange(of: phone.bluetoothPhonebookTransfers) { oldValue, newValue in
+                            phone.bluetoothPhonebookTransfersChanged(oldValue: oldValue, newValue: newValue)
+                        }
                         InfoText("Storing transferred cell phonebook entries in the home phonebook allows those entries to work with features such as home line caller ID phonebook match and call block pre-screening. It also allows you to view all your phonebook entries in one place. If transferred cell phonebooks are stored separately from the home phonebook, caller ID phonebook match usually only works with the corresponding cell line.\nSome phones support Bluetooth cell phone phonebook transfers even if they don't support cell phone linking.")
+                        if phone.bluetoothPhonebookTransfers > 0 && phone.isCordless {
+                            Toggle("Can Transfer Using Base/In Background", isOn: $phone.baseOrInBackgroundPhonebookTransfer)
+                            InfoText("Depending on the phone, the phonebook transfer can be initiated using just the base, just the handset, or both. In-background transfer allows you to leave the handset's phonebook transfer screen once started, so you can do other things on that handset or put it back to charge. For phones where phonebook transfers can only be initiated from the handset and that don't support in-background transfer, the handset may not be able to be put back on charge without cancelling the transfer.")
+                        }
                     }
                 }
             }

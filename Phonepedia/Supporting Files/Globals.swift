@@ -33,6 +33,9 @@ func cnamForName(_ name: String) -> String {
 // The current year to use as the default value of a phone or handset's release year/acquisition year.
 var currentYear = Calendar.current.component(.year, from: Date())
 
+// The least amount of maximum phonebook capacity required to support Bluetooth phonebook transfers.
+var phonebookTransferRequiredMaxCapacity = 150
+
 #if os(macOS)
 func getPNGDataFromNSImage(image: NSImage) -> Data {
 	// Get the CGImage from the NSImage.

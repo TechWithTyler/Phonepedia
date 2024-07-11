@@ -349,7 +349,7 @@ struct HandsetInfoDetailView: View {
                                 Text("Talking Phonebook")
                             }
                         }
-						if handset.phonebookCapacity >= 150 {
+						if handset.phonebookCapacity >= phonebookTransferRequiredMaxCapacity {
 							Toggle("Supports Bluetooth Phonebook Transfers", isOn: $handset.bluetoothPhonebookTransfers)
 						}
                     }

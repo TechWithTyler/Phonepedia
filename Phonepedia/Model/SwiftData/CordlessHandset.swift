@@ -336,7 +336,19 @@ final class CordlessHandset {
     }
 
     // MARK: - Property Change Handlers
-	
+
+    func phonebookCapacityChanged(oldValue: Int, newValue: Int) {
+        if newValue < phonebookTransferRequiredMaxCapacity {
+            bluetoothPhonebookTransfers = false
+        }
+        if newValue == 0 {
+            redialNameDisplay = 0
+            callerIDPhonebookMatch = false
+            hasTalkingPhonebook = false
+            speedDialPhonebookEntryMode = 0
+        }
+    }
+
 	func cordlessDeviceTypeChanged(oldValue: Int, newValue: Int) {
 		if newValue > 0 {
             talkOffButtonType = 0

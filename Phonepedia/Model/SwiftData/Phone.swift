@@ -231,10 +231,16 @@ final class Phone {
 
     var supportsAddingOfPBXLineAccessNumber: Bool = false
 
+    var supportsCellRingtone: Bool = false
+
+    var supportsCellAlerts: Bool = false
+
     var baseCellRingtone: Int = 1
-	
+
 	var bluetoothPhonebookTransfers: Int = 0
-	
+
+    var baseOrInBackgroundPhonebookTransfer: Bool = false
+
 	var hasCellPhoneVoiceControl: Bool = false
 	
 	var basePhonebookCapacity: Int = 50
@@ -514,7 +520,26 @@ final class Phone {
     }
 
     // MARK: - Property Change Handlers
-    
+
+    func bluetoothPhonebookTransfersChanged(oldValue: Int, newValue: Int) {
+        if newValue == 0 {
+            supportsPhonebookTransferDialingCodes = false
+            baseOrInBackgroundPhonebookTransfer = false
+        }
+    }
+
+    func basePhonebookCapacityChanged(oldValue: Int, newValue: Int) {
+        if newValue < phonebookTransferRequiredMaxCapacity {
+            bluetoothPhonebookTransfers = 0
+        }
+        if newValue == 0 {
+            redialNameDisplay = 0
+            callerIDPhonebookMatch = false
+            hasTalkingPhonebook = false
+            speedDialPhonebookEntryMode = 0
+        }
+    }
+
     func supportsWiredHeadsetsChanged(oldValue: Bool, newValue: Bool) {
         if !newValue && musicOnHoldLive {
             musicOnHoldLive = false
@@ -570,6 +595,17 @@ final class Phone {
         }
     }
 
+    func baseBluetoothCellPhonesSupportedChanged(oldValue: Int, newValue: Int) {
+        if newValue == 0 {
+            cellLineOnlyBehavior = 0
+            cellLineInUseStatusOnBase = 0
+            baseCellRingtone = 0
+            supportsCellAlerts = false
+            hasCellPhoneVoiceControl = false
+            supportsAddingOfCellAreaCode = false
+        }
+    }
+
 	func isCordlessChanged(oldValue: Bool, newValue: Bool) {
 		if newValue {
 			cordedPhoneType = 0
@@ -593,7 +629,9 @@ final class Phone {
 	}
     
     func totalBaseRingtonesChanged(oldValue: Int, newValue: Int) {
-        guard isCordless else { return }
+        if baseCellRingtone == 3 {
+            baseCellRingtone = 1
+        }
         if newValue < oldValue && (baseIntercomRingtone >= (totalBaseRingtones + 1) || baseIntercomRingtone == 1) {
             baseIntercomRingtone -= 1
         }
@@ -603,6 +641,9 @@ final class Phone {
 		if newValue == 0 {
             if handsetRenaming == 2 {
                 handsetRenaming = 1
+            }
+            if baseCellRingtone == 3 {
+                baseCellRingtone = 1
             }
 			hasTalkingPhonebook = false
             baseNavigatorKeyType = 0
