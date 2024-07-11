@@ -365,13 +365,13 @@ final class Phone {
     var baseChargesHandset: Bool {
         return isCordless && !hasCordedReceiver && !hasTransmitOnlyBase
     }
-    
+
+    // The following computed properties check whether the base and/or cordless handsets of a cordless phone have a given feature. For corded phones, the cordless handset checks don't apply.
+
     @Transient
     var supportsWiredHeadsets: Bool {
         return baseSupportsWiredHeadsets || !cordlessHandsetsIHave.filter({$0.supportsWiredHeadsets}).isEmpty
     }
-    
-    // The following computed properties check whether the base and/or cordless handsets of a cordless phone have a given feature. For corded phones, the cordless handset checks don't apply.
     
     @Transient
     var hasCallerIDList: Bool {
