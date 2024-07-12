@@ -162,13 +162,21 @@ final class Phone {
 	var baseChargeContactType: Int = 1
 	
 	var hasAnsweringSystem: Int = 3
-	
+
+    var hasCallRecording: Int = 0
+
 	var answeringSystemMenuOnBase: Int = 0
 	
 	var greetingRecordingOnBaseOrHandset: Int = 1
 	
 	var hasMessageAlertByCall: Bool = false
-	
+
+    var canRecordVoiceMemos: Bool = false
+
+    var numberOfMailboxes: Int = 1
+
+    var hasAutoAttendantAndPersonalMailboxes: Bool = false
+
 	var hasGreetingOnlyMode: Bool = true
 	
 	var voicemailIndication: Int = 3
@@ -554,6 +562,12 @@ final class Phone {
                 }
             }
         }
+        if newValue < 4 {
+            hasAutoAttendantAndPersonalMailboxes = false
+        }
+        if newValue > 1 {
+            numberOfMailboxes = 1
+        }
     }
 	
 	func transmitOnlyBaseChanged(oldValue: Bool, newValue: Bool) {
@@ -682,6 +696,9 @@ final class Phone {
 				handset.fitsOnBase = true
 			}
 		}
+        if newValue < 8 {
+            hasAutoAttendantAndPersonalMailboxes = false
+        }
 		if newValue == 0 && oldValue == -1 {
 			maxCordlessHandsets = 1
 		} else if newValue == 0 && oldValue == 1 {

@@ -12,29 +12,29 @@ import PhotosUI
 import SheftAppsStylishUI
 
 struct PhoneDetailView: View {
-
+    
     // MARK: - Properties - Objects
-
+    
     @Bindable var phone: Phone
-
+    
     @EnvironmentObject var photoViewModel: PhonePhotoViewModel
-
+    
     @AppStorage("phoneDescriptionTextSize") var phoneDescriptionTextSize: Double = SATextViewMinFontSize
-
+    
     // MARK: - Properties - Booleans
-
+    
     @State private var showingFrequenciesExplanation: Bool = false
-
+    
     @State private var showingRegistrationExplanation: Bool = false
-
+    
     @Binding var showingPhoneTypeDefinitions: Bool
-
+    
     @State private var showingAboutDialingCodes: Bool = false
-
+    
     @State private var showingAboutConnectionTypes: Bool = false
-
+    
     // MARK: - Body
-
+    
     var body: some View {
         NavigationStack {
             Form {
@@ -85,30 +85,30 @@ struct PhoneDetailView: View {
                 entriesGroup
                 if phone.isCordless || phone.cordedPhoneType == 0 {
                     callBlockingGroup
-                        Section("Special Features") {
-                            if phone.baseCallerIDCapacity > 0 || !phone.cordlessHandsetsIHave.filter({$0.callerIDCapacity > 0}).isEmpty {
-                                Toggle("One-Ring Scam Call Detection", isOn: $phone.scamCallDetection)
-                                InfoText("If a caller hangs up within 1 or 2 rings and caller ID is received, the phone can mark the call as a one-ring scam call when viewed in the caller ID list, and warn the user when trying to call that caller.")
-                            }
-                            Picker("Room/Baby Monitor", selection: $phone.roomMonitor) {
-                                Text("Not Supported").tag(0)
-                                Text("Call From Handset/Base").tag(1)
-                                Text("Call To Handset/Base").tag(2)
-                                Text("Sound-Activated Call").tag(3)
-                            }
-                            InfoText("Call From: You call the monitored handset/base.\nCall To: The monitored handset/base calls you at another handset/base.\nSound-Activated Call: The monitored handset/base calls you at another handset/base or an outside phone number when sound is detected (e.g., a crying baby or barking dog).")
-                            if phone.roomMonitor == 3 {
-                                Picker("External Room Monitor Keypad Entry Handled By", selection: $phone.externalRoomMonitorAutomatedSystem) {
-                                    Text("Base").tag(0)
-                                    Text("Handset").tag(1)
-                                }
-                                InfoText("When a handset/base detects sound and calls an outside phone number, the outside caller can talk back to the handset/base by dialing a code, or deactivate the feature by dialing another code.")
-                            }
-                            Stepper("Smart Home Devices Supported: \(phone.smartHomeDevicesSupported)", value: $phone.smartHomeDevicesSupported, in: 0...50, step: 5)
-                            InfoText("Smart home devices registered to a cordless phone can notify the handset/base or outside phone when things happen and the handset/base can control these devices. For example, when a person rings a doorbell, the phone can sound a chime and color display handsets can show a live feed of the doorbell's video.")
-                            Toggle("Answer By Voice", isOn: $phone.answerByVoice)
-                            InfoText("The base and compatible handsets can detect sound when landline/cell calls come in, allowing calls to be answered by voice. The phone either listens for any sound or is programmed to listen for a specific phrase.")
+                    Section("Special Features") {
+                        if phone.baseCallerIDCapacity > 0 || !phone.cordlessHandsetsIHave.filter({$0.callerIDCapacity > 0}).isEmpty {
+                            Toggle("One-Ring Scam Call Detection", isOn: $phone.scamCallDetection)
+                            InfoText("If a caller hangs up within 1 or 2 rings and caller ID is received, the phone can mark the call as a one-ring scam call when viewed in the caller ID list, and warn the user when trying to call that caller.")
                         }
+                        Picker("Room/Baby Monitor", selection: $phone.roomMonitor) {
+                            Text("Not Supported").tag(0)
+                            Text("Call From Handset/Base").tag(1)
+                            Text("Call To Handset/Base").tag(2)
+                            Text("Sound-Activated Call").tag(3)
+                        }
+                        InfoText("Call From: You call the monitored handset/base.\nCall To: The monitored handset/base calls you at another handset/base.\nSound-Activated Call: The monitored handset/base calls you at another handset/base or an outside phone number when sound is detected (e.g., a crying baby or barking dog).")
+                        if phone.roomMonitor == 3 {
+                            Picker("External Room Monitor Keypad Entry Handled By", selection: $phone.externalRoomMonitorAutomatedSystem) {
+                                Text("Base").tag(0)
+                                Text("Handset").tag(1)
+                            }
+                            InfoText("When a handset/base detects sound and calls an outside phone number, the outside caller can talk back to the handset/base by dialing a code, or deactivate the feature by dialing another code.")
+                        }
+                        Stepper("Smart Home Devices Supported: \(phone.smartHomeDevicesSupported)", value: $phone.smartHomeDevicesSupported, in: 0...50, step: 5)
+                        InfoText("Smart home devices registered to a cordless phone can notify the handset/base or outside phone when things happen and the handset/base can control these devices. For example, when a person rings a doorbell, the phone can sound a chime and color display handsets can show a live feed of the doorbell's video.")
+                        Toggle("Answer By Voice", isOn: $phone.answerByVoice)
+                        InfoText("The base and compatible handsets can detect sound when landline/cell calls come in, allowing calls to be answered by voice. The phone either listens for any sound or is programmed to listen for a specific phrase.")
+                    }
                 }
             }
             .formStyle(.grouped)
@@ -173,9 +173,9 @@ struct PhoneDetailView: View {
             }
         }
     }
-
+    
     // MARK: - Detail Section Groups
-
+    
     @ViewBuilder
     var basicsGroup: some View {
         Group {
@@ -498,7 +498,7 @@ In most cases, if the base has a charge light/display message, the completion of
             }
         }
     }
-
+    
     @ViewBuilder
     var ringersAndMOHGroup: some View {
         Group {
@@ -559,7 +559,7 @@ In most cases, if the base has a charge light/display message, the completion of
             }
         }
     }
-
+    
     @ViewBuilder
     var featurePhoneGroup: some View {
         Group {
@@ -694,6 +694,28 @@ In most cases, if the base has a charge light/display message, the completion of
                     InfoText("Greeting Only, sometimes called Announce Only or Answer Only, answers calls but doesn't accept incoming messages. Some phones allow you to record a separate greeting for both modes, allowing you to easily switch between modes without having to re-record your greeting each time. Example: \"Hello. You have reached \(names.randomElement()!). I'm not available to take your call, so please call again later.\"")
                     Toggle("Has Message Alert by Call", isOn: $phone.hasMessageAlertByCall)
                     InfoText("This feature allows the answering system to call out to a stored phone number each time a new message is left, so you don't have to constantly be calling to check for new messages while you're away.")
+                    Toggle("Can Record Voice Memos", isOn: $phone.canRecordVoiceMemos)
+                    InfoText("Some answering systems allow you to record voice memos, which are saved like incoming messages but don't involve the phone line.")
+                    Picker("Number of Mailboxes", selection: $phone.numberOfMailboxes) {
+                        Text(phone.numberOfLandlines == 1 ? "1" : "One For Each Line").tag(1)
+                        if phone.numberOfLandlines == 1 {
+                            Text("2").tag(2)
+                            Text("3").tag(3)
+                            Text("4").tag(4)
+                        }
+                    }
+                    InfoText("On single-line phones, mailboxes allow you to organize messages for different people or purposes. In your greeting, instruct callers to choose the desired mailbox. Example: \"For Jack, press 1, or just stay on the line. For Jill, press 2. For Jim, press 3.\"\nOn multi-line phones, each line has its own answering system, which can be independently turned on/off. Incoming messages will be stored in the answering system corresponding to the line receiving the call. On some phones, you can only remotely access the answering system of the line you're calling, while on others, you can access any line remotely no matter which line you're calling.")
+                    if phone.isCordedCordless && phone.maxCordlessHandsets >= 8 && phone.numberOfLandlines == 4 {
+                        Toggle("Auto Attendant/Personal Mailboxes", isOn: $phone.hasAutoAttendantAndPersonalMailboxes)
+                        InfoText("On a business phone with multiple cordless handsets/desksets, each handset/deskset can have its own mailbox, which can only be accessed by that handset/deskset or the base. There's also a main mailbox, often called the general delivery mailbox, for any messages not directed to a specific personal mailbox, that the base and all handsets/desksets can access.\nAn automated attendant system can route callers to a specific handset/deskset by asking callers to enter the handset's/deskset's extension number, which is the number assigned when the handset/deskset is registered to the base. If the call isn't answered, the caller can leave a message in the personal mailbox.\nMessages are stored in the base in the slot corresponding to the registered handset/deskset--you can't access the personal mailbox of a handset/deskset if it's out of range of the base.")
+                    }
+                    Picker("Call Recording", selection: $phone.hasCallRecording) {
+                        Text("Not Supported").tag(0)
+                        Text("Without Notification").tag(1)
+                        Text("Intermittent Beeps").tag(2)
+                        Text("Spoken Notification").tag(3)
+                    }
+                    InfoText("Call recording allows you to record both sides of a phone call as an answering system message. In some areas, it's illegal to record calls without the other party's consent.\n• Without Notification: The caller isn't notified when call recording starts. It is your responsibility to tell the caller that you're recording the call.\n• Intermittent beeps: Both you and the caller hear a beep every 15 seconds or so, indicating call recording is in progress. It is your responsibility to tell the caller that you're recording the call.\n• Spoken Notification: A spoken notification is played to you and the caller (e.g., \"This call is being recorded.\" before recording starts. This takes care of the legal requirement to tell the caller that you're recording the call.")
                 }
                 Picker("\"New Voicemail\" Detection Method", selection: $phone.voicemailIndication) {
                     Text("None").tag(0)
@@ -733,7 +755,7 @@ A phone's voicemail indicator usually works in one or both of the following ways
             }
         }
     }
-
+    
     @ViewBuilder
     var linesGroup: some View {
         Group {
@@ -830,7 +852,7 @@ A phone's voicemail indicator usually works in one or both of the following ways
             }
         }
     }
-
+    
     @ViewBuilder
     var entriesGroup: some View {
         Group {
@@ -959,7 +981,7 @@ By assigning a handset number to a cordless or corded/cordless phone base's one-
             }
         }
     }
-
+    
     @ViewBuilder
     var callBlockingGroup: some View {
         Group {
@@ -1032,9 +1054,9 @@ When the first ring is suppressed, the number of rings you hear will be one less
             }
         }
     }
-
+    
     // MARK: - Phone Photo/Actions
-
+    
     @ViewBuilder
     var photoAndOptions: some View {
         Group {
@@ -1065,7 +1087,7 @@ When the first ring is suppressed, the number of rings you hear will be one less
             }
         }
     }
-
+    
 }
 
 #Preview {
