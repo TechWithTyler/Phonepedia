@@ -135,6 +135,7 @@ struct HandsetInfoDetailView: View {
                         Stepper("Standard Ringtones: \(handset.ringtones)", value: $handset.ringtones, in: 1...50)
                         Stepper("Music/Melody Ringtones: \(handset.musicRingtones)", value: $handset.musicRingtones, in: 0...50)
                         Text("Total Ringtones: \(handset.totalRingtones)")
+                        RingtoneInfoView()
                         Picker("Custom Ringtones Source", selection: $handset.customRingtonesSource) {
                             Text("None").tag(0)
                             Text("Recording Only").tag(1)

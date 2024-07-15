@@ -65,14 +65,14 @@ struct PhoneDetailView: View {
                             Toggle(isOn: $phone.hasIntercom) {
                                 Text("Has Intercom")
                             }
-                            InfoText("Intercom allows you to have a conversation between 2 handsets/the base and a handset.")
+                            InfoText("Intercom allows you to have a conversation between 2 cordless devices/the base and a cordless device.")
                             if phone.hasIntercom && !phone.hasBaseSpeakerphone && !phone.isCordedCordless {
                                 Toggle(isOn: $phone.hasBaseIntercom) {
                                     Text("Has Base Intercom")
                                 }
                             }
                             if phone.hasIntercom && !phone.hasBaseIntercom && phone.cordlessHandsetsIHave.count <= 1 {
-                                WarningText("Intercom requires 2 or more handsets to be registered to the base.")
+                                WarningText("Intercom requires 2 or more handsets/desksets, or at least 1 handset/deskset and 1 headset/speakerphone, to be registered to the base.")
                             }
                         }
                     }
@@ -504,6 +504,7 @@ In most cases, if the base has a charge light/display message, the completion of
                         Stepper("Base Music/Melody Ringtones: \(phone.baseMusicRingtones)", value: $phone.baseMusicRingtones, in: 0...50)
                     }
                     Text("Total Ringtones: \(phone.totalBaseRingtones)")
+                    RingtoneInfoView()
                 }
                 else if !phone.isCordless && (phone.cordedPhoneType == 0 || phone.cordedPhoneType == 2) {
                     Picker("Ringer Type", selection: $phone.cordedRingerType) {
