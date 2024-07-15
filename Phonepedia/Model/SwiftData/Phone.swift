@@ -300,7 +300,9 @@ final class Phone {
 	var answerByVoice: Bool = false
 	
 	var smartphonesAsHandsetsOverWiFi: Int = 0
-	
+
+    var outOfServiceToneOnAnswer: Bool = false
+
 	var scamCallDetection: Bool = false
 	
 	var placeOnBaseAutoRegister: Bool = true

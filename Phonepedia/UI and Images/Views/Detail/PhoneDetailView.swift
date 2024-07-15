@@ -86,6 +86,8 @@ struct PhoneDetailView: View {
                 if phone.isCordless || phone.cordedPhoneType == 0 {
                     callBlockingGroup
                     Section("Special Features") {
+                        Toggle("Plays Out-Of-Service Tone Upon Answering", isOn: $phone.outOfServiceToneOnAnswer)
+                        InfoText("\"Not in service\" tones, also known as Special Information Tones or SIT tones, are the 3 rising tones you often hear when you call a number that's out of service or that can't be dialed. Some autodialers will remove any numbers that play SIT tones from their list so they won't call them again. Because of this, some phones/devices were designed to play SIT tones when a phone on the line was answered, making autodialers remove your number from their list. However, most autodialers today no longer use SIT tone detection as they have other means of knowing what numbers are or aren't in service, and today's phones don't include this feature. You'll still hear these tones if you call an out-of-servie number, depending on the provider that serves the area or that formerly served the number.")
                         if phone.baseCallerIDCapacity > 0 || !phone.cordlessHandsetsIHave.filter({$0.callerIDCapacity > 0}).isEmpty {
                             Toggle("One-Ring Scam Call Detection", isOn: $phone.scamCallDetection)
                             InfoText("If a caller hangs up within 1 or 2 rings and caller ID is received, the phone can mark the call as a one-ring scam call when viewed in the caller ID list, and warn the user when trying to call that caller.")
