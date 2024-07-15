@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8D20E37B2C45B9740016800C /* PhoneInCollectionStatusPickerItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D20E37A2C45B9740016800C /* PhoneInCollectionStatusPickerItems.swift */; };
 		8D380B252C3DD35D00505B89 /* PhoneCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D380B242C3DD35D00505B89 /* PhoneCountView.swift */; };
 		8D394FA22B87F4CE0047C2F8 /* RegistrationExplanationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D394FA12B87F4CE0047C2F8 /* RegistrationExplanationView.swift */; };
 		8D3D27902ABCDDF30005FEC2 /* PhonepediaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3D278F2ABCDDF30005FEC2 /* PhonepediaUITests.swift */; };
@@ -91,6 +92,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8D20E37A2C45B9740016800C /* PhoneInCollectionStatusPickerItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneInCollectionStatusPickerItems.swift; sourceTree = "<group>"; };
 		8D380B242C3DD35D00505B89 /* PhoneCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneCountView.swift; sourceTree = "<group>"; };
 		8D394FA12B87F4CE0047C2F8 /* RegistrationExplanationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationExplanationView.swift; sourceTree = "<group>"; };
 		8D3D278D2ABCDDF30005FEC2 /* PhonepediaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhonepediaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -277,6 +279,7 @@
 		8DA844B52B72E1D7006CBCA7 /* Child Views */ = {
 			isa = PBXGroup;
 			children = (
+				8D20E37A2C45B9740016800C /* PhoneInCollectionStatusPickerItems.swift */,
 				8DA844B62B72E1D7006CBCA7 /* PhoneImage.swift */,
 				8DA844B82B72E1D7006CBCA7 /* PhoneImageUnavailableView.swift */,
 				8D94EE0B2B912B9E00B04EBF /* WaveView.swift */,
@@ -537,6 +540,7 @@
 				8DEC3A682C2CB9D200737094 /* HandsetPhonebookType.swift in Sources */,
 				8DA844DB2B72E1D7006CBCA7 /* BatteryInfoView.swift in Sources */,
 				8D7A74A42C26203E00C5329E /* DocumentLaunchPhonesAccessoryView.swift in Sources */,
+				8D20E37B2C45B9740016800C /* PhoneInCollectionStatusPickerItems.swift in Sources */,
 				8DA844F12B72E1D7006CBCA7 /* PhonePhotoViewModel.swift in Sources */,
 				8DA844DE2B72E1D7006CBCA7 /* AntennaInfoView.swift in Sources */,
 				8DA844E92B72E1D7006CBCA7 /* Phone.swift in Sources */,
