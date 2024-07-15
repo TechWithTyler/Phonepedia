@@ -132,8 +132,8 @@ struct HandsetInfoDetailView: View {
                     }
 				if handset.cordlessDeviceType < 2 {
                     Section("Ringers") {
-                        Stepper("Ringtones: \(handset.ringtones)", value: $handset.ringtones, in: 1...25)
-                        Stepper("Music Ringtones: \(handset.musicRingtones)", value: $handset.musicRingtones, in: 0...25)
+                        Stepper("Ringtones: \(handset.ringtones)", value: $handset.ringtones, in: 1...50)
+                        Stepper("Music Ringtones: \(handset.musicRingtones)", value: $handset.musicRingtones, in: 0...50)
                         Text("Total Ringtones: \(handset.totalRingtones)")
                         Picker("Custom Ringtones Source", selection: $handset.customRingtonesSource) {
                             Text("None").tag(0)
