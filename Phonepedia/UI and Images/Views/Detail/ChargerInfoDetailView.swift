@@ -13,7 +13,7 @@ struct ChargerInfoDetailView: View {
     
     // MARK: - Properties - Charger
 
-	@Binding var charger: Charger
+	@Binding var charger: CordlessHandsetCharger
     
     // MARK: - Body
 
@@ -59,7 +59,7 @@ struct ChargerInfoDetailView: View {
 }
 
 #Preview {
-    @Previewable @State var charger = Charger()
+    @Previewable @State var charger = CordlessHandsetCharger()
     charger.phone = Phone(brand: "Panasonic", model: "KX-TGF675")
 	return ChargerInfoDetailView(charger: $charger)
 }

@@ -63,17 +63,23 @@ struct PhonePartInfoView: View {
 								}
 							}
 							.contextMenu {
+                                Button {
+                                    duplicateHandset(handset.wrappedValue)
+                                } label: {
+                                    Label("Duplicate", systemImage: "doc.on.doc")
+                                }
+                                Divider()
 								Button(role: .destructive) {
 									deleteHandset(at: phone.cordlessHandsetsIHave.firstIndex(of: handset.wrappedValue)!)
 								} label: {
-									Text("Deregister")
+                                    Label("Delete", systemImage: "trash")
 								}
 							}
 							.swipeActions {
 								Button(role: .destructive) {
 									deleteHandset(at: phone.cordlessHandsetsIHave.firstIndex(of: handset.wrappedValue)!)
 								} label: {
-									Text("Deregister")
+                                    Label("Delete", systemImage: "trash")
 								}
 							}
 						}
@@ -106,17 +112,23 @@ struct PhonePartInfoView: View {
 								}
 							}
 								.contextMenu {
+                                    Button {
+                                        duplicateCharger(charger.wrappedValue)
+                                    } label: {
+                                        Label("Duplicate", systemImage: "doc.on.doc")
+                                    }
+                                    Divider()
 									Button(role: .destructive) {
 										deleteCharger(at: phone.chargersIHave.firstIndex(of: charger.wrappedValue)!)
 									} label: {
-										Text("Delete")
+                                        Label("Delete", systemImage: "trash")
 									}
 								}
 								.swipeActions {
 									Button(role: .destructive) {
 										deleteCharger(at: phone.chargersIHave.firstIndex(of: charger.wrappedValue)!)
 									} label: {
-										Text("Delete")
+                                        Label("Delete", systemImage: "trash")
 									}
 								}
 						}
@@ -136,7 +148,7 @@ struct PhonePartInfoView: View {
                     phone.cordlessHandsetsIHave.removeAll()
                     phone.chargersIHave.removeAll()
                 } label: {
-                    Text("Delete All Handsets/Chargers")
+                    Label("Delete All Handsets/Chargers", systemImage: "trash.fill")
                 }
             }
 		}
@@ -151,8 +163,15 @@ struct PhonePartInfoView: View {
 		)
 	}
 
+    func duplicateHandset(_ handset: CordlessHandset) {
+        let newHandset = handset.duplicate()
+        if let index = phone.cordlessHandsetsIHave.firstIndex(of: handset) {
+            phone.cordlessHandsetsIHave.insert(newHandset, at: index + 1)
+        }
+    }
+
 	func addCharger() {
-		phone.chargersIHave.append(Charger())
+		phone.chargersIHave.append(CordlessHandsetCharger())
 	}
 
 	func deleteHandset(at index: Int) {
@@ -162,6 +181,13 @@ struct PhonePartInfoView: View {
 	func deleteCharger(at index: Int) {
 		phone.chargersIHave.remove(at: index)
 	}
+
+    func duplicateCharger(_ charger: CordlessHandsetCharger) {
+        let newCharger = charger.duplicate()
+        if let index = phone.chargersIHave.firstIndex(of: charger) {
+            phone.chargersIHave.insert(newCharger, at: index + 1)
+        }
+    }
 
 }
 

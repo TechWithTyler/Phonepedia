@@ -43,7 +43,7 @@
 		8DA844E62B72E1D7006CBCA7 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844BC2B72E1D7006CBCA7 /* Globals.swift */; };
 		8DA844E82B72E1D7006CBCA7 /* CordlessHandset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844C02B72E1D7006CBCA7 /* CordlessHandset.swift */; };
 		8DA844E92B72E1D7006CBCA7 /* Phone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844C12B72E1D7006CBCA7 /* Phone.swift */; };
-		8DA844EA2B72E1D7006CBCA7 /* Charger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844C22B72E1D7006CBCA7 /* Charger.swift */; };
+		8DA844EA2B72E1D7006CBCA7 /* CordlessHandsetCharger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844C22B72E1D7006CBCA7 /* CordlessHandsetCharger.swift */; };
 		8DA844EB2B72E1D7006CBCA7 /* PhoneType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844C32B72E1D7006CBCA7 /* PhoneType.swift */; };
 		8DA844EC2B72E1D7006CBCA7 /* DocumentTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844C42B72E1D7006CBCA7 /* DocumentTypes.swift */; };
 		8DA844ED2B72E1D7006CBCA7 /* Landline Or Not.mlproj in Resources */ = {isa = PBXBuildFile; fileRef = 8DA844C62B72E1D7006CBCA7 /* Landline Or Not.mlproj */; };
@@ -133,7 +133,7 @@
 		8DA844BD2B72E1D7006CBCA7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DA844C02B72E1D7006CBCA7 /* CordlessHandset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CordlessHandset.swift; sourceTree = "<group>"; };
 		8DA844C12B72E1D7006CBCA7 /* Phone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Phone.swift; sourceTree = "<group>"; };
-		8DA844C22B72E1D7006CBCA7 /* Charger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Charger.swift; sourceTree = "<group>"; };
+		8DA844C22B72E1D7006CBCA7 /* CordlessHandsetCharger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CordlessHandsetCharger.swift; sourceTree = "<group>"; };
 		8DA844C32B72E1D7006CBCA7 /* PhoneType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneType.swift; sourceTree = "<group>"; };
 		8DA844C42B72E1D7006CBCA7 /* DocumentTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentTypes.swift; sourceTree = "<group>"; };
 		8DA844C62B72E1D7006CBCA7 /* Landline Or Not.mlproj */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = "Landline Or Not.mlproj"; sourceTree = "<group>"; };
@@ -318,7 +318,7 @@
 			children = (
 				8DA844C02B72E1D7006CBCA7 /* CordlessHandset.swift */,
 				8DA844C12B72E1D7006CBCA7 /* Phone.swift */,
-				8DA844C22B72E1D7006CBCA7 /* Charger.swift */,
+				8DA844C22B72E1D7006CBCA7 /* CordlessHandsetCharger.swift */,
 				8DA844C32B72E1D7006CBCA7 /* PhoneType.swift */,
 				8D95997C2C22212400FEED40 /* Migration.swift */,
 				8DEC3A672C2CB9D200737094 /* HandsetPhonebookType.swift */,
@@ -567,7 +567,7 @@
 				8DC9E7DC2C37434C0089B48A /* AnsweringSystemGreetingComponents.swift in Sources */,
 				8DA844E82B72E1D7006CBCA7 /* CordlessHandset.swift in Sources */,
 				8DA844F32B72E1D7006CBCA7 /* PhonepediaApp.swift in Sources */,
-				8DA844EA2B72E1D7006CBCA7 /* Charger.swift in Sources */,
+				8DA844EA2B72E1D7006CBCA7 /* CordlessHandsetCharger.swift in Sources */,
 				8DA844EC2B72E1D7006CBCA7 /* DocumentTypes.swift in Sources */,
 				8DA844D22B72E1D7006CBCA7 /* PhoneListView.swift in Sources */,
 				8D394FA22B87F4CE0047C2F8 /* RegistrationExplanationView.swift in Sources */,

@@ -1,5 +1,5 @@
 //
-//  Charger.swift
+//  CordlessHandsetCharger.swift
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 6/28/23.
@@ -10,7 +10,7 @@ import SwiftUI
 import SwiftData
 
 @Model
-final class Charger {
+final class CordlessHandsetCharger {
     
     // MARK: - Properties
 
@@ -82,6 +82,24 @@ final class Charger {
         secondaryColorRed = components.red
         secondaryColorGreen = components.green
         secondaryColorBlue = components.blue
+    }
+
+    func duplicate() -> CordlessHandsetCharger {
+        // 1. Initialize a new CordlessHandset, passing the original's properties to the initializer.
+        let newCharger = CordlessHandsetCharger()
+        newCharger.phone = phone
+        newCharger.mainColorRed = mainColorRed
+        newCharger.mainColorGreen = mainColorGreen
+        newCharger.mainColorBlue = mainColorBlue
+        newCharger.secondaryColorRed = secondaryColorRed
+        newCharger.secondaryColorGreen = secondaryColorGreen
+        newCharger.secondaryColorBlue = secondaryColorBlue
+        newCharger.hasRangeExtender = hasRangeExtender
+        newCharger.wallMountability = wallMountability
+        newCharger.chargeContactType = chargeContactType
+        newCharger.chargeContactPlacement = chargeContactPlacement
+        newCharger.chargingDirection = chargingDirection
+        return newCharger
     }
 
 }

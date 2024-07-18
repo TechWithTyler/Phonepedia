@@ -168,7 +168,7 @@ struct PhoneListView: View {
     NavigationStack {
         PhoneListView(phones: phones, selectedPhone: $selectedPhone, showingPhoneTypeDefinitions: $showingPhoneTypeDefinitions)
     }
-    .modelContainer(for: [Phone.self, CordlessHandset.self, Charger.self], inMemory: true)
+    .modelContainer(for: [Phone.self, CordlessHandset.self, CordlessHandsetCharger.self], inMemory: true)
     .padding()
     .frame(minWidth: 400, minHeight: 400)
 }

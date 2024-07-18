@@ -438,5 +438,97 @@ final class CordlessHandset {
 			usesBaseCallerID = false
 		}
 	}
-	
+
+    func duplicate() -> CordlessHandset {
+        // 1. Initialize a new CordlessHandset, passing the original's properties to the initializer.
+        let newHandset = CordlessHandset(
+            brand: self.brand,
+            model: self.model,
+            mainColorRed: self.mainColorRed,
+            mainColorGreen: self.mainColorGreen,
+            mainColorBlue: self.mainColorBlue,
+            secondaryColorRed: self.secondaryColorRed,
+            secondaryColorGreen: self.secondaryColorGreen,
+            secondaryColorBlue: self.secondaryColorBlue
+        )
+        // 2. Give the duplicated handset a new UUID.
+        newHandset.id = UUID()
+        // 3. Copy all other properties.
+        newHandset.phone = self.phone
+        newHandset.releaseYear = self.releaseYear
+        newHandset.acquisitionYear = self.acquisitionYear
+        newHandset.whereAcquired = self.whereAcquired
+        newHandset.fitsOnBase = self.fitsOnBase
+        newHandset.maxBases = self.maxBases
+        newHandset.cordlessDeviceType = self.cordlessDeviceType
+        newHandset.displayBacklightColorRed = self.displayBacklightColorRed
+        newHandset.displayBacklightColorGreen = self.displayBacklightColorGreen
+        newHandset.displayBacklightColorBlue = self.displayBacklightColorBlue
+        newHandset.keyForegroundColorRed = self.keyForegroundColorRed
+        newHandset.keyForegroundColorGreen = self.keyForegroundColorGreen
+        newHandset.keyForegroundColorBlue = self.keyForegroundColorBlue
+        newHandset.keyBackgroundColorRed = self.keyBackgroundColorRed
+        newHandset.keyBackgroundColorGreen = self.keyBackgroundColorGreen
+        newHandset.keyBackgroundColorBlue = self.keyBackgroundColorBlue
+        newHandset.cordedReceiverMainColorRed = self.cordedReceiverMainColorRed
+        newHandset.cordedReceiverMainColorGreen = self.cordedReceiverMainColorGreen
+        newHandset.cordedReceiverMainColorBlue = self.cordedReceiverMainColorBlue
+        newHandset.cordedReceiverSecondaryColorRed = self.cordedReceiverSecondaryColorRed
+        newHandset.cordedReceiverSecondaryColorGreen = self.cordedReceiverSecondaryColorGreen
+        newHandset.cordedReceiverSecondaryColorBlue = self.cordedReceiverSecondaryColorBlue
+        newHandset.keyBacklightColorRed = self.keyBacklightColorRed
+        newHandset.keyBacklightColorGreen = self.keyBacklightColorGreen
+        newHandset.keyBacklightColorBlue = self.keyBacklightColorBlue
+        newHandset.buttonType = self.buttonType
+        newHandset.displayType = self.displayType
+        newHandset.batteryType = self.batteryType
+        newHandset.desksetSupportsBackupBatteries = self.desksetSupportsBackupBatteries
+        newHandset.menuUpdateMode = self.menuUpdateMode
+        newHandset.hasSpeakerphone = self.hasSpeakerphone
+        newHandset.lineButtons = self.lineButtons
+        newHandset.visualRinger = self.visualRinger
+        newHandset.ringtones = self.ringtones
+        newHandset.musicRingtones = self.musicRingtones
+        newHandset.customRingtonesSource = self.customRingtonesSource
+        newHandset.intercomRingtone = self.intercomRingtone
+        newHandset.oneTouchDialCapacity = self.oneTouchDialCapacity
+        newHandset.speedDialCapacity = self.speedDialCapacity
+        newHandset.redialCapacity = self.redialCapacity
+        newHandset.softKeys = self.softKeys
+        newHandset.standbySoftKeysCustomizable = self.standbySoftKeysCustomizable
+        newHandset.navigatorKeyType = self.navigatorKeyType
+        newHandset.navigatorKeyUpDownVolume = self.navigatorKeyUpDownVolume
+        newHandset.navigatorKeyStandbyShortcuts = self.navigatorKeyStandbyShortcuts
+        newHandset.navigatorKeyCenterButton = self.navigatorKeyCenterButton
+        newHandset.sideVolumeButtons = self.sideVolumeButtons
+        newHandset.keyBacklightAmount = self.keyBacklightAmount
+        newHandset.supportsWiredHeadsets = self.supportsWiredHeadsets
+        newHandset.answeringSystemMenu = self.answeringSystemMenu
+        newHandset.phonebookCapacity = self.phonebookCapacity
+        newHandset.callerIDPhonebookMatch = self.callerIDPhonebookMatch
+        newHandset.usesBasePhonebook = self.usesBasePhonebook
+        newHandset.usesBaseCallerID = self.usesBaseCallerID
+        newHandset.usesBaseSpeedDial = self.usesBaseSpeedDial
+        newHandset.usesBaseOneTouchDial = self.usesBaseOneTouchDial
+        newHandset.speedDialPhonebookEntryMode = self.speedDialPhonebookEntryMode
+        newHandset.redialNameDisplay = self.redialNameDisplay
+        newHandset.bluetoothHeadphonesSupported = self.bluetoothHeadphonesSupported
+        newHandset.bluetoothPhonebookTransfers = self.bluetoothPhonebookTransfers
+        newHandset.callerIDCapacity = self.callerIDCapacity
+        newHandset.keyFindersSupported = self.keyFindersSupported
+        newHandset.antenna = self.antenna
+        newHandset.hasTalkingCallerID = self.hasTalkingCallerID
+        newHandset.hasTalkingKeypad = self.hasTalkingKeypad
+        newHandset.hasTalkingPhonebook = self.hasTalkingPhonebook
+        newHandset.audibleLowBatteryAlert = self.audibleLowBatteryAlert
+        newHandset.talkOffButtonType = self.talkOffButtonType
+        newHandset.talkOffColorLayer = self.talkOffColorLayer
+        newHandset.speakerphoneColorLayer = self.speakerphoneColorLayer
+        newHandset.hasSpeakerphoneButtonLight = self.hasSpeakerphoneButtonLight
+        newHandset.storageOrSetup = self.storageOrSetup
+        newHandset.hasQZ = self.hasQZ
+        // 4. Return the duplicated handset.
+        return newHandset
+    }
+
 }

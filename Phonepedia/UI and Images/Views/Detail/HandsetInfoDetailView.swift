@@ -29,12 +29,12 @@ struct HandsetInfoDetailView: View {
 		if let phone = handset.phone {
 			Form {
 					HStack {
-						Text("Registered as: Handset \(handsetNumber)")
+						Text("Handset \(handsetNumber)")
 						Button {
 							phone.cordlessHandsetsIHave.removeAll { $0 == handset }
 							dismiss()
 						} label: {
-							Text("Deregister")
+                            Label("Delete", systemImage: "trash")
 						}
 					}
 					FormTextField("Brand", text: $handset.brand)

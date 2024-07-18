@@ -24,6 +24,6 @@ struct PhonepediaVersionedSchema: VersionedSchema {
     static var models: [any PersistentModel.Type] = [
         Phone.self,
         CordlessHandset.self,
-        Charger.self
+        CordlessHandsetCharger.self
     ]
 }

@@ -130,8 +130,8 @@ final class Phone {
 	@Relationship(deleteRule: .cascade, inverse: \CordlessHandset.phone)
 	var cordlessHandsetsIHave: [CordlessHandset] = []
 	
-	@Relationship(deleteRule: .cascade, inverse: \Charger.phone)
-	var chargersIHave: [Charger] = []
+	@Relationship(deleteRule: .cascade, inverse: \CordlessHandsetCharger.phone)
+	var chargersIHave: [CordlessHandsetCharger] = []
 	
 	var baseRingtones: Int = 1
 	
