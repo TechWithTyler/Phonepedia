@@ -125,16 +125,19 @@ struct PhoneCountView: View {
                 Spacer()
             }
             .padding()
-        }
-        .frame(height: 300)
-        .toolbar {
-            ToolbarItem(placement: .confirmationAction) {
-                Button("OK") {
-                    dismiss()
-                }
+            .navigationTitle("Phone Count")
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("OK") {
+                        dismiss()
+                    }
                     .keyboardShortcut(.defaultAction)
+                }
             }
         }
+#if os(macOS)
+        .frame(minWidth: 550, maxWidth: 550, minHeight: 350, maxHeight: 350)
+#endif
     }
 
     @ViewBuilder
