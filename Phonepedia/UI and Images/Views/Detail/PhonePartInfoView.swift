@@ -51,33 +51,33 @@ struct PhonePartInfoView: View {
 		if phone.isCordless {
             Section("Cordless Handsets/Headsets/Speakerphones/Desksets (\(handsetCount))") {
 				if !phone.cordlessHandsetsIHave.isEmpty {
-						ForEach($phone.cordlessHandsetsIHave) { handset in
+						ForEach(phone.cordlessHandsetsIHave) { handset in
 							NavigationLink {
-								HandsetInfoDetailView(handset: handset, handsetNumber: (phone.cordlessHandsetsIHave.firstIndex(of: handset.wrappedValue) ?? 0) + 1)
+								HandsetInfoDetailView(handset: handset, handsetNumber: (phone.cordlessHandsetsIHave.firstIndex(of: handset) ?? 0) + 1)
 									.navigationTitle("Handset Details")
 							} label: {
 								VStack {
-									Text("\(handset.wrappedValue.brand) \(handset.wrappedValue.model)")
-									Text("Handset \((phone.cordlessHandsetsIHave.firstIndex(of: handset.wrappedValue) ?? 0) + 1)")
+									Text("\(handset.brand) \(handset.model)")
+									Text("Handset \((phone.cordlessHandsetsIHave.firstIndex(of: handset) ?? 0) + 1)")
 										.foregroundStyle(.secondary)
 								}
 							}
 							.contextMenu {
                                 Button {
-                                    duplicateHandset(handset.wrappedValue)
+                                    duplicateHandset(handset)
                                 } label: {
                                     Label("Duplicate", systemImage: "doc.on.doc")
                                 }
                                 Divider()
 								Button(role: .destructive) {
-									deleteHandset(at: phone.cordlessHandsetsIHave.firstIndex(of: handset.wrappedValue)!)
+									deleteHandset(at: phone.cordlessHandsetsIHave.firstIndex(of: handset)!)
 								} label: {
                                     Label("Delete", systemImage: "trash")
 								}
 							}
 							.swipeActions {
 								Button(role: .destructive) {
-									deleteHandset(at: phone.cordlessHandsetsIHave.firstIndex(of: handset.wrappedValue)!)
+									deleteHandset(at: phone.cordlessHandsetsIHave.firstIndex(of: handset)!)
 								} label: {
                                     Label("Delete", systemImage: "trash")
 								}
@@ -102,31 +102,31 @@ struct PhonePartInfoView: View {
 			}
             Section("Chargers (\(chargerCount))") {
 				if !phone.chargersIHave.isEmpty {
-						ForEach($phone.chargersIHave) { charger in
+						ForEach(phone.chargersIHave) { charger in
 							NavigationLink {
 								ChargerInfoDetailView(charger: charger)
 									.navigationTitle("Charger Details")
 							} label: {
 								VStack {
-									Text("Charger \((phone.chargersIHave.firstIndex(of: charger.wrappedValue) ?? 0) + 1)")
+									Text("Charger \((phone.chargersIHave.firstIndex(of: charger) ?? 0) + 1)")
 								}
 							}
 								.contextMenu {
                                     Button {
-                                        duplicateCharger(charger.wrappedValue)
+                                        duplicateCharger(charger)
                                     } label: {
                                         Label("Duplicate", systemImage: "doc.on.doc")
                                     }
                                     Divider()
 									Button(role: .destructive) {
-										deleteCharger(at: phone.chargersIHave.firstIndex(of: charger.wrappedValue)!)
+										deleteCharger(at: phone.chargersIHave.firstIndex(of: charger)!)
 									} label: {
                                         Label("Delete", systemImage: "trash")
 									}
 								}
 								.swipeActions {
 									Button(role: .destructive) {
-										deleteCharger(at: phone.chargersIHave.firstIndex(of: charger.wrappedValue)!)
+										deleteCharger(at: phone.chargersIHave.firstIndex(of: charger)!)
 									} label: {
                                         Label("Delete", systemImage: "trash")
 									}
