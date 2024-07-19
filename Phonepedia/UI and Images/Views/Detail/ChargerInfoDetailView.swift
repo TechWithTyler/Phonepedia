@@ -14,13 +14,38 @@ struct ChargerInfoDetailView: View {
     // MARK: - Properties - Charger
 
 	@Bindable var charger: CordlessHandsetCharger
-    
+
+    // MARK: - Properties - Dismiss Action
+
+    @Environment(\.dismiss) var dismiss
+
+    // MARK: - Properties - Integers
+
+    let chargerNumber: Int
+
     // MARK: - Body
 
 	var body: some View {
 		if let phone = charger.phone {
 			Form {
 				Section {
+                    Button {
+                        phone.chargersIHave.insert(charger.duplicate(), at: chargerNumber)
+                        dismiss()
+                    } label: {
+                        Label("Duplicate", systemImage: "doc.on.doc")
+                        .frame(width: 100)
+                    }
+                    Button {
+                        phone.chargersIHave.removeAll { $0 == charger }
+                        dismiss()
+                    } label: {
+                        Label("Delete", systemImage: "trash")
+                            .frame(width: 100)
+#if !os(macOS)
+    .foregroundStyle(.red)
+#endif
+                    }
 					ColorPicker("Main Color", selection: charger.mainColorBinding)
                     HStack {
                         ColorPicker("Secondary/Accent Color", selection: charger.secondaryColorBinding)
@@ -61,5 +86,5 @@ struct ChargerInfoDetailView: View {
 #Preview {
     @Previewable @State var charger = CordlessHandsetCharger()
     charger.phone = Phone(brand: "Panasonic", model: "KX-TGF675")
-	return ChargerInfoDetailView(charger: charger)
+    return ChargerInfoDetailView(charger: charger, chargerNumber: 1)
 }

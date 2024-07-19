@@ -52,13 +52,15 @@ struct PhonePartInfoView: View {
             Section("Cordless Handsets/Headsets/Speakerphones/Desksets (\(handsetCount))") {
 				if !phone.cordlessHandsetsIHave.isEmpty {
 						ForEach(phone.cordlessHandsetsIHave) { handset in
-							NavigationLink {
-								HandsetInfoDetailView(handset: handset, handsetNumber: (phone.cordlessHandsetsIHave.firstIndex(of: handset) ?? 0) + 1)
-									.navigationTitle("Handset Details")
+                            let handsetNumber = (phone.cordlessHandsetsIHave.firstIndex(of: handset) ?? 0) + 1
+                            NavigationLink {
+								HandsetInfoDetailView(handset: handset, handsetNumber: handsetNumber)
+									.navigationTitle("Handset \(handsetNumber) Details")
 							} label: {
-								VStack {
+								HStack {
 									Text("\(handset.brand) \(handset.model)")
-									Text("Handset \((phone.cordlessHandsetsIHave.firstIndex(of: handset) ?? 0) + 1)")
+                                    Spacer()
+									Text("Handset \(handsetNumber)")
 										.foregroundStyle(.secondary)
 								}
 							}
@@ -99,17 +101,25 @@ struct PhonePartInfoView: View {
 				if phone.cordlessHandsetsIHave.count > phone.maxCordlessHandsets {
 					WarningText("You have more cordless devices than the base can handle!")
 				}
+                Button(role: .destructive) {
+                    phone.cordlessHandsetsIHave.removeAll()
+                } label: {
+                    Label("Delete All Cordless Devices", systemImage: "trash.fill")
+#if !os(macOS)
+    .foregroundStyle(.red)
+#endif
+                }
+                .buttonStyle(.borderless)
 			}
             Section("Chargers (\(chargerCount))") {
 				if !phone.chargersIHave.isEmpty {
 						ForEach(phone.chargersIHave) { charger in
+                            let chargerNumber = (phone.chargersIHave.firstIndex(of: charger) ?? 0) + 1
 							NavigationLink {
-								ChargerInfoDetailView(charger: charger)
-									.navigationTitle("Charger Details")
+                                ChargerInfoDetailView(charger: charger, chargerNumber: chargerNumber)
+									.navigationTitle("Charger \(chargerNumber) Details")
 							} label: {
-								VStack {
-									Text("Charger \((phone.chargersIHave.firstIndex(of: charger) ?? 0) + 1)")
-								}
+                                Text("Charger \(chargerNumber)")
 							}
 								.contextMenu {
                                     Button {
@@ -142,14 +152,15 @@ struct PhonePartInfoView: View {
 					}
 					.buttonStyle(.borderless)
 					.accessibilityIdentifier("AddChargerButton")
-			}
-            Section {
                 Button(role: .destructive) {
-                    phone.cordlessHandsetsIHave.removeAll()
                     phone.chargersIHave.removeAll()
                 } label: {
-                    Label("Delete All Handsets/Chargers", systemImage: "trash.fill")
+                    Label("Delete All Chargers", systemImage: "trash.fill")
+                    #if !os(macOS)
+                        .foregroundStyle(.red)
+                    #endif
                 }
+                .buttonStyle(.borderless)
             }
 		}
 	}
