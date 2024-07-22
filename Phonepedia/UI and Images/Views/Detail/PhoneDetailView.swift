@@ -20,7 +20,7 @@ struct PhoneDetailView: View {
     @EnvironmentObject var photoViewModel: PhonePhotoViewModel
     
     @AppStorage("phoneDescriptionTextSize") var phoneDescriptionTextSize: Double = SATextViewMinFontSize
-    
+
     // MARK: - Properties - Booleans
     
     @State private var showingFrequenciesExplanation: Bool = false
@@ -32,7 +32,17 @@ struct PhoneDetailView: View {
     @State private var showingAboutDialingCodes: Bool = false
     
     @State private var showingAboutConnectionTypes: Bool = false
-    
+
+    var baseSpeedDialRange: ClosedRange<Int> {
+        if phone.voicemailQuickDial == 2 {
+            return 0...9
+        } else if phone.baseDisplayType == 0 {
+            return 0...10
+        } else {
+            return 0...50
+        }
+    }
+
     // MARK: - Body
     
     var body: some View {
@@ -731,9 +741,14 @@ A phone's voicemail indicator usually works in one or both of the following ways
                         Text("None").tag(0)
                         Text("Button").tag(1)
                         Text("Speed Dial 1").tag(2)
-                        Text("Message Menu Item").tag(3)
-                        Text("Main Menu Item").tag(4)
-                        Text("Main Menu Item and Button").tag(5)
+                        if phone.baseDisplayType > 0 {
+                            Text("Message Menu Item").tag(3)
+                            Text("Main Menu Item").tag(4)
+                            Text("Main Menu Item and Button").tag(5)
+                        }
+                    }
+                    .onChange(of: phone.voicemailQuickDial) { oldValue, newValue in
+                        phone.voicemailQuickDialChanged(oldValue: oldValue, newValue: newValue)
                     }
                 VoicemailQuickDialInfoView()
                 }
@@ -955,7 +970,7 @@ A phone's voicemail indicator usually works in one or both of the following ways
                     }
                 }
                 Section("Speed Dial") {
-                    Stepper(phone.isCordless ? "Dial-Key Speed Dial Capacity (base): \(phone.baseSpeedDialCapacity)" : "Dial-Key Speed Dial Capacity: \(phone.baseSpeedDialCapacity)", value: $phone.baseSpeedDialCapacity, in: 0...50)
+                    Stepper(phone.isCordless ? "Dial-Key Speed Dial Capacity (base): \(phone.baseSpeedDialCapacity)" : "Dial-Key Speed Dial Capacity: \(phone.baseSpeedDialCapacity)", value: $phone.baseSpeedDialCapacity, in: baseSpeedDialRange)
                     if phone.baseSpeedDialCapacity > 10 {
                         InfoText("Speed dial \(phone.baseSpeedDialCapacity > 11 ? "locations 11-\(phone.baseSpeedDialCapacity) are" : "location 11 is") accessed by pressing the speed dial button and then entering/scrolling to the desired location number.")
                     }

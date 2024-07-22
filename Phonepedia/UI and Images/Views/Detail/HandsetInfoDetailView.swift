@@ -329,9 +329,14 @@ struct HandsetInfoDetailView: View {
                             Text("None").tag(0)
                             Text("Button").tag(1)
                             Text("Speed Dial 1").tag(2)
-                            Text("Message Menu Item").tag(3)
-                            Text("Main Menu Item").tag(4)
-                            Text("Main Menu Item and Button").tag(5)
+                            if handset.displayType > 0 {
+                                Text("Message Menu Item").tag(3)
+                                Text("Main Menu Item").tag(4)
+                                Text("Main Menu Item and Button").tag(5)
+                            }
+                        }
+                        .onChange(of: handset.voicemailQuickDial) { oldValue, newValue in
+                            handset.voicemailQuickDialChanged(oldValue: oldValue, newValue: newValue)
                         }
                         VoicemailQuickDialInfoView()
                     }
@@ -358,7 +363,7 @@ struct HandsetInfoDetailView: View {
 #endif
                         Toggle("Uses Base Phonebook", isOn: $handset.usesBasePhonebook)
                         Text("Phonebook Type: \(handset.phonebookTypeText)")
-                        InfoText("\(CordlessHandset.HandsetPhonebookType.shared.rawValue): The phonebook is stored in the base and is shared by the base (if it has a display) and all registered handsets/desksets. Changes made to the phonebook of the base or any registered, shared phonebook-supported handset/deskset will be visible on the base and all registered, shared phonebook-supported handsets/desksets, and only one can access the phonebook at a time.\n\(CordlessHandset.HandsetPhonebookType.individual.rawValue): The phonebook is stored in the base/each handset/deskset separately. On some phones, entries can be copied between the base and handsets/desksets.\n\(CordlessHandset.HandsetPhonebookType.sharedAndIndividual.rawValue): The handset/deskset has its own phonebook but can also access the shared phonebook. On some phones, entries can be copied between the shared phonebook and the individual phonebook of a handset/deskset.")
+                        InfoText("\(CordlessHandset.HandsetPhonebookType.shared.rawValue): The phonebook is stored in the base and is shared by the base (if it has a display) and all registered handsets/desksets. Changes made to the phonebook on the base or any registered, shared phonebook-supported handset/deskset will apply to the base and all registered, shared phonebook-supported handsets/desksets, and only one can access the phonebook at a time.\n\(CordlessHandset.HandsetPhonebookType.individual.rawValue): The phonebook is stored in the base/each handset/deskset separately. On some phones, entries can be copied between the base and handsets/desksets.\n\(CordlessHandset.HandsetPhonebookType.sharedAndIndividual.rawValue): The handset/deskset has its own phonebook but can also access the shared phonebook. On some phones, entries can be copied between the shared phonebook and the individual phonebook of a handset/deskset.")
                         if handset.phonebookCapacity > 0 || handset.usesBasePhonebook {
                             Toggle(isOn: $handset.hasTalkingPhonebook) {
                                 Text("Talking Phonebook")
@@ -389,7 +394,7 @@ struct HandsetInfoDetailView: View {
                         }
                     }
                     Section("Speed Dial") {
-                        Stepper("Dial-Key Speed Dial Capacity: \(handset.speedDialCapacity)", value: $handset.speedDialCapacity, in: 0...10)
+                        Stepper("Dial-Key Speed Dial Capacity: \(handset.speedDialCapacity)", value: $handset.speedDialCapacity, in: handset.voicemailQuickDial == 2 ? 0...9 : 0...10)
                         Stepper("One-Touch/Memory Dial: \(handset.oneTouchDialCapacity)", value: $handset.oneTouchDialCapacity, in: 0...4)
                         Toggle("Uses Base Speed Dial", isOn: $handset.usesBaseSpeedDial)
                         Toggle("Uses Base One-Touch Dial", isOn: $handset.usesBaseOneTouchDial)

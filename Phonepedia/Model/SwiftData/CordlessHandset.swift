@@ -387,10 +387,19 @@ final class CordlessHandset {
             intercomRingtone -= 1
         }
     }
-	
+
+    func voicemailQuickDialChanged(oldValue: Int, newValue: Int) {
+        if newValue == 2 && speedDialCapacity > 9 {
+            speedDialCapacity = 9
+        }
+    }
+
 	func displayTypeChanged(oldValue: Int, newValue: Int) {
 		if newValue == 0 {
 			hasTalkingPhonebook = false
+            if voicemailQuickDial > 2 {
+                voicemailQuickDial = 0
+            }
 		}
 		if newValue <= 1 {
 			softKeys = 0

@@ -652,7 +652,13 @@ final class Phone {
             baseIntercomRingtone -= 1
         }
     }
-	
+
+    func voicemailQuickDialChanged(oldValue: Int, newValue: Int) {
+        if newValue == 2 && baseSpeedDialCapacity > 9 {
+            baseSpeedDialCapacity = 9
+        }
+    }
+
 	func baseDisplayTypeChanged(oldValue: Int, newValue: Int) {
 		if newValue == 0 {
             if handsetRenaming == 2 {
@@ -660,6 +666,12 @@ final class Phone {
             }
             if baseCellRingtone == 3 {
                 baseCellRingtone = 1
+            }
+            if baseSpeedDialCapacity > 10 {
+                baseSpeedDialCapacity = 10
+            }
+            if voicemailQuickDial > 2 {
+                voicemailQuickDial = 0
             }
 			hasTalkingPhonebook = false
             baseNavigatorKeyType = 0
