@@ -316,8 +316,8 @@ struct HandsetInfoDetailView: View {
 							Text("4").tag(4)
 						}
                     }
-                    if phone.hasAnsweringSystem > 1 {
-                    Section("Answering System") {
+                    Section("Answering System/Voicemail") {
+                        if phone.hasAnsweringSystem > 1 {
 							Picker("Answering System Menu", selection: $handset.answeringSystemMenu) {
 								Text("Settings Only (doesn't require link to base").tag(0)
 								Text("Settings Only (requires link to base)").tag(1)
@@ -325,6 +325,15 @@ struct HandsetInfoDetailView: View {
 								Text("Full (requires link to base)").tag(3)
 							}
 						}
+                        Picker("Voicemail Quick Dial", selection: $handset.voicemailQuickDial) {
+                            Text("None").tag(0)
+                            Text("Button").tag(1)
+                            Text("Speed Dial 1").tag(2)
+                            Text("Message Menu Item").tag(3)
+                            Text("Main Menu Item").tag(4)
+                            Text("Main Menu Item and Button").tag(5)
+                        }
+                        VoicemailQuickDialInfoView()
                     }
                     Section("Redial") {
                         FormNumericTextField("Redial Capacity", value: $handset.redialCapacity, valueRange: .zeroToMax(20))

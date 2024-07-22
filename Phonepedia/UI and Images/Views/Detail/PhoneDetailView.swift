@@ -726,15 +726,17 @@ A phone's voicemail indicator usually works in one or both of the following ways
 • Your phone company may send special tones, called Frequency-Shift-Keying (FSK) tones to the phone whenever a new voicemail is left, and another when all new voicemails are played, to tell the phone to turn on or off its voicemail indicator. You can't hear these tones unless you use a device to listen in on the phone line without picking it up (e.g. a butt-set phone in monitor mode).
 • The phone may go off-hook for a few seconds periodically, or when you hang up or it stops ringing, to listen for a stutter dial tone ("bee-bee-bee-beeeeeeeep") which your phone company may use as an audible indication of new voicemails.
 """)
-                Picker("Voicemail Quick Dial", selection: $phone.voicemailQuickDial) {
-                    Text("None").tag(0)
-                    Text("Button").tag(1)
-                    Text("Speed Dial 1").tag(2)
-                    Text("Message Menu Item").tag(3)
-                    Text("Main Menu Item").tag(4)
-                    Text("Main Menu Item and Button").tag(5)
+                if !phone.isCordless || phone.hasBaseSpeakerphone {
+                    Picker("Voicemail Quick Dial", selection: $phone.voicemailQuickDial) {
+                        Text("None").tag(0)
+                        Text("Button").tag(1)
+                        Text("Speed Dial 1").tag(2)
+                        Text("Message Menu Item").tag(3)
+                        Text("Main Menu Item").tag(4)
+                        Text("Main Menu Item and Button").tag(5)
+                    }
+                VoicemailQuickDialInfoView()
                 }
-                InfoText("You can store your voicemail access number (e.g. *99) into the phone and quickly dial it using a button or menu item.")
                 if phone.voicemailQuickDial > 0 {
                     Toggle("Can Store Voicemail Feature Codes", isOn: $phone.voicemailFeatureCodes)
                     InfoText("Storing voicemail feature codes allows you to, for example, play and delete messages using a button or menu item once you've dialed into voicemail, just like with built-in answering systems. Example: If your voicemail system's main menu asks you to press 1 to play messages, you can store \"1\" to the Play code and then quickly dial it using a button/menu item.")

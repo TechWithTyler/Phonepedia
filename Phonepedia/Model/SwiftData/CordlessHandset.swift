@@ -131,7 +131,9 @@ final class CordlessHandset {
 	var supportsWiredHeadsets: Bool = false
 	
 	var answeringSystemMenu: Int = 3
-	
+
+    var voicemailQuickDial: Int = 0
+
 	var phonebookCapacity: Int = 0
 	
 	var callerIDPhonebookMatch: Bool = false
