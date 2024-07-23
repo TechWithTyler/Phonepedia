@@ -127,7 +127,9 @@ final class CordlessHandset {
 	var sideVolumeButtons: Bool = false
 	
 	var keyBacklightAmount: Int = 0
-	
+
+    var keyBacklightLayer: Int = 0
+
 	var supportsWiredHeadsets: Bool = false
 	
 	var answeringSystemMenu: Int = 3

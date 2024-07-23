@@ -287,6 +287,16 @@ struct HandsetInfoDetailView: View {
                         }
                         if handset.keyBacklightAmount > 0 {
                             ColorPicker("Button Backlight Color", selection: handset.keyBacklightColorBinding)
+                            Picker("Button Backlight Layer", selection: $handset.keyBacklightLayer) {
+                                Text("Background").tag(0)
+                                Text("Foreground").tag(1)
+                            }
+                            VStack {
+                                Text("Key Backlight Example")
+                                Image(systemName: handset.keyBacklightLayer == 1 ? "5.square" : "5.square.fill")
+                                    .foregroundStyle(handset.keyBacklightColorBinding.wrappedValue)
+                                    .font(.system(size: 40))
+                            }
                         }
                         ColorPicker("Button Foreground Color", selection: handset.keyForegroundColorBinding)
                         ColorPicker("Button Background Color", selection: handset.keyBackgroundColorBinding)

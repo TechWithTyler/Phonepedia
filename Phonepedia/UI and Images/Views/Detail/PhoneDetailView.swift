@@ -654,6 +654,16 @@ In most cases, if the base has a charge light/display message, the completion of
                 }
                 if phone.baseKeyBacklightAmount > 0 {
                     ColorPicker("Button Backlight Color", selection: phone.baseKeyBacklightColorBinding)
+                    Picker("Button Backlight Layer", selection: $phone.baseKeyBacklightLayer) {
+                        Text("Background").tag(0)
+                        Text("Foreground").tag(1)
+                    }
+                    VStack {
+                        Text("Key Backlight Example")
+                        Image(systemName: phone.baseKeyBacklightLayer == 1 ? "5.square" : "5.square.fill")
+                            .foregroundStyle(phone.baseKeyBacklightColorBinding.wrappedValue)
+                            .font(.system(size: 40))
+                    }
                 }
                 ColorPicker("Button Foreground Color", selection: phone.baseKeyForegroundColorBinding)
                 ColorPicker("Button Background Color", selection: phone.baseKeyBackgroundColorBinding)

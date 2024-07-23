@@ -216,7 +216,9 @@ final class Phone {
 	var baseNavigatorKeyUpDownVolume: Bool = false
 	
 	var baseKeyBacklightAmount: Int = 0
-	
+
+    var baseKeyBacklightLayer: Int = 0
+
 	var cordedPowerSource: Int = 0
 	
 	var cordlessPowerBackupMode: Int = 0
