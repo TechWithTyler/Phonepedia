@@ -104,6 +104,7 @@ struct SoftKeyExplanationView: View {
                     .accessibilityElement(children: .ignore)
                     .accessibilityLabel(softKeyAccessibilityDescription(placement: .left, marking: .dash, textCase: .capitalized, hasTextBackground: false))
                 }
+                .dynamicTypeSize(.medium)
             }
             Spacer()
         }
