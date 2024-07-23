@@ -334,6 +334,7 @@ struct HandsetInfoDetailView: View {
 								Text("Full (doesn't require link to base").tag(2)
 								Text("Full (requires link to base)").tag(3)
 							}
+                            InfoText("Settings Only: Only settings are available in the answering system menu. Message playback is a separate menu item or button.\nFull: Message playback and settings are available in the answering system menu.")
 						}
                         Picker("Voicemail Quick Dial", selection: $handset.voicemailQuickDial) {
                             Text("None").tag(0)
