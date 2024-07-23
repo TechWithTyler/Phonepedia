@@ -116,7 +116,7 @@ struct HandsetInfoDetailView: View {
                         Text("Ignore Ring Signal").tag(1)
                         Text("Follow Ring Signal").tag(2)
                     }
-                    InfoText("A visual ringer that follows the ring signal starts flashing when the ring signal starts and stops flashing when the ring signal stops. A visual ringer that ignores the ring signal starts flashing when the ring signal starts and continues flashing for as long as the handset is indicating an incoming call.")
+                    InfoText("A visual ringer that follows the ring signal starts flashing when the ring signal starts and stops flashing when the ring signal stops. A visual ringer that ignores the ring signal starts flashing when the ring signal starts and continues flashing for as long as the cordless device is indicating an incoming call.")
                     if handset.cordlessDeviceType == 1 {
                         Toggle("Supports Backup Batteries", isOn: $handset.desksetSupportsBackupBatteries)
                     }
