@@ -64,11 +64,13 @@ struct HandsetInfoDetailView: View {
                         }
                     }
                     Picker("How I Got This Handset", selection: $handset.whereAcquired) {
-                        Text("Thrift Store/Sale").tag(0)
-                        Text("Electronics Store (new)").tag(1)
-                        Text("Online (used)").tag(2)
-                        Text("Online (new)").tag(3)
-                        Text("Gift").tag(4)
+                        Text("Included With Base/Set").tag(0)
+                        Divider()
+                        Text("Thrift Store/Sale").tag(1)
+                        Text("Electronics Store (new)").tag(2)
+                        Text("Online (used)").tag(3)
+                        Text("Online (new)").tag(4)
+                        Text("Gift").tag(5)
                     }
                     ColorPicker("Main Color", selection: handset.mainColorBinding)
                     HStack {
