@@ -424,7 +424,7 @@ final class CordlessHandset {
 			softKeys = 0
 		}
 		if newValue < 3 && navigatorKeyCenterButton == 3 {
-			navigatorKeyCenterButton = 2
+			navigatorKeyCenterButton = 0
 		}
 		if newValue == 0 {
 			lineButtons = 0
