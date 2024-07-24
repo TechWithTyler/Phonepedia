@@ -659,7 +659,7 @@ In most cases, if the base has a charge light/display message, the completion of
                         Text("Foreground").tag(1)
                     }
                     VStack {
-                        Text("Key Backlight Example")
+                        Text("Button Backlight Example")
                         Image(systemName: phone.baseKeyBacklightLayer == 1 ? "5.square" : "5.square.fill")
                             .foregroundStyle(phone.baseKeyBacklightColorBinding.wrappedValue)
                             .font(.system(size: 40))
