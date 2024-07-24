@@ -35,7 +35,7 @@ struct PhoneRowView: View {
                         Text("Purchased/acquired the year it was released!")
                             .font(.callout)
                             .multilineTextAlignment(.center)
-                            .lineLimit(2)
+                            .lineLimit(nil)
                     }
                 }
 			}

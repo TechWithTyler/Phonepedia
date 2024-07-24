@@ -93,7 +93,6 @@ struct PhonePartInfoView: View {
                 InfoText("Enter the model number of the main cordless handset or deskset included with the \(phone.brand) \(phone.model) so newly-added cordless devices will default to that model number.\nA cordless phone's main handset/deskset is registered to the base as number 1, and may have some special features, like backing up the time in case of power outage, not available to other devices on the system.")
 					Button(action: addHandset) {
 						Label("Add", systemImage: "plus")
-							.frame(width: 100, alignment: .leading)
 					}
 					.buttonStyle(.borderless)
 					.accessibilityIdentifier("AddHandsetButton")
@@ -148,7 +147,6 @@ struct PhonePartInfoView: View {
 				}
 					Button(action: addCharger) {
 						Label("Add", systemImage: "plus")
-							.frame(width: 100, alignment: .leading)
 					}
 					.buttonStyle(.borderless)
 					.accessibilityIdentifier("AddChargerButton")

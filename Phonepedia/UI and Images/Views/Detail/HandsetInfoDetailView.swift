@@ -34,14 +34,12 @@ struct HandsetInfoDetailView: View {
                         dismiss()
                     } label: {
                         Label("Duplicate", systemImage: "doc.on.doc")
-                            .frame(width: 100)
                     }
                     Button {
                         phone.cordlessHandsetsIHave.removeAll { $0 == handset }
                         dismiss()
                     } label: {
                         Label("Delete", systemImage: "trash")
-                            .frame(width: 100)
 #if !os(macOS)
     .foregroundStyle(.red)
 #endif

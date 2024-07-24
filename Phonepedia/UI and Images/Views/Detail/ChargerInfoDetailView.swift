@@ -34,14 +34,12 @@ struct ChargerInfoDetailView: View {
                         dismiss()
                     } label: {
                         Label("Duplicate", systemImage: "doc.on.doc")
-                        .frame(width: 100)
                     }
                     Button {
                         phone.chargersIHave.removeAll { $0 == charger }
                         dismiss()
                     } label: {
                         Label("Delete", systemImage: "trash")
-                            .frame(width: 100)
 #if !os(macOS)
     .foregroundStyle(.red)
 #endif
