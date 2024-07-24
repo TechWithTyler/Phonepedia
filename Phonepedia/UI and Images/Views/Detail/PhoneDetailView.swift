@@ -883,7 +883,7 @@ A phone's voicemail indicator usually works in one or both of the following ways
         Group {
             if phone.hasBaseSpeakerphone || !phone.isCordless || phone.isCordedCordless {
                 Section("Redial") {
-                    FormNumericTextField(phone.isCordless ? "Redial Capacity (base)" : "Redial Capacity", value: $phone.baseRedialCapacity, valueRange: .zeroToMax(20))
+                    FormNumericTextField(phone.isCordless ? "Redial Capacity (base)" : "Redial Capacity", value: $phone.baseRedialCapacity, valueRange: .zeroToMax(20), suffix: "entry/ies")
 #if !os(visionOS)
                         .scrollDismissesKeyboard(.interactively)
 #endif
@@ -923,7 +923,7 @@ A phone's voicemail indicator usually works in one or both of the following ways
                     }
                 }
                 Section("Phonebook") {
-                    FormNumericTextField(phone.isCordless ? "Phonebook Capacity (base)" : "Phonebook Capacity", value: $phone.basePhonebookCapacity, valueRange: .allPositivesIncludingZero)
+                    FormNumericTextField(phone.isCordless ? "Phonebook Capacity (base)" : "Phonebook Capacity", value: $phone.basePhonebookCapacity, valueRange: .allPositivesIncludingZero, suffix: "entry/ies")
 #if !os(visionOS)
                         .scrollDismissesKeyboard(.interactively)
 #endif
@@ -973,7 +973,7 @@ A phone's voicemail indicator usually works in one or both of the following ways
                     }
                     InfoText("The phone can announce who's calling after each ring, so you don't have to look at the screen. Example: \"Call from \(names.randomElement()!)\".")
                     if phone.isCordless || phone.baseDisplayType > 0 {
-                        FormNumericTextField(phone.isCordless ? "Caller ID List Capacity (base)" : "Caller ID List Capacity", value: $phone.baseCallerIDCapacity, valueRange: .allPositivesIncludingZero)
+                        FormNumericTextField(phone.isCordless ? "Caller ID List Capacity (base)" : "Caller ID List Capacity", value: $phone.baseCallerIDCapacity, valueRange: .allPositivesIncludingZero, suffix: "entry/ies")
 #if !os(visionOS)
                             .scrollDismissesKeyboard(.interactively)
 #endif
@@ -1011,7 +1011,7 @@ By assigning a handset number to a cordless or corded/cordless phone base's one-
     var callBlockingGroup: some View {
         Group {
             Section("Call Block (manual)") {
-                FormNumericTextField("Call Block List Capacity", value: $phone.callBlockCapacity, valueRange: .allPositivesIncludingZero)
+                FormNumericTextField("Call Block List Capacity", value: $phone.callBlockCapacity, valueRange: .allPositivesIncludingZero, suffix: "entry/ies")
 #if !os(visionOS)
                     .scrollDismissesKeyboard(.interactively)
 #endif
@@ -1043,7 +1043,7 @@ When the first ring is suppressed, the number of rings you hear will be one less
                     }
                     InfoText("One-touch/quick call block allows you to press the dedicated call block button or select the call block menu item to block an incoming call as it rings or while talking on the phone. On most phones, if it's not a soft key or menu option, it can also be used to access the call block menu.")
                 }
-                FormNumericTextField("Pre-Programmed Call Block Database Entry Count", value: $phone.callBlockPreProgrammedDatabaseEntryCount, valueRange: .allPositivesIncludingZero)
+                FormNumericTextField("Pre-Programmed Call Block Database Entry Count", value: $phone.callBlockPreProgrammedDatabaseEntryCount, valueRange: .allPositivesIncludingZero, suffix: "entry/ies")
 #if !os(visionOS)
                     .scrollDismissesKeyboard(.interactively)
 #endif
@@ -1064,13 +1064,13 @@ When the first ring is suppressed, the number of rings you hear will be one less
                         InfoText("Calls can't go to a voicemail service once answered by a call block pre-screening system.")
                     }
                     Toggle("Supports Custom Greeting", isOn: $phone.callBlockPreScreeningCustomGreeting)
-                    FormNumericTextField("Allowed Numbers Capacity", value: $phone.callBlockPreScreeningAllowedNumberCapacity, valueRange: .allPositivesIncludingZero)
+                    FormNumericTextField("Allowed Numbers Capacity", value: $phone.callBlockPreScreeningAllowedNumberCapacity, valueRange: .allPositivesIncludingZero, suffix: "entry/ies")
 #if !os(visionOS)
                         .scrollDismissesKeyboard(.interactively)
 #endif
                     Toggle("Allowed Numbers List Visible To User", isOn: $phone.callBlockPreScreeningAllowedNumberListVisible)
                     InfoText("Numbers saved to the allowed numbers list will always ring through.")
-                    FormNumericTextField("Allowed Names Capacity", value: $phone.callBlockPreScreeningAllowedNameCapacity, valueRange: .allPositivesIncludingZero)
+                    FormNumericTextField("Allowed Names Capacity", value: $phone.callBlockPreScreeningAllowedNameCapacity, valueRange: .allPositivesIncludingZero, suffix: "entry/ies")
                     InfoText("If you don't know a caller's phone number, saving their name as it appears in the incoming caller ID will allow their calls to always ring through. This is a good place to put names of businesses you want to receive automated messages from (e.g. schools, doctor's offices, pharmacies).")
 #if !os(visionOS)
                         .scrollDismissesKeyboard(.interactively)
