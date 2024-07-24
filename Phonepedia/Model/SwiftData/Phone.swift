@@ -666,6 +666,12 @@ final class Phone {
             if handsetRenaming == 2 {
                 handsetRenaming = 1
             }
+            if landlineInUseStatusOnBase > 1 {
+                landlineInUseStatusOnBase = 0
+            }
+            if cellLineInUseStatusOnBase == 2 {
+                cellLineInUseStatusOnBase = 0
+            }
             if baseCellRingtone == 3 {
                 baseCellRingtone = 1
             }
