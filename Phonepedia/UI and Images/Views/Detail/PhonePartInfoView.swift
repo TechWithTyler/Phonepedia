@@ -110,7 +110,7 @@ struct PhonePartInfoView: View {
                 }
                 .buttonStyle(.borderless)
 			}
-            Section("Chargers (\(chargerCount))") {
+            Section("Cordless Handset Chargers (\(chargerCount))") {
 				if !phone.chargersIHave.isEmpty {
 						ForEach(phone.chargersIHave) { charger in
                             let chargerNumber = (phone.chargersIHave.firstIndex(of: charger) ?? 0) + 1
