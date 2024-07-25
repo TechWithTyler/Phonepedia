@@ -71,7 +71,7 @@ struct HandsetInfoDetailView: View {
                         Text("Gift").tag(5)
                     }
                     ColorPicker("Main Color", selection: handset.mainColorBinding)
-                    HStack {
+                    VStack(alignment: .trailing) {
                         ColorPicker("Secondary/Accent Color", selection: handset.secondaryColorBinding)
                         Button("Use Main Color") {
                             handset.setSecondaryColorToMain()

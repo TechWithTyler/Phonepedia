@@ -45,7 +45,7 @@ struct ChargerInfoDetailView: View {
 #endif
                     }
 					ColorPicker("Main Color", selection: charger.mainColorBinding)
-                    HStack {
+                    VStack(alignment: .trailing) {
                         ColorPicker("Secondary/Accent Color", selection: charger.secondaryColorBinding)
                         Button("Use Main Color") {
                             charger.setSecondaryColorToMain()

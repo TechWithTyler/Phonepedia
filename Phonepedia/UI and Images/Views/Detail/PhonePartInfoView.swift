@@ -31,7 +31,7 @@ struct PhonePartInfoView: View {
 	var body: some View {
         Section(phone.isCordless ? "Base Colors" : "Colors") {
             ColorPicker("Base Main Color", selection: phone.baseMainColorBinding)
-            HStack {
+            VStack(alignment: .trailing) {
                 ColorPicker("Base Secondary/Accent Color", selection: phone.baseSecondaryColorBinding)
                 Button("Use Main Color") {
                     phone.setBaseSecondaryColorToMain()
