@@ -161,7 +161,9 @@ final class CordlessHandset {
 	var keyFindersSupported: Int = 0
 	
 	var antenna: Int = 0
-	
+
+    var alarm: Int = 0
+
 	var hasTalkingCallerID: Bool = false
 	
 	var hasTalkingKeypad: Bool = false
