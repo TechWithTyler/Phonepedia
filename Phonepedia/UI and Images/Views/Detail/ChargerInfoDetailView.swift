@@ -51,6 +51,16 @@ struct ChargerInfoDetailView: View {
                             charger.setSecondaryColorToMain()
                         }
                     }
+                    Picker("Charging Direction", selection: $charger.chargingDirection) {
+                        Text("Forward (stand up)").tag(0)
+                        Text("Forward (lean back)").tag(1)
+                        Text("Forward (lay down)").tag(2)
+                        Text("Backward (lay down)").tag(3)
+                        Text("Backward (stand up)").tag(4)
+                        Text("Backward (lean back)").tag(5)
+                        Text("Forward Stand Up or Backward Lay Down").tag(6)
+                        Text("Forward Or Backward (reversible handset)").tag(7)
+                    }
 					Picker("Charge Contact Placement", selection: $charger.chargeContactPlacement) {
 						Text("Bottom").tag(0)
 						Text("Back").tag(1)

@@ -360,8 +360,9 @@ struct PhoneDetailView: View {
                                 Text("Backward (stand up)").tag(4)
                                 Text("Backward (lean back)").tag(5)
                                 Text("Forward Stand Up or Backward Lay Down").tag(6)
-                                Text("Forward Or Backward Lay Down (reversible handset)").tag(7)
+                                Text("Forward Or Backward (reversible handset)").tag(7)
                             }
+                            InfoText("Variations in charging area designs are one of the many ways different cordless phones look different from one another.")
                             if !phone.isCordedCordless {
                                 Picker("Base Charge Contact Placement", selection: $phone.baseChargeContactPlacement) {
                                     Text("Bottom").tag(0)
@@ -454,7 +455,7 @@ In most cases, if the base has a charge light/display message, the completion of
                         Text("AC Power with Battery Backup (non-recharging)").tag(3)
                         Text("AC Power with Battery Backup (recharging)").tag(4)
                     }
-                    InfoText("When a phone is on-hook, the voltage on the line is ~48V DC. When a phone goes off-hook, this voltage is reduced to ~6V DC. These voltage levels make line power only good for basic corded phones.\nSome line-powered phones can take batteries, which stabalize the power required for features like speed dial and caller ID display. You can access the phone's features even when it isn't connected to a line.\nMost line-powered or battery-powered corded phones will keep their memory intact for some time if line/battery power is lost (usually 72 hours).\nMost AC-powered corded phones can work on line power when the power is out. If the phone takes AC power and backup batteries, usually only the batteries will provide backup power--the phone won't work at all once the batteries run out.")
+                    InfoText("When a phone is on-hook, the voltage on an analog line is ~48V DC. When a phone goes off-hook, this voltage is reduced to ~6V DC. These voltage levels make line power only good for basic corded phones, because the on-hook voltage is too high and the off-hook voltage is too low.\nSome line-powered phones can take batteries, which stabalize the power required for features like speed dial and caller ID display. You can access the phone's features even when it isn't connected to a line.\nMost line-powered or battery-powered corded phones will keep their memory intact for some time if line/battery power is lost (usually 72 hours).\nMost AC-powered corded phones can work on line power when the power is out. If the phone takes AC power and backup batteries, usually only the batteries will provide backup power--the phone won't work at all once the batteries run out.")
                 }
                 if phone.isCordless {
                     Picker("Power Backup", selection: $phone.cordlessPowerBackupMode) {
