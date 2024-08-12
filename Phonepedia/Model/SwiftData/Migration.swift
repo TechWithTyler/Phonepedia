@@ -9,21 +9,29 @@
 import SwiftData
 
 struct PhonepediaMigrationPlan: SchemaMigrationPlan {
+
+    // The versioned schemas for the migration plan.
     static var schemas: [VersionedSchema.Type] = [
-        PhonepediaVersionedSchema.self,
+        PhonepediaVersionedSchema.self
+        // Create new versioned schemas and add them here if the data model changes between releases.
     ]
 
     static var stages: [MigrationStage] = [
         // Stages of migration between VersionedSchema, if required.
     ]
+
 }
 
 struct PhonepediaVersionedSchema: VersionedSchema {
+
+    // The version number of the schema.
     static var versionIdentifier = Schema.Version(1, 0, 0)
 
+    // The models in the schema.
     static var models: [any PersistentModel.Type] = [
         Phone.self,
         CordlessHandset.self,
         CordlessHandsetCharger.self
     ]
+
 }
