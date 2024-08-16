@@ -19,7 +19,7 @@
 		8D7A74A42C26203E00C5329E /* DocumentLaunchPhonesAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7A74A32C26203E00C5329E /* DocumentLaunchPhonesAccessoryView.swift */; };
 		8D94EE0C2B912B9E00B04EBF /* WaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D94EE0B2B912B9E00B04EBF /* WaveView.swift */; };
 		8D94EE0E2B912FB900B04EBF /* Wave.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D94EE0D2B912FB900B04EBF /* Wave.swift */; };
-		8D95997D2C22212400FEED40 /* Migration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D95997C2C22212400FEED40 /* Migration.swift */; };
+		8D95997D2C22212400FEED40 /* SchemaVersioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D95997C2C22212400FEED40 /* SchemaVersioning.swift */; };
 		8DA844CE2B72E1D7006CBCA7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DA8449B2B72E1D7006CBCA7 /* Assets.xcassets */; };
 		8DA844CF2B72E1D7006CBCA7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DA8449D2B72E1D7006CBCA7 /* Preview Assets.xcassets */; };
 		8DA844D02B72E1D7006CBCA7 /* CameraCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844A02B72E1D7006CBCA7 /* CameraCoordinator.swift */; };
@@ -107,7 +107,7 @@
 		8D7A74A32C26203E00C5329E /* DocumentLaunchPhonesAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentLaunchPhonesAccessoryView.swift; sourceTree = "<group>"; };
 		8D94EE0B2B912B9E00B04EBF /* WaveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveView.swift; sourceTree = "<group>"; };
 		8D94EE0D2B912FB900B04EBF /* Wave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wave.swift; sourceTree = "<group>"; };
-		8D95997C2C22212400FEED40 /* Migration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Migration.swift; sourceTree = "<group>"; };
+		8D95997C2C22212400FEED40 /* SchemaVersioning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaVersioning.swift; sourceTree = "<group>"; };
 		8DA8449B2B72E1D7006CBCA7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8DA8449D2B72E1D7006CBCA7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8DA844A02B72E1D7006CBCA7 /* CameraCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraCoordinator.swift; sourceTree = "<group>"; };
@@ -323,7 +323,7 @@
 				8DA844C12B72E1D7006CBCA7 /* Phone.swift */,
 				8DA844C22B72E1D7006CBCA7 /* CordlessHandsetCharger.swift */,
 				8DA844C32B72E1D7006CBCA7 /* PhoneType.swift */,
-				8D95997C2C22212400FEED40 /* Migration.swift */,
+				8D95997C2C22212400FEED40 /* SchemaVersioning.swift */,
 				8DEC3A672C2CB9D200737094 /* HandsetPhonebookType.swift */,
 			);
 			path = SwiftData;
@@ -567,7 +567,7 @@
 				8DA844EB2B72E1D7006CBCA7 /* PhoneType.swift in Sources */,
 				8D523B002C4EF47000AC6862 /* VoicemailQuickDialInfoView.swift in Sources */,
 				8DA844D82B72E1D7006CBCA7 /* FrequenciesExplanationView.swift in Sources */,
-				8D95997D2C22212400FEED40 /* Migration.swift in Sources */,
+				8D95997D2C22212400FEED40 /* SchemaVersioning.swift in Sources */,
 				8DC9E7DC2C37434C0089B48A /* AnsweringSystemGreetingComponents.swift in Sources */,
 				8DA844E82B72E1D7006CBCA7 /* CordlessHandset.swift in Sources */,
 				8DA844F32B72E1D7006CBCA7 /* PhonepediaApp.swift in Sources */,

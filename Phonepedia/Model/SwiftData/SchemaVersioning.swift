@@ -1,5 +1,5 @@
 //
-//  Migration.swift
+//  SchemaVersioning.swift
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 6/18/24.
@@ -12,7 +12,7 @@ struct PhonepediaMigrationPlan: SchemaMigrationPlan {
 
     // The versioned schemas for the migration plan.
     static var schemas: [VersionedSchema.Type] = [
-        PhonepediaVersionedSchema.self
+        PhonepediaVersionedSchemaV1.self
         // Create new versioned schemas and add them here if the data model changes between releases.
     ]
 
@@ -22,7 +22,7 @@ struct PhonepediaMigrationPlan: SchemaMigrationPlan {
 
 }
 
-struct PhonepediaVersionedSchema: VersionedSchema {
+struct PhonepediaVersionedSchemaV1: VersionedSchema {
 
     // The version number of the schema.
     static var versionIdentifier = Schema.Version(1, 0, 0)
