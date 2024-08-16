@@ -817,7 +817,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Phonepedia/Supporting Files/Phonepedia.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 978;
+				CURRENT_PROJECT_VERSION = 985;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Phonepedia/UI and Images/Preview Content\"";
 				DEVELOPMENT_TEAM = 3B6G4T54X3;
@@ -866,7 +866,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Phonepedia/Supporting Files/Phonepedia.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 978;
+				CURRENT_PROJECT_VERSION = 985;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Phonepedia/UI and Images/Preview Content\"";
 				DEVELOPMENT_TEAM = 3B6G4T54X3;
