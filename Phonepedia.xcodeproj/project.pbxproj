@@ -191,10 +191,10 @@
 		8DA844992B72E1D7006CBCA7 /* Phonepedia */ = {
 			isa = PBXGroup;
 			children = (
-				8DA8449A2B72E1D7006CBCA7 /* UI and Images */,
-				8DA844BA2B72E1D7006CBCA7 /* Supporting Files */,
-				8DA844BE2B72E1D7006CBCA7 /* Model */,
 				8DA844CD2B72E1D7006CBCA7 /* PhonepediaApp.swift */,
+				8DA8449A2B72E1D7006CBCA7 /* UI and Images */,
+				8DA844BE2B72E1D7006CBCA7 /* Model */,
+				8DA844BA2B72E1D7006CBCA7 /* Supporting Files */,
 			);
 			path = Phonepedia;
 			sourceTree = "<group>";
@@ -299,6 +299,7 @@
 			children = (
 				8DA844BB2B72E1D7006CBCA7 /* Phonepedia.entitlements */,
 				8DA844BC2B72E1D7006CBCA7 /* Globals.swift */,
+				8DC9E7DB2C37434C0089B48A /* AnsweringSystemGreetingComponents.swift */,
 				8DA844BD2B72E1D7006CBCA7 /* Info.plist */,
 			);
 			path = "Supporting Files";
@@ -311,7 +312,6 @@
 				8DA844C42B72E1D7006CBCA7 /* DocumentTypes.swift */,
 				8DA844C52B72E1D7006CBCA7 /* Core ML */,
 				8DA844CA2B72E1D7006CBCA7 /* Photos */,
-				8DC9E7DB2C37434C0089B48A /* AnsweringSystemGreetingComponents.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
