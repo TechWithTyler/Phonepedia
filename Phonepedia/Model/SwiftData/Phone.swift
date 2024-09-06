@@ -196,7 +196,9 @@ final class Phone {
 	var hasTalkingPhonebook: Bool = false
 	
 	var baseDisplayType: Int = 0
-    
+
+    var baseMainMenuLayout: Int = 0
+
     var handsetRenaming: Int = 0
 	
 	var baseHasDisplayAndMessageCounter: Bool = false
@@ -690,6 +692,9 @@ final class Phone {
 			baseSoftKeysBottom = 0
 			baseSoftKeysSide = 0
 		}
+        if newValue < 4 {
+            baseMainMenuLayout = 0
+        }
 		if newValue < 3 || newValue > 5 {
             let colorComponents = Color.Components(fromColor: .clear)
             baseDisplayBacklightColorRed = colorComponents.red

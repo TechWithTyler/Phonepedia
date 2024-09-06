@@ -28,7 +28,7 @@ struct HandsetInfoDetailView: View {
 	var body: some View {
 		if let phone = handset.phone {
 			Form {
-                Section("General") {
+                FormNavigationLink("General") {
                     Button {
                         phone.cordlessHandsetsIHave.insert(handset.duplicate(), at: handsetNumber)
                         dismiss()
@@ -141,7 +141,7 @@ struct HandsetInfoDetailView: View {
                     }
                 }
 				if handset.cordlessDeviceType < 2 {
-                    Section("Ringers") {
+                    FormNavigationLink("Ringers") {
                         Stepper("Standard Ringtones: \(handset.ringtones)", value: $handset.ringtones, in: 1...50)
                         Stepper("Music/Melody Ringtones: \(handset.musicRingtones)", value: $handset.musicRingtones, in: 0...50)
                         Text("Total Ringtones: \(handset.totalRingtones)")
@@ -169,7 +169,7 @@ struct HandsetInfoDetailView: View {
                             }
                         }
                     }
-                    Section("Display/Backlight/Buttons") {
+                    FormNavigationLink("Display/Backlight/Buttons") {
                         Toggle("7 Has Q and 9 Has Z", isOn: handset.displayType == 0 ? $handset.hasQZ : .constant(true))
                             PhoneNumberLetterInfoView()
                         if handset.cordlessDeviceType == 0 {
@@ -226,6 +226,13 @@ struct HandsetInfoDetailView: View {
                         }
                         .onChange(of: handset.displayType) { oldValue, newValue in
                             handset.displayTypeChanged(oldValue: oldValue, newValue: newValue)
+                        }
+                        if handset.displayType >= 3 {
+                            Picker("Main Menu Layout", selection: $handset.mainMenuLayout) {
+                                Text("List").tag(0)
+                                Text("Carousel").tag(2)
+                                Text("Grid").tag(3)
+                            }
                         }
                         if handset.displayType > 0 && handset.displayType < 5 {
                             ColorPicker("Display Backlight Color", selection: handset.displayBacklightColorBinding)
@@ -304,7 +311,7 @@ struct HandsetInfoDetailView: View {
                             handset.swapKeyBackgroundAndForegroundColors()
                         }
                     }
-                    Section("Audio") {
+                    FormNavigationLink("Audio") {
 						Toggle("Has Speakerphone", isOn: $handset.hasSpeakerphone)
                         if handset.hasSpeakerphone {
                             Picker("Speakerphone Button Coloring", selection: $handset.speakerphoneColorLayer) {
@@ -326,7 +333,7 @@ struct HandsetInfoDetailView: View {
 							Text("4").tag(4)
 						}
                     }
-                    Section("Answering System/Voicemail") {
+                    FormNavigationLink("Answering System/Voicemail") {
                         if phone.hasAnsweringSystem > 1 {
 							Picker("Answering System Menu", selection: $handset.answeringSystemMenu) {
 								Text("Settings Only (doesn't require link to base").tag(0)
@@ -351,7 +358,7 @@ struct HandsetInfoDetailView: View {
                         }
                         VoicemailQuickDialInfoView()
                     }
-                    Section("Redial") {
+                    FormNavigationLink("Redial") {
                         FormNumericTextField("Redial Capacity", value: $handset.redialCapacity, valueRange: .zeroToMax(20), suffix: "entry/ies")
 #if !os(visionOS)
                             .scrollDismissesKeyboard(.interactively)
@@ -367,7 +374,7 @@ struct HandsetInfoDetailView: View {
                             InfoText("Although the redial list is stored in the handset, it may still require you to be in range of the base if the handset doesn't have a fallback to display entries without their names.")
                         }
                     }
-                    Section("Phonebook") {
+                    FormNavigationLink("Phonebook") {
 						FormNumericTextField("Phonebook Capacity", value: $handset.phonebookCapacity, valueRange: .allPositivesIncludingZero, suffix: "entry/ies")
 #if !os(visionOS)
                             .scrollDismissesKeyboard(.interactively)
@@ -384,7 +391,7 @@ struct HandsetInfoDetailView: View {
 							Toggle("Supports Bluetooth Phonebook Transfers", isOn: $handset.bluetoothPhonebookTransfers)
 						}
                     }
-                    Section("Caller ID") {
+                    FormNavigationLink("Caller ID") {
                         Toggle(isOn: $handset.hasTalkingCallerID) {
                             Text("Talking Caller ID")
                         }
@@ -404,7 +411,7 @@ struct HandsetInfoDetailView: View {
                             Toggle("Uses Base Caller ID List", isOn: $handset.usesBaseCallerID)
                         }
                     }
-                    Section("Speed Dial") {
+                    FormNavigationLink("Speed Dial") {
                         Stepper("Dial-Key Speed Dial Capacity: \(handset.speedDialCapacity)", value: $handset.speedDialCapacity, in: handset.voicemailQuickDial == 2 ? 0...9 : 0...10)
                         Stepper("One-Touch/Memory Dial: \(handset.oneTouchDialCapacity)", value: $handset.oneTouchDialCapacity, in: 0...4)
                         Toggle("Uses Base Speed Dial", isOn: $handset.usesBaseSpeedDial)
@@ -416,7 +423,7 @@ struct HandsetInfoDetailView: View {
                         }
                     }
 				}
-                Section("Special Features") {
+                FormNavigationLink("Special Features") {
                     Picker("Alarm", selection: $handset.alarm) {
                         Text("Not Supported").tag(0)
                         Text("Ringtones").tag(1)

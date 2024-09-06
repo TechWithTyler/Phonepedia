@@ -14,7 +14,7 @@ struct ContentView: View {
     // MARK: - Properties - Objects
 
     @Environment(\.modelContext) private var modelContext
-    
+
     @Query private var phones: [Phone]
     
     @State var selectedPhone: Phone?
