@@ -85,7 +85,9 @@ final class CordlessHandset {
 	var buttonType: Int = 0
 	
 	var displayType: Int = 2
-    
+
+    var mainMenuLayout: Int = 0
+
     var batteryType: Int = 0
     
     var desksetSupportsBackupBatteries: Bool = true
@@ -408,6 +410,9 @@ final class CordlessHandset {
 		if newValue <= 1 {
 			softKeys = 0
 		}
+        if newValue < 3 {
+            mainMenuLayout = 0
+        }
 		if newValue == 5 {
             displayBacklightColorBinding.wrappedValue = .white
 		}

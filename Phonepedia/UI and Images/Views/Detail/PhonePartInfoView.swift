@@ -29,7 +29,7 @@ struct PhonePartInfoView: View {
     // MARK: - Body
 
 	var body: some View {
-        Section(phone.isCordless ? "Base Colors" : "Colors") {
+        FormNavigationLink(phone.isCordless ? "Base Colors" : "Colors") {
             ColorPicker("Base Main Color", selection: phone.baseMainColorBinding)
             VStack(alignment: .trailing) {
                 ColorPicker("Base Secondary/Accent Color", selection: phone.baseSecondaryColorBinding)
@@ -48,6 +48,7 @@ struct PhonePartInfoView: View {
                 ColorPicker("Corded Receiver Secondary/Accent Color", selection: phone.cordedReceiverSecondaryColorBinding)
             }
 		}
+        .formStyle(.grouped)
 		if phone.isCordless {
             Section("Cordless Handsets/Headsets/Speakerphones/Desksets (\(handsetCount))") {
 				if !phone.cordlessHandsetsIHave.isEmpty {
