@@ -10,6 +10,8 @@ import SwiftUI
 
 struct FormNavigationLink<Destination: View, Label: View>: View {
 
+    @Environment(\.dismiss) var dismiss
+
     var destination: Destination
 
     var label: Label

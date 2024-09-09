@@ -15,10 +15,6 @@ struct HandsetInfoDetailView: View {
     
     @Bindable var handset: CordlessHandset
     
-    // MARK: - Properties - Dismiss Action
-    
-    @Environment(\.dismiss) var dismiss
-    
     // MARK: - Properties - Integers
     
     var handsetNumber: Int
@@ -28,22 +24,8 @@ struct HandsetInfoDetailView: View {
 	var body: some View {
 		if let phone = handset.phone {
 			Form {
+                HandsetActionsView(handset: handset, handsetNumber: handsetNumber)
                 FormNavigationLink("General") {
-                    Button {
-                        phone.cordlessHandsetsIHave.insert(handset.duplicate(), at: handsetNumber)
-                        dismiss()
-                    } label: {
-                        Label("Duplicate", systemImage: "doc.on.doc")
-                    }
-                    Button {
-                        phone.cordlessHandsetsIHave.removeAll { $0 == handset }
-                        dismiss()
-                    } label: {
-                        Label("Delete", systemImage: "trash")
-#if !os(macOS)
-    .foregroundStyle(.red)
-#endif
-                    }
                     FormTextField("Brand", text: $handset.brand)
                     FormTextField("Model", text: $handset.model)
                     Stepper("Release Year (-1 if unknown): \(String(handset.releaseYear))", value: $handset.releaseYear, in: -1...currentYear)
