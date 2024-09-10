@@ -59,6 +59,12 @@ struct PhoneCountView: View {
         return totalHeadsets
     }
 
+    // The total number of phones with answering systems.
+    var withAnsweringSystemsCount: Int {
+        let count = phones.filter({ $0.hasAnsweringSystem > 0 }).count
+        return count
+    }
+
     var body: some View {
         NavigationStack {
             List {
@@ -92,6 +98,15 @@ struct PhoneCountView: View {
                         .multilineTextAlignment(.leading)
                     Spacer()
                     Text(cordedPhoneCount, format: .number)
+                        .foregroundStyle(.secondary)
+                        .multilineTextAlignment(.trailing)
+                }
+                HStack {
+                    Text("With Answering Systems")
+                        .foregroundStyle(.primary)
+                        .multilineTextAlignment(.leading)
+                    Spacer()
+                    Text(withAnsweringSystemsCount, format: .number)
                         .foregroundStyle(.secondary)
                         .multilineTextAlignment(.trailing)
                 }
