@@ -30,13 +30,13 @@ struct Wave: Shape {
         let width = Double(rect.width)
         let height = Double(rect.height)
         let midHeight = height / 2
-        // Split our total width based on the frequency
+        // Split the total width based on the frequency
         let wavelength = width / frequency.rawValue
         // Start at the left center
         path.move(to: CGPoint(x: 0, y: midHeight))
         // Calculate the wave points
         for x in stride(from: 0, through: width, by: 1) {
-            // Find our current position relative to the wavelength
+            // Find the current position relative to the wavelength
             let relativeX = x / wavelength
             // Apply the sine function to get a value between -1 and 1
             let sineValue = sin(relativeX)
