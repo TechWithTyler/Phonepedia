@@ -331,6 +331,13 @@ final class CordlessHandset {
         secondaryColorBlue = components.blue
     }
 
+    func setCordedReceiverSecondaryColorToMain() {
+        let components = cordedReceiverMainColorBinding.wrappedValue.components
+        cordedReceiverSecondaryColorRed = components.red
+        cordedReceiverSecondaryColorGreen = components.green
+        cordedReceiverSecondaryColorBlue = components.blue
+    }
+
     func swapKeyBackgroundAndForegroundColors() {
         let previousBackgroundRed = keyBackgroundColorRed
         let previousBackgroundGreen = keyBackgroundColorGreen

@@ -86,7 +86,9 @@ final class Phone {
     var cordedReceiverSecondaryColorGreen: Double = 0
     
     var cordedReceiverSecondaryColorBlue: Double = 0
-    
+
+    var cordedReceiverSecondaryColorAlpha: Double = 0
+
     var baseLEDMessageCounterColorRed: Double = 0
     
     var baseLEDMessageCounterColorGreen: Double = 0
@@ -436,12 +438,13 @@ final class Phone {
     @Transient
     var cordedReceiverSecondaryColorBinding: Binding<Color> {
         Binding<Color> { [self] in
-            Color(red: cordedReceiverSecondaryColorRed, green: cordedReceiverSecondaryColorGreen, blue: cordedReceiverSecondaryColorBlue)
+            Color(red: cordedReceiverSecondaryColorRed, green: cordedReceiverSecondaryColorGreen, blue: cordedReceiverSecondaryColorBlue, opacity: cordedReceiverSecondaryColorAlpha)
         } set: { [self] newColor in
             let components = newColor.components
             cordedReceiverSecondaryColorRed = components.red
             cordedReceiverSecondaryColorGreen = components.green
             cordedReceiverSecondaryColorBlue = components.blue
+            cordedReceiverSecondaryColorAlpha = components.opacity
         }
     }
     
@@ -519,6 +522,15 @@ final class Phone {
         baseSecondaryColorRed = components.red
         baseSecondaryColorGreen = components.green
         baseSecondaryColorBlue = components.blue
+    }
+
+    func setCordedReceiverSecondaryColorToMain() {
+        let components = cordedReceiverMainColorBinding.wrappedValue.components
+        cordedReceiverSecondaryColorRed = components.red
+        cordedReceiverSecondaryColorGreen = components.green
+        cordedReceiverSecondaryColorBlue = components.blue
+        cordedReceiverSecondaryColorAlpha = components.opacity
+
     }
 
     func swapKeyBackgroundAndForegroundColors() {

@@ -45,12 +45,10 @@ struct ChargerInfoDetailView: View {
 #endif
                     }
                     ColorPicker("Main Color", selection: charger.mainColorBinding)
-                    VStack(alignment: .trailing) {
                         ColorPicker("Secondary/Accent Color", selection: charger.secondaryColorBinding)
                         Button("Use Main Color") {
                             charger.setSecondaryColorToMain()
                         }
-                    }
                     Picker("Charging Direction", selection: $charger.chargingDirection) {
                         Text("Forward (stand up)").tag(0)
                         Text("Forward (lean back)").tag(1)

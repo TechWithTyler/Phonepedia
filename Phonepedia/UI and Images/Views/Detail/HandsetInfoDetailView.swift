@@ -58,12 +58,10 @@ struct HandsetInfoDetailView: View {
                             Text("Gift").tag(5)
                         }
                         ColorPicker("Main Color", selection: handset.mainColorBinding)
-                        VStack(alignment: .trailing) {
                             ColorPicker("Secondary/Accent Color", selection: handset.secondaryColorBinding)
                             Button("Use Main Color") {
                                 handset.setSecondaryColorToMain()
                             }
-                        }
                         Stepper("Maximum Number Of Bases: \(handset.maxBases)", value: $handset.maxBases, in: 1...4)
                         InfoText("Registering a cordless device to more than one base allows you to extend the coverage area and access the answering system, shared lists, etc. of multiple bases without having to register the device to one of those bases at a time.\nIf you want extended range but the same lines/shared lists/base features, and/or you don't want calls to disconnect when the device decides to communicate with a different base, use range extenders instead of multiple bases.")
                         Picker("Cordless Device Type", selection: $handset.cordlessDeviceType) {
@@ -95,6 +93,9 @@ struct HandsetInfoDetailView: View {
                         if handset.cordlessDeviceType == 1 {
                             ColorPicker("Corded Receiver Main Color", selection: handset.cordedReceiverMainColorBinding)
                             ColorPicker("Corded Receiver Secondary/Accent Color", selection: handset.cordedReceiverSecondaryColorBinding)
+                            Button("Use Main Color") {
+                                handset.setCordedReceiverSecondaryColorToMain()
+                        }
                         }
                         Picker("Visual Ringer", selection: $handset.visualRinger) {
                             Text("None").tag(0)
