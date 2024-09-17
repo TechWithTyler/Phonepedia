@@ -15,7 +15,9 @@ struct PhonePartInfoView: View {
     // MARK: - Properties - Phone
 
 	@Bindable var phone: Phone
-    
+
+    @Binding var showingAboutDisplayTypes: Bool
+
     // MARK: - Properties - Integers
     
     var handsetCount: Int {
@@ -55,7 +57,7 @@ struct PhonePartInfoView: View {
 						ForEach(phone.cordlessHandsetsIHave) { handset in
                             let handsetNumber = (phone.cordlessHandsetsIHave.firstIndex(of: handset) ?? 0) + 1
                             NavigationLink {
-								HandsetInfoDetailView(handset: handset, handsetNumber: handsetNumber)
+                                HandsetInfoDetailView(handset: handset, showingAboutDisplayTypes: $showingAboutDisplayTypes, handsetNumber: handsetNumber)
 									.navigationTitle("Handset \(handsetNumber) Details")
 							} label: {
 								HStack {
@@ -203,6 +205,6 @@ struct PhonePartInfoView: View {
 
 #Preview {
     Form {
-        PhonePartInfoView(phone: Phone(brand: "Panasonic", model: "KX-TGD892"))
+        PhonePartInfoView(phone: Phone(brand: "Panasonic", model: "KX-TGD892"), showingAboutDisplayTypes: .constant(false))
     }.formStyle(.grouped)
 }

@@ -21,6 +21,8 @@ struct ContentView: View {
 
     @State private var showingPhoneTypeDefinitions: Bool = false
 
+    @State private var showingAboutDisplayTypes: Bool = false
+
     // MARK: - Body
 
 	var body: some View {
@@ -29,7 +31,7 @@ struct ContentView: View {
 		} detail: {
 			if !phones.isEmpty {
 				if let phone = selectedPhone {
-                    PhoneDetailView(phone: phone, showingPhoneTypeDefinitions: $showingPhoneTypeDefinitions)
+                    PhoneDetailView(phone: phone, showingPhoneTypeDefinitions: $showingPhoneTypeDefinitions, showingAboutDisplayTypes: $showingAboutDisplayTypes)
 				} else {
 					NoPhoneSelectedView()
 				}
@@ -40,6 +42,7 @@ struct ContentView: View {
         .sheet(isPresented: $showingPhoneTypeDefinitions) {
             PhoneTypeDefinitionsView()
         }
+        .sheet(isPresented: $showingAboutDisplayTypes, content: { AboutDisplayTypesView() })
         .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
         #if os(iOS)
         .pickerStyle(.navigationLink)

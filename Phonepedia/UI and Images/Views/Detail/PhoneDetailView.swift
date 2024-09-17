@@ -28,7 +28,9 @@ struct PhoneDetailView: View {
     @State private var showingRegistrationExplanation: Bool = false
     
     @Binding var showingPhoneTypeDefinitions: Bool
-    
+
+    @Binding var showingAboutDisplayTypes: Bool
+
     @State private var showingAboutDialingCodes: Bool = false
     
     @State private var showingAboutConnectionTypes: Bool = false
@@ -445,7 +447,7 @@ In most cases, if the base has a charge light/display message, the completion of
                         """)
                 }
             }
-            PhonePartInfoView(phone: phone)
+            PhonePartInfoView(phone: phone, showingAboutDisplayTypes: $showingAboutDisplayTypes)
             FormNavigationLink("Power") {
                 if !phone.isCordless {
                     Picker("Power Source", selection: $phone.cordedPowerSource) {
@@ -595,6 +597,9 @@ In most cases, if the base has a charge light/display message, the completion of
                 }
                 .onChange(of: phone.baseDisplayType) { oldValue, newValue in
                     phone.baseDisplayTypeChanged(oldValue: oldValue, newValue: newValue)
+                }
+                InfoButton(title: "About Display Types…") {
+                    showingAboutDisplayTypes = true
                 }
                 if phone.baseDisplayType >= 4 {
                     Picker("Main Menu Layout", selection: $phone.baseMainMenuLayout) {
@@ -1124,6 +1129,6 @@ When the first ring is suppressed, the number of rings you hear will be one less
 }
 
 #Preview {
-    PhoneDetailView(phone: Phone(brand: "AT&T", model: "CL83207"), showingPhoneTypeDefinitions: .constant(false))
+    PhoneDetailView(phone: Phone(brand: "AT&T", model: "CL83207"), showingPhoneTypeDefinitions: .constant(false), showingAboutDisplayTypes: .constant(false))
         .environmentObject(PhonePhotoViewModel())
 }

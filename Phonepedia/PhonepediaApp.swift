@@ -15,11 +15,7 @@ struct PhonepediaApp: App {
     @ObservedObject var photoViewModel = PhonePhotoViewModel()
 
     var body: some Scene {
-        DocumentGroup(editing: .phonepediaDatabase, migrationPlan: PhonepediaMigrationPlan.self) {
-            ContentView()
-                .environmentObject(photoViewModel)
-        }
-        #if os(iOS) || os(visionOS)
+#if os(iOS) || os(visionOS)
         DocumentGroupLaunchScene {
             NewDocumentButton("New Phone Catalog")
         } background: {
@@ -27,6 +23,10 @@ struct PhonepediaApp: App {
         } backgroundAccessoryView: { geometry in
             DocumentLaunchPhonesAccessoryView()
         }
-        #endif
+#endif
+        DocumentGroup(editing: .phonepediaDatabase, migrationPlan: PhonepediaMigrationPlan.self) {
+            ContentView()
+                .environmentObject(photoViewModel)
+        }
     }
 }
