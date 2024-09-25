@@ -15,7 +15,9 @@ struct HandsetInfoDetailView: View {
     
     @Bindable var handset: CordlessHandset
 
-    @Binding var showingAboutDisplayTypes: Bool
+    // MARK: - Properties - Dialog Manager
+
+    @EnvironmentObject var dialogManager: DialogManager
 
     // MARK: - Properties - Integers
     
@@ -216,7 +218,7 @@ struct HandsetInfoDetailView: View {
                                 handset.displayTypeChanged(oldValue: oldValue, newValue: newValue)
                             }
                             InfoButton(title: "About Display Types…") {
-                                showingAboutDisplayTypes = true
+                                dialogManager.showingAboutDisplayTypes = true
                             }
                             if handset.displayType >= 3 {
                                 Picker("Main Menu Layout", selection: $handset.mainMenuLayout) {
@@ -442,5 +444,5 @@ struct HandsetInfoDetailView: View {
 #Preview {
     @Previewable @State var handset = CordlessHandset(brand: "Panasonic", model: "KX-TGFA97", mainColorRed: 120, mainColorGreen: 120, mainColorBlue: 120, secondaryColorRed: 0, secondaryColorGreen: 0, secondaryColorBlue: 0)
 	handset.phone = Phone(brand: "Panasonic", model: "KX-TGF975")
-    return HandsetInfoDetailView(handset: handset, showingAboutDisplayTypes: .constant(false), handsetNumber: 1)
+    return HandsetInfoDetailView(handset: handset, handsetNumber: 1)
 }

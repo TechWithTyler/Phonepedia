@@ -14,22 +14,14 @@ struct PhoneListView: View {
     // MARK: - Properties - Objects
     
     @Environment(\.modelContext) private var modelContext
-    
+
+    // MARK: - Properties - Dialog Manager
+
+    @EnvironmentObject var dialogManager: DialogManager
+
     var phones: [Phone]
     
     @Binding var selectedPhone: Phone?
-    
-    @State private var phoneToDelete: Phone? = nil
-
-    // MARK: - Properties - Booleans
-
-    @Binding var showingPhoneTypeDefinitions: Bool
-
-    @State private var showingDeleteOne: Bool = false
-    
-    @State private var showingDeleteAll: Bool = false
-
-    @State private var showingPhoneCount: Bool = false
 
     // MARK: - Body
     
@@ -40,16 +32,16 @@ struct PhoneListView: View {
                         ForEach(phones) { phone in
                             NavigationLink(value: phone) {
                                 PhoneRowView(phone: phone)
-                                    .alert("Delete this phone?", isPresented: $showingDeleteOne, presenting: phoneToDelete) { phoneToDelete in
+                                    .alert("Delete this phone?", isPresented: $dialogManager.showingDeletePhone, presenting: dialogManager.phoneToDelete) { phoneToDelete in
                                         Button(role: .destructive) {
-                                            showingDeleteOne = false
+                                            dialogManager.showingDeletePhone = false
                                             deletePhone(phoneToDelete)
                                         } label: {
                                             Text("Delete")
                                         }
                                         Button(role: .cancel) {
-                                            showingDeleteOne = false
-                                            self.phoneToDelete = nil
+                                            dialogManager.showingDeletePhone = false
+                                            dialogManager.phoneToDelete = nil
                                         } label: {
                                             Text("Cancel")
                                         }
@@ -59,8 +51,8 @@ struct PhoneListView: View {
                             }
                             .contextMenu {
                                 Button(role: .destructive) {
-                                    phoneToDelete = phone
-                                    showingDeleteOne = true
+                                    dialogManager.phoneToDelete = phone
+                                    dialogManager.showingDeletePhone = true
                                 } label: {
                                     Label("Delete…", systemImage: "trash")
                                 }
@@ -75,21 +67,21 @@ struct PhoneListView: View {
                     .foregroundStyle(Color.secondary)
             }
         }
-        .sheet(isPresented: $showingPhoneCount) {
+        .sheet(isPresented: $dialogManager.showingPhoneCount) {
             PhoneCountView(phones: phones)
         }
 #if os(macOS)
         .navigationSplitViewColumnWidth(300)
 #endif
-        .alert("Delete all phones from this database?", isPresented: $showingDeleteAll) {
+        .alert("Delete all phones from this database?", isPresented: $dialogManager.showingDeleteAllPhones) {
             Button(role: .destructive) {
-                showingDeleteAll = false
+                dialogManager.showingDeleteAllPhones = false
                 deleteAllPhones()
             } label: {
                 Text("Delete")
             }
             Button(role: .cancel) {
-                showingDeleteAll = false
+                dialogManager.showingDeleteAllPhones = false
             } label: {
                 Text("Cancel")
             }
@@ -112,15 +104,15 @@ struct PhoneListView: View {
                 }
                 .accessibilityIdentifier("AddPhoneButton")
                 Button("Phone Count…") {
-                    showingPhoneCount = true
+                    dialogManager.showingPhoneCount = true
                 }
                 .badge(phones.count)
                 Button("Phone Type Definitions…") {
-                    showingPhoneTypeDefinitions = true
+                    dialogManager.showingPhoneTypeDefinitions = true
                 }
                 Divider()
                 Button(role: .destructive) {
-                    showingDeleteAll = true
+                    dialogManager.showingDeleteAllPhones = true
                 } label: {
                     Label("Delete All…", systemImage: "trash.fill")
                 }
@@ -140,14 +132,14 @@ struct PhoneListView: View {
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
             for index in offsets {
-                phoneToDelete = phones[index]
-                showingDeleteOne = true
+                dialogManager.phoneToDelete = phones[index]
+                dialogManager.showingDeletePhone = true
             }
         }
     }
     
     func deletePhone(_ phone: Phone) {
-        phoneToDelete = nil
+        dialogManager.phoneToDelete = nil
         modelContext.delete(phone)
         selectedPhone = nil
     }
@@ -166,7 +158,7 @@ struct PhoneListView: View {
     @Previewable @Query var phones: [Phone] = []
     @State @Previewable var showingPhoneTypeDefinitions: Bool = false
     NavigationStack {
-        PhoneListView(phones: phones, selectedPhone: $selectedPhone, showingPhoneTypeDefinitions: $showingPhoneTypeDefinitions)
+        PhoneListView(phones: phones, selectedPhone: $selectedPhone)
     }
     .modelContainer(for: [Phone.self, CordlessHandset.self, CordlessHandsetCharger.self], inMemory: true)
     .padding()

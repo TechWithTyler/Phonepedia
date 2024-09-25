@@ -57,6 +57,7 @@
 		8DA844F22B72E1D7006CBCA7 /* PhonePhotoError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844CC2B72E1D7006CBCA7 /* PhonePhotoError.swift */; };
 		8DA844F32B72E1D7006CBCA7 /* PhonepediaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844CD2B72E1D7006CBCA7 /* PhonepediaApp.swift */; };
 		8DB25E902C8BC4A9001617C2 /* FormNavigationLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB25E8F2C8BC4A9001617C2 /* FormNavigationLink.swift */; };
+		8DBB95422CA48B84002E57EC /* DialogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBB95412CA48B84002E57EC /* DialogManager.swift */; };
 		8DC9E7DC2C37434C0089B48A /* AnsweringSystemGreetingComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC9E7DB2C37434C0089B48A /* AnsweringSystemGreetingComponents.swift */; };
 		8DE6B9662AA905CF00C42E02 /* PhonepediaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE6B9652AA905CF00C42E02 /* PhonepediaTests.swift */; };
 		8DEC01642C20D78D006E0233 /* PhoneDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844A72B72E1D7006CBCA7 /* PhoneDetailView.swift */; };
@@ -151,6 +152,7 @@
 		8DA844CC2B72E1D7006CBCA7 /* PhonePhotoError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhonePhotoError.swift; sourceTree = "<group>"; };
 		8DA844CD2B72E1D7006CBCA7 /* PhonepediaApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhonepediaApp.swift; sourceTree = "<group>"; };
 		8DB25E8F2C8BC4A9001617C2 /* FormNavigationLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormNavigationLink.swift; sourceTree = "<group>"; };
+		8DBB95412CA48B84002E57EC /* DialogManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogManager.swift; sourceTree = "<group>"; };
 		8DC9E7DB2C37434C0089B48A /* AnsweringSystemGreetingComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnsweringSystemGreetingComponents.swift; sourceTree = "<group>"; };
 		8DE6B9632AA905CF00C42E02 /* PhonepediaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhonepediaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DE6B9652AA905CF00C42E02 /* PhonepediaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhonepediaTests.swift; sourceTree = "<group>"; };
@@ -321,6 +323,7 @@
 				8DA844C42B72E1D7006CBCA7 /* DocumentTypes.swift */,
 				8DA844C52B72E1D7006CBCA7 /* Core ML */,
 				8DA844CA2B72E1D7006CBCA7 /* Photos */,
+				8DBB95412CA48B84002E57EC /* DialogManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -552,6 +555,7 @@
 				8DA844D62B72E1D7006CBCA7 /* ChargerInfoDetailView.swift in Sources */,
 				8DA844D02B72E1D7006CBCA7 /* CameraCoordinator.swift in Sources */,
 				8DA844E22B72E1D7006CBCA7 /* PhoneImage.swift in Sources */,
+				8DBB95422CA48B84002E57EC /* DialogManager.swift in Sources */,
 				8DEC3A682C2CB9D200737094 /* HandsetPhonebookType.swift in Sources */,
 				8DA844DB2B72E1D7006CBCA7 /* BatteryInfoView.swift in Sources */,
 				8D7A74A42C26203E00C5329E /* DocumentLaunchPhonesAccessoryView.swift in Sources */,

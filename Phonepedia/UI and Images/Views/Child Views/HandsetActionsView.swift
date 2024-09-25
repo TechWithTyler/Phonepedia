@@ -14,6 +14,10 @@ struct HandsetActionsView: View {
 
     @Bindable var handset: CordlessHandset
 
+    // MARK: - Properties - Dialog Manager
+
+    @EnvironmentObject var dialogManager: DialogManager
+
     var handsetNumber: Int
 
     var body: some View {
@@ -25,7 +29,8 @@ struct HandsetActionsView: View {
                 Label("Duplicate", systemImage: "doc.on.doc")
             }
             Button {
-                phone.cordlessHandsetsIHave.removeAll { $0 == handset }
+                dialogManager.showingDeleteHandset = true
+                dialogManager.handsetToDelete = handset
                 dismiss()
             } label: {
                 Label("Delete", systemImage: "trash")

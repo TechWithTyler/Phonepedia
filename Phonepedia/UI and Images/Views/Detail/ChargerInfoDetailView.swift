@@ -19,6 +19,10 @@ struct ChargerInfoDetailView: View {
 
     @Environment(\.dismiss) var dismiss
 
+    // MARK: - Properties - Dialog Manager
+
+    @EnvironmentObject var dialogManager: DialogManager
+
     // MARK: - Properties - Integers
 
     let chargerNumber: Int
@@ -36,7 +40,8 @@ struct ChargerInfoDetailView: View {
                         Label("Duplicate", systemImage: "doc.on.doc")
                     }
                     Button {
-                        phone.chargersIHave.removeAll { $0 == charger }
+                        dialogManager.showingDeleteCharger = true
+                        dialogManager.chargerToDelete = charger
                         dismiss()
                     } label: {
                         Label("Delete", systemImage: "trash")

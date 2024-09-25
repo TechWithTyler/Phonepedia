@@ -16,7 +16,9 @@ struct PhonePartInfoView: View {
 
 	@Bindable var phone: Phone
 
-    @Binding var showingAboutDisplayTypes: Bool
+    // MARK: - Properties - Dialog Manager
+
+    @EnvironmentObject var dialogManager: DialogManager
 
     // MARK: - Properties - Integers
     
@@ -58,7 +60,7 @@ struct PhonePartInfoView: View {
 						ForEach(phone.cordlessHandsetsIHave) { handset in
                             let handsetNumber = (phone.cordlessHandsetsIHave.firstIndex(of: handset) ?? 0) + 1
                             NavigationLink {
-                                HandsetInfoDetailView(handset: handset, showingAboutDisplayTypes: $showingAboutDisplayTypes, handsetNumber: handsetNumber)
+                                HandsetInfoDetailView(handset: handset, handsetNumber: handsetNumber)
 									.navigationTitle("Handset \(handsetNumber) Details")
 							} label: {
 								HStack {
@@ -76,14 +78,16 @@ struct PhonePartInfoView: View {
                                 }
                                 Divider()
 								Button(role: .destructive) {
-									deleteHandset(at: phone.cordlessHandsetsIHave.firstIndex(of: handset)!)
+                                    dialogManager.showingDeleteHandset = true
+                                    dialogManager.handsetToDelete = handset
 								} label: {
-                                    Label("Delete", systemImage: "trash")
+                                    Label("Delete…", systemImage: "trash")
 								}
 							}
 							.swipeActions {
 								Button(role: .destructive) {
-									deleteHandset(at: phone.cordlessHandsetsIHave.firstIndex(of: handset)!)
+                                    dialogManager.showingDeleteHandset = true
+                                    dialogManager.handsetToDelete = handset
 								} label: {
                                     Label("Delete", systemImage: "trash")
 								}
@@ -105,15 +109,35 @@ struct PhonePartInfoView: View {
 					WarningText("You have more cordless devices than the base can handle!")
 				}
                 Button(role: .destructive) {
-                    phone.cordlessHandsetsIHave.removeAll()
+                    dialogManager.showingDeleteAllHandsets = true
                 } label: {
-                    Label("Delete All Cordless Devices", systemImage: "trash.fill")
+                    Label("Delete All…", systemImage: "trash.fill")
 #if !os(macOS)
     .foregroundStyle(.red)
 #endif
                 }
                 .buttonStyle(.borderless)
 			}
+            .alert("Delete this handset?", isPresented: $dialogManager.showingDeleteHandset, presenting: $dialogManager.handsetToDelete) { handset in
+                Button("Delete") {
+                    deleteHandset(at: phone.cordlessHandsetsIHave.firstIndex(of: handset.wrappedValue!)!)
+                    dialogManager.handsetToDelete = nil
+                    dialogManager.showingDeleteHandset = false
+                }
+                Button("Cancel") {
+                    dialogManager.handsetToDelete = nil
+                    dialogManager.showingDeleteHandset = false
+                }
+            }
+            .alert("Delete all handsets?", isPresented: $dialogManager.showingDeleteAllHandsets) {
+                Button("Delete") {
+                    phone.cordlessHandsetsIHave.removeAll()
+                    dialogManager.showingDeleteAllHandsets = false
+                }
+                Button("Cancel") {
+                    dialogManager.showingDeleteAllHandsets = false
+                }
+            }
             Section("Cordless Handset Chargers (\(chargerCount))") {
 				if !phone.chargersIHave.isEmpty {
 						ForEach(phone.chargersIHave) { charger in
@@ -132,14 +156,16 @@ struct PhonePartInfoView: View {
                                     }
                                     Divider()
 									Button(role: .destructive) {
-										deleteCharger(at: phone.chargersIHave.firstIndex(of: charger)!)
+                                        dialogManager.showingDeleteCharger = true
+                                        dialogManager.chargerToDelete = charger
 									} label: {
-                                        Label("Delete", systemImage: "trash")
+                                        Label("Delete…", systemImage: "trash")
 									}
 								}
 								.swipeActions {
 									Button(role: .destructive) {
-										deleteCharger(at: phone.chargersIHave.firstIndex(of: charger)!)
+                                        dialogManager.showingDeleteCharger = true
+                                        dialogManager.chargerToDelete = charger
 									} label: {
                                         Label("Delete", systemImage: "trash")
 									}
@@ -155,14 +181,34 @@ struct PhonePartInfoView: View {
 					.buttonStyle(.borderless)
 					.accessibilityIdentifier("AddChargerButton")
                 Button(role: .destructive) {
-                    phone.chargersIHave.removeAll()
+                    dialogManager.showingDeleteAllChargers = true
                 } label: {
-                    Label("Delete All Chargers", systemImage: "trash.fill")
+                    Label("Delete All…", systemImage: "trash.fill")
                     #if !os(macOS)
                         .foregroundStyle(.red)
                     #endif
                 }
                 .buttonStyle(.borderless)
+            }
+            .alert("Delete this charger?", isPresented: $dialogManager.showingDeleteCharger, presenting: $dialogManager.chargerToDelete) { charger in
+                Button("Delete") {
+                    deleteCharger(at: phone.chargersIHave.firstIndex(of: charger.wrappedValue!)!)
+                    dialogManager.chargerToDelete = nil
+                    dialogManager.showingDeleteCharger = false
+                }
+                Button("Cancel") {
+                    dialogManager.chargerToDelete = nil
+                    dialogManager.showingDeleteCharger = false
+                }
+            }
+            .alert("Delete all chargers?", isPresented: $dialogManager.showingDeleteAllChargers) {
+                Button("Delete") {
+                    phone.chargersIHave.removeAll()
+                    dialogManager.showingDeleteAllChargers = false
+                }
+                Button("Cancel") {
+                    dialogManager.showingDeleteAllChargers = false
+                }
             }
 		}
 	}
@@ -206,6 +252,6 @@ struct PhonePartInfoView: View {
 
 #Preview {
     Form {
-        PhonePartInfoView(phone: Phone(brand: "Panasonic", model: "KX-TGD892"), showingAboutDisplayTypes: .constant(false))
+        PhonePartInfoView(phone: Phone(brand: "Panasonic", model: "KX-TGD892"))
     }.formStyle(.grouped)
 }

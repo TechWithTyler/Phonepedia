@@ -15,23 +15,25 @@ struct ContentView: View {
 
     @Environment(\.modelContext) private var modelContext
 
+    // MARK: - Properties - Dialog Manager
+
+    @EnvironmentObject var dialogManager: DialogManager
+
     @Query private var phones: [Phone]
     
     @State var selectedPhone: Phone?
-
-    @State private var showingPhoneTypeDefinitions: Bool = false
-
-    @State private var showingAboutDisplayTypes: Bool = false
 
     // MARK: - Body
 
 	var body: some View {
 		NavigationSplitView {
-            PhoneListView(phones: phones, selectedPhone: $selectedPhone, showingPhoneTypeDefinitions: $showingPhoneTypeDefinitions)
+            PhoneListView(phones: phones, selectedPhone: $selectedPhone)
+                .environmentObject(dialogManager)
 		} detail: {
 			if !phones.isEmpty {
 				if let phone = selectedPhone {
-                    PhoneDetailView(phone: phone, showingPhoneTypeDefinitions: $showingPhoneTypeDefinitions, showingAboutDisplayTypes: $showingAboutDisplayTypes)
+                    PhoneDetailView(phone: phone)
+                        .environmentObject(dialogManager)
 				} else {
 					NoPhoneSelectedView()
 				}
@@ -39,10 +41,10 @@ struct ContentView: View {
 				EmptyView()
 			}
 		}
-        .sheet(isPresented: $showingPhoneTypeDefinitions) {
+        .sheet(isPresented: $dialogManager.showingPhoneTypeDefinitions) {
             PhoneTypeDefinitionsView()
         }
-        .sheet(isPresented: $showingAboutDisplayTypes, content: { AboutDisplayTypesView() })
+        .sheet(isPresented: $dialogManager.showingAboutDisplayTypes, content: { AboutDisplayTypesView() })
         .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
         #if os(iOS)
         .pickerStyle(.navigationLink)

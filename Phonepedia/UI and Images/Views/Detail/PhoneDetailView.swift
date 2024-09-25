@@ -16,24 +16,12 @@ struct PhoneDetailView: View {
     // MARK: - Properties - Objects
     
     @Bindable var phone: Phone
-    
+
+    @EnvironmentObject var dialogManager: DialogManager
+
     @EnvironmentObject var photoViewModel: PhonePhotoViewModel
     
     @AppStorage("phoneDescriptionTextSize") var phoneDescriptionTextSize: Double = SATextViewMinFontSize
-
-    // MARK: - Properties - Booleans
-    
-    @State private var showingFrequenciesExplanation: Bool = false
-    
-    @State private var showingRegistrationExplanation: Bool = false
-    
-    @Binding var showingPhoneTypeDefinitions: Bool
-
-    @Binding var showingAboutDisplayTypes: Bool
-
-    @State private var showingAboutDialingCodes: Bool = false
-    
-    @State private var showingAboutConnectionTypes: Bool = false
 
     var baseSpeedDialRange: ClosedRange<Int> {
         if phone.voicemailQuickDial == 2 {
@@ -131,16 +119,16 @@ struct PhoneDetailView: View {
         .onChange(of: photoViewModel.selectedPhoto, { oldValue, newValue in
             photoViewModel.updatePhonePhoto(for: phone, oldValue: oldValue, newValue: newValue)
         })
-        .sheet(isPresented: $showingFrequenciesExplanation) {
+        .sheet(isPresented: $dialogManager.showingFrequenciesExplanation) {
             FrequenciesExplanationView()
         }
-        .sheet(isPresented: $showingRegistrationExplanation) {
+        .sheet(isPresented: $dialogManager.showingRegistrationExplanation) {
             RegistrationExplanationView()
         }
-        .sheet(isPresented: $showingAboutDialingCodes) {
+        .sheet(isPresented: $dialogManager.showingAboutDialingCodes) {
             AboutDialingCodesView()
         }
-        .sheet(isPresented: $showingAboutConnectionTypes) {
+        .sheet(isPresented: $dialogManager.showingAboutConnectionTypes) {
             AboutConnectionTypesView()
         }
 #if os(iOS)
@@ -201,7 +189,7 @@ struct PhoneDetailView: View {
                     Text("Phone Type: \(phone.phoneTypeText)")
                     Spacer()
                     InfoButton {
-                        showingPhoneTypeDefinitions = true
+                        dialogManager.showingPhoneTypeDefinitions = true
                     }
                 }
                 Stepper("Release Year (-1 if unknown): \(String(phone.releaseYear))", value: $phone.releaseYear, in: -1...currentYear)
@@ -259,7 +247,7 @@ struct PhoneDetailView: View {
                             InfoText("When placing the handset on the base, the handset and base exchange a digital security code, which makes sure the handset only communicates with that base. You can add as many handsets as you want--the base doesn't know or care how many handsets are being used on it. You can change which base the handset is used on by placing it on a different one.")
                         } else if phone.maxCordlessHandsets >= 1 {
                             InfoButton(title: "Registration Explanation…") {
-                                showingRegistrationExplanation = true
+                                dialogManager.showingRegistrationExplanation = true
                             }
                         }
                         if phone.numberOfIncludedCordlessHandsets > phone.maxCordlessHandsets && phone.hasRegistration {
@@ -310,7 +298,7 @@ struct PhoneDetailView: View {
                         }
                     }
                     InfoButton(title: "Frequencies Explanation…") {
-                        showingFrequenciesExplanation = true
+                        dialogManager.showingFrequenciesExplanation = true
                     }
                     Picker("Antenna(s)", selection: $phone.antennas) {
                         Text("Hidden").tag(0)
@@ -447,7 +435,7 @@ In most cases, if the base has a charge light/display message, the completion of
                         """)
                 }
             }
-            PhonePartInfoView(phone: phone, showingAboutDisplayTypes: $showingAboutDisplayTypes)
+            PhonePartInfoView(phone: phone)
             FormNavigationLink("Power") {
                 if !phone.isCordless {
                     Picker("Power Source", selection: $phone.cordedPowerSource) {
@@ -599,7 +587,7 @@ In most cases, if the base has a charge light/display message, the completion of
                     phone.baseDisplayTypeChanged(oldValue: oldValue, newValue: newValue)
                 }
                 InfoButton(title: "About Display Types…") {
-                    showingAboutDisplayTypes = true
+                    dialogManager.showingAboutDisplayTypes = true
                 }
                 if phone.baseDisplayType >= 4 {
                     Picker("Main Menu Layout", selection: $phone.baseMainMenuLayout) {
@@ -817,7 +805,7 @@ A phone's voicemail indicator usually works in one or both of the following ways
                     }
                 }
                 InfoButton(title: "About Connection Types/Devices…") {
-                    showingAboutConnectionTypes = true
+                    dialogManager.showingAboutConnectionTypes = true
                 }
                 Picker("Number Of Lines", selection: $phone.numberOfLandlines) {
                     Text("Single-Line").tag(1)
@@ -932,7 +920,7 @@ A phone's voicemail indicator usually works in one or both of the following ways
                         Toggle("Can Store Dialing Codes For Phonebook Transfer", isOn: $phone.supportsPhonebookTransferDialingCodes)
                     }
                     InfoButton(title: "About Dialing Codes…") {
-                        showingAboutDialingCodes = true
+                        dialogManager.showingAboutDialingCodes = true
                     }
                 }
                 FormNavigationLink("Phonebook") {
@@ -1129,6 +1117,6 @@ When the first ring is suppressed, the number of rings you hear will be one less
 }
 
 #Preview {
-    PhoneDetailView(phone: Phone(brand: "AT&T", model: "CL83207"), showingPhoneTypeDefinitions: .constant(false), showingAboutDisplayTypes: .constant(false))
+    PhoneDetailView(phone: Phone(brand: "AT&T", model: "CL83207"))
         .environmentObject(PhonePhotoViewModel())
 }

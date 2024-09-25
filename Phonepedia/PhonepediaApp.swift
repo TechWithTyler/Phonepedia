@@ -14,6 +14,8 @@ struct PhonepediaApp: App {
     
     @ObservedObject var photoViewModel = PhonePhotoViewModel()
 
+    @ObservedObject var dialogManager = DialogManager()
+
     var body: some Scene {
 #if os(iOS) || os(visionOS)
         DocumentGroupLaunchScene {
@@ -27,6 +29,7 @@ struct PhonepediaApp: App {
         DocumentGroup(editing: .phonepediaDatabase, migrationPlan: PhonepediaMigrationPlan.self) {
             ContentView()
                 .environmentObject(photoViewModel)
+                .environmentObject(dialogManager)
         }
     }
 }
