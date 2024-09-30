@@ -168,7 +168,7 @@ struct PhoneDetailView: View {
     
     @ViewBuilder
     var basicsGroup: some View {
-        Group {
+        Section {
             FormNavigationLink("General") {
                 photoAndOptions
                 FormTextField("Brand", text: $phone.brand)
@@ -423,7 +423,9 @@ In most cases, if the base has a charge light/display message, the completion of
                         """)
                 }
             }
+        }
             PhonePartInfoView(phone: phone)
+        Section {
             FormNavigationLink("Power") {
                 if !phone.isCordless {
                     Picker("Power Source", selection: $phone.cordedPowerSource) {
@@ -487,7 +489,7 @@ In most cases, if the base has a charge light/display message, the completion of
     
     @ViewBuilder
     var ringersAndMOHGroup: some View {
-        Group {
+        Section {
             FormNavigationLink("Ringers") {
                 if (phone.hasAnsweringSystem == 1 || phone.hasAnsweringSystem == 3) || phone.hasBaseSpeakerphone {
                     Stepper("Base Standard Ringtones: \(phone.baseRingtones)", value: $phone.baseRingtones, in: !phone.isCordless || phone.hasBaseSpeakerphone ? 1...50 : 0...50)
@@ -549,7 +551,7 @@ In most cases, if the base has a charge light/display message, the completion of
     
     @ViewBuilder
     var featurePhoneGroup: some View {
-        Group {
+        Section {
             FormNavigationLink("Display/Backlight/Buttons") {
                 Picker("Button Type", selection: $phone.buttonType) {
                     Text("Spaced").tag(0)
@@ -772,7 +774,7 @@ A phone's voicemail indicator usually works in one or both of the following ways
     
     @ViewBuilder
     var linesGroup: some View {
-        Group {
+        Section {
             FormNavigationLink("Landline") {
                 Picker("Connection Type", selection: $phone.landlineConnectionType) {
                     Text("Analog").tag(0)
@@ -869,7 +871,7 @@ A phone's voicemail indicator usually works in one or both of the following ways
     
     @ViewBuilder
     var entriesGroup: some View {
-        Group {
+        Section {
             if phone.hasBaseSpeakerphone || !phone.isCordless || phone.isCordedCordless {
                 FormNavigationLink("Redial") {
                     FormNumericTextField(phone.isCordless ? "Redial Capacity (base)" : "Redial Capacity", value: $phone.baseRedialCapacity, valueRange: .zeroToMax(20), suffix: "entry/ies")
@@ -998,7 +1000,7 @@ By assigning a handset number to a cordless or corded/cordless phone base's one-
     
     @ViewBuilder
     var callBlockingGroup: some View {
-        Group {
+        Section {
             FormNavigationLink("Call Block (manual)") {
                 FormNumericTextField("Call Block List Capacity", value: $phone.callBlockCapacity, valueRange: .allPositivesIncludingZero, suffix: "entry/ies")
 #if !os(visionOS)
