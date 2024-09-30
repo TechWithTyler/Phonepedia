@@ -45,6 +45,18 @@ struct ContentView: View {
             PhoneTypeDefinitionsView()
         }
         .sheet(isPresented: $dialogManager.showingAboutDisplayTypes, content: { AboutDisplayTypesView() })
+        .sheet(isPresented: $dialogManager.showingFrequenciesExplanation) {
+            FrequenciesExplanationView()
+        }
+        .sheet(isPresented: $dialogManager.showingRegistrationExplanation) {
+            RegistrationExplanationView()
+        }
+        .sheet(isPresented: $dialogManager.showingAboutDialingCodes) {
+            AboutDialingCodesView()
+        }
+        .sheet(isPresented: $dialogManager.showingAboutConnectionTypes) {
+            AboutConnectionTypesView()
+        }
         .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
         #if os(iOS)
         .pickerStyle(.navigationLink)

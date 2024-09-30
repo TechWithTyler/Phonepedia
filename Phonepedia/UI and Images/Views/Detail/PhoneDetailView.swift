@@ -119,18 +119,6 @@ struct PhoneDetailView: View {
         .onChange(of: photoViewModel.selectedPhoto, { oldValue, newValue in
             photoViewModel.updatePhonePhoto(for: phone, oldValue: oldValue, newValue: newValue)
         })
-        .sheet(isPresented: $dialogManager.showingFrequenciesExplanation) {
-            FrequenciesExplanationView()
-        }
-        .sheet(isPresented: $dialogManager.showingRegistrationExplanation) {
-            RegistrationExplanationView()
-        }
-        .sheet(isPresented: $dialogManager.showingAboutDialingCodes) {
-            AboutDialingCodesView()
-        }
-        .sheet(isPresented: $dialogManager.showingAboutConnectionTypes) {
-            AboutConnectionTypesView()
-        }
 #if os(iOS)
         .sheet(isPresented: $photoViewModel.takingPhoto) {
             CameraViewController(viewModel: photoViewModel, phone: phone)
