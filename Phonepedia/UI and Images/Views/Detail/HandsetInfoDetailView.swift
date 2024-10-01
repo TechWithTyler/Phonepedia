@@ -408,12 +408,14 @@ struct HandsetInfoDetailView: View {
                                 if handset.callerIDCapacity == 0 {
                                     Toggle("Uses Base Caller ID List", isOn: $handset.usesBaseCallerID)
                                 }
+                                InfoText("When handsets use the base caller ID list instead of having their own, the caller ID list, and the indication/number of missed calls, is shared by the base and all handsets. Only one can access it at a time.")
                             }
                             FormNavigationLink("Speed Dial") {
                                 Stepper("Dial-Key Speed Dial Capacity: \(handset.speedDialCapacity)", value: $handset.speedDialCapacity, in: handset.voicemailQuickDial == 2 ? 0...9 : 0...10)
                                 Stepper("One-Touch/Memory Dial: \(handset.oneTouchDialCapacity)", value: $handset.oneTouchDialCapacity, in: 0...4)
                                 Toggle("Uses Base Speed Dial", isOn: $handset.usesBaseSpeedDial)
                                 Toggle("Uses Base One-Touch Dial", isOn: $handset.usesBaseOneTouchDial)
+                                InfoText("The handset can use the speed dial/one-touch dial entries stored in the base, or its own entries if the base doesn't share the entries between the base/handsets.")
                                 Picker("Speed Dial Entry Mode", selection: $handset.speedDialPhonebookEntryMode) {
                                     Text("Manual or Phonebook (copy)").tag(0)
                                     Text("Phonebook Only (copy)").tag(1)

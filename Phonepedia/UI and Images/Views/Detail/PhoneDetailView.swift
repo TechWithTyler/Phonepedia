@@ -87,7 +87,7 @@ struct PhoneDetailView: View {
                     callBlockingGroup
                     FormNavigationLink("Special Features") {
                         Toggle("Plays Out-Of-Service Tone Upon Answering", isOn: $phone.outOfServiceToneOnAnswer)
-                        InfoText("\"Not in service\" tones, also known as Special Information Tones or SIT tones, are the 3 rising tones you often hear when you call a number that's out of service or that can't be dialed. Some autodialers will remove any numbers that play SIT tones from their list so they won't call them again. Because of this, some phones/devices were designed to play SIT tones when a phone on the line was answered, making autodialers remove your number from their list. However, most autodialers today no longer use SIT tone detection as they have other means of knowing what numbers are or aren't in service, and today's phones don't include this feature for many reasons including confused callers and desired automated calls having working numbers removed from their lists. You'll still hear these tones if you call an out-of-servie number, depending on the provider that serves the area or that formerly served the number.")
+                        InfoText("\"Not in service\" tones, also known as Special Information Tones or SIT tones, are the 3 rising tones you often hear when you call a number that's out of service or that can't be dialed. Some autodialers will remove any numbers that play SIT tones from their lists so they won't call them again. Because of this, some phones/devices were designed to play SIT tones when a phone on the line was answered, making autodialers remove your number from their list. However, most autodialers today no longer use SIT tone detection as they have other means of knowing what numbers are or aren't in service, and today's phones don't include this feature for many reasons including confused callers and desired automated calls having working numbers removed from their lists. SIT tones may also play when calling working numbers if the call can't be completed for another reason, which can also cause autodialers to remove working numbers from their lists. You may still hear these tones if you call an out-of-servie number or when calls can't be completed, depending on the provider that serves the area or that formerly served the number.")
                         if phone.baseCallerIDCapacity > 0 || !phone.cordlessHandsetsIHave.filter({$0.callerIDCapacity > 0}).isEmpty {
                             Toggle("One-Ring Scam Call Detection", isOn: $phone.scamCallDetection)
                             InfoText("If a caller hangs up within 1 or 2 rings and caller ID is received, the phone can mark the call as a one-ring scam call when viewed in the caller ID list, and warn the user when trying to call that caller.")
@@ -107,7 +107,7 @@ struct PhoneDetailView: View {
                             InfoText("When a handset/base detects sound and calls an outside phone number, the outside caller can talk back to the handset/base by dialing a code, or deactivate the feature by dialing another code.")
                         }
                         Stepper("Smart Home Devices Supported: \(phone.smartHomeDevicesSupported)", value: $phone.smartHomeDevicesSupported, in: 0...50, step: 5)
-                        InfoText("Smart home devices registered to a cordless phone can notify the handset/base or outside phone when things happen and the handset/base can control these devices. For example, when a person rings a doorbell, the phone can sound a chime and color display handsets can show a live feed of the doorbell's video.")
+                        InfoText("Smart home devices registered to a cordless phone can notify the handset/base or outside phone when things happen and the handset/base can control these devices. For example, when someone rings a doorbell, the phone can sound a chime and color display handsets can show a live feed of the doorbell's video.")
                         Toggle("Answer By Voice", isOn: $phone.answerByVoice)
                         InfoText("The base and compatible handsets can detect sound when landline/cell calls come in, allowing calls to be answered by voice. The phone either listens for any sound or is programmed to listen for a specific phrase.")
                     }
@@ -232,7 +232,7 @@ struct PhoneDetailView: View {
                             }
 #endif
                         if phone.maxCordlessHandsets == -1 {
-                            InfoText("When placing the handset on the base, the handset and base exchange a digital security code, which makes sure the handset only communicates with that base. You can add as many handsets as you want--the base doesn't know or care how many handsets are being used on it. You can change which base the handset is used on by placing it on a different one.")
+                            InfoText("When placing the handset on the base, the handset and base exchange a digital security code, which makes sure the handset only communicates with that base. Unless this code changes each time a handset is placed on the base, you can add as many handsets as you want--the base doesn't know or care how many handsets are being used on it. You can change which base the handset is used on by placing it on a different one.")
                         } else if phone.maxCordlessHandsets >= 1 {
                             InfoButton(title: "Registration Explanation…") {
                                 dialogManager.showingRegistrationExplanation = true
@@ -298,7 +298,7 @@ struct PhoneDetailView: View {
                     AntennaInfoView()
                     if phone.hasRegistration {
                         Toggle("Supports Range Extenders", isOn: $phone.supportsRangeExtenders)
-                        InfoText("A range extender extends the range of the base it's registered to. Devices communicating with the base choose the base or a range extender based on which has the strongest signal.\nIf you register 2 or more range extenders, they can be \"daisy-chained\" (one can communicate with the base via another) to create a larger useable coverage area.\nWhen a cordless device moves between the base or range extender(s), your call may briefly cut out.")
+                        InfoText("A range extender extends the range of the base it's registered to. Devices communicating with the base choose the base or a range extender based on which has the strongest signal.\nIf you register 2 or more range extenders, they can be \"daisy-chained\" (one can communicate with the base via another) to create a larger useable coverage area.\nWhen a cordless device moves between the base or range extender(s), your call may briefly cut out.\nIf a handset is communicating with a range extender and that range extender loses power or its link to the base, the handset will also lose its link to the base for a few seconds.")
                     }
                     if !phone.isCordedCordless {
                         Toggle("Base Is Transmit-Only", isOn: $phone.hasTransmitOnlyBase)
@@ -971,13 +971,16 @@ A phone's voicemail indicator usually works in one or both of the following ways
                     }
                 }
                 FormNavigationLink("Speed Dial") {
-                    Stepper(phone.isCordless ? "Dial-Key Speed Dial Capacity (base): \(phone.baseSpeedDialCapacity)" : "Dial-Key Speed Dial Capacity: \(phone.baseSpeedDialCapacity)", value: $phone.baseSpeedDialCapacity, in: baseSpeedDialRange)
+                    Stepper(phone.isCordless ? "Dial-Key Speed Dial Locations (base): \(phone.baseSpeedDialCapacity)" : "Dial-Key Speed Dial Locations: \(phone.baseSpeedDialCapacity)", value: $phone.baseSpeedDialCapacity, in: baseSpeedDialRange)
+                    InfoText("Speed dial is usually used by holding down the desired number key or by pressing a button (usually called \"Auto\", \"Mem\", or \"Memory\") followed by the desired number key.")
                     if phone.baseSpeedDialCapacity > 10 {
                         InfoText("Speed dial \(phone.baseSpeedDialCapacity > 11 ? "locations 11-\(phone.baseSpeedDialCapacity) are" : "location 11 is") accessed by pressing the speed dial button and then entering/scrolling to the desired location number.")
                     }
-                    Stepper(phone.isCordless ? "One-Touch/Memory Dial Capacity (base): \(phone.baseOneTouchDialCapacity)" : "One-Touch/Memory Dial Capacity: \(phone.baseOneTouchDialCapacity)", value: $phone.baseOneTouchDialCapacity, in: 0...20)
+                    Stepper(phone.isCordless ? "One-Touch/Memory Dial Buttons (base): \(phone.baseOneTouchDialCapacity)" : "One-Touch/Memory Dial Capacity: \(phone.baseOneTouchDialCapacity)", value: $phone.baseOneTouchDialCapacity, in: 0...20)
+                    InfoText("One-touch/memory dial is when the phone has dedicated speed dial buttons which either start dialing immediately when pressed, or which display/announce the stored number which can be dialed by then going off-hook. Some phones tie the one-touch/memory dial buttons to the first few speed dial locations (e.g. a phone with 10 speed dials (1-9 and 0) and memory dial A-C might use memory dial A-C as a quicker way to dial the number in speed dial 1-3.")
                     if phone.isCordless && phone.baseOneTouchDialCapacity > 0 {
                         Toggle("Base One-Touch/Memory Dial Supports Handset Numbers", isOn: $phone.oneTouchDialSupportsHandsetNumbers)
+                        InfoText("By assigning a handset number to a cordless or corded/cordless phone base's one-touch dial button, you can press it to quickly intercom/transfer a call to that handset, just like how one-touch dial buttons on a business/hotel phone system are often programmed to dial other extension numbers in the business/hotel.")
                     }
                     if (phone.basePhonebookCapacity > 0 && (phone.baseSpeedDialCapacity > 0 || phone.baseOneTouchDialCapacity > 0)) {
                         Picker("Speed Dial Entry Mode", selection: $phone.speedDialPhonebookEntryMode) {
@@ -985,14 +988,8 @@ A phone's voicemail indicator usually works in one or both of the following ways
                             Text("Phonebook Only (copy)").tag(1)
                             Text("Phonebook Only (link)").tag(2)
                         }
+                        InfoText("The speed dial entry mode describes how phonebook entries are saved to speed dial locations and whether they allow numbers to be manually entered. \"Copy\" means the phonebook entry will be copied to the speed dial location, and editing the phonebook entry won't affect the speed dial entry. \"Link\" means the speed dial entry is tied to the corresponding phonebook entry, so editing the phonebook entry will affect the speed dial entry and vice versa, and the speed dial entry will be deleted if the corresponding phonebook entry is deleted.")
                     }
-                    InfoText(
-"""
-Speed dial is usually used by holding down the desired number key or by pressing a button (usually called "Auto", "Mem", or "Memory") followed by the desired number key.
-One-touch/memory dial is when the phone has dedicated speed dial buttons which either start dialing immediately when pressed, or which display/announce the stored number which can be dialed by then going off-hook. Some phones tie the one-touch/memory dial buttons to the first few speed dial locations (e.g. a phone with 10 speed dials (1-9 and 0) and memory dial A-C might use memory dial A-C as a quicker way to dial the number in speed dial 1-3.
-The speed dial entry mode describes how phonebook entries are saved to speed dial locations and whether they allow numbers to be manually entered. "Copy" means the phonebook entry will be copied to the speed dial location, and editing the phonebook entry won't affect the speed dial entry. "Link" means the speed dial entry is tied to the corresponding phonebook entry, so editing the phonebook entry will affect the speed dial entry and vice versa, and the speed dial entry will be deleted if the corresponding phonebook entry is deleted.
-By assigning a handset number to a cordless or corded/cordless phone base's one-touch dial button, you can press it to quickly intercom/transfer a call to that handset.
-""")
                 }
             }
         }
