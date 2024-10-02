@@ -156,10 +156,10 @@ struct PhoneListView: View {
 #Preview {
     @State @Previewable var selectedPhone: Phone?
     @Previewable @Query var phones: [Phone] = []
-    @State @Previewable var showingPhoneTypeDefinitions: Bool = false
     NavigationStack {
         PhoneListView(phones: phones, selectedPhone: $selectedPhone)
     }
+    .environmentObject(DialogManager())
     .modelContainer(for: [Phone.self, CordlessHandset.self, CordlessHandsetCharger.self], inMemory: true)
     .padding()
     .frame(minWidth: 400, minHeight: 400)

@@ -70,4 +70,5 @@ struct ContentView: View {
     ContentView()
         .modelContainer(for: [Phone.self, CordlessHandset.self, CordlessHandsetCharger.self], inMemory: true)
         .environmentObject(PhonePhotoViewModel())
+        .environmentObject(DialogManager())
 }

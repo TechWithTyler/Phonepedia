@@ -1106,4 +1106,5 @@ When the first ring is suppressed, the number of rings you hear will be one less
 #Preview {
     PhoneDetailView(phone: Phone(brand: "AT&T", model: "CL83207"))
         .environmentObject(PhonePhotoViewModel())
+        .environmentObject(DialogManager())
 }

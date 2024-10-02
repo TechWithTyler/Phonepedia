@@ -253,5 +253,7 @@ struct PhonePartInfoView: View {
 #Preview {
     Form {
         PhonePartInfoView(phone: Phone(brand: "Panasonic", model: "KX-TGD892"))
-    }.formStyle(.grouped)
+    }
+        .formStyle(.grouped)
+        .environmentObject(DialogManager())
 }
