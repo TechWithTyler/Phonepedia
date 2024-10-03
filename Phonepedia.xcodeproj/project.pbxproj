@@ -30,6 +30,16 @@
 		8D38ED892CAF38EB00CCC422 /* BaseSpeedDialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38ED882CAF38EB00CCC422 /* BaseSpeedDialView.swift */; };
 		8D38ED8B2CAF393D00CCC422 /* CallBlockManualView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38ED8A2CAF393D00CCC422 /* CallBlockManualView.swift */; };
 		8D38ED8D2CAF398A00CCC422 /* CallBlockPreScreeningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38ED8C2CAF398A00CCC422 /* CallBlockPreScreeningView.swift */; };
+		8D38ED8F2CAF3BF300CCC422 /* HandsetGeneralView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38ED8E2CAF3BF300CCC422 /* HandsetGeneralView.swift */; };
+		8D38ED912CAF3C8300CCC422 /* HandsetRingersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38ED902CAF3C8300CCC422 /* HandsetRingersView.swift */; };
+		8D38ED932CAF3D8B00CCC422 /* HandsetDisplayBacklightButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38ED922CAF3D8B00CCC422 /* HandsetDisplayBacklightButtonsView.swift */; };
+		8D38ED952CAF3DE900CCC422 /* HandsetAudioView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38ED942CAF3DE900CCC422 /* HandsetAudioView.swift */; };
+		8D38ED972CAF3E4C00CCC422 /* HandsetMessagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38ED962CAF3E4C00CCC422 /* HandsetMessagingView.swift */; };
+		8D38ED992CAF3EA500CCC422 /* HandsetRedialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38ED982CAF3EA500CCC422 /* HandsetRedialView.swift */; };
+		8D38ED9B2CAF3EF500CCC422 /* HandsetPhonebookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38ED9A2CAF3EF500CCC422 /* HandsetPhonebookView.swift */; };
+		8D38ED9D2CAF3F6400CCC422 /* HandsetCallerIDView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38ED9C2CAF3F6400CCC422 /* HandsetCallerIDView.swift */; };
+		8D38ED9F2CAF3FC900CCC422 /* HandsetSpeedDialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38ED9E2CAF3FC900CCC422 /* HandsetSpeedDialView.swift */; };
+		8D38EDA12CAF404C00CCC422 /* HandsetSpecialFeaturesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38EDA02CAF404C00CCC422 /* HandsetSpecialFeaturesView.swift */; };
 		8D394FA22B87F4CE0047C2F8 /* RegistrationExplanationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D394FA12B87F4CE0047C2F8 /* RegistrationExplanationView.swift */; };
 		8D3D27902ABCDDF30005FEC2 /* PhonepediaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3D278F2ABCDDF30005FEC2 /* PhonepediaUITests.swift */; };
 		8D3D27922ABCDDF30005FEC2 /* PhonepediaUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3D27912ABCDDF30005FEC2 /* PhonepediaUITestsLaunchTests.swift */; };
@@ -141,6 +151,16 @@
 		8D38ED882CAF38EB00CCC422 /* BaseSpeedDialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSpeedDialView.swift; sourceTree = "<group>"; };
 		8D38ED8A2CAF393D00CCC422 /* CallBlockManualView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallBlockManualView.swift; sourceTree = "<group>"; };
 		8D38ED8C2CAF398A00CCC422 /* CallBlockPreScreeningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallBlockPreScreeningView.swift; sourceTree = "<group>"; };
+		8D38ED8E2CAF3BF300CCC422 /* HandsetGeneralView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandsetGeneralView.swift; sourceTree = "<group>"; };
+		8D38ED902CAF3C8300CCC422 /* HandsetRingersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandsetRingersView.swift; sourceTree = "<group>"; };
+		8D38ED922CAF3D8B00CCC422 /* HandsetDisplayBacklightButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandsetDisplayBacklightButtonsView.swift; sourceTree = "<group>"; };
+		8D38ED942CAF3DE900CCC422 /* HandsetAudioView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandsetAudioView.swift; sourceTree = "<group>"; };
+		8D38ED962CAF3E4C00CCC422 /* HandsetMessagingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandsetMessagingView.swift; sourceTree = "<group>"; };
+		8D38ED982CAF3EA500CCC422 /* HandsetRedialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandsetRedialView.swift; sourceTree = "<group>"; };
+		8D38ED9A2CAF3EF500CCC422 /* HandsetPhonebookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandsetPhonebookView.swift; sourceTree = "<group>"; };
+		8D38ED9C2CAF3F6400CCC422 /* HandsetCallerIDView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandsetCallerIDView.swift; sourceTree = "<group>"; };
+		8D38ED9E2CAF3FC900CCC422 /* HandsetSpeedDialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandsetSpeedDialView.swift; sourceTree = "<group>"; };
+		8D38EDA02CAF404C00CCC422 /* HandsetSpecialFeaturesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandsetSpecialFeaturesView.swift; sourceTree = "<group>"; };
 		8D394FA12B87F4CE0047C2F8 /* RegistrationExplanationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationExplanationView.swift; sourceTree = "<group>"; };
 		8D3D278D2ABCDDF30005FEC2 /* PhonepediaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhonepediaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D3D278F2ABCDDF30005FEC2 /* PhonepediaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhonepediaUITests.swift; sourceTree = "<group>"; };
@@ -231,6 +251,16 @@
 			isa = PBXGroup;
 			children = (
 				8DA844A52B72E1D7006CBCA7 /* HandsetInfoDetailView.swift */,
+				8D38ED8E2CAF3BF300CCC422 /* HandsetGeneralView.swift */,
+				8D38ED902CAF3C8300CCC422 /* HandsetRingersView.swift */,
+				8D38ED922CAF3D8B00CCC422 /* HandsetDisplayBacklightButtonsView.swift */,
+				8D38ED942CAF3DE900CCC422 /* HandsetAudioView.swift */,
+				8D38ED962CAF3E4C00CCC422 /* HandsetMessagingView.swift */,
+				8D38ED982CAF3EA500CCC422 /* HandsetRedialView.swift */,
+				8D38ED9A2CAF3EF500CCC422 /* HandsetPhonebookView.swift */,
+				8D38ED9C2CAF3F6400CCC422 /* HandsetCallerIDView.swift */,
+				8D38ED9E2CAF3FC900CCC422 /* HandsetSpeedDialView.swift */,
+				8D38EDA02CAF404C00CCC422 /* HandsetSpecialFeaturesView.swift */,
 			);
 			path = "Detail (Handset)";
 			sourceTree = "<group>";
@@ -624,6 +654,7 @@
 				8D38ED682CAF2E9600CCC422 /* PhoneSpecialFeaturesView.swift in Sources */,
 				8DA844D62B72E1D7006CBCA7 /* ChargerInfoDetailView.swift in Sources */,
 				8DA844D02B72E1D7006CBCA7 /* CameraCoordinator.swift in Sources */,
+				8D38ED952CAF3DE900CCC422 /* HandsetAudioView.swift in Sources */,
 				8DA844E22B72E1D7006CBCA7 /* PhoneImage.swift in Sources */,
 				8DBB95422CA48B84002E57EC /* DialogManager.swift in Sources */,
 				8D38ED752CAF32F700CCC422 /* PhoneMOHView.swift in Sources */,
@@ -633,7 +664,10 @@
 				8D38ED7F2CAF373000CCC422 /* CellPhoneLinkingView.swift in Sources */,
 				8D38ED7D2CAF36C600CCC422 /* LandlineDetailView.swift in Sources */,
 				8D38ED812CAF377F00CCC422 /* BaseRedialView.swift in Sources */,
+				8D38ED8F2CAF3BF300CCC422 /* HandsetGeneralView.swift in Sources */,
 				8DA844DB2B72E1D7006CBCA7 /* BatteryInfoView.swift in Sources */,
+				8D38ED9D2CAF3F6400CCC422 /* HandsetCallerIDView.swift in Sources */,
+				8D38ED9B2CAF3EF500CCC422 /* HandsetPhonebookView.swift in Sources */,
 				8D7A74A42C26203E00C5329E /* DocumentLaunchPhonesAccessoryView.swift in Sources */,
 				8D20E37B2C45B9740016800C /* PhoneInCollectionStatusPickerItems.swift in Sources */,
 				8D8555522C98D2C1006A14E3 /* AboutDisplayTypesView.swift in Sources */,
@@ -652,9 +686,13 @@
 				8D85550A2C8F9055006A14E3 /* HandsetActionsView.swift in Sources */,
 				8D38ED662CAF2DC500CCC422 /* BaseSpeakerphoneKeypadView.swift in Sources */,
 				8DA844EF2B72E1D7006CBCA7 /* LandlineOrNotPredictor.swift in Sources */,
+				8D38ED992CAF3EA500CCC422 /* HandsetRedialView.swift in Sources */,
 				8DA844D12B72E1D7006CBCA7 /* CameraViewController.swift in Sources */,
+				8D38ED972CAF3E4C00CCC422 /* HandsetMessagingView.swift in Sources */,
 				8D38ED712CAF325200CCC422 /* PhonePowerView.swift in Sources */,
+				8D38ED932CAF3D8B00CCC422 /* HandsetDisplayBacklightButtonsView.swift in Sources */,
 				8D38ED6A2CAF2F6600CCC422 /* PhoneGeneralView.swift in Sources */,
+				8D38ED9F2CAF3FC900CCC422 /* HandsetSpeedDialView.swift in Sources */,
 				8D94EE0C2B912B9E00B04EBF /* WaveView.swift in Sources */,
 				8DA844DC2B72E1D7006CBCA7 /* PhonePartInfoView.swift in Sources */,
 				8D38ED852CAF382C00CCC422 /* BasePhonebookView.swift in Sources */,
@@ -663,6 +701,7 @@
 				8DA844EE2B72E1D7006CBCA7 /* CGImagePropertyOrientationExtension.swift in Sources */,
 				8D38ED6D2CAF310600CCC422 /* PhoneBasicFeaturesView.swift in Sources */,
 				8DA844EB2B72E1D7006CBCA7 /* PhoneType.swift in Sources */,
+				8D38ED912CAF3C8300CCC422 /* HandsetRingersView.swift in Sources */,
 				8D523B002C4EF47000AC6862 /* VoicemailQuickDialInfoView.swift in Sources */,
 				8DA844D82B72E1D7006CBCA7 /* FrequenciesExplanationView.swift in Sources */,
 				8D95997D2C22212400FEED40 /* SchemaVersioning.swift in Sources */,
@@ -677,6 +716,7 @@
 				8D38ED832CAF37D400CCC422 /* DialingCodesView.swift in Sources */,
 				8DA844D22B72E1D7006CBCA7 /* PhoneListView.swift in Sources */,
 				8D394FA22B87F4CE0047C2F8 /* RegistrationExplanationView.swift in Sources */,
+				8D38EDA12CAF404C00CCC422 /* HandsetSpecialFeaturesView.swift in Sources */,
 				8DA844D92B72E1D7006CBCA7 /* SoftKeyExplanationView.swift in Sources */,
 				8DA844F22B72E1D7006CBCA7 /* PhonePhotoError.swift in Sources */,
 				8D38ED8D2CAF398A00CCC422 /* CallBlockPreScreeningView.swift in Sources */,

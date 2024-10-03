@@ -1,0 +1,48 @@
+//
+//  HandsetCallerIDView.swift
+//  Phonepedia
+//
+//  Created by Tyler Sheft on 10/3/24.
+//  Copyright © 2023-2024 SheftApps. All rights reserved.
+//
+
+import SwiftUI
+import SheftAppsStylishUI
+
+struct HandsetCallerIDView: View {
+
+    @Bindable var handset: CordlessHandset
+
+    var body: some View {
+        if let phone = handset.phone {
+            Toggle(isOn: $handset.hasTalkingCallerID) {
+                Text("Talking Caller ID")
+            }
+            if handset.phonebookCapacity > 0 || (phone.basePhonebookCapacity > 0 && handset.usesBasePhonebook) {
+                Toggle(isOn: $handset.callerIDPhonebookMatch) {
+                    Text("Caller ID Uses Matching Phonebook Entry Name")
+                }
+            }
+            FormNumericTextField("Caller ID List Capacity", value: $handset.callerIDCapacity, valueRange: .allPositivesIncludingZero, singularSuffix: "entry", pluralSuffix: "entries")
+#if !os(visionOS)
+                .scrollDismissesKeyboard(.interactively)
+#endif
+                .onChange(of: handset.callerIDCapacity) { oldValue, newValue in
+                    handset.callerIDCapacityChanged(oldValue: oldValue, newValue: newValue)
+                }
+            if handset.callerIDCapacity == 0 {
+                Toggle("Uses Base Caller ID List", isOn: $handset.usesBaseCallerID)
+            }
+            InfoText("When handsets use the base caller ID list instead of having their own, the caller ID list, and the indication/number of missed calls, is shared by the base and all handsets. Only one can access it at a time.")
+        } else {
+            Text("Error")
+        }
+    }
+}
+
+#Preview {
+    Form {
+        HandsetCallerIDView(handset: CordlessHandset(brand: "Panasonic", model: "KX-TGA551", mainColorRed: 180, mainColorGreen: 180, mainColorBlue: 180, secondaryColorRed: 180, secondaryColorGreen: 180, secondaryColorBlue: 180))
+    }
+    .formStyle(.grouped)
+}
