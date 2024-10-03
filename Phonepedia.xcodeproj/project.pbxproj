@@ -329,6 +329,7 @@
 				8DA844B32B72E1D7006CBCA7 /* PhoneRowView.swift */,
 				8DA844A42B72E1D7006CBCA7 /* Detail (Base) */,
 				8D38ED6B2CAF309800CCC422 /* Detail (Handset) */,
+				8DA844A82B72E1D7006CBCA7 /* ChargerInfoDetailView.swift */,
 				8DA844A92B72E1D7006CBCA7 /* Info */,
 				8DA844B52B72E1D7006CBCA7 /* Child Views */,
 				8D7A74A32C26203E00C5329E /* DocumentLaunchPhonesAccessoryView.swift */,
@@ -342,11 +343,8 @@
 			children = (
 				8DA844A72B72E1D7006CBCA7 /* PhoneDetailView.swift */,
 				8D38ED692CAF2F6600CCC422 /* PhoneGeneralView.swift */,
-				8D38ED652CAF2DC500CCC422 /* BaseSpeakerphoneKeypadView.swift */,
-				8D38ED672CAF2E9600CCC422 /* PhoneSpecialFeaturesView.swift */,
-				8DA844A82B72E1D7006CBCA7 /* ChargerInfoDetailView.swift */,
 				8DA844AF2B72E1D7006CBCA7 /* PhonePartInfoView.swift */,
-				8DA844A62B72E1D7006CBCA7 /* NoPhoneSelectedView.swift */,
+				8D38ED652CAF2DC500CCC422 /* BaseSpeakerphoneKeypadView.swift */,
 				8D38ED6C2CAF310600CCC422 /* PhoneBasicFeaturesView.swift */,
 				8D38ED6E2CAF31BA00CCC422 /* PhoneColorView.swift */,
 				8D38ED702CAF325200CCC422 /* PhonePowerView.swift */,
@@ -364,6 +362,8 @@
 				8D38ED882CAF38EB00CCC422 /* BaseSpeedDialView.swift */,
 				8D38ED8A2CAF393D00CCC422 /* CallBlockManualView.swift */,
 				8D38ED8C2CAF398A00CCC422 /* CallBlockPreScreeningView.swift */,
+				8D38ED672CAF2E9600CCC422 /* PhoneSpecialFeaturesView.swift */,
+				8DA844A62B72E1D7006CBCA7 /* NoPhoneSelectedView.swift */,
 			);
 			path = "Detail (Base)";
 			sourceTree = "<group>";
