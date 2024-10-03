@@ -33,28 +33,6 @@ struct PhonePartInfoView: View {
     // MARK: - Body
 
 	var body: some View {
-        FormNavigationLink(phone.isCordless ? "Base Colors" : "Colors") {
-            ColorPicker("Base Main Color", selection: phone.baseMainColorBinding)
-                ColorPicker("Base Secondary/Accent Color", selection: phone.baseSecondaryColorBinding)
-                Button("Use Main Color") {
-                    phone.setBaseSecondaryColorToMain()
-            }
-            InfoText("The main color is the top color of a base/charger or the front color of a handset. The secondary color is the color for the sides of a base/charger/handset and the back of a handset.\nSometimes, the base/charger/handset is all one color, with the secondary color used as an accent color in various places such as around the edges.")
-            ClearSupportedColorPicker("Corded Receiver Main Color", selection: phone.cordedReceiverMainColorBinding) {
-                Text("Make Cordless-Only")
-            }
-                .onChange(of: phone.cordedReceiverMainColorBinding.wrappedValue) { oldValue, newValue in
-                    phone.cordedReceiverColorChanged(oldValue: oldValue, newValue: newValue)
-                }
-            if phone.hasCordedReceiver {
-                ColorPicker("Corded Receiver Secondary/Accent Color", selection: phone.cordedReceiverSecondaryColorBinding)
-                Button("Use Main Color") {
-                    phone.setCordedReceiverSecondaryColorToMain()
-            }
-            }
-		}
-        .formStyle(.grouped)
-		if phone.isCordless {
             Section("Cordless Handsets/Headsets/Speakerphones/Desksets (\(handsetCount))") {
 				if !phone.cordlessHandsetsIHave.isEmpty {
 						ForEach(phone.cordlessHandsetsIHave) { handset in
@@ -210,7 +188,6 @@ struct PhonePartInfoView: View {
                     dialogManager.showingDeleteAllChargers = false
                 }
             }
-		}
 	}
     
     // MARK: - Data Management
