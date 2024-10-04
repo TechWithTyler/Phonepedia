@@ -655,8 +655,6 @@ final class Phone {
 			baseChargeContactType = 0
 			baseChargeContactPlacement = 0
 			baseHasSeparateDataContact = false
-			cordlessHandsetsIHave.removeAll()
-			chargersIHave.removeAll()
 		}
 	}
     
@@ -801,7 +799,9 @@ final class Phone {
 			baseChargingDirection = 0
 			baseChargeContactType = 0
 			baseChargeContactPlacement = 0
-		}
+        } else {
+            cordedReceiverSecondaryColorBinding.wrappedValue = .black
+        }
 	}
 	
 	func cordedPhoneTypeChanged(oldValue: Int, newValue: Int) {

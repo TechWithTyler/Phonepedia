@@ -18,7 +18,25 @@ struct PhoneBasicFeaturesView: View {
     var body: some View {
         Stepper("Number of Included Cordless Handsets (0 if corded only): \(phone.numberOfIncludedCordlessHandsets)", value: $phone.numberOfIncludedCordlessHandsets, in: 0...Int.max-1)
             .onChange(of: phone.isCordless) { oldValue, newValue in
+                if !newValue && (!phone.cordlessHandsetsIHave.isEmpty || !phone.chargersIHave.isEmpty) {
+                    dialogManager.showingMakeCordedOnly = true
+                    phone.numberOfIncludedCordlessHandsets = 1
+                    return
+                }
                 phone.isCordlessChanged(oldValue: oldValue, newValue: newValue)
+            }
+            .alert("Make this phone corded-only?", isPresented: $dialogManager.showingMakeCordedOnly) {
+                Button("OK") {
+                    phone.cordlessHandsetsIHave.removeAll()
+                    phone.chargersIHave.removeAll()
+                    phone.numberOfIncludedCordlessHandsets = 0
+                    dialogManager.showingMakeCordedOnly = false
+                }
+                Button("Cancel") {
+                    dialogManager.showingMakeCordedOnly = false
+                }
+            } message: {
+                Text("This will delete all cordless devices and chargers.")
             }
         if phone.isCordless {
             Group {

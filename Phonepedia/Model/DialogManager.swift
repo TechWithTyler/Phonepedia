@@ -37,6 +37,8 @@ class DialogManager: ObservableObject {
 
     @Published var showingDeleteAllChargers: Bool = false
 
+    @Published var showingMakeCordedOnly: Bool = false
+
     @Published var showingPhoneCount: Bool = false
 
     @Published var showingFrequenciesExplanation: Bool = false

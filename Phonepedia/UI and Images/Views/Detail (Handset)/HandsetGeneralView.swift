@@ -75,10 +75,19 @@ struct HandsetGeneralView: View {
                 }
             }
             if handset.cordlessDeviceType == 1 {
-                ColorPicker("Corded Receiver Main Color", selection: handset.cordedReceiverMainColorBinding)
-                ColorPicker("Corded Receiver Secondary/Accent Color", selection: handset.cordedReceiverSecondaryColorBinding)
-                Button("Use Main Color") {
-                    handset.setCordedReceiverSecondaryColorToMain()
+                ClearSupportedColorPicker("Corded Receiver Main Color", selection: handset.cordedReceiverMainColorBinding) {
+                    Text("No Corded Receiver")
+                }
+                if handset.hasCordedReceiver {
+                    ColorPicker("Corded Receiver Secondary/Accent Color", selection: handset.cordedReceiverSecondaryColorBinding)
+                    Button("Use Main Color") {
+                        handset.setCordedReceiverSecondaryColorToMain()
+                    }
+                }
+                HStack {
+                    Text("Deskset Type")
+                    Spacer()
+                    Text(handset.hasCordedReceiver ? "Corded Phone" : "Speakerphone")
                 }
             }
             Picker("Visual Ringer", selection: $handset.visualRinger) {

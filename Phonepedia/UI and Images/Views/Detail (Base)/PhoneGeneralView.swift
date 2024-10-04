@@ -30,8 +30,9 @@ struct PhoneGeneralView: View {
         FormTextField("Brand", text: $phone.brand)
         FormTextField("Model", text: $phone.model)
         HStack {
-            Text("Phone Type: \(phone.phoneTypeText)")
+            Text("Phone Type")
             Spacer()
+            Text(phone.phoneTypeText)
             InfoButton {
                 dialogManager.showingPhoneTypeDefinitions = true
             }

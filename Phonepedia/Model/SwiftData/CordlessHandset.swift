@@ -69,7 +69,9 @@ final class CordlessHandset {
     var cordedReceiverMainColorGreen: Double = 0
     
     var cordedReceiverMainColorBlue: Double = 0
-    
+
+    var cordedReceiverMainColorAlpha: Double = 0
+
     var cordedReceiverSecondaryColorRed: Double = 0
     
     var cordedReceiverSecondaryColorGreen: Double = 0
@@ -201,6 +203,11 @@ final class CordlessHandset {
     }
 
     @Transient
+    var hasCordedReceiver: Bool {
+        return cordedReceiverMainColorBinding.wrappedValue != .clear
+    }
+
+    @Transient
     var totalRingtones: Int {
         return ringtones + musicRingtones
     }
@@ -240,12 +247,13 @@ final class CordlessHandset {
     @Transient
     var cordedReceiverMainColorBinding: Binding<Color> {
         Binding<Color> { [self] in
-            Color(red: cordedReceiverMainColorRed, green: cordedReceiverMainColorGreen, blue: cordedReceiverMainColorBlue)
+            Color(red: cordedReceiverMainColorRed, green: cordedReceiverMainColorGreen, blue: cordedReceiverMainColorBlue, opacity: cordedReceiverMainColorAlpha)
         } set: { [self] newColor in
             let components = newColor.components
             cordedReceiverMainColorRed = components.red
             cordedReceiverMainColorGreen = components.green
             cordedReceiverMainColorBlue = components.blue
+            cordedReceiverMainColorAlpha = components.opacity
         }
     }
     
@@ -370,8 +378,11 @@ final class CordlessHandset {
             talkOffColorLayer = 0
 			fitsOnBase = false
             batteryType = 0
+            keyFindersSupported = 0
 		}
         if newValue != 1 {
+            cordedReceiverMainColorBinding.wrappedValue = .clear
+            cordedReceiverSecondaryColorBinding.wrappedValue = .black
             desksetSupportsBackupBatteries = false
         }
 	}
