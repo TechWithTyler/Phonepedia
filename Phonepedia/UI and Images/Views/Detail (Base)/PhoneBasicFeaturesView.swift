@@ -16,7 +16,7 @@ struct PhoneBasicFeaturesView: View {
     @EnvironmentObject var dialogManager: DialogManager
 
     var body: some View {
-        Stepper("Number of Included Cordless Handsets (0 if corded only): \(phone.numberOfIncludedCordlessHandsets)", value: $phone.numberOfIncludedCordlessHandsets, in: 0...Int.max-1)
+        Stepper("Number of Included Cordless Handsets (0 if corded-only): \(phone.numberOfIncludedCordlessHandsets)", value: $phone.numberOfIncludedCordlessHandsets, in: 0...Int.max-1)
             .onChange(of: phone.isCordless) { oldValue, newValue in
                 if !newValue && (!phone.cordlessHandsetsIHave.isEmpty || !phone.chargersIHave.isEmpty) {
                     dialogManager.showingMakeCordedOnly = true
