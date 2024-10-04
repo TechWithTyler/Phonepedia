@@ -27,12 +27,12 @@ struct AboutDisplayTypesView: View {
                     Text("Segmented Monochrome")
                 }
                 DisclosureGroup {
-                    Text("A traditional monochrome display has at least one line that can display letters, numbers, and special characters. These displays may or may not have soft keys.")
+                    Text("A traditional monochrome display has at least one line that can display letters, numbers, and special characters. Each line is made up of squares, which contain several small dots, called pixels. These displays may or may not have soft keys.")
                 } label: {
                     Text("Digital Phone")
                 }
                 DisclosureGroup {
-                    Text("A full-dot or dot-matrix monochrome display is an LCD display where the entire display or the majority of it is filled with dot pixels. These displays are often found on high-end phones and often have soft keys. The smaller the pixels and the more there are, the more information can be displayed. These displays allow for features like menu icons, display of multiple phonebook/caller ID list entries at once, and more information on the standby display.")
+                    Text("A full-dot or dot-matrix monochrome display is an LCD display where the entire display or the majority of it is filled with dot pixels. These displays are often found on high-end phones and often have soft keys. The smaller the pixels and the more there are, the more information can be displayed and the smaller the text can be. These displays allow for features like menu icons, display of multiple phonebook/caller ID list entries at once, an answering system message list, and more information on the standby display.")
                 } label: {
                     Text("Full-Dot/Dot-Matrix Monochrome")
                 }
