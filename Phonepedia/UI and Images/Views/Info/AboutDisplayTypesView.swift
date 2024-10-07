@@ -27,7 +27,7 @@ struct AboutDisplayTypesView: View {
                     Text("Segmented Monochrome")
                 }
                 DisclosureGroup {
-                    Text("A traditional monochrome display has at least one line that can display letters, numbers, and special characters. Each line is made up of squares, which contain several small dots, called pixels. These displays may or may not have soft keys.")
+                    Text("A traditional monochrome display has at least one line that can display letters, numbers, and special characters. Each line is made up of squares, which contain several small dots, called pixels, and there are often pixels for various pieces of information, such as the date and time. Some phones also have a section for an answering system message counter on the display. These displays may or may not have soft keys.")
                 } label: {
                     Text("Digital Phone")
                 }
