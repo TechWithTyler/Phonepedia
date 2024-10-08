@@ -19,13 +19,15 @@ struct HandsetRingersView: View {
             Stepper("Music/Melody Ringtones: \(handset.musicRingtones)", value: $handset.musicRingtones, in: 0...50)
             Text("Total Ringtones: \(handset.totalRingtones)")
             RingtoneInfoView()
-            Picker("Custom Ringtones Source", selection: $handset.customRingtonesSource) {
-                Text("None").tag(0)
-                Text("Recording Only").tag(1)
-                Text("Audio Files Only").tag(2)
-                Text("Recording/Audio Files").tag(3)
+            if handset.hasSpeakerphone {
+                Picker("Custom Ringtones Source", selection: $handset.customRingtonesSource) {
+                    Text("None").tag(0)
+                    Text("Recording Only").tag(1)
+                    Text("Audio Files Only").tag(2)
+                    Text("Recording/Audio Files").tag(3)
+                }
+                InfoText("Some handsets allow you to record audio to use as ringtones, transfer audio files from a device to use as ringtones, or both.")
             }
-            InfoText("Some handsets allow you to record audio to use as ringtones, transfer audio files from a device to use as ringtones, or both.")
             if phone.hasIntercom {
                 Picker("Intercom Ringtone", selection: $handset.intercomRingtone) {
                     Text("Intercom-Specific Ringtone").tag(0)
