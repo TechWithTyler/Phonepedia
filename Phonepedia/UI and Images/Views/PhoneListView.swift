@@ -98,11 +98,13 @@ struct PhoneListView: View {
     @ToolbarContentBuilder
     var toolbarContent: some ToolbarContent {
         ToolbarItem {
+            Button(action: addItem) {
+                Label("Add Phone", systemImage: "plus")
+            }
+            .accessibilityIdentifier("AddPhoneButton")
+        }
+        ToolbarItem {
             OptionsMenu(title: .menu) {
-                Button(action: addItem) {
-                    Label("Add Phone", systemImage: "plus")
-                }
-                .accessibilityIdentifier("AddPhoneButton")
                 Button("Phone Count…") {
                     dialogManager.showingPhoneCount = true
                 }
