@@ -97,7 +97,7 @@ struct PhonePartInfoView: View {
                 .buttonStyle(.borderless)
 			}
             .alert("Delete this handset?", isPresented: $dialogManager.showingDeleteHandset, presenting: $dialogManager.handsetToDelete) { handset in
-                Button("Delete") {
+                Button("Delete", role: .destructive) {
                     deleteHandset(at: phone.cordlessHandsetsIHave.firstIndex(of: handset.wrappedValue!)!)
                     dialogManager.handsetToDelete = nil
                     dialogManager.showingDeleteHandset = false
@@ -108,7 +108,7 @@ struct PhonePartInfoView: View {
                 }
             }
             .alert("Delete all handsets?", isPresented: $dialogManager.showingDeleteAllHandsets) {
-                Button("Delete") {
+                Button("Delete", role: .destructive) {
                     phone.cordlessHandsetsIHave.removeAll()
                     dialogManager.showingDeleteAllHandsets = false
                 }
@@ -169,7 +169,7 @@ struct PhonePartInfoView: View {
                 .buttonStyle(.borderless)
             }
             .alert("Delete this charger?", isPresented: $dialogManager.showingDeleteCharger, presenting: $dialogManager.chargerToDelete) { charger in
-                Button("Delete") {
+                Button("Delete", role: .destructive) {
                     deleteCharger(at: phone.chargersIHave.firstIndex(of: charger.wrappedValue!)!)
                     dialogManager.chargerToDelete = nil
                     dialogManager.showingDeleteCharger = false
@@ -180,7 +180,7 @@ struct PhonePartInfoView: View {
                 }
             }
             .alert("Delete all chargers?", isPresented: $dialogManager.showingDeleteAllChargers) {
-                Button("Delete") {
+                Button("Delete", role: .destructive) {
                     phone.chargersIHave.removeAll()
                     dialogManager.showingDeleteAllChargers = false
                 }
