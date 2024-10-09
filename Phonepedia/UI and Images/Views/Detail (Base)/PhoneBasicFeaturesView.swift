@@ -32,7 +32,7 @@ struct PhoneBasicFeaturesView: View {
                     phone.numberOfIncludedCordlessHandsets = 0
                     dialogManager.showingMakeCordedOnly = false
                 }
-                Button("Cancel") {
+                Button("Cancel", role: .cancel) {
                     dialogManager.showingMakeCordedOnly = false
                 }
             } message: {

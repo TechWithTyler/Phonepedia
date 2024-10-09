@@ -102,7 +102,7 @@ struct PhonePartInfoView: View {
                     dialogManager.handsetToDelete = nil
                     dialogManager.showingDeleteHandset = false
                 }
-                Button("Cancel") {
+                Button("Cancel", role: .cancel) {
                     dialogManager.handsetToDelete = nil
                     dialogManager.showingDeleteHandset = false
                 }
@@ -112,7 +112,7 @@ struct PhonePartInfoView: View {
                     phone.cordlessHandsetsIHave.removeAll()
                     dialogManager.showingDeleteAllHandsets = false
                 }
-                Button("Cancel") {
+                Button("Cancel", role: .cancel) {
                     dialogManager.showingDeleteAllHandsets = false
                 }
             }
@@ -174,7 +174,7 @@ struct PhonePartInfoView: View {
                     dialogManager.chargerToDelete = nil
                     dialogManager.showingDeleteCharger = false
                 }
-                Button("Cancel") {
+                Button("Cancel", role: .cancel) {
                     dialogManager.chargerToDelete = nil
                     dialogManager.showingDeleteCharger = false
                 }
@@ -184,7 +184,7 @@ struct PhonePartInfoView: View {
                     phone.chargersIHave.removeAll()
                     dialogManager.showingDeleteAllChargers = false
                 }
-                Button("Cancel") {
+                Button("Cancel", role: .cancel) {
                     dialogManager.showingDeleteAllChargers = false
                 }
             }
