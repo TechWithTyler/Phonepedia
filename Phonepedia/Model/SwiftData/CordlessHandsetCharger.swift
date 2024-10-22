@@ -39,7 +39,9 @@ final class CordlessHandsetCharger {
 	var hasRangeExtender: Bool = false
 
 	var wallMountability: Int = 0
-    
+
+    var type: Int = 0
+
     // MARK: - Color Bindings
     
     var mainColorBinding: Binding<Color> {

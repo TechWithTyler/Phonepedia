@@ -46,7 +46,7 @@ struct PhoneListView: View {
                                             Text("Cancel")
                                         }
                                     } message: { phone in
-                                        Text("\(phone.brand) \(phone.model) will be deleted from this database.")
+                                        Text("\(phone.brand) \(phone.model) will be deleted from this catalog.")
                                     }
                             }
                             .contextMenu {
@@ -73,7 +73,7 @@ struct PhoneListView: View {
 #if os(macOS)
         .navigationSplitViewColumnWidth(300)
 #endif
-        .alert("Delete all phones from this database?", isPresented: $dialogManager.showingDeleteAllPhones) {
+        .alert("Delete all phones from this catalog?", isPresented: $dialogManager.showingDeleteAllPhones) {
             Button(role: .destructive) {
                 dialogManager.showingDeleteAllPhones = false
                 deleteAllPhones()
@@ -86,7 +86,7 @@ struct PhoneListView: View {
                 Text("Cancel")
             }
         } message: {
-            Text("All phones will be deleted from this database.")
+            Text("All phones will be deleted from this catalog.")
         }
         .toolbar {
             toolbarContent

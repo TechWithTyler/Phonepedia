@@ -116,7 +116,7 @@ struct PhonePartInfoView: View {
                     dialogManager.showingDeleteAllHandsets = false
                 }
             }
-            Section("Cordless Handset Chargers (\(chargerCount))") {
+            Section("Cordless Handset/Headset/Speakerphone Chargers (\(chargerCount))") {
 				if !phone.chargersIHave.isEmpty {
 						ForEach(phone.chargersIHave) { charger in
                             let chargerNumber = (phone.chargersIHave.firstIndex(of: charger) ?? 0) + 1

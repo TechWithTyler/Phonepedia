@@ -50,7 +50,7 @@ struct PhoneCountView: View {
         return totalDesksets
     }
 
-    // The total number of cordless handsets.
+    // The total number of cordless headsets.
     var headsetCount: Int {
         var totalHeadsets = 0
         for phone in phones.filter({$0.isCordless}) {
