@@ -800,6 +800,7 @@ final class Phone {
 			baseChargeContactType = 0
 			baseChargeContactPlacement = 0
         } else {
+            cordedPhoneType = 0
             cordedReceiverSecondaryColorBinding.wrappedValue = .black
         }
 	}

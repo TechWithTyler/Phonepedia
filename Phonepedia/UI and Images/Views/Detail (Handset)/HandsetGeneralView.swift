@@ -25,7 +25,7 @@ struct HandsetGeneralView: View {
                 .onChange(of: handset.acquisitionYear) { oldValue, newValue in
                     handset.acquisitionYearChanged(oldValue: oldValue, newValue: newValue)
                 }
-            if handset.acquisitionYear == handset.releaseYear {
+            if handset.acquisitionYear == handset.releaseYear && handset.acquisitionYear != -1 && handset.releaseYear != -1 {
                 HStack {
                     Image(systemName: "sparkle")
                     Text("You got the \(String(handset.releaseYear)) \(handset.brand) \(handset.model) the year it was released!")
