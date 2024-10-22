@@ -49,12 +49,8 @@ struct PhoneBasicFeaturesView: View {
                         return newValue > phone.maxCordlessHandsets && phone.hasRegistration
                     }
 #endif
-                if phone.maxCordlessHandsets == -1 {
-                    InfoText("When placing the handset on the base, the handset and base exchange a digital security code, which makes sure the handset only communicates with that base. Unless this code changes each time a handset is placed on the base, you can add as many handsets as you want--the base doesn't know or care how many handsets are being used on it. You can change which base the handset is used on by placing it on a different one.")
-                } else if phone.maxCordlessHandsets >= 1 {
-                    InfoButton(title: "Registration Explanation…") {
+                    InfoButton(title: "Registration/Security Code Explanation…") {
                         dialogManager.showingRegistrationExplanation = true
-                    }
                 }
                 if phone.numberOfIncludedCordlessHandsets > phone.maxCordlessHandsets && phone.hasRegistration {
                     WarningText("The base of the \(phone.brand) \(phone.model) can only register up to \(phone.maxCordlessHandsets) handsets (you specified that it includes \(phone.numberOfIncludedCordlessHandsets)).")

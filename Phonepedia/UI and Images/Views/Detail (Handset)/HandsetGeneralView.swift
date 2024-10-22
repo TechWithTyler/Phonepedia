@@ -71,7 +71,7 @@ struct HandsetGeneralView: View {
             if handset.cordlessDeviceType == 0 && !phone.isCordedCordless && !phone.hasTransmitOnlyBase && phone.hasRegistration {
                 Toggle("Fits On Base", isOn: $handset.fitsOnBase)
                 if !handset.fitsOnBase {
-                    InfoText("A handset which doesn't fit on the base misses out on many features including place-on-base power backup and place-on-base auto-register.")
+                    InfoText("For a handset to \"fit on the base\", the charging contacts of the handset and base must be able to touch each other without having to force the handset into the base.\nA handset which doesn't fit on the base misses out on many features including place-on-base power backup and place-on-base auto-register.")
                 }
             }
             if handset.cordlessDeviceType == 1 {

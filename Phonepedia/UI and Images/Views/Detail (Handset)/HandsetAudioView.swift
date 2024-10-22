@@ -27,7 +27,7 @@ struct HandsetAudioView: View {
                 InfoText("The speakerphone button lights up when speakerphone is on.")
             }
         } else {
-            InfoText("Handsets without speakerphone play their key tones and ringtones through a tiny speaker called a piezoelectric speaker, or piezo for short. This is the same type of speaker used on line-powered corded phones. This type of speaker typically plays only monophonic tones, as polyphonic tones might not sound good on a piezo speaker.")
+            InfoText("Handsets without speakerphone play their key tones and ringtones through a tiny speaker called a piezoelectric speaker, or piezo for short. This is the same type of speaker used on line-powered corded phones. This type of speaker typically plays only monophonic tones, as polyphonic tones might not sound good.")
         }
         Toggle("Supports Wired Headsets", isOn: $handset.supportsWiredHeadsets)
         Picker("Maximum Number Of Bluetooth Headphones", selection: $handset.bluetoothHeadphonesSupported) {
