@@ -128,7 +128,7 @@ struct PhoneBasicFeaturesView: View {
                 }
                 if !phone.hasBaseKeypad && !phone.hasTransmitOnlyBase {
                     Toggle("Has Charger-Style Base", isOn: $phone.hasChargerSizeBase)
-                    InfoText("Some cordless phone bases look similar/have a similar size to chargers. In some cases, such as when the base has no answering system controls, they can be easily mistaken for chargers, although a base is always slightly bigger than a charger. Tip: The main base has at least a phone jack or handset locator button. Chargers just plug into power.\nThese kinds of bases are ideal for those who want a small-footprint base. The differentiating factor between a charger-style base vs a standard base is that the handset charging area is in the same position as that of the charger (usually the center).")
+                    InfoText("Some cordless phone bases look similar/have a similar size to chargers. In some cases, such as when the base has no answering system controls, they can be easily mistaken for chargers, although a base is always slightly bigger than a charger.\nTip: The main base has at least a phone jack or handset locator button. Chargers just plug into power.\nThese kinds of bases are ideal for those who want a small-footprint base. The differentiating factor between a charger-style base vs a standard base is that the handset charging area is in the same position as that of the charger (usually the center).")
                 }
             }
             Picker("Charge Light", selection: $phone.chargeLight) {

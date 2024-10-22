@@ -15,14 +15,15 @@ struct HandsetMessagingView: View {
 
     var body: some View {
         if let phone = handset.phone {
-            if phone.hasAnsweringSystem > 1 {
+            if phone.hasAnsweringSystem > 1 && handset.displayType > 0 {
                 Picker("Answering System Menu", selection: $handset.answeringSystemMenu) {
                     Text("Settings Only (doesn't require link to base").tag(0)
                     Text("Settings Only (requires link to base)").tag(1)
                     Text("Full (doesn't require link to base").tag(2)
                     Text("Full (requires link to base)").tag(3)
                 }
-                InfoText("Settings Only: Only settings are available in the answering system menu. Message playback is a separate menu item or button.\nFull: Message playback and settings are available in the answering system menu.")
+                InfoText("Settings Only: Only settings are available in the answering system menu. This may or may not include greeting recording/playback/deletion. Message playback is a separate menu item or button.\nFull: Message playback/deletion, memo recording, greeting recording/playback/deletion, and settings are available in the answering system menu.")
+                AnsweringSystemMenuInfoView()
             }
             Picker("Voicemail Quick Dial", selection: $handset.voicemailQuickDial) {
                 Text("None").tag(0)

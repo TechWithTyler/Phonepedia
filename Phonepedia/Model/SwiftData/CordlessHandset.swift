@@ -420,6 +420,9 @@ final class CordlessHandset {
 
 	func displayTypeChanged(oldValue: Int, newValue: Int) {
 		if newValue == 0 {
+            if answeringSystemMenu > 0 {
+                answeringSystemMenu = 0
+            }
 			hasTalkingPhonebook = false
             if voicemailQuickDial > 2 {
                 voicemailQuickDial = 0

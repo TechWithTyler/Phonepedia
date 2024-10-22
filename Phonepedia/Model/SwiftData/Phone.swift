@@ -165,6 +165,10 @@ final class Phone {
 	
 	var hasAnsweringSystem: Int = 3
 
+    var answeringSystemType: Int = 0
+
+    var answeringSystemForCellLines: Bool = false
+
     var hasCallRecording: Int = 0
 
 	var answeringSystemMenuOnBase: Int = 0
@@ -632,6 +636,7 @@ final class Phone {
             cellLineOnlyBehavior = 0
             cellLineInUseStatusOnBase = 0
             baseCellRingtone = 0
+            answeringSystemForCellLines = false
             supportsCellAlerts = false
             hasCellPhoneVoiceControl = false
             supportsAddingOfCellAreaCode = false
