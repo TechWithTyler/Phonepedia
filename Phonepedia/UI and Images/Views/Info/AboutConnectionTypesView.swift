@@ -32,7 +32,7 @@ struct AboutConnectionTypesView: View {
                     Text("Digital Phone")
                 }
                 DisclosureGroup {
-                    Text("VoIP is how most telecommunication works today, and is the backbone for video conferencing services. Dedicated VoIP phones can only work with an Ethernet or Wi-Fi connection, and may require paying for extra hardware or subscriptions, which makes them not as good for phone collectors who don't want to pay too much for the necessary hardware and providers or if their setup isn't near their router. These phones offer landline comfort and convenience while integrating natively with VoIP provider features like voicemail and call forwarding. To connect an analog phone to VoIP, you need a cable modem or analog telephone adaptor (ATA).")
+                    Text("VoIP is how most non-cellular telecommunication works today, and is the backbone for video conferencing services. Dedicated VoIP phones can only work with an Ethernet or Wi-Fi connection, and may require paying for extra hardware or subscriptions, which makes them not as good for phone collectors who don't want to pay too much for the necessary hardware and providers or if their setup isn't near their router. These phones offer landline comfort and convenience while integrating natively with VoIP provider features like voicemail and call forwarding. To connect an analog phone to VoIP, you need a cable modem or analog telephone adaptor (ATA).")
                 } label: {
                     Text("VoIP (Voice-over-Internet Protocol) Phone")
                 }
@@ -52,7 +52,7 @@ struct AboutConnectionTypesView: View {
                     Text("Cell-To-Landline Solutions")
                 }
                 DisclosureGroup {
-                    Text("A PBX (Private Branch Exchange) is a device that creates multiple internal phone lines (analog, digital, or VoIP) and are usually seen in businesses and hotels. The connection type specifies the type of phones that can be natively connected to it. Each internal phone line is given a unique phone number, called an extension number, which can only be directly dialed from other phones on the same PBX. To access the outside line, a leading digit (e.g. 9) must be dialed to connect the given extension to an outside line (this is why hotel phones say something like \"dial 9 + area code + number\"). There can only be as many extensions on separate outside calls as there are outside lines. The outside line is optional on analog PBXs, so if you just want internal lines, a PBX is a great option.")
+                    Text("A PBX (Private Branch Exchange) is a device that creates multiple internal phone lines (analog, digital, or VoIP) and are usually seen in businesses and hotels. The connection type specifies the type of phones that can be natively connected to it. Each internal phone line is given a unique phone number, called an extension number, which can only be directly dialed from other phones on the same PBX. To access the outside line, a leading digit (e.g. 9) must be dialed to connect the given extension to an outside line (this is why hotel phones say something like \"dial 9 + area code + number\") on their faceplates. There can only be as many extensions on separate outside calls as there are outside lines. The outside line is optional on analog PBXs, so if you just want internal lines, a PBX is a great option.")
                 } label: {
                     Text("PBX")
                 }
