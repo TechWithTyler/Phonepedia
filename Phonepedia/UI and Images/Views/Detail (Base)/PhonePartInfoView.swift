@@ -193,16 +193,19 @@ struct PhonePartInfoView: View {
     // MARK: - Data Management
 
 	func addHandset() {
-		phone.cordlessHandsetsIHave.append(
-            // Newly-added handsets default to the phone's brand, the phone's main handset model number, and the phone base's colors.
-            CordlessHandset(brand: phone.brand, model: phone.mainHandsetModel, mainColorRed: phone.baseMainColorRed, mainColorGreen: phone.baseMainColorGreen, mainColorBlue: phone.baseMainColorBlue, secondaryColorRed: phone.baseSecondaryColorRed, secondaryColorGreen: phone.baseSecondaryColorGreen, secondaryColorBlue: phone.baseSecondaryColorBlue)
-		)
+        // 1. Create a new CordlessHandset object. Newly-added handsets default to the phone's brand, the phone's main handset model number, and the phone base's colors.
+            let newHandset = CordlessHandset(brand: phone.brand, model: phone.mainHandsetModel, mainColorRed: phone.baseMainColorRed, mainColorGreen: phone.baseMainColorGreen, mainColorBlue: phone.baseMainColorBlue, secondaryColorRed: phone.baseSecondaryColorRed, secondaryColorGreen: phone.baseSecondaryColorGreen, secondaryColorBlue: phone.baseSecondaryColorBlue)
+        // 2. Add the handset to the phone's list of handsets.
+        phone.cordlessHandsetsIHave.append(newHandset)
 	}
 
     func duplicateHandset(_ handset: CordlessHandset) {
+        // 1. Create a duplicate of handset.
         let newHandset = handset.duplicate()
+        // 2. Insert the duplicate handset after the original. Handsets that come after handset in the array will be shifted up by 1 to allow the duplicate handset to slot in.
         if let index = phone.cordlessHandsetsIHave.firstIndex(of: handset) {
-            phone.cordlessHandsetsIHave.insert(newHandset, at: index + 1)
+            let newHandsetIndex = index + 1
+            phone.cordlessHandsetsIHave.insert(newHandset, at: newHandsetIndex)
         }
     }
 
@@ -219,7 +222,9 @@ struct PhonePartInfoView: View {
 	}
 
     func duplicateCharger(_ charger: CordlessHandsetCharger) {
+        // 1. Create a duplicate of charger.
         let newCharger = charger.duplicate()
+        // 2. Insert the duplicate charger after the original. Chargers that come after charger in the array will be shifted up by 1 to allow the duplicate charger to slot in.
         if let index = phone.chargersIHave.firstIndex(of: charger) {
             phone.chargersIHave.insert(newCharger, at: index + 1)
         }

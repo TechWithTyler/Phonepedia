@@ -126,7 +126,9 @@ struct PhoneListView: View {
     
     private func addItem() {
         withAnimation {
+            // 1. Create a new Phone object with a mock brand and model number.
             let newPhone = Phone(brand: "Some Brand", model: "M123")
+            // 2. Insert the new phone into the model context.
             modelContext.insert(newPhone)
         }
     }
@@ -141,13 +143,17 @@ struct PhoneListView: View {
     }
     
     func deletePhone(_ phone: Phone) {
+        // 1. Delete the phone.
         dialogManager.phoneToDelete = nil
         modelContext.delete(phone)
+        // 2. Clear the phone selection.
         selectedPhone = nil
     }
     
     func deleteAllPhones() {
+        // 1. Clear the phone selection.
         selectedPhone = nil
+        // 2. Delete each phone.
         for phone in phones {
             modelContext.delete(phone)
         }

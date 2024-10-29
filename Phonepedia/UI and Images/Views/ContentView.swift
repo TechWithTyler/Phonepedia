@@ -44,7 +44,9 @@ struct ContentView: View {
         .sheet(isPresented: $dialogManager.showingPhoneTypeDefinitions) {
             PhoneTypeDefinitionsView()
         }
-        .sheet(isPresented: $dialogManager.showingAboutDisplayTypes, content: { AboutDisplayTypesView() })
+        .sheet(isPresented: $dialogManager.showingAboutDisplayTypes) {
+            AboutDisplayTypesView()
+        }
         .sheet(isPresented: $dialogManager.showingFrequenciesExplanation) {
             FrequenciesExplanationView()
         }
