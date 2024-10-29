@@ -100,7 +100,7 @@ struct PhonePartInfoView: View {
             }
             .buttonStyle(.borderless)
         }
-        .alert("Delete this handset?", isPresented: $dialogManager.showingDeleteHandset, presenting: $dialogManager.handsetToDelete) { handset in
+        .alert("Delete this cordless device?", isPresented: $dialogManager.showingDeleteHandset, presenting: $dialogManager.handsetToDelete) { handset in
             Button("Delete", role: .destructive) {
                 deleteHandset(at: phone.cordlessHandsetsIHave.firstIndex(of: handset.wrappedValue!)!)
                 dialogManager.handsetToDelete = nil
@@ -110,8 +110,11 @@ struct PhonePartInfoView: View {
                 dialogManager.handsetToDelete = nil
                 dialogManager.showingDeleteHandset = false
             }
+        } message: { handset in
+            let wrappedHandset = handset.wrappedValue!
+                Text("This \(wrappedHandset.brand) \(wrappedHandset.model) will be deleted from this \(phone.brand) \(phone.model).")
         }
-        .alert("Delete all handsets?", isPresented: $dialogManager.showingDeleteAllHandsets) {
+        .alert("Delete all cordless devices?", isPresented: $dialogManager.showingDeleteAllHandsets) {
             Button("Delete", role: .destructive) {
                 phone.cordlessHandsetsIHave.removeAll()
                 dialogManager.showingDeleteAllHandsets = false
@@ -119,6 +122,8 @@ struct PhonePartInfoView: View {
             Button("Cancel", role: .cancel) {
                 dialogManager.showingDeleteAllHandsets = false
             }
+        } message: {
+            Text("All cordless devices will be deleted from this \(phone.brand) \(phone.model).")
         }
         Section("Cordless Handset/Headset/Speakerphone Chargers (\(chargerCount))") {
             if !phone.chargersIHave.isEmpty {
@@ -182,6 +187,8 @@ struct PhonePartInfoView: View {
                 dialogManager.chargerToDelete = nil
                 dialogManager.showingDeleteCharger = false
             }
+        } message: { charger in
+            Text("This charger will be deleted from this \(phone.brand) \(phone.model).")
         }
         .alert("Delete all chargers?", isPresented: $dialogManager.showingDeleteAllChargers) {
             Button("Delete", role: .destructive) {
@@ -191,6 +198,8 @@ struct PhonePartInfoView: View {
             Button("Cancel", role: .cancel) {
                 dialogManager.showingDeleteAllChargers = false
             }
+        } message: {
+            Text("All chargers will be deleted from this \(phone.brand) \(phone.model).")
         }
     }
 

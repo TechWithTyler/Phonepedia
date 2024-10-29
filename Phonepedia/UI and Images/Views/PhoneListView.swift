@@ -46,7 +46,7 @@ struct PhoneListView: View {
                                             Text("Cancel")
                                         }
                                     } message: { phone in
-                                        Text("\(phone.brand) \(phone.model) will be deleted from this catalog.")
+                                        Text("This \(phone.brand) \(phone.model) will be deleted from this catalog.")
                                     }
                             }
                             .contextMenu {
