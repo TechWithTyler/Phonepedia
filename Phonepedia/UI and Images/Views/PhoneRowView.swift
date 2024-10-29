@@ -29,6 +29,8 @@ struct PhoneRowView: View {
 				Text(phone.phoneTypeText)
 					.font(.subheadline)
 					.foregroundStyle(.secondary)
+                Text(phone.storageOrSetup > 1 ? "In Storage" : "Active")
+                    .foregroundStyle(.secondary)
                 if phone.acquisitionYear == phone.releaseYear {
                     HStack {
                         Image(systemName: "sparkle")

@@ -41,6 +41,9 @@ struct HandsetGeneralView: View {
                 Text("Online (new)").tag(4)
                 Text("Gift").tag(5)
             }
+            Picker("Place In My Collection", selection: $handset.storageOrSetup) {
+                PhoneInCollectionStatusPickerItems()
+            }
             ColorPicker("Main Color", selection: handset.mainColorBinding)
             ColorPicker("Secondary/Accent Color", selection: handset.secondaryColorBinding)
             Button("Use Main Color") {
@@ -116,9 +119,6 @@ struct HandsetGeneralView: View {
                     Text("Standby/Hangup Voice").tag(4)
                 }
                 InfoText("The handset can audibly alert you when the battery is low or needs to be charged.")
-            }
-            Picker("Place In My Collection", selection: $handset.storageOrSetup) {
-                PhoneInCollectionStatusPickerItems()
             }
         } else {
             Text("Error")

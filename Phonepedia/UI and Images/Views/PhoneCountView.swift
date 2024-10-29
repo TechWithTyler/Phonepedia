@@ -20,6 +20,12 @@ struct PhoneCountView: View {
         return count
     }
 
+    // The number of active phones, not counting the individual cordless devices on each cordless phone system.
+    var activePhoneCount: Int {
+        let count = phones.filter({$0.storageOrSetup <= 1}).count
+        return count
+    }
+
     // The total number of cordless phones, not counting the individual cordless devices on each cordless phone system.
     var cordlessPhoneCount: Int {
         let count = phones.filter({ $0.isCordless }).count
@@ -41,6 +47,15 @@ struct PhoneCountView: View {
         return totalHandsets
     }
 
+    // The number of active cordless handsets.
+    var activeCordlessHandsetCount: Int {
+        var activeHandsets = 0
+        for phone in phones.filter({$0.isCordless}) {
+            activeHandsets += phone.cordlessHandsetsIHave.filter({$0.storageOrSetup <= 1 && $0.cordlessDeviceType == 0}).count
+        }
+        return activeHandsets
+    }
+
     // The total number of cordless desksets.
     var desksetCount: Int {
         var totalDesksets = 0
@@ -50,13 +65,31 @@ struct PhoneCountView: View {
         return totalDesksets
     }
 
-    // The total number of cordless headsets.
+    // The number of active cordless desksets.
+    var activeCordlessDesksetCount: Int {
+        var activeDesksets = 0
+        for phone in phones.filter({$0.isCordless}) {
+            activeDesksets += phone.cordlessHandsetsIHave.filter({$0.storageOrSetup <= 1 && $0.cordlessDeviceType == 1}).count
+        }
+        return activeDesksets
+    }
+
+    // The total number of cordless headsets/speakerphones.
     var headsetCount: Int {
         var totalHeadsets = 0
         for phone in phones.filter({$0.isCordless}) {
             totalHeadsets += phone.cordlessHandsetsIHave.filter({$0.cordlessDeviceType == 2}).count
         }
         return totalHeadsets
+    }
+
+    // The number of active cordless headsets/speakerphones.
+    var activeCordlessHeadsetCount: Int {
+        var activeHeadsets = 0
+        for phone in phones.filter({$0.isCordless}) {
+            activeHeadsets += phone.cordlessHandsetsIHave.filter({$0.storageOrSetup <= 1 && $0.cordlessDeviceType == 2}).count
+        }
+        return activeHeadsets
     }
 
     // The total number of phones with answering systems.
@@ -77,6 +110,18 @@ struct PhoneCountView: View {
                     }
                     Spacer()
                     Text(totalPhoneCount, format: .number)
+                        .foregroundStyle(.secondary)
+                        .multilineTextAlignment(.trailing)
+                }
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text("Active Phone Sets")
+                            .foregroundStyle(.primary)
+                            .multilineTextAlignment(.leading)
+                        excludingHandsetsText
+                    }
+                    Spacer()
+                    Text(activePhoneCount, format: .number)
                         .foregroundStyle(.secondary)
                         .multilineTextAlignment(.trailing)
                 }
@@ -111,7 +156,7 @@ struct PhoneCountView: View {
                         .multilineTextAlignment(.trailing)
                 }
                 HStack {
-                    Text("Cordless Handsets")
+                    Text("Total Cordless Handsets")
                         .foregroundStyle(.primary)
                         .multilineTextAlignment(.leading)
                     Spacer()
@@ -120,7 +165,16 @@ struct PhoneCountView: View {
                         .multilineTextAlignment(.trailing)
                 }
                 HStack {
-                    Text("Cordless Desksets")
+                    Text("Active Cordless Handsets")
+                        .foregroundStyle(.primary)
+                        .multilineTextAlignment(.leading)
+                    Spacer()
+                    Text(activeCordlessHandsetCount, format: .number)
+                        .foregroundStyle(.secondary)
+                        .multilineTextAlignment(.trailing)
+                }
+                HStack {
+                    Text("Total Cordless Desksets")
                         .foregroundStyle(.primary)
                         .multilineTextAlignment(.leading)
                     Spacer()
@@ -129,7 +183,16 @@ struct PhoneCountView: View {
                         .multilineTextAlignment(.trailing)
                 }
                 HStack {
-                    Text("Cordless Headsets/Speakerphones")
+                    Text("Active Cordless Desksets")
+                        .foregroundStyle(.primary)
+                        .multilineTextAlignment(.leading)
+                    Spacer()
+                    Text(activeCordlessDesksetCount, format: .number)
+                        .foregroundStyle(.secondary)
+                        .multilineTextAlignment(.trailing)
+                }
+                HStack {
+                    Text("Total Cordless Headsets/Speakerphones")
                         .foregroundStyle(.primary)
                         .multilineTextAlignment(.leading)
                     Spacer()
@@ -137,7 +200,15 @@ struct PhoneCountView: View {
                         .foregroundStyle(.secondary)
                         .multilineTextAlignment(.trailing)
                 }
-                Spacer()
+                HStack {
+                    Text("Active Cordless Headsets/Speakerphones")
+                        .foregroundStyle(.primary)
+                        .multilineTextAlignment(.leading)
+                    Spacer()
+                    Text(activeCordlessHeadsetCount, format: .number)
+                        .foregroundStyle(.secondary)
+                        .multilineTextAlignment(.trailing)
+                }
             }
             .padding()
             .navigationTitle("Phone Count")
