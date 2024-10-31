@@ -42,6 +42,8 @@ final class CordlessHandsetCharger {
 
     var type: Int = 0
 
+    var hasHardWiredACAdaptor: Bool = false
+
     // MARK: - Color Bindings
     
     var mainColorBinding: Binding<Color> {

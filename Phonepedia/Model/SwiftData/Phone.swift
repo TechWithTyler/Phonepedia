@@ -636,6 +636,7 @@ final class Phone {
             cellLineOnlyBehavior = 0
             cellLineInUseStatusOnBase = 0
             baseCellRingtone = 0
+            supportsCellRingtone = false
             answeringSystemForCellLines = false
             supportsCellAlerts = false
             hasCellPhoneVoiceControl = false

@@ -32,6 +32,10 @@ struct PhoneMessagingView: View {
             }
             InfoText("Early answering systems stored messages on a tape cassette. The greeting is stored either on the same cassette as the messages (single-cassette systems), on a separate cassette (dual-cassette systems), or digitally. Storing the greeting on the same casette as the messages results in a delay between the greeting and the beep, as the system needs to move the tape forward to the end where the message is to be recorded. Some models can count the number of messages on the tape by detecting the beeps on the tape.\nModern answering systems are fully digital, meaning messages are stored on a memory chip. This allows for quicker operation.")
         }
+        if phone.hasAnsweringSystem > 0 && phone.baseBluetoothCellPhonesSupported > 0 && phone.answeringSystemType == 1 {
+            Toggle("Answering System For Cell Lines", isOn: $phone.answeringSystemForCellLines)
+            InfoText("On some Bluetooth cell phone-linking phones with answering system, the answering system can answer calls on the cell line.")
+        }
         if !phone.isCordless && phone.hasAnsweringSystem == 1 {
             Picker("Answering System Menu", selection: $phone.answeringSystemMenuOnBase) {
                 Text("Voice Prompts").tag(0)

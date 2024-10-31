@@ -27,7 +27,7 @@ struct BaseDisplayBacklightButtonsView: View {
         PhoneNumberLetterInfoView()
         Picker(phone.isCordless ? "Display Type (base)" : "Display Type", selection: $phone.baseDisplayType) {
             Text("None").tag(0)
-            if phone.hasAnsweringSystem == 1 || phone.hasAnsweringSystem == 3 {
+            if phone.hasAnsweringSystem > 0 {
                 Text("LED Message Counter").tag(1)
                 Text("LCD Message Counter With Status Items").tag(2)
             }

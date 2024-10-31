@@ -144,26 +144,15 @@ struct PhoneBasicFeaturesView: View {
             if phone.baseChargesHandset {
                 Group {
                     Picker("Base Charging Direction", selection: $phone.baseChargingDirection) {
-                        Text("Forward (stand up)").tag(0)
-                        Text("Forward (lean back)").tag(1)
-                        Text("Forward (lay down)").tag(2)
-                        Text("Backward (lay down)").tag(3)
-                        Text("Backward (stand up)").tag(4)
-                        Text("Backward (lean back)").tag(5)
-                        Text("Forward Stand Up or Backward Lay Down").tag(6)
-                        Text("Forward Or Backward (reversible handset)").tag(7)
+                        ChargingDirectionPickerItems()
                     }
-                    InfoText("Variations in charging area designs are one of the many ways different cordless phones look different from one another.")
+                    InfoText("Variations in charging area designs are one of the many ways different cordless phones look different from one another.\nA reversible handset can charge with the keypad facing either up or down.")
                     if !phone.isCordedCordless {
                         Picker("Base Charge Contact Placement", selection: $phone.baseChargeContactPlacement) {
-                            Text("Bottom").tag(0)
-                            Text("Back").tag(1)
-                            Text("One On Each Side").tag(2)
+                            ChargeContactPlacementPickerItems()
                         }
                         Picker("Base Charge Contact Type", selection: $phone.baseChargeContactType) {
-                            Text("Press Down").tag(0)
-                            Text("Click").tag(1)
-                            Text("Inductive").tag(2)
+                            ChargeContactTypePickerItems()
                         }
                         ChargingContactInfoView()
                         Toggle("Base Has Separate Data Contact", isOn: $phone.baseHasSeparateDataContact)

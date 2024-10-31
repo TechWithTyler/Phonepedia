@@ -59,6 +59,10 @@ struct BaseRingersView: View {
                 oldValue, newValue in
                 phone.hasBaseKeypadChanged(oldValue: oldValue, newValue: newValue)
             }
+            if phone.baseCellRingtone > 0 {
+                Toggle("Can Play Cell Ringtone", isOn: $phone.supportsCellRingtone)
+                InfoText("The phone can play your cell phone's ringtone instead of the ringtone selected for the cell line if the cell phone supports Bluetooth In-Band Ringtone.")
+            }
         }
     }
 }
