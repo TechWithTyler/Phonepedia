@@ -29,6 +29,10 @@ struct ContentView: View {
 		NavigationSplitView {
             PhoneListView(phones: phones, selectedPhone: $selectedPhone)
                 .environmentObject(dialogManager)
+                .navigationTitle("Phone List")
+                #if !os(macOS)
+                .navigationBarTitleDisplayMode(.automatic)
+                #endif
 		} detail: {
 			if !phones.isEmpty {
 				if let phone = selectedPhone {

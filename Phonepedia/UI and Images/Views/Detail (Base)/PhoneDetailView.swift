@@ -30,6 +30,10 @@ struct PhoneDetailView: View {
                 if phone.isCordless || phone.cordedPhoneType == 0 {
                     FormNavigationLink("Speakerphone/Intercom/Base Keypad") {
                         BaseSpeakerphoneKeypadView(phone: phone)
+                            .navigationTitle("Spkr/Int/Base Keypad")
+                            #if !os(macOS)
+                            .navigationBarTitleDisplayMode(.automatic)
+                            #endif
                     }
                 }
                 ringersAndMOHGroup
@@ -42,10 +46,18 @@ struct PhoneDetailView: View {
                     callBlockingGroup
                     FormNavigationLink("Special Features") {
                         PhoneSpecialFeaturesView(phone: phone)
+                            .navigationTitle("Special Features")
+                            #if !os(macOS)
+                            .navigationBarTitleDisplayMode(.automatic)
+                            #endif
                     }
                 }
             }
             .formStyle(.grouped)
+            .navigationTitle("\(phone.brand) \(phone.model)")
+            #if !os(macOS)
+            .navigationBarTitleDisplayMode(.automatic)
+            #endif
         }
         .photosPicker(isPresented: $photoViewModel.showingPhotoPicker, selection: $photoViewModel.selectedPhoto, matching: .images, preferredItemEncoding: .automatic)
         .onChange(of: photoViewModel.selectedPhoto, { oldValue, newValue in
@@ -103,13 +115,25 @@ struct PhoneDetailView: View {
         Section {
             FormNavigationLink("General") {
                 PhoneGeneralView(phone: phone)
+                    .navigationTitle("General")
+                    #if !os(macOS)
+                    .navigationBarTitleDisplayMode(.automatic)
+                    #endif
             }
             FormNavigationLink("Basic Features/Cordless Capabilities") {
                 PhoneBasicFeaturesView(phone: phone)
+                    .navigationTitle("Basics")
+                    #if !os(macOS)
+                    .navigationBarTitleDisplayMode(.automatic)
+                    #endif
             }
         }
         FormNavigationLink(phone.isCordless ? "Base Colors" : "Colors") {
             PhoneColorView(phone: phone)
+                .navigationTitle(phone.isCordless ? "Base Colors" : "Colors")
+                #if !os(macOS)
+                .navigationBarTitleDisplayMode(.automatic)
+                #endif
         }
         .formStyle(.grouped)
         if phone.isCordless {
@@ -118,6 +142,10 @@ struct PhoneDetailView: View {
         Section {
             FormNavigationLink("Power") {
                 PhonePowerView(phone: phone)
+                    .navigationTitle("Power")
+                    #if !os(macOS)
+                    .navigationBarTitleDisplayMode(.automatic)
+                    #endif
             }
         }
     }
@@ -127,9 +155,17 @@ struct PhoneDetailView: View {
         Section {
             FormNavigationLink("Ringers") {
                 BaseRingersView(phone: phone)
+                    .navigationTitle("Ringers")
+                    #if !os(macOS)
+                    .navigationBarTitleDisplayMode(.automatic)
+                    #endif
             }
             FormNavigationLink("Music/Message On Hold (MOH)") {
                 PhoneMOHView(phone: phone)
+                    .navigationTitle("MOH")
+                    #if !os(macOS)
+                    .navigationBarTitleDisplayMode(.automatic)
+                    #endif
             }
         }
     }
@@ -139,12 +175,24 @@ struct PhoneDetailView: View {
         Section {
             FormNavigationLink("Display/Backlight/Buttons") {
                 BaseDisplayBacklightButtonsView(phone: phone)
+                    .navigationTitle("Disp/Backlight/Buttons")
+                    #if !os(macOS)
+                    .navigationBarTitleDisplayMode(.automatic)
+                    #endif
             }
-            FormNavigationLink("Answering System/Voicemail") {
+            FormNavigationLink("Messaging") {
                 PhoneMessagingView(phone: phone)
+                    .navigationTitle("Messaging")
+                    #if !os(macOS)
+                    .navigationBarTitleDisplayMode(.automatic)
+                    #endif
             }
             FormNavigationLink("Audio Devices (e.g. headsets)") {
                 PhoneAudioView(phone: phone)
+                    .navigationTitle("Audio Devices")
+                    #if !os(macOS)
+                    .navigationBarTitleDisplayMode(.automatic)
+                    #endif
             }
         }
     }
@@ -154,10 +202,18 @@ struct PhoneDetailView: View {
         Section {
             FormNavigationLink("Landline") {
                 LandlineDetailView(phone: phone)
+                    .navigationTitle("Landline")
+                    #if !os(macOS)
+                    .navigationBarTitleDisplayMode(.automatic)
+                    #endif
             }
             if phone.isCordless || phone.cordedPhoneType == 0 {
                 FormNavigationLink("Cell Phone Linking") {
                     CellPhoneLinkingView(phone: phone)
+                        .navigationTitle("Cell Phone Linking")
+                        #if !os(macOS)
+                        .navigationBarTitleDisplayMode(.automatic)
+                        #endif
                 }
             }
         }
@@ -169,22 +225,42 @@ struct PhoneDetailView: View {
             if phone.hasBaseSpeakerphone || !phone.isCordless || phone.isCordedCordless {
                 FormNavigationLink("Redial") {
                     BaseRedialView(phone: phone)
+                        .navigationTitle("Redial")
+                        #if !os(macOS)
+                        .navigationBarTitleDisplayMode(.automatic)
+                        #endif
                 }
             }
             if phone.isCordless || (phone.cordedPhoneType == 0 && phone.baseDisplayType > 0) {
                 FormNavigationLink("Dialing Codes (e.g., international, area code, country code)") {
                     DialingCodesView(phone: phone)
+                        .navigationTitle("Dialing Codes")
+                        #if !os(macOS)
+                        .navigationBarTitleDisplayMode(.automatic)
+                        #endif
                 }
                 FormNavigationLink("Phonebook") {
                     BasePhonebookView(phone: phone)
+                        .navigationTitle("Phonebook")
+                        #if !os(macOS)
+                        .navigationBarTitleDisplayMode(.automatic)
+                        #endif
                 }
             }
             if phone.isCordless || phone.cordedPhoneType == 0 || phone.cordedPhoneType == 2 {
                 FormNavigationLink("Caller ID") {
                     BaseCallerIDView(phone: phone)
+                        .navigationTitle("Caller ID")
+                        #if !os(macOS)
+                        .navigationBarTitleDisplayMode(.automatic)
+                        #endif
                 }
                 FormNavigationLink("Speed Dial") {
                     BaseSpeedDialView(phone: phone)
+                        .navigationTitle("Speed Dial")
+                        #if !os(macOS)
+                        .navigationBarTitleDisplayMode(.automatic)
+                        #endif
                 }
             }
         }
@@ -195,9 +271,17 @@ struct PhoneDetailView: View {
         Section {
             FormNavigationLink("Call Block (manual)") {
                 CallBlockManualView(phone: phone)
+                    .navigationTitle("Manual Call Block")
+                    #if !os(macOS)
+                    .navigationBarTitleDisplayMode(.automatic)
+                    #endif
             }
             FormNavigationLink("Call Block (pre-screening)") {
                 CallBlockPreScreeningView(phone: phone)
+                    .navigationTitle("Call Block Pre-Screen")
+                    #if !os(macOS)
+                    .navigationBarTitleDisplayMode(.automatic)
+                    #endif
             }
         }
     }

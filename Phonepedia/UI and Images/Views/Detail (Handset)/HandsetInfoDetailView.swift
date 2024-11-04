@@ -33,41 +33,81 @@ struct HandsetInfoDetailView: View {
             Section {
                 FormNavigationLink("General") {
                     HandsetGeneralView(handset: handset)
+                        .navigationTitle("General (HS\(handsetNumber))")
+                        #if !os(macOS)
+                        .navigationBarTitleDisplayMode(.automatic)
+                        #endif
                 }
                 if handset.cordlessDeviceType < 2 {
                     Section {
                         FormNavigationLink("Ringers") {
                             HandsetRingersView(handset: handset)
+                                .navigationTitle("Ringers (HS\(handsetNumber))")
+                                #if !os(macOS)
+                                .navigationBarTitleDisplayMode(.automatic)
+                                #endif
                         }
                     }
                     Section {
                         FormNavigationLink("Display/Backlight/Buttons") {
                             HandsetDisplayBacklightButtonsView(handset: handset)
+                                .navigationTitle("Disp/Backlight/Buttons (HS\(handsetNumber))")
+                                #if !os(macOS)
+                                .navigationBarTitleDisplayMode(.automatic)
+                                #endif
                         }
                         FormNavigationLink("Audio") {
                             HandsetAudioView(handset: handset)
+                                .navigationTitle("Audio (HS\(handsetNumber))")
+                                #if !os(macOS)
+                                .navigationBarTitleDisplayMode(.automatic)
+                                #endif
                         }
-                        FormNavigationLink("Answering System/Voicemail") {
+                        FormNavigationLink("Messaging") {
                             HandsetMessagingView(handset: handset)
+                                .navigationTitle("Messaging (HS\(handsetNumber))")
+                                #if !os(macOS)
+                                .navigationBarTitleDisplayMode(.automatic)
+                                #endif
                         }
                     }
                     Section {
                         FormNavigationLink("Redial") {
                             HandsetRedialView(handset: handset)
+                                .navigationTitle("Redial (HS\(handsetNumber))")
+                                #if !os(macOS)
+                                .navigationBarTitleDisplayMode(.automatic)
+                                #endif
                         }
                         FormNavigationLink("Phonebook") {
                             HandsetPhonebookView(handset: handset)
+                                .navigationTitle("Phonebook (HS\(handsetNumber))")
+                                #if !os(macOS)
+                                .navigationBarTitleDisplayMode(.automatic)
+                                #endif
                         }
                         FormNavigationLink("Caller ID") {
                             HandsetCallerIDView(handset: handset)
+                                .navigationTitle("Caller ID (HS\(handsetNumber))")
+                                #if !os(macOS)
+                                .navigationBarTitleDisplayMode(.automatic)
+                                #endif
                         }
                         FormNavigationLink("Speed Dial") {
                             HandsetSpeedDialView(handset: handset)
+                                .navigationTitle("Speed Dial (HS\(handsetNumber))")
+                                #if !os(macOS)
+                                .navigationBarTitleDisplayMode(.automatic)
+                                #endif
                         }
                     }
                     Section {
                         FormNavigationLink("Special Features") {
                             HandsetSpecialFeaturesView(handset: handset)
+                                .navigationTitle("Special Features (HS\(handsetNumber))")
+                                #if !os(macOS)
+                                .navigationBarTitleDisplayMode(.automatic)
+                                #endif
                         }
                     }
                 }

@@ -39,7 +39,7 @@ struct PhonePartInfoView: View {
                     let handsetNumber = (phone.cordlessHandsetsIHave.firstIndex(of: handset) ?? 0) + 1
                     NavigationLink {
                         HandsetInfoDetailView(handset: handset, handsetNumber: handsetNumber)
-                            .navigationTitle("Handset \(handsetNumber) Details")
+                            .navigationTitle("\(handset.brand) \(handset.model) (HS\(handsetNumber))")
                     } label: {
                         HStack {
                             VStack(alignment: .leading) {
@@ -131,7 +131,7 @@ struct PhonePartInfoView: View {
                     let chargerNumber = (phone.chargersIHave.firstIndex(of: charger) ?? 0) + 1
                     NavigationLink {
                         ChargerInfoDetailView(charger: charger, chargerNumber: chargerNumber)
-                            .navigationTitle("Charger \(chargerNumber) Details")
+                            .navigationTitle("Charger \(chargerNumber)")
                     } label: {
                         Text("Charger \(chargerNumber)")
                     }
