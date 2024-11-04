@@ -31,7 +31,7 @@ struct ContentView: View {
                 .environmentObject(dialogManager)
                 .navigationTitle("Phone List")
                 #if !os(macOS)
-                .navigationBarTitleDisplayMode(.automatic)
+                .navigationBarTitleDisplayMode(.inline)
                 #endif
 		} detail: {
 			if !phones.isEmpty {
