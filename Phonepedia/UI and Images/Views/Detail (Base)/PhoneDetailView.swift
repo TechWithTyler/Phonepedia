@@ -32,7 +32,7 @@ struct PhoneDetailView: View {
                         BaseSpeakerphoneKeypadView(phone: phone)
                             .navigationTitle("Spkr/Int/Base Keypad")
                             #if !os(macOS)
-                            .navigationBarTitleDisplayMode(.automatic)
+                            .navigationBarTitleDisplayMode(.inline)
                             #endif
                     }
                 }
@@ -48,7 +48,7 @@ struct PhoneDetailView: View {
                         PhoneSpecialFeaturesView(phone: phone)
                             .navigationTitle("Special Features")
                             #if !os(macOS)
-                            .navigationBarTitleDisplayMode(.automatic)
+                            .navigationBarTitleDisplayMode(.inline)
                             #endif
                     }
                 }
@@ -56,7 +56,7 @@ struct PhoneDetailView: View {
             .formStyle(.grouped)
             .navigationTitle("\(phone.brand) \(phone.model)")
             #if !os(macOS)
-            .navigationBarTitleDisplayMode(.automatic)
+            .navigationBarTitleDisplayMode(.inline)
             #endif
         }
         .photosPicker(isPresented: $photoViewModel.showingPhotoPicker, selection: $photoViewModel.selectedPhoto, matching: .images, preferredItemEncoding: .automatic)
@@ -105,6 +105,8 @@ struct PhoneDetailView: View {
             } label: {
                 Text("Cancel")
             }
+        } message: {
+            Text("Tip: Landline phone detection works best with images where the phone takes up most of the image.")
         }
     }
     
@@ -117,14 +119,14 @@ struct PhoneDetailView: View {
                 PhoneGeneralView(phone: phone)
                     .navigationTitle("General")
                     #if !os(macOS)
-                    .navigationBarTitleDisplayMode(.automatic)
+                    .navigationBarTitleDisplayMode(.inline)
                     #endif
             }
             FormNavigationLink("Basic Features/Cordless Capabilities") {
                 PhoneBasicFeaturesView(phone: phone)
                     .navigationTitle("Basics")
                     #if !os(macOS)
-                    .navigationBarTitleDisplayMode(.automatic)
+                    .navigationBarTitleDisplayMode(.inline)
                     #endif
             }
         }
@@ -132,7 +134,7 @@ struct PhoneDetailView: View {
             PhoneColorView(phone: phone)
                 .navigationTitle(phone.isCordless ? "Base Colors" : "Colors")
                 #if !os(macOS)
-                .navigationBarTitleDisplayMode(.automatic)
+                .navigationBarTitleDisplayMode(.inline)
                 #endif
         }
         .formStyle(.grouped)
@@ -144,7 +146,7 @@ struct PhoneDetailView: View {
                 PhonePowerView(phone: phone)
                     .navigationTitle("Power")
                     #if !os(macOS)
-                    .navigationBarTitleDisplayMode(.automatic)
+                    .navigationBarTitleDisplayMode(.inline)
                     #endif
             }
         }
@@ -157,14 +159,14 @@ struct PhoneDetailView: View {
                 BaseRingersView(phone: phone)
                     .navigationTitle("Ringers")
                     #if !os(macOS)
-                    .navigationBarTitleDisplayMode(.automatic)
+                    .navigationBarTitleDisplayMode(.inline)
                     #endif
             }
             FormNavigationLink("Music/Message On Hold (MOH)") {
                 PhoneMOHView(phone: phone)
                     .navigationTitle("MOH")
                     #if !os(macOS)
-                    .navigationBarTitleDisplayMode(.automatic)
+                    .navigationBarTitleDisplayMode(.inline)
                     #endif
             }
         }
@@ -177,21 +179,21 @@ struct PhoneDetailView: View {
                 BaseDisplayBacklightButtonsView(phone: phone)
                     .navigationTitle("Disp/Backlight/Buttons")
                     #if !os(macOS)
-                    .navigationBarTitleDisplayMode(.automatic)
+                    .navigationBarTitleDisplayMode(.inline)
                     #endif
             }
             FormNavigationLink("Messaging") {
                 PhoneMessagingView(phone: phone)
                     .navigationTitle("Messaging")
                     #if !os(macOS)
-                    .navigationBarTitleDisplayMode(.automatic)
+                    .navigationBarTitleDisplayMode(.inline)
                     #endif
             }
             FormNavigationLink("Audio Devices (e.g. headsets)") {
                 PhoneAudioView(phone: phone)
                     .navigationTitle("Audio Devices")
                     #if !os(macOS)
-                    .navigationBarTitleDisplayMode(.automatic)
+                    .navigationBarTitleDisplayMode(.inline)
                     #endif
             }
         }
@@ -204,7 +206,7 @@ struct PhoneDetailView: View {
                 LandlineDetailView(phone: phone)
                     .navigationTitle("Landline")
                     #if !os(macOS)
-                    .navigationBarTitleDisplayMode(.automatic)
+                    .navigationBarTitleDisplayMode(.inline)
                     #endif
             }
             if phone.isCordless || phone.cordedPhoneType == 0 {
@@ -212,7 +214,7 @@ struct PhoneDetailView: View {
                     CellPhoneLinkingView(phone: phone)
                         .navigationTitle("Cell Phone Linking")
                         #if !os(macOS)
-                        .navigationBarTitleDisplayMode(.automatic)
+                        .navigationBarTitleDisplayMode(.inline)
                         #endif
                 }
             }
@@ -227,7 +229,7 @@ struct PhoneDetailView: View {
                     BaseRedialView(phone: phone)
                         .navigationTitle("Redial")
                         #if !os(macOS)
-                        .navigationBarTitleDisplayMode(.automatic)
+                        .navigationBarTitleDisplayMode(.inline)
                         #endif
                 }
             }
@@ -236,14 +238,14 @@ struct PhoneDetailView: View {
                     DialingCodesView(phone: phone)
                         .navigationTitle("Dialing Codes")
                         #if !os(macOS)
-                        .navigationBarTitleDisplayMode(.automatic)
+                        .navigationBarTitleDisplayMode(.inline)
                         #endif
                 }
                 FormNavigationLink("Phonebook") {
                     BasePhonebookView(phone: phone)
                         .navigationTitle("Phonebook")
                         #if !os(macOS)
-                        .navigationBarTitleDisplayMode(.automatic)
+                        .navigationBarTitleDisplayMode(.inline)
                         #endif
                 }
             }
@@ -252,14 +254,14 @@ struct PhoneDetailView: View {
                     BaseCallerIDView(phone: phone)
                         .navigationTitle("Caller ID")
                         #if !os(macOS)
-                        .navigationBarTitleDisplayMode(.automatic)
+                        .navigationBarTitleDisplayMode(.inline)
                         #endif
                 }
                 FormNavigationLink("Speed Dial") {
                     BaseSpeedDialView(phone: phone)
                         .navigationTitle("Speed Dial")
                         #if !os(macOS)
-                        .navigationBarTitleDisplayMode(.automatic)
+                        .navigationBarTitleDisplayMode(.inline)
                         #endif
                 }
             }
@@ -273,14 +275,14 @@ struct PhoneDetailView: View {
                 CallBlockManualView(phone: phone)
                     .navigationTitle("Manual Call Block")
                     #if !os(macOS)
-                    .navigationBarTitleDisplayMode(.automatic)
+                    .navigationBarTitleDisplayMode(.inline)
                     #endif
             }
             FormNavigationLink("Call Block (pre-screening)") {
                 CallBlockPreScreeningView(phone: phone)
                     .navigationTitle("Call Block Pre-Screen")
                     #if !os(macOS)
-                    .navigationBarTitleDisplayMode(.automatic)
+                    .navigationBarTitleDisplayMode(.inline)
                     #endif
             }
         }
