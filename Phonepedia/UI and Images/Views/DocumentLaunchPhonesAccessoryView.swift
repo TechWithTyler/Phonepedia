@@ -10,9 +10,15 @@ import SwiftUI
 
 struct DocumentLaunchPhonesAccessoryView: View {
 
+    // MARK: - Properties - Horizontal Size Class
+
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
+    // MARK: - Properties - Size
+
     @State private var size: CGSize = CGSize()
+
+    // MARK: - Body
 
     var body: some View {
         ZStack {

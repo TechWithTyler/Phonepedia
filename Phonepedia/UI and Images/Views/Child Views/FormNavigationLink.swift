@@ -10,11 +10,19 @@ import SwiftUI
 
 struct FormNavigationLink<Destination: View, Label: View>: View {
 
+    // MARK: - Properties - Dismiss Action
+
     @Environment(\.dismiss) var dismiss
+
+    // MARK: - Properties - Destination
 
     var destination: Destination
 
+    // MARK: - Properties - Label
+
     var label: Label
+
+    // MARK: - Initialization
 
     init(@ViewBuilder destination: @escaping () -> Destination, @ViewBuilder label: @escaping () -> Label) {
         self.destination = destination()
@@ -25,6 +33,8 @@ struct FormNavigationLink<Destination: View, Label: View>: View {
         self.destination = destination()
         self.label = Text(label)
     }
+
+    // MARK: - Body
 
     var body: some View {
         NavigationLink {
@@ -37,6 +47,8 @@ struct FormNavigationLink<Destination: View, Label: View>: View {
         }
     }
 }
+
+// MARK: - Preview
 
 #Preview {
     FormNavigationLink("Navigation Link") {

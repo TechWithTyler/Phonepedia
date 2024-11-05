@@ -40,7 +40,7 @@ struct CellPhoneLinkingView: View {
                 Text("Auto-Suppressed \"No Line\" Alert").tag(1)
                 Text("Cell Line Only Mode").tag(2)
             }
-            InfoText("If you use only cell lines, the \"no line\" alert will be suppressed automatically once at least 1 cell phone is paired, or can be supressed manually, depending on the phone. A dedicated cell line only mode allows the phone to disable most landline-related features.")
+            InfoText("If you use only cell lines, the \"no line\" alert will be suppressed automatically once at least 1 cell phone is paired, or can be suppressed manually, depending on the phone. A dedicated cell line only mode allows the phone to disable most landline-related features.")
             Toggle("Supports Cell Phone Alerts", isOn: $phone.supportsCellAlerts)
             InfoText("The base and handsets can alert you when a paired cell phone receives a text message or other alerts by sounding a tone and/or displaying/announcing the alert.")
             Toggle("Has Cell Phone Voice Control", isOn: $phone.hasCellPhoneVoiceControl)

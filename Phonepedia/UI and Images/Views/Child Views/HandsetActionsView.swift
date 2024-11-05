@@ -10,13 +10,19 @@ import SwiftUI
 
 struct HandsetActionsView: View {
 
+    // MARK: - Properties - Dismiss Action
+
     @Environment(\.dismiss) var dismiss
+
+    // MARK: - Properties - Handset
 
     @Bindable var handset: CordlessHandset
 
     // MARK: - Properties - Dialog Manager
 
     @EnvironmentObject var dialogManager: DialogManager
+
+    // MARK: - Properties - Integers
 
     var handsetNumber: Int
 
@@ -33,7 +39,7 @@ struct HandsetActionsView: View {
                 dialogManager.handsetToDelete = handset
                 dismiss()
             } label: {
-                Label("Delete", systemImage: "trash")
+                Label("Delete…", systemImage: "trash")
 #if !os(macOS)
                     .foregroundStyle(.red)
 #endif

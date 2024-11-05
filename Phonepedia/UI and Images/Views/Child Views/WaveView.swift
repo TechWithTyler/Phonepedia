@@ -16,7 +16,7 @@ struct WaveView: View {
             Wave(frequency: .highLessRange)
                 .stroke(Color.primary, lineWidth: 2)
                 .frame(height: 100)
-                .accessibilityLabel("High Frequency Wave")
+                .accessibilityLabel("High-Frequency Wave")
         }
         VStack {
             Text("Longer wavelength, lower frequency, more range")
@@ -24,7 +24,7 @@ struct WaveView: View {
             Wave(frequency: .lowMoreRange)
                 .stroke(Color.primary, lineWidth: 2)
                 .frame(height: 100)
-                .accessibilityLabel("Low Frequency Wave")
+                .accessibilityLabel("Low-Frequency Wave")
         }
     }
 }

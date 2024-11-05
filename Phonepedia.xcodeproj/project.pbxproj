@@ -335,13 +335,13 @@
 				8DA844B42B72E1D7006CBCA7 /* ContentView.swift */,
 				8DA844A32B72E1D7006CBCA7 /* PhoneListView.swift */,
 				8DA844B32B72E1D7006CBCA7 /* PhoneRowView.swift */,
+				8D380B242C3DD35D00505B89 /* PhoneCountView.swift */,
 				8DA844A42B72E1D7006CBCA7 /* Detail (Base) */,
 				8D38ED6B2CAF309800CCC422 /* Detail (Handset) */,
 				8DA844A82B72E1D7006CBCA7 /* ChargerInfoDetailView.swift */,
 				8DA844A92B72E1D7006CBCA7 /* Info */,
 				8DA844B52B72E1D7006CBCA7 /* Child Views */,
 				8D7A74A32C26203E00C5329E /* DocumentLaunchPhonesAccessoryView.swift */,
-				8D380B242C3DD35D00505B89 /* PhoneCountView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";

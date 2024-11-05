@@ -12,7 +12,7 @@ struct PhoneImageUnavailableView: View {
 
     var body: some View {
         ContentUnavailableView {
-            Text("Phone image unavailable")
+            Text("Phone photo unavailable")
                 .font(.largeTitle)
         }
     }

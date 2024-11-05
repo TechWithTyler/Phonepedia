@@ -9,24 +9,33 @@
 import SwiftUI
 
 struct PhoneButtonLegendItem: View {
-    
+
+    // MARK: - Phone Button Description Enum
+
     enum PhoneButtonDescription: String {
+
         case talk
+
         case home
+
         case cell
+
         case off
+
         case speakerphone
+
     }
-    
+
+    // MARK: - Properties - Phone Button Description
+
     var button: PhoneButtonDescription
-    
+
+    // MARK: - Properties - Integers
+
     var colorLayer: Int
-    
-    init(button: PhoneButtonDescription, colorLayer: Int) {
-        self.button = button
-        self.colorLayer = colorLayer
-    }
-    
+
+    // MARK: - Properties - Colors
+
     var talkButtonForegroundColor: Color {
         switch colorLayer {
         case 1:
@@ -84,7 +93,16 @@ struct PhoneButtonLegendItem: View {
             return .clear
         }
     }
-    
+
+    // MARK: - Initialization
+
+    init(button: PhoneButtonDescription, colorLayer: Int) {
+        self.button = button
+        self.colorLayer = colorLayer
+    }
+
+    // MARK: - Body
+
     var body: some View {
         VStack {
             Text("\(button.rawValue.capitalized) Button Label Example:")
@@ -107,7 +125,9 @@ struct PhoneButtonLegendItem: View {
             }
         }
     }
-    
+
+    // MARK: - Talk Button
+
     @ViewBuilder
     var talkButton: some View {
         Label(PhoneButtonDescription.talk.rawValue.capitalized, systemImage: "phone.fill")
@@ -129,14 +149,18 @@ struct PhoneButtonLegendItem: View {
                     .fill(talkButtonBackgroundColor)
             )
     }
-    
+
+    // MARK: - Cell Button
+
     @ViewBuilder
     var cellButton: some View {
         Label(PhoneButtonDescription.cell.rawValue.capitalized, systemImage: "antenna.radiowaves.left.and.right")
             .foregroundStyle(cellButtonForegroundColor)
             .padding(.horizontal)
     }
-    
+
+    // MARK: - Off Button
+
     @ViewBuilder
     var offButton: some View {
         Label(PhoneButtonDescription.off.rawValue.capitalized, systemImage: "phone.down.fill")
@@ -147,7 +171,9 @@ struct PhoneButtonLegendItem: View {
                     .fill(offButtonBackgroundColor)
             )
     }
-    
+
+    // MARK: - Speakerphone Button
+
     @ViewBuilder
     var speakerphoneButton: some View {
         Label("Speakerphone", systemImage: "speaker.fill")
@@ -160,6 +186,8 @@ struct PhoneButtonLegendItem: View {
     }
     
 }
+
+// MARK: - Preview
 
 #Preview {
     PhoneButtonLegendItem(button: .talk, colorLayer: 0)
