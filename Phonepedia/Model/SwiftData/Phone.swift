@@ -794,6 +794,9 @@ final class Phone {
 		if newValue == 0 {
 			deregistration = 1
 		}
+        if newValue > 0 {
+            placeOnBaseAutoRegister = false
+        }
 	}
 	
 	func cordedReceiverColorChanged(oldValue: Color, newValue: Color) {

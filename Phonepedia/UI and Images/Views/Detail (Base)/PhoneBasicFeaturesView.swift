@@ -175,7 +175,7 @@ In most cases, if the base has a charge light/display message, the completion of
                 .onChange(of: phone.locatorButtons) { oldValue, newValue in
                     phone.locatorButtonsChanged(oldValue: oldValue, newValue: newValue)
                 }
-                if !phone.isCordedCordless && !phone.hasTransmitOnlyBase && phone.deregistration > 0 {
+                if !phone.isCordedCordless && !phone.hasTransmitOnlyBase && phone.deregistration > 0 && phone.locatorButtons == 0 {
                     Toggle("Place-On-Base Auto-Register", isOn: $phone.placeOnBaseAutoRegister)
                     InfoText("The base can detect an unregistered handset being placed on it, which will put it into registration mode. Aside from putting the base into registration mode, data isn't exchanged through the contacts like it is on phones using the digital security code method. Manually putting the base in registration mode is still available for re-registering handsets or for registering handsets which don't fit in the base.")
                 }
