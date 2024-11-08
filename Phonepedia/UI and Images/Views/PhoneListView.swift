@@ -32,22 +32,6 @@ struct PhoneListView: View {
                         ForEach(phones) { phone in
                             NavigationLink(value: phone) {
                                 PhoneRowView(phone: phone)
-                                    .alert("Delete this phone?", isPresented: $dialogManager.showingDeletePhone, presenting: dialogManager.phoneToDelete) { phoneToDelete in
-                                        Button(role: .destructive) {
-                                            dialogManager.showingDeletePhone = false
-                                            deletePhone(phoneToDelete)
-                                        } label: {
-                                            Text("Delete")
-                                        }
-                                        Button(role: .cancel) {
-                                            dialogManager.showingDeletePhone = false
-                                            dialogManager.phoneToDelete = nil
-                                        } label: {
-                                            Text("Cancel")
-                                        }
-                                    } message: { phone in
-                                        Text("This \(phone.brand) \(phone.model) will be deleted from this catalog.")
-                                    }
                             }
                             .contextMenu {
                                 Button(role: .destructive) {
@@ -66,6 +50,22 @@ struct PhoneListView: View {
                     .font(.largeTitle)
                     .foregroundStyle(Color.secondary)
             }
+        }
+        .alert("Delete this phone?", isPresented: $dialogManager.showingDeletePhone, presenting: dialogManager.phoneToDelete) { phoneToDelete in
+            Button(role: .destructive) {
+                dialogManager.showingDeletePhone = false
+                deletePhone(phoneToDelete)
+            } label: {
+                Text("Delete")
+            }
+            Button(role: .cancel) {
+                dialogManager.showingDeletePhone = false
+                dialogManager.phoneToDelete = nil
+            } label: {
+                Text("Cancel")
+            }
+        } message: { phone in
+            Text("This \(phone.brand) \(phone.model) will be deleted from this catalog.")
         }
         .sheet(isPresented: $dialogManager.showingPhoneCount) {
             PhoneCountView(phones: phones)

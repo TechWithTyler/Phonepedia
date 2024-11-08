@@ -738,7 +738,11 @@ final class Phone {
 			for handset in cordlessHandsetsIHave {
 				handset.fitsOnBase = true
 			}
-		}
+        } else if newValue > 1 {
+            if locatorButtons == 0 {
+                deregistration = 1
+            }
+        }
         if newValue < 8 {
             hasAutoAttendantAndPersonalMailboxes = false
         }
