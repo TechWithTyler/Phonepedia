@@ -19,7 +19,7 @@ struct CallBlockPreScreeningView: View {
             Text("Caller Name").tag(1)
             Text("Code").tag(2)
         }
-        InfoText("Call block pre-screening picks up the line and plays a message asking callers to press a key so the phone can identify whether they're a human or a robot.\nCallers with numbers stored in the phone's allowed number list/database or phonebook, or callers whose caller ID names are stored in the phone's allowed name list, will always ring through.\nAsking for the caller name allows you to hear the caller's real name in their own voice when you pick up\(phone.hasTalkingCallerID ? " or as the caller ID announcement" : String()).")
+        InfoText("Call block pre-screening answers the call and plays a message asking callers to press a key so the phone can identify whether they're a human or a robot.\nCallers with numbers stored in the phone's allowed number list/database or phonebook, or callers whose caller ID names are stored in the phone's allowed name list, will always ring through.\nAsking for the caller name allows you to hear the caller's real name in their own voice when you pick up\(phone.hasTalkingCallerID ? " or as the caller ID announcement" : String()).")
         if phone.callBlockPreScreening > 0 {
             InfoText("Example screening message: \"Hello. Your call is being screened to make sure you're a person. Please \(phone.callBlockPreScreening == 2 ? "press \(Int.random(in: 0...999))" : "say your name after the \(AnsweringSystemGreetingComponents.beepOrTone()) then press the pound key") to be connected.\"")
             if phone.hasAnsweringSystem == 0 {
@@ -30,10 +30,12 @@ struct CallBlockPreScreeningView: View {
 #if !os(visionOS)
                 .scrollDismissesKeyboard(.interactively)
 #endif
-            Toggle("Allowed Numbers List Visible To User", isOn: $phone.callBlockPreScreeningAllowedNumberListVisible)
+            if phone.callBlockPreScreeningAllowedNumberCapacity > 0 {
+                Toggle("Allowed Numbers List Visible To User", isOn: $phone.callBlockPreScreeningAllowedNumberListVisible)
+            }
             InfoText("Numbers saved to the allowed numbers list will always ring through.")
             FormNumericTextField("Allowed Names Capacity", value: $phone.callBlockPreScreeningAllowedNameCapacity, valueRange: .allPositivesIncludingZero, singularSuffix: "entry", pluralSuffix: "entries")
-            InfoText("If you don't know a caller's phone number, saving their name as it appears in the incoming caller ID will allow their calls to always ring through. This is a good place to put names of businesses you want to receive automated messages from (e.g. schools, doctor's offices, pharmacies).")
+            InfoText("If you know a caller's name but not a caller's phone number or their number changes frequently, saving their name as it appears in the incoming caller ID will allow their calls to always ring through. This is a good place to put names of businesses you want to receive automated messages from (e.g. schools, doctor's offices, pharmacies).")
 #if !os(visionOS)
                 .scrollDismissesKeyboard(.interactively)
 #endif

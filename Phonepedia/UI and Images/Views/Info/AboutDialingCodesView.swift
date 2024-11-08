@@ -57,7 +57,7 @@ struct AboutDialingCodesView: View {
                 DisclosureGroup {
                     Text("""
 When you store your international exit code, country code, and trunk prefix codes in the phone, the following conversions will happen when transferring contacts from your cell phone.
-• The international prefix symbol (+) will be replaced with the international exit code (e.g., 011 in the US or 00 in the UK).
+• The international dialing symbol (+) will be replaced with the international exit code (e.g., 011 in the US or 00 in the UK).
 • If you add the international prefix and your country code to domestic phone numbers (i.e., phone numbers in the same country your phone number is in) in your contacts, and it matches the country code stored in the phone, the transferred entries will have the international prefix and country code (e.g., +1 for US numbers or +44 for UK numbers) replaced with the trunk prefix code (e.g., 1 for US numbers or 0 for UK numbers).
 Example scenario: You live in the US and store the international code 011, country code 1, and trunk prefix code 1 into the phone so your contacts will be transferred to the phonebook as follows.
 • One of your friends lives in your coutry, the US, and their number is stored as +1 (555) 555-1234. This number has your country code, so it will be stored as 1-555-555-1234 in the phonebook.

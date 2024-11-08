@@ -24,6 +24,7 @@ struct HandsetSpeedDialView: View {
             Text("Phonebook Only (copy)").tag(1)
             Text("Phonebook Only (link)").tag(2)
         }
+        SpeedDialEntryModeInfoView()
     }
 }
 

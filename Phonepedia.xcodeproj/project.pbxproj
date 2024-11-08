@@ -49,6 +49,8 @@
 		8D40612D2B8011E800F182DA /* AboutConnectionTypesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D40612C2B8011E800F182DA /* AboutConnectionTypesView.swift */; };
 		8D4E2A582B8FD4E600FF4FE5 /* PhoneNumberLetterInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4E2A572B8FD4E600FF4FE5 /* PhoneNumberLetterInfoView.swift */; };
 		8D523B002C4EF47000AC6862 /* VoicemailQuickDialInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D523AFF2C4EF47000AC6862 /* VoicemailQuickDialInfoView.swift */; };
+		8D71C8172CDD651D00072E50 /* RedialNameDisplayInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D71C8162CDD651D00072E50 /* RedialNameDisplayInfoView.swift */; };
+		8D71C8192CDD666C00072E50 /* SpeedDialEntryModeInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D71C8182CDD666C00072E50 /* SpeedDialEntryModeInfoView.swift */; };
 		8D7A74A42C26203E00C5329E /* DocumentLaunchPhonesAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7A74A32C26203E00C5329E /* DocumentLaunchPhonesAccessoryView.swift */; };
 		8D85550A2C8F9055006A14E3 /* HandsetActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8555092C8F9055006A14E3 /* HandsetActionsView.swift */; };
 		8D8555522C98D2C1006A14E3 /* AboutDisplayTypesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8555512C98D2C1006A14E3 /* AboutDisplayTypesView.swift */; };
@@ -175,6 +177,8 @@
 		8D40612C2B8011E800F182DA /* AboutConnectionTypesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutConnectionTypesView.swift; sourceTree = "<group>"; };
 		8D4E2A572B8FD4E600FF4FE5 /* PhoneNumberLetterInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberLetterInfoView.swift; sourceTree = "<group>"; };
 		8D523AFF2C4EF47000AC6862 /* VoicemailQuickDialInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoicemailQuickDialInfoView.swift; sourceTree = "<group>"; };
+		8D71C8162CDD651D00072E50 /* RedialNameDisplayInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedialNameDisplayInfoView.swift; sourceTree = "<group>"; };
+		8D71C8182CDD666C00072E50 /* SpeedDialEntryModeInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedDialEntryModeInfoView.swift; sourceTree = "<group>"; };
 		8D7A74A32C26203E00C5329E /* DocumentLaunchPhonesAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentLaunchPhonesAccessoryView.swift; sourceTree = "<group>"; };
 		8D8555092C8F9055006A14E3 /* HandsetActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandsetActionsView.swift; sourceTree = "<group>"; };
 		8D8555512C98D2C1006A14E3 /* AboutDisplayTypesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutDisplayTypesView.swift; sourceTree = "<group>"; };
@@ -394,6 +398,8 @@
 				8D20E37C2C45BB7C0016800C /* RingtoneInfoView.swift */,
 				8D8555512C98D2C1006A14E3 /* AboutDisplayTypesView.swift */,
 				8D8E75EC2CC84A2C0022DB85 /* AnsweringSystemMenuInfoView.swift */,
+				8D71C8162CDD651D00072E50 /* RedialNameDisplayInfoView.swift */,
+				8D71C8182CDD666C00072E50 /* SpeedDialEntryModeInfoView.swift */,
 			);
 			path = Info;
 			sourceTree = "<group>";
@@ -719,8 +725,10 @@
 				8DA844EB2B72E1D7006CBCA7 /* PhoneType.swift in Sources */,
 				8D38ED912CAF3C8300CCC422 /* HandsetRingersView.swift in Sources */,
 				8D523B002C4EF47000AC6862 /* VoicemailQuickDialInfoView.swift in Sources */,
+				8D71C8172CDD651D00072E50 /* RedialNameDisplayInfoView.swift in Sources */,
 				8DA844D82B72E1D7006CBCA7 /* FrequenciesExplanationView.swift in Sources */,
 				8D95997D2C22212400FEED40 /* SchemaVersioning.swift in Sources */,
+				8D71C8192CDD666C00072E50 /* SpeedDialEntryModeInfoView.swift in Sources */,
 				8DC9E7DC2C37434C0089B48A /* AnsweringSystemGreetingComponents.swift in Sources */,
 				8DA844E82B72E1D7006CBCA7 /* CordlessHandset.swift in Sources */,
 				8DA844F32B72E1D7006CBCA7 /* PhonepediaApp.swift in Sources */,

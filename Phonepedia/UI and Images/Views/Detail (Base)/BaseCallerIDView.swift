@@ -19,7 +19,7 @@ struct BaseCallerIDView: View {
                 Text("Caller ID Name Uses Matching Phonebook Entry Name")
             }
             let exampleName = names.randomElement()!
-            InfoText("If the incoming caller ID phone number matches an entry in the phonebook, the entry name is displayed instead of the caller ID name. For example, if the incoming caller ID name is \"\(cnamForName(exampleName))\" and the number is 555-555-1234, and you store that number to the phonebook with name \"\(exampleName)\", the incoming caller ID will be \"\(exampleName)\" instead of \"\(cnamForName(exampleName))\".")
+            InfoText("If the incoming caller ID phone number matches an entry in the phonebook, the entry name is displayed instead of the caller ID name. For example, if the incoming caller ID name is \"\(cnamForName(exampleName))\" and the number is 555-555-1234, and you store that number to the phonebook with name \"\(exampleName)\", the incoming caller ID will show as \"\(exampleName)\" instead of \"\(cnamForName(exampleName))\".")
         }
         Toggle(isOn: $phone.hasTalkingCallerID) {
             Text("Talking Caller ID")

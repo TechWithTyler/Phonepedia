@@ -24,6 +24,7 @@ struct BaseRedialView: View {
                 Text("Phonebook Match").tag(1)
                 Text("From Dialed Entry").tag(2)
             }
+            RedialNameDisplayInfoView()
         }
     }
 }

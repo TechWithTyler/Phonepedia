@@ -104,7 +104,7 @@ struct PhoneButtonLegendItem: View {
     // MARK: - Body
 
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             Text("\(button.rawValue.capitalized) Button Label Example:")
             switch button {
             case .talk:

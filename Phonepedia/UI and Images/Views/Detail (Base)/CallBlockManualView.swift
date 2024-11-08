@@ -18,11 +18,12 @@ struct CallBlockManualView: View {
 #if !os(visionOS)
             .scrollDismissesKeyboard(.interactively)
 #endif
+        InfoText("When a call from a blocked number is received, the phone answers the call after the caller ID is received. The caller will hear silence, a busy tone, or a voice message.")
         if phone.callBlockCapacity > 0 {
             Toggle(isOn: $phone.callBlockSupportsPrefixes) {
                 Text("Can Block Number Prefixes")
             }
-            InfoText("When a number prefix (e.g. an area code) is stored in the call block list, all numbers beginning with that prefix are blocked.")
+            InfoText("When a number prefix (e.g. an area code) is stored in the call block list as a number prefix, all numbers beginning with that prefix are blocked.")
             if phone.callBlockPreScreening == 0 {
                 Toggle(isOn: $phone.hasFirstRingSuppression) {
                     Text("Has First Ring Suppression")
@@ -38,9 +39,9 @@ When the first ring is suppressed, the number of rings you hear will be one less
                 Text("Silence").tag(0)
                 Text("Busy Tone (custom)").tag(1)
                 Text("Busy Tone (traditional)").tag(2)
-                Text("Voice Prompt").tag(3)
+                Text("Voice Message").tag(3)
             }
-            InfoText("Silence can make callers think your number is broken, making them unlikely to try calling you again.\nA custom busy tone is often the same one used for the intercom busy tone on \(phone.brand)'s cordless phones.\nA traditional busy tone is that of one of the countries where the phone is sold.")
+            InfoText("Silence can make callers think your number is broken, making them unlikely to try calling you again.\nA custom busy tone is often the same one used for the intercom busy tone on \(phone.brand)'s cordless phones.\nA traditional busy tone is that of one of the countries where the phone is sold.\nA voice message tells callers that their call is blocked or that their call can't be taken. Example: \"This number isn't accepting your call. Please hang up now.\"")
             Toggle(isOn: $phone.hasOneTouchCallBlock) {
                 Text("Has One-Touch/Quick Call Block")
             }

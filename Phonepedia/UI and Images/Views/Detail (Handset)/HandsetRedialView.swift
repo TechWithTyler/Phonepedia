@@ -25,6 +25,7 @@ struct HandsetRedialView: View {
                     Text("Phonebook Match").tag(1)
                     Text("From Dialed Entry").tag(2)
                 }
+                RedialNameDisplayInfoView()
             }
             if handset.redialNameDisplay == 1 && handset.usesBasePhonebook {
                 InfoText("Although the redial list is stored in the handset, it may still require you to be in range of the base if the handset doesn't have a fallback to display entries without their names.")
