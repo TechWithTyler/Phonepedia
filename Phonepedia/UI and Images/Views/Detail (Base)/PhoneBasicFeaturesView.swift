@@ -167,7 +167,7 @@ In most cases, if the base has a charge light/display message, the completion of
             }
             if phone.maxCordlessHandsets > 1 {
                 Picker("Handset Locator", selection: $phone.locatorButtons) {
-                    Text(phone.hasBaseKeypad ? "One For All Handsets/Keypad Entry" : "One For All Handsets").tag(0)
+                    Text(phone.hasBaseKeypad ? "One For All HS/Keypad Entry" : "One For All Handsets").tag(0)
                     Text("One For Each Handset").tag(1)
                     Text("Each HS + All").tag(2)
                     Text("Select + Call Buttons").tag(3)
