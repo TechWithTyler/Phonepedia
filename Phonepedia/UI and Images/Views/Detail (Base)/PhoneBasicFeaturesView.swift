@@ -169,7 +169,7 @@ In most cases, if the base has a charge light/display message, the completion of
                 Picker("Handset Locator", selection: $phone.locatorButtons) {
                     Text(phone.hasBaseKeypad ? "One For All Handsets/Keypad Entry" : "One For All Handsets").tag(0)
                     Text("One For Each Handset").tag(1)
-                    Text("Single HS + All").tag(2)
+                    Text("Each HS + All").tag(2)
                     Text("Select + Call Buttons").tag(3)
                 }
                 .onChange(of: phone.locatorButtons) { oldValue, newValue in
@@ -194,7 +194,7 @@ In most cases, if the base has a charge light/display message, the completion of
                 Picker("Handset/Base Renaming", selection: $phone.handsetRenaming) {
                     Text("Not Supported").tag(0)
                     Text("Handset").tag(1)
-                    if phone.baseDisplayType > 0 {
+                    if phone.baseDisplayType > 2 {
                         Text("Handset/Base").tag(2)
                     }
                 }
