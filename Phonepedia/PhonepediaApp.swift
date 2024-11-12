@@ -31,5 +31,8 @@ struct PhonepediaApp: App {
                 .environmentObject(photoViewModel)
                 .environmentObject(dialogManager)
         }
+        .commands {
+            PhonepediaCommands()
+        }
     }
 }

@@ -60,6 +60,33 @@ struct PhoneDetailView: View {
             .navigationBarTitleDisplayMode(.inline)
             #endif
         }
+        .photosPicker(isPresented: $photoViewModel.showingPhotoPicker, selection: $photoViewModel.selectedPhoto, matching: .images, preferredItemEncoding: .automatic)
+                .onChange(of: photoViewModel.selectedPhoto, { oldValue, newValue in
+                    photoViewModel.updatePhonePhoto(for: phone, oldValue: oldValue, newValue: newValue)
+                })
+        #if os(iOS)
+                .sheet(isPresented: $photoViewModel.takingPhoto) {
+                    CameraViewController(viewModel: photoViewModel, phone: phone)
+                }
+        #endif
+                .alert(isPresented: $photoViewModel.showingPhonePhotoErrorAlert, error: photoViewModel.phonePhotoError) {
+                    Button("OK") {
+                        photoViewModel.showingPhonePhotoErrorAlert = false
+                        photoViewModel.phonePhotoError = nil
+                    }
+                    .keyboardShortcut(.defaultAction)
+                }
+        #if os(macOS)
+                .dialogSeverity(.critical)
+        #endif
+                .alert("Reset photo?", isPresented: $photoViewModel.showingResetAlert) {
+                    Button(role: .destructive) {
+                        phone.photoData = nil
+                        photoViewModel.showingResetAlert = false
+                    } label: {
+                        Text("Delete")
+                    }
+                }
     }
 
     // MARK: - Phone Photo/Actions

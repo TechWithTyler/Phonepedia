@@ -6,8 +6,9 @@
 //  Copyright © 2023-2024 SheftApps. All rights reserved.
 //
 
-import Foundation
 import SwiftUI
+
+// MARK: - Properties - Arrays
 
 // Names to use for the answering system greeting/talking caller ID examples
 var names: [String] = [
@@ -16,6 +17,22 @@ var names: [String] = [
     "Allison Smith",
     "Charlie Johnson"
 ]
+
+// MARK: - Properties - Strings
+
+// The application name.
+let appName: String? = (Bundle.main.infoDictionary?[String(kCFBundleNameKey)] as? String)!
+
+// MARK: - Functions
+
+func showHelp() {
+    let helpURL = URL(string: "https://techwithtyler20.weebly.com/\((appName?.lowercased())!)help")!
+    #if os(macOS)
+    NSWorkspace.shared.open(helpURL)
+    #else
+    UIApplication.shared.open(helpURL)
+    #endif
+}
 
 // Takes the given name and converts it from "First Last" to "LAST, FIRST".
 func cnamForName(_ name: String) -> String {
