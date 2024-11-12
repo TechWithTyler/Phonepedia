@@ -26,6 +26,7 @@ struct PhoneDetailView: View {
     var body: some View {
         NavigationStack {
             Form {
+                photoAndOptions
                 basicsGroup
                 if phone.isCordless || phone.cordedPhoneType == 0 {
                     FormNavigationLink("Speakerphone/Intercom/Base Keypad") {
@@ -59,59 +60,43 @@ struct PhoneDetailView: View {
             .navigationBarTitleDisplayMode(.inline)
             #endif
         }
-        .photosPicker(isPresented: $photoViewModel.showingPhotoPicker, selection: $photoViewModel.selectedPhoto, matching: .images, preferredItemEncoding: .automatic)
-        .onChange(of: photoViewModel.selectedPhoto, { oldValue, newValue in
-            photoViewModel.updatePhonePhoto(for: phone, oldValue: oldValue, newValue: newValue)
-        })
+    }
+
+    // MARK: - Phone Photo/Actions
+
+    @ViewBuilder
+    var photoAndOptions: some View {
+        Group {
+            HStack {
+                Spacer()
+                PhoneImage(phone: phone, isThumbnail: false)
+                Spacer()
+            }
 #if os(iOS)
-        .sheet(isPresented: $photoViewModel.takingPhoto) {
-            CameraViewController(viewModel: photoViewModel, phone: phone)
-        }
-#endif
-        .alert(isPresented: $photoViewModel.showingPhonePhotoErrorAlert, error: photoViewModel.phonePhotoError) {
-            Button("OK") {
-                photoViewModel.showingPhonePhotoErrorAlert = false
-                photoViewModel.phonePhotoError = nil
-            }
-            .keyboardShortcut(.defaultAction)
-        }
-#if os(macOS)
-        .dialogSeverity(.critical)
-#endif
-        .alert("Reset photo?", isPresented: $photoViewModel.showingResetAlert) {
-            Button(role: .destructive) {
-                phone.photoData = nil
-                photoViewModel.showingResetAlert = false
-            } label: {
-                Text("Delete")
-            }
-            Button(role: .cancel) {
-                photoViewModel.showingResetAlert = false
-            } label: {
-                Text("Cancel")
-            }
-        }
-        .alert("Selected photo doesn't appear to contain landline phones. Save anyway?", isPresented: $photoViewModel.showingUnsurePhotoDataAlert) {
             Button {
-                phone.photoData = photoViewModel.unsurePhotoDataToUse
-                photoViewModel.unsurePhotoDataToUse = nil
-                photoViewModel.showingUnsurePhotoDataAlert = false
+                photoViewModel.takingPhoto = true
             } label: {
-                Text("Save")
+                Label("Take Photo…", systemImage: "camera")
             }
-            .keyboardShortcut(.defaultAction)
-            Button(role: .cancel) {
-                photoViewModel.showingUnsurePhotoDataAlert = false
+#endif
+            Button {
+                photoViewModel.showingPhotoPicker = true
             } label: {
-                Text("Cancel")
+                Label("Select From Library…", systemImage: "photo")
             }
-        } message: {
-            Text("Tip: Landline phone detection works best with images where the phone takes up most of the image.")
+            Button(role: .destructive) {
+                photoViewModel.showingResetAlert = true
+            } label: {
+                Label("Reset to Placeholder…", systemImage: "arrow.clockwise")
+#if !os(macOS)
+                    .foregroundStyle(.red)
+#endif
+            }
         }
     }
-    
+
     // MARK: - Detail Section Groups
-    
+
     @ViewBuilder
     var basicsGroup: some View {
         Section {

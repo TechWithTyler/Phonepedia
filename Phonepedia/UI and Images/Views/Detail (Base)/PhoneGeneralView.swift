@@ -13,11 +13,9 @@ struct PhoneGeneralView: View {
 
     // MARK: - Properties - Objects
 
-    @Bindable var phone: Phone
-
-    @EnvironmentObject var photoViewModel: PhonePhotoViewModel
-
     @EnvironmentObject var dialogManager: DialogManager
+
+    @Bindable var phone: Phone
 
     // MARK: - Properties - Booleans
 
@@ -26,7 +24,6 @@ struct PhoneGeneralView: View {
     // MARK: - Body
 
     var body: some View {
-        photoAndOptions
         FormTextField("Brand", text: $phone.brand)
         FormTextField("Model", text: $phone.model)
         HStack {
@@ -70,39 +67,6 @@ struct PhoneGeneralView: View {
                 .frame(minHeight: 300)
                 .padding()
                 .font(.system(size: phoneDescriptionTextSize))
-        }
-    }
-
-    // MARK: - Phone Photo/Actions
-
-    @ViewBuilder
-    var photoAndOptions: some View {
-        Group {
-            HStack {
-                Spacer()
-                PhoneImage(phone: phone, isThumbnail: false)
-                Spacer()
-            }
-#if os(iOS)
-            Button {
-                photoViewModel.takingPhoto = true
-            } label: {
-                Label("Take Photo…", systemImage: "camera")
-            }
-#endif
-            Button {
-                photoViewModel.showingPhotoPicker = true
-            } label: {
-                Label("Select From Library…", systemImage: "photo")
-            }
-            Button(role: .destructive) {
-                photoViewModel.showingResetAlert = true
-            } label: {
-                Label("Reset to Placeholder…", systemImage: "arrow.clockwise")
-#if !os(macOS)
-                    .foregroundStyle(.red)
-#endif
-            }
         }
     }
 
