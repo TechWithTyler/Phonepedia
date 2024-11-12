@@ -16,11 +16,11 @@ struct PhoneDetailView: View {
     // MARK: - Properties - Objects
     
     @Bindable var phone: Phone
-
+    
     @EnvironmentObject var dialogManager: DialogManager
-
+    
     @EnvironmentObject var photoViewModel: PhonePhotoViewModel
-
+    
     // MARK: - Body
     
     var body: some View {
@@ -32,9 +32,9 @@ struct PhoneDetailView: View {
                     FormNavigationLink("Speakerphone/Intercom/Base Keypad") {
                         BaseSpeakerphoneKeypadView(phone: phone)
                             .navigationTitle("Spkr/Int/Base Keypad")
-                            #if !os(macOS)
+#if !os(macOS)
                             .navigationBarTitleDisplayMode(.inline)
-                            #endif
+#endif
                     }
                 }
                 ringersAndMOHGroup
@@ -48,49 +48,66 @@ struct PhoneDetailView: View {
                     FormNavigationLink("Special Features") {
                         PhoneSpecialFeaturesView(phone: phone)
                             .navigationTitle("Special Features")
-                            #if !os(macOS)
+#if !os(macOS)
                             .navigationBarTitleDisplayMode(.inline)
-                            #endif
+#endif
                     }
                 }
             }
             .formStyle(.grouped)
             .navigationTitle("\(phone.brand) \(phone.model)")
-            #if !os(macOS)
+#if !os(macOS)
             .navigationBarTitleDisplayMode(.inline)
-            #endif
+#endif
         }
         .photosPicker(isPresented: $photoViewModel.showingPhotoPicker, selection: $photoViewModel.selectedPhoto, matching: .images, preferredItemEncoding: .automatic)
-                .onChange(of: photoViewModel.selectedPhoto, { oldValue, newValue in
-                    photoViewModel.updatePhonePhoto(for: phone, oldValue: oldValue, newValue: newValue)
-                })
-        #if os(iOS)
-                .sheet(isPresented: $photoViewModel.takingPhoto) {
-                    CameraViewController(viewModel: photoViewModel, phone: phone)
-                }
-        #endif
-                .alert(isPresented: $photoViewModel.showingPhonePhotoErrorAlert, error: photoViewModel.phonePhotoError) {
-                    Button("OK") {
-                        photoViewModel.showingPhonePhotoErrorAlert = false
-                        photoViewModel.phonePhotoError = nil
-                    }
-                    .keyboardShortcut(.defaultAction)
-                }
-        #if os(macOS)
-                .dialogSeverity(.critical)
-        #endif
-                .alert("Reset photo?", isPresented: $photoViewModel.showingResetAlert) {
-                    Button(role: .destructive) {
-                        phone.photoData = nil
-                        photoViewModel.showingResetAlert = false
-                    } label: {
-                        Text("Delete")
-                    }
-                }
+        .onChange(of: photoViewModel.selectedPhoto, { oldValue, newValue in
+            photoViewModel.updatePhonePhoto(for: phone, oldValue: oldValue, newValue: newValue)
+        })
+#if os(iOS)
+        .sheet(isPresented: $photoViewModel.takingPhoto) {
+            CameraViewController(viewModel: photoViewModel, phone: phone)
+        }
+#endif
+        .alert(isPresented: $photoViewModel.showingPhonePhotoErrorAlert, error: photoViewModel.phonePhotoError) {
+            Button("OK") {
+                photoViewModel.showingPhonePhotoErrorAlert = false
+                photoViewModel.phonePhotoError = nil
+            }
+            .keyboardShortcut(.defaultAction)
+        }
+#if os(macOS)
+        .dialogSeverity(.critical)
+#endif
+        .alert("Reset photo?", isPresented: $photoViewModel.showingResetAlert) {
+            Button(role: .destructive) {
+                phone.photoData = nil
+                photoViewModel.showingResetAlert = false
+            } label: {
+                Text("Delete")
+            }
+        }
+        .alert("Selected photo doesn't appear to contain landline phones. Save anyway?", isPresented: $photoViewModel.showingUnsurePhotoDataAlert) {
+            Button {
+                phone.photoData = photoViewModel.unsurePhotoDataToUse
+                photoViewModel.unsurePhotoDataToUse = nil
+                photoViewModel.showingUnsurePhotoDataAlert = false
+            } label: {
+                Text("Save")
+            }
+            .keyboardShortcut(.defaultAction)
+            Button(role: .cancel) {
+                photoViewModel.showingUnsurePhotoDataAlert = false
+            } label: {
+                Text("Cancel")
+            }
+        } message: {
+            Text("Tip: Landline phone detection works best with images where the phone takes up most of the image.")
+        }
     }
-
+    
     // MARK: - Phone Photo/Actions
-
+    
     @ViewBuilder
     var photoAndOptions: some View {
         Group {
@@ -121,33 +138,33 @@ struct PhoneDetailView: View {
             }
         }
     }
-
+    
     // MARK: - Detail Section Groups
-
+    
     @ViewBuilder
     var basicsGroup: some View {
         Section {
             FormNavigationLink("General") {
                 PhoneGeneralView(phone: phone)
                     .navigationTitle("General")
-                    #if !os(macOS)
+#if !os(macOS)
                     .navigationBarTitleDisplayMode(.inline)
-                    #endif
+#endif
             }
             FormNavigationLink("Basic Features/Cordless Capabilities") {
                 PhoneBasicFeaturesView(phone: phone)
                     .navigationTitle("Basics")
-                    #if !os(macOS)
+#if !os(macOS)
                     .navigationBarTitleDisplayMode(.inline)
-                    #endif
+#endif
             }
         }
         FormNavigationLink(phone.isCordless ? "Base Colors" : "Colors") {
             PhoneColorView(phone: phone)
                 .navigationTitle(phone.isCordless ? "Base Colors" : "Colors")
-                #if !os(macOS)
+#if !os(macOS)
                 .navigationBarTitleDisplayMode(.inline)
-                #endif
+#endif
         }
         .formStyle(.grouped)
         if phone.isCordless {
@@ -157,9 +174,9 @@ struct PhoneDetailView: View {
             FormNavigationLink("Power") {
                 PhonePowerView(phone: phone)
                     .navigationTitle("Power")
-                    #if !os(macOS)
+#if !os(macOS)
                     .navigationBarTitleDisplayMode(.inline)
-                    #endif
+#endif
             }
         }
     }
@@ -170,16 +187,16 @@ struct PhoneDetailView: View {
             FormNavigationLink("Ringers") {
                 BaseRingersView(phone: phone)
                     .navigationTitle("Ringers")
-                    #if !os(macOS)
+#if !os(macOS)
                     .navigationBarTitleDisplayMode(.inline)
-                    #endif
+#endif
             }
             FormNavigationLink("Music/Message On Hold (MOH)") {
                 PhoneMOHView(phone: phone)
                     .navigationTitle("MOH")
-                    #if !os(macOS)
+#if !os(macOS)
                     .navigationBarTitleDisplayMode(.inline)
-                    #endif
+#endif
             }
         }
     }
@@ -190,23 +207,23 @@ struct PhoneDetailView: View {
             FormNavigationLink("Display/Backlight/Buttons") {
                 BaseDisplayBacklightButtonsView(phone: phone)
                     .navigationTitle("Disp/Backlight/Buttons")
-                    #if !os(macOS)
+#if !os(macOS)
                     .navigationBarTitleDisplayMode(.inline)
-                    #endif
+#endif
             }
             FormNavigationLink("Messaging") {
                 PhoneMessagingView(phone: phone)
                     .navigationTitle("Messaging")
-                    #if !os(macOS)
+#if !os(macOS)
                     .navigationBarTitleDisplayMode(.inline)
-                    #endif
+#endif
             }
             FormNavigationLink("Audio Devices (e.g. headsets)") {
                 PhoneAudioView(phone: phone)
                     .navigationTitle("Audio Devices")
-                    #if !os(macOS)
+#if !os(macOS)
                     .navigationBarTitleDisplayMode(.inline)
-                    #endif
+#endif
             }
         }
     }
@@ -217,17 +234,17 @@ struct PhoneDetailView: View {
             FormNavigationLink("Landline") {
                 LandlineDetailView(phone: phone)
                     .navigationTitle("Landline")
-                    #if !os(macOS)
+#if !os(macOS)
                     .navigationBarTitleDisplayMode(.inline)
-                    #endif
+#endif
             }
             if phone.isCordless || phone.cordedPhoneType == 0 {
                 FormNavigationLink("Cell Phone Linking") {
                     CellPhoneLinkingView(phone: phone)
                         .navigationTitle("Cell Phone Linking")
-                        #if !os(macOS)
+#if !os(macOS)
                         .navigationBarTitleDisplayMode(.inline)
-                        #endif
+#endif
                 }
             }
         }
@@ -240,41 +257,41 @@ struct PhoneDetailView: View {
                 FormNavigationLink("Redial") {
                     BaseRedialView(phone: phone)
                         .navigationTitle("Redial")
-                        #if !os(macOS)
+#if !os(macOS)
                         .navigationBarTitleDisplayMode(.inline)
-                        #endif
+#endif
                 }
             }
             if phone.isCordless || (phone.cordedPhoneType == 0 && phone.baseDisplayType > 0) {
                 FormNavigationLink("Dialing Codes (e.g., international, area code, country code)") {
                     DialingCodesView(phone: phone)
                         .navigationTitle("Dialing Codes")
-                        #if !os(macOS)
+#if !os(macOS)
                         .navigationBarTitleDisplayMode(.inline)
-                        #endif
+#endif
                 }
                 FormNavigationLink("Phonebook") {
                     BasePhonebookView(phone: phone)
                         .navigationTitle("Phonebook")
-                        #if !os(macOS)
+#if !os(macOS)
                         .navigationBarTitleDisplayMode(.inline)
-                        #endif
+#endif
                 }
             }
             if phone.isCordless || phone.cordedPhoneType == 0 || phone.cordedPhoneType == 2 {
                 FormNavigationLink("Caller ID") {
                     BaseCallerIDView(phone: phone)
                         .navigationTitle("Caller ID")
-                        #if !os(macOS)
+#if !os(macOS)
                         .navigationBarTitleDisplayMode(.inline)
-                        #endif
+#endif
                 }
                 FormNavigationLink("Speed Dial") {
                     BaseSpeedDialView(phone: phone)
                         .navigationTitle("Speed Dial")
-                        #if !os(macOS)
+#if !os(macOS)
                         .navigationBarTitleDisplayMode(.inline)
-                        #endif
+#endif
                 }
             }
         }
@@ -286,16 +303,16 @@ struct PhoneDetailView: View {
             FormNavigationLink("Call Block (manual)") {
                 CallBlockManualView(phone: phone)
                     .navigationTitle("Manual Call Block")
-                    #if !os(macOS)
+#if !os(macOS)
                     .navigationBarTitleDisplayMode(.inline)
-                    #endif
+#endif
             }
             FormNavigationLink("Call Block (pre-screening)") {
                 CallBlockPreScreeningView(phone: phone)
                     .navigationTitle("Call Block Pre-Screen")
-                    #if !os(macOS)
+#if !os(macOS)
                     .navigationBarTitleDisplayMode(.inline)
-                    #endif
+#endif
             }
         }
     }
