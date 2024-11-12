@@ -118,6 +118,12 @@ struct PhoneListView: View {
                 } label: {
                     Label("Delete All…", systemImage: "trash.fill")
                 }
+                #if !os(macOS)
+                Divider()
+                Button("Help…", systemImage: "questionmark.circle") {
+                    showHelp()
+                }
+                #endif
             }
         }
     }
