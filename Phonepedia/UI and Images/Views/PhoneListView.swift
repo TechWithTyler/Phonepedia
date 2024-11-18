@@ -23,7 +23,7 @@ struct PhoneListView: View {
     
     @Binding var selectedPhone: Phone?
 
-    @State var phoneFilter: Int = 0
+    @State var phoneFilter: String = "all"
 
     var cordlessPhones: [Phone] {
         return phones.filter { $0.isCordless || $0.isCordedCordless }
@@ -35,8 +35,8 @@ struct PhoneListView: View {
 
     var filteredPhones: [Phone] {
         switch phoneFilter {
-        case 1: return cordlessPhones
-        case 2: return cordedPhones
+        case Phone.PhoneType.cordless.rawValue.lowercased(): return cordlessPhones
+        case Phone.PhoneType.corded.rawValue.lowercased(): return cordedPhones
         default: return phones
         }
     }
@@ -63,9 +63,9 @@ struct PhoneListView: View {
                     .onDelete(perform: deleteItems)
                 }
                 .accessibilityIdentifier("PhonesList")
-            } else if phoneFilter > 0 {
+            } else if phoneFilter != "all" {
                 VStack {
-                    Text("No phones of the selected type")
+                    Text("No \(phoneFilter) phones")
                         .font(.largeTitle)
                         .foregroundStyle(.secondary)
                         .multilineTextAlignment(.center)
@@ -135,13 +135,13 @@ struct PhoneListView: View {
             .accessibilityIdentifier("AddPhoneButton")
         }
         ToolbarItem {
-            Menu("Filter", systemImage: phoneFilter == 0 ? "line.3.horizontal.decrease.circle" : "line.3.horizontal.decrease.circle.fill") {
+            Menu("Filter", systemImage: phoneFilter == "all" ? "line.3.horizontal.decrease.circle" : "line.3.horizontal.decrease.circle.fill") {
                 Picker("Phone Type", selection: $phoneFilter) {
-                    Text("All").tag(0)
+                    Text("All").tag("all")
                         .badge(phones.count)
-                    Text("Cordless or Corded/Cordless Phones").tag(1)
+                    Text("Cordless or Corded/Cordless Phones").tag(Phone.PhoneType.cordless.rawValue.lowercased())
                         .badge(cordlessPhones.count)
-                    Text("Corded Phones").tag(2)
+                    Text("Corded Phones").tag(Phone.PhoneType.corded.rawValue.lowercased())
                         .badge(cordedPhones.count)
                 }
                 .pickerStyle(.inline)
@@ -178,7 +178,7 @@ struct PhoneListView: View {
             // 2. Insert the new phone into the model context.
             modelContext.insert(newPhone)
             // 3. Disable the phone type filter.
-            phoneFilter = 0
+            phoneFilter = "all"
         }
     }
     
