@@ -23,34 +23,65 @@ struct PhoneListView: View {
     
     @Binding var selectedPhone: Phone?
 
+    @State var phoneFilter: Int = 0
+
+    var cordlessPhones: [Phone] {
+        return phones.filter { $0.isCordless || $0.isCordedCordless }
+    }
+
+    var cordedPhones: [Phone] {
+        return phones.filter { $0.numberOfIncludedCordlessHandsets == 0 }
+    }
+
+    var filteredPhones: [Phone] {
+        switch phoneFilter {
+        case 1: return cordlessPhones
+        case 2: return cordedPhones
+        default: return phones
+        }
+    }
+
     // MARK: - Body
     
     var body: some View {
         ZStack {
-            if !phones.isEmpty {
-                    List(selection: $selectedPhone) {
-                        ForEach(phones) { phone in
-                            NavigationLink(value: phone) {
-                                PhoneRowView(phone: phone)
-                            }
-                            .contextMenu {
-                                Button(role: .destructive) {
-                                    dialogManager.phoneToDelete = phone
-                                    dialogManager.showingDeletePhone = true
-                                } label: {
-                                    Label("Delete…", systemImage: "trash")
-                                }
+            if !filteredPhones.isEmpty {
+                List(selection: $selectedPhone) {
+                    ForEach(filteredPhones) { phone in
+                        NavigationLink(value: phone) {
+                            PhoneRowView(phone: phone)
+                        }
+                        .contextMenu {
+                            Button(role: .destructive) {
+                                dialogManager.phoneToDelete = phone
+                                dialogManager.showingDeletePhone = true
+                            } label: {
+                                Label("Delete…", systemImage: "trash")
                             }
                         }
-                        .onDelete(perform: deleteItems)
                     }
-                    .accessibilityIdentifier("PhonesList")
+                    .onDelete(perform: deleteItems)
+                }
+                .accessibilityIdentifier("PhonesList")
+            } else if phoneFilter > 0 {
+                VStack {
+                    Text("No phones of the selected type")
+                        .font(.largeTitle)
+                        .foregroundStyle(.secondary)
+                        .multilineTextAlignment(.center)
+                    Text("Adjust your filters or add a new phone.")
+                        .font(.callout)
+                        .foregroundStyle(.tertiary)
+                }
             } else {
                 Text("No phones")
                     .font(.largeTitle)
-                    .foregroundStyle(Color.secondary)
+                    .foregroundStyle(.secondary)
             }
         }
+        .onChange(of: phoneFilter, { oldValue, newValue in
+            selectedPhone = nil
+        })
         .alert("Delete this phone?", isPresented: $dialogManager.showingDeletePhone, presenting: dialogManager.phoneToDelete) { phoneToDelete in
             Button(role: .destructive) {
                 dialogManager.showingDeletePhone = false
@@ -104,6 +135,20 @@ struct PhoneListView: View {
             .accessibilityIdentifier("AddPhoneButton")
         }
         ToolbarItem {
+            Menu("Filter", systemImage: phoneFilter == 0 ? "line.3.horizontal.decrease.circle" : "line.3.horizontal.decrease.circle.fill") {
+                Picker("Phone Type", selection: $phoneFilter) {
+                    Text("All").tag(0)
+                        .badge(phones.count)
+                    Text("Cordless or Corded/Cordless Phones").tag(1)
+                        .badge(cordlessPhones.count)
+                    Text("Corded Phones").tag(2)
+                        .badge(cordedPhones.count)
+                }
+                .pickerStyle(.inline)
+                .toggleStyle(.automatic)
+            }
+        }
+        ToolbarItem {
             OptionsMenu(title: .menu) {
                 PhoneCountButton()
                 .badge(phones.count)
@@ -132,6 +177,8 @@ struct PhoneListView: View {
             let newPhone = Phone(brand: "Some Brand", model: "M123")
             // 2. Insert the new phone into the model context.
             modelContext.insert(newPhone)
+            // 3. Disable the phone type filter.
+            phoneFilter = 0
         }
     }
     
