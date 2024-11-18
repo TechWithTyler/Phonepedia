@@ -32,7 +32,7 @@ struct PhonepediaApp: App {
                 .environmentObject(dialogManager)
         }
         .commands {
-            PhonepediaCommands()
+            PhonepediaCommands(dialogManager: dialogManager)
         }
     }
 }

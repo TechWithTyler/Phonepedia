@@ -105,13 +105,9 @@ struct PhoneListView: View {
         }
         ToolbarItem {
             OptionsMenu(title: .menu) {
-                Button("Phone Count…") {
-                    dialogManager.showingPhoneCount = true
-                }
+                PhoneCountButton()
                 .badge(phones.count)
-                Button("Phone Type Definitions…") {
-                    dialogManager.showingPhoneTypeDefinitions = true
-                }
+                PhoneTypeDefinitionsButton()
                 Divider()
                 Button(role: .destructive) {
                     dialogManager.showingDeleteAllPhones = true
