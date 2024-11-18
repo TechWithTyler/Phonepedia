@@ -19,6 +19,7 @@ struct RegistrationExplanationView: View {
     var body: some View {
         NavigationStack {
             Text("A handset can't simply communicate with any base it's near. Handsets must be \"registered\" to a base or exchange a digital security code with a base.")
+                .padding()
             List {
                 DisclosureGroup("Digital Security Code") {
                     Text("When placing the handset on the base, the handset and base exchange a digital security code, which makes sure the handset only communicates with that base. Unless this code changes each time a handset is placed on the base, you can add as many handsets as you want--the base doesn't know or care how many handsets are being used on it. You can change which base the handset is used on by placing it on a different one.")
