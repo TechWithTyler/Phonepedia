@@ -30,6 +30,9 @@ struct PhonepediaApp: App {
             ContentView()
                 .environmentObject(photoViewModel)
                 .environmentObject(dialogManager)
+            #if os(macOS)
+                .frame(minWidth: 1000)
+            #endif
         }
         .commands {
             PhonepediaCommands(dialogManager: dialogManager)
