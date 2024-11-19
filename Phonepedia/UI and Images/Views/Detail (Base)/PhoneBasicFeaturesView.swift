@@ -53,10 +53,11 @@ struct PhoneBasicFeaturesView: View {
                         dialogManager.showingRegistrationExplanation = true
                 }
                 if phone.numberOfIncludedCordlessHandsets > phone.maxCordlessHandsets && phone.hasRegistration {
-                    WarningText("The base of the \(phone.brand) \(phone.model) can only register up to \(phone.maxCordlessHandsets) handsets (you specified that it includes \(phone.numberOfIncludedCordlessHandsets)).")
+                    WarningText("The base of the \(phone.brand) \(phone.model) can only register \(phone.maxCordlessHandsets == 1 ? "1 handset" : "up to \(phone.maxCordlessHandsets) handsets") (you specified that it includes \(phone.numberOfIncludedCordlessHandsets)).")
                 }
             }
             Picker("Wireless Frequency/Communication Technology", selection: $phone.frequency) {
+                // The tag of each frequency is its number but without the decimal. For frequencies with multiple communication technologies or dual-band frequencies, the tag also includes a point and a number (e.g. 900MHz Analog has a tag of 900, and 900MHz Voice Scramble Analog has a tag of 900.1.
                 Text("Unknown").tag(0)
                 Section(header: Text("Older")) {
                     Text("1.7MHz Analog").tag(1)
@@ -99,7 +100,7 @@ struct PhoneBasicFeaturesView: View {
                     Text("DECT 6.0 (1.92GHz-1.93GHz)").tag(1920)
                 }
             }
-            InfoButton(title: "Frequencies Explanation…") {
+            InfoButton(title: "Frequencies/Communication Technologies Explanation…") {
                 dialogManager.showingFrequenciesExplanation = true
             }
             Picker("Antenna(s)", selection: $phone.antennas) {
@@ -112,7 +113,7 @@ struct PhoneBasicFeaturesView: View {
             AntennaInfoView()
             if phone.hasRegistration {
                 Toggle("Supports Range Extenders", isOn: $phone.supportsRangeExtenders)
-                InfoText("A range extender extends the range of the base it's registered to. Devices communicating with the base choose the base or a range extender based on which has the strongest signal.\nIf you register 2 or more range extenders, they can be \"daisy-chained\" (one can communicate with the base via another) to create a larger useable coverage area.\nWhen a cordless device moves between the base or range extender(s), your call may briefly cut out.\nIf a handset is communicating with a range extender and that range extender loses power or its link to the base, the handset will also lose its link to the base for a few seconds.")
+                InfoText("A range extender extends the range of the base it's registered to. Devices communicating with the base choose the base or a range extender based on which has the strongest signal.\nIf you register 2 or more range extenders, they can be \"daisy-chained\" (one can communicate with the base via another) to create a larger useable coverage area.\nWhen a cordless device moves between the base or range extender(s), your call may briefly cut out.\nIf a handset is communicating with a range extender and that range extender loses power or its link to the base, the handset will also lose its link to the base for a few seconds, so the handset may drop the call or switch to communicating with the base or another range extender.")
             }
             if !phone.isCordedCordless {
                 Toggle("Base Is Transmit-Only", isOn: $phone.hasTransmitOnlyBase)
@@ -128,7 +129,7 @@ struct PhoneBasicFeaturesView: View {
                 }
                 if !phone.hasBaseKeypad && !phone.hasTransmitOnlyBase {
                     Toggle("Has Charger-Style Base", isOn: $phone.hasChargerSizeBase)
-                    InfoText("Some cordless phone bases look similar/have a similar size to chargers. In some cases, such as when the base has no answering system controls, they can be easily mistaken for chargers, although a base is always slightly bigger than a charger.\nTip: The main base has at least a phone jack or handset locator button. Chargers just plug into power.\nThese kinds of bases are ideal for those who want a small-footprint base. The differentiating factor between a charger-style base vs a standard base is that the handset charging area is in the same position as that of the charger (usually the center).")
+                    InfoText("Some cordless phone bases look similar/have a similar size to chargers. In some cases, such as when the base has no answering system controls, they can be easily mistaken for chargers, although a base is always slightly bigger than a charger.\nThese kinds of bases are ideal for those who want a small-footprint base. The differentiating factor between a charger-style base vs a standard base is that the handset charging area is in the same position as that of the charger (usually the center).\nTip: The main base has at least a phone jack or handset locator button. Chargers just plug into power.")
                 }
             }
             Picker("Charge Light", selection: $phone.chargeLight) {
@@ -146,7 +147,7 @@ struct PhoneBasicFeaturesView: View {
                     Picker("Base Charging Direction", selection: $phone.baseChargingDirection) {
                         ChargingDirectionPickerItems()
                     }
-                    InfoText("Variations in charging area designs are one of the many ways different cordless phones look different from one another.\nA reversible handset can charge with the keypad facing either up or down.")
+                    InfoText("Variations in charging area designs are one of the many ways cordless phones look different from one another.\nA reversible handset can charge with the keypad facing either up or down.")
                     if !phone.isCordedCordless {
                         Picker("Base Charge Contact Placement", selection: $phone.baseChargeContactPlacement) {
                             ChargeContactPlacementPickerItems()
@@ -219,8 +220,11 @@ In most cases, if the base has a charge light/display message, the completion of
                 phone.cordedPhoneTypeChanged(oldValue: oldValue, newValue: newValue)
             }
             InfoText("""
+                • Rotary phones use a dial with numbers on it. You place your finger on the desired number and turn it until it stops, hence the phrase "dialing a number". When you release the dial, springs and gears return it to its resting position, causing the phone to go on and off-hook very quickly a certain number of times, corresponding to the number you put your finger on. This quick "on and off-hook" is called a pulse. Push-button phones can also send pulses instead of tones.
+                • When the corded receiver is placed on the base, the earpiece pushes down on a piece on the base, or the base pushes down on a piece below the earpiece. This piece is called the hook switch or switch hook, and is how the phone knows if the receiver is on or off the base. You can quickly press the hook switch/switch hook to simulate a pulse dial. This is called "switch hook dialing".
+                • Push-button phones send tones made up of a low and high frequency, called Dual-Tone Multi-Frequency (DTMF) tones, when numbers are dialed. Most phone services today only support tone dialing, so a pulse-to-tone converter is required if you want to use a rotary phone or pulse-only push-button phone on your line. A pulse-to-tone converter detects the number of pulses and then sends out the corresponding DTMF tone through the line.
                 • A desk phone has a base, with or without speakerphone, and a corded receiver. These phones may also have other features like a caller ID display or answering system.
-                • A slim/wall phone doesn't have speakerphone or an answering system, but may have a caller ID display. The keypad or rotary dial can be either in the receiver or in the base. Caller ID buttons are on the back of the receiver, not the face where the keypad is.
+                • A slim/wall phone doesn't have speakerphone or an answering system, but may have a caller ID display. The keypad or rotary dial can be either in the receiver or in the base. The caller ID buttons and display are on the back of the receiver, not the face where the keypad is.
                 • A base-less phone is a corded phone that doesn't have a base. The phone is a single device that plugs into the line.
                 • A novelty phone is a corded phone that's designed to look like something else, like a hamburger you flip open, a piano whose keys are used to dial numbers, a slim phone that's shaped like a pair of lips, or an animated character that serves as the phone's base.
                 """)
