@@ -27,7 +27,7 @@ struct BaseRingersView: View {
                 Text("Bell/Mechanical").tag(0)
                 Text("Electronic").tag(1)
             }
-            InfoText("A bell/mechanical ringer requires more power to ring, so it may not work properly on most VoIP lines, especially if multiple phones are ringing at once, as they're usually designed for modern phones which typically don't have mechanical ringers. Electronic ringers, especially those that are software-driven, don't require much power.\nThe amount of ringing power a phone requires is determined by the Ringer Equivalence Number (REN), usually found on the bottom of the phone. A higher REN means more power is required for the phone to ring properly.")
+            InfoText("A bell/mechanical ringer requires more power to ring, so it may not work properly on most VoIP lines, especially if multiple phones are ringing at once, as they're usually designed for modern phones which typically don't have mechanical ringers. Electronic ringers, especially those that are software-driven, don't require much power.\nThe amount of ringing power a phone requires is determined by the Ringer Equivalence Number (REN), usually found on the bottom of the phone. A higher REN means more power is required for the phone to ring properly. You can connect a device called a REN booster to your line to increase its REN and allow bell/mechanical ringers to ring.")
         }
         if phone.isCordless && phone.hasBaseIntercom && phone.baseRingtones > 0 {
             Picker("Base Intercom Ringtone", selection: $phone.baseIntercomRingtone) {
