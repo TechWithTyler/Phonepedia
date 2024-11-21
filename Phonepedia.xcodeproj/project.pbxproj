@@ -294,6 +294,26 @@
 			path = PhonepediaUITests;
 			sourceTree = "<group>";
 		};
+		8D4761752CEFDF0F008CF689 /* Menu Items */ = {
+			isa = PBXGroup;
+			children = (
+				8DB9A30D2CEBEDFB005BC70B /* PhoneCountButton.swift */,
+				8DB9A30F2CEBEE37005BC70B /* PhoneTypeDefinitionsButton.swift */,
+			);
+			path = "Menu Items";
+			sourceTree = "<group>";
+		};
+		8D4761762CEFDF3F008CF689 /* Picker Items */ = {
+			isa = PBXGroup;
+			children = (
+				8D20E37A2C45B9740016800C /* PhoneInCollectionStatusPickerItems.swift */,
+				8D2BAF502CD187EA0016C61E /* ChargingDirectionPickerItems.swift */,
+				8D2BAF522CD188380016C61E /* ChargeContactPlacementPickerItems.swift */,
+				8D2BAF542CD188740016C61E /* ChargeContactTypePickerItems.swift */,
+			);
+			path = "Picker Items";
+			sourceTree = "<group>";
+		};
 		8DA844992B72E1D7006CBCA7 /* Phonepedia */ = {
 			isa = PBXGroup;
 			children = (
@@ -354,6 +374,8 @@
 				8DA844A82B72E1D7006CBCA7 /* ChargerInfoDetailView.swift */,
 				8DA844A92B72E1D7006CBCA7 /* Info */,
 				8DA844B52B72E1D7006CBCA7 /* Child Views */,
+				8D4761762CEFDF3F008CF689 /* Picker Items */,
+				8D4761752CEFDF0F008CF689 /* Menu Items */,
 				8D7A74A32C26203E00C5329E /* DocumentLaunchPhonesAccessoryView.swift */,
 			);
 			path = Views;
@@ -416,18 +438,12 @@
 		8DA844B52B72E1D7006CBCA7 /* Child Views */ = {
 			isa = PBXGroup;
 			children = (
-				8D20E37A2C45B9740016800C /* PhoneInCollectionStatusPickerItems.swift */,
 				8DA844B62B72E1D7006CBCA7 /* PhoneImage.swift */,
 				8DA844B82B72E1D7006CBCA7 /* PhoneImageUnavailableView.swift */,
 				8D94EE0B2B912B9E00B04EBF /* WaveView.swift */,
 				8D94EE0D2B912FB900B04EBF /* Wave.swift */,
 				8DB25E8F2C8BC4A9001617C2 /* FormNavigationLink.swift */,
 				8D8555092C8F9055006A14E3 /* HandsetActionsView.swift */,
-				8D2BAF502CD187EA0016C61E /* ChargingDirectionPickerItems.swift */,
-				8D2BAF522CD188380016C61E /* ChargeContactPlacementPickerItems.swift */,
-				8D2BAF542CD188740016C61E /* ChargeContactTypePickerItems.swift */,
-				8DB9A30D2CEBEDFB005BC70B /* PhoneCountButton.swift */,
-				8DB9A30F2CEBEE37005BC70B /* PhoneTypeDefinitionsButton.swift */,
 			);
 			path = "Child Views";
 			sourceTree = "<group>";
