@@ -21,19 +21,19 @@ struct BaseDisplayBacklightButtonsView: View {
             Text("Spaced with Click Feel").tag(1)
             Text("Some Spaced, Some Diamond-Cut").tag(2)
             Text("Some Spaced with Click Feel, Some Diamond-Cut").tag(3)
-            Text("Diamond-Cut (no space between buttons, click feel)").tag(4)
+            Text("Diamond-Cut (No Space Between Buttons, Click Feel)").tag(4)
         }
         Toggle("7 Has Q and 9 Has Z", isOn: phone.baseDisplayType == 0 ? $phone.hasQZ : .constant(true))
         PhoneNumberLetterInfoView()
-        Picker(phone.isCordless ? "Display Type (base)" : "Display Type", selection: $phone.baseDisplayType) {
+        Picker(phone.isCordless ? "Display Type (Base)" : "Display Type", selection: $phone.baseDisplayType) {
             Text("None").tag(0)
             if phone.hasAnsweringSystem > 0 {
                 Text("LED Message Counter").tag(1)
                 Text("LCD Message Counter With Status Items").tag(2)
             }
-            Text("Monochrome Display (traditional)").tag(3)
-            Text("Monochrome Display (full-dot with status items)").tag(4)
-            Text("Monochrome Display (full-dot)").tag(5)
+            Text("Monochrome Display (Traditional)").tag(3)
+            Text("Monochrome Display (Full-Dot with Status Items)").tag(4)
+            Text("Monochrome Display (Full-Dot)").tag(5)
             Text("Color Display").tag(6)
         }
         .onChange(of: phone.baseDisplayType) { oldValue, newValue in
@@ -86,11 +86,11 @@ struct BaseDisplayBacklightButtonsView: View {
                 Toggle("Base Navigation Button Standby Shortcuts", isOn: $phone.baseNavigatorKeyStandbyShortcuts)
             }
             if phone.baseDisplayType > 2 {
-                Stepper("Base Soft Keys (bottom): \(phone.baseSoftKeysBottom)", value: $phone.baseSoftKeysBottom, in: 0...4)
+                Stepper("Base Soft Keys (Bottom): \(phone.baseSoftKeysBottom)", value: $phone.baseSoftKeysBottom, in: 0...4)
                     .onChange(of: phone.baseSoftKeysBottom) { oldValue, newValue in
                         phone.baseSoftKeysBottomChanged(oldValue: oldValue, newValue: newValue)
                     }
-                Stepper("Base Soft Keys (side): \(phone.baseSoftKeysSide) On Each Side (\(phone.baseSoftKeysSide * 2) total)", value: $phone.baseSoftKeysSide, in: 0...5)
+                Stepper("Base Soft Keys (Side): \(phone.baseSoftKeysSide) On Each Side (\(phone.baseSoftKeysSide * 2) total)", value: $phone.baseSoftKeysSide, in: 0...5)
                     .onChange(of: phone.baseSoftKeysSide) { oldValue, newValue in
                         phone.baseSoftKeysSideChanged(oldValue: oldValue, newValue: newValue)
                     }

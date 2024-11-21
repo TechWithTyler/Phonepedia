@@ -45,7 +45,7 @@ struct PhoneMessagingView: View {
             }
             AnsweringSystemMenuInfoView()
         } else if phone.isCordless && (phone.hasAnsweringSystem == 1 || phone.hasAnsweringSystem == 3) {
-            Picker("Answering System Menu (base)", selection: $phone.answeringSystemMenuOnBase) {
+            Picker("Answering System Menu (Base)", selection: $phone.answeringSystemMenuOnBase) {
                 Text("None").tag(0)
                 Text("Voice Prompts").tag(1)
                 if phone.baseDisplayType > 0 {

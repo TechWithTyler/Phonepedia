@@ -17,11 +17,11 @@ struct HandsetGeneralView: View {
         if let phone = handset.phone {
             FormTextField("Brand", text: $handset.brand)
             FormTextField("Model", text: $handset.model)
-            Stepper("Release Year (-1 if unknown): \(String(handset.releaseYear))", value: $handset.releaseYear, in: -1...currentYear)
+            Stepper("Release Year (-1 If Unknown): \(String(handset.releaseYear))", value: $handset.releaseYear, in: -1...currentYear)
                 .onChange(of: handset.releaseYear) { oldValue, newValue in
                     handset.releaseYearChanged(oldValue: oldValue, newValue: newValue)
                 }
-            Stepper("Acquisition/Purchase Year (-1 if unknown): \(String(handset.acquisitionYear))", value: $handset.acquisitionYear, in: -1...currentYear)
+            Stepper("Acquisition/Purchase Year (-1 If Unknown): \(String(handset.acquisitionYear))", value: $handset.acquisitionYear, in: -1...currentYear)
                 .onChange(of: handset.acquisitionYear) { oldValue, newValue in
                     handset.acquisitionYearChanged(oldValue: oldValue, newValue: newValue)
                 }
@@ -36,9 +36,9 @@ struct HandsetGeneralView: View {
                 Text("Included With Base/Set").tag(0)
                 Divider()
                 Text("Thrift Store/Sale").tag(1)
-                Text("Electronics Store (new)").tag(2)
-                Text("Online (used)").tag(3)
-                Text("Online (new)").tag(4)
+                Text("Electronics Store (New)").tag(2)
+                Text("Online (Used)").tag(3)
+                Text("Online (New)").tag(4)
                 Text("Gift").tag(5)
             }
             Picker("Place In My Collection", selection: $handset.storageOrSetup) {
@@ -66,8 +66,8 @@ struct HandsetGeneralView: View {
                     if handset.cordlessDeviceType == 0 {
                         Text("Style (short)").tag(1)
                     }
-                    Text("Transmission (long)").tag(2)
-                    Text("Transmission (telescopic)").tag(3)
+                    Text("Transmission (Long)").tag(2)
+                    Text("Transmission (Telescopic)").tag(3)
                 }
                 AntennaInfoView()
             }

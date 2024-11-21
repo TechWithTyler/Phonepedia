@@ -14,7 +14,7 @@ struct BaseRedialView: View {
     @Bindable var phone: Phone
 
     var body: some View {
-        FormNumericTextField(phone.isCordless ? "Redial Capacity (base)" : "Redial Capacity", value: $phone.baseRedialCapacity, valueRange: .zeroToMax(20), singularSuffix: "entry", pluralSuffix: "entries")
+        FormNumericTextField(phone.isCordless ? "Redial Capacity (Base)" : "Redial Capacity", value: $phone.baseRedialCapacity, valueRange: .zeroToMax(20), singularSuffix: "entry", pluralSuffix: "entries")
 #if !os(visionOS)
             .scrollDismissesKeyboard(.interactively)
 #endif

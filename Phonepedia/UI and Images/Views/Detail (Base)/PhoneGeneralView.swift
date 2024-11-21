@@ -34,11 +34,11 @@ struct PhoneGeneralView: View {
                 dialogManager.showingPhoneTypeDefinitions = true
             }
         }
-        Stepper("Release Year (-1 if unknown): \(String(phone.releaseYear))", value: $phone.releaseYear, in: -1...currentYear)
+        Stepper("Release Year (-1 If Unknown): \(String(phone.releaseYear))", value: $phone.releaseYear, in: -1...currentYear)
             .onChange(of: phone.releaseYear) { oldValue, newValue in
                 phone.releaseYearChanged(oldValue: oldValue, newValue: newValue)
             }
-        Stepper("Acquisition/Purchase Year (-1 if unknown): \(String(phone.acquisitionYear))", value: $phone.acquisitionYear, in: -1...currentYear)
+        Stepper("Acquisition/Purchase Year (-1 If Unknown): \(String(phone.acquisitionYear))", value: $phone.acquisitionYear, in: -1...currentYear)
             .onChange(of: phone.acquisitionYear) { oldValue, newValue in
                 phone.acquisitionYearChanged(oldValue: oldValue, newValue: newValue)
             }
@@ -51,9 +51,9 @@ struct PhoneGeneralView: View {
         }
         Picker("How I Got This Phone", selection: $phone.whereAcquired) {
             Text("Thrift Store/Sale").tag(0)
-            Text("Electronics Store (new)").tag(1)
-            Text("Online (used)").tag(2)
-            Text("Online (new)").tag(3)
+            Text("Electronics Store (New)").tag(1)
+            Text("Online (Used)").tag(2)
+            Text("Online (New)").tag(3)
             Text("Gift").tag(4)
         }
         Picker("Place In My Collection", selection: $phone.storageOrSetup) {

@@ -40,7 +40,7 @@ struct PhoneBasicFeaturesView: View {
             }
         if phone.isCordless {
             Group {
-                Stepper("Maximum Number of Cordless Handsets (-1 if using \"security codes must match\"): \(phone.maxCordlessHandsets)", value: $phone.maxCordlessHandsets, in: -1...15)
+                Stepper("Maximum Number of Cordless Handsets (-1 If Using \"Security Codes Must Match\"): \(phone.maxCordlessHandsets)", value: $phone.maxCordlessHandsets, in: -1...15)
                     .onChange(of: phone.maxCordlessHandsets) { oldValue, newValue in
                         phone.maxCordlessHandsetsChanged(oldValue: oldValue, newValue: newValue)
                     }
@@ -106,8 +106,8 @@ struct PhoneBasicFeaturesView: View {
             Picker("Antenna(s)", selection: $phone.antennas) {
                 Text("Hidden").tag(0)
                 Text("Telescopic").tag(1)
-                Text("Standard (left)").tag(2)
-                Text("Standard (right)").tag(3)
+                Text("Standard (Left)").tag(2)
+                Text("Standard (Right)").tag(3)
                 Text("One On Each Side").tag(4)
             }
             AntennaInfoView()

@@ -218,7 +218,7 @@ struct PhoneDetailView: View {
                     .navigationBarTitleDisplayMode(.inline)
 #endif
             }
-            FormNavigationLink("Audio Devices (e.g. headsets)") {
+            FormNavigationLink("Audio Devices (e.g. Headsets)") {
                 PhoneAudioView(phone: phone)
                     .navigationTitle("Audio Devices")
 #if !os(macOS)
@@ -263,7 +263,7 @@ struct PhoneDetailView: View {
                 }
             }
             if phone.isCordless || (phone.cordedPhoneType == 0 && phone.baseDisplayType > 0) {
-                FormNavigationLink("Dialing Codes (e.g., international, area code, country code)") {
+                FormNavigationLink("Dialing Codes (e.g., International, Area Code, Country Code)") {
                     DialingCodesView(phone: phone)
                         .navigationTitle("Dialing Codes")
 #if !os(macOS)
@@ -300,14 +300,14 @@ struct PhoneDetailView: View {
     @ViewBuilder
     var callBlockingGroup: some View {
         Section {
-            FormNavigationLink("Call Block (manual)") {
+            FormNavigationLink("Call Block (Manual)") {
                 CallBlockManualView(phone: phone)
                     .navigationTitle("Manual Call Block")
 #if !os(macOS)
                     .navigationBarTitleDisplayMode(.inline)
 #endif
             }
-            FormNavigationLink("Call Block (pre-screening)") {
+            FormNavigationLink("Call Block (Pre-Screening)") {
                 CallBlockPreScreeningView(phone: phone)
                     .navigationTitle("Call Block Pre-Screen")
 #if !os(macOS)

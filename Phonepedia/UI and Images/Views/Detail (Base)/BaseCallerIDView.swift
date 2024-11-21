@@ -26,7 +26,7 @@ struct BaseCallerIDView: View {
         }
         InfoText("The phone can announce who's calling after each ring, so you don't have to look at the screen. Example: \"Call from \(names.randomElement()!)\".")
         if phone.isCordless || phone.baseDisplayType > 0 {
-            FormNumericTextField(phone.isCordless ? "Caller ID List Capacity (base)" : "Caller ID List Capacity", value: $phone.baseCallerIDCapacity, valueRange: .allPositivesIncludingZero, singularSuffix: "entry", pluralSuffix: "entries")
+            FormNumericTextField(phone.isCordless ? "Caller ID List Capacity (Base)" : "Caller ID List Capacity", value: $phone.baseCallerIDCapacity, valueRange: .allPositivesIncludingZero, singularSuffix: "entry", pluralSuffix: "entries")
 #if !os(visionOS)
                 .scrollDismissesKeyboard(.interactively)
 #endif

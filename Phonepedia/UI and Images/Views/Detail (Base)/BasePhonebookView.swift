@@ -14,7 +14,7 @@ struct BasePhonebookView: View {
     @Bindable var phone: Phone
 
     var body: some View {
-        FormNumericTextField(phone.isCordless ? "Phonebook Capacity (base)" : "Phonebook Capacity", value: $phone.basePhonebookCapacity, valueRange: .allPositivesIncludingZero, singularSuffix: "entry", pluralSuffix: "entries")
+        FormNumericTextField(phone.isCordless ? "Phonebook Capacity (Base)" : "Phonebook Capacity", value: $phone.basePhonebookCapacity, valueRange: .allPositivesIncludingZero, singularSuffix: "entry", pluralSuffix: "entries")
 #if !os(visionOS)
             .scrollDismissesKeyboard(.interactively)
 #endif

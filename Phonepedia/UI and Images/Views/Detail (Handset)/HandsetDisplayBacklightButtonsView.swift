@@ -58,17 +58,17 @@ struct HandsetDisplayBacklightButtonsView: View {
                 Text("Spaced with Click Feel").tag(1)
                 Text("Some Spaced, Some Diamond-Cut").tag(2)
                 Text("Some Spaced with Click Feel, Some Diamond-Cut").tag(3)
-                Text("Diamond-Cut (no space between buttons, click feel)").tag(4)
+                Text("Diamond-Cut (No Space Between Buttons, Click Feel)").tag(4)
             }
             Toggle(isOn: $handset.hasTalkingKeypad) {
                 Text("Talking Keypad")
             }
             Picker("Display Type", selection: $handset.displayType) {
                 Text("None").tag(0)
-                Text("Monochrome (segmented)").tag(1)
-                Text("Monochrome (traditional)").tag(2)
-                Text("Monochrome (full-dot with status items)").tag(3)
-                Text("Monochrome (full-dot)").tag(4)
+                Text("Monochrome (Segmented)").tag(1)
+                Text("Monochrome (Traditional)").tag(2)
+                Text("Monochrome (Full-Dot With Status Items)").tag(3)
+                Text("Monochrome (Full-Dot)").tag(4)
                 Text("Color").tag(5)
             }
             .onChange(of: handset.displayType) { oldValue, newValue in
