@@ -17,21 +17,23 @@ struct HandsetDisplayBacklightButtonsView: View {
 
     var body: some View {
         if let phone = handset.phone {
+            if handset.handsetStyle < 2 {
             Toggle("7 Has Q and 9 Has Z", isOn: handset.displayType == 0 ? $handset.hasQZ : .constant(true))
             PhoneNumberLetterInfoView()
-            if handset.cordlessDeviceType == 0 {
-                Picker("Talk/Off Button Type", selection: $handset.talkOffButtonType) {
-                    Text("Single Talk/Off Button").tag(0)
-                    Text("Talk and Off").tag(1)
-                    Text("Talk/Flash and Off").tag(2)
-                    if handset.hasSpeakerphone {
-                        Text("Talk/Speaker and Off").tag(3)
+                if handset.cordlessDeviceType == 0 {
+                    Picker("Talk/Off Button Type", selection: $handset.talkOffButtonType) {
+                        Text("Single Talk/Off Button").tag(0)
+                        Text("Talk and Off").tag(1)
+                        Text("Talk/Flash and Off").tag(2)
+                        if handset.hasSpeakerphone {
+                            Text("Talk/Speaker and Off").tag(3)
+                        }
+                        if phone.numberOfLandlines > 1 {
+                            Text("Line Buttons + Off").tag(4)
+                        }
                     }
-                    if phone.numberOfLandlines > 1 {
-                        Text("Line Buttons + Off").tag(4)
-                    }
+                    InfoText("Sometimes, the talk button will have a function during a call, either switching between the earpiece and speakerphone or acting as the flash button.\nOn Bluetooth cell phone linking-capable models, if the cell button is a physical button and not a soft key, the talk button is often labeled \"Home\".\nOn multi-landline phones, the handset usually has multiple line buttons instead of a talk button.")
                 }
-                InfoText("Sometimes, the talk button will have a function during a call, either switching between the earpiece and speakerphone or acting as the flash button.\nOn Bluetooth cell phone linking-capable models, if the cell button is a physical button and not a soft key, the talk button is often labeled \"Home\".\nOn multi-landline phones, the handset usually has multiple line buttons instead of a talk button.")
                 if handset.talkOffButtonType > 0 && handset.talkOffButtonType < 4 {
                     Picker("Talk/Off Button Coloring", selection: $handset.talkOffColorLayer) {
                         Text("None").tag(0)
@@ -64,10 +66,12 @@ struct HandsetDisplayBacklightButtonsView: View {
                 Text("Talking Keypad")
             }
             Picker("Display Type", selection: $handset.displayType) {
-                Text("None").tag(0)
-                Text("Monochrome (Segmented)").tag(1)
-                Text("Monochrome (Traditional)").tag(2)
-                Text("Monochrome (Full-Dot With Status Items)").tag(3)
+                if handset.handsetStyle < 2 {
+                    Text("None").tag(0)
+                    Text("Monochrome (Segmented)").tag(1)
+                    Text("Monochrome (Traditional)").tag(2)
+                    Text("Monochrome (Full-Dot With Status Items)").tag(3)
+                }
                 Text("Monochrome (Full-Dot)").tag(4)
                 Text("Color").tag(5)
             }
@@ -93,15 +97,17 @@ struct HandsetDisplayBacklightButtonsView: View {
                     Text("In Real-Time").tag(1)
                 }
                 InfoText("When a handset menu is updated based on the base it's registered to, the available options are updated only when registering the handset to a base, and those same options will be available when the handset boots up. When a handset menu is updated in real-time, the available options depend on the state of the registered base (e.g. whether it's on power backup or if there's enough devices to support intercom), and some options might not be available when the handset boots up.")
-                Picker("Navigation Button Type", selection: $handset.navigatorKeyType) {
-                    Text("None").tag(0)
-                    Text("Up/Down Button").tag(1)
-                    Text("Up/Down/Left/Right Button").tag(2)
-                    Text("Up/Down/Left/Right Joystick").tag(3)
-                    Text("Up/Down Side Buttons, Left/Right Face Buttons").tag(4)
-                }
-                .onChange(of: handset.navigatorKeyType) { oldValue, newValue in
-                    handset.navigatorKeyTypeChanged(oldValue: oldValue, newValue: newValue)
+                if handset.handsetStyle < 2 {
+                    Picker("Navigation Button Type", selection: $handset.navigatorKeyType) {
+                        Text("None").tag(0)
+                        Text("Up/Down Button").tag(1)
+                        Text("Up/Down/Left/Right Button").tag(2)
+                        Text("Up/Down/Left/Right Joystick").tag(3)
+                        Text("Up/Down Side Buttons, Left/Right Face Buttons").tag(4)
+                    }
+                    .onChange(of: handset.navigatorKeyType) { oldValue, newValue in
+                        handset.navigatorKeyTypeChanged(oldValue: oldValue, newValue: newValue)
+                    }
                 }
                 if handset.navigatorKeyType > 0 {
                     Picker("Navigation Button Center Button", selection: $handset.navigatorKeyCenterButton) {

@@ -60,6 +60,18 @@ struct HandsetGeneralView: View {
                 handset.cordlessDeviceTypeChanged(oldValue: oldValue, newValue: newValue)
             }
             InfoText("A deskset is a phone that connects wirelessly to a main base and is treated like a handset. Desksets can have a corded receiver or a charging area for a cordless handset.\nA cordless headset/speakerphone can pick up the line and answer/join calls, but can't dial or use other features.")
+            if handset.cordlessDeviceType == 0 {
+                Picker("Handset Style", selection: $handset.handsetStyle) {
+                    Text("Traditional").tag(0)
+                    Text("Futuristic").tag(1)
+                    Text("Cell Phone").tag(2)
+                    Text("Smartphone").tag(3)
+                }
+                .onChange(of: handset.handsetStyle) { oldValue, newValue in
+                    handset.handsetStyleChanged(oldValue: oldValue, newValue: newValue)
+                }
+                InfoText("Futuristic handset designs include design elements like curves and a seamless look when placed on the base or charger. For example, a base might resemble part of a ring, with a curved handset completing the ring when placed on the base.\nCell phone-style handsets flip or slide open like traditional cell phones.\nSmartphone-style handsets run a smartphone operating system and can run smartphone apps. Software and hardware is mostly identical to a smartphone, plus a cordless handset antenna and a specialized app for cordless phone features like base settings and answering system access. Some smartphone-style handsets can function as both a cordless handset and a smartphone.")
+            }
             if handset.cordlessDeviceType < 2 {
                 Picker("Antenna", selection: $handset.antenna) {
                     Text("Hidden").tag(0)

@@ -18,19 +18,21 @@ struct HandsetCallerIDView: View {
             Toggle(isOn: $handset.hasTalkingCallerID) {
                 Text("Talking Caller ID")
             }
-            if handset.phonebookCapacity > 0 || (phone.basePhonebookCapacity > 0 && handset.usesBasePhonebook) {
+            if handset.phonebookCapacity > 0 || (phone.basePhonebookCapacity > 0 && handset.usesBasePhonebook) && handset.handsetStyle < 3 {
                 Toggle(isOn: $handset.callerIDPhonebookMatch) {
                     Text("Caller ID Uses Matching Phonebook Entry Name")
                 }
             }
-            FormNumericTextField("Caller ID List Capacity", value: $handset.callerIDCapacity, valueRange: .allPositivesIncludingZero, singularSuffix: "entry", pluralSuffix: "entries")
+            if handset.handsetStyle < 3 {
+                FormNumericTextField("Caller ID List Capacity", value: $handset.callerIDCapacity, valueRange: .allPositivesIncludingZero, singularSuffix: "entry", pluralSuffix: "entries")
 #if !os(visionOS)
-                .scrollDismissesKeyboard(.interactively)
+                    .scrollDismissesKeyboard(.interactively)
 #endif
-                .onChange(of: handset.callerIDCapacity) { oldValue, newValue in
-                    handset.callerIDCapacityChanged(oldValue: oldValue, newValue: newValue)
-                }
-            if handset.callerIDCapacity == 0 {
+                    .onChange(of: handset.callerIDCapacity) { oldValue, newValue in
+                        handset.callerIDCapacityChanged(oldValue: oldValue, newValue: newValue)
+                    }
+            }
+            if handset.callerIDCapacity == 0 || handset.handsetStyle == 3 {
                 Toggle("Uses Base Caller ID List", isOn: $handset.usesBaseCallerID)
             }
             InfoText("When handsets use the base caller ID list instead of having their own, the caller ID list, and the indication/number of missed calls, is shared by the base and all handsets. Only one can access it at a time.")

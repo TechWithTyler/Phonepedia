@@ -22,6 +22,7 @@ struct BaseDisplayBacklightButtonsView: View {
             Text("Some Spaced, Some Diamond-Cut").tag(2)
             Text("Some Spaced with Click Feel, Some Diamond-Cut").tag(3)
             Text("Diamond-Cut (No Space Between Buttons, Click Feel)").tag(4)
+            Text("Touch Button Panel").tag(5)
         }
         Toggle("7 Has Q and 9 Has Z", isOn: phone.baseDisplayType == 0 ? $phone.hasQZ : .constant(true))
         PhoneNumberLetterInfoView()
@@ -35,6 +36,8 @@ struct BaseDisplayBacklightButtonsView: View {
             Text("Monochrome Display (Full-Dot with Status Items)").tag(4)
             Text("Monochrome Display (Full-Dot)").tag(5)
             Text("Color Display").tag(6)
+            Text("Monochrome Touchscreen").tag(7)
+            Text("Color Touchscreen").tag(8)
         }
         .onChange(of: phone.baseDisplayType) { oldValue, newValue in
             phone.baseDisplayTypeChanged(oldValue: oldValue, newValue: newValue)

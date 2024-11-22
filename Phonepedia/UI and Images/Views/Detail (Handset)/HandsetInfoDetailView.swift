@@ -49,12 +49,14 @@ struct HandsetInfoDetailView: View {
                         }
                     }
                     Section {
-                        FormNavigationLink("Display/Backlight/Buttons") {
-                            HandsetDisplayBacklightButtonsView(handset: handset)
-                                .navigationTitle("Disp/Backlight/Buttons (HS\(handsetNumber))")
-                                #if !os(macOS)
-                                .navigationBarTitleDisplayMode(.inline)
-                                #endif
+                        if handset.handsetStyle < 3 {
+                            FormNavigationLink("Display/Backlight/Buttons") {
+                                HandsetDisplayBacklightButtonsView(handset: handset)
+                                    .navigationTitle("Disp/Backlight/Buttons (HS\(handsetNumber))")
+#if !os(macOS)
+                                    .navigationBarTitleDisplayMode(.inline)
+#endif
+                            }
                         }
                         FormNavigationLink("Audio") {
                             HandsetAudioView(handset: handset)

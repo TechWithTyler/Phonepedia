@@ -43,6 +43,10 @@ struct HandsetRingersView: View {
                     handset.totalRingtonesChanged(oldValue: oldValue, newValue: newValue)
                 }
             }
+            if handset.cordlessDeviceType == 0 {
+                Toggle("Has Vibrator Motor", isOn: $handset.hasVibratorMotor)
+                InfoText("Some cordless handsets have vibrator motors like cell phones.")
+            }
         } else {
             Text("Error")
         }

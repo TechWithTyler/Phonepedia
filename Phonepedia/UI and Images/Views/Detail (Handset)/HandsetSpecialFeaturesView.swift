@@ -14,12 +14,14 @@ struct HandsetSpecialFeaturesView: View {
     @Bindable var handset: CordlessHandset
 
     var body: some View {
-        Picker("Alarm", selection: $handset.alarm) {
-            Text("Not Supported").tag(0)
-            Text("Ringtones").tag(1)
-            Text("Ringtones or Voice").tag(2)
+        if handset.handsetStyle < 3 {
+            Picker("Alarm", selection: $handset.alarm) {
+                Text("Not Supported").tag(0)
+                Text("Ringtones").tag(1)
+                Text("Ringtones or Voice").tag(2)
+            }
+            InfoText("The handset can be used as an alarm clock by playing a ringtone or voice announcement at the set time(s).")
         }
-        InfoText("The handset can be used as an alarm clock by playing a ringtone or voice announcement at the set time(s).")
         if handset.cordlessDeviceType == 0 {
             Picker("Key Finders Supported", selection: $handset.keyFindersSupported) {
                 Text("None").tag(0)

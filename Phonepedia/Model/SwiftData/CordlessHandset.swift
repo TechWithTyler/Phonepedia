@@ -33,7 +33,9 @@ final class CordlessHandset {
 	var maxBases: Int = 1
 	
 	var cordlessDeviceType: Int = 0
-    
+
+    var handsetStyle: Int = 0
+
     var mainColorRed: Double = 0
     
     var mainColorGreen: Double = 0
@@ -103,7 +105,9 @@ final class CordlessHandset {
 	var visualRinger: Int = 0
 	
 	var ringtones: Int = 5
-	
+
+    var hasVibratorMotor: Bool = false
+
 	var musicRingtones: Int = 5
 
     var customRingtonesSource: Int = 0
@@ -372,8 +376,27 @@ final class CordlessHandset {
         }
     }
 
+    func handsetStyleChanged(oldValue: Int, newValue: Int) {
+        if newValue > 2 {
+            talkOffButtonType = 1
+            hasVibratorMotor = true
+            hasSpeakerphone = true
+        }
+        if newValue == 2 {
+            displayType = 4
+            navigatorKeyType = 2
+        } else if newValue == 3 {
+            phonebookCapacity = 50
+            callerIDCapacity = 50
+            oneTouchDialCapacity = 0
+            sideVolumeButtons = true
+            displayType = 5
+        }
+    }
+
 	func cordlessDeviceTypeChanged(oldValue: Int, newValue: Int) {
 		if newValue > 0 {
+            handsetStyle = 0
             talkOffButtonType = 0
             talkOffColorLayer = 0
 			fitsOnBase = false

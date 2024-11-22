@@ -14,7 +14,8 @@ struct HandsetAudioView: View {
     @Bindable var handset: CordlessHandset
 
     var body: some View {
-        Toggle("Has Speakerphone", isOn: $handset.hasSpeakerphone)
+        if handset.handsetStyle < 2 {
+            Toggle("Has Speakerphone", isOn: $handset.hasSpeakerphone)
         if handset.hasSpeakerphone {
             Picker("Speakerphone Button Coloring", selection: $handset.speakerphoneColorLayer) {
                 Text("None").tag(0)
@@ -29,12 +30,15 @@ struct HandsetAudioView: View {
         } else {
             InfoText("Handsets without speakerphone play their key tones and ringtones through a tiny speaker called a piezoelectric speaker, or piezo for short. This is the same type of speaker used on line-powered corded phones. This type of speaker typically plays only monophonic tones, as polyphonic tones might not sound good.")
         }
+        }
         Toggle("Supports Wired Headsets", isOn: $handset.supportsWiredHeadsets)
-        Picker("Maximum Number Of Bluetooth Headphones", selection: $handset.bluetoothHeadphonesSupported) {
-            Text("None").tag(0)
-            Text("1").tag(1)
-            Text("2").tag(2)
-            Text("4").tag(4)
+        if handset.handsetStyle < 3 {
+            Picker("Maximum Number Of Bluetooth Headphones", selection: $handset.bluetoothHeadphonesSupported) {
+                Text("None").tag(0)
+                Text("1").tag(1)
+                Text("2").tag(2)
+                Text("4").tag(4)
+            }
         }
     }
 }
