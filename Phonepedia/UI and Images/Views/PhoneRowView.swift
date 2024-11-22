@@ -26,6 +26,9 @@ struct PhoneRowView: View {
 				Text(phone.model)
 					.font(.title2)
 					.foregroundStyle(.secondary)
+                if !phone.nickname.isEmpty {
+                    Text("\"\(phone.nickname)\"")
+                }
 				Text(phone.phoneTypeText)
 					.font(.subheadline)
 					.foregroundStyle(.secondary)

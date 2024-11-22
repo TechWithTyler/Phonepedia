@@ -38,6 +38,7 @@ struct PhoneGeneralView: View {
             .onChange(of: phone.releaseYear) { oldValue, newValue in
                 phone.releaseYearChanged(oldValue: oldValue, newValue: newValue)
             }
+        FormTextField("Nickname", text: $phone.nickname)
         Stepper("Acquisition/Purchase Year (-1 If Unknown): \(String(phone.acquisitionYear))", value: $phone.acquisitionYear, in: -1...currentYear)
             .onChange(of: phone.acquisitionYear) { oldValue, newValue in
                 phone.acquisitionYearChanged(oldValue: oldValue, newValue: newValue)
