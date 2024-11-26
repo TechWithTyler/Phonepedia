@@ -64,9 +64,6 @@ struct ContentView: View {
             AboutConnectionTypesView()
         }
         .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
-        #if os(iOS)
-        .pickerStyle(.navigationLink)
-        #endif
         .formNumericTextFieldStepperVisibility(true)
     }
 

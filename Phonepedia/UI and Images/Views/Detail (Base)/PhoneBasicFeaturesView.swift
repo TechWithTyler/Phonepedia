@@ -56,16 +56,16 @@ struct PhoneBasicFeaturesView: View {
                     WarningText("The base of the \(phone.brand) \(phone.model) can only register \(phone.maxCordlessHandsets == 1 ? "1 handset" : "up to \(phone.maxCordlessHandsets) handsets") (you specified that it includes \(phone.numberOfIncludedCordlessHandsets)).")
                 }
             }
-            Picker("Wireless Frequency/Communication Technology", selection: $phone.frequency) {
+            Picker("Frequency", selection: $phone.frequency) {
                 // The tag of each frequency is its number but without the decimal. For frequencies with multiple communication technologies or dual-band frequencies, the tag also includes a point and a number (e.g. 900MHz Analog has a tag of 900, and 900MHz Voice Scramble Analog has a tag of 900.1.
-                Text("Unknown").tag(0)
+                Text("Unknown").tag(0.0)
                 Section(header: Text("Older")) {
-                    Text("1.7MHz Analog").tag(1)
-                    Text("30-37MHz Analog").tag(30)
-                    Text("46-49MHz Analog").tag(46)
+                    Text("1.7MHz Analog").tag(1.0)
+                    Text("30-37MHz Analog").tag(30.0)
+                    Text("46-49MHz Analog").tag(46.0)
                 }
                 Section(header: Text("900MHz")) {
-                    Text("900MHz Analog/Unknown").tag(900)
+                    Text("900MHz Analog/Unknown").tag(900.0)
                     Text("900MHz Voice Scramble Analog").tag(900.1)
                     Text("900MHz Digital").tag(900.2)
                     Text("900MHz DSS").tag(900.3)
@@ -81,7 +81,7 @@ struct PhoneBasicFeaturesView: View {
                     Text("2.4GHz/900MHz FHSS").tag(2400.903)
                 }
                 Section(header: Text("5.8GHz")) {
-                    Text("5.8GHz Analog/Unknown").tag(5800)
+                    Text("5.8GHz Analog/Unknown").tag(5800.0)
                     Text("5.8GHz/900MHz Analog").tag(5800.900)
                     Text("5.8GHz/2.4GHz Analog").tag(5800.2400)
                     Text("5.8GHz Digital").tag(5800.1)
@@ -95,9 +95,9 @@ struct PhoneBasicFeaturesView: View {
                     Text("5.8GHz/2.4GHz FHSS").tag(5800.2403)
                 }
                 Section(header: Text("DECT (Digital Enhanced Cordless Telecommunications)")) {
-                    Text("DECT (1.88GHz-1.90GHz)").tag(1880)
-                    Text("DECT (1.90GHz-1.92GHz)").tag(1900)
-                    Text("DECT 6.0 (1.92GHz-1.93GHz)").tag(1920)
+                    Text("DECT (1.88GHz-1.90GHz)").tag(1880.0)
+                    Text("DECT (1.90GHz-1.92GHz)").tag(1900.0)
+                    Text("DECT 6.0 (1.92GHz-1.93GHz)").tag(1920.0)
                 }
             }
             InfoButton(title: "Frequencies/Communication Technologies Explanation…") {
