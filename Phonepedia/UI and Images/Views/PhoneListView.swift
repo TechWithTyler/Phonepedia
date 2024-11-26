@@ -19,11 +19,36 @@ struct PhoneListView: View {
 
     @EnvironmentObject var dialogManager: DialogManager
 
-    var phones: [Phone]
-    
-    @Binding var selectedPhone: Phone?
+    // MARK: - Properties - Strings
 
-    @State var phoneFilter: String = "all"
+    @State var phoneFilterType: String = "all"
+
+    @State var phoneFilterBrand: String = "all"
+
+    var allBrands: [String] {
+        // 1. Create a set to hold the brands.
+        var brands: Set<String> = []
+        // 2. Loop through each phone in the phones array and insert its brand into the set.
+        for phone in phones {
+            brands.insert(phone.brand)
+        }
+        // 3. Return the brands set as a sorted array.
+        return brands.sorted(by: <)
+    }
+
+    // MARK: - Properties - Integers
+
+    @State var phoneFilterActive: Int = 0
+
+    // MARK: - Properties - Booleans
+
+    var phoneFilterEnabled: Bool {
+        return phoneFilterType != "all" || phoneFilterActive != 0 || phoneFilterBrand != "all"
+    }
+
+    // MARK: - Properties - Phones
+
+    var phones: [Phone]
 
     var cordlessPhones: [Phone] {
         return phones.filter { $0.isCordless || $0.isCordedCordless }
@@ -33,13 +58,34 @@ struct PhoneListView: View {
         return phones.filter { $0.numberOfIncludedCordlessHandsets == 0 }
     }
 
-    var filteredPhones: [Phone] {
-        switch phoneFilter {
+    var typeFilteredPhones: [Phone] {
+        switch phoneFilterType {
         case Phone.PhoneType.cordless.rawValue.lowercased(): return cordlessPhones
         case Phone.PhoneType.corded.rawValue.lowercased(): return cordedPhones
         default: return phones
         }
     }
+
+    var activeFilteredPhones: [Phone] {
+        switch phoneFilterActive {
+        case 1: return typeFilteredPhones.filter { $0.storageOrSetup <= 1 }
+        case 2: return typeFilteredPhones.filter { $0.storageOrSetup > 1 }
+        default: return typeFilteredPhones
+        }
+    }
+
+    var brandFilteredPhones: [Phone] {
+        switch phoneFilterBrand {
+        case "all": return activeFilteredPhones
+        default: return activeFilteredPhones.filter { $0.brand == phoneFilterBrand }
+        }
+    }
+
+    var filteredPhones: [Phone] {
+        return brandFilteredPhones
+    }
+
+    @Binding var selectedPhone: Phone?
 
     // MARK: - Body
     
@@ -63,9 +109,9 @@ struct PhoneListView: View {
                     .onDelete(perform: deleteItems)
                 }
                 .accessibilityIdentifier("PhonesList")
-            } else if phoneFilter != "all" {
+            } else if phoneFilterEnabled {
                 VStack {
-                    Text("No \(phoneFilter) phones")
+                    Text("No phones matching the selected filters")
                         .font(.largeTitle)
                         .foregroundStyle(.secondary)
                         .multilineTextAlignment(.center)
@@ -79,8 +125,10 @@ struct PhoneListView: View {
                     .foregroundStyle(.secondary)
             }
         }
-        .onChange(of: phoneFilter, { oldValue, newValue in
-            selectedPhone = nil
+        .onChange(of: filteredPhones, { oldValue, newValue in
+            if let phone = selectedPhone, !newValue.contains(phone) {
+                    selectedPhone = nil
+            }
         })
         .alert("Delete this phone?", isPresented: $dialogManager.showingDeletePhone, presenting: dialogManager.phoneToDelete) { phoneToDelete in
             Button(role: .destructive) {
@@ -135,17 +183,36 @@ struct PhoneListView: View {
             .accessibilityIdentifier("AddPhoneButton")
         }
         ToolbarItem {
-            Menu("Filter", systemImage: phoneFilter == "all" ? "line.3.horizontal.decrease.circle" : "line.3.horizontal.decrease.circle.fill") {
-                Picker("Phone Type", selection: $phoneFilter) {
+            Menu("Filter", systemImage: phoneFilterEnabled ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle") {
+                Picker("Phone Type (\(phoneFilterType == "all" ? "Off" : "On"))", selection: $phoneFilterType) {
                     Text("All").tag("all")
-                        .badge(phones.count)
+                    Divider()
                     Text("Cordless or Corded/Cordless Phones").tag(Phone.PhoneType.cordless.rawValue.lowercased())
-                        .badge(cordlessPhones.count)
                     Text("Corded Phones").tag(Phone.PhoneType.corded.rawValue.lowercased())
-                        .badge(cordedPhones.count)
                 }
-                .pickerStyle(.inline)
+                .pickerStyle(.menu)
                 .toggleStyle(.automatic)
+                Picker("Active Status (\(phoneFilterActive == 0 ? "Off" : "On"))", selection: $phoneFilterActive) {
+                    Text("Off").tag(0)
+                    Divider()
+                    Text("Active").tag(1)
+                    Text("Inactive").tag(2)
+                }
+                .pickerStyle(.menu)
+                .toggleStyle(.automatic)
+                Picker("Brand (\(phoneFilterBrand == "all" ? "Off" : "On"))", selection: $phoneFilterBrand) {
+                    Text("All").tag("all")
+                    Divider()
+                    ForEach(allBrands.sorted(by: <), id: \.self) { brand in
+                        Text(brand).tag(brand)
+                    }
+                }
+                .pickerStyle(.menu)
+                .toggleStyle(.automatic)
+                Divider()
+                Button("Reset") {
+                    resetPhoneFilter()
+                }
             }
         }
         ToolbarItem {
@@ -168,7 +235,15 @@ struct PhoneListView: View {
             }
         }
     }
-    
+
+    // MARK: - Reset Phone Filter
+
+    func resetPhoneFilter() {
+        phoneFilterType = "all"
+        phoneFilterBrand = "all"
+        phoneFilterActive = 0
+    }
+
     // MARK: - Data Management
     
     private func addItem() {
@@ -177,8 +252,8 @@ struct PhoneListView: View {
             let newPhone = Phone(brand: "Some Brand", model: "M123")
             // 2. Insert the new phone into the model context.
             modelContext.insert(newPhone)
-            // 3. Disable the phone type filter.
-            phoneFilter = "all"
+            // 3. Disable the phone filter.
+            resetPhoneFilter()
         }
     }
     
