@@ -3,6 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 12/21/23.
+//  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
 import SwiftUI
@@ -26,7 +27,7 @@ struct PhoneListView: View {
     @State var phoneFilterBrand: String = "all"
 
     var allBrands: [String] {
-        // 1. Create a set to hold the brands.
+        // 1. Create a set to hold the brands. A Set is similar to an Array but can only hold one instance of an item. For example, the word "cat" can only appear once in a String Set.
         var brands: Set<String> = []
         // 2. Loop through each phone in the phones array and insert its brand into the set.
         for phone in phones {
