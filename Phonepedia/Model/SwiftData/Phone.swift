@@ -118,7 +118,11 @@ final class Phone {
 	var cordedRingerType: Int = 0
 	
 	var numberOfIncludedCordlessHandsets: Int = 1
-	
+
+    var handsetNumberDigit: Int? = nil
+
+    var handsetNumberDigitIndex: Int? = nil
+
 	var maxCordlessHandsets: Int = 5
 	
 	var supportsRangeExtenders: Bool = false
@@ -554,6 +558,11 @@ final class Phone {
     }
 
     // MARK: - Property Change Handlers
+
+    func modelNumberChanged() {
+        handsetNumberDigit = nil
+        handsetNumberDigitIndex = nil
+    }
 
     func bluetoothPhonebookTransfersChanged(oldValue: Int, newValue: Int) {
         if newValue == 0 {

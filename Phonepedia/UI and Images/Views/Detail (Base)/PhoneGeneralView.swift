@@ -26,6 +26,9 @@ struct PhoneGeneralView: View {
     var body: some View {
         FormTextField("Brand", text: $phone.brand)
         FormTextField("Model", text: $phone.model)
+            .onChange(of: phone.model) { _, _ in
+                phone.modelNumberChanged()
+            }
         HStack {
             Text("Phone Type")
             Spacer()

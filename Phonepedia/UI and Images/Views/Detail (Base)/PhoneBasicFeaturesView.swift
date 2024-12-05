@@ -17,6 +17,7 @@ struct PhoneBasicFeaturesView: View {
 
     var body: some View {
         Stepper("Number of Included Cordless Handsets (0 if corded-only): \(phone.numberOfIncludedCordlessHandsets)", value: $phone.numberOfIncludedCordlessHandsets, in: 0...Int.max-1)
+            .disabled(phone.handsetNumberDigit != nil)
             .onChange(of: phone.isCordless) { oldValue, newValue in
                 if !newValue && (!phone.cordlessHandsetsIHave.isEmpty || !phone.chargersIHave.isEmpty) {
                     dialogManager.showingMakeCordedOnly = true
@@ -40,6 +41,7 @@ struct PhoneBasicFeaturesView: View {
             }
         if phone.isCordless {
             Group {
+                HandsetNumberDigitView(phone: phone)
                 Stepper("Maximum Number of Cordless Handsets (-1 If Using \"Security Codes Must Match\"): \(phone.maxCordlessHandsets)", value: $phone.maxCordlessHandsets, in: -1...15)
                     .onChange(of: phone.maxCordlessHandsets) { oldValue, newValue in
                         phone.maxCordlessHandsetsChanged(oldValue: oldValue, newValue: newValue)
