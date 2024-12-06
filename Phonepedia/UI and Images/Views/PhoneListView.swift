@@ -229,8 +229,8 @@ struct PhoneListView: View {
                 }
                 #if !os(macOS)
                 Divider()
-                Button("Help…", systemImage: "questionmark.circle") {
-                    showHelp()
+                Button("Settings…", systemImage: "gear") {
+                    dialogManager.showingSettings = true
                 }
                 #endif
             }

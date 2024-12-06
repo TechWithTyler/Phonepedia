@@ -49,4 +49,8 @@ class DialogManager: ObservableObject {
 
     @Published var showingAboutConnectionTypes: Bool = false
 
+    #if !os(macOS)
+    @Published var showingSettings: Bool = false
+    #endif
+
 }

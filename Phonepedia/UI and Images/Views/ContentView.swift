@@ -63,6 +63,11 @@ struct ContentView: View {
         .sheet(isPresented: $dialogManager.showingAboutConnectionTypes) {
             AboutConnectionTypesView()
         }
+        #if !os(macOS)
+        .sheet(isPresented: $dialogManager.showingSettings) {
+            SettingsView()
+        }
+        #endif
         .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
         .formNumericTextFieldStepperVisibility(true)
     }

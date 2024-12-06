@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import SheftAppsStylishUI
 import SwiftData
 
 @main
@@ -37,5 +38,13 @@ struct PhonepediaApp: App {
         .commands {
             PhonepediaCommands(dialogManager: dialogManager)
         }
+        #if os(macOS)
+        Settings {
+            SAMVisualEffectViewSwiftUIRepresentable {
+                SettingsView()
+            }
+            .frame(width: 400)
+        }
+        #endif
     }
 }
