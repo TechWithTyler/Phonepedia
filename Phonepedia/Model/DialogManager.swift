@@ -21,6 +21,8 @@ class DialogManager: ObservableObject {
 
     // MARK: - Properties - Booleans
 
+    @Published var showingMoveFailed: Bool = false
+
     @Published var showingPhoneTypeDefinitions: Bool = false
 
     @Published var showingAboutDisplayTypes: Bool = false

@@ -108,6 +108,7 @@ struct PhoneListView: View {
                         }
                     }
                     .onDelete(perform: deleteItems)
+                    .onMove(perform: moveItems)
                 }
                 .accessibilityIdentifier("PhonesList")
             } else if phoneFilterEnabled {
@@ -171,6 +172,13 @@ struct PhoneListView: View {
             }
         } message: {
             Text("All phones will be deleted from this catalog.")
+        }
+        .alert("Rearranging the phone list isn't possible while one or more filters are enabled.", isPresented: $dialogManager.showingMoveFailed) {
+            Button("OK") {
+                dialogManager.showingMoveFailed = false
+            }
+        }  message: {
+            Text("Please disable all filters and try again.")
         }
         .toolbar {
             toolbarContent
@@ -270,7 +278,24 @@ struct PhoneListView: View {
             }
         }
     }
-    
+
+    private func moveItems(source: IndexSet, destination: Int) {
+        guard !phoneFilterEnabled else {
+            dialogManager.showingMoveFailed = true
+            return
+        }
+        // 1. Create a copy of the phones array pre-move.
+        var tempItems = phones
+        // 2. Perform the move operation on the copy.
+        tempItems.move(fromOffsets: source, toOffset: destination)
+        // 3. Use the copy's items and their indicies to move the phones in the original array.
+        for (index, tempItem) in tempItems.enumerated() {
+            if let item = phones.filter({ $0.id == tempItem.id}).first {
+                item.phoneNumberInCollection = index
+            }
+        }
+    }
+
     func deletePhone(_ phone: Phone) {
         // 1. Delete the phone.
         dialogManager.phoneToDelete = nil

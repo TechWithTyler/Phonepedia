@@ -19,8 +19,8 @@ struct ContentView: View {
 
     @EnvironmentObject var dialogManager: DialogManager
 
-    @Query private var phones: [Phone]
-    
+    @Query(sort: \Phone.phoneNumberInCollection) private var phones: [Phone]
+
     @State var selectedPhone: Phone?
 
     // MARK: - Body

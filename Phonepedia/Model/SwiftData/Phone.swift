@@ -34,6 +34,8 @@ final class Phone {
     // There must be one or more properties declared with an initial value for automatic (lightweight) migration to work.
     var nickname: String = String()
 
+    var phoneNumberInCollection: Int? = nil
+
     // Use @Attribute(_:) to specify an attribute for a SwiftData property.
 	@Attribute(.externalStorage) var photoData: Data? = nil
 
