@@ -43,7 +43,7 @@ struct PhonePartInfoView: View {
                     } label: {
                         HStack {
                             VStack(alignment: .leading) {
-                                Text("\(handset.brand) \(handset.model)")
+                                Text("\(handset.brand) \(handset.model.isEmpty ? "<No Model Number>" : handset.model)")
                                 Text(handset.storageOrSetup > 1 ? "In Storage" : "Active")
                                     .foregroundStyle(.secondary)
                             }
@@ -80,7 +80,7 @@ struct PhonePartInfoView: View {
                     .foregroundStyle(.secondary)
             }
             FormTextField("Main Cordless Device Model", text: $phone.mainHandsetModel)
-            InfoText("Enter the model number of the main cordless handset or deskset included with the \(phone.brand) \(phone.model) so newly-added cordless devices will default to that model number.\nA cordless phone's main handset/deskset is registered to the base as number 1, and may have some special features, like backing up the time in case of power outage, not available to other devices on the system.")
+            InfoText("Enter the model number of the main cordless handset or deskset included with the \(phone.brand) \(phone.model) so newly-added cordless devices will default to that model number.\nA cordless phone's main handset/deskset is registered to the base as number 1, and may have some special features, like backing up the time in case of power outage, not available to other devices on the system.\nSome non-expandable cordless phones won't have a handset model number or it will be the same as that of the set it came with--leave this field blank in this case.")
             Button(action: addHandset) {
                 Label("Add", systemImage: "plus")
             }
@@ -112,7 +112,7 @@ struct PhonePartInfoView: View {
             }
         } message: { handset in
             let wrappedHandset = handset.wrappedValue!
-                Text("This \(wrappedHandset.brand) \(wrappedHandset.model) will be deleted from this \(phone.brand) \(phone.model).")
+                Text("This \(wrappedHandset.brand) \(wrappedHandset.model.isEmpty ? "cordless device" : wrappedHandset.model) will be deleted from this \(phone.brand) \(phone.model).")
         }
         .alert("Delete all cordless devices?", isPresented: $dialogManager.showingDeleteAllHandsets) {
             Button("Delete", role: .destructive) {
