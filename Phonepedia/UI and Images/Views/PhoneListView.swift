@@ -280,18 +280,21 @@ struct PhoneListView: View {
     }
 
     private func moveItems(source: IndexSet, destination: Int) {
-        guard !phoneFilterEnabled else {
-            dialogManager.showingMoveFailed = true
-            return
-        }
-        // 1. Create a copy of the phones array pre-move.
-        var tempItems = phones
-        // 2. Perform the move operation on the copy.
-        tempItems.move(fromOffsets: source, toOffset: destination)
-        // 3. Use the copy's items and their indicies to move the phones in the original array.
-        for (index, tempItem) in tempItems.enumerated() {
-            if let item = phones.filter({ $0.id == tempItem.id}).first {
-                item.phoneNumberInCollection = index
+        // 1. If the phone filter is enabled, show an alert and don't continue.
+            guard !phoneFilterEnabled else {
+                dialogManager.showingMoveFailed = true
+                return
+            }
+        withAnimation {
+            // 2. Create a copy of the phones array pre-move.
+            var tempItems = phones
+            // 3. Perform the move operation on the copy.
+            tempItems.move(fromOffsets: source, toOffset: destination)
+            // 4. Use the copy's items and their indicies to move the phones in the original array.
+            for (index, tempItem) in tempItems.enumerated() {
+                if let item = phones.filter({ $0.id == tempItem.id}).first {
+                    item.phoneNumberInCollection = index
+                }
             }
         }
     }
