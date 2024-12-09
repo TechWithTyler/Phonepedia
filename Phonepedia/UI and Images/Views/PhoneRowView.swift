@@ -16,6 +16,8 @@ struct PhoneRowView: View {
 
     @AppStorage(UserDefaults.KeyNames.showPhoneActiveStatusInList) var showPhoneActiveStatusInList: Bool = true
 
+    @AppStorage(UserDefaults.KeyNames.showNumberOfCordlessHandsetsInList) var showNumberOfCordlessHandsetsInList: Bool = true
+
     @AppStorage(UserDefaults.KeyNames.highlightHandsetNumberDigitInList) var highlightHandsetNumberDigitInList: Bool = true
 
 
@@ -36,6 +38,7 @@ struct PhoneRowView: View {
 					.font(.title2)
 					.foregroundStyle(.secondary)
                     .lineLimit(nil)
+                    .multilineTextAlignment(.center)
                     .animation(.linear, value: phone.handsetNumberDigit)
                 if !phone.nickname.isEmpty {
                     Text("\"\(phone.nickname)\"")
@@ -44,6 +47,23 @@ struct PhoneRowView: View {
                     Text(phone.phoneTypeText)
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
+                }
+                if showNumberOfCordlessHandsetsInList && phone.isCordless {
+                    if phone.numberOfIncludedCordlessHandsets == phone.cordlessHandsetsIHave.count {
+                        Text("\(phone.numberOfIncludedCordlessHandsets) \(phone.numberOfIncludedCordlessHandsets == 1 ? "Cordless Handset" : "Cordless Handsets")")
+                            .foregroundStyle(.secondary)
+                            .lineLimit(nil)
+                            .multilineTextAlignment(.center)
+                    } else {
+                        Text("\(phone.numberOfIncludedCordlessHandsets) \(phone.numberOfIncludedCordlessHandsets == 1 ? "Cordless Handset Included" : "Cordless Handsets Included")")
+                            .foregroundStyle(.secondary)
+                            .lineLimit(nil)
+                            .multilineTextAlignment(.center)
+                        Text("\(phone.cordlessHandsetsIHave.count) \(phone.cordlessHandsetsIHave.count == 1 ? "Cordless Handset In Collection" : "Cordless Handsets In Collection")")
+                            .foregroundStyle(.secondary)
+                            .lineLimit(nil)
+                            .multilineTextAlignment(.center)
+                    }
                 }
                 if showPhoneActiveStatusInList {
                     Text(phone.storageOrSetup > 1 ? "In Storage" : "Active")
@@ -62,6 +82,8 @@ struct PhoneRowView: View {
 			Spacer()
 		}
     }
+
+    // MARK: - Model Number "Number Of Included Cordless Handsets" Digit Highlight
 
     func modelNumberWithColoredHandsetNumberDigit(_ modelNumber: String, digit: Int?, at index: Int?) -> AttributedString {
         // 1. Convert the model number String to an AttributedString. As AttributedString is a data type, it's declared in the Foundation framework instead of the SwiftUI framework, even though its cross-platform design makes it shine with SwiftUI. Unlike with NSAttributedString, you can simply initialize it with a String argument without having to use an argument label.
@@ -83,6 +105,8 @@ struct PhoneRowView: View {
     }
 
 }
+
+// MARK: - Preview
 
 #Preview {
 	PhoneRowView(phone: Phone(brand: "Panasonic", model: "KX-TGF975"))

@@ -24,6 +24,8 @@ extension UserDefaults {
         static let showPhoneTypeInList = "showPhoneTypeInList"
 
         static let showPhoneActiveStatusInList = "showPhoneActiveStatusInList"
+        
+        static let showNumberOfCordlessHandsetsInList = "showNumberOfCordlessHandsetsInList"
 
         static let highlightHandsetNumberDigitInList = "highlightHandsetNumberDigitInList"
 

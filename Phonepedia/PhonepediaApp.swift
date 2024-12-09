@@ -40,10 +40,7 @@ struct PhonepediaApp: App {
         }
         #if os(macOS)
         Settings {
-            SAMVisualEffectViewSwiftUIRepresentable {
-                SettingsView()
-            }
-            .frame(width: 400)
+            SettingsView()
         }
         #endif
     }

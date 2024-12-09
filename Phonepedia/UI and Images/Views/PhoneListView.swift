@@ -126,6 +126,10 @@ struct PhoneListView: View {
                     .foregroundStyle(.secondary)
             }
         }
+        .contextMenu {
+            PhoneListDetailOptions()
+                .toggleStyle(.automatic)
+        }
         .onChange(of: filteredPhones, { oldValue, newValue in
             if let phone = selectedPhone, !newValue.contains(phone) {
                     selectedPhone = nil
