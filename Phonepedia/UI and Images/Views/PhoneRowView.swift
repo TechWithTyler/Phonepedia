@@ -20,7 +20,6 @@ struct PhoneRowView: View {
 
     @AppStorage(UserDefaults.KeyNames.highlightHandsetNumberDigitInList) var highlightHandsetNumberDigitInList: Bool = true
 
-
     // MARK: - Properties - Phone
 
 	@Bindable var phone: Phone
@@ -29,11 +28,13 @@ struct PhoneRowView: View {
 
     var body: some View {
 		HStack {
-			Spacer()
-			PhoneImage(phone: phone, isThumbnail: true)
+            PhoneImage(phone: phone, isThumbnail: true)
+            Spacer()
 			VStack {
 				Text(phone.brand)
 					.font(.largeTitle)
+                    .lineLimit(nil)
+                    .multilineTextAlignment(.center)
                 Text(modelNumberWithColoredHandsetNumberDigit(phone.model, digit: phone.handsetNumberDigit, at: phone.handsetNumberDigitIndex))
 					.font(.title2)
 					.foregroundStyle(.secondary)
