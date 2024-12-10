@@ -667,6 +667,7 @@ final class Phone {
 			if hasAnsweringSystem > 1 {
 				hasAnsweringSystem = 1
 			}
+            cordedReceiverMainColorBinding.wrappedValue = .black
             hasIntercom = false
             baseIntercomRingtone = 0
 			placeOnBaseAutoRegister = false
@@ -828,6 +829,7 @@ final class Phone {
 			baseChargeContactType = 0
 			baseChargeContactPlacement = 0
         } else {
+            numberOfIncludedCordlessHandsets = 1
             cordedPhoneType = 0
             cordedReceiverSecondaryColorBinding.wrappedValue = .black
         }
