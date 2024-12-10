@@ -93,18 +93,18 @@ final class Phone {
 
     var cordedReceiverSecondaryColorAlpha: Double = 0
 
-    var baseLEDMessageCounterColorRed: Double = 0
-    
+    var baseLEDMessageCounterColorRed: Double = 255
+
     var baseLEDMessageCounterColorGreen: Double = 0
     
     var baseLEDMessageCounterColorBlue: Double = 0
     
     var baseKeyBacklightColorRed: Double = 0
-    
-    var baseKeyBacklightColorGreen: Double = 0
-    
+
+    var baseKeyBacklightColorGreen: Double = 255
+
     var baseKeyBacklightColorBlue: Double = 0
-    
+
     var baseBackupBatteryType: Int = 0
     
     var locatorButtons: Int = 0
@@ -195,7 +195,7 @@ final class Phone {
 	
 	var voicemailIndication: Int = 3
 	
-	var voicemailQuickDial: Int = 3
+	var voicemailQuickDial: Int = 0
 
 	var voicemailFeatureCodes: Bool = false
 
@@ -287,20 +287,20 @@ final class Phone {
 	
 	var speedDialPhonebookEntryMode: Int = 0
 	
-	var callBlockCapacity: Int = 1000
-	
+	var callBlockCapacity: Int = 0
+
 	var callBlockSupportsPrefixes: Bool = false
 	
 	var blockedCallersHear: Int = 0
 	
-	var hasFirstRingSuppression: Bool = true
-	
-	var hasOneTouchCallBlock: Bool = true
-	
+	var hasFirstRingSuppression: Bool = false
+
+	var hasOneTouchCallBlock: Bool = false
+
 	var callBlockPreProgrammedDatabaseEntryCount: Int = 0
 	
-	var callBlockPreScreening: Int = 2
-	
+	var callBlockPreScreening: Int = 0
+
 	var callBlockPreScreeningCustomGreeting: Bool = false
 	
 	var callBlockPreScreeningAllowedNameCapacity: Int = 100

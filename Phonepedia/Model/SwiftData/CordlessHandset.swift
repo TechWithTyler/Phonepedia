@@ -82,8 +82,8 @@ final class CordlessHandset {
     
     var keyBacklightColorRed: Double = 0
     
-    var keyBacklightColorGreen: Double = 0
-    
+    var keyBacklightColorGreen: Double = 255
+
     var keyBacklightColorBlue: Double = 0
 	
 	var buttonType: Int = 0
@@ -106,9 +106,9 @@ final class CordlessHandset {
 	
 	var ringtones: Int = 5
 
-    var hasVibratorMotor: Bool = false
+    var musicRingtones: Int = 5
 
-	var musicRingtones: Int = 5
+    var hasVibratorMotor: Bool = false
 
     var customRingtonesSource: Int = 0
 
@@ -130,7 +130,7 @@ final class CordlessHandset {
 	
 	var navigatorKeyStandbyShortcuts: Bool = true
 	
-	var navigatorKeyCenterButton: Int = 1
+	var navigatorKeyCenterButton: Int = 0
 	
 	var sideVolumeButtons: Bool = false
 	
