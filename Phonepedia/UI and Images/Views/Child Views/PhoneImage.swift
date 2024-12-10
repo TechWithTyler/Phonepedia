@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import SheftAppsStylishUI
 
 struct PhoneImage: View {
     
@@ -30,20 +31,23 @@ struct PhoneImage: View {
 		#if os(iOS) || os(visionOS)
 		if let image = UIImage(data: phone.photoData ?? getPNGDataFromUIImage(image: .phone)) {
 			Image(uiImage: image)
-				.renderingMode(phone.photoData == nil ? .template : .original)
-				.resizable()
-				.scaledToFit()
-				.frame(width: size, height: size)
+                .renderingMode(phone.photoData == nil ? .template : .original)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: size, height: size)
+                .clipShape(RoundedRectangle(cornerRadius: SAContainerViewCornerRadius))
+                .accessibilityLabel("\(phone.brand) \(phone.model)")
 		} else {
 			PhoneImageUnavailableView()
 		}
 		#elseif os(macOS)
 		if let image = NSImage(data: phone.photoData ?? getPNGDataFromNSImage(image: .phone)) {
 			Image(nsImage: image)
-				.renderingMode(phone.photoData == nil ? .template : .original)
-				.resizable()
-				.scaledToFit()
-				.frame(width: size, height: size)
+                .renderingMode(phone.photoData == nil ? .template : .original)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: size, height: size)
+                .clipShape(RoundedRectangle(cornerRadius: SAContainerViewCornerRadius))
                 .accessibilityLabel("\(phone.brand) \(phone.model)")
 		} else {
 			PhoneImageUnavailableView()
