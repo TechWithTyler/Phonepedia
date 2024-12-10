@@ -20,12 +20,15 @@ struct PhoneListDetailOptions: View {
 
     @AppStorage(UserDefaults.KeyNames.showNumberOfCordlessHandsetsInList) var showNumberOfCordlessHandsetsInList: Bool = true
 
+    @AppStorage(UserDefaults.KeyNames.showPhoneColorsInList) var showPhoneColorsInList: Bool = true
+
     // MARK: - Body
 
     var body: some View {
         Toggle("Show Phone Type", isOn: $showPhoneTypeInList)
         Toggle("Show Phone Active Status", isOn: $showPhoneActiveStatusInList)
         Toggle("Show Number Of Cordless Handsets", isOn: $showNumberOfCordlessHandsetsInList)
+        Toggle("Show Phone Colors", isOn: $showPhoneColorsInList)
         Toggle("Highlight Handset Number Digit", isOn: $highlightHandsetNumberDigitInList)
     }
 

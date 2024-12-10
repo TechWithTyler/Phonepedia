@@ -3,15 +3,6 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 12/6/24.
-//  Copyright © 2024 SheftApps. All rights reserved.
-//
-
-
-//
-//  UserDefaultsKeyNames.swift
-//  Phonepedia
-//
-//  Created by Tyler Sheft on 12/6/24.
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
@@ -21,13 +12,15 @@ extension UserDefaults {
 
     struct KeyNames {
 
-        static let showPhoneTypeInList = "showPhoneTypeInList"
+        static let showPhoneTypeInList: String = "showPhoneTypeInList"
 
-        static let showPhoneActiveStatusInList = "showPhoneActiveStatusInList"
-        
-        static let showNumberOfCordlessHandsetsInList = "showNumberOfCordlessHandsetsInList"
+        static let showPhoneActiveStatusInList: String = "showPhoneActiveStatusInList"
 
-        static let highlightHandsetNumberDigitInList = "highlightHandsetNumberDigitInList"
+        static let showNumberOfCordlessHandsetsInList: String = "showNumberOfCordlessHandsetsInList"
+
+        static let highlightHandsetNumberDigitInList: String = "highlightHandsetNumberDigitInList"
+
+        static let showPhoneColorsInList: String = "showPhoneColorsInList"
 
     }
 

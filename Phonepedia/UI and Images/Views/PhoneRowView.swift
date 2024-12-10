@@ -20,6 +20,8 @@ struct PhoneRowView: View {
 
     @AppStorage(UserDefaults.KeyNames.highlightHandsetNumberDigitInList) var highlightHandsetNumberDigitInList: Bool = true
 
+    @AppStorage(UserDefaults.KeyNames.showPhoneColorsInList) var showPhoneColorsInList: Bool = true
+
     // MARK: - Properties - Phone
 
 	@Bindable var phone: Phone
@@ -29,6 +31,15 @@ struct PhoneRowView: View {
     var body: some View {
 		HStack {
             PhoneImage(phone: phone, isThumbnail: true)
+            Spacer()
+            if showPhoneColorsInList {
+                VStack {
+                    colorCircle(for: phone.baseMainColorBinding.wrappedValue)
+                    if phone.baseSecondaryColorBinding.wrappedValue != phone.baseMainColorBinding.wrappedValue {
+                        colorCircle(for: phone.baseSecondaryColorBinding.wrappedValue)
+                    }
+                }
+            }
             Spacer()
 			VStack {
 				Text(phone.brand)
@@ -82,6 +93,17 @@ struct PhoneRowView: View {
 			}
 			Spacer()
 		}
+    }
+
+    @ViewBuilder
+    func colorCircle(for color: Color) -> some View {
+        Circle()
+            .fill(color)
+                   .overlay(
+                       Circle()
+                        .stroke(.primary, lineWidth: 1)
+                   )
+                   .frame(width: 10, height: 10)
     }
 
     // MARK: - Model Number "Number Of Included Cordless Handsets" Digit Highlight
