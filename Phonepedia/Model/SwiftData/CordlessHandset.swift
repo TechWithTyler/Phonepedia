@@ -591,6 +591,9 @@ final class CordlessHandset {
         newHandset.hasSpeakerphoneButtonLight = self.hasSpeakerphoneButtonLight
         newHandset.storageOrSetup = self.storageOrSetup
         newHandset.hasQZ = self.hasQZ
+        newHandset.alarm = self.alarm
+        newHandset.handsetStyle = self.handsetStyle
+        newHandset.keyBacklightLayer = self.keyBacklightLayer
         // 4. Return the duplicated handset.
         return newHandset
     }

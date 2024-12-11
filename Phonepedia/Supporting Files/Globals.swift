@@ -11,12 +11,24 @@ import SwiftUI
 // MARK: - Properties - Arrays
 
 // Names to use for the answering system greeting/talking caller ID examples
-var names: [String] = [
-    "John Smith",
-    "Pat Fleet",
-    "Allison Smith",
-    "Charlie Johnson"
-]
+var names: [String] = {
+    // 1. Define a list of names, including the developer, common phone display example names, and well-known telephone people (e.g., voice people like Pat Fleet).
+    var names = [
+        "Tyler Sheft",
+        "John Smith",
+        "Pat Fleet",
+        "Allison Smith",
+        "Charlie Johnson"
+    ]
+    // 2. On macOS, add the user's name to the array if it contains 2 words.
+    #if os(macOS)
+    let userName = NSFullUserName()
+    if userName.components(separatedBy: .whitespaces).count == 2 {
+        names.append(userName)
+    }
+    #endif
+    return names
+}()
 
 // MARK: - Properties - Strings
 
