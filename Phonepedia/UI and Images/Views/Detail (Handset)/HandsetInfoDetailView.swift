@@ -34,10 +34,11 @@ struct HandsetInfoDetailView: View {
                 FormNavigationLink("General") {
                     HandsetGeneralView(handset: handset)
                         .navigationTitle("General (HS\(handsetNumber))")
-                        #if !os(macOS)
+#if !os(macOS)
                         .navigationBarTitleDisplayMode(.inline)
-                        #endif
+#endif
                 }
+            }
                 if handset.cordlessDeviceType < 2 {
                     Section {
                         FormNavigationLink("Ringers") {
@@ -114,7 +115,6 @@ struct HandsetInfoDetailView: View {
                     }
                 }
             }
-        }
         .formStyle(.grouped)
     }
     

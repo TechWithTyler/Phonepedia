@@ -280,11 +280,12 @@ struct PhoneListView: View {
         withAnimation {
             // 1. Create a new Phone object with a mock brand and model number.
             let newPhone = Phone(brand: "Some Brand", model: "M123")
+            // 2. Set the default selections.
             newPhone.landlineConnectedTo = defaultAnalogPhoneConnectedToSelection
             newPhone.whereAcquired = defaultAcquisitionMethod
-            // 2. Insert the new phone into the model context.
+            // 3. Insert the new phone into the model context.
             modelContext.insert(newPhone)
-            // 3. Disable the phone filter.
+            // 4. Disable the phone filter.
             resetPhoneFilter()
         }
     }

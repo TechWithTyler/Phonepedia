@@ -35,7 +35,7 @@ struct PhonePartInfoView: View {
     // MARK: - Body
 
     var body: some View {
-        Section("Cordless Handsets/Headsets/Speakerphones/Desksets (\(handsetCount))") {
+        Section("Cordless Devices (\(handsetCount))") {
             if !phone.cordlessHandsetsIHave.isEmpty {
                 ForEach(phone.cordlessHandsetsIHave) { handset in
                     let handsetNumber = (phone.cordlessHandsetsIHave.firstIndex(of: handset) ?? 0) + 1
@@ -127,7 +127,7 @@ struct PhonePartInfoView: View {
         } message: {
             Text("All cordless devices will be deleted from this \(phone.brand) \(phone.model).")
         }
-        Section("Cordless Handset/Headset/Speakerphone Chargers (\(chargerCount))") {
+        Section("Cordless Device Chargers (\(chargerCount))") {
             if !phone.chargersIHave.isEmpty {
                 ForEach(phone.chargersIHave) { charger in
                     let chargerNumber = (phone.chargersIHave.firstIndex(of: charger) ?? 0) + 1
@@ -205,16 +205,16 @@ struct PhonePartInfoView: View {
         }
     }
 
-    // MARK: - Data Management
+    // MARK: - Handset Management
 
     func addHandset() {
         // 1. Create a new CordlessHandset object. Newly-added handsets default to the phone's brand, the phone's main handset model number, and the phone base's colors.
         let newHandset = CordlessHandset(brand: phone.brand, model: phone.mainHandsetModel, mainColorRed: phone.baseMainColorRed, mainColorGreen: phone.baseMainColorGreen, mainColorBlue: phone.baseMainColorBlue, secondaryColorRed: phone.baseSecondaryColorRed, secondaryColorGreen: phone.baseSecondaryColorGreen, secondaryColorBlue: phone.baseSecondaryColorBlue)
-        // 2. If the handset count is the same as the number of included handsets, set "Where I Got This Handset" to 0 (Included With Base/Set). Otherwise, use the default acquisition method.
+        // 2. If the handset count is the same as the number of included handsets, set "Where I Got This Cordless Device" to 0 (Included With Base/Set). Otherwise, use the default acquisition method.
         if phone.cordlessHandsetsIHave.count + 1 <= phone.numberOfIncludedCordlessHandsets {
             newHandset.whereAcquired = 0
         } else {
-            // For handsets, an additional option is available for the "Where I Got This" selection, "Included With Base/Set", with a tag of 0, so we need to add 1 to the default acquisition method.
+            // For cordless devices, an additional option is available for the "Where I Got This" selection, "Included With Base/Set", with a tag of 0, so we need to add 1 to the default acquisition method.
             newHandset.whereAcquired = defaultAcquisitionMethod + 1
         }
         // 3. Add the handset to the phone's list of handsets.
@@ -231,12 +231,14 @@ struct PhonePartInfoView: View {
         }
     }
 
-    func addCharger() {
-        phone.chargersIHave.append(CordlessHandsetCharger())
-    }
-
     func deleteHandset(at index: Int) {
         phone.cordlessHandsetsIHave.remove(at: index)
+    }
+
+    // MARK: - Charger Management
+
+    func addCharger() {
+        phone.chargersIHave.append(CordlessHandsetCharger())
     }
 
     func deleteCharger(at index: Int) {

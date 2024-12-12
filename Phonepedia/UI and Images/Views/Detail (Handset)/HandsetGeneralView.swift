@@ -32,7 +32,7 @@ struct HandsetGeneralView: View {
                         .font(.callout)
                 }
             }
-            Picker("How I Got This Handset", selection: $handset.whereAcquired) {
+            Picker("How I Got This Cordless Device", selection: $handset.whereAcquired) {
                 AcquisitionMethodPickerItems(handset: true)
             }
             Picker("Place In My Collection", selection: $handset.storageOrSetup) {

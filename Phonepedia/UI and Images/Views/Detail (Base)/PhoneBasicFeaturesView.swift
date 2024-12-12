@@ -16,7 +16,7 @@ struct PhoneBasicFeaturesView: View {
     @EnvironmentObject var dialogManager: DialogManager
 
     var body: some View {
-        Stepper("Number of Included Cordless Handsets (0 if corded-only): \(phone.numberOfIncludedCordlessHandsets)", value: $phone.numberOfIncludedCordlessHandsets, in: 0...Int.max-1)
+        Stepper("Number of Included Cordless Devices (0 if corded-only): \(phone.numberOfIncludedCordlessHandsets)", value: $phone.numberOfIncludedCordlessHandsets, in: 0...Int.max-1)
             .disabled(phone.handsetNumberDigit != nil)
             .onChange(of: phone.isCordless) { oldValue, newValue in
                 if !newValue && (!phone.cordlessHandsetsIHave.isEmpty || !phone.chargersIHave.isEmpty) {
@@ -42,7 +42,7 @@ struct PhoneBasicFeaturesView: View {
         if phone.isCordless {
             Group {
                 HandsetNumberDigitView(phone: phone)
-                Stepper("Maximum Number of Cordless Handsets (-1 If Using \"Security Codes Must Match\"): \(phone.maxCordlessHandsets)", value: $phone.maxCordlessHandsets, in: -1...15)
+                Stepper("Maximum Number of Cordless Devices (-1 If Using \"Security Codes Must Match\"): \(phone.maxCordlessHandsets)", value: $phone.maxCordlessHandsets, in: -1...15)
                     .onChange(of: phone.maxCordlessHandsets) { oldValue, newValue in
                         phone.maxCordlessHandsetsChanged(oldValue: oldValue, newValue: newValue)
                     }
@@ -55,7 +55,7 @@ struct PhoneBasicFeaturesView: View {
                         dialogManager.showingRegistrationExplanation = true
                 }
                 if phone.numberOfIncludedCordlessHandsets > phone.maxCordlessHandsets && phone.hasRegistration {
-                    WarningText("The base of the \(phone.brand) \(phone.model) can only register \(phone.maxCordlessHandsets == 1 ? "1 handset" : "up to \(phone.maxCordlessHandsets) handsets") (you specified that it includes \(phone.numberOfIncludedCordlessHandsets)).")
+                    WarningText("The base of the \(phone.brand) \(phone.model) can only register \(phone.maxCordlessHandsets == 1 ? "1 handset" : "up to \(phone.maxCordlessHandsets) cordless devices") (you specified that it includes \(phone.numberOfIncludedCordlessHandsets)).")
                 }
             }
             Picker("Frequency", selection: $phone.frequency) {
