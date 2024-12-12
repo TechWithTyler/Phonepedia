@@ -49,7 +49,7 @@ struct LandlineDetailView: View {
                     Text("Display and Light").tag(3)
                 }
             }
-            if phone.landlineInUseStatusOnBase == 1 {
+            if phone.landlineInUseStatusOnBase == 1 || phone.landlineInUseStatusOnBase == 3 {
                 Toggle("Landline In Use Light Follows Ring Signal", isOn: $phone.landlineInUseVisualRingerFollowsRingSignal)
                 InfoText("An in use light that follows the ring signal starts flashing when the ring signal starts and stops flashing when the ring signal stops. An in use light that ignores the ring signal starts flashing when the ring signal starts and continues flashing for as long as the \(phone.isCordless ? "base" : "phone") is indicating an incoming call.")
             }

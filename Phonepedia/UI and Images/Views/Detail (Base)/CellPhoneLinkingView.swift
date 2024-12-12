@@ -32,6 +32,8 @@ struct CellPhoneLinkingView: View {
                 Text("None").tag(0)
                 Text("Light").tag(1)
                 if phone.baseDisplayType > 1 {
+                    // Even though the tag of this option is higher than the one after it, it needs to be done this way to prevent messing up existing data in the release version.
+                    Text("Display").tag(3)
                     Text("Display and Light").tag(2)
                 }
             }
