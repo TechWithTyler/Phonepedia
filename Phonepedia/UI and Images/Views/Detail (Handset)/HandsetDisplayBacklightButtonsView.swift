@@ -89,7 +89,7 @@ struct HandsetDisplayBacklightButtonsView: View {
                 }
             }
             if handset.displayType > 0 && handset.displayType < 5 {
-                ColorPicker("Display Backlight Color", selection: handset.displayBacklightColorBinding)
+                ColorPicker("Display Backlight Color", selection: handset.displayBacklightColorBinding, supportsOpacity: false)
             }
             if handset.displayType > 0 {
                 Picker("Update Available Handset Menus", selection: $handset.menuUpdateMode) {
@@ -144,25 +144,25 @@ struct HandsetDisplayBacklightButtonsView: View {
                 Text("None").tag(0)
                 Text("Numbers Only").tag(1)
                 Text("Numbers + Some Function Buttons").tag(2)
-                Text("Numbers + All Function Buttons").tag(2)
-                Text("Numbers + Navigation Button").tag(3)
-                Text("All Buttons").tag(3)
+                Text("Numbers + All Function Buttons").tag(3)
+                Text("Numbers + Navigation Button").tag(4)
+                Text("All Buttons").tag(5)
             }
             if handset.keyBacklightAmount > 0 {
-                ColorPicker("Button Backlight Color", selection: handset.keyBacklightColorBinding)
+                ColorPicker("Button Backlight Color", selection: handset.keyBacklightColorBinding, supportsOpacity: false)
                 Picker("Button Backlight Layer", selection: $handset.keyBacklightLayer) {
                     Text("Background").tag(0)
                     Text("Foreground").tag(1)
                 }
                 VStack {
-                    Text("Key Backlight Example")
+                    Text("Button Backlight Example")
                     Image(systemName: handset.keyBacklightLayer == 1 ? "5.square" : "5.square.fill")
                         .foregroundStyle(handset.keyBacklightColorBinding.wrappedValue)
                         .font(.system(size: 40))
                 }
             }
-            ColorPicker("Button Foreground Color", selection: handset.keyForegroundColorBinding)
-            ColorPicker("Button Background Color", selection: handset.keyBackgroundColorBinding)
+            ColorPicker("Button Foreground Color", selection: handset.keyForegroundColorBinding, supportsOpacity: false)
+            ColorPicker("Button Background Color", selection: handset.keyBackgroundColorBinding, supportsOpacity: false)
             Button("Swap Foreground/Background Colors", systemImage: "arrow.swap") {
                 handset.swapKeyBackgroundAndForegroundColors()
             }

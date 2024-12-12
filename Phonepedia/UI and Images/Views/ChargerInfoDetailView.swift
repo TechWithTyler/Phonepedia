@@ -49,8 +49,8 @@ struct ChargerInfoDetailView: View {
                             .foregroundStyle(.red)
 #endif
                     }
-                    ColorPicker("Main Color", selection: charger.mainColorBinding)
-                    ColorPicker("Secondary/Accent Color", selection: charger.secondaryColorBinding)
+                    ColorPicker("Main Color", selection: charger.mainColorBinding, supportsOpacity: false)
+                    ColorPicker("Secondary/Accent Color", selection: charger.secondaryColorBinding, supportsOpacity: false)
                     Button("Use Main Color") {
                         charger.setSecondaryColorToMain()
                     }

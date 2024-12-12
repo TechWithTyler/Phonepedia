@@ -53,13 +53,13 @@ struct BaseDisplayBacklightButtonsView: View {
             }
         }
         if phone.baseDisplayType > 2 && phone.baseDisplayType < 6 {
-            ColorPicker("Base Display Backlight Color", selection: phone.baseDisplayBacklightColorBinding)
+            ColorPicker("Base Display Backlight Color", selection: phone.baseDisplayBacklightColorBinding, supportsOpacity: false)
         }
         if phone.baseDisplayType >= 3 {
             Toggle("Base Has LED Message Counter In Addition To Display", isOn: $phone.baseHasDisplayAndMessageCounter)
         }
         if phone.baseDisplayType == 1 || phone.baseHasDisplayAndMessageCounter {
-            ColorPicker("LED Message Counter Color", selection: phone.baseLEDMessageCounterColorBinding)
+            ColorPicker("LED Message Counter Color", selection: phone.baseLEDMessageCounterColorBinding, supportsOpacity: false)
         }
         if phone.baseDisplayType > 0 {
             Picker("Base Navigation Button Type", selection: $phone.baseNavigatorKeyType) {
@@ -110,7 +110,7 @@ struct BaseDisplayBacklightButtonsView: View {
             Text("All Buttons").tag(3)
         }
         if phone.baseKeyBacklightAmount > 0 {
-            ColorPicker("Button Backlight Color", selection: phone.baseKeyBacklightColorBinding)
+            ColorPicker("Button Backlight Color", selection: phone.baseKeyBacklightColorBinding, supportsOpacity: false)
             Picker("Button Backlight Layer", selection: $phone.baseKeyBacklightLayer) {
                 Text("Background").tag(0)
                 Text("Foreground").tag(1)
@@ -122,8 +122,8 @@ struct BaseDisplayBacklightButtonsView: View {
                     .font(.system(size: 40))
             }
         }
-        ColorPicker("Button Foreground Color", selection: phone.baseKeyForegroundColorBinding)
-        ColorPicker("Button Background Color", selection: phone.baseKeyBackgroundColorBinding)
+        ColorPicker("Button Foreground Color", selection: phone.baseKeyForegroundColorBinding, supportsOpacity: false)
+        ColorPicker("Button Background Color", selection: phone.baseKeyBackgroundColorBinding, supportsOpacity: false)
         Button("Swap Foreground/Background Colors", systemImage: "arrow.swap") {
             phone.swapKeyBackgroundAndForegroundColors()
         }

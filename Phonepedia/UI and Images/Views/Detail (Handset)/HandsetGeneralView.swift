@@ -44,8 +44,8 @@ struct HandsetGeneralView: View {
             Picker("Place In My Collection", selection: $handset.storageOrSetup) {
                 PhoneInCollectionStatusPickerItems()
             }
-            ColorPicker("Main Color", selection: handset.mainColorBinding)
-            ColorPicker("Secondary/Accent Color", selection: handset.secondaryColorBinding)
+            ColorPicker("Main Color", selection: handset.mainColorBinding, supportsOpacity: false)
+            ColorPicker("Secondary/Accent Color", selection: handset.secondaryColorBinding, supportsOpacity: false)
             Button("Use Main Color") {
                 handset.setSecondaryColorToMain()
             }
@@ -94,7 +94,7 @@ struct HandsetGeneralView: View {
                     Text("No Corded Receiver")
                 }
                 if handset.hasCordedReceiver {
-                    ColorPicker("Corded Receiver Secondary/Accent Color", selection: handset.cordedReceiverSecondaryColorBinding)
+                    ColorPicker("Corded Receiver Secondary/Accent Color", selection: handset.cordedReceiverSecondaryColorBinding, supportsOpacity: false)
                     Button("Use Main Color") {
                         handset.setCordedReceiverSecondaryColorToMain()
                     }

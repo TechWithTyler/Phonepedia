@@ -14,8 +14,8 @@ struct PhoneColorView: View {
     @Bindable var phone: Phone
 
     var body: some View {
-        ColorPicker("Base Main Color", selection: phone.baseMainColorBinding)
-            ColorPicker("Base Secondary/Accent Color", selection: phone.baseSecondaryColorBinding)
+        ColorPicker("Base Main Color", selection: phone.baseMainColorBinding, supportsOpacity: false)
+        ColorPicker("Base Secondary/Accent Color", selection: phone.baseSecondaryColorBinding, supportsOpacity: false)
             Button("Use Main Color") {
                 phone.setBaseSecondaryColorToMain()
         }
@@ -27,7 +27,7 @@ struct PhoneColorView: View {
                 phone.cordedReceiverColorChanged(oldValue: oldValue, newValue: newValue)
             }
         if phone.hasCordedReceiver {
-            ColorPicker("Corded Receiver Secondary/Accent Color", selection: phone.cordedReceiverSecondaryColorBinding)
+            ColorPicker("Corded Receiver Secondary/Accent Color", selection: phone.cordedReceiverSecondaryColorBinding, supportsOpacity: false)
             Button("Use Main Color") {
                 phone.setCordedReceiverSecondaryColorToMain()
         }
