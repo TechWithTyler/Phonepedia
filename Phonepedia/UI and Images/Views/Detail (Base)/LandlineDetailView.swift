@@ -25,13 +25,7 @@ struct LandlineDetailView: View {
         }
         if phone.landlineConnectionType == 0 && phone.storageOrSetup <= 1 {
             Picker("Connected To", selection: $phone.landlineConnectedTo) {
-                Text("No Line").tag(0)
-                Text("Copper (POTS) Line").tag(1)
-                Text("VoIP Modem/ATA").tag(2)
-                Text("Cell-to-Landline Bluetooth").tag(3)
-                Text("Cellular Jack/Base").tag(4)
-                Text("PBX").tag(5)
-                Text("Phone Line Simulator").tag(6)
+                AnalogPhoneConnectedToPickerItems()
             }
         }
         InfoButton(title: "About Connection Types/Devices…") {

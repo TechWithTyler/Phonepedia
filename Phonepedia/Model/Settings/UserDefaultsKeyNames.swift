@@ -22,6 +22,10 @@ extension UserDefaults {
 
         static let showPhoneColorsInList: String = "showPhoneColorsInList"
 
+        static let defaultAnalogPhoneConnectedToSelection = "defaultAnalogPhoneConnectedToSelection"
+
+        static let defaultAcquisitionMethod = "defaultAcquisitionMethod"
+
     }
 
 }

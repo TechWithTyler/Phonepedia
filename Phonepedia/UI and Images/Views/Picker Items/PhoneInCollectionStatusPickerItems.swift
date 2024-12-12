@@ -21,3 +21,7 @@ struct PhoneInCollectionStatusPickerItems: View {
     }
 
 }
+
+#Preview {
+    PhoneInCollectionStatusPickerItems()
+}

@@ -33,13 +33,7 @@ struct HandsetGeneralView: View {
                 }
             }
             Picker("How I Got This Handset", selection: $handset.whereAcquired) {
-                Text("Included With Base/Set").tag(0)
-                Divider()
-                Text("Thrift Store/Sale").tag(1)
-                Text("Electronics Store (New)").tag(2)
-                Text("Online (Used)").tag(3)
-                Text("Online (New)").tag(4)
-                Text("Gift").tag(5)
+                AcquisitionMethodPickerItems(handset: true)
             }
             Picker("Place In My Collection", selection: $handset.storageOrSetup) {
                 PhoneInCollectionStatusPickerItems()

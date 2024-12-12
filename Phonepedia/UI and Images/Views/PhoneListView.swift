@@ -26,6 +26,12 @@ struct PhoneListView: View {
 
     @State var phoneFilterBrand: String = "all"
 
+    // MARK: - Properties - Integers
+
+    @AppStorage(UserDefaults.KeyNames.defaultAnalogPhoneConnectedToSelection) var defaultAnalogPhoneConnectedToSelection: Int = 2
+
+    @AppStorage(UserDefaults.KeyNames.defaultAcquisitionMethod) var defaultAcquisitionMethod: Int = 2
+
     var allBrands: [String] {
         // 1. Create a set to hold the brands. A Set is similar to an Array but can only hold one instance of an item. For example, the word "cat" can only appear once in a String Set.
         var brands: Set<String> = []
@@ -195,39 +201,15 @@ struct PhoneListView: View {
             }
             .accessibilityIdentifier("AddPhoneButton")
         }
+        #if os(macOS)
         ToolbarItem {
-            Menu("Filter", systemImage: phoneFilterEnabled ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle") {
-                Picker("Phone Type (\(phoneFilterType == "all" ? "Off" : "On"))", selection: $phoneFilterType) {
-                    Text("All").tag("all")
-                    Divider()
-                    Text("Cordless or Corded/Cordless Phones").tag(Phone.PhoneType.cordless.rawValue.lowercased())
-                    Text("Corded Phones").tag(Phone.PhoneType.corded.rawValue.lowercased())
-                }
-                .pickerStyle(.menu)
-                .toggleStyle(.automatic)
-                Picker("Active Status (\(phoneFilterActive == 0 ? "Off" : "On"))", selection: $phoneFilterActive) {
-                    Text("Off").tag(0)
-                    Divider()
-                    Text("Active").tag(1)
-                    Text("Inactive").tag(2)
-                }
-                .pickerStyle(.menu)
-                .toggleStyle(.automatic)
-                Picker("Brand (\(phoneFilterBrand == "all" ? "Off" : "On"))", selection: $phoneFilterBrand) {
-                    Text("All").tag("all")
-                    Divider()
-                    ForEach(allBrands.sorted(by: <), id: \.self) { brand in
-                        Text(brand).tag(brand)
-                    }
-                }
-                .pickerStyle(.menu)
-                .toggleStyle(.automatic)
-                Divider()
-                Button("Reset") {
-                    resetPhoneFilter()
-                }
-            }
+            filterToolbarItem
         }
+        #else
+        ToolbarItem(placement: .bottomBar) {
+            filterToolbarItem
+        }
+        #endif
         ToolbarItem {
             OptionsMenu(title: .menu) {
                 PhoneCountButton()
@@ -249,6 +231,41 @@ struct PhoneListView: View {
         }
     }
 
+    @ViewBuilder
+    var filterToolbarItem: some View {
+        Menu("Filter", systemImage: phoneFilterEnabled ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle") {
+            Picker("Phone Type (\(phoneFilterType == "all" ? "Off" : "On"))", selection: $phoneFilterType) {
+                Text("All").tag("all")
+                Divider()
+                Text("Cordless or Corded/Cordless Phones").tag(Phone.PhoneType.cordless.rawValue.lowercased())
+                Text("Corded Phones").tag(Phone.PhoneType.corded.rawValue.lowercased())
+            }
+            .pickerStyle(.menu)
+            .toggleStyle(.automatic)
+            Picker("Active Status (\(phoneFilterActive == 0 ? "Off" : "On"))", selection: $phoneFilterActive) {
+                Text("Off").tag(0)
+                Divider()
+                Text("Active").tag(1)
+                Text("Inactive").tag(2)
+            }
+            .pickerStyle(.menu)
+            .toggleStyle(.automatic)
+            Picker("Brand (\(phoneFilterBrand == "all" ? "Off" : "On"))", selection: $phoneFilterBrand) {
+                Text("All").tag("all")
+                Divider()
+                ForEach(allBrands.sorted(by: <), id: \.self) { brand in
+                    Text(brand).tag(brand)
+                }
+            }
+            .pickerStyle(.menu)
+            .toggleStyle(.automatic)
+            Divider()
+            Button("Reset") {
+                resetPhoneFilter()
+            }
+        }
+    }
+
     // MARK: - Reset Phone Filter
 
     func resetPhoneFilter() {
@@ -263,6 +280,8 @@ struct PhoneListView: View {
         withAnimation {
             // 1. Create a new Phone object with a mock brand and model number.
             let newPhone = Phone(brand: "Some Brand", model: "M123")
+            newPhone.landlineConnectedTo = defaultAnalogPhoneConnectedToSelection
+            newPhone.whereAcquired = defaultAcquisitionMethod
             // 2. Insert the new phone into the model context.
             modelContext.insert(newPhone)
             // 3. Disable the phone filter.

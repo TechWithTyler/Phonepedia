@@ -54,11 +54,7 @@ struct PhoneGeneralView: View {
             }
         }
         Picker("How I Got This Phone", selection: $phone.whereAcquired) {
-            Text("Thrift Store/Sale").tag(0)
-            Text("Electronics Store (New)").tag(1)
-            Text("Online (Used)").tag(2)
-            Text("Online (New)").tag(3)
-            Text("Gift").tag(4)
+            AcquisitionMethodPickerItems()
         }
         Picker("Place In My Collection", selection: $phone.storageOrSetup) {
             PhoneInCollectionStatusPickerItems()
