@@ -26,12 +26,6 @@ struct PhoneListView: View {
 
     @State var phoneFilterBrand: String = "all"
 
-    // MARK: - Properties - Integers
-
-    @AppStorage(UserDefaults.KeyNames.defaultAnalogPhoneConnectedToSelection) var defaultAnalogPhoneConnectedToSelection: Int = 2
-
-    @AppStorage(UserDefaults.KeyNames.defaultAcquisitionMethod) var defaultAcquisitionMethod: Int = 2
-
     var allBrands: [String] {
         // 1. Create a set to hold the brands. A Set is similar to an Array but can only hold one instance of an item. For example, the word "cat" can only appear once in a String Set.
         var brands: Set<String> = []
@@ -44,6 +38,10 @@ struct PhoneListView: View {
     }
 
     // MARK: - Properties - Integers
+
+    @AppStorage(UserDefaults.KeyNames.defaultAnalogPhoneConnectedToSelection) var defaultAnalogPhoneConnectedToSelection: Int = 2
+
+    @AppStorage(UserDefaults.KeyNames.defaultAcquisitionMethod) var defaultAcquisitionMethod: Int = 2
 
     @State var phoneFilterActive: Int = 0
 
@@ -283,6 +281,8 @@ struct PhoneListView: View {
             // 2. Set the default selections.
             newPhone.landlineConnectedTo = defaultAnalogPhoneConnectedToSelection
             newPhone.whereAcquired = defaultAcquisitionMethod
+            // A phone's phoneNumberInCoollection property is the index of the phone in the list, and as with any index, it starts at 0. The number of phones in the list before the new phone is added can be used as the phone's index without adding/subtracting 1.
+            newPhone.phoneNumberInCollection = phones.count
             // 3. Insert the new phone into the model context.
             modelContext.insert(newPhone)
             // 4. Disable the phone filter.
@@ -311,7 +311,7 @@ struct PhoneListView: View {
             // 3. Perform the move operation on the copy.
             tempItems.move(fromOffsets: source, toOffset: destination)
             // 4. Use the copy's items and their indicies to move the phones in the original array.
-            for (index, tempItem) in tempItems.enumerated() {
+            for (index, tempItem) in tempItems.reversed().enumerated() {
                 if let item = phones.filter({ $0.id == tempItem.id}).first {
                     item.phoneNumberInCollection = index
                 }
