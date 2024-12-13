@@ -26,6 +26,8 @@ extension UserDefaults {
 
         static let defaultAcquisitionMethod = "defaultAcquisitionMethod"
 
+        static let showYearsInList: String = "showYearsInList"
+
     }
 
 }

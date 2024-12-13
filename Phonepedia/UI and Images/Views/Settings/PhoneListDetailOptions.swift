@@ -22,6 +22,8 @@ struct PhoneListDetailOptions: View {
 
     @AppStorage(UserDefaults.KeyNames.showPhoneColorsInList) var showPhoneColorsInList: Bool = true
 
+    @AppStorage(UserDefaults.KeyNames.showYearsInList) var showYearsInList: Bool = true
+
     // MARK: - Body
 
     var body: some View {
@@ -29,6 +31,7 @@ struct PhoneListDetailOptions: View {
         Toggle("Show Phone Active Status", isOn: $showPhoneActiveStatusInList)
         Toggle("Show Number Of Cordless Handsets", isOn: $showNumberOfCordlessHandsetsInList)
         Toggle("Show Phone Colors", isOn: $showPhoneColorsInList)
+        Toggle("Show Release/Acquisition Years", isOn: $showYearsInList)
         Toggle("Highlight Handset Number Digit", isOn: $highlightHandsetNumberDigitInList)
     }
 
