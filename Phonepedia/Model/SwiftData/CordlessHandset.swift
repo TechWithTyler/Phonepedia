@@ -90,6 +90,8 @@ final class CordlessHandset {
 	
 	var displayType: Int = 2
 
+    var desksetDisplayCanTilt: Bool = false
+
     var mainMenuLayout: Int = 0
 
     var batteryType: Int = 0
@@ -407,6 +409,7 @@ final class CordlessHandset {
             cordedReceiverMainColorBinding.wrappedValue = .clear
             cordedReceiverSecondaryColorBinding.wrappedValue = .black
             desksetSupportsBackupBatteries = false
+            desksetDisplayCanTilt = false
         }
 	}
     
@@ -443,6 +446,7 @@ final class CordlessHandset {
 
 	func displayTypeChanged(oldValue: Int, newValue: Int) {
 		if newValue == 0 {
+            desksetDisplayCanTilt = false
             if answeringSystemMenu > 0 {
                 answeringSystemMenu = 0
             }

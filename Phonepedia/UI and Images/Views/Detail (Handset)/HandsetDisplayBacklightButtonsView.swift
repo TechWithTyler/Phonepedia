@@ -78,6 +78,9 @@ struct HandsetDisplayBacklightButtonsView: View {
             .onChange(of: handset.displayType) { oldValue, newValue in
                 handset.displayTypeChanged(oldValue: oldValue, newValue: newValue)
             }
+            if handset.displayType > 0 && handset.cordlessDeviceType == 1 {
+                Toggle("Display Can Tilt", isOn: $handset.desksetDisplayCanTilt)
+            }
             InfoButton(title: "About Display Types…") {
                 dialogManager.showingAboutDisplayTypes = true
             }

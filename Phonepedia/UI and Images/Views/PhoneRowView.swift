@@ -54,6 +54,10 @@ struct PhoneRowView: View {
                     .animation(.linear, value: phone.handsetNumberDigit)
                 if !phone.nickname.isEmpty {
                     Text("\"\(phone.nickname)\"")
+                        .font(.title3)
+                        .foregroundStyle(.secondary)
+                        .lineLimit(nil)
+                        .multilineTextAlignment(.center)
                 }
                 if showPhoneTypeInList {
                     Text(phone.phoneTypeText)

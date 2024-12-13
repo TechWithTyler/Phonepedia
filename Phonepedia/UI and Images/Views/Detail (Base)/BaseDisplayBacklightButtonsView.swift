@@ -42,6 +42,9 @@ struct BaseDisplayBacklightButtonsView: View {
         .onChange(of: phone.baseDisplayType) { oldValue, newValue in
             phone.baseDisplayTypeChanged(oldValue: oldValue, newValue: newValue)
         }
+        if phone.baseDisplayType > 3 {
+            Toggle("Base Display Can Tilt", isOn: $phone.baseDisplayCanTilt)
+        }
         InfoButton(title: "About Display Types…") {
             dialogManager.showingAboutDisplayTypes = true
         }

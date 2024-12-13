@@ -173,7 +173,9 @@ final class Phone {
 	
 	var hasAnsweringSystem: Int = 3
 
-    var answeringSystemType: Int = 0
+    var answeringSystemType: Int = 1
+
+    var answeringSystemMultilineButtonLayout: Int = 0
 
     var answeringSystemForCellLines: Bool = false
 
@@ -210,6 +212,8 @@ final class Phone {
 	var hasTalkingPhonebook: Bool = false
 	
 	var baseDisplayType: Int = 0
+
+    var baseDisplayCanTilt: Bool = false
 
     var baseMainMenuLayout: Int = 0
 
@@ -593,6 +597,7 @@ final class Phone {
     
     func numberOfLandlinesChanged(oldValue: Int, newValue: Int) {
         if newValue < 2 {
+            answeringSystemMultilineButtonLayout = 0
             for handset in cordlessHandsetsIHave {
                 if handset.talkOffButtonType == 4 {
                     handset.talkOffButtonType = 1
@@ -697,6 +702,7 @@ final class Phone {
 
 	func baseDisplayTypeChanged(oldValue: Int, newValue: Int) {
 		if newValue == 0 {
+            baseDisplayCanTilt = false
             if handsetRenaming == 2 {
                 handsetRenaming = 1
             }

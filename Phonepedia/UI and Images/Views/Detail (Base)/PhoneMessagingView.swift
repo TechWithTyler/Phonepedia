@@ -31,6 +31,11 @@ struct PhoneMessagingView: View {
                 Text("Digital").tag(1)
             }
             InfoText("Early answering systems stored messages on a tape cassette. The greeting is stored either on the same cassette as the messages (single-cassette systems), on a separate cassette (dual-cassette systems), or digitally. Storing the greeting on the same cassette as the messages results in a delay between the greeting and the beep, as the system needs to move the tape forward to the end where the message is to be recorded. Some models can count the number of messages on the tape by detecting the beeps on the tape.\nModern answering systems are fully digital, meaning messages are stored on a memory chip. This allows for quicker operation.")
+            Picker("Multi-Line Button Layout", selection: $phone.answeringSystemMultilineButtonLayout) {
+                Text("Separate Buttons").tag(0)
+                Text("Line Selection Button").tag(1)
+            }
+            InfoText("Multi-line phones either have separate play and answer on/off buttons for each line, or one play and answer on/off button as well as a button which selects the line(s) those buttons will use.")
         }
         if phone.hasAnsweringSystem > 0 && phone.baseBluetoothCellPhonesSupported > 0 && phone.answeringSystemType == 1 {
             Toggle("Answering System For Cell Lines", isOn: $phone.answeringSystemForCellLines)
@@ -48,7 +53,7 @@ struct PhoneMessagingView: View {
             Picker("Answering System Menu (Base)", selection: $phone.answeringSystemMenuOnBase) {
                 Text("None").tag(0)
                 Text("Voice Prompts").tag(1)
-                if phone.baseDisplayType > 0 {
+                if phone.baseDisplayType > 2 {
                     Text("Display Menu").tag(2)
                 }
             }
@@ -60,8 +65,8 @@ struct PhoneMessagingView: View {
                 Text("Handset Only").tag(1)
                 Text("Base or Handset").tag(2)
             }
-            InfoText("The greeting, sometimes called the announcement or outgoing message, is the message the answering system plays to callers when it answers, before optionally allowing the caller to leave a message. Example: \"Hello. You have reached \(names.randomElement()!). I'm not available to take your call, so please \(AnsweringSystemGreetingComponents.leaveOrRecord()) \(AnsweringSystemGreetingComponents.aOrYour()) message after the \(AnsweringSystemGreetingComponents.beepOrTone()).\"")
         }
+        InfoText("The greeting, sometimes called the announcement or outgoing message, is the message the answering system plays to callers when it answers, before optionally allowing the caller to leave a message. Example: \"Hello. You have reached \(names.randomElement()!). I'm not available to take your call, so please \(AnsweringSystemGreetingComponents.leaveOrRecord()) \(AnsweringSystemGreetingComponents.aOrYour()) message after the \(AnsweringSystemGreetingComponents.beepOrTone()).\"")
         if phone.hasAnsweringSystem > 0 {
             Toggle("Has Greeting Only Mode", isOn: $phone.hasGreetingOnlyMode)
             InfoText("Greeting Only, sometimes called Announce Only or Answer Only, answers calls but doesn't accept incoming messages. Some phones allow you to record a separate greeting for both modes, allowing you to easily switch between modes without having to re-record your greeting each time. Example: \"Hello. You have reached \(names.randomElement()!). I'm not available to take your call, so please call again later.\"")
