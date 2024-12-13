@@ -31,7 +31,7 @@ struct SettingsView: View {
         SAMVisualEffectViewSwiftUIRepresentable {
             settingsView
         }
-        .frame(width: 500)
+        .frame(width: 500, height: 600)
         #else
         NavigationStack {
             settingsView
