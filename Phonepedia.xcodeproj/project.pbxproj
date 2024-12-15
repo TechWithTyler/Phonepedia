@@ -1071,7 +1071,7 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.reference";
 				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Use the camera to take a photo of your phone to display in the phones list and detail view.";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023-2024 SheftApps. All rights reserved.";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023-2025 SheftApps. All rights reserved.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Select a photo of your phone from your library to display in the phones list and detail view.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -1120,7 +1120,7 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.reference";
 				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Use the camera to take a photo of your phone to display in the phones list and detail view.";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023-2024 SheftApps. All rights reserved.";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023-2025 SheftApps. All rights reserved.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Select a photo of your phone from your library to display in the phones list and detail view.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
