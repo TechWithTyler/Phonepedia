@@ -159,9 +159,6 @@ struct PhoneListView: View {
         .sheet(isPresented: $dialogManager.showingPhoneCount) {
             PhoneCountView(phones: phones)
         }
-#if os(macOS)
-        .navigationSplitViewColumnWidth(300)
-#endif
         .alert("Delete all phones from this catalog?", isPresented: $dialogManager.showingDeleteAllPhones) {
             Button(role: .destructive) {
                 dialogManager.showingDeleteAllPhones = false
