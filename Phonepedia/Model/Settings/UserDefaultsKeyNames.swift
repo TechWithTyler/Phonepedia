@@ -28,6 +28,8 @@ extension UserDefaults {
 
         static let showYearsInList: String = "showYearsInList"
 
+        static let showFrequencyInList: String = "showFrequencyInList"
+
     }
 
 }

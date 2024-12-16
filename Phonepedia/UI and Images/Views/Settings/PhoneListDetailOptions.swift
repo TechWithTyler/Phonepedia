@@ -24,10 +24,15 @@ struct PhoneListDetailOptions: View {
 
     @AppStorage(UserDefaults.KeyNames.showYearsInList) var showYearsInList: Bool = true
 
+    @AppStorage(UserDefaults.KeyNames.showFrequencyInList) var showFrequencyInList: Bool = true
+
     // MARK: - Body
 
     var body: some View {
         Toggle("Show Phone Type", isOn: $showPhoneTypeInList)
+        if showPhoneTypeInList {
+            Toggle("Show Cordless Phone Frequency", isOn: $showFrequencyInList)
+        }
         Toggle("Show Phone Active Status", isOn: $showPhoneActiveStatusInList)
         Toggle("Show Number Of Cordless Handsets", isOn: $showNumberOfCordlessHandsetsInList)
         Toggle("Show Phone Colors", isOn: $showPhoneColorsInList)

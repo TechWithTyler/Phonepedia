@@ -59,7 +59,7 @@ struct PhoneGeneralView: View {
         Picker("Place In My Collection", selection: $phone.storageOrSetup) {
             PhoneInCollectionStatusPickerItems()
         }
-        Toggle("Needed One or More Non-Battery Replacements", isOn: $phone.neededReplacements)
+        Toggle("Needed One or More Non-Accessory Replacements", isOn: $phone.neededReplacements)
         InfoText("Sometimes, one or more parts of your phones may break or come broken and can't be fixed easily (e.g. broken base/handset speaker or display, corrupt memory on a base or handset that a factory reset can't fix, handsets unable to register/link to the base).\nYou can replace handsets easily just as you would purchase additional handsets, but you might end up with more parts than what you needed (e.g. you needed just a handset but also got a charger). To replace just a base or charger, you'll need to look on the used market or purchase an entire new phone set.\nIf you don't want to replace broken parts, you can try to send them to someone who can repair them, or if you know how to, repair it yourself.")
         VStack {
             Text("Write more about your phone (e.g., the story behind why you got it, when/where you got it, whether you had to replace broken parts) in the text area below.")
