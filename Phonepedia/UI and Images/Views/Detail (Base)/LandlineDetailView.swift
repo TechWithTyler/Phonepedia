@@ -23,6 +23,9 @@ struct LandlineDetailView: View {
             Text("VoIP (Wi-Fi)").tag(3)
             Text("Built-In Cellular").tag(4)
         }
+        .onChange(of: phone.landlineConnectionType) { oldValue, newValue in
+            phone.landlineConnectionTypeChanged(oldValue: oldValue, newValue: newValue)
+        }
         if phone.landlineConnectionType == 0 && phone.storageOrSetup <= 1 {
             Picker("Connected To", selection: $phone.landlineConnectedTo) {
                 AnalogPhoneConnectedToPickerItems()

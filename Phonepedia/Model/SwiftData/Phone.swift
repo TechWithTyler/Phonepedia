@@ -351,6 +351,8 @@ final class Phone {
     
     var hasQZ: Bool = true
 
+    var supportsPoE: Bool = false
+
     var neededReplacements: Bool = false
 
     // MARK: - Properties - Transient (Non-Persistent) Properties
@@ -805,7 +807,27 @@ final class Phone {
             hasBaseIntercom = true
         }
     }
-	
+
+    func landlineConnectionTypeChanged(oldValue: Int, newValue: Int) {
+        if newValue > 1 {
+            if cordedPowerSource < 2 {
+                cordedPowerSource = 2
+            }
+            if isCordedCordless && cordlessPowerBackupMode == 1 {
+                cordlessPowerBackupMode = 0
+            }
+        }
+        if newValue != 2 {
+            supportsPoE = false
+        }
+    }
+
+    func supportsPoEChanged(oldValue: Bool, newValue: Bool) {
+        if !newValue && cordedPowerSource == 0 {
+            cordedPowerSource = 2
+        }
+    }
+
 	func cordlessPowerBackupModeChanged(oldValue: Int, newValue: Int) {
 		if newValue != 1 {
 			cordlessPowerBackupReturnBehavior = 0
