@@ -111,6 +111,8 @@ struct PhoneRowView: View {
                     Text(phoneTypeText)
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
+                        .multilineTextAlignment(.center)
+                        .lineLimit(nil)
                 }
                 if showNumberOfCordlessHandsetsInList && phone.isCordless {
                     if phone.numberOfIncludedCordlessHandsets == phone.cordlessHandsetsIHave.count {
