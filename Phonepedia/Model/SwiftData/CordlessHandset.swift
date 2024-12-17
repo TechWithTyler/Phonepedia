@@ -221,7 +221,7 @@ final class CordlessHandset {
     @Transient
     var hasPhysicalCellButton: Bool {
         guard let phone = phone else { return false }
-        return softKeys > 0 && phone.baseBluetoothCellPhonesSupported > 0 && lineButtons == 0
+        return phone.baseBluetoothCellPhonesSupported > 0 && lineButtons == 0
     }
     
     // MARK: - Color Bindings

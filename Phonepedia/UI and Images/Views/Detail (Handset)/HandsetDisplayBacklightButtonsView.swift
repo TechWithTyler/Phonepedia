@@ -18,7 +18,9 @@ struct HandsetDisplayBacklightButtonsView: View {
     var body: some View {
         if let phone = handset.phone {
             if handset.handsetStyle < 2 {
-            Toggle("7 Has Q and 9 Has Z", isOn: handset.displayType == 0 ? $handset.hasQZ : .constant(true))
+                if handset.displayType == 0 {
+                    Toggle("7 Has Q and 9 Has Z", isOn: $handset.hasQZ)
+                }
             PhoneNumberLetterInfoView()
                 if handset.cordlessDeviceType == 0 {
                     Picker("Talk/Off Button Type", selection: $handset.talkOffButtonType) {

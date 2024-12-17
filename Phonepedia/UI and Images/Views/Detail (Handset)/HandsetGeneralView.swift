@@ -70,7 +70,7 @@ struct HandsetGeneralView: View {
                 Picker("Antenna", selection: $handset.antenna) {
                     Text("Hidden").tag(0)
                     if handset.cordlessDeviceType == 0 {
-                        Text("Style (short)").tag(1)
+                        Text("Style (Short)").tag(1)
                     }
                     Text("Transmission (Long)").tag(2)
                     Text("Transmission (Telescopic)").tag(3)

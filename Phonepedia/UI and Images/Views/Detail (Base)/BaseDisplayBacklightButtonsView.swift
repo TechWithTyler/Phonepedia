@@ -24,7 +24,9 @@ struct BaseDisplayBacklightButtonsView: View {
             Text("Diamond-Cut (No Space Between Buttons, Click Feel)").tag(4)
             Text("Touch Button Panel").tag(5)
         }
-        Toggle("7 Has Q and 9 Has Z", isOn: phone.baseDisplayType == 0 ? $phone.hasQZ : .constant(true))
+        if phone.hasBaseKeypad && phone.baseDisplayType == 0 {
+            Toggle("7 Has Q and 9 Has Z", isOn: $phone.hasQZ)
+        }
         PhoneNumberLetterInfoView()
         Picker(phone.isCordless ? "Display Type (Base)" : "Display Type", selection: $phone.baseDisplayType) {
             Text("None").tag(0)
