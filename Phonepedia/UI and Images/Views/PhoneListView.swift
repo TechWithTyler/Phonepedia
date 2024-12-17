@@ -196,6 +196,13 @@ struct PhoneListView: View {
             }
             .accessibilityIdentifier("AddPhoneButton")
         }
+        ToolbarItem {
+            Button {
+                reversePhoneOrder()
+            } label: {
+                Label("Reverse Order", systemImage: "arrow.up.arrow.down")
+            }
+        }
         #if os(macOS)
         ToolbarItem {
             filterToolbarItem
@@ -312,6 +319,18 @@ struct PhoneListView: View {
                 if let item = phones.filter({ $0.id == tempItem.id}).first {
                     item.phoneNumberInCollection = index
                 }
+            }
+        }
+    }
+
+    private func reversePhoneOrder() {
+        withAnimation {
+            // Create a reversed array of phone indices
+            let reversedIndices = (0..<phones.count).reversed()
+            
+            // Update each phone's index
+            for (newIndex, phone) in phones.enumerated() {
+                phone.phoneNumberInCollection = reversedIndices.first(where: { _ in true }) ?? newIndex
             }
         }
     }
