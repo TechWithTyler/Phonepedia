@@ -304,13 +304,13 @@ struct PhoneListView: View {
             }
         withAnimation {
             // 2. Create a copy of the phones array pre-move.
-            var tempItems = phones
+            var phonesCopy = phones
             // 3. Perform the move operation on the copy.
-            tempItems.move(fromOffsets: source, toOffset: destination)
+            phonesCopy.move(fromOffsets: source, toOffset: destination)
             // 4. Use the copy's items and their indicies to move the phones in the original array.
-            for (index, tempItem) in tempItems.reversed().enumerated() {
-                if let item = phones.filter({ $0.id == tempItem.id}).first {
-                    item.phoneNumberInCollection = index
+            for (index, phone) in phonesCopy.reversed().enumerated() {
+                if let originalPhone = phones.filter({ $0.id == phone.id}).first {
+                    originalPhone.phoneNumberInCollection = index
                 }
             }
         }
