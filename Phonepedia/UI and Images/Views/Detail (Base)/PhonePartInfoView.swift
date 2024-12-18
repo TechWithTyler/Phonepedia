@@ -35,8 +35,9 @@ struct PhonePartInfoView: View {
     // MARK: - Body
 
     var body: some View {
-        Section("Cordless Devices (\(handsetCount))") {
+        Section("Cordless Devices") {
             if !phone.cordlessHandsetsIHave.isEmpty {
+                Text("\(handsetCount) Cordless \(handsetCount == 1 ? "Device" : "Devices")")
                 ForEach(phone.cordlessHandsetsIHave) { handset in
                     let handsetNumber = (phone.cordlessHandsetsIHave.firstIndex(of: handset) ?? 0) + 1
                     NavigationLink {
@@ -86,7 +87,9 @@ struct PhonePartInfoView: View {
             Button(action: addHandset) {
                 Label("Add", systemImage: "plus")
             }
+#if os(macOS)
             .buttonStyle(.borderless)
+#endif
             .accessibilityIdentifier("AddHandsetButton")
             .disabled(phone.cordlessHandsetsIHave.count >= phone.maxCordlessHandsets && phone.maxCordlessHandsets != -1)
             if phone.cordlessHandsetsIHave.count > phone.maxCordlessHandsets {
@@ -100,7 +103,9 @@ struct PhonePartInfoView: View {
                     .foregroundStyle(.red)
 #endif
             }
+#if os(macOS)
             .buttonStyle(.borderless)
+#endif
         }
         .alert("Delete this cordless device?", isPresented: $dialogManager.showingDeleteHandset, presenting: $dialogManager.handsetToDelete) { handset in
             Button("Delete", role: .destructive) {
@@ -114,7 +119,7 @@ struct PhonePartInfoView: View {
             }
         } message: { handset in
             let wrappedHandset = handset.wrappedValue!
-                Text("This \(wrappedHandset.brand) \(wrappedHandset.model.isEmpty ? "cordless device" : wrappedHandset.model) will be deleted from this \(phone.brand) \(phone.model).")
+            Text("This \(wrappedHandset.brand) \(wrappedHandset.model.isEmpty ? "cordless device" : wrappedHandset.model) will be deleted from this \(phone.brand) \(phone.model).")
         }
         .alert("Delete all cordless devices?", isPresented: $dialogManager.showingDeleteAllHandsets) {
             Button("Delete", role: .destructive) {
@@ -127,8 +132,9 @@ struct PhonePartInfoView: View {
         } message: {
             Text("All cordless devices will be deleted from this \(phone.brand) \(phone.model).")
         }
-        Section("Cordless Device Chargers (\(chargerCount))") {
+        Section("Cordless Device Chargers") {
             if !phone.chargersIHave.isEmpty {
+                Text("\(chargerCount) \(chargerCount == 1 ? "Charger" : "Chargers")")
                 ForEach(phone.chargersIHave) { charger in
                     let chargerNumber = (phone.chargersIHave.firstIndex(of: charger) ?? 0) + 1
                     NavigationLink {
@@ -167,7 +173,9 @@ struct PhonePartInfoView: View {
             Button(action: addCharger) {
                 Label("Add", systemImage: "plus")
             }
+#if os(macOS)
             .buttonStyle(.borderless)
+#endif
             .accessibilityIdentifier("AddChargerButton")
             Button(role: .destructive) {
                 dialogManager.showingDeleteAllChargers = true
@@ -177,7 +185,9 @@ struct PhonePartInfoView: View {
                     .foregroundStyle(.red)
 #endif
             }
+#if os(macOS)
             .buttonStyle(.borderless)
+#endif
         }
         .alert("Delete this charger?", isPresented: $dialogManager.showingDeleteCharger, presenting: $dialogManager.chargerToDelete) { charger in
             Button("Delete", role: .destructive) {
