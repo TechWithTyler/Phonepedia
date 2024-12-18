@@ -231,6 +231,10 @@ In most cases, if the base has a charge light/display message, the completion of
                 • A novelty phone is a corded phone that's designed to look like something else, like a hamburger you flip open, a piano whose keys are used to dial numbers, a slim phone that's shaped like a pair of lips, or an animated character that serves as the phone's base.
                 """)
         }
+        if phone.cordedPhoneType == 0 {
+            Toggle("Has Dual Receivers", isOn: $phone.hasDualReceivers)
+            InfoText("A corded phone with dual receivers allows 2 people to use the phone at the same time without having to connect 2 separate phones to the same line. These kinds of phones are often used by those requiring a language interpreter.")
+        }
     }
 }
 

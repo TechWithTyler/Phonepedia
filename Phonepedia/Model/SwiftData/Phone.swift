@@ -116,7 +116,9 @@ final class Phone {
     var chargeLight: Int = 0
 	
 	var cordedPhoneType: Int = 0
-	
+
+    var hasDualReceivers: Bool = false
+
 	var cordedRingerType: Int = 0
 	
 	var numberOfIncludedCordlessHandsets: Int = 1
@@ -865,6 +867,7 @@ final class Phone {
 	
 	func cordedPhoneTypeChanged(oldValue: Int, newValue: Int) {
 		if newValue != 0 {
+            hasDualReceivers = false
 			hasBaseSpeakerphone = false
 			hasTalkingKeypad = false
 			hasTalkingPhonebook = false
