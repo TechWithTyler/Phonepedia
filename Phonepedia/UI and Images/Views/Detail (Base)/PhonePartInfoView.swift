@@ -84,9 +84,19 @@ struct PhonePartInfoView: View {
             }
             FormTextField("Main Cordless Device Model", text: $phone.mainHandsetModel)
             InfoText("Enter the model number of the main cordless handset or deskset included with the \(phone.brand) \(phone.model) so newly-added cordless devices will default to that model number.\nA cordless phone's main handset/deskset is registered to the base as number 1, and may have some special features, like backing up the time in case of power outage, not available to other devices on the system.\nSome non-expandable cordless phones won't have a handset model number or it will be the same as that of the set it came with--leave this field blank in this case.")
-            Button(action: addHandset) {
+            Menu {
+                if !phone.cordlessHandsetsIHave.isEmpty {
+                    Button(action: duplicateLastHandset) {
+                        Text("Duplicate of Last Cordless Device")
+                    }
+                }
+                Button(action: addHandset) {
+                    Text("New Cordless Device")
+                }
+            } label: {
                 Label("Add", systemImage: "plus")
             }
+            .menuIndicator(.hidden)
 #if os(macOS)
             .buttonStyle(.borderless)
 #endif
@@ -170,9 +180,19 @@ struct PhonePartInfoView: View {
                 Text("No chargers")
                     .foregroundStyle(.secondary)
             }
-            Button(action: addCharger) {
+            Menu {
+                if !phone.chargersIHave.isEmpty {
+                    Button(action: duplicateLastCharger) {
+                        Text("Duplicate of Last Charger")
+                    }
+                }
+                Button(action: addCharger) {
+                    Text("New Charger")
+                }
+            } label: {
                 Label("Add", systemImage: "plus")
             }
+            .menuIndicator(.hidden)
 #if os(macOS)
             .buttonStyle(.borderless)
 #endif
@@ -241,6 +261,10 @@ struct PhonePartInfoView: View {
         }
     }
 
+    func duplicateLastHandset() {
+        duplicateHandset(phone.cordlessHandsetsIHave.last!)
+    }
+
     func deleteHandset(at index: Int) {
         phone.cordlessHandsetsIHave.remove(at: index)
     }
@@ -251,10 +275,6 @@ struct PhonePartInfoView: View {
         phone.chargersIHave.append(CordlessHandsetCharger())
     }
 
-    func deleteCharger(at index: Int) {
-        phone.chargersIHave.remove(at: index)
-    }
-
     func duplicateCharger(_ charger: CordlessHandsetCharger) {
         // 1. Create a duplicate of charger.
         let newCharger = charger.duplicate()
@@ -262,6 +282,14 @@ struct PhonePartInfoView: View {
         if let index = phone.chargersIHave.firstIndex(of: charger) {
             phone.chargersIHave.insert(newCharger, at: index + 1)
         }
+    }
+
+    func duplicateLastCharger() {
+        duplicateCharger(phone.chargersIHave.last!)
+    }
+
+    func deleteCharger(at index: Int) {
+        phone.chargersIHave.remove(at: index)
     }
 
 }
