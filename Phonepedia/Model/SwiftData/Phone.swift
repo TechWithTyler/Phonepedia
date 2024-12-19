@@ -119,8 +119,14 @@ final class Phone {
 
     var hasDualReceivers: Bool = false
 
+    var dialLocation: Int = 1
+
+    var switchHookType: Int = 0
+
 	var cordedRingerType: Int = 0
-	
+
+    var cordedRingerLocation: Int = 0
+
 	var numberOfIncludedCordlessHandsets: Int = 1
 
     var handsetNumberDigit: Int? = nil
@@ -878,6 +884,9 @@ final class Phone {
 			baseBluetoothCellPhonesSupported = 0
 			hasTalkingCallerID = false
 		}
+        if newValue != 2 {
+            switchHookType = 0
+        }
 		if newValue == 1 || newValue == 3 {
 			baseRedialCapacity = 0
 			baseSpeedDialCapacity = 0
@@ -891,9 +900,10 @@ final class Phone {
 	
 	func cordedRingerTypeChanged(oldValue: Int, newValue: Int) {
 		if newValue == 0 {
-			hasBaseSpeakerphone = false
-			hasAnsweringSystem = 0
-			baseRingtones = 0
+            cordedRingerLocation = 0
+            hasBaseSpeakerphone = false
+            hasAnsweringSystem = 0
+            baseRingtones = 0
 			baseMusicRingtones = 0
 			basePhonebookCapacity = 0
 			baseCallerIDCapacity = 0

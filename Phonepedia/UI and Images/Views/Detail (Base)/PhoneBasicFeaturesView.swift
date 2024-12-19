@@ -235,6 +235,19 @@ In most cases, if the base has a charge light/display message, the completion of
             Toggle("Has Dual Receivers", isOn: $phone.hasDualReceivers)
             InfoText("A corded phone with dual receivers allows 2 people to use the phone at the same time without having to connect 2 separate phones to the same line. These kinds of phones are often used by those requiring a language interpreter.")
         }
+        if phone.cordedPhoneType == 2 || phone.cordedPhoneType == 3 {
+            Picker("\(phone.cordedPhoneType == 2 ? "Keypad" : "Rotary Dial") Location", selection: $phone.dialLocation) {
+                Text("Base").tag(0)
+                Text("Receiver").tag(1)
+            }
+        }
+        if phone.cordedPhoneType == 2 {
+            Picker("Switch Hook", selection: $phone.switchHookType) {
+                Text("On Base").tag(0)
+                Text("On Receiver").tag(1)
+                Text("Magnetic").tag(2)
+            }
+        }
     }
 }
 
