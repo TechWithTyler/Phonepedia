@@ -59,6 +59,8 @@ func cnamForName(_ name: String) -> String {
     return lastFirstName
 }
 
+var phoneDescriptionSampleText: String = "I bought this phone at a thrift store in June 2023. I've always been wanting this model because of its stylish design."
+
 // The current year to use as the default value of a phone or handset's release year/acquisition year.
 var currentYear = Calendar.current.component(.year, from: Date())
 

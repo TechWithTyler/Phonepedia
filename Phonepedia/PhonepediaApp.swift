@@ -41,6 +41,7 @@ struct PhonepediaApp: App {
         #if os(macOS)
         Settings {
             SettingsView()
+                .environmentObject(dialogManager)
         }
         #endif
     }

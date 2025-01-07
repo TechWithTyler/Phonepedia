@@ -11,75 +11,82 @@ import SheftAppsStylishUI
 
 struct SettingsView: View {
 
+    // MARK: - Properties - Dialog Manager
+
+    @EnvironmentObject var dialogManager: DialogManager
+
     // MARK: - Properties - Dismiss Action
 
     #if !os(macOS)
     @Environment(\.dismiss) var dismiss
     #endif
 
-    // MARK: - Properties - Integers
-
-    @AppStorage(UserDefaults.KeyNames.defaultAnalogPhoneConnectedToSelection) var defaultAnalogPhoneConnectedToSelection: Int = 2
-
-    @AppStorage(UserDefaults.KeyNames.defaultAcquisitionMethod) var defaultAcquisitionMethod: Int = 0
-
-
     // MARK: - Body
 
     var body: some View {
-        #if os(macOS)
+#if os(macOS)
+        // macOS settings window
         SAMVisualEffectViewSwiftUIRepresentable {
-            settingsView
+            TabView(selection: $dialogManager.selectedSettingsPage) {
+                Tab(value: SettingsPage.display) {
+                    SAMVisualEffectViewSwiftUIRepresentable {
+                        DisplaySettingsPageView()
+                    }
+                    .frame(width: 500, height: 500)
+                    .formStyle(.grouped)
+                } label: {
+                    Label(SettingsPage.display.rawValue.capitalized, systemImage: SettingsPage.Icons.display.rawValue)
+                }
+                Tab(value: SettingsPage.newPhones) {
+                    SAMVisualEffectViewSwiftUIRepresentable {
+                        NewPhonesSettingsPageView()
+                    }
+                    .frame(width: 500, height: 200)
+                    .formStyle(.grouped)
+                } label: {
+                    Label(SettingsPage.newPhones.rawValue.capitalized, systemImage: SettingsPage.Icons.newPhones.rawValue)
+                }
+            }
         }
-        .frame(width: 500, height: 600)
-        #else
+        .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
+#else
+        // iOS/visionOS settings page
         NavigationStack {
-            settingsView
-                .toolbar {
-                    ToolbarItem(placement: .confirmationAction) {
-                        Button("Done") {
-                            dismiss()
-                        }
+            Form {
+                Section {
+                    NavigationLink {
+                        DisplaySettingsPageView()
+                            .navigationTitle(SettingsPage.display.rawValue.capitalized)
+                    } label: {
+                        Label(SettingsPage.display.rawValue.capitalized, systemImage: SettingsPage.Icons.display.rawValue)
+                    }
+                    NavigationLink {
+                        NewPhonesSettingsPageView()
+                            .navigationTitle(SettingsPage.newPhones.rawValue.capitalized)
+                    } label: {
+                        Label(SettingsPage.newPhones.rawValue.capitalized, systemImage: SettingsPage.Icons.newPhones.rawValue)
                     }
                 }
-                .navigationTitle("Settings")
+                Section {
+                    Button("Help…", systemImage: "questionmark.circle") {
+                        showHelp()
+                    }
+                }
+            }
+            .navigationTitle("Settings")
+            .navigationBarTitleDisplayMode(.automatic)
+            .formStyle(.grouped)
+            .toolbar {
+                ToolbarItem {
+                    Button("Done") {
+                        dismiss()
+                    }
+                }
+            }
         }
-        #endif
-    }
-
-    // MARK: - Settings Content
-
-    @ViewBuilder
-    var settingsView: some View {
-        Form {
-            Section {
-                PhoneListDetailOptions()
-            } header: {
-                Text("Phone List Detail")
-            } footer: {
-                Text("If \"Show Phone Colors\" is turned on, colored circles will be displayed in the phone list representing a phone's main and secondary colors.\nIf \"Highlight Handset Number Digit\" is turned on and one of the digits in a phone's model number is specified as indicating the number of included cordless handsets, that digit will be highlighted in the phone list.")
-            }
-            Section {
-                Picker("\"Connected To\" Selection For Analog Phones", selection: $defaultAnalogPhoneConnectedToSelection) {
-                    AnalogPhoneConnectedToPickerItems()
-                }
-                Picker("Default \"How I Got It\" Selection", selection: $defaultAcquisitionMethod) {
-                    AcquisitionMethodPickerItems()
-                }
-            } header: {
-                Text("New Phones")
-            } footer: {
-                Text("These options specify the default selections for new phones.")
-            }
-#if !os(macOS)
-            Section {
-                Button("Help…", systemImage: "questionmark.circle") {
-                    showHelp()
-                }
-            }
+        .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
+        .pickerStyle(.navigationLink)
 #endif
-        }
-        .formStyle(.grouped)
     }
 
 }
