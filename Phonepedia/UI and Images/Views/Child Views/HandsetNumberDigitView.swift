@@ -50,7 +50,7 @@ struct HandsetNumberDigitView: View {
                 .buttonStyle(.borderless)
             }
         }
-        InfoText("The selected digit will be highlighted in the model number in the phone list. Select \"None\" if none of the digits in the model are the number of included cordless handsets, the number of included cordless handsets is indicated by 2 digits (e.g., the -12 in M123-12 indicating 12 handsets), or one or more digits of the model number indicates that the phone comes with one + X more handsets (e.g. M123+3 indicating 1 handset + 3 additional handsets).")
+        InfoText("The selected digit will be highlighted in the model number in the phone list. Select \"None\" if none of the digits in the model number are the number of included cordless handsets, the number of included cordless handsets is indicated by 2 digits (e.g., the -12 in M123-12 indicating 12 handsets), or one or more digits of the model number indicates that the phone comes with one + X more handsets (e.g. M123+3 indicating 1 handset + 3 additional handsets).")
     }
 }
 
