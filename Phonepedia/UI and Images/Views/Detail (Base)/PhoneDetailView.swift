@@ -26,7 +26,11 @@ struct PhoneDetailView: View {
     var body: some View {
         NavigationStack {
             Form {
-                photoAndOptions
+                if photoViewModel.showingLoadingPhoto {
+                    LoadingIndicator(message: "Loading photo…", style: .circular)
+                } else {
+                    photoAndOptions
+                }
                 basicsGroup
                 if phone.isCordless || phone.cordedPhoneType == 0 {
                     FormNavigationLink("Speakerphone/Intercom/Base Keypad") {

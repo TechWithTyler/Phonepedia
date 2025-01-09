@@ -386,18 +386,17 @@
 		8DA8449E2B72E1D7006CBCA7 /* Supporting View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				8DA8449F2B72E1D7006CBCA7 /* Coordinators */,
 				8DA844A12B72E1D7006CBCA7 /* CameraViewController.swift */,
 			);
 			path = "Supporting View Controllers";
 			sourceTree = "<group>";
 		};
-		8DA8449F2B72E1D7006CBCA7 /* Coordinators */ = {
+		8DA8449F2B72E1D7006CBCA7 /* View Coordinators */ = {
 			isa = PBXGroup;
 			children = (
 				8DA844A02B72E1D7006CBCA7 /* CameraCoordinator.swift */,
 			);
-			path = Coordinators;
+			path = "View Coordinators";
 			sourceTree = "<group>";
 		};
 		8DA844A22B72E1D7006CBCA7 /* Views */ = {
@@ -507,6 +506,7 @@
 				8DA844C52B72E1D7006CBCA7 /* Core ML */,
 				8DA844CA2B72E1D7006CBCA7 /* Photos */,
 				8DBB95412CA48B84002E57EC /* DialogManager.swift */,
+				8DA8449F2B72E1D7006CBCA7 /* View Coordinators */,
 				8D27B18E2D03AC2D004B75E4 /* Settings */,
 			);
 			path = Model;
