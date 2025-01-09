@@ -13,7 +13,12 @@ import SwiftData
 @Model
 final class Phone {
     
-    // MARK: - Properties - Default Photo Data
+    // MARK: - Properties - Default Data
+
+    @Transient
+    static let mockBrand: String = "Some Brand"
+
+    static let mockModel: String = "M123-2"
 
     @Transient
 	static var defaultPhotoData: Data {
@@ -127,11 +132,11 @@ final class Phone {
 
     var cordedRingerLocation: Int = 0
 
-	var numberOfIncludedCordlessHandsets: Int = 1
+	var numberOfIncludedCordlessHandsets: Int = 2
 
-    var handsetNumberDigit: Int? = nil
+    var handsetNumberDigit: Int? = 2
 
-    var handsetNumberDigitIndex: Int? = nil
+    var handsetNumberDigitIndex: Int? = 5
 
 	var maxCordlessHandsets: Int = 5
 	
@@ -422,7 +427,7 @@ final class Phone {
         return baseCallerIDCapacity > 0 || !cordlessHandsetsIHave.filter({$0.callerIDCapacity > 0}).isEmpty
     }
     
-    // MARK: - Color Bindings
+    // MARK: - Properties - Color Bindings
     
     // SwiftData can only store Codable types like String, Int, Double, and Bool, not complex types like Color. To allow ColorPicker to work with SwiftData, a custom Color binding is created, which gets and sets color component Double values stored in SwiftData.
     

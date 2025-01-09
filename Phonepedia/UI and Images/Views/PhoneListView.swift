@@ -274,7 +274,7 @@ struct PhoneListView: View {
     private func addItem() {
         withAnimation {
             // 1. Create a new Phone object with a mock brand and model number.
-            let newPhone = Phone(brand: "Some Brand", model: "M123")
+            let newPhone = Phone(brand: Phone.mockBrand, model: Phone.mockModel)
             // 2. Set the default selections.
             newPhone.landlineConnectedTo = defaultAnalogPhoneConnectedToSelection
             newPhone.whereAcquired = defaultAcquisitionMethod

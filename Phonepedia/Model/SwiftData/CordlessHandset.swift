@@ -11,8 +11,13 @@ import SwiftData
 
 @Model
 final class CordlessHandset {
-    
-    // MARK: - Properties
+
+    // MARK: - Properties - Default Data
+
+    @Transient
+    static var mockModel: String = "MH12"
+
+    // MARK: - Properties - Persistent Data
     
     var id = UUID()
 	
@@ -196,6 +201,7 @@ final class CordlessHandset {
 
     // MARK: - Properties - Transient (Non-Persistent) Properties
 
+    @Transient
     var phonebookTypeText: String {
         if usesBasePhonebook && phonebookCapacity > 0 {
             return CordlessHandset.HandsetPhonebookType.sharedAndIndividual.rawValue
@@ -224,7 +230,7 @@ final class CordlessHandset {
         return phone.baseBluetoothCellPhonesSupported > 0 && lineButtons == 0
     }
     
-    // MARK: - Color Bindings
+    // MARK: - Properties - Color Bindings
     
     @Transient
     var mainColorBinding: Binding<Color> {
@@ -506,6 +512,8 @@ final class CordlessHandset {
 			usesBaseCallerID = false
 		}
 	}
+
+    // MARK: - Duplicate
 
     func duplicate() -> CordlessHandset {
         // 1. Initialize a new CordlessHandset, passing the original's properties to the initializer.

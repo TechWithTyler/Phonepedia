@@ -12,7 +12,7 @@ import SwiftData
 @Model
 final class CordlessHandsetCharger {
     
-    // MARK: - Properties
+    // MARK: - Properties - Persistent Data
 
 	var phone: Phone?
     
@@ -44,8 +44,8 @@ final class CordlessHandsetCharger {
 
     var hasHardWiredACAdaptor: Bool = false
 
-    // MARK: - Color Bindings
-    
+    // MARK: - Properties - Color Bindings
+
     var mainColorBinding: Binding<Color> {
         Binding<Color> { [self] in
             Color(red: mainColorRed, green: mainColorGreen, blue: mainColorBlue)
@@ -87,6 +87,8 @@ final class CordlessHandsetCharger {
         secondaryColorGreen = components.green
         secondaryColorBlue = components.blue
     }
+
+    // MARK: - Duplicate
 
     func duplicate() -> CordlessHandsetCharger {
         // 1. Initialize a new CordlessHandset, passing the original's properties to the initializer.
