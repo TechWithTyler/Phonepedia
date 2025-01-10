@@ -18,12 +18,12 @@ struct RegistrationExplanationView: View {
     
     var body: some View {
         NavigationStack {
-            Text("A handset can't simply communicate with any base it's near. Handsets must be \"registered\" to a base or exchange a digital security code with a base.")
-                .padding()
             List {
+                Text("A handset can't simply communicate with any base it's near. Handsets must be \"registered\" to a base or exchange a digital security code with a base.")
                 DisclosureGroup("Digital Security Code") {
                     Text("When placing the handset on the base, the handset and base exchange a digital security code, which makes sure the handset only communicates with that base. Unless this code changes each time a handset is placed on the base, you can add as many handsets as you want--the base doesn't know or care how many handsets are being used on it. You can change which base the handset is used on by placing it on a different one.")
-                    Text("On some multi-handset systems, system-wide settings like dial mode can only be changed on handset 1.")
+                    Text("For multi-handset systems, the handset numbers are programmed into each handset and can't be changed. This means, for example, if you added a 3rd handset to a 2-handset system, you'll have 1 handset with the number 1 and 2 handsets with the number 2, or 2 handsets with the number 1 and 1 handset with the number 2.")
+                    Text("On some multi-handset systems, system-wide settings like dial mode can only be changed on the handset that shows as number 1.")
                     Text("If the base doesn't have a charging area for a handset, you can't add/replace handsets--you'll have to replace the entire system.")
                 }
                 DisclosureGroup("Registration") {

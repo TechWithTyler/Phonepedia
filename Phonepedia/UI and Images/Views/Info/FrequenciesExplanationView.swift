@@ -22,7 +22,6 @@ struct FrequenciesExplanationView: View {
             List {
                 // A List doesn't need to rely on a collection like NSTableView or UITableView--you can simply give it a bunch of views if you want!
                 Text("Different cordless phones use different wireless frequencies and communication technologies. Expand the sections below to learn more.")
-                    .padding()
                 DisclosureGroup("General") {
                         Text("Cordless phones, like any wireless device, use radio waves, and with all radio waves, a lower frequency means a longer wavelength and thus more range.")
                         WaveView()

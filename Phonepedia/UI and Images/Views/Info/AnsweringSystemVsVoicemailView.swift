@@ -18,15 +18,15 @@ struct AnsweringSystemVsVoicemailView: View {
 
     var body: some View {
         NavigationStack {
-            Text("Answering systems and voicemail services do the same thing: answer calls and take caller messages when you're not avaiable to answer the phone. However, there are some important differences between the 2, even though some people use \"answering system\" and \"voicemail\" interchangeably. If your phone is indicating new messages but there are none when you go to check them, it's likely because the message was left in the voicemail service and you went to play the answering system messages or vice versa. Expand the following sections to learn more about each one.")
-                .padding()
             List {
+                Text("Answering systems and voicemail services do the same thing: answer calls and take caller messages when you're not avaiable to answer the phone. However, there are some important differences between the 2, even though some people use \"answering system\" and \"voicemail\" interchangeably. If your phone is indicating new messages but there are none when you go to check them, it's likely because the message was left in the voicemail service and you went to play the answering system messages or vice versa. Expand the following sections to learn more about each one.")
                 DisclosureGroup {
                     Text("A device connected to a phone line or built into a phone.")
                     Text("Often represented by a tape cassette icon (\(Image(systemName: "recordingtape"))). Note that on cell phones")
+                    Text("Can be turned on to answer calls or off to not answer calls.")
                     Text("Requires power/phone service to answer calls.")
                     Text("Stores messages in digital memory (modern answering systems) or tape cassettes (early answering systems).")
-                    Text("Features or prompts mentioning \"answering system\", \"answering machine\", or \"messages\".")
+                    Text("Features or prompts mentioning \"answering system\", \"answering machine\", \"answering device\", \"telephone answering device\" or \"TAD\", \"telephone answering machine\" or \"TAM\", or \"messages\".")
                     Text("New messages indicated by a light or display message on the phone or answering system.")
                     Text("Allows instant playback by simply pressing a button.")
                     Text("Messages are never lost when switching phone providers.")
@@ -45,6 +45,7 @@ struct AnsweringSystemVsVoicemailView: View {
                 DisclosureGroup {
                     Text("A service provided by a phone company.")
                     Text("Often represented by an envelope icon (\(Image(systemName: "envelope"))). Some phones may use a tape cassette icon (\(Image(systemName: "recordingtape"))) to represent voicemail instead of an envelope icon (\(Image(systemName: "envelope"))).")
+                    Text("Requires a subscription from your phone company. If you wish to stop using it in the future, you need to contact your phone company to cancel your voicemail subscription.")
                     Text("Can answer calls even if the power is out/phone service is down.")
                     Text("Stores messages on a server hosted by the phone company.")
                     Text("Features or prompts mentioning \"voicemail\", \"voice mail\", or \"VM\".")

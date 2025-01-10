@@ -18,9 +18,8 @@ struct AboutDisplayTypesView: View {
 
     var body: some View {
         NavigationStack {
-            Text("A phone's display, if any, can be one of several types. Expand each section to learn about each one.")
-                .padding()
             List {
+                Text("A phone's display, if any, can be one of several types. Expand each section to learn about each one.")
                 DisclosureGroup {
                     Text("A segmented monochrome display is a basic LCD display with a font reminiscent of a 7-segment display, although these kinds of displays often have more segments. These displays are often found on very low-end phones and rarely have soft keys.")
                 } label: {
