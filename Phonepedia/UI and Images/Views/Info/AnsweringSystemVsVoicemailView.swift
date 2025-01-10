@@ -19,10 +19,10 @@ struct AnsweringSystemVsVoicemailView: View {
     var body: some View {
         NavigationStack {
             List {
-                Text("Answering systems and voicemail services do the same thing: answer calls and take caller messages when you're not avaiable to answer the phone. However, there are some important differences between the 2, even though some people use \"answering system\" and \"voicemail\" interchangeably. If your phone is indicating new messages but there are none when you go to check them, it's likely because the message was left in the voicemail service and you went to play the answering system messages or vice versa. Expand the following sections to learn more about each one.")
+                Text("Answering systems and voicemail services do the same thing: answer calls and take caller messages when you're not available to answer the phone. However, there are some important differences between the 2, even though some people use \"answering system\" and \"voicemail\" interchangeably. If your phone is indicating new messages but there are none when you go to check them, it's likely because the message was left in the voicemail service and you went to play the answering system messages or vice versa. Expand the following sections to learn more about each one.")
                 DisclosureGroup {
                     Text("A device connected to a phone line or built into a phone.")
-                    Text("Often represented by a tape cassette icon (\(Image(systemName: "recordingtape"))). Note that on cell phones")
+                    Text("Often represented by a tape cassette icon (\(Image(systemName: "recordingtape"))).")
                     Text("Can be turned on to answer calls or off to not answer calls.")
                     Text("Requires power/phone service to answer calls.")
                     Text("Stores messages in digital memory (modern answering systems) or tape cassettes (early answering systems).")
@@ -57,7 +57,7 @@ struct AnsweringSystemVsVoicemailView: View {
                     Text("Messages can be accessed from another phone by entering your password during or after the greeting, or by calling your phone company's main voicemail number and entering your phone number and password.")
                     Text("More extensive set of options when calling from a phone (e.g., \"To play your messages, press 1. To send a message, press 2. To change your settings, press 3.\".")
                     Text("Number of rings, recording time, and other settings need to be configured online, via an app, or by contacting your phone company.")
-                    Text("Offers advanced features such as sending/forwarding messages to another mailbox on the same voiemail system, and replying to voicemails.")
+                    Text("Offers advanced features such as sending/forwarding messages to another mailbox on the same voicemail system, and replying to voicemails.")
                     Text("Messages can't be heard while they're being left, unless using a VoIP phone designed to work with the specific voicemail service.")
                     Text("Caller ID can only be displayed during message playback if using a VoIP phone designed to work with the specific voicemail service.")
                 } label: {
