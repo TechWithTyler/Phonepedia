@@ -31,86 +31,106 @@ struct HandsetInfoDetailView: View {
                 HandsetActionsView(handset: handset, handsetNumber: handsetNumber)
             }
             Section {
-                FormNavigationLink("General") {
+                FormNavigationLink {
                     HandsetGeneralView(handset: handset)
                         .navigationTitle("General (HS\(handsetNumber))")
 #if !os(macOS)
                         .navigationBarTitleDisplayMode(.inline)
 #endif
+                } label: {
+                    Label("General", systemImage: "gearshape")
                 }
             }
                 if handset.cordlessDeviceType < 2 {
                     Section {
-                        FormNavigationLink("Ringers") {
+                        FormNavigationLink {
                             HandsetRingersView(handset: handset)
                                 .navigationTitle("Ringers (HS\(handsetNumber))")
                                 #if !os(macOS)
                                 .navigationBarTitleDisplayMode(.inline)
                                 #endif
+                        } label: {
+                            Label("Ringers", systemImage: "bell")
                         }
                     }
                     Section {
                         if handset.handsetStyle < 3 {
-                            FormNavigationLink("Display/Backlight/Buttons") {
+                            FormNavigationLink {
                                 HandsetDisplayBacklightButtonsView(handset: handset)
                                     .navigationTitle("Disp/Backlight/Buttons (HS\(handsetNumber))")
 #if !os(macOS)
                                     .navigationBarTitleDisplayMode(.inline)
 #endif
+                            } label: {
+                                Label("Display/Backlight/Buttons", systemImage: "5.square")
                             }
                         }
-                        FormNavigationLink("Audio") {
+                        FormNavigationLink {
                             HandsetAudioView(handset: handset)
                                 .navigationTitle("Audio (HS\(handsetNumber))")
                                 #if !os(macOS)
                                 .navigationBarTitleDisplayMode(.inline)
                                 #endif
+                        } label: {
+                            Label("Audio", systemImage: "headset")
                         }
-                        FormNavigationLink("Messaging") {
+                        FormNavigationLink {
                             HandsetMessagingView(handset: handset)
                                 .navigationTitle("Messaging (HS\(handsetNumber))")
                                 #if !os(macOS)
                                 .navigationBarTitleDisplayMode(.inline)
                                 #endif
+                        } label: {
+                            Label("Messaging", systemImage: "recordingtape")
                         }
                     }
                     Section {
-                        FormNavigationLink("Redial") {
+                        FormNavigationLink {
                             HandsetRedialView(handset: handset)
                                 .navigationTitle("Redial (HS\(handsetNumber))")
                                 #if !os(macOS)
                                 .navigationBarTitleDisplayMode(.inline)
                                 #endif
+                        } label: {
+                            Label("Redial", systemImage: "phone.arrow.up.right")
                         }
-                        FormNavigationLink("Phonebook") {
+                        FormNavigationLink {
                             HandsetPhonebookView(handset: handset)
                                 .navigationTitle("Phonebook (HS\(handsetNumber))")
                                 #if !os(macOS)
                                 .navigationBarTitleDisplayMode(.inline)
                                 #endif
+                        } label: {
+                            Label("Phonebook", systemImage: "book")
                         }
-                        FormNavigationLink("Caller ID") {
+                        FormNavigationLink {
                             HandsetCallerIDView(handset: handset)
                                 .navigationTitle("Caller ID (HS\(handsetNumber))")
                                 #if !os(macOS)
                                 .navigationBarTitleDisplayMode(.inline)
                                 #endif
+                        } label: {
+                            Label("Caller ID", systemImage: "phone.bubble.left")
                         }
-                        FormNavigationLink("Speed Dial") {
+                        FormNavigationLink {
                             HandsetSpeedDialView(handset: handset)
                                 .navigationTitle("Speed Dial (HS\(handsetNumber))")
                                 #if !os(macOS)
                                 .navigationBarTitleDisplayMode(.inline)
                                 #endif
+                        } label: {
+                            Label("Speed Dial", systemImage: "person.3")
                         }
                     }
                     Section {
-                        FormNavigationLink("Special Features") {
+                        FormNavigationLink {
                             HandsetSpecialFeaturesView(handset: handset)
                                 .navigationTitle("Special Features (HS\(handsetNumber))")
                                 #if !os(macOS)
                                 .navigationBarTitleDisplayMode(.inline)
                                 #endif
+                        } label: {
+                            Label("Special Features", systemImage: "sparkle")
                         }
                     }
                 }
