@@ -132,7 +132,7 @@ struct PhoneListView: View {
             }
         }
         .contextMenu {
-            PhoneListDetailOptions()
+            PhoneListDetailOptions(menu: true)
                 .toggleStyle(.automatic)
         }
         .onChange(of: filteredPhones, { oldValue, newValue in

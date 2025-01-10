@@ -7,10 +7,13 @@
 //
 
 import SwiftUI
+import SheftAppsStylishUI
 
 struct PhoneListDetailOptions: View {
 
     // MARK: - Properties - Booleans
+
+    var menu: Bool = false
 
     @AppStorage(UserDefaults.KeyNames.showPhoneTypeInList) var showPhoneTypeInList: Bool = true
 
@@ -35,9 +38,18 @@ struct PhoneListDetailOptions: View {
         }
         Toggle("Show Phone Active Status", isOn: $showPhoneActiveStatusInList)
         Toggle("Show Number Of Cordless Handsets", isOn: $showNumberOfCordlessHandsetsInList)
+        if !menu {
+            InfoText("If the number of included cordless handsets for a phone is the same as how many you have for that phone, a single cordless handset count is displayed. If you don't have the same number of cordless handsets as the phone comes with, both the included handset count and the \"how many I have\" count will be displayed.")
+        }
         Toggle("Show Phone Colors", isOn: $showPhoneColorsInList)
+        if !menu {
+            InfoText("If both a phone's main and secondary colors are the same, a single colored circle will be displayed. If they're different, the main color is represented by the upper circle and the secondary color is represented by the lower circle.")
+        }
         Toggle("Show Release/Acquisition Years", isOn: $showYearsInList)
         Toggle("Highlight Handset Number Digit", isOn: $highlightHandsetNumberDigitInList)
+        if !menu {
+            InfoText("If one of the digits of a cordless phone's model number is specified as indicating the number of included cordless handsets (e.g., the 2 after the dash in \(Phone.mockModel) indicating that it has 2 cordless handsets), that digit will be highlighted in the phone list.")
+        }
     }
 
 }
@@ -53,6 +65,6 @@ struct PhoneListDetailOptions: View {
 
 #Preview("Menu") {
     Menu("Phone List Detail Options") {
-        PhoneListDetailOptions()
+        PhoneListDetailOptions(menu: true)
     }
 }
