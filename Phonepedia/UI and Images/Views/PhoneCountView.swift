@@ -92,125 +92,170 @@ struct PhoneCountView: View {
         return activeHeadsets
     }
 
+    // Brands of phones.
+    var brands: [String] {
+        // 1. Create a set to hold the brands.
+        var brands: Set<String> = []
+        // 2. Loop through each phone in the phones array and insert its brand into the set.
+        for phone in phones {
+            brands.insert(phone.brand)
+        }
+        // 3. Return the brands set as a sorted array.
+        return brands.sorted(by: <)
+    }
+
     // The total number of phones with answering systems.
     var withAnsweringSystemsCount: Int {
         let count = phones.filter({ $0.hasAnsweringSystem > 0 }).count
         return count
     }
 
+    // The total number of phones with answering systems.
+    var withBluetoothCellPhoneLinkingCount: Int {
+        let count = phones.filter({ $0.baseBluetoothCellPhonesSupported > 0 }).count
+        return count
+    }
+
     var body: some View {
         NavigationStack {
             List {
-                HStack {
-                    VStack(alignment: .leading) {
-                        Text("Total Phone Sets")
+                DisclosureGroup("Total (\(totalPhoneCount))") {
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text("Total Phone Sets")
+                                .foregroundStyle(.primary)
+                                .multilineTextAlignment(.leading)
+                            excludingHandsetsText
+                        }
+                        Spacer()
+                        Text(totalPhoneCount, format: .number)
+                            .foregroundStyle(.secondary)
+                            .multilineTextAlignment(.trailing)
+                    }
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text("Cordless Phone Sets")
+                                .foregroundStyle(.primary)
+                                .multilineTextAlignment(.leading)
+                            excludingHandsetsText
+                        }
+                        Spacer()
+                        Text(cordlessPhoneCount, format: .number)
+                            .foregroundStyle(.secondary)
+                            .multilineTextAlignment(.trailing)
+                    }
+                    HStack {
+                        Text("Corded Phones")
                             .foregroundStyle(.primary)
                             .multilineTextAlignment(.leading)
-                        excludingHandsetsText
+                        Spacer()
+                        Text(cordedPhoneCount, format: .number)
+                            .foregroundStyle(.secondary)
+                            .multilineTextAlignment(.trailing)
                     }
-                    Spacer()
-                    Text(totalPhoneCount, format: .number)
-                        .foregroundStyle(.secondary)
-                        .multilineTextAlignment(.trailing)
-                }
-                HStack {
-                    VStack(alignment: .leading) {
-                        Text("Active Phone Sets")
+                    HStack {
+                        Text("Total Cordless Handsets")
                             .foregroundStyle(.primary)
                             .multilineTextAlignment(.leading)
-                        excludingHandsetsText
+                        Spacer()
+                        Text(handsetCount, format: .number)
+                            .foregroundStyle(.secondary)
+                            .multilineTextAlignment(.trailing)
                     }
-                    Spacer()
-                    Text(activePhoneCount, format: .number)
-                        .foregroundStyle(.secondary)
-                        .multilineTextAlignment(.trailing)
-                }
-                HStack {
-                    VStack(alignment: .leading) {
-                        Text("Cordless Phone Sets")
+                    HStack {
+                        Text("Total Cordless Desksets")
                             .foregroundStyle(.primary)
                             .multilineTextAlignment(.leading)
-                        excludingHandsetsText
+                        Spacer()
+                        Text(desksetCount, format: .number)
+                            .foregroundStyle(.secondary)
+                            .multilineTextAlignment(.trailing)
                     }
-                    Spacer()
-                    Text(cordlessPhoneCount, format: .number)
-                        .foregroundStyle(.secondary)
-                        .multilineTextAlignment(.trailing)
+                    HStack {
+                        Text("Total Cordless Headsets/Speakerphones")
+                            .foregroundStyle(.primary)
+                            .multilineTextAlignment(.leading)
+                        Spacer()
+                        Text(headsetCount, format: .number)
+                            .foregroundStyle(.secondary)
+                            .multilineTextAlignment(.trailing)
+                    }
                 }
-                HStack {
-                    Text("Corded Phones")
-                        .foregroundStyle(.primary)
-                        .multilineTextAlignment(.leading)
-                    Spacer()
-                    Text(cordedPhoneCount, format: .number)
-                        .foregroundStyle(.secondary)
-                        .multilineTextAlignment(.trailing)
+                DisclosureGroup("Active (\(activePhoneCount))") {
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text("Active Phone Sets")
+                                .foregroundStyle(.primary)
+                                .multilineTextAlignment(.leading)
+                            excludingHandsetsText
+                        }
+                        Spacer()
+                        Text(activePhoneCount, format: .number)
+                            .foregroundStyle(.secondary)
+                            .multilineTextAlignment(.trailing)
+                    }
+                    HStack {
+                        Text("Active Cordless Handsets")
+                            .foregroundStyle(.primary)
+                            .multilineTextAlignment(.leading)
+                        Spacer()
+                        Text(activeCordlessHandsetCount, format: .number)
+                            .foregroundStyle(.secondary)
+                            .multilineTextAlignment(.trailing)
+                    }
+                    HStack {
+                        Text("Active Cordless Desksets")
+                            .foregroundStyle(.primary)
+                            .multilineTextAlignment(.leading)
+                        Spacer()
+                        Text(activeCordlessDesksetCount, format: .number)
+                            .foregroundStyle(.secondary)
+                            .multilineTextAlignment(.trailing)
+                    }
+                    HStack {
+                        Text("Active Cordless Headsets/Speakerphones")
+                            .foregroundStyle(.primary)
+                            .multilineTextAlignment(.leading)
+                        Spacer()
+                        Text(activeCordlessHeadsetCount, format: .number)
+                            .foregroundStyle(.secondary)
+                            .multilineTextAlignment(.trailing)
+                    }
                 }
-                HStack {
-                    Text("With Answering Systems")
-                        .foregroundStyle(.primary)
-                        .multilineTextAlignment(.leading)
-                    Spacer()
-                    Text(withAnsweringSystemsCount, format: .number)
-                        .foregroundStyle(.secondary)
-                        .multilineTextAlignment(.trailing)
+                DisclosureGroup("Features") {
+                    HStack {
+                        Text("With Answering Systems")
+                            .foregroundStyle(.primary)
+                            .multilineTextAlignment(.leading)
+                        Spacer()
+                        Text(withAnsweringSystemsCount, format: .number)
+                            .foregroundStyle(.secondary)
+                            .multilineTextAlignment(.trailing)
+                    }
+                    HStack {
+                        Text("With Bluetooth Cell Phone Linking")
+                            .foregroundStyle(.primary)
+                            .multilineTextAlignment(.leading)
+                        Spacer()
+                        Text(withBluetoothCellPhoneLinkingCount, format: .number)
+                            .foregroundStyle(.secondary)
+                            .multilineTextAlignment(.trailing)
+                    }
                 }
-                HStack {
-                    Text("Total Cordless Handsets")
-                        .foregroundStyle(.primary)
-                        .multilineTextAlignment(.leading)
-                    Spacer()
-                    Text(handsetCount, format: .number)
-                        .foregroundStyle(.secondary)
-                        .multilineTextAlignment(.trailing)
-                }
-                HStack {
-                    Text("Active Cordless Handsets")
-                        .foregroundStyle(.primary)
-                        .multilineTextAlignment(.leading)
-                    Spacer()
-                    Text(activeCordlessHandsetCount, format: .number)
-                        .foregroundStyle(.secondary)
-                        .multilineTextAlignment(.trailing)
-                }
-                HStack {
-                    Text("Total Cordless Desksets")
-                        .foregroundStyle(.primary)
-                        .multilineTextAlignment(.leading)
-                    Spacer()
-                    Text(desksetCount, format: .number)
-                        .foregroundStyle(.secondary)
-                        .multilineTextAlignment(.trailing)
-                }
-                HStack {
-                    Text("Active Cordless Desksets")
-                        .foregroundStyle(.primary)
-                        .multilineTextAlignment(.leading)
-                    Spacer()
-                    Text(activeCordlessDesksetCount, format: .number)
-                        .foregroundStyle(.secondary)
-                        .multilineTextAlignment(.trailing)
-                }
-                HStack {
-                    Text("Total Cordless Headsets/Speakerphones")
-                        .foregroundStyle(.primary)
-                        .multilineTextAlignment(.leading)
-                    Spacer()
-                    Text(headsetCount, format: .number)
-                        .foregroundStyle(.secondary)
-                        .multilineTextAlignment(.trailing)
-                }
-                HStack {
-                    Text("Active Cordless Headsets/Speakerphones")
-                        .foregroundStyle(.primary)
-                        .multilineTextAlignment(.leading)
-                    Spacer()
-                    Text(activeCordlessHeadsetCount, format: .number)
-                        .foregroundStyle(.secondary)
-                        .multilineTextAlignment(.trailing)
+                DisclosureGroup("Brands (\(brands.count))") {
+                    ForEach(brands, id: \.self) { brand in
+                        HStack {
+                            Text("\(brand) Phones")
+                                .foregroundStyle(.primary)
+                                .multilineTextAlignment(.leading)
+                            Spacer()
+                            Text(phones.filter({$0.brand == brand}).count, format: .number)
+                                .foregroundStyle(.secondary)
+                                .multilineTextAlignment(.trailing)
+                        }
+                    }
                 }
             }
-            .padding()
             .navigationTitle("Phone Count")
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
