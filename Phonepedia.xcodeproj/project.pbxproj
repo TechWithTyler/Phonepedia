@@ -99,6 +99,7 @@
 		8DB25E902C8BC4A9001617C2 /* FormNavigationLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB25E8F2C8BC4A9001617C2 /* FormNavigationLink.swift */; };
 		8DB9A30E2CEBEDFB005BC70B /* PhoneCountButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB9A30D2CEBEDFB005BC70B /* PhoneCountButton.swift */; };
 		8DB9A3102CEBEE37005BC70B /* PhoneTypeDefinitionsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB9A30F2CEBEE37005BC70B /* PhoneTypeDefinitionsButton.swift */; };
+		8DBA56BD2D3081C3005DC013 /* AnsweringSystemVsVoicemailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBA56BC2D3081C3005DC013 /* AnsweringSystemVsVoicemailView.swift */; };
 		8DBB95422CA48B84002E57EC /* DialogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBB95412CA48B84002E57EC /* DialogManager.swift */; };
 		8DC964E02D0B6C9E00984466 /* AnalogPhoneConnectedToPickerItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC964DF2D0B6C9E00984466 /* AnalogPhoneConnectedToPickerItems.swift */; };
 		8DC964E22D0B716800984466 /* AcquisitionMethodPickerItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC964E12D0B716800984466 /* AcquisitionMethodPickerItems.swift */; };
@@ -242,6 +243,7 @@
 		8DB25E8F2C8BC4A9001617C2 /* FormNavigationLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormNavigationLink.swift; sourceTree = "<group>"; };
 		8DB9A30D2CEBEDFB005BC70B /* PhoneCountButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneCountButton.swift; sourceTree = "<group>"; };
 		8DB9A30F2CEBEE37005BC70B /* PhoneTypeDefinitionsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneTypeDefinitionsButton.swift; sourceTree = "<group>"; };
+		8DBA56BC2D3081C3005DC013 /* AnsweringSystemVsVoicemailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnsweringSystemVsVoicemailView.swift; sourceTree = "<group>"; };
 		8DBB95412CA48B84002E57EC /* DialogManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogManager.swift; sourceTree = "<group>"; };
 		8DC964DF2D0B6C9E00984466 /* AnalogPhoneConnectedToPickerItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalogPhoneConnectedToPickerItems.swift; sourceTree = "<group>"; };
 		8DC964E12D0B716800984466 /* AcquisitionMethodPickerItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcquisitionMethodPickerItems.swift; sourceTree = "<group>"; };
@@ -469,6 +471,7 @@
 				8D8E75EC2CC84A2C0022DB85 /* AnsweringSystemMenuInfoView.swift */,
 				8D71C8162CDD651D00072E50 /* RedialNameDisplayInfoView.swift */,
 				8D71C8182CDD666C00072E50 /* SpeedDialEntryModeInfoView.swift */,
+				8DBA56BC2D3081C3005DC013 /* AnsweringSystemVsVoicemailView.swift */,
 			);
 			path = Info;
 			sourceTree = "<group>";
@@ -780,6 +783,7 @@
 				8DA844DD2B72E1D7006CBCA7 /* PhoneTypeDefinitionsView.swift in Sources */,
 				8DA844D42B72E1D7006CBCA7 /* NoPhoneSelectedView.swift in Sources */,
 				8D85550A2C8F9055006A14E3 /* HandsetActionsView.swift in Sources */,
+				8DBA56BD2D3081C3005DC013 /* AnsweringSystemVsVoicemailView.swift in Sources */,
 				8D38ED662CAF2DC500CCC422 /* BaseSpeakerphoneKeypadView.swift in Sources */,
 				8DC964E22D0B716800984466 /* AcquisitionMethodPickerItems.swift in Sources */,
 				8DA844EF2B72E1D7006CBCA7 /* LandlineOrNotPredictor.swift in Sources */,

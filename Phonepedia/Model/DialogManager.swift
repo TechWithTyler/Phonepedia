@@ -32,6 +32,8 @@ class DialogManager: ObservableObject {
 
     @Published var showingPhoneTypeDefinitions: Bool = false
 
+    @Published var showingAnsweringSystemVsVoicemail: Bool = false
+
     @Published var showingAboutDisplayTypes: Bool = false
 
     @Published var showingDeletePhone: Bool = false

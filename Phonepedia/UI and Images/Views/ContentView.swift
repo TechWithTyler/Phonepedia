@@ -50,6 +50,9 @@ struct ContentView: View {
         .sheet(isPresented: $dialogManager.showingPhoneTypeDefinitions) {
             PhoneTypeDefinitionsView()
         }
+        .sheet(isPresented: $dialogManager.showingAnsweringSystemVsVoicemail) {
+            AnsweringSystemVsVoicemailView()
+        }
         .sheet(isPresented: $dialogManager.showingAboutDisplayTypes) {
             AboutDisplayTypesView()
         }

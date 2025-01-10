@@ -60,7 +60,6 @@ struct PhoneTypeDefinitionsView: View {
     
 }
 
-
 #Preview {
     PhoneTypeDefinitionsView()
 }
