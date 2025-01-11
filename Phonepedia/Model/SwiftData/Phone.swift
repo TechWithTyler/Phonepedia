@@ -197,7 +197,9 @@ final class Phone {
 	var answeringSystemMenuOnBase: Int = 0
 	
 	var greetingRecordingOnBaseOrHandset: Int = 1
-	
+
+    var greetingSlotsAndSchedules: Bool = false
+
 	var hasMessageAlertByCall: Bool = false
 
     var canRecordVoiceMemos: Bool = false
