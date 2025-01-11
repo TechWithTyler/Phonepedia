@@ -1,5 +1,5 @@
 //
-//  ChargerInfoDetailView.swift
+//  ChargerDetailView.swift
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 8/16/23.
@@ -9,7 +9,7 @@
 import SwiftUI
 import SheftAppsStylishUI
 
-struct ChargerInfoDetailView: View {
+struct ChargerDetailView: View {
 
     // MARK: - Properties - Charger
 
@@ -93,5 +93,5 @@ struct ChargerInfoDetailView: View {
 #Preview {
     @Previewable @State var charger = CordlessHandsetCharger()
     charger.phone = Phone(brand: "Panasonic", model: "KX-TGF675")
-    return ChargerInfoDetailView(charger: charger, chargerNumber: 1)
+    return ChargerDetailView(charger: charger, chargerNumber: 1)
 }

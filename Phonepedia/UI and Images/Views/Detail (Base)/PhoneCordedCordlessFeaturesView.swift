@@ -1,5 +1,5 @@
 //
-//  PhoneBasicFeaturesView.swift
+//  PhoneCordedCordlessFeaturesView.swift
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 10/3/24.
@@ -9,7 +9,7 @@
 import SwiftUI
 import SheftAppsStylishUI
 
-struct PhoneBasicFeaturesView: View {
+struct PhoneCordedCordlessFeaturesView: View {
 
     @Bindable var phone: Phone
 
@@ -231,21 +231,23 @@ In most cases, if the base has a charge light/display message, the completion of
                 • A novelty phone is a corded phone that's designed to look like something else, like a hamburger you flip open, a piano whose keys are used to dial numbers, a slim phone that's shaped like a pair of lips, or an animated character that serves as the phone's base.
                 """)
         }
-        if phone.cordedPhoneType == 0 {
-            Toggle("Has Dual Receivers", isOn: $phone.hasDualReceivers)
-            InfoText("A corded phone with dual receivers allows 2 people to use the phone at the same time without having to connect 2 separate phones to the same line. These kinds of phones are often used by those requiring a language interpreter.")
-        }
-        if phone.cordedPhoneType == 2 || phone.cordedPhoneType == 3 {
-            Picker("\(phone.cordedPhoneType == 2 ? "Keypad" : "Rotary Dial") Location", selection: $phone.dialLocation) {
-                Text("Base").tag(0)
-                Text("Receiver").tag(1)
+        if !phone.isCordless {
+            if phone.cordedPhoneType == 0 {
+                Toggle("Has Dual Receivers", isOn: $phone.hasDualReceivers)
+                InfoText("A corded phone with dual receivers allows 2 people to use the phone at the same time without having to connect 2 separate phones to the same line. These kinds of phones are often used by those requiring a language interpreter.")
             }
-        }
-        if phone.cordedPhoneType == 2 {
-            Picker("Switch Hook", selection: $phone.switchHookType) {
-                Text("On Base").tag(0)
-                Text("On Receiver").tag(1)
-                Text("Magnetic").tag(2)
+            if phone.cordedPhoneType == 2 || phone.cordedPhoneType == 3 {
+                Picker("\(phone.cordedPhoneType == 2 ? "Keypad" : "Rotary Dial") Location", selection: $phone.dialLocation) {
+                    Text("Base").tag(0)
+                    Text("Receiver").tag(1)
+                }
+            }
+            if phone.cordedPhoneType == 2 {
+                Picker("Switch Hook", selection: $phone.switchHookType) {
+                    Text("On Base").tag(0)
+                    Text("On Receiver").tag(1)
+                    Text("Magnetic").tag(2)
+                }
             }
         }
     }
@@ -253,7 +255,7 @@ In most cases, if the base has a charge light/display message, the completion of
 
 #Preview {
     Form {
-        PhoneBasicFeaturesView(phone: Phone(brand: "Panasonic", model: "KX-TGE633"))
+        PhoneCordedCordlessFeaturesView(phone: Phone(brand: "Panasonic", model: "KX-TGE633"))
             .environmentObject(DialogManager())
     }
     .formStyle(.grouped)

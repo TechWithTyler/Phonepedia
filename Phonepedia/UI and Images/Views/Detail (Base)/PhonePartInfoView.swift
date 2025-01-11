@@ -41,7 +41,7 @@ struct PhonePartInfoView: View {
                 ForEach(phone.cordlessHandsetsIHave) { handset in
                     let handsetNumber = (phone.cordlessHandsetsIHave.firstIndex(of: handset) ?? 0) + 1
                     NavigationLink {
-                        HandsetInfoDetailView(handset: handset, handsetNumber: handsetNumber)
+                        HandsetDetailView(handset: handset, handsetNumber: handsetNumber)
                             .navigationTitle("\(handset.brand) \(handset.model) (HS\(handsetNumber))")
                     } label: {
                         HStack {
@@ -148,7 +148,7 @@ struct PhonePartInfoView: View {
                 ForEach(phone.chargersIHave) { charger in
                     let chargerNumber = (phone.chargersIHave.firstIndex(of: charger) ?? 0) + 1
                     NavigationLink {
-                        ChargerInfoDetailView(charger: charger, chargerNumber: chargerNumber)
+                        ChargerDetailView(charger: charger, chargerNumber: chargerNumber)
                             .navigationTitle("Charger \(chargerNumber)")
                     } label: {
                         Text("Charger \(chargerNumber)")

@@ -32,22 +32,9 @@ struct PhoneDetailView: View {
                     photoAndOptions
                 }
                 basicsGroup
-                if phone.isCordless || phone.cordedPhoneType == 0 {
-                    FormNavigationLink {
-                        BaseSpeakerphoneKeypadView(phone: phone)
-                            .navigationTitle("Spkr/Int/Base Keypad")
-#if !os(macOS)
-                            .navigationBarTitleDisplayMode(.inline)
-#endif
-                    } label: {
-                        Label("Speakerphone/Intercom/Base Keypad", systemImage: "speaker")
-                    }
-                }
-                ringersAndMOHGroup
-                if phone.isCordless || phone.cordedPhoneType == 0 {
-                    featurePhoneGroup
-                }
                 linesGroup
+                PhonePartInfoView(phone: phone)
+                audioGroup
                 entriesGroup
                 if phone.isCordless || phone.cordedPhoneType == 0 {
                     callBlockingGroup
@@ -151,7 +138,7 @@ struct PhoneDetailView: View {
     
     @ViewBuilder
     var basicsGroup: some View {
-        Section {
+        Section("Basics") {
             FormNavigationLink {
                 PhoneGeneralView(phone: phone)
                     .navigationTitle("General")
@@ -162,29 +149,14 @@ struct PhoneDetailView: View {
                 Label("General", systemImage: "gearshape")
             }
             FormNavigationLink {
-                PhoneBasicFeaturesView(phone: phone)
-                    .navigationTitle("Basics")
+                PhoneCordedCordlessFeaturesView(phone: phone)
+                    .navigationTitle("Corded/Cordless")
 #if !os(macOS)
                     .navigationBarTitleDisplayMode(.inline)
 #endif
             } label: {
-                Label("Basic Features/Cordless Capabilities", systemImage: "phone")
+                Label("Corded/Cordless Features", systemImage: "phone")
             }
-        }
-        FormNavigationLink {
-            PhoneColorView(phone: phone)
-                .navigationTitle(phone.isCordless ? "Base Colors" : "Colors")
-#if !os(macOS)
-                .navigationBarTitleDisplayMode(.inline)
-#endif
-        } label: {
-            Label(phone.isCordless ? "Base Colors" : "Colors", systemImage: "paintpalette")
-        }
-        .formStyle(.grouped)
-        if phone.isCordless {
-            PhonePartInfoView(phone: phone)
-        }
-        Section {
             FormNavigationLink {
                 PhonePowerView(phone: phone)
                     .navigationTitle("Power")
@@ -194,12 +166,42 @@ struct PhoneDetailView: View {
             } label: {
                 Label("Power", systemImage: "bolt")
             }
+            FormNavigationLink {
+                PhoneColorView(phone: phone)
+                    .navigationTitle(phone.isCordless ? "Base Colors" : "Colors")
+#if !os(macOS)
+                    .navigationBarTitleDisplayMode(.inline)
+#endif
+            } label: {
+                Label(phone.isCordless ? "Base Colors" : "Colors", systemImage: "paintpalette")
+            }
+            if phone.isCordless || phone.cordedPhoneType == 0 {
+                    FormNavigationLink {
+                        BaseDisplayBacklightButtonsView(phone: phone)
+                            .navigationTitle("Disp/Backlight/Buttons")
+        #if !os(macOS)
+                            .navigationBarTitleDisplayMode(.inline)
+        #endif
+                    } label: {
+                        Label("Display/Backlight/Buttons", systemImage: "5.square")
+                    }
+                    FormNavigationLink {
+                        PhoneMessagingView(phone: phone)
+                            .navigationTitle("Messaging")
+        #if !os(macOS)
+                            .navigationBarTitleDisplayMode(.inline)
+        #endif
+                    } label: {
+                        Label("Messaging", systemImage: "recordingtape")
+                    }
+            }
         }
+        .formStyle(.grouped)
     }
     
     @ViewBuilder
-    var ringersAndMOHGroup: some View {
-        Section {
+    var audioGroup: some View {
+        Section("Audio") {
             FormNavigationLink {
                 BaseRingersView(phone: phone)
                     .navigationTitle("Ringers")
@@ -208,6 +210,26 @@ struct PhoneDetailView: View {
 #endif
             } label: {
                 Label("Ringers", systemImage: "bell")
+            }
+            if phone.isCordless || phone.cordedPhoneType == 0 {
+                FormNavigationLink {
+                    BaseSpeakerphoneIntercomView(phone: phone)
+                        .navigationTitle("Speaker/Int")
+#if !os(macOS)
+                        .navigationBarTitleDisplayMode(.inline)
+#endif
+                } label: {
+                    Label("Speakerphone/Intercom", systemImage: "speaker")
+                }
+            }
+            FormNavigationLink {
+                PhoneAudioView(phone: phone)
+                    .navigationTitle("Audio Devices")
+#if !os(macOS)
+                    .navigationBarTitleDisplayMode(.inline)
+#endif
+            } label: {
+                Label("Audio Devices (e.g. Headsets)", systemImage: "headset")
             }
             FormNavigationLink {
                 PhoneMOHView(phone: phone)
@@ -222,41 +244,8 @@ struct PhoneDetailView: View {
     }
     
     @ViewBuilder
-    var featurePhoneGroup: some View {
-        Section {
-            FormNavigationLink {
-                BaseDisplayBacklightButtonsView(phone: phone)
-                    .navigationTitle("Disp/Backlight/Buttons")
-#if !os(macOS)
-                    .navigationBarTitleDisplayMode(.inline)
-#endif
-            } label: {
-                Label("Display/Backlight/Buttons", systemImage: "5.square")
-            }
-            FormNavigationLink {
-                PhoneMessagingView(phone: phone)
-                    .navigationTitle("Messaging")
-#if !os(macOS)
-                    .navigationBarTitleDisplayMode(.inline)
-#endif
-            } label: {
-                Label("Messaging", systemImage: "recordingtape")
-            }
-            FormNavigationLink {
-                PhoneAudioView(phone: phone)
-                    .navigationTitle("Audio Devices")
-#if !os(macOS)
-                    .navigationBarTitleDisplayMode(.inline)
-#endif
-            } label: {
-                Label("Audio Devices (e.g. Headsets)", systemImage: "headset")
-            }
-        }
-    }
-    
-    @ViewBuilder
     var linesGroup: some View {
-        Section {
+        Section("Lines") {
             FormNavigationLink {
                 LandlineDetailView(phone: phone)
                     .navigationTitle("Landline")
@@ -282,7 +271,7 @@ struct PhoneDetailView: View {
     
     @ViewBuilder
     var entriesGroup: some View {
-        Section {
+        Section("Entries/Phone Numbers") {
             if phone.hasBaseSpeakerphone || !phone.isCordless || phone.isCordedCordless {
                 FormNavigationLink {
                     BaseRedialView(phone: phone)
@@ -339,7 +328,7 @@ struct PhoneDetailView: View {
     
     @ViewBuilder
     var callBlockingGroup: some View {
-        Section {
+        Section("Call Block") {
             FormNavigationLink {
                 CallBlockManualView(phone: phone)
                     .navigationTitle("Manual Call Block")

@@ -14,7 +14,7 @@ final class PhonepediaTests: XCTestCase {
 
 	var phoneDetailView: PhoneDetailView?
 
-	var handsetInfoDetailView: HandsetInfoDetailView?
+	var handsetInfoDetailView: HandsetDetailView?
 
 	var handset: CordlessHandset?
 
@@ -24,7 +24,7 @@ final class PhonepediaTests: XCTestCase {
 		handset = CordlessHandset(brand: "Panasonic", model: "KX-TGFA97")
 		phone?.cordlessHandsetsIHave.append(handset!)
 		phoneDetailView = PhoneDetailView(phone: phone!)
-		handsetInfoDetailView = HandsetInfoDetailView(handset: .constant(handset!), handsetNumber: 1)
+		handsetInfoDetailView = HandsetDetailView(handset: .constant(handset!), handsetNumber: 1)
 		print((phone?.bluetoothPhonebookTransfers)!)
     }
 
