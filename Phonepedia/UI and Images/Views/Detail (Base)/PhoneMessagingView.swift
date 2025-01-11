@@ -20,34 +20,38 @@ struct PhoneMessagingView: View {
             dialogManager.showingAnsweringSystemVsVoicemail = true
         }
         Section("Answering System") {
-            Picker("Answering System", selection: $phone.hasAnsweringSystem) {
+            Picker("Has Answering System", selection: $phone.hasAnsweringSystem) {
+                Text("No").tag(0)
                 if phone.isCordless {
-                    Text("None").tag(0)
-                    Text("Base Only").tag(1)
-                    Text("Handset Only").tag(2)
-                    Text("Base or Handset").tag(3)
+                    Text("Yes (Base Only)").tag(1)
+                    Text("Yes (Handset Only)").tag(2)
+                    Text("Yes (Base or Handset)").tag(3)
                 } else {
-                    Text("No").tag(0)
                     Text("Yes").tag(1)
                 }
             }
+            .onChange(of: phone.hasAnsweringSystem) { oldValue, newValue in
+                phone.hasAnsweringSystemChanged(oldValue: oldValue, newValue: newValue)
+            }
             if phone.hasAnsweringSystem == 1 || phone.hasAnsweringSystem == 3 {
                 Picker("Answering System Type", selection: $phone.answeringSystemType) {
-                    Text("Tape Cassette(s)").tag(0)
                     Text("Digital").tag(1)
+                    Text("Tape Cassette(s)").tag(0)
                 }
                 InfoText("Early answering systems stored messages on a tape cassette. The greeting is stored either on the same cassette as the messages (single-cassette systems), on a separate cassette (dual-cassette systems), or digitally. Storing the greeting on the same cassette as the messages results in a delay between the greeting and the beep, as the system needs to move the tape forward to the end where the message is to be recorded. Some models can count the number of messages on the tape by detecting the beeps on the tape.\nModern answering systems are fully digital, meaning messages are stored on a memory chip. This allows for quicker operation.")
-                Picker("Multi-Line Button Layout", selection: $phone.answeringSystemMultilineButtonLayout) {
-                    Text("Separate Buttons").tag(0)
-                    Text("Line Selection Button").tag(1)
-                }
+                if phone.numberOfLandlines > 1 {
+                    Picker("Multi-Line Button Layout", selection: $phone.answeringSystemMultilineButtonLayout) {
+                        Text("Separate Buttons").tag(0)
+                        Text("Line Selection Button").tag(1)
+                    }
                 InfoText("Multi-line phones either have separate play and answer on/off buttons for each line, or one play and answer on/off button as well as a button which selects the line(s) those buttons will use.")
+                }
             }
             if phone.hasAnsweringSystem > 0 && phone.baseBluetoothCellPhonesSupported > 0 && phone.answeringSystemType == 1 {
                 Toggle("Answering System For Cell Lines", isOn: $phone.answeringSystemForCellLines)
                 InfoText("On some Bluetooth cell phone-linking phones with answering system, the answering system can answer calls on the cell line.")
             }
-            if !phone.isCordless && phone.hasAnsweringSystem == 1 {
+            if phone.hasAnsweringSystem == 1 {
                 Picker("Answering System Menu", selection: $phone.answeringSystemMenuOnBase) {
                     Text("Voice Prompts").tag(0)
                     if phone.baseDisplayType > 0 {
@@ -55,7 +59,7 @@ struct PhoneMessagingView: View {
                     }
                 }
                 AnsweringSystemMenuInfoView()
-            } else if phone.isCordless && (phone.hasAnsweringSystem == 1 || phone.hasAnsweringSystem == 3) {
+            } else if phone.isCordless && phone.hasAnsweringSystem == 3 {
                 Picker("Answering System Menu (Base)", selection: $phone.answeringSystemMenuOnBase) {
                     Text("None").tag(0)
                     Text("Voice Prompts").tag(1)
@@ -99,7 +103,7 @@ struct PhoneMessagingView: View {
                     Text("Intermittent Beeps").tag(2)
                     Text("Spoken Notification").tag(3)
                 }
-                InfoText("Call recording allows you to record both sides of a phone call as an answering system message. In some areas, it's illegal to record calls without the other party's consent.\n• Without Notification: The caller isn't notified when call recording starts. It is your responsibility to tell the caller that you're recording the call.\n• Intermittent beeps: Both you and the caller hear a beep every 15 seconds or so, indicating call recording is in progress. It is your responsibility to tell the caller that you're recording the call.\n• Spoken Notification: A spoken notification is played to you and the caller (e.g., \"This call is being recorded.\" before recording starts. This takes care of the legal requirement to tell the caller that you're recording the call.")
+                InfoText("Call recording allows you to record both sides of a phone call as an answering system message. In some areas, it's illegal to record calls without the other party's consent.\n• Without Notification: The caller isn't notified when call recording starts. It is your responsibility to tell the caller that you're recording the call.\n• Intermittent beeps: Both you and the caller hear a beep every 15 seconds or so, indicating call recording is in progress. It is your responsibility to tell the caller that you're recording the call.\n• Spoken Notification: A spoken notification is played to you and the caller (e.g., \"This call is being recorded.\") before recording starts. This takes care of the legal requirement to tell the caller that you're recording the call.")
             }
         }
         Section("Voicemail") {

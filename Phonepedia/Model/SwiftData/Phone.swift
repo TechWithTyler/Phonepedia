@@ -585,6 +585,14 @@ final class Phone {
         handsetNumberDigitIndex = nil
     }
 
+    func hasAnsweringSystemChanged(oldValue: Int, newValue: Int) {
+        if newValue == 1 {
+            if answeringSystemMenuOnBase == 0 {
+                answeringSystemMenuOnBase = 1
+            }
+        }
+    }
+
     func bluetoothPhonebookTransfersChanged(oldValue: Int, newValue: Int) {
         if newValue == 0 {
             supportsPhonebookTransferDialingCodes = false
@@ -869,6 +877,10 @@ final class Phone {
 			baseChargingDirection = 0
 			baseChargeContactType = 0
 			baseChargeContactPlacement = 0
+            if maxCordlessHandsets != 0 {
+                hasBaseKeypad = true
+                hasBaseSpeakerphone = true
+            }
         } else {
             numberOfIncludedCordlessHandsets = 1
             cordedPhoneType = 0
