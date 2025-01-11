@@ -322,8 +322,16 @@ struct PhoneListView: View {
         modelContext.delete(phone)
         // 2. Clear the phone selection.
         selectedPhone = nil
+        // 3. For any phone whose index is higher than the one that was just deleted, decrease phoneNumberInCollection by 1.
+        if let phoneIndex = Array(phones.reversed()).firstIndex(of: phone) {
+            phones.reversed().forEach {
+                if $0.phoneNumberInCollection > phoneIndex {
+                    $0.phoneNumberInCollection -= 1
+                }
+            }
+        }
     }
-    
+
     func deleteAllPhones() {
         // 1. Clear the phone selection.
         selectedPhone = nil
