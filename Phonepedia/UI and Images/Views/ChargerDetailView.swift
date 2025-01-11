@@ -49,6 +49,8 @@ struct ChargerDetailView: View {
                             .foregroundStyle(.red)
 #endif
                     }
+                }
+                Section {
                     ColorPicker("Main Color", selection: charger.mainColorBinding, supportsOpacity: false)
                     ColorPicker("Secondary/Accent Color", selection: charger.secondaryColorBinding, supportsOpacity: false)
                     Button("Use Main Color") {
