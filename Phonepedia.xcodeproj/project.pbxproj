@@ -109,6 +109,7 @@
 		8DD3A2982D2C7D5100595AB3 /* DisplaySettingsPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD3A2972D2C7D5100595AB3 /* DisplaySettingsPageView.swift */; };
 		8DDE4E4B2CFFAA4D000C3D46 /* HandsetNumberDigitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDE4E4A2CFFAA4D000C3D46 /* HandsetNumberDigitView.swift */; };
 		8DE6B9662AA905CF00C42E02 /* PhonepediaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE6B9652AA905CF00C42E02 /* PhonepediaTests.swift */; };
+		8DE9F4272D32343E002B4EB4 /* NameNumberExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE9F4262D32343E002B4EB4 /* NameNumberExamples.swift */; };
 		8DEC01642C20D78D006E0233 /* PhoneDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844A72B72E1D7006CBCA7 /* PhoneDetailView.swift */; };
 		8DEC3A682C2CB9D200737094 /* HandsetPhonebookType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEC3A672C2CB9D200737094 /* HandsetPhonebookType.swift */; };
 		8DF1E93C2B06D45B00B6D978 /* SheftAppsStylishUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DF1E93B2B06D45B00B6D978 /* SheftAppsStylishUI.framework */; };
@@ -254,6 +255,7 @@
 		8DDE4E4A2CFFAA4D000C3D46 /* HandsetNumberDigitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandsetNumberDigitView.swift; sourceTree = "<group>"; };
 		8DE6B9632AA905CF00C42E02 /* PhonepediaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhonepediaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DE6B9652AA905CF00C42E02 /* PhonepediaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhonepediaTests.swift; sourceTree = "<group>"; };
+		8DE9F4262D32343E002B4EB4 /* NameNumberExamples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameNumberExamples.swift; sourceTree = "<group>"; };
 		8DEC3A672C2CB9D200737094 /* HandsetPhonebookType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandsetPhonebookType.swift; sourceTree = "<group>"; };
 		8DF1E93B2B06D45B00B6D978 /* SheftAppsStylishUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SheftAppsStylishUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DFC9BF22A3BAB9D00295700 /* Phonepedia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Phonepedia.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -494,7 +496,6 @@
 			children = (
 				8DA844BB2B72E1D7006CBCA7 /* Phonepedia.entitlements */,
 				8DA844BC2B72E1D7006CBCA7 /* Globals.swift */,
-				8DC9E7DB2C37434C0089B48A /* AnsweringSystemGreetingComponents.swift */,
 				8DA844BD2B72E1D7006CBCA7 /* Info.plist */,
 				8D71C81A2CDEBDF600072E50 /* PrivacyInfo.xcprivacy */,
 			);
@@ -509,6 +510,7 @@
 				8DA844C52B72E1D7006CBCA7 /* Core ML */,
 				8DA844CA2B72E1D7006CBCA7 /* Photos */,
 				8DBB95412CA48B84002E57EC /* DialogManager.swift */,
+				8DE9F4252D32340E002B4EB4 /* Example Data */,
 				8DA8449F2B72E1D7006CBCA7 /* View Coordinators */,
 				8D27B18E2D03AC2D004B75E4 /* Settings */,
 			);
@@ -554,6 +556,15 @@
 				8DE6B9652AA905CF00C42E02 /* PhonepediaTests.swift */,
 			);
 			path = PhonepediaTests;
+			sourceTree = "<group>";
+		};
+		8DE9F4252D32340E002B4EB4 /* Example Data */ = {
+			isa = PBXGroup;
+			children = (
+				8DE9F4262D32343E002B4EB4 /* NameNumberExamples.swift */,
+				8DC9E7DB2C37434C0089B48A /* AnsweringSystemGreetingComponents.swift */,
+			);
+			path = "Example Data";
 			sourceTree = "<group>";
 		};
 		8DF1E93A2B06D45B00B6D978 /* Frameworks */ = {
@@ -786,6 +797,7 @@
 				8DBA56BD2D3081C3005DC013 /* AnsweringSystemVsVoicemailView.swift in Sources */,
 				8D38ED662CAF2DC500CCC422 /* BaseSpeakerphoneKeypadView.swift in Sources */,
 				8DC964E22D0B716800984466 /* AcquisitionMethodPickerItems.swift in Sources */,
+				8DE9F4272D32343E002B4EB4 /* NameNumberExamples.swift in Sources */,
 				8DA844EF2B72E1D7006CBCA7 /* LandlineOrNotPredictor.swift in Sources */,
 				8D38ED992CAF3EA500CCC422 /* HandsetRedialView.swift in Sources */,
 				8DA844D12B72E1D7006CBCA7 /* CameraViewController.swift in Sources */,
