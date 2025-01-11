@@ -15,9 +15,10 @@ struct BaseCallerIDView: View {
 
     var body: some View {
         let exampleName = NameNumberExamples.names.randomElement()!
-        let exampleAreaCode = NameNumberExamples.examplePhoneNumber().areaCode
-        let exampleCentralExchange = NameNumberExamples.examplePhoneNumber().centralExchange
-        let exampleLocalNumber = NameNumberExamples.examplePhoneNumber().number
+        let exampleFullNumber = NameNumberExamples.examplePhoneNumber()
+        let exampleAreaCode = exampleFullNumber.areaCode
+        let exampleCentralExchange = exampleFullNumber.centralExchange
+        let exampleLocalNumber = exampleFullNumber.number
         if phone.basePhonebookCapacity > 0 {
             Toggle(isOn: $phone.callerIDPhonebookMatch) {
                 Text("Caller ID Name Uses Matching Phonebook Entry Name")
