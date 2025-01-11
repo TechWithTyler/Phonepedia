@@ -118,7 +118,7 @@ struct PhoneMessagingView: View {
             }
             InfoText("""
 A phone's voicemail indicator usually works in one or both of the following ways:
-• Your phone company may send special tones, called Frequency-Shift-Keying (FSK) tones to the phone whenever a new voicemail is left, and another when all new voicemails are played, to tell the phone to turn on or off its voicemail indicator. You can't hear these tones unless you use a device to listen in on the phone line without picking it up (e.g. a butt-set phone in monitor mode).
+• Your phone company may send FSK tones to the phone whenever a new voicemail is left and when all new voicemails are played, to tell the phone to turn on or off its voicemail indicator.
 • The phone may go off-hook for a few seconds periodically, or when you hang up or it stops ringing, to listen for a stutter dial tone ("bee-bee-bee-beeeeeeeep") which your phone company may use as an audible indication of new voicemails.
 """)
             if !phone.isCordless || phone.hasBaseSpeakerphone {

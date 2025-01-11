@@ -62,6 +62,11 @@ struct AboutConnectionTypesView: View {
                     Text("Phone Line Simulator")
                 }
                 DisclosureGroup {
+                    Text("Analog phones receive caller ID and voicemail indicator on/off data in the form of special tones, called Frequency-Shift-Keying (FSK) tones. You can't hear these tones unless you use a device to listen in on the phone line without picking it up (e.g., a lineman's handset, a special phone with wires that clip onto a phone line for testing purposes, in monitor mode).")
+                } label: {
+                    Text("FSK Tones")
+                }
+                DisclosureGroup {
                     Text("You can connect a provider device (VoIP modem/ATA, cellular base, cell-to-landline Bluetooth adaptor, PBX, or phone line simulator) to your house/building wiring by connecting a phone line cord from the device to a jack in the building. Before doing this, you MUST make sure the analog line that may have previously served the jacks has been completely disconnected (not just the number being taken out of service), otherwise the provider device can be damaged from the voltage coming from the analog line. You can plug the provider device into any jack in the building (but NEVER connect more than one to the same building wiring), then you can plug phones/answering systems/other telephone devices into the other jacks. If your house/building is wired for 2 or more lines and you want to use them, you need to plug a provider device into one of the jacks for each line (use a 1-jack-to-2-jack splitter to plug into a 2-line jack).")
                 } label: {
                     Text("Using Building Wiring Without Analog Lines")
