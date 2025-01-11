@@ -317,13 +317,15 @@ struct PhoneListView: View {
     }
 
     func deletePhone(_ phone: Phone) {
-        // 1. Delete the phone.
+        // 1. Create a snapshot of the phones array before deletion so phones after the deleted one can be shifted down after deletion.
+        let phonesBeforeDeletion = Array(phones.reversed())
+        // 2. Delete the phone.
         dialogManager.phoneToDelete = nil
         modelContext.delete(phone)
-        // 2. Clear the phone selection.
+        // 3. Clear the phone selection.
         selectedPhone = nil
-        // 3. For any phone whose index is higher than the one that was just deleted, decrease phoneNumberInCollection by 1.
-        if let phoneIndex = Array(phones.reversed()).firstIndex(of: phone) {
+        // 4. For any phone whose index is higher than the one that was just deleted, decrease phoneNumberInCollection by 1.
+        if let phoneIndex = phonesBeforeDeletion.firstIndex(of: phone) {
             phones.reversed().forEach {
                 if $0.phoneNumberInCollection > phoneIndex {
                     $0.phoneNumberInCollection -= 1
