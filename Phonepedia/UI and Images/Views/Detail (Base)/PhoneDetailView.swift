@@ -37,7 +37,6 @@ struct PhoneDetailView: View {
                 audioGroup
                 entriesGroup
                 if phone.isCordless || phone.cordedPhoneType == 0 {
-                    callBlockingGroup
                     FormNavigationLink {
                         PhoneSpecialFeaturesView(phone: phone)
                             .navigationTitle("Special Features")
@@ -335,30 +334,17 @@ struct PhoneDetailView: View {
                 } label: {
                     Label("Speed Dial", systemImage: "person.3")
                 }
-            }
-        }
-    }
-    
-    @ViewBuilder
-    var callBlockingGroup: some View {
-        Section("Call Block") {
-            FormNavigationLink {
-                CallBlockManualView(phone: phone)
-                    .navigationTitle("Manual Call Block")
+                if phone.isCordless || phone.cordedPhoneType == 0 {
+                    FormNavigationLink {
+                        CallBlockView(phone: phone)
+                            .navigationTitle("Call Blocking")
 #if !os(macOS)
-                    .navigationBarTitleDisplayMode(.inline)
+                            .navigationBarTitleDisplayMode(.inline)
 #endif
-            } label: {
-                Label("Call Block (Manual)", systemImage: "phone.arrow.down.left")
-            }
-            FormNavigationLink {
-                CallBlockPreScreeningView(phone: phone)
-                    .navigationTitle("Call Block Pre-Screen")
-#if !os(macOS)
-                    .navigationBarTitleDisplayMode(.inline)
-#endif
-            } label: {
-                Label("Call Block (Pre-Screening)" , systemImage: "shield")
+                    } label: {
+                        Label("Call Blocking", systemImage: "shield")
+                    }
+                }
             }
         }
     }
