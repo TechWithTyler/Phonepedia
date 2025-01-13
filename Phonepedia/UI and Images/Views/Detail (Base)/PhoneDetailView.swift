@@ -162,12 +162,12 @@ struct PhoneDetailView: View {
             }
             FormNavigationLink {
                 PhoneCordedCordlessFeaturesView(phone: phone)
-                    .navigationTitle("Corded/Cordless")
+                    .navigationTitle("\(phone.isCordless ? "Cordless" : "Corded") Features")
 #if !os(macOS)
                     .navigationBarTitleDisplayMode(.inline)
 #endif
             } label: {
-                Label("Corded/Cordless Features", systemImage: "phone")
+                Label("\(phone.isCordless ? "Cordless" : "Corded") Features", systemImage: "phone")
             }
             FormNavigationLink {
                 PhonePowerView(phone: phone)
@@ -190,7 +190,7 @@ struct PhoneDetailView: View {
             if phone.isCordless || phone.cordedPhoneType == 0 {
                     FormNavigationLink {
                         BaseDisplayBacklightButtonsView(phone: phone)
-                            .navigationTitle("Disp/Backlight/Buttons")
+                            .navigationTitle("Disp/B.light/Buttons")
         #if !os(macOS)
                             .navigationBarTitleDisplayMode(.inline)
         #endif
@@ -226,22 +226,22 @@ struct PhoneDetailView: View {
             if phone.isCordless || phone.cordedPhoneType == 0 {
                 FormNavigationLink {
                     BaseSpeakerphoneIntercomView(phone: phone)
-                        .navigationTitle("Speaker/Int")
+                        .navigationTitle(phone.isCordless ? "Speaker/Int" : "Speakerphone")
 #if !os(macOS)
                         .navigationBarTitleDisplayMode(.inline)
 #endif
                 } label: {
-                    Label("Speakerphone/Intercom", systemImage: "speaker")
+                    Label(phone.isCordless ? "Speakerphone/Intercom" : "Speakerphone", systemImage: "speaker")
                 }
             }
             FormNavigationLink {
                 PhoneAudioView(phone: phone)
-                    .navigationTitle("Audio Devices")
+                    .navigationTitle("Wired/BT Headsets")
 #if !os(macOS)
                     .navigationBarTitleDisplayMode(.inline)
 #endif
             } label: {
-                Label("Audio Devices (e.g. Headsets)", systemImage: "headset")
+                Label("Wired/Bluetooth Headsets", systemImage: "headset")
             }
             FormNavigationLink {
                 PhoneMOHView(phone: phone)
@@ -257,15 +257,15 @@ struct PhoneDetailView: View {
     
     @ViewBuilder
     var linesGroup: some View {
-        Section("Lines") {
+        Section("Lines/Cell Phone Linking") {
             FormNavigationLink {
                 LandlineDetailView(phone: phone)
-                    .navigationTitle("Landline")
+                    .navigationTitle("Main Line")
 #if !os(macOS)
                     .navigationBarTitleDisplayMode(.inline)
 #endif
             } label: {
-                Label("Landline", systemImage: "phone.connection")
+                Label("Main Line", systemImage: "phone.connection")
             }
             if phone.isCordless || phone.cordedPhoneType == 0 {
                 FormNavigationLink {
@@ -275,7 +275,7 @@ struct PhoneDetailView: View {
                         .navigationBarTitleDisplayMode(.inline)
 #endif
                 } label: {
-                    Label("Cell Phone Linking", systemImage: "flipphone")
+                    Label("Cell Linking", systemImage: "flipphone")
                 }
             }
         }
@@ -327,12 +327,12 @@ struct PhoneDetailView: View {
                 }
                 FormNavigationLink {
                     BaseSpeedDialView(phone: phone)
-                        .navigationTitle("Speed Dial")
+                        .navigationTitle("Quick Dialing")
 #if !os(macOS)
                         .navigationBarTitleDisplayMode(.inline)
 #endif
                 } label: {
-                    Label("Speed Dial", systemImage: "person.3")
+                    Label("Quick Dialing", systemImage: "person.3")
                 }
                 if phone.isCordless || phone.cordedPhoneType == 0 {
                     FormNavigationLink {

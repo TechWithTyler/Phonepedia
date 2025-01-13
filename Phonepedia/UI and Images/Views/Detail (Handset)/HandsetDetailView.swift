@@ -45,7 +45,7 @@ struct HandsetDetailView: View {
                 if handset.handsetStyle < 3 {
                     FormNavigationLink {
                         HandsetDisplayBacklightButtonsView(handset: handset)
-                            .navigationTitle("Disp/Backlight/Buttons (HS\(handsetNumber))")
+                            .navigationTitle("Disp/B.light/Buttons (HS\(handsetNumber))")
 #if !os(macOS)
                             .navigationBarTitleDisplayMode(.inline)
 #endif
@@ -55,7 +55,7 @@ struct HandsetDetailView: View {
                 }
                 FormNavigationLink {
                     HandsetMessagingView(handset: handset)
-                        .navigationTitle("Messaging (HS\(handsetNumber))")
+                        .navigationTitle("Msg-ing (HS\(handsetNumber))")
 #if !os(macOS)
                         .navigationBarTitleDisplayMode(.inline)
 #endif
@@ -96,7 +96,7 @@ struct HandsetDetailView: View {
                     }
                     FormNavigationLink {
                         HandsetPhonebookView(handset: handset)
-                            .navigationTitle("Phonebook (HS\(handsetNumber))")
+                            .navigationTitle("P.book (HS\(handsetNumber))")
 #if !os(macOS)
                             .navigationBarTitleDisplayMode(.inline)
 #endif
@@ -105,7 +105,7 @@ struct HandsetDetailView: View {
                     }
                     FormNavigationLink {
                         HandsetCallerIDView(handset: handset)
-                            .navigationTitle("Caller ID (HS\(handsetNumber))")
+                            .navigationTitle("CID (HS\(handsetNumber))")
 #if !os(macOS)
                             .navigationBarTitleDisplayMode(.inline)
 #endif
@@ -114,18 +114,18 @@ struct HandsetDetailView: View {
                     }
                     FormNavigationLink {
                         HandsetSpeedDialView(handset: handset)
-                            .navigationTitle("Speed Dial (HS\(handsetNumber))")
+                            .navigationTitle("Quick Dial (HS\(handsetNumber))")
 #if !os(macOS)
                             .navigationBarTitleDisplayMode(.inline)
 #endif
                     } label: {
-                        Label("Speed Dial", systemImage: "person.3")
+                        Label("Quick Dialing", systemImage: "person.3")
                     }
                 }
                 Section {
                     FormNavigationLink {
                         HandsetSpecialFeaturesView(handset: handset)
-                            .navigationTitle("Special Features (HS\(handsetNumber))")
+                            .navigationTitle("Special (HS\(handsetNumber))")
 #if !os(macOS)
                             .navigationBarTitleDisplayMode(.inline)
 #endif
