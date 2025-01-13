@@ -24,19 +24,6 @@ struct PhoneGeneralView: View {
     // MARK: - Body
 
     var body: some View {
-        FormTextField("Brand", text: $phone.brand)
-        FormTextField("Model", text: $phone.model)
-            .onChange(of: phone.model) { _, _ in
-                phone.modelNumberChanged()
-            }
-        HStack {
-            Text("Phone Type")
-            Spacer()
-            Text(phone.phoneTypeText)
-            InfoButton {
-                dialogManager.showingPhoneTypeDefinitions = true
-            }
-        }
         Stepper("Release Year (-1 If Unknown): \(String(phone.releaseYear))", value: $phone.releaseYear, in: -1...currentYear)
             .onChange(of: phone.releaseYear) { oldValue, newValue in
                 phone.releaseYearChanged(oldValue: oldValue, newValue: newValue)

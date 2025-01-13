@@ -284,6 +284,8 @@ struct PhoneListView: View {
             modelContext.insert(newPhone)
             // 4. Disable the phone filter.
             resetPhoneFilter()
+            // 5. Select the new phone.
+            selectedPhone = newPhone
         }
     }
     

@@ -31,6 +31,8 @@ struct HandsetDetailView: View {
                 HandsetActionsView(handset: handset, handsetNumber: handsetNumber)
             }
             Section("Basics") {
+                FormTextField("Brand", text: $handset.brand)
+                FormTextField("Model", text: $handset.model)
                 FormNavigationLink {
                     HandsetGeneralView(handset: handset)
                         .navigationTitle("General (HS\(handsetNumber))")

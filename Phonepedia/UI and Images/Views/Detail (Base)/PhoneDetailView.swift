@@ -139,6 +139,19 @@ struct PhoneDetailView: View {
     @ViewBuilder
     var basicsGroup: some View {
         Section("Basics") {
+            FormTextField("Brand", text: $phone.brand)
+            FormTextField("Model", text: $phone.model)
+                .onChange(of: phone.model) { _, _ in
+                    phone.modelNumberChanged()
+                }
+            HStack {
+                Text("Phone Type")
+                Spacer()
+                Text(phone.phoneTypeText)
+                InfoButton {
+                    dialogManager.showingPhoneTypeDefinitions = true
+                }
+            }
             FormNavigationLink {
                 PhoneGeneralView(phone: phone)
                     .navigationTitle("General")

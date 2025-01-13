@@ -15,8 +15,6 @@ struct HandsetGeneralView: View {
 
     var body: some View {
         if let phone = handset.phone {
-            FormTextField("Brand", text: $handset.brand)
-            FormTextField("Model", text: $handset.model)
             Stepper("Release Year (-1 If Unknown): \(String(handset.releaseYear))", value: $handset.releaseYear, in: -1...currentYear)
                 .onChange(of: handset.releaseYear) { oldValue, newValue in
                     handset.releaseYearChanged(oldValue: oldValue, newValue: newValue)
