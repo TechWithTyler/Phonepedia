@@ -12,6 +12,19 @@ import SwiftData
 @Model
 final class CordlessHandset {
 
+    // MARK: - Cordless Device Type Enum
+
+    // Types of cordless devices.
+    enum CordlessDeviceType : String {
+
+        case handset = "Handset"
+
+        case deskset = "Deskset"
+
+        case headset = "Headset/Speakerphone"
+
+    }
+
     // MARK: - Properties - Default Data
 
     @Transient
@@ -200,6 +213,15 @@ final class CordlessHandset {
     var hasQZ: Bool = true
 
     // MARK: - Properties - Transient (Non-Persistent) Properties
+
+    @Transient
+    var cordlessDeviceTypeText: String {
+        switch cordlessDeviceType {
+        case 1: return CordlessDeviceType.deskset.rawValue
+        case 2: return CordlessDeviceType.headset.rawValue
+        default: return CordlessDeviceType.handset.rawValue
+        }
+    }
 
     @Transient
     var phonebookTypeText: String {
