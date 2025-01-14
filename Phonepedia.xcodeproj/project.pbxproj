@@ -75,7 +75,7 @@
 		8DA844D92B72E1D7006CBCA7 /* SoftKeyExplanationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844AC2B72E1D7006CBCA7 /* SoftKeyExplanationView.swift */; };
 		8DA844DA2B72E1D7006CBCA7 /* PhoneButtonLegendItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844AD2B72E1D7006CBCA7 /* PhoneButtonLegendItem.swift */; };
 		8DA844DB2B72E1D7006CBCA7 /* BatteryInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844AE2B72E1D7006CBCA7 /* BatteryInfoView.swift */; };
-		8DA844DC2B72E1D7006CBCA7 /* PhonePartInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844AF2B72E1D7006CBCA7 /* PhonePartInfoView.swift */; };
+		8DA844DC2B72E1D7006CBCA7 /* CordlessDeviceInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844AF2B72E1D7006CBCA7 /* CordlessDeviceInfoView.swift */; };
 		8DA844DD2B72E1D7006CBCA7 /* PhoneTypeDefinitionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844B02B72E1D7006CBCA7 /* PhoneTypeDefinitionsView.swift */; };
 		8DA844DE2B72E1D7006CBCA7 /* AntennaInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844B12B72E1D7006CBCA7 /* AntennaInfoView.swift */; };
 		8DA844DF2B72E1D7006CBCA7 /* ChargingContactInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844B22B72E1D7006CBCA7 /* ChargingContactInfoView.swift */; };
@@ -217,7 +217,7 @@
 		8DA844AC2B72E1D7006CBCA7 /* SoftKeyExplanationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoftKeyExplanationView.swift; sourceTree = "<group>"; };
 		8DA844AD2B72E1D7006CBCA7 /* PhoneButtonLegendItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneButtonLegendItem.swift; sourceTree = "<group>"; };
 		8DA844AE2B72E1D7006CBCA7 /* BatteryInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatteryInfoView.swift; sourceTree = "<group>"; };
-		8DA844AF2B72E1D7006CBCA7 /* PhonePartInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhonePartInfoView.swift; sourceTree = "<group>"; };
+		8DA844AF2B72E1D7006CBCA7 /* CordlessDeviceInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CordlessDeviceInfoView.swift; sourceTree = "<group>"; };
 		8DA844B02B72E1D7006CBCA7 /* PhoneTypeDefinitionsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneTypeDefinitionsView.swift; sourceTree = "<group>"; };
 		8DA844B12B72E1D7006CBCA7 /* AntennaInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AntennaInfoView.swift; sourceTree = "<group>"; };
 		8DA844B22B72E1D7006CBCA7 /* ChargingContactInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChargingContactInfoView.swift; sourceTree = "<group>"; };
@@ -426,7 +426,7 @@
 			children = (
 				8DA844A72B72E1D7006CBCA7 /* PhoneDetailView.swift */,
 				8D38ED692CAF2F6600CCC422 /* PhoneGeneralView.swift */,
-				8DA844AF2B72E1D7006CBCA7 /* PhonePartInfoView.swift */,
+				8DA844AF2B72E1D7006CBCA7 /* CordlessDeviceInfoView.swift */,
 				8D38ED652CAF2DC500CCC422 /* BaseSpeakerphoneIntercomView.swift */,
 				8D38ED6C2CAF310600CCC422 /* PhoneCordedCordlessFeaturesView.swift */,
 				8D38ED6E2CAF31BA00CCC422 /* PhoneColorView.swift */,
@@ -804,7 +804,7 @@
 				8D38ED6A2CAF2F6600CCC422 /* PhoneGeneralView.swift in Sources */,
 				8D38ED9F2CAF3FC900CCC422 /* HandsetSpeedDialView.swift in Sources */,
 				8D94EE0C2B912B9E00B04EBF /* WaveView.swift in Sources */,
-				8DA844DC2B72E1D7006CBCA7 /* PhonePartInfoView.swift in Sources */,
+				8DA844DC2B72E1D7006CBCA7 /* CordlessDeviceInfoView.swift in Sources */,
 				8D38ED852CAF382C00CCC422 /* BasePhonebookView.swift in Sources */,
 				8DA844F02B72E1D7006CBCA7 /* LandlineOrNotV1.mlmodel in Sources */,
 				8DD3A2962D2C7CB200595AB3 /* NewPhonesSettingsPageView.swift in Sources */,

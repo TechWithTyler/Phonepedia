@@ -1,5 +1,5 @@
 //
-//  PhonePartInfoView.swift
+//  CordlessDeviceInfoView.swift
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 6/19/23.
@@ -10,7 +10,7 @@ import SwiftData
 import SwiftUI
 import SheftAppsStylishUI
 
-struct PhonePartInfoView: View {
+struct CordlessDeviceInfoView: View {
 
     // MARK: - Properties - Phone
 
@@ -312,7 +312,7 @@ struct PhonePartInfoView: View {
 
 #Preview {
     Form {
-        PhonePartInfoView(phone: Phone(brand: "Panasonic", model: "KX-TGD892"))
+        CordlessDeviceInfoView(phone: Phone(brand: "Panasonic", model: "KX-TGD892"))
     }
     .formStyle(.grouped)
     .environmentObject(DialogManager())

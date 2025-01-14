@@ -34,7 +34,7 @@ struct PhoneDetailView: View {
                 basicsGroup
                 linesGroup
                 if phone.isCordless {
-                    PhonePartInfoView(phone: phone)
+                    CordlessDeviceInfoView(phone: phone)
                 }
                 audioGroup
                 entriesGroup
