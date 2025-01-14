@@ -111,7 +111,7 @@ struct PhoneListView: View {
                             }
                         }
                     }
-                    .onDelete(perform: deleteItems)
+                    .onDelete(perform: deletePhones)
                     .onMove(perform: moveItems)
                 }
                 .accessibilityIdentifier("PhonesList")
@@ -191,7 +191,7 @@ struct PhoneListView: View {
     @ToolbarContentBuilder
     var toolbarContent: some ToolbarContent {
         ToolbarItem {
-            Button(action: addItem) {
+            Button(action: addPhone) {
                 Label("Add Phone", systemImage: "plus")
             }
             .accessibilityIdentifier("AddPhoneButton")
@@ -271,7 +271,7 @@ struct PhoneListView: View {
 
     // MARK: - Data Management
     
-    private func addItem() {
+    private func addPhone() {
         withAnimation {
             // 1. Create a new Phone object with a mock brand and model number.
             let newPhone = Phone(brand: Phone.mockBrand, model: Phone.mockModel)
@@ -289,12 +289,11 @@ struct PhoneListView: View {
         }
     }
     
-    private func deleteItems(offsets: IndexSet) {
+    private func deletePhones(at offsets: IndexSet) {
+        guard let index = offsets.first else { return }
         withAnimation {
-            for index in offsets {
-                dialogManager.phoneToDelete = phones[index]
-                dialogManager.showingDeletePhone = true
-            }
+            dialogManager.phoneToDelete = phones[index]
+            dialogManager.showingDeletePhone = true
         }
     }
 

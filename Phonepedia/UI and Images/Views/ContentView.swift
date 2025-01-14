@@ -47,6 +47,7 @@ struct ContentView: View {
 				EmptyView()
 			}
 		}
+        // Info views
         .sheet(isPresented: $dialogManager.showingPhoneTypeDefinitions) {
             PhoneTypeDefinitionsView()
         }
@@ -68,6 +69,7 @@ struct ContentView: View {
         .sheet(isPresented: $dialogManager.showingAboutConnectionTypes) {
             AboutConnectionTypesView()
         }
+        // iOS/visionOS settings view
         #if !os(macOS)
         .sheet(isPresented: $dialogManager.showingSettings) {
             SettingsView()
