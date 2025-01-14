@@ -166,6 +166,29 @@ struct PhonePartInfoView: View {
         Section("Cordless Device Chargers") {
             if !phone.chargersIHave.isEmpty {
                 Text("\(chargerCount) \(chargerCount == 1 ? "Charger" : "Chargers")")
+                Menu {
+                    if !phone.chargersIHave.isEmpty {
+                        Button(action: duplicateLastCharger) {
+                            Text("Duplicate of Last Charger")
+                        }
+                    }
+                    Button(action: addCharger) {
+                        Text("New Charger")
+                    }
+                } label: {
+                    Label("Add", systemImage: "plus")
+                }
+                .frame(width: 80, alignment: .leading)
+                .menuIndicator(.hidden)
+                .accessibilityIdentifier("AddChargerButton")
+                Button(role: .destructive) {
+                    dialogManager.showingDeleteAllChargers = true
+                } label: {
+                    Label("Delete All…", systemImage: "trash.fill")
+    #if !os(macOS)
+                        .foregroundStyle(.red)
+    #endif
+                }
                 ForEach(phone.chargersIHave) { charger in
                     let chargerNumber = (phone.chargersIHave.firstIndex(of: charger) ?? 0) + 1
                     NavigationLink {
@@ -201,34 +224,6 @@ struct PhonePartInfoView: View {
                 Text("No chargers")
                     .foregroundStyle(.secondary)
             }
-            Menu {
-                if !phone.chargersIHave.isEmpty {
-                    Button(action: duplicateLastCharger) {
-                        Text("Duplicate of Last Charger")
-                    }
-                }
-                Button(action: addCharger) {
-                    Text("New Charger")
-                }
-            } label: {
-                Label("Add", systemImage: "plus")
-            }
-            .menuIndicator(.hidden)
-#if os(macOS)
-            .buttonStyle(.borderless)
-#endif
-            .accessibilityIdentifier("AddChargerButton")
-            Button(role: .destructive) {
-                dialogManager.showingDeleteAllChargers = true
-            } label: {
-                Label("Delete All…", systemImage: "trash.fill")
-#if !os(macOS)
-                    .foregroundStyle(.red)
-#endif
-            }
-#if os(macOS)
-            .buttonStyle(.borderless)
-#endif
         }
         .alert("Delete this charger?", isPresented: $dialogManager.showingDeleteCharger, presenting: $dialogManager.chargerToDelete) { charger in
             Button("Delete", role: .destructive) {
