@@ -42,6 +42,7 @@ struct HandsetDetailView: View {
                 } label: {
                     Label("General", systemImage: "gearshape")
                 }
+                if handset.cordlessDeviceType < 2 {
                 if handset.handsetStyle < 3 {
                     FormNavigationLink {
                         HandsetDisplayBacklightButtonsView(handset: handset)
@@ -63,7 +64,6 @@ struct HandsetDetailView: View {
                     Label("Messaging", systemImage: "recordingtape")
                 }
             }
-            if handset.cordlessDeviceType < 2 {
                 Section("Audio") {
                     FormNavigationLink {
                         HandsetRingersView(handset: handset)

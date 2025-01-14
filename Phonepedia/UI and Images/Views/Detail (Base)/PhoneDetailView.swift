@@ -33,7 +33,9 @@ struct PhoneDetailView: View {
                 }
                 basicsGroup
                 linesGroup
-                PhonePartInfoView(phone: phone)
+                if phone.isCordless {
+                    PhonePartInfoView(phone: phone)
+                }
                 audioGroup
                 entriesGroup
                 if phone.isCordless || phone.cordedPhoneType == 0 {
@@ -187,16 +189,18 @@ struct PhoneDetailView: View {
             } label: {
                 Label(phone.isCordless ? "Base Colors" : "Colors", systemImage: "paintpalette")
             }
+            if phone.isCordless || phone.cordedPhoneType == 0 || phone.cordedPhoneType == 2 {
+                FormNavigationLink {
+                    BaseDisplayBacklightButtonsView(phone: phone)
+                        .navigationTitle("Disp/B.light/Buttons")
+#if !os(macOS)
+                        .navigationBarTitleDisplayMode(.inline)
+#endif
+                } label: {
+                    Label("Display/Backlight/Buttons", systemImage: "5.square")
+                }
+            }
             if phone.isCordless || phone.cordedPhoneType == 0 {
-                    FormNavigationLink {
-                        BaseDisplayBacklightButtonsView(phone: phone)
-                            .navigationTitle("Disp/B.light/Buttons")
-        #if !os(macOS)
-                            .navigationBarTitleDisplayMode(.inline)
-        #endif
-                    } label: {
-                        Label("Display/Backlight/Buttons", systemImage: "5.square")
-                    }
                     FormNavigationLink {
                         PhoneMessagingView(phone: phone)
                             .navigationTitle("Messaging")

@@ -772,6 +772,9 @@ final class Phone {
             baseNavigatorKeyUpDownVolume = false
             baseNavigatorKeyLeftRightRepeatSkip = false
             baseNavigatorKeyStandbyShortcuts = false
+            if baseKeyBacklightAmount > 3 {
+                baseKeyBacklightAmount = 3
+            }
         }
     }
 	
