@@ -19,6 +19,9 @@ struct CallBlockView: View {
 #if !os(visionOS)
                 .scrollDismissesKeyboard(.interactively)
 #endif
+                .onChange(of: phone.callBlockCapacity) { oldValue, newValue in
+                    phone.callBlockCapacityChanged(oldValue: oldValue, newValue: newValue)
+                }
             InfoText("When a call from a blocked number is received, the phone answers the call after the caller ID is received. The caller will hear silence, a busy tone, or a voice message.")
             if phone.callBlockCapacity > 0 {
                 Toggle(isOn: $phone.callBlockSupportsPrefixes) {
@@ -54,6 +57,17 @@ When the first ring is suppressed, the number of rings you hear will be one less
             if phone.callBlockPreProgrammedDatabaseEntryCount > 0 {
                 InfoText("Some phones have an invisible database of pre-blocked phone numbers. These numbers might be excluded from the caller ID list. Numbers from this database can be saved to the phonebook if they happen to become safe in the future.")
             }
+            }
+            if phone.baseBluetoothCellPhonesSupported > 0 {
+                Picker("Cell Call Rejection", selection: $phone.cellCallRejection) {
+                    Text("Not Supported").tag(0)
+                    Text("Button").tag(1)
+                    if phone.callBlockCapacity > 0 {
+                        Text("When Blocking").tag(2)
+                        Text("Button/When Blocking").tag(3)
+                    }
+                }
+                InfoText("When a cell call is rejected, the phone will send the Bluetooth \"call reject\" signal to the cell phone, which typically sends the call to voicemail.")
             }
         }
         if phone.callBlockCapacity > 0 {

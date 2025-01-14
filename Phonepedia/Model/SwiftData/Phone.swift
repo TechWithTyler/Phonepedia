@@ -370,6 +370,8 @@ final class Phone {
 
     var neededReplacements: Bool = false
 
+    var cellCallRejection: Int = 0
+
     // MARK: - Properties - Transient (Non-Persistent) Properties
 	
     // Properties marked with the @Transient property wrapper won't persist their values to SwiftData.
@@ -614,6 +616,22 @@ final class Phone {
         }
     }
 
+    func callBlockCapacityChanged(oldValue: Int, newValue: Int) {
+        if newValue == 0 {
+            hasOneTouchCallBlock = false
+            callBlockSupportsPrefixes = false
+            callBlockPreProgrammedDatabaseEntryCount = 0
+            callBlockPreScreening = 0
+            callBlockPreScreeningCustomGreeting = false
+            callBlockPreScreeningAllowedNameCapacity = 0
+            callBlockPreScreeningAllowedNumberCapacity = 0
+            callBlockPreScreeningAllowedNumberListVisible = false
+            if cellCallRejection >= 2 {
+                cellCallRejection = 0
+            }
+        }
+    }
+
     func supportsWiredHeadsetsChanged(oldValue: Bool, newValue: Bool) {
         if !newValue && musicOnHoldLive {
             musicOnHoldLive = false
@@ -686,6 +704,7 @@ final class Phone {
             supportsCellAlerts = false
             hasCellPhoneVoiceControl = false
             supportsAddingOfCellAreaCode = false
+            cellCallRejection = 0
         }
     }
 
