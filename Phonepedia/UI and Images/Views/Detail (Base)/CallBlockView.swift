@@ -47,13 +47,13 @@ When the first ring is suppressed, the number of rings you hear will be one less
                     Text("Has One-Touch/Quick Call Block")
                 }
                 InfoText("One-touch/quick call block allows you to press the dedicated call block button or select the call block menu item to block an incoming call as it rings or while talking on the phone. On most phones, if it's not a soft key or menu option, it can also be used to access the call block menu in standby.")
-            }
             FormNumericTextField("Pre-Blocked", value: $phone.callBlockPreProgrammedDatabaseEntryCount, valueRange: .allPositivesIncludingZero, singularSuffix: "number", pluralSuffix: "numbers")
 #if !os(visionOS)
                 .scrollDismissesKeyboard(.interactively)
 #endif
             if phone.callBlockPreProgrammedDatabaseEntryCount > 0 {
                 InfoText("Some phones have an invisible database of pre-blocked phone numbers. These numbers might be excluded from the caller ID list. Numbers from this database can be saved to the phonebook if they happen to become safe in the future.")
+            }
             }
         }
         if phone.callBlockCapacity > 0 {
