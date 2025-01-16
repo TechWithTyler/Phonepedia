@@ -179,7 +179,7 @@ struct HandsetDisplayBacklightButtonsView: View {
 
 #Preview {
     Form {
-        HandsetDisplayBacklightButtonsView(handset: CordlessHandset(brand: "Panasonic", model: "KX-TGFA61", mainColorRed: 0, mainColorGreen: 0, mainColorBlue: 0, secondaryColorRed: 200, secondaryColorGreen: 200, secondaryColorBlue: 200))
+        HandsetDisplayBacklightButtonsView(handset: CordlessHandset(brand: "Panasonic", model: "KX-TGFA61", mainColorRed: 0, mainColorGreen: 0, mainColorBlue: 0, secondaryColorRed: 0, secondaryColorGreen: 0, secondaryColorBlue: 0, accentColorRed: 200, accentColorGreen: 200, accentColorBlue: 200))
             .environmentObject(DialogManager())
     }
     .formStyle(.grouped)

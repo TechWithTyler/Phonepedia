@@ -19,16 +19,22 @@ final class CordlessHandsetCharger {
     var id = UUID()
 
     var mainColorRed: Double = 0
-    
+
     var mainColorGreen: Double = 0
-    
+
     var mainColorBlue: Double = 0
-    
+
     var secondaryColorRed: Double = 0
-    
+
     var secondaryColorGreen: Double = 0
-    
+
     var secondaryColorBlue: Double = 0
+
+    var accentColorRed: Double = 0
+
+    var accentColorGreen: Double = 0
+
+    var accentColorBlue: Double = 0
 
 	var chargingDirection: Int = 0
 
@@ -67,18 +73,33 @@ final class CordlessHandsetCharger {
             secondaryColorBlue = components.blue
         }
     }
-    
+
+    @Transient
+    var accentColorBinding: Binding<Color> {
+        Binding<Color> { [self] in
+            Color(red: accentColorRed, green: accentColorGreen, blue: accentColorBlue)
+        } set: { [self] newColor in
+            let components = newColor.components
+            accentColorRed = components.red
+            accentColorGreen = components.green
+            accentColorBlue = components.blue
+        }
+    }
+
     // MARK: - Initialization
 
-	init() {
-		self.mainColorRed = 0
-        self.mainColorGreen = 0
-        self.mainColorBlue = 0
-        self.secondaryColorRed = 0
-        self.secondaryColorGreen = 0
-        self.secondaryColorBlue = 0
-	}
-    
+    init(mainColorRed: Double, mainColorGreen: Double, mainColorBlue: Double, secondaryColorRed: Double, secondaryColorGreen: Double, secondaryColorBlue: Double, accentColorRed: Double, accentColorGreen: Double, accentColorBlue: Double) {
+        self.mainColorRed = mainColorRed
+        self.mainColorGreen = mainColorGreen
+        self.mainColorBlue = mainColorBlue
+        self.secondaryColorRed = secondaryColorRed
+        self.secondaryColorGreen = secondaryColorGreen
+        self.secondaryColorBlue = secondaryColorBlue
+        self.accentColorRed = accentColorRed
+        self.accentColorGreen = accentColorGreen
+        self.accentColorBlue = accentColorBlue
+    }
+
     // MARK: - Set Secondary Color to Main
     
     func setSecondaryColorToMain() {
@@ -88,18 +109,31 @@ final class CordlessHandsetCharger {
         secondaryColorBlue = components.blue
     }
 
+    // MARK: - Set Accent Color
+
+    func setAccentColorToMain() {
+        let components = mainColorBinding.wrappedValue.components
+        accentColorRed = components.red
+        accentColorGreen = components.green
+        accentColorBlue = components.blue
+    }
+
+    func setAccentColorToSecondary() {
+        let components = secondaryColorBinding.wrappedValue.components
+        accentColorRed = components.red
+        accentColorGreen = components.green
+        accentColorBlue = components.blue
+    }
+
     // MARK: - Duplicate
 
     func duplicate() -> CordlessHandsetCharger {
-        // 1. Initialize a new CordlessHandset, passing the original's properties to the initializer.
-        let newCharger = CordlessHandsetCharger()
+        // 1. Initialize a new CordlessHandsetCharger, passing the original's properties to the initializer.
+        let newCharger = CordlessHandsetCharger(mainColorRed: mainColorRed, mainColorGreen: mainColorGreen, mainColorBlue: mainColorBlue, secondaryColorRed: secondaryColorRed, secondaryColorGreen: secondaryColorGreen, secondaryColorBlue: secondaryColorBlue, accentColorRed: accentColorRed, accentColorGreen: accentColorGreen, accentColorBlue: accentColorBlue)
+        // 2. Give the duplicated handset a new UUID.
+        newCharger.id = UUID()
+        // 3. Copy all other properties.
         newCharger.phone = phone
-        newCharger.mainColorRed = mainColorRed
-        newCharger.mainColorGreen = mainColorGreen
-        newCharger.mainColorBlue = mainColorBlue
-        newCharger.secondaryColorRed = secondaryColorRed
-        newCharger.secondaryColorGreen = secondaryColorGreen
-        newCharger.secondaryColorBlue = secondaryColorBlue
         newCharger.hasRangeExtender = hasRangeExtender
         newCharger.wallMountability = wallMountability
         newCharger.chargeContactType = chargeContactType

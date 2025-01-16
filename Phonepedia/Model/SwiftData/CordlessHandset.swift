@@ -66,6 +66,12 @@ final class CordlessHandset {
     
     var secondaryColorBlue: Double = 0
 
+    var accentColorRed: Double = 0
+
+    var accentColorGreen: Double = 0
+
+    var accentColorBlue: Double = 0
+
     var displayBacklightColorRed: Double = 255
     
     var displayBacklightColorGreen: Double = 255
@@ -97,7 +103,13 @@ final class CordlessHandset {
     var cordedReceiverSecondaryColorGreen: Double = 0
     
     var cordedReceiverSecondaryColorBlue: Double = 0
-    
+
+    var cordedReceiverAccentColorRed: Double = 0
+
+    var cordedReceiverAccentColorGreen: Double = 0
+
+    var cordedReceiverAccentColorBlue: Double = 0
+
     var keyBacklightColorRed: Double = 0
     
     var keyBacklightColorGreen: Double = 255
@@ -277,7 +289,19 @@ final class CordlessHandset {
             secondaryColorBlue = components.blue
         }
     }
-    
+
+    @Transient
+    var accentColorBinding: Binding<Color> {
+        Binding<Color> { [self] in
+            Color(red: accentColorRed, green: accentColorGreen, blue: accentColorBlue)
+        } set: { [self] newColor in
+            let components = newColor.components
+            accentColorRed = components.red
+            accentColorGreen = components.green
+            accentColorBlue = components.blue
+        }
+    }
+
     @Transient
     var cordedReceiverMainColorBinding: Binding<Color> {
         Binding<Color> { [self] in
@@ -302,7 +326,19 @@ final class CordlessHandset {
             cordedReceiverSecondaryColorBlue = components.blue
         }
     }
-    
+
+    @Transient
+    var cordedReceiverAccentColorBinding: Binding<Color> {
+        Binding<Color> { [self] in
+            Color(red: cordedReceiverAccentColorRed, green: cordedReceiverAccentColorGreen, blue: cordedReceiverAccentColorBlue)
+        } set: { [self] newColor in
+            let components = newColor.components
+            cordedReceiverAccentColorRed = components.red
+            cordedReceiverAccentColorGreen = components.green
+            cordedReceiverAccentColorBlue = components.blue
+        }
+    }
+
     @Transient
     var displayBacklightColorBinding: Binding<Color> {
         Binding<Color> { [self] in
@@ -353,7 +389,7 @@ final class CordlessHandset {
     
     // MARK: - Initialization
 	
-    init(brand: String, model: String, mainColorRed: Double, mainColorGreen: Double, mainColorBlue: Double, secondaryColorRed: Double, secondaryColorGreen: Double, secondaryColorBlue: Double) {
+    init(brand: String, model: String, mainColorRed: Double, mainColorGreen: Double, mainColorBlue: Double, secondaryColorRed: Double, secondaryColorGreen: Double, secondaryColorBlue: Double, accentColorRed: Double, accentColorGreen: Double, accentColorBlue: Double) {
 		self.brand = brand
 		self.model = model
         self.mainColorRed = mainColorRed
@@ -362,6 +398,9 @@ final class CordlessHandset {
         self.secondaryColorRed = secondaryColorRed
         self.secondaryColorGreen = secondaryColorGreen
         self.secondaryColorBlue = secondaryColorBlue
+        self.accentColorRed = accentColorRed
+        self.accentColorGreen = accentColorGreen
+        self.accentColorBlue = accentColorBlue
 	}
     
     // MARK: - Color Methods
@@ -378,6 +417,36 @@ final class CordlessHandset {
         cordedReceiverSecondaryColorRed = components.red
         cordedReceiverSecondaryColorGreen = components.green
         cordedReceiverSecondaryColorBlue = components.blue
+    }
+
+    // MARK: - Set Accent Color
+
+    func setAccentColorToMain() {
+        let components = mainColorBinding.wrappedValue.components
+        accentColorRed = components.red
+        accentColorGreen = components.green
+        accentColorBlue = components.blue
+    }
+
+    func setAccentColorToSecondary() {
+        let components = secondaryColorBinding.wrappedValue.components
+        accentColorRed = components.red
+        accentColorGreen = components.green
+        accentColorBlue = components.blue
+    }
+
+    func setCordedReceiverAccentColorToMain() {
+        let components = cordedReceiverMainColorBinding.wrappedValue.components
+        cordedReceiverAccentColorRed = components.red
+        cordedReceiverAccentColorGreen = components.green
+        cordedReceiverAccentColorBlue = components.blue
+    }
+
+    func setCordedReceiverAccentColorToSecondary() {
+        let components = cordedReceiverSecondaryColorBinding.wrappedValue.components
+        cordedReceiverAccentColorRed = components.red
+        cordedReceiverAccentColorGreen = components.green
+        cordedReceiverAccentColorBlue = components.blue
     }
 
     func swapKeyBackgroundAndForegroundColors() {
@@ -540,14 +609,17 @@ final class CordlessHandset {
     func duplicate() -> CordlessHandset {
         // 1. Initialize a new CordlessHandset, passing the original's properties to the initializer.
         let newHandset = CordlessHandset(
-            brand: self.brand,
-            model: self.model,
-            mainColorRed: self.mainColorRed,
-            mainColorGreen: self.mainColorGreen,
-            mainColorBlue: self.mainColorBlue,
-            secondaryColorRed: self.secondaryColorRed,
-            secondaryColorGreen: self.secondaryColorGreen,
-            secondaryColorBlue: self.secondaryColorBlue
+            brand: brand,
+            model: model,
+            mainColorRed: mainColorRed,
+            mainColorGreen: mainColorGreen,
+            mainColorBlue: mainColorBlue,
+            secondaryColorRed: secondaryColorRed,
+            secondaryColorGreen: secondaryColorGreen,
+            secondaryColorBlue: secondaryColorBlue,
+            accentColorRed: accentColorRed,
+            accentColorGreen: accentColorGreen,
+            accentColorBlue: accentColorBlue
         )
         // 2. Give the duplicated handset a new UUID.
         newHandset.id = UUID()

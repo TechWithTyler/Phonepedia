@@ -36,7 +36,7 @@ struct HandsetSpecialFeaturesView: View {
 
 #Preview {
     Form {
-        HandsetSpecialFeaturesView(handset: CordlessHandset(brand: "Panasonic", model: "KX-TGFA72", mainColorRed: 0, mainColorGreen: 0, mainColorBlue: 0, secondaryColorRed: 0, secondaryColorGreen: 0, secondaryColorBlue: 0))
+        HandsetSpecialFeaturesView(handset: CordlessHandset(brand: "Panasonic", model: "KX-TGFA72", mainColorRed: 0, mainColorGreen: 0, mainColorBlue: 0, secondaryColorRed: 0, secondaryColorGreen: 0, secondaryColorBlue: 0, accentColorRed: 0, accentColorGreen: 0, accentColorBlue: 0))
     }
     .formStyle(.grouped)
 }

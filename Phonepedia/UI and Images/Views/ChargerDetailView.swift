@@ -56,6 +56,13 @@ struct ChargerDetailView: View {
                     Button("Use Main Color") {
                         charger.setSecondaryColorToMain()
                     }
+                    ColorPicker("Accent Color", selection: charger.accentColorBinding, supportsOpacity: false)
+                    Button("Use Top Color") {
+                        charger.setAccentColorToMain()
+                    }
+                    Button("Use Bottom Color") {
+                        charger.setAccentColorToSecondary()
+                    }
                     Picker("Charger For", selection: $charger.type) {
                         Text("Handset").tag(0)
                         Text("Headset/Speakerphone").tag(1)
@@ -93,7 +100,7 @@ struct ChargerDetailView: View {
 }
 
 #Preview {
-    @Previewable @State var charger = CordlessHandsetCharger()
+    @Previewable @State var charger = CordlessHandsetCharger(mainColorRed: 0, mainColorGreen: 0, mainColorBlue: 0, secondaryColorRed: 0, secondaryColorGreen: 0, secondaryColorBlue: 0, accentColorRed: 0, accentColorGreen: 0, accentColorBlue: 0)
     charger.phone = Phone(brand: "Panasonic", model: "KX-TGF675")
     return ChargerDetailView(charger: charger, chargerNumber: 1)
 }

@@ -38,7 +38,7 @@ struct HandsetRedialView: View {
 
 #Preview {
     Form {
-        HandsetRedialView(handset: CordlessHandset(brand: "Uniden", model: "DCX320", mainColorRed: 0, mainColorGreen: 0, mainColorBlue: 0, secondaryColorRed: 200, secondaryColorGreen: 200, secondaryColorBlue: 200))
+        HandsetRedialView(handset: CordlessHandset(brand: "Uniden", model: "DCX320", mainColorRed: 0, mainColorGreen: 0, mainColorBlue: 0, secondaryColorRed: 0, secondaryColorGreen: 0, secondaryColorBlue: 0, accentColorRed: 200, accentColorGreen: 200, accentColorBlue: 200))
     }
     .formStyle(.grouped)
 }

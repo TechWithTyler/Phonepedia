@@ -141,7 +141,7 @@ struct HandsetDetailView: View {
 }
 
 #Preview {
-    @Previewable @State var handset = CordlessHandset(brand: "Panasonic", model: "KX-TGFA97", mainColorRed: 120, mainColorGreen: 120, mainColorBlue: 120, secondaryColorRed: 0, secondaryColorGreen: 0, secondaryColorBlue: 0)
+    @Previewable @State var handset = CordlessHandset(brand: "Panasonic", model: "KX-TGFA97", mainColorRed: 120, mainColorGreen: 120, mainColorBlue: 120, secondaryColorRed: 0, secondaryColorGreen: 0, secondaryColorBlue: 0, accentColorRed: 0, accentColorGreen: 0, accentColorBlue: 0)
     handset.phone = Phone(brand: "Panasonic", model: "KX-TGF975")
     return HandsetDetailView(handset: handset, handsetNumber: 1)
         .environmentObject(DialogManager())

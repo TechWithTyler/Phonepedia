@@ -11,7 +11,25 @@ import SheftAppsStylishUI
 
 struct HandsetGeneralView: View {
 
+    // MARK: - Properties - Handset
+
     @Bindable var handset: CordlessHandset
+
+    // MARK: - Properties - Strings
+
+    var mainColorLocation: String {
+        switch handset.cordlessDeviceType {
+        case 1: return "Top"
+        default: return "Front"
+        }
+    }
+
+    var secondaryColorLocation: String {
+        switch handset.cordlessDeviceType {
+        case 1: return "Bottom"
+        default: return "Back"
+        }
+    }
 
     var body: some View {
         if let phone = handset.phone {
@@ -36,10 +54,17 @@ struct HandsetGeneralView: View {
             Picker("Place In My Collection", selection: $handset.storageOrSetup) {
                 PhoneInCollectionStatusPickerItems()
             }
-            ColorPicker("Main Color", selection: handset.mainColorBinding, supportsOpacity: false)
-            ColorPicker("Secondary/Accent Color", selection: handset.secondaryColorBinding, supportsOpacity: false)
-            Button("Use Main Color") {
+            ColorPicker("\(mainColorLocation) Color", selection: handset.mainColorBinding, supportsOpacity: false)
+            ColorPicker("\(secondaryColorLocation) Color", selection: handset.secondaryColorBinding, supportsOpacity: false)
+            Button("Use \(mainColorLocation) Color") {
                 handset.setSecondaryColorToMain()
+            }
+            ColorPicker("Accent Color", selection: handset.accentColorBinding, supportsOpacity: false)
+            Button("Use \(mainColorLocation) Color") {
+                handset.setAccentColorToMain()
+            }
+            Button("Use \(secondaryColorLocation) Color") {
+                handset.setAccentColorToSecondary()
             }
             Stepper("Maximum Number Of Bases: \(handset.maxBases)", value: $handset.maxBases, in: 1...4)
             InfoText("Registering a cordless device to more than one base allows you to extend the coverage area and access the answering system, shared lists, etc. of multiple bases without having to register the device to one of those bases at a time.\nIf you want extended range but the same lines/shared lists/base features, and/or you don't want calls to disconnect when the device decides to communicate with a different base, use range extenders instead of multiple bases.")
@@ -82,14 +107,22 @@ struct HandsetGeneralView: View {
                 }
             }
             if handset.cordlessDeviceType == 1 {
-                ClearSupportedColorPicker("Corded Receiver Main Color", selection: handset.cordedReceiverMainColorBinding) {
+                ClearSupportedColorPicker("Corded Receiver Outer Color", selection: handset.cordedReceiverMainColorBinding) {
                     Text("No Corded Receiver")
                 }
                 if handset.hasCordedReceiver {
-                    ColorPicker("Corded Receiver Secondary/Accent Color", selection: handset.cordedReceiverSecondaryColorBinding, supportsOpacity: false)
-                    Button("Use Main Color") {
+                    ColorPicker("Corded Receiver Inner Color", selection: handset.cordedReceiverSecondaryColorBinding, supportsOpacity: false)
+                    Button("Use Outer Color") {
                         handset.setCordedReceiverSecondaryColorToMain()
                     }
+                    ColorPicker("Corded Receiver Accent Color", selection: handset.cordedReceiverAccentColorBinding, supportsOpacity: false)
+                    Button("Use Outer Color") {
+                        handset.setCordedReceiverAccentColorToMain()
+                    }
+                    Button("Use Inner Color") {
+                        handset.setCordedReceiverAccentColorToSecondary()
+                    }
+
                 }
                 HStack {
                     Text("Deskset Type")
@@ -132,7 +165,7 @@ struct HandsetGeneralView: View {
 
 #Preview {
     Form {
-        HandsetGeneralView(handset: CordlessHandset(brand: "Panasonic", model: "KX-TGUA40", mainColorRed: 0, mainColorGreen: 0, mainColorBlue: 0, secondaryColorRed: 200, secondaryColorGreen: 200, secondaryColorBlue: 200))
+        HandsetGeneralView(handset: CordlessHandset(brand: "Panasonic", model: "KX-TGUA40", mainColorRed: 0, mainColorGreen: 0, mainColorBlue: 0, secondaryColorRed: 200, secondaryColorGreen: 200, secondaryColorBlue: 200, accentColorRed: 200, accentColorGreen: 200, accentColorBlue: 200))
     }
     .formStyle(.grouped)
 }

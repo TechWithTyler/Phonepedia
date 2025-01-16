@@ -36,7 +36,7 @@ struct HandsetPhonebookView: View {
 
 #Preview {
     Form {
-        HandsetPhonebookView(handset: CordlessHandset(brand: "Vtech", model: "IS8101", mainColorRed: 200, mainColorGreen: 200, mainColorBlue: 200, secondaryColorRed: 0, secondaryColorGreen: 0, secondaryColorBlue: 0))
+        HandsetPhonebookView(handset: CordlessHandset(brand: "Vtech", model: "IS8101", mainColorRed: 200, mainColorGreen: 200, mainColorBlue: 200, secondaryColorRed: 0, secondaryColorGreen: 0, secondaryColorBlue: 0, accentColorRed: 0, accentColorGreen: 0, accentColorBlue: 0))
     }
     .formStyle(.grouped)
 }

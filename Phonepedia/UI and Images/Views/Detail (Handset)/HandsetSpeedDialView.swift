@@ -34,7 +34,7 @@ struct HandsetSpeedDialView: View {
 
 #Preview {
     Form {
-        HandsetSpeedDialView(handset: CordlessHandset(brand: "Panasonic", model: "KX-TGEA20", mainColorRed: 200, mainColorGreen: 200, mainColorBlue: 200, secondaryColorRed: 255, secondaryColorGreen: 255, secondaryColorBlue: 255))
+        HandsetSpeedDialView(handset: CordlessHandset(brand: "Panasonic", model: "KX-TGEA20", mainColorRed: 200, mainColorGreen: 200, mainColorBlue: 200, secondaryColorRed: 255, secondaryColorGreen: 255, secondaryColorBlue: 255, accentColorRed: 200, accentColorGreen: 200, accentColorBlue: 200))
     }
     .formStyle(.grouped)
 }

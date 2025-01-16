@@ -47,7 +47,7 @@ struct HandsetMessagingView: View {
 
 #Preview {
     Form {
-        HandsetMessagingView(handset: CordlessHandset(brand: "AT&T", model: "CL80107", mainColorRed: 200, mainColorGreen: 200, mainColorBlue: 200, secondaryColorRed: 0, secondaryColorGreen: 0, secondaryColorBlue: 0))
+        HandsetMessagingView(handset: CordlessHandset(brand: "AT&T", model: "CL80107", mainColorRed: 200, mainColorGreen: 200, mainColorBlue: 200, secondaryColorRed: 0, secondaryColorGreen: 0, secondaryColorBlue: 0, accentColorRed: 0, accentColorGreen: 0, accentColorBlue: 0))
     }
     .formStyle(.grouped)
 }

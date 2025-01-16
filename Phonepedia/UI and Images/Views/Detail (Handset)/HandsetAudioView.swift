@@ -45,7 +45,7 @@ struct HandsetAudioView: View {
 
 #Preview {
     Form {
-        HandsetAudioView(handset: CordlessHandset(brand: "Panasonic", model: "KX-TGDA99", mainColorRed: 200, mainColorGreen: 200, mainColorBlue: 200, secondaryColorRed: 0, secondaryColorGreen: 0, secondaryColorBlue: 0))
+        HandsetAudioView(handset: CordlessHandset(brand: "Panasonic", model: "KX-TGDA99", mainColorRed: 200, mainColorGreen: 200, mainColorBlue: 200, secondaryColorRed: 0, secondaryColorGreen: 0, secondaryColorBlue: 0, accentColorRed: 0, accentColorGreen: 0, accentColorBlue: 0))
     }
     .formStyle(.grouped)
 }

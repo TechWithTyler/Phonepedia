@@ -55,7 +55,7 @@ struct HandsetRingersView: View {
 
 #Preview {
     Form {
-        HandsetRingersView(handset: CordlessHandset(brand: "Vtech", model: "DS6401-16", mainColorRed: 255, mainColorGreen: 0, mainColorBlue: 0, secondaryColorRed: 0, secondaryColorGreen: 0, secondaryColorBlue: 0))
+        HandsetRingersView(handset: CordlessHandset(brand: "Vtech", model: "DS6401-16", mainColorRed: 255, mainColorGreen: 0, mainColorBlue: 0, secondaryColorRed: 0, secondaryColorGreen: 0, secondaryColorBlue: 0, accentColorRed: 200, accentColorGreen: 200, accentColorBlue: 200))
     }
     .formStyle(.grouped)
 }

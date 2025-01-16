@@ -44,7 +44,7 @@ struct HandsetCallerIDView: View {
 
 #Preview {
     Form {
-        HandsetCallerIDView(handset: CordlessHandset(brand: "Panasonic", model: "KX-TGA551", mainColorRed: 180, mainColorGreen: 180, mainColorBlue: 180, secondaryColorRed: 180, secondaryColorGreen: 180, secondaryColorBlue: 180))
+        HandsetCallerIDView(handset: CordlessHandset(brand: "Panasonic", model: "KX-TGA551", mainColorRed: 180, mainColorGreen: 180, mainColorBlue: 180, secondaryColorRed: 180, secondaryColorGreen: 180, secondaryColorBlue: 180, accentColorRed: 0, accentColorGreen: 0, accentColorBlue: 0))
     }
     .formStyle(.grouped)
 }

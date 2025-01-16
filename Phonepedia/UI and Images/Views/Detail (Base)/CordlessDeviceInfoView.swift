@@ -255,7 +255,7 @@ struct CordlessDeviceInfoView: View {
 
     func addHandset() {
         // 1. Create a new CordlessHandset object. Newly-added handsets default to the phone's brand, the phone's main handset model number, and the phone base's colors.
-        let newHandset = CordlessHandset(brand: phone.brand, model: phone.mainHandsetModel, mainColorRed: phone.baseMainColorRed, mainColorGreen: phone.baseMainColorGreen, mainColorBlue: phone.baseMainColorBlue, secondaryColorRed: phone.baseSecondaryColorRed, secondaryColorGreen: phone.baseSecondaryColorGreen, secondaryColorBlue: phone.baseSecondaryColorBlue)
+        let newHandset = CordlessHandset(brand: phone.brand, model: phone.mainHandsetModel, mainColorRed: phone.baseMainColorRed, mainColorGreen: phone.baseMainColorGreen, mainColorBlue: phone.baseMainColorBlue, secondaryColorRed: phone.baseSecondaryColorRed, secondaryColorGreen: phone.baseSecondaryColorGreen, secondaryColorBlue: phone.baseSecondaryColorBlue, accentColorRed: phone.baseAccentColorRed, accentColorGreen: phone.baseAccentColorGreen, accentColorBlue: phone.baseAccentColorBlue)
         // 2. If the handset count is the same as the number of included handsets, set "Where I Got This Cordless Device" to 0 (Included With Base/Set). Otherwise, use the default acquisition method.
         if phone.cordlessHandsetsIHave.count + 1 <= phone.numberOfIncludedCordlessHandsets {
             newHandset.whereAcquired = 0
@@ -288,7 +288,7 @@ struct CordlessDeviceInfoView: View {
     // MARK: - Charger Management
 
     func addCharger() {
-        phone.chargersIHave.append(CordlessHandsetCharger())
+        phone.chargersIHave.append(CordlessHandsetCharger(mainColorRed: phone.baseMainColorRed, mainColorGreen: phone.baseMainColorGreen, mainColorBlue: phone.baseMainColorBlue, secondaryColorRed: phone.baseSecondaryColorRed, secondaryColorGreen: phone.baseSecondaryColorGreen, secondaryColorBlue: phone.baseSecondaryColorBlue, accentColorRed: phone.baseAccentColorRed, accentColorGreen: phone.baseAccentColorGreen, accentColorBlue: phone.baseAccentColorBlue))
     }
 
     func duplicateCharger(_ charger: CordlessHandsetCharger) {
