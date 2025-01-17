@@ -22,14 +22,10 @@ struct HandsetActionsView: View {
 
     @EnvironmentObject var dialogManager: DialogManager
 
-    // MARK: - Properties - Integers
-
-    var handsetNumber: Int
-
     var body: some View {
         if let phone = handset.phone {
             Button {
-                phone.cordlessHandsetsIHave.insert(handset.duplicate(), at: handsetNumber)
+                phone.cordlessHandsetsIHave.insert(handset.duplicate(), at: handset.handsetNumber)
                 dismiss()
             } label: {
                 Label("Duplicate", systemImage: "doc.on.doc")
@@ -51,5 +47,5 @@ struct HandsetActionsView: View {
 }
 
 #Preview {
-    HandsetActionsView( handset: CordlessHandset(brand: "Panasonic", model: "KX-TGUA40", mainColorRed: 200, mainColorGreen: 200, mainColorBlue: 200, secondaryColorRed: 0, secondaryColorGreen: 0, secondaryColorBlue: 0, accentColorRed: 0, accentColorGreen: 0, accentColorBlue: 0), handsetNumber: 1)
+    HandsetActionsView( handset: CordlessHandset(brand: "Panasonic", model: "KX-TGUA40", mainColorRed: 200, mainColorGreen: 200, mainColorBlue: 200, secondaryColorRed: 0, secondaryColorGreen: 0, secondaryColorBlue: 0, accentColorRed: 0, accentColorGreen: 0, accentColorBlue: 0))
 }

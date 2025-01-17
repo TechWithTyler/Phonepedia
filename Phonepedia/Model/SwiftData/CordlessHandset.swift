@@ -39,7 +39,9 @@ final class CordlessHandset {
 	var brand: String
 	
 	var model: String
-	
+
+    var handsetNumber: Int = 0
+
 	var releaseYear: Int = currentYear
 
     var acquisitionYear: Int = currentYear

@@ -24,7 +24,7 @@ final class PhonepediaTests: XCTestCase {
 		handset = CordlessHandset(brand: "Panasonic", model: "KX-TGFA97")
 		phone?.cordlessHandsetsIHave.append(handset!)
 		phoneDetailView = PhoneDetailView(phone: phone!)
-		handsetInfoDetailView = HandsetDetailView(handset: .constant(handset!), handsetNumber: 1)
+		handsetInfoDetailView = HandsetDetailView(handset: .constant(handset!))
 		print((phone?.bluetoothPhonebookTransfers)!)
     }
 

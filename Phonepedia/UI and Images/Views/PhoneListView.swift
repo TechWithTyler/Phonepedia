@@ -112,7 +112,7 @@ struct PhoneListView: View {
                         }
                     }
                     .onDelete(perform: deletePhones)
-                    .onMove(perform: moveItems)
+                    .onMove(perform: movePhones)
                 }
                 .accessibilityIdentifier("PhonesList")
             } else if phoneFilterEnabled {
@@ -130,6 +130,9 @@ struct PhoneListView: View {
                     .font(.largeTitle)
                     .foregroundStyle(.secondary)
             }
+        }
+        .onAppear {
+            installDefaultsForNewData()
         }
         .contextMenu {
             PhoneListDetailOptions(menu: true)
@@ -270,7 +273,7 @@ struct PhoneListView: View {
     }
 
     // MARK: - Data Management
-    
+
     private func addPhone() {
         withAnimation {
             // 1. Create a new Phone object with a mock brand and model number.
@@ -288,16 +291,8 @@ struct PhoneListView: View {
             selectedPhone = newPhone
         }
     }
-    
-    private func deletePhones(at offsets: IndexSet) {
-        guard let index = offsets.first else { return }
-        withAnimation {
-            dialogManager.phoneToDelete = phones[index]
-            dialogManager.showingDeletePhone = true
-        }
-    }
 
-    private func moveItems(source: IndexSet, destination: Int) {
+    private func movePhones(source: IndexSet, destination: Int) {
         // 1. If the phone filter is enabled, show an alert and don't continue.
             guard !phoneFilterEnabled else {
                 dialogManager.showingMoveFailed = true
@@ -314,6 +309,14 @@ struct PhoneListView: View {
                     originalPhone.phoneNumberInCollection = index
                 }
             }
+        }
+    }
+
+    private func deletePhones(at offsets: IndexSet) {
+        guard let index = offsets.first else { return }
+        withAnimation {
+            dialogManager.phoneToDelete = phones[index]
+            dialogManager.showingDeletePhone = true
         }
     }
 
@@ -341,7 +344,22 @@ struct PhoneListView: View {
             modelContext.delete(phone)
         }
     }
-    
+
+    func installDefaultsForNewData() {
+        // For updates from version 2024.11, set the numbers of each phone/cordless device/charger to the corresponding index.
+        if phones.allSatisfy({ $0.phoneNumberInCollection == 0 }) {
+            for phone in phones {
+                phone.phoneNumberInCollection = phones.firstIndex(of: phone)!
+                for handset in phone.cordlessHandsetsIHave {
+                    handset.handsetNumber = phone.cordlessHandsetsIHave.firstIndex(of: handset)!
+                }
+                for charger in phone.chargersIHave {
+                    charger.chargerNumber = phone.chargersIHave.firstIndex(of: charger)!
+                }
+            }
+        }
+    }
+
 }
 
 #Preview {

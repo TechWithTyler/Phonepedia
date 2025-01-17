@@ -18,12 +18,22 @@ struct CordlessDeviceInfoView: View {
 
     // MARK: - Properties - Cordless Devices
 
+    var sortedCordlessDevices: [CordlessHandset] {
+        return phone.cordlessHandsetsIHave.sorted { $0.handsetNumber < $1.handsetNumber }
+    }
+
     var filteredCordlessDevices: [CordlessHandset] {
         if cordlessDeviceFilter == "all" {
-            return phone.cordlessHandsetsIHave
+            return sortedCordlessDevices
         } else {
-            return phone.cordlessHandsetsIHave.filter { $0.cordlessDeviceTypeText == cordlessDeviceFilter }
+            return sortedCordlessDevices.filter { $0.cordlessDeviceTypeText == cordlessDeviceFilter }
         }
+    }
+
+    // MARK: - Properties - Cordless Device Chargers
+
+    var sortedChargers: [CordlessHandsetCharger] {
+        return phone.chargersIHave.sorted { $0.chargerNumber < $1.chargerNumber }
     }
 
     // MARK: - Properties - Dialog Manager
@@ -86,50 +96,53 @@ struct CordlessDeviceInfoView: View {
     #endif
                 }
             if !filteredCordlessDevices.isEmpty {
-                ForEach(filteredCordlessDevices) { handset in
-                    let handsetNumber = (phone.cordlessHandsetsIHave.firstIndex(of: handset) ?? 0) + 1
-                    NavigationLink {
-                        HandsetDetailView(handset: handset, handsetNumber: handsetNumber)
-                            .navigationTitle("Device \(handsetNumber)")
-                    } label: {
-                        HStack {
-                            VStack(alignment: .leading) {
-                                Text("\(handset.brand) \(handset.model.isEmpty ? "<No Model Number>" : handset.model)")
-                                Text(handset.storageOrSetup > 1 ? "In Storage" : "Active")
-                                    .foregroundStyle(.secondary)
-                            }
-                            Spacer()
-                            VStack(alignment: .trailing) {
-                                Text("Device \(handsetNumber)")
-                                if cordlessDeviceFilter == "all" {
-                                    Text(handset.cordlessDeviceTypeText)
+                List {
+                    ForEach(filteredCordlessDevices) { handset in
+                        NavigationLink {
+                            HandsetDetailView(handset: handset)
+                                .navigationTitle("Device \(handset.handsetNumber + 1)")
+                        } label: {
+                            HStack {
+                                VStack(alignment: .leading) {
+                                    Text("\(handset.brand) \(handset.model.isEmpty ? "<No Model Number>" : handset.model)")
+                                    Text(handset.storageOrSetup > 1 ? "In Storage" : "Active")
+                                        .foregroundStyle(.secondary)
                                 }
+                                Spacer()
+                                VStack(alignment: .trailing) {
+                                    Text("Device \(handset.handsetNumber + 1)")
+                                    if cordlessDeviceFilter == "all" {
+                                        Text(handset.cordlessDeviceTypeText)
+                                    }
+                                }
+                                .foregroundStyle(.secondary)
                             }
-                            .foregroundStyle(.secondary)
+                            .padding(.vertical, 5)
+                        }
+                        .contextMenu {
+                            Button {
+                                duplicateHandset(handset)
+                            } label: {
+                                Label("Duplicate", systemImage: "doc.on.doc")
+                            }
+                            Divider()
+                            Button(role: .destructive) {
+                                dialogManager.showingDeleteHandset = true
+                                dialogManager.handsetToDelete = handset
+                            } label: {
+                                Label("Delete…", systemImage: "trash")
+                            }
+                        }
+                        .swipeActions {
+                            Button(role: .destructive) {
+                                dialogManager.showingDeleteHandset = true
+                                dialogManager.handsetToDelete = handset
+                            } label: {
+                                Label("Delete", systemImage: "trash")
+                            }
                         }
                     }
-                    .contextMenu {
-                        Button {
-                            duplicateHandset(handset)
-                        } label: {
-                            Label("Duplicate", systemImage: "doc.on.doc")
-                        }
-                        Divider()
-                        Button(role: .destructive) {
-                            dialogManager.showingDeleteHandset = true
-                            dialogManager.handsetToDelete = handset
-                        } label: {
-                            Label("Delete…", systemImage: "trash")
-                        }
-                    }
-                    .swipeActions {
-                        Button(role: .destructive) {
-                            dialogManager.showingDeleteHandset = true
-                            dialogManager.handsetToDelete = handset
-                        } label: {
-                            Label("Delete", systemImage: "trash")
-                        }
-                    }
+                    .onMove(perform: moveHandsets)
                 }
                 if phone.cordlessHandsetsIHave.count > phone.maxCordlessHandsets {
                     WarningText("You have more cordless devices than the base can handle!")
@@ -140,7 +153,7 @@ struct CordlessDeviceInfoView: View {
         }
         .alert("Delete this cordless device?", isPresented: $dialogManager.showingDeleteHandset, presenting: $dialogManager.handsetToDelete) { handset in
             Button("Delete", role: .destructive) {
-                deleteHandset(at: phone.cordlessHandsetsIHave.firstIndex(of: handset.wrappedValue!)!)
+                deleteHandset(handset.wrappedValue!)
                 dialogManager.handsetToDelete = nil
                 dialogManager.showingDeleteHandset = false
             }
@@ -164,7 +177,6 @@ struct CordlessDeviceInfoView: View {
             Text("All cordless devices will be deleted from this \(phone.brand) \(phone.model).")
         }
         Section("Cordless Device Chargers") {
-            if !phone.chargersIHave.isEmpty {
                 Text("\(chargerCount) \(chargerCount == 1 ? "Charger" : "Chargers")")
                 Menu {
                     if !phone.chargersIHave.isEmpty {
@@ -189,45 +201,46 @@ struct CordlessDeviceInfoView: View {
                         .foregroundStyle(.red)
     #endif
                 }
-                ForEach(phone.chargersIHave) { charger in
-                    let chargerNumber = (phone.chargersIHave.firstIndex(of: charger) ?? 0) + 1
-                    NavigationLink {
-                        ChargerDetailView(charger: charger, chargerNumber: chargerNumber)
-                            .navigationTitle("Charger \(chargerNumber)")
-                    } label: {
-                        Text("Charger \(chargerNumber)")
-                    }
-                    .contextMenu {
-                        Button {
-                            duplicateCharger(charger)
+            if !phone.chargersIHave.isEmpty {
+                List {
+                    ForEach(sortedChargers) { charger in
+                        NavigationLink {
+                            ChargerDetailView(charger: charger, chargerNumber: charger.chargerNumber)
+                                .navigationTitle("Charger \(charger.chargerNumber + 1)")
                         } label: {
-                            Label("Duplicate", systemImage: "doc.on.doc")
+                            Text("Charger \(charger.chargerNumber + 1)")
+                                .padding(.vertical, 5)
                         }
-                        Divider()
-                        Button(role: .destructive) {
-                            dialogManager.showingDeleteCharger = true
-                            dialogManager.chargerToDelete = charger
-                        } label: {
-                            Label("Delete…", systemImage: "trash")
+                        .contextMenu {
+                            Button {
+                                duplicateCharger(charger)
+                            } label: {
+                                Label("Duplicate", systemImage: "doc.on.doc")
+                            }
+                            Divider()
+                            Button(role: .destructive) {
+                                dialogManager.showingDeleteCharger = true
+                                dialogManager.chargerToDelete = charger
+                            } label: {
+                                Label("Delete…", systemImage: "trash")
+                            }
+                        }
+                        .swipeActions {
+                            Button(role: .destructive) {
+                                dialogManager.showingDeleteCharger = true
+                                dialogManager.chargerToDelete = charger
+                            } label: {
+                                Label("Delete", systemImage: "trash")
+                            }
                         }
                     }
-                    .swipeActions {
-                        Button(role: .destructive) {
-                            dialogManager.showingDeleteCharger = true
-                            dialogManager.chargerToDelete = charger
-                        } label: {
-                            Label("Delete", systemImage: "trash")
-                        }
-                    }
+                    .onMove(perform: moveChargers)
                 }
-            } else {
-                Text("No chargers")
-                    .foregroundStyle(.secondary)
             }
         }
         .alert("Delete this charger?", isPresented: $dialogManager.showingDeleteCharger, presenting: $dialogManager.chargerToDelete) { charger in
             Button("Delete", role: .destructive) {
-                deleteCharger(at: phone.chargersIHave.firstIndex(of: charger.wrappedValue!)!)
+                deleteCharger(charger.wrappedValue!)
                 dialogManager.chargerToDelete = nil
                 dialogManager.showingDeleteCharger = false
             }
@@ -268,21 +281,51 @@ struct CordlessDeviceInfoView: View {
     }
 
     func duplicateHandset(_ handset: CordlessHandset) {
-        // 1. Create a duplicate of handset.
+        // 1. Create a duplicate of handset and set its number.
+        let newHandsetNumber = sortedCordlessDevices.endIndex
         let newHandset = handset.duplicate()
-        // 2. Insert the duplicate handset after the original. Handsets that come after handset in the array will be shifted up by 1 to allow the duplicate handset to slot in.
-        if let index = phone.cordlessHandsetsIHave.firstIndex(of: handset) {
-            let newHandsetIndex = index + 1
-            phone.cordlessHandsetsIHave.insert(newHandset, at: newHandsetIndex)
-        }
+        newHandset.handsetNumber = newHandsetNumber
+        // 2. Insert the duplicate handset at the end of the array.
+        phone.cordlessHandsetsIHave.append(newHandset)
+        // 3. Move the duplicate handset to after the original.
+        moveHandsets(source: IndexSet(integer: newHandsetNumber), destination: handset.handsetNumber + 1)
     }
 
     func duplicateLastHandset() {
-        duplicateHandset(phone.cordlessHandsetsIHave.last!)
+        duplicateHandset(sortedCordlessDevices.last!)
     }
 
-    func deleteHandset(at index: Int) {
-        phone.cordlessHandsetsIHave.remove(at: index)
+    private func moveHandsets(source: IndexSet, destination: Int) {
+        // 1. If the cordless device filter is enabled, show an alert and don't continue.
+        guard cordlessDeviceFilter == "all" else {
+                dialogManager.showingMoveFailed = true
+                return
+            }
+        withAnimation {
+            // 2. Create a copy of the sortedCordlessDevices array pre-move.
+            var handsetsCopy = sortedCordlessDevices
+            // 3. Perform the move operation on the copy.
+            handsetsCopy.move(fromOffsets: source, toOffset: destination)
+            // 4. Use the copy's items and their indicies to move the cordless devices in the original array.
+            for (index, handset) in handsetsCopy.enumerated() {
+                if let originalHandset = sortedCordlessDevices.filter({ $0.id == handset.id}).first {
+                    originalHandset.handsetNumber = index
+                }
+            }
+        }
+    }
+
+    func deleteHandset(_ handset: CordlessHandset) {
+        // 1. Create a snapshot of the index of the handset to be deleted so handsets after the deleted one can be shifted down after deletion.
+        let deletedIndex = handset.handsetNumber
+        // 2. Delete the handset.
+        phone.cordlessHandsetsIHave.removeAll { $0.id == handset.id }
+        // 3. For any handset whose index is higher than the one that was just deleted, decrease handsetNumber by 1.
+        sortedCordlessDevices.forEach {
+            if $0.handsetNumber > deletedIndex {
+                $0.handsetNumber -= 1
+            }
+        }
     }
 
     // MARK: - Charger Management
@@ -293,19 +336,45 @@ struct CordlessDeviceInfoView: View {
 
     func duplicateCharger(_ charger: CordlessHandsetCharger) {
         // 1. Create a duplicate of charger.
+        let newChargerNumber = sortedChargers.endIndex
         let newCharger = charger.duplicate()
-        // 2. Insert the duplicate charger after the original. Chargers that come after charger in the array will be shifted up by 1 to allow the duplicate charger to slot in.
-        if let index = phone.chargersIHave.firstIndex(of: charger) {
-            phone.chargersIHave.insert(newCharger, at: index + 1)
-        }
+        newCharger.chargerNumber = newChargerNumber
+        // 2. Insert the duplicate charger at the end of the array.
+        phone.chargersIHave.append(newCharger)
+        // 3. Move the duplicate charger to after the original.
+        moveChargers(source: IndexSet(integer: newChargerNumber), destination: charger.chargerNumber + 1)
     }
 
     func duplicateLastCharger() {
-        duplicateCharger(phone.chargersIHave.last!)
+        duplicateCharger(sortedChargers.last!)
     }
 
-    func deleteCharger(at index: Int) {
-        phone.chargersIHave.remove(at: index)
+    private func moveChargers(source: IndexSet, destination: Int) {
+        withAnimation {
+            // 1. Create a copy of the sortedChargers array pre-move.
+            var chargersCopy = sortedChargers
+            // 2. Perform the move operation on the copy.
+            chargersCopy.move(fromOffsets: source, toOffset: destination)
+            // 3. Use the copy's items and their indicies to move the cordless devices in the original array.
+            for (index, charger) in chargersCopy.enumerated() {
+                if let originalCharger = sortedChargers.filter({ $0.id == charger.id}).first {
+                    originalCharger.chargerNumber = index
+                }
+            }
+        }
+    }
+
+    func deleteCharger(_ charger: CordlessHandsetCharger) {
+        // 1. Create a snapshot of the index of the charger to be deleted so chargers after the deleted one can be shifted down after deletion.
+        let deletedIndex = charger.chargerNumber
+        // 2. Delete the charger.
+        phone.chargersIHave.removeAll { $0.id == charger.id }
+        // 3. For any charger whose index is higher than the one that was just deleted, decrease chargerNumber by 1.
+        sortedChargers.forEach {
+            if $0.chargerNumber > deletedIndex {
+                $0.chargerNumber -= 1
+            }
+        }
     }
 
 }

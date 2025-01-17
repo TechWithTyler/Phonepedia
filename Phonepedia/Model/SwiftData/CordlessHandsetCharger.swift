@@ -18,6 +18,8 @@ final class CordlessHandsetCharger {
     
     var id = UUID()
 
+    var chargerNumber: Int = 0
+
     var mainColorRed: Double = 0
 
     var mainColorGreen: Double = 0
@@ -130,7 +132,7 @@ final class CordlessHandsetCharger {
     func duplicate() -> CordlessHandsetCharger {
         // 1. Initialize a new CordlessHandsetCharger, passing the original's properties to the initializer.
         let newCharger = CordlessHandsetCharger(mainColorRed: mainColorRed, mainColorGreen: mainColorGreen, mainColorBlue: mainColorBlue, secondaryColorRed: secondaryColorRed, secondaryColorGreen: secondaryColorGreen, secondaryColorBlue: secondaryColorBlue, accentColorRed: accentColorRed, accentColorGreen: accentColorGreen, accentColorBlue: accentColorBlue)
-        // 2. Give the duplicated handset a new UUID.
+        // 2. Give the duplicated charger a new UUID.
         newCharger.id = UUID()
         // 3. Copy all other properties.
         newCharger.phone = phone
