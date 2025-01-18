@@ -643,9 +643,17 @@ final class Phone {
 
     // MARK: - Property Change Handlers
 
-    func modelNumberChanged() {
-        handsetNumberDigit = nil
-        handsetNumberDigitIndex = nil
+    func modelNumberChanged(oldValue: String, newValue: String) {
+        guard let digit = handsetNumberDigit, let digitIndex = handsetNumberDigitIndex else { return }
+        let array = newValue.split(separator: String())
+        if digitIndex > newValue.count {
+            handsetNumberDigit = nil
+            handsetNumberDigitIndex = nil
+        }
+        if array[digitIndex] != String(digit) {
+            handsetNumberDigit = nil
+            handsetNumberDigitIndex = nil
+        }
     }
 
     func hasAnsweringSystemChanged(oldValue: Int, newValue: Int) {

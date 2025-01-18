@@ -142,8 +142,8 @@ struct PhoneDetailView: View {
         Section("Basics") {
             FormTextField("Brand", text: $phone.brand)
             FormTextField("Model", text: $phone.model)
-                .onChange(of: phone.model) { _, _ in
-                    phone.modelNumberChanged()
+                .onChange(of: phone.model) { oldValue, newValue in
+                    phone.modelNumberChanged(oldValue: oldValue, newValue: newValue)
                 }
             HStack {
                 Text("Phone Type")
