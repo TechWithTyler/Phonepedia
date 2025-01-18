@@ -20,6 +20,7 @@ struct HandsetNumberDigitView: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text("Digit Representing Number Of Included Cordless Handsets")
+                .lineLimit(nil)
             ScrollView(.horizontal) {
                 HStack {
                     ForEach(0..<modelNumber.count, id: \.self) { index in
@@ -31,10 +32,11 @@ struct HandsetNumberDigitView: View {
                             }
                             .tint(phone.handsetNumberDigitIndex == index ? .accentColor : .primary)
                             .bold(phone.handsetNumberDigitIndex == index)
-                            .padding(2.5)
+                            .padding(4)
+                            .accessibilityConditionalTrait(.isSelected, condition: phone.handsetNumberDigitIndex == index)
                         } else {
                             Text(String(modelNumber[index]))
-                                .padding(2.5)
+                                .padding(4)
                         }
                     }
                     Divider()
@@ -44,13 +46,14 @@ struct HandsetNumberDigitView: View {
                     }
                     .tint(phone.handsetNumberDigitIndex == nil ? .accentColor : .primary)
                     .bold(phone.handsetNumberDigitIndex == nil)
-                    .padding(2.5)
+                    .padding(4)
+                    .accessibilityConditionalTrait(.isSelected, condition: phone.handsetNumberDigitIndex == nil)
                 }
                 .animation(.linear, value: phone.handsetNumberDigit)
                 .buttonStyle(.borderless)
             }
         }
-        InfoText("The selected digit will be highlighted in the model number in the phone list. Select \"None\" if none of the digits in the model number are the number of included cordless handsets, the number of included cordless handsets is indicated by 2 digits (e.g., the -12 in M123-12 indicating 12 handsets), or one or more digits of the model number indicates that the phone comes with one + X more handsets (e.g. M123+3 indicating 1 handset + 3 additional handsets).")
+        InfoText("The selected digit will be highlighted or underlined in the model number in the phone list. Select \"None\" if none of the digits in the model number are the number of included cordless handsets, the number of included cordless handsets is indicated by 2 digits (e.g., the -12 in M123-12 indicating 12 handsets), or one or more digits of the model number indicates that the phone comes with one + X more handsets (e.g. M123+3 indicating 1 handset + 3 additional handsets).")
     }
 }
 
