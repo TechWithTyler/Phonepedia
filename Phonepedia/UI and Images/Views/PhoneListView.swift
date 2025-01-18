@@ -214,6 +214,12 @@ struct PhoneListView: View {
                 .badge(phones.count)
                 PhoneTypeDefinitionsButton()
                 Divider()
+                Menu("Phone List Detail") {
+                    PhoneListDetailOptions(menu: true)
+                }
+                .pickerStyle(.menu)
+                .toggleStyle(.automatic)
+                Divider()
                 Button(role: .destructive) {
                     dialogManager.showingDeleteAllPhones = true
                 } label: {

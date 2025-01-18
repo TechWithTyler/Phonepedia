@@ -19,7 +19,7 @@ struct PhoneListDetailOptions: View {
 
     @AppStorage(UserDefaults.KeyNames.showPhoneActiveStatusInList) var showPhoneActiveStatusInList: Bool = true
 
-    @AppStorage(UserDefaults.KeyNames.highlightHandsetNumberDigitInList) var highlightHandsetNumberDigitInList: Bool = true
+    @AppStorage(UserDefaults.KeyNames.highlightHandsetNumberDigitInList) var highlightHandsetNumberDigitInList: Int = 2
 
     @AppStorage(UserDefaults.KeyNames.showNumberOfCordlessHandsetsInList) var showNumberOfCordlessHandsetsInList: Bool = true
 
@@ -46,9 +46,14 @@ struct PhoneListDetailOptions: View {
             InfoText("If both a phone's main and secondary colors are the same, a single colored circle will be displayed. If they're different, the main color is represented by the upper circle and the secondary color is represented by the lower circle.")
         }
         Toggle("Show Release/Acquisition Years", isOn: $showYearsInList)
-        Toggle("Highlight Handset Number Digit", isOn: $highlightHandsetNumberDigitInList)
+        Picker("Handset Number Digit Indication", selection: $highlightHandsetNumberDigitInList) {
+            Text("Off").tag(0)
+            Divider()
+            Text("Underline").tag(1)
+            Text("Highlight").tag(2)
+        }
         if !menu {
-            InfoText("If one of the digits of a cordless phone's model number is specified as indicating the number of included cordless handsets (e.g., the 2 after the dash in \(Phone.mockModel) indicating that it has 2 cordless handsets), that digit will be highlighted in the phone list.")
+            InfoText("If one of the digits of a cordless phone's model number is specified as indicating the number of included cordless handsets (e.g., the 2 after the dash in \(Phone.mockModel) indicating that it has 2 cordless handsets), that digit will be highlighted or underlined in the phone list.")
         }
     }
 

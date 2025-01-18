@@ -18,7 +18,7 @@ struct PhoneRowView: View {
 
     @AppStorage(UserDefaults.KeyNames.showNumberOfCordlessHandsetsInList) var showNumberOfCordlessHandsetsInList: Bool = true
 
-    @AppStorage(UserDefaults.KeyNames.highlightHandsetNumberDigitInList) var highlightHandsetNumberDigitInList: Bool = true
+    @AppStorage(UserDefaults.KeyNames.highlightHandsetNumberDigitInList) var highlightHandsetNumberDigitInList: Int = 2
 
     @AppStorage(UserDefaults.KeyNames.showPhoneColorsInList) var showPhoneColorsInList: Bool = true
 
@@ -70,7 +70,7 @@ struct PhoneRowView: View {
 					.font(.largeTitle)
                     .lineLimit(nil)
                     .multilineTextAlignment(.center)
-                Text(modelNumberWithColoredHandsetNumberDigit(phone.model, digit: phone.handsetNumberDigit, at: phone.handsetNumberDigitIndex))
+                Text(modelNumberWithIndicatedHandsetNumberDigit(phone.model, digit: phone.handsetNumberDigit, at: phone.handsetNumberDigitIndex))
 					.font(.title2)
                     .lineLimit(nil)
                     .multilineTextAlignment(.center)
@@ -157,11 +157,11 @@ struct PhoneRowView: View {
 
     // MARK: - Model Number "Number Of Included Cordless Devices" Digit Highlight
 
-    func modelNumberWithColoredHandsetNumberDigit(_ modelNumber: String, digit: Int?, at index: Int?) -> AttributedString {
+    func modelNumberWithIndicatedHandsetNumberDigit(_ modelNumber: String, digit: Int?, at index: Int?) -> AttributedString {
         // 1. Convert the model number String to an AttributedString. As AttributedString is a data type, it's declared in the Foundation framework instead of the SwiftUI framework, even though its cross-platform design makes it shine with SwiftUI. Unlike with NSAttributedString, you can simply initialize it with a String argument without having to use an argument label.
         var attributedString = AttributedString(modelNumber)
         // 2. Ensure digit and index aren't nil and that index is within modelNumber's bounds.
-        if let digit = digit, let index = index, modelNumber.count > index, highlightHandsetNumberDigitInList {
+        if let digit = digit, let index = index, modelNumber.count > index, highlightHandsetNumberDigitInList > 0 {
             // 3. Calculate the String.Index for the given Int index.
             let stringIndex = modelNumber.index(modelNumber.startIndex, offsetBy: index)
             // 4. Check if the character at index matches digit.
@@ -169,7 +169,12 @@ struct PhoneRowView: View {
                 // 5. Calculate the range in AttributedString and apply highlighting.
                 let attributedStartIndex = attributedString.index(attributedString.startIndex, offsetByCharacters: index)
                 let attributedEndIndex = attributedString.index(afterCharacter: attributedStartIndex)
-                attributedString[attributedStartIndex..<attributedEndIndex].backgroundColor = .accentColor
+                switch highlightHandsetNumberDigitInList {
+                case 2:
+                    attributedString[attributedStartIndex..<attributedEndIndex].backgroundColor = .accentColor
+                default:
+                    attributedString[attributedStartIndex..<attributedEndIndex].underlineStyle = .single
+                }
             }
         }
         // 6. Return the attributed string. If digit and index are nil, no highlighting is applied.
