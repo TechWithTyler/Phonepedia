@@ -46,6 +46,7 @@ When the first ring is suppressed, the number of rings you hear will be one less
                     Text("Voice Message").tag(3)
                 }
                 InfoText("Silence can make callers think your number is broken, making them unlikely to try calling you again.\nA custom busy tone is often the same one used for the intercom busy tone on \(phone.brand)'s cordless phones.\nA traditional busy tone is that of one of the countries where the phone is sold.\nA voice message tells callers that their call is blocked or that their call can't be taken. Example: \"This number isn't accepting your call. Please hang up now.\"")
+                ExampleAudioView(audioFile: .callBlockMessage)
                 Toggle(isOn: $phone.hasOneTouchCallBlock) {
                     Text("Has One-Touch/Quick Call Block")
                 }
@@ -80,6 +81,7 @@ When the first ring is suppressed, the number of rings you hear will be one less
                 InfoText("Call block pre-screening answers the call and plays a message asking callers to press a key so the phone can identify whether they're a human or a robot.\nCallers with numbers stored in the phone's allowed number list/database or phonebook, or callers whose caller ID names are stored in the phone's allowed name list, will always ring through.\nAsking for the caller name allows you to hear the caller's real name in their own voice when you pick up\(phone.hasTalkingCallerID ? " or as the caller ID announcement" : String()).")
                 if phone.callBlockPreScreening > 0 {
                     InfoText("Example screening message: \"Hello. Your call is being screened to make sure you're a person. Please \(phone.callBlockPreScreening == 2 ? "press \(Int.random(in: 0...999))" : "say your name after the \(AnsweringSystemGreetingComponents.beepOrTone()) then press the pound key") to be connected.\"")
+                    ExampleAudioView(audioFile: phone.callBlockPreScreening == 2 ? .callBlockPreScreeningCode : .callBlockPreScreeningCallerName)
                     if phone.hasAnsweringSystem == 0 {
                         InfoText("Calls can't go to a voicemail service once answered by a call block pre-screening system.")
                     }

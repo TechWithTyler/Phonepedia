@@ -29,6 +29,11 @@ struct BaseCallerIDView: View {
             Text("Talking Caller ID")
         }
         InfoText("The phone can announce who's calling after each ring, so you don't have to look at the screen. Example: \"Call from \(exampleName)\" for a caller stored in the phonebook, \"Call from \(NameNumberExamples.cnamForName(exampleName))\" for a caller not stored in the phonebook, or \"Call from \(NameNumberExamples.formatPhoneNumber(areaCode: exampleAreaCode, centralExchange: exampleCentralExchange, localNumber: exampleLocalNumber, withFormat: .plain))\" when the caller's number is displayed instead of a name.")
+        if phone.callerIDPhonebookMatch {
+            ExampleAudioView(audioFile: .talkingCallerIDPhonebook)
+        }
+        ExampleAudioView(audioFile: .talkingCallerIDCNAM)
+        ExampleAudioView(audioFile: .talkingCallerIDNumber)
         if phone.isCordless || phone.baseDisplayType > 0 {
             FormNumericTextField(phone.isCordless ? "Caller ID List Capacity (Base)" : "Caller ID List Capacity", value: $phone.baseCallerIDCapacity, valueRange: .allPositivesIncludingZero, singularSuffix: "entry", pluralSuffix: "entries")
 #if !os(visionOS)

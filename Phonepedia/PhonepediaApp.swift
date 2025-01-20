@@ -17,6 +17,8 @@ struct PhonepediaApp: App {
 
     @ObservedObject var dialogManager = DialogManager()
 
+    @ObservedObject var audioManager = AudioManager()
+
     var body: some Scene {
 #if os(iOS) || os(visionOS)
         DocumentGroupLaunchScene {
@@ -31,6 +33,7 @@ struct PhonepediaApp: App {
             ContentView()
                 .environmentObject(photoViewModel)
                 .environmentObject(dialogManager)
+                .environmentObject(audioManager)
             #if os(macOS)
                 .frame(minWidth: 1000)
             #endif
