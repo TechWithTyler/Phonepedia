@@ -47,6 +47,14 @@ struct ExampleAudioView: View {
             .animatedSymbolReplacement()
             .buttonStyle(.borderless)
         }
+        .onDisappear {
+            audioManager.stopAudio()
+        }
+        .onChange(of: audioFile) { oldValue, newValue in
+            if newValue != oldValue {
+                audioManager.stopAudio()
+            }
+        }
     }
 
 }

@@ -55,9 +55,7 @@ class AudioManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
 
     func toggleAudio(audioFile: AudioFile) {
         if isPlaying && self.audioFile == audioFile {
-            self.audioFile = nil
-            audioPlayer?.stop()
-            isPlaying = false
+            stopAudio()
             return
         }
         self.audioFile = audioFile
@@ -72,6 +70,12 @@ class AudioManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
         } catch {
             fatalError("Error playing audio file \(audioFile.rawValue).wav: \(error.localizedDescription)")
         }
+    }
+
+    func stopAudio() {
+        audioPlayer?.stop()
+        audioFile = nil
+        isPlaying = false
     }
 
     // MARK: - AVAudioPlayerDelegate
