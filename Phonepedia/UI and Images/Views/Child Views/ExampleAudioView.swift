@@ -31,13 +31,19 @@ struct ExampleAudioView: View {
         }
     }
 
+    var isPlayingAudioFile: Bool {
+        return audioManager.isPlaying && audioManager.audioFile == audioFile
+    }
+
     var body: some View {
         HStack {
             Text("Example \(title)")
             Spacer()
-            Button(audioManager.isPlaying && audioManager.audioFile == audioFile ? "Stop" : "Play", systemImage: audioManager.isPlaying && audioManager.audioFile == audioFile ? "stop.fill" : "play.fill") {
+            Button(isPlayingAudioFile ? "Stop" : "Play", systemImage: isPlayingAudioFile ? "stop.fill" : "play.fill") {
                 audioManager.toggleAudio(audioFile: audioFile)
             }
+            .accessibilityLabel(isPlayingAudioFile ? "Stop Example \(title)" : "Play Example \(title)")
+            .accessibilityAddTraits(.startsMediaSession)
             .animatedSymbolReplacement()
             .buttonStyle(.borderless)
         }
@@ -48,4 +54,5 @@ struct ExampleAudioView: View {
 #Preview {
     ExampleAudioView(audioFile: .answeringSystemGreetingAnswerOnly)
         .environmentObject(AudioManager())
+        .padding()
 }
