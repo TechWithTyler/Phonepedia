@@ -180,7 +180,7 @@ In most cases, if the base has a charge light/display message, the completion of
                 }
                 if !phone.isCordedCordless && !phone.hasTransmitOnlyBase && phone.deregistration > 0 && phone.locatorButtons == 0 {
                     Toggle("Place-On-Base Auto-Register", isOn: $phone.placeOnBaseAutoRegister)
-                    InfoText("The base can detect an unregistered handset being placed on it, which will put it into registration mode. Aside from putting the base into registration mode, data isn't exchanged through the contacts like it is on phones using the digital security code method. Manually putting the base in registration mode is still available for re-registering handsets or for registering handsets which don't fit in the base.")
+                    InfoText("The base can detect an unregistered handset being placed on it, which will put it into registration mode. Aside from putting the base into registration mode, data isn't exchanged through the contacts like it is on phones using the digital security code method. Manually putting the base in registration mode is still available for re-registering handsets or for registering handsets which don't fit on the base.")
                 }
                 Picker("Deregistration", selection: $phone.deregistration) {
                     if phone.locatorButtons > 0 {
@@ -226,7 +226,7 @@ In most cases, if the base has a charge light/display message, the completion of
                 • When the corded receiver is placed on the base, the earpiece pushes down on a piece on the base, or the base pushes down on a piece below the earpiece. This piece is called the hook switch or switch hook, and is how the phone knows if the receiver is on or off the base. You can quickly press the hook switch/switch hook to simulate a pulse dial. This is called "switch hook dialing".
                 • Push-button phones send tones made up of a low and high frequency, called Dual-Tone Multi-Frequency (DTMF) tones, when numbers are dialed. Most phone services today only support tone dialing, so a pulse-to-tone converter is required if you want to use a rotary phone or pulse-only push-button phone on your line. A pulse-to-tone converter detects the number of pulses and then sends out the corresponding DTMF tone through the line.
                 • A desk phone has a base, with or without speakerphone, and a corded receiver. These phones may also have other features like a caller ID display or answering system.
-                • A slim/wall phone doesn't have speakerphone or an answering system, but may have a caller ID display. The keypad or rotary dial can be either in the receiver or in the base. The caller ID buttons and display are on the back of the receiver, not the face where the keypad is.
+                • A slim/wall phone doesn't have speakerphone and typically doesn't have an answering system, but may have a caller ID display. The keypad or rotary dial can be either in the receiver or in the base. The caller ID buttons and display are on the back of the receiver, not the face where the keypad is.
                 • A base-less phone is a corded phone that doesn't have a base. The phone is a single device that plugs into the line.
                 • A novelty phone is a corded phone that's designed to look like something else, like a hamburger you flip open, a piano whose keys are used to dial numbers, a slim phone that's shaped like a pair of lips, or an animated character that serves as the phone's base.
                 """)

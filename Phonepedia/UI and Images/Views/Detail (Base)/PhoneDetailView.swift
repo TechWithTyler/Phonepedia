@@ -199,8 +199,6 @@ struct PhoneDetailView: View {
                 } label: {
                     Label("Display/Backlight/Buttons", systemImage: "5.square")
                 }
-            }
-            if phone.isCordless || phone.cordedPhoneType == 0 {
                     FormNavigationLink {
                         PhoneMessagingView(phone: phone)
                             .navigationTitle("Messaging")
@@ -237,15 +235,15 @@ struct PhoneDetailView: View {
                 } label: {
                     Label(phone.isCordless ? "Speakerphone/Intercom" : "Speakerphone", systemImage: "speaker")
                 }
-            }
-            FormNavigationLink {
-                PhoneAudioView(phone: phone)
-                    .navigationTitle("Wired/BT Headsets")
+                FormNavigationLink {
+                    PhoneAudioView(phone: phone)
+                        .navigationTitle("Wired/BT Headsets")
 #if !os(macOS)
-                    .navigationBarTitleDisplayMode(.inline)
+                        .navigationBarTitleDisplayMode(.inline)
 #endif
-            } label: {
-                Label("Wired/Bluetooth Headsets", systemImage: "headset")
+                } label: {
+                    Label("Wired/Bluetooth Headsets", systemImage: "headset")
+                }
             }
             FormNavigationLink {
                 PhoneMOHView(phone: phone)
@@ -319,7 +317,7 @@ struct PhoneDetailView: View {
                     Label("Phonebook", systemImage: "book")
                 }
             }
-            if phone.isCordless || phone.cordedPhoneType == 0 || phone.cordedPhoneType == 2 {
+            if phone.isCordless || phone.cordedPhoneType == 0 || (phone.cordedPhoneType == 2 && phone.baseDisplayType > 0) {
                 FormNavigationLink {
                     BaseCallerIDView(phone: phone)
                         .navigationTitle("Caller ID")

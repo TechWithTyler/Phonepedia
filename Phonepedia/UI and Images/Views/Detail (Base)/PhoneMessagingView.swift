@@ -76,10 +76,10 @@ struct PhoneMessagingView: View {
                     Text("Base or Handset").tag(2)
                 }
             }
+            if phone.hasAnsweringSystem > 0 {
             let exampleName = NameNumberExamples.names.randomElement()!
             InfoText("The greeting, sometimes called the announcement or outgoing message (OGM), is the message the answering system plays to callers when it answers, before optionally allowing the caller to leave a message.\nExample: \"Hello. You have reached \(exampleName). I'm not available to take your call, so please \(AnsweringSystemGreetingComponents.leaveOrRecord()) \(AnsweringSystemGreetingComponents.aOrYour()) message after the \(AnsweringSystemGreetingComponents.beepOrTone()).\"")
             ExampleAudioView(audioFile: .answeringSystemGreetingRecordMessage)
-            if phone.hasAnsweringSystem > 0 {
                 Toggle("Has Greeting Slots/Scheduled Greetings", isOn: $phone.greetingSlotsAndSchedules)
                 InfoText("Greeting slots allow you to record multiple greetings and switch between them manually or on a schedule. For example, in a business setting, you can record a \"we're open\" greeting to play when the business is open, and a \"we're closed\" greeting to play when the business is closed.")
                 Toggle("Has Greeting Only Mode", isOn: $phone.hasGreetingOnlyMode)

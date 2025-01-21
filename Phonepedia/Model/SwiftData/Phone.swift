@@ -837,15 +837,20 @@ final class Phone {
             baseNavigatorKeyCenterButton = 0
             baseNavigatorKeyStandbyShortcuts = false
 		}
-		if newValue <= 1 {
+		if newValue <= 2 {
 			baseSoftKeysBottom = 0
 			baseSoftKeysSide = 0
+            basePhonebookCapacity = 0
+            baseCallerIDCapacity = 0
+            if baseRedialCapacity > 2 {
+                baseRedialCapacity = 1
+            }
 		}
         if newValue < 4 {
             baseMainMenuLayout = 0
         }
 		if newValue < 3 || newValue > 5 {
-            let colorComponents = Color.Components(fromColor: .clear)
+            let colorComponents = Color.Components(fromColor: .white)
             baseDisplayBacklightColorRed = colorComponents.red
             baseDisplayBacklightColorGreen = colorComponents.green
             baseDisplayBacklightColorBlue = colorComponents.blue
