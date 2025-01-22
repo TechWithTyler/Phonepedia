@@ -15,13 +15,20 @@ struct HandsetCallerIDView: View {
 
     var body: some View {
         if let phone = handset.phone {
+            if handset.phonebookCapacity > 0 || (phone.basePhonebookCapacity > 0 && handset.usesBasePhonebook) && handset.handsetStyle < 3 {
+                Toggle(isOn: $handset.callerIDPhonebookMatch) {
+                    Text("Caller ID Name Uses Matching Phonebook Entry Name")
+                }
+            }
             Toggle(isOn: $handset.hasTalkingCallerID) {
                 Text("Talking Caller ID")
             }
-            if handset.phonebookCapacity > 0 || (phone.basePhonebookCapacity > 0 && handset.usesBasePhonebook) && handset.handsetStyle < 3 {
-                Toggle(isOn: $handset.callerIDPhonebookMatch) {
-                    Text("Caller ID Uses Matching Phonebook Entry Name")
+            if handset.hasTalkingCallerID {
+                if handset.callerIDPhonebookMatch {
+                    ExampleAudioView(audioFile: .talkingCallerIDPhonebook)
                 }
+                ExampleAudioView(audioFile: .talkingCallerIDCNAM)
+                ExampleAudioView(audioFile: .talkingCallerIDNumber)
             }
             if handset.handsetStyle < 3 {
                 FormNumericTextField("Caller ID List Capacity", value: $handset.callerIDCapacity, valueRange: .allPositivesIncludingZero, singularSuffix: "entry", pluralSuffix: "entries")
