@@ -43,13 +43,15 @@ class AudioManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
 
     // MARK: - Properties - Booleans
 
-    @Published var isPlaying: Bool = false
+    var isPlaying: Bool {
+        return audioFile != nil
+    }
 
     // MARK: - Properties - AVAudioPlayer
 
     var audioPlayer: AVAudioPlayer?
 
-    var audioFile: AudioFile? = nil
+    @Published var audioFile: AudioFile? = nil
 
     // MARK: - Playing
 
@@ -66,7 +68,6 @@ class AudioManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
             audioPlayer = try AVAudioPlayer(contentsOf: url)
             audioPlayer?.delegate = self
             audioPlayer?.play()
-            isPlaying = true
         } catch {
             fatalError("Error playing audio file \(audioFile.rawValue).wav: \(error.localizedDescription)")
         }
@@ -75,13 +76,11 @@ class AudioManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
     func stopAudio() {
         audioPlayer?.stop()
         audioFile = nil
-        isPlaying = false
     }
 
     // MARK: - AVAudioPlayerDelegate
 
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully success: Bool) {
-        isPlaying = false
         audioFile = nil
         if !success {
             fatalError("Failed to play audio")
