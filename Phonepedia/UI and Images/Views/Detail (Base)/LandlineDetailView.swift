@@ -55,6 +55,8 @@ struct LandlineDetailView: View {
                 Text("Tone or Pulse (Switch)").tag(3)
             }
             InfoText("Cordless and push-button corded phones can use either tone dialing or pulse dialing, or offer the ability to choose based on what your phone service requires. Most phone services today only support tone dialing.\nFor phones which have the option to select tone or pulse dialing, the star key, a dedicated tone button, or setting the dial mode switch to tone, is used to temporarily switch to tone dialing during a call in pulse dial mode. This allows you to use automated systems requiring keypad entry when your phone service only supports pulse dialing for the initial dialing of the call. You can play DTMF tones into the phone's microphone if you're using a pulse-only phone.\nTip: An easy way to check which dial mode(s) your phone service supports is to pick up the phone, dial a number, and see if the dial tone cuts off. If the dial tone continues, your phone service doesn't support the phone's dial mode. Change to the other mode if your phone has the option and try again.")
+            ExampleAudioView(audioFile: .dtmfTones)
+            ExampleAudioView(audioFile: .pulseDialing)
         }
         if phone.isCordless || phone.cordedPhoneType == 0 {
             Picker("Landline In Use Status On Base", selection: $phone.landlineInUseStatusOnBase) {

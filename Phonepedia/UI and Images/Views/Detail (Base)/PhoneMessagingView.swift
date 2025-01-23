@@ -126,6 +126,9 @@ A phone's voicemail indicator usually works in one or both of the following ways
 • Your phone company may send FSK tones to the phone whenever a new voicemail is left and when all new voicemails are played, to tell the phone to turn on or off its voicemail indicator.
 • The phone may go off-hook for a few seconds periodically, or when you hang up or it stops ringing, to listen for a stutter dial tone ("bee-bee-bee-beeeeeeeep") which your phone company may use as an audible indication of new voicemails.
 """)
+            if phone.voicemailIndication >= 2 {
+                ExampleAudioView(audioFile: .stutterDialTone)
+            }
             if !phone.isCordless || phone.hasBaseSpeakerphone {
                 Picker("Voicemail Quick Dial", selection: $phone.voicemailQuickDial) {
                     Text("None").tag(0)

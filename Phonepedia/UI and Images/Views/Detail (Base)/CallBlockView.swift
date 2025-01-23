@@ -46,7 +46,11 @@ When the first ring is suppressed, the number of rings you hear will be one less
                     Text("Voice Message").tag(3)
                 }
                 InfoText("Silence can make callers think your number is broken, making them unlikely to try calling you again.\nA custom busy tone is often the same one used for the intercom busy tone on \(phone.brand)'s cordless phones.\nA traditional busy tone is that of one of the countries where the phone is sold.\nA voice message tells callers that their call is blocked or that their call can't be taken. Example: \"This number isn't accepting your call. Please hang up now.\"")
-                ExampleAudioView(audioFile: .callBlockMessage)
+                if phone.blockedCallersHear == 2 {
+                    ExampleAudioView(audioFile: .busyTone)
+                } else if phone.blockedCallersHear == 3 {
+                    ExampleAudioView(audioFile: .callBlockMessage)
+                }
                 Toggle(isOn: $phone.hasOneTouchCallBlock) {
                     Text("Has One-Touch/Quick Call Block")
                 }

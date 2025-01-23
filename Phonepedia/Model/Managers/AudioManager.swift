@@ -39,6 +39,20 @@ class AudioManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
         // The audio file for the example call block message.
         case callBlockMessage = "callBlockMessage"
 
+        // The audio file for a US stutter dial tone (voicemail tone).
+        case stutterDialTone = "stutterDialTone"
+
+        // The audio file for a US busy tone.
+        case busyTone = "busyTone"
+
+        case callWaitingTone = "callWaitingTone"
+
+        case dtmfTones = "dtmfTones"
+
+        case dtmfToneD = "dtmfToneD"
+
+        case pulseDialing = "pulseDialing"
+
     }
 
     // MARK: - Properties - Booleans
@@ -49,7 +63,7 @@ class AudioManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
 
     // MARK: - Properties - AVAudioPlayer
 
-    var audioPlayer: AVAudioPlayer?
+    @Published var audioPlayer: AVAudioPlayer?
 
     @Published var audioFile: AudioFile? = nil
 

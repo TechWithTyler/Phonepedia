@@ -28,6 +28,12 @@ struct ExampleAudioView: View {
             return "Call Block Pre-Screening Greeting (Code)"
         case .callBlockMessage:
             return "Call Block Message"
+        case .stutterDialTone: return "Stutter Dial Tone (Voicemail Tone)"
+        case .busyTone: return "Busy Tone"
+        case .callWaitingTone: return "Call Waiting Tone"
+        case .dtmfTones: return "DTMF Tones"
+        case .dtmfToneD: return "DTMF Tone D"
+        case .pulseDialing: return "Pulse Dialing"
         }
     }
 
@@ -60,7 +66,7 @@ struct ExampleAudioView: View {
 }
 
 #Preview {
-    ExampleAudioView(audioFile: .answeringSystemGreetingAnswerOnly)
+    ExampleAudioView(audioFile: .dtmfTones)
         .environmentObject(AudioManager())
         .padding()
 }

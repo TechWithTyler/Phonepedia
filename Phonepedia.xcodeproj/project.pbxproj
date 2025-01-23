@@ -17,6 +17,12 @@
 		8D2BAF532CD188380016C61E /* ChargeContactPlacementPickerItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2BAF522CD188380016C61E /* ChargeContactPlacementPickerItems.swift */; };
 		8D2BAF552CD188740016C61E /* ChargeContactTypePickerItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2BAF542CD188740016C61E /* ChargeContactTypePickerItems.swift */; };
 		8D32A5002D419FF100F606FC /* ProgrammingWithoutDisplayInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D32A4FF2D419FF100F606FC /* ProgrammingWithoutDisplayInfoView.swift */; };
+		8D32A5042D42EC2400F606FC /* stutterDialTone.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D32A5032D42EC2400F606FC /* stutterDialTone.wav */; };
+		8D32A5062D42EEBF00F606FC /* busyTone.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D32A5052D42EEBF00F606FC /* busyTone.wav */; };
+		8D32A50A2D42F1ED00F606FC /* dtmfToneD.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D32A5082D42F1ED00F606FC /* dtmfToneD.wav */; };
+		8D32A50B2D42F1ED00F606FC /* callWaitingTone.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D32A5072D42F1ED00F606FC /* callWaitingTone.wav */; };
+		8D32A50C2D42F1ED00F606FC /* dtmfTones.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D32A5092D42F1ED00F606FC /* dtmfTones.wav */; };
+		8D32A50E2D42F23600F606FC /* pulseDialing.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D32A50D2D42F23600F606FC /* pulseDialing.wav */; };
 		8D380B252C3DD35D00505B89 /* PhoneCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D380B242C3DD35D00505B89 /* PhoneCountView.swift */; };
 		8D38ED662CAF2DC500CCC422 /* BaseSpeakerphoneIntercomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38ED652CAF2DC500CCC422 /* BaseSpeakerphoneIntercomView.swift */; };
 		8D38ED682CAF2E9600CCC422 /* PhoneSpecialFeaturesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38ED672CAF2E9600CCC422 /* PhoneSpecialFeaturesView.swift */; };
@@ -168,6 +174,12 @@
 		8D2BAF522CD188380016C61E /* ChargeContactPlacementPickerItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeContactPlacementPickerItems.swift; sourceTree = "<group>"; };
 		8D2BAF542CD188740016C61E /* ChargeContactTypePickerItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeContactTypePickerItems.swift; sourceTree = "<group>"; };
 		8D32A4FF2D419FF100F606FC /* ProgrammingWithoutDisplayInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgrammingWithoutDisplayInfoView.swift; sourceTree = "<group>"; };
+		8D32A5032D42EC2400F606FC /* stutterDialTone.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = stutterDialTone.wav; sourceTree = "<group>"; };
+		8D32A5052D42EEBF00F606FC /* busyTone.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = busyTone.wav; sourceTree = "<group>"; };
+		8D32A5072D42F1ED00F606FC /* callWaitingTone.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = callWaitingTone.wav; sourceTree = "<group>"; };
+		8D32A5082D42F1ED00F606FC /* dtmfToneD.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dtmfToneD.wav; sourceTree = "<group>"; };
+		8D32A5092D42F1ED00F606FC /* dtmfTones.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dtmfTones.wav; sourceTree = "<group>"; };
+		8D32A50D2D42F23600F606FC /* pulseDialing.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pulseDialing.wav; sourceTree = "<group>"; };
 		8D380B242C3DD35D00505B89 /* PhoneCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneCountView.swift; sourceTree = "<group>"; };
 		8D38ED652CAF2DC500CCC422 /* BaseSpeakerphoneIntercomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSpeakerphoneIntercomView.swift; sourceTree = "<group>"; };
 		8D38ED672CAF2E9600CCC422 /* PhoneSpecialFeaturesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneSpecialFeaturesView.swift; sourceTree = "<group>"; };
@@ -327,6 +339,33 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		8D32A5012D42EBFD00F606FC /* Messages */ = {
+			isa = PBXGroup;
+			children = (
+				8D842D5F2D3F122200F50F32 /* answeringSystemGreetingAnswerOnly.wav */,
+				8D842D602D3F122200F50F32 /* answeringSystemGreetingRecordMessage.wav */,
+				8D842D612D3F122200F50F32 /* callBlockMessage.wav */,
+				8D842D622D3F122200F50F32 /* callBlockPreScreeningCallerName.wav */,
+				8D842D632D3F122200F50F32 /* callBlockPreScreeningCode.wav */,
+				8D842D642D3F122200F50F32 /* talkingCallerIDCNAM.wav */,
+				8D842D652D3F122200F50F32 /* talkingCallerIDNumber.wav */,
+				8D842D662D3F122200F50F32 /* talkingCallerIDPhonebook.wav */,
+			);
+			path = Messages;
+			sourceTree = "<group>";
+		};
+		8D32A5022D42EC0600F606FC /* Tones */ = {
+			isa = PBXGroup;
+			children = (
+				8D32A5072D42F1ED00F606FC /* callWaitingTone.wav */,
+				8D32A5082D42F1ED00F606FC /* dtmfToneD.wav */,
+				8D32A5092D42F1ED00F606FC /* dtmfTones.wav */,
+				8D32A5052D42EEBF00F606FC /* busyTone.wav */,
+				8D32A5032D42EC2400F606FC /* stutterDialTone.wav */,
+			);
+			path = Tones;
+			sourceTree = "<group>";
+		};
 		8D38ED6B2CAF309800CCC422 /* Detail (Handset) */ = {
 			isa = PBXGroup;
 			children = (
@@ -388,14 +427,9 @@
 		8D842D5E2D3F0AF500F50F32 /* Audio */ = {
 			isa = PBXGroup;
 			children = (
-				8D842D5F2D3F122200F50F32 /* answeringSystemGreetingAnswerOnly.wav */,
-				8D842D602D3F122200F50F32 /* answeringSystemGreetingRecordMessage.wav */,
-				8D842D612D3F122200F50F32 /* callBlockMessage.wav */,
-				8D842D622D3F122200F50F32 /* callBlockPreScreeningCallerName.wav */,
-				8D842D632D3F122200F50F32 /* callBlockPreScreeningCode.wav */,
-				8D842D642D3F122200F50F32 /* talkingCallerIDCNAM.wav */,
-				8D842D652D3F122200F50F32 /* talkingCallerIDNumber.wav */,
-				8D842D662D3F122200F50F32 /* talkingCallerIDPhonebook.wav */,
+				8D32A50D2D42F23600F606FC /* pulseDialing.wav */,
+				8D32A5022D42EC0600F606FC /* Tones */,
+				8D32A5012D42EBFD00F606FC /* Messages */,
 			);
 			path = Audio;
 			sourceTree = "<group>";
@@ -768,12 +802,18 @@
 			files = (
 				8DA844CF2B72E1D7006CBCA7 /* Preview Assets.xcassets in Resources */,
 				8DA844ED2B72E1D7006CBCA7 /* Landline Or Not.mlproj in Resources */,
+				8D32A5042D42EC2400F606FC /* stutterDialTone.wav in Resources */,
 				8D842D672D3F122200F50F32 /* answeringSystemGreetingAnswerOnly.wav in Resources */,
 				8D842D682D3F122200F50F32 /* callBlockMessage.wav in Resources */,
+				8D32A50A2D42F1ED00F606FC /* dtmfToneD.wav in Resources */,
+				8D32A50B2D42F1ED00F606FC /* callWaitingTone.wav in Resources */,
+				8D32A50C2D42F1ED00F606FC /* dtmfTones.wav in Resources */,
+				8D32A5062D42EEBF00F606FC /* busyTone.wav in Resources */,
 				8D842D692D3F122200F50F32 /* callBlockPreScreeningCallerName.wav in Resources */,
 				8D842D6A2D3F122200F50F32 /* talkingCallerIDNumber.wav in Resources */,
 				8D842D6B2D3F122200F50F32 /* answeringSystemGreetingRecordMessage.wav in Resources */,
 				8D842D6C2D3F122200F50F32 /* talkingCallerIDCNAM.wav in Resources */,
+				8D32A50E2D42F23600F606FC /* pulseDialing.wav in Resources */,
 				8D842D6D2D3F122200F50F32 /* callBlockPreScreeningCode.wav in Resources */,
 				8D842D6E2D3F122200F50F32 /* talkingCallerIDPhonebook.wav in Resources */,
 				8D71C81B2CDEBDF600072E50 /* PrivacyInfo.xcprivacy in Resources */,

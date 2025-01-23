@@ -44,6 +44,10 @@ struct BaseCallerIDView: View {
                 .scrollDismissesKeyboard(.interactively)
 #endif
         }
+        Toggle("Supports Call Waiting", isOn: $phone.supportsCallWaiting)
+        InfoText("Call waiting allows you to receive calls even when you are on the phone. Call Waiting Caller ID (CWID) allows you to receive caller ID for the 2nd call. On analog phones, a high-pitched tone, called the Customer Premise Equipment (CPE) tone, will be played after the call waiting tone, then the phone will play a DTMF \"D\" tone to let the provider know it can send caller ID data for the call.")
+        ExampleAudioView(audioFile: .callWaitingTone)
+        ExampleAudioView(audioFile: .dtmfToneD)
     }
 }
 

@@ -321,9 +321,11 @@ final class Phone {
 	var baseCallerIDCapacity: Int = 50
 	
 	var baseRedialCapacity: Int = 0
-	
+
 	var redialNameDisplay: Int = 0
-	
+
+    var supportsCallWaiting: Bool = true
+
 	var callerIDPhonebookMatch: Bool = true
 	
 	var baseSpeedDialCapacity: Int = 0
