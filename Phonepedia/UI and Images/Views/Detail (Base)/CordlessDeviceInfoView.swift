@@ -238,6 +238,13 @@ struct CordlessDeviceInfoView: View {
                 }
             }
         }
+        .alert("Rearranging the cordless device list isn't possible while the cordless device filter is enabled.", isPresented: $dialogManager.showingMoveFailedHandset) {
+            Button("OK") {
+                dialogManager.showingMoveFailedHandset = false
+            }
+        }  message: {
+            Text("Please disable the cordless device filter and try again.")
+        }
         .alert("Delete this charger?", isPresented: $dialogManager.showingDeleteCharger, presenting: $dialogManager.chargerToDelete) { charger in
             Button("Delete", role: .destructive) {
                 deleteCharger(charger.wrappedValue!)
@@ -298,7 +305,7 @@ struct CordlessDeviceInfoView: View {
     private func moveHandsets(source: IndexSet, destination: Int) {
         // 1. If the cordless device filter is enabled, show an alert and don't continue.
         guard cordlessDeviceFilter == "all" else {
-                dialogManager.showingMoveFailed = true
+                dialogManager.showingMoveFailedHandset = true
                 return
             }
         withAnimation {

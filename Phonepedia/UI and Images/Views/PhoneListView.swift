@@ -181,7 +181,7 @@ struct PhoneListView: View {
             Button("OK") {
                 dialogManager.showingMoveFailed = false
             }
-        }  message: {
+        } message: {
             Text("Please disable all filters and try again.")
         }
         .toolbar {

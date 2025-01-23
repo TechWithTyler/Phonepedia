@@ -30,6 +30,8 @@ class DialogManager: ObservableObject {
 
     @Published var showingMoveFailed: Bool = false
 
+    @Published var showingMoveFailedHandset: Bool = false
+
     @Published var showingPhoneTypeDefinitions: Bool = false
 
     @Published var showingAnsweringSystemVsVoicemail: Bool = false
