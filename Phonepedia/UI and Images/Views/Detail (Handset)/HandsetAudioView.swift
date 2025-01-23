@@ -14,6 +14,12 @@ struct HandsetAudioView: View {
     @Bindable var handset: CordlessHandset
 
     var body: some View {
+        if handset.handsetStyle == 0 && handset.sideVolumeButtons {
+            Picker("Speaker/Earpiece Volume Adjustment", selection: $handset.volumeAdjustmentType) {
+                Text("Volume Dial").tag(0)
+                Text("Volume Buttons").tag(1)
+            }
+        }
         if handset.handsetStyle < 2 {
             Toggle("Has Speakerphone", isOn: $handset.hasSpeakerphone)
         if handset.hasSpeakerphone {

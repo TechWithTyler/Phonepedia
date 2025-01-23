@@ -25,7 +25,7 @@ struct BaseDisplayBacklightButtonsView: View {
                 Text("Diamond-Cut (No Space Between Buttons, Click Feel)").tag(4)
                 Text("Touch Button Panel").tag(5)
             }
-            if !phone.isCordless || (phone.isCordless && phone.hasBaseSpeakerphone) {
+            if (!phone.isCordless && (phone.cordedPhoneType == 0 || phone.cordedPhoneType == 2)) || (phone.isCordless && phone.hasBaseSpeakerphone) {
                 Toggle(isOn: $phone.hasBaseKeypad) {
                     Text(phone.isCordless ? "Has Base Keypad" : "Has User-Accessible Keypad")
                 }
@@ -40,7 +40,11 @@ struct BaseDisplayBacklightButtonsView: View {
         }
         if (phone.hasBaseKeypad && phone.baseDisplayType == 0) || phone.cordedPhoneType == 2 {
             Toggle("7 Has Q and 9 Has Z", isOn: $phone.hasQZ)
-        PhoneNumberLetterInfoView()
+            PhoneNumberLetterInfoView()
+        }
+        if phone.hasBaseKeypad || phone.hasAnsweringSystem == 1 || phone.hasAnsweringSystem == 3 {
+            Toggle("Has Rotary Phone-Inspired Button Layout", isOn: $phone.hasRotaryInspiredButtonLayout)
+            InfoText("Some phones have a rotary phone-inspired design, with the buttons arranged like a rotary dial. The display, if any, is located in the center of the \"dial\".")
         }
         if phone.isCordless || phone.cordedPhoneType == 0 {
             Picker(phone.isCordless ? "Display Type (Base)" : "Display Type", selection: $phone.baseDisplayType) {
@@ -58,6 +62,9 @@ struct BaseDisplayBacklightButtonsView: View {
             }
             .onChange(of: phone.baseDisplayType) { oldValue, newValue in
                 phone.baseDisplayTypeChanged(oldValue: oldValue, newValue: newValue)
+            }
+            if phone.baseDisplayType < 3 && !phone.isCordless {
+                ProgrammingWithoutDisplayInfoView()
             }
             if phone.baseDisplayType > 3 {
                 Toggle("Base Display Can Tilt", isOn: $phone.baseDisplayCanTilt)
@@ -123,7 +130,7 @@ struct BaseDisplayBacklightButtonsView: View {
             }
         }
         if phone.isCordless || phone.cordedPhoneType == 0 || phone.cordedPhoneType == 2 {
-            Picker("Button Backlight Type", selection: $phone.baseKeyBacklightAmount) {
+            Picker("Button Lighting Type", selection: $phone.baseKeyBacklightAmount) {
                 Text("None").tag(0)
                 Text("Numbers Only").tag(1)
                 Text("Numbers + Some Function Buttons").tag(2)
@@ -132,15 +139,20 @@ struct BaseDisplayBacklightButtonsView: View {
                     Text("Numbers + Navigation Button").tag(4)
                     Text("All Buttons").tag(5)
                 }
+                if !phone.isCordless && phone.cordedPhoneType == 2 {
+                    Text("Front Light").tag(6)
+                }
             }
             if !phone.isCordless && phone.cordedPowerSource == 0 {
-                InfoText("The brightness of a line-powered phone's button backlight depends on the line's off-hook voltage. If the phone's off-hook voltage is low, the backlight will be dim.")
+                InfoText("The brightness of a line-powered phone's button lighting depends on the line's off-hook voltage. If the phone's off-hook voltage is low, the backlight will be dim.")
             }
             if phone.baseKeyBacklightAmount > 0 {
-                ColorPicker("Button Backlight Color", selection: phone.baseKeyBacklightColorBinding, supportsOpacity: false)
-                Picker("Button Backlight Layer", selection: $phone.baseKeyBacklightLayer) {
-                    Text("Background").tag(0)
-                    Text("Foreground").tag(1)
+                ColorPicker("Button Lighting Color", selection: phone.baseKeyBacklightColorBinding, supportsOpacity: false)
+                if phone.baseKeyBacklightAmount < 6 {
+                    Picker("Button Backlight Layer", selection: $phone.baseKeyBacklightLayer) {
+                        Text("Background").tag(0)
+                        Text("Foreground").tag(1)
+                    }
                 }
                 VStack {
                     Text("Button Backlight Example")

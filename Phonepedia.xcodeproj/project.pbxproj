@@ -16,6 +16,7 @@
 		8D2BAF512CD187EA0016C61E /* ChargingDirectionPickerItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2BAF502CD187EA0016C61E /* ChargingDirectionPickerItems.swift */; };
 		8D2BAF532CD188380016C61E /* ChargeContactPlacementPickerItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2BAF522CD188380016C61E /* ChargeContactPlacementPickerItems.swift */; };
 		8D2BAF552CD188740016C61E /* ChargeContactTypePickerItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2BAF542CD188740016C61E /* ChargeContactTypePickerItems.swift */; };
+		8D32A5002D419FF100F606FC /* ProgrammingWithoutDisplayInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D32A4FF2D419FF100F606FC /* ProgrammingWithoutDisplayInfoView.swift */; };
 		8D380B252C3DD35D00505B89 /* PhoneCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D380B242C3DD35D00505B89 /* PhoneCountView.swift */; };
 		8D38ED662CAF2DC500CCC422 /* BaseSpeakerphoneIntercomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38ED652CAF2DC500CCC422 /* BaseSpeakerphoneIntercomView.swift */; };
 		8D38ED682CAF2E9600CCC422 /* PhoneSpecialFeaturesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38ED672CAF2E9600CCC422 /* PhoneSpecialFeaturesView.swift */; };
@@ -166,6 +167,7 @@
 		8D2BAF502CD187EA0016C61E /* ChargingDirectionPickerItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargingDirectionPickerItems.swift; sourceTree = "<group>"; };
 		8D2BAF522CD188380016C61E /* ChargeContactPlacementPickerItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeContactPlacementPickerItems.swift; sourceTree = "<group>"; };
 		8D2BAF542CD188740016C61E /* ChargeContactTypePickerItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeContactTypePickerItems.swift; sourceTree = "<group>"; };
+		8D32A4FF2D419FF100F606FC /* ProgrammingWithoutDisplayInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgrammingWithoutDisplayInfoView.swift; sourceTree = "<group>"; };
 		8D380B242C3DD35D00505B89 /* PhoneCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneCountView.swift; sourceTree = "<group>"; };
 		8D38ED652CAF2DC500CCC422 /* BaseSpeakerphoneIntercomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSpeakerphoneIntercomView.swift; sourceTree = "<group>"; };
 		8D38ED672CAF2E9600CCC422 /* PhoneSpecialFeaturesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneSpecialFeaturesView.swift; sourceTree = "<group>"; };
@@ -516,6 +518,7 @@
 				8D71C8162CDD651D00072E50 /* RedialNameDisplayInfoView.swift */,
 				8D71C8182CDD666C00072E50 /* SpeedDialEntryModeInfoView.swift */,
 				8DBA56BC2D3081C3005DC013 /* AnsweringSystemVsVoicemailView.swift */,
+				8D32A4FF2D419FF100F606FC /* ProgrammingWithoutDisplayInfoView.swift */,
 			);
 			path = Info;
 			sourceTree = "<group>";
@@ -853,6 +856,7 @@
 				8DE9F4272D32343E002B4EB4 /* NameNumberExamples.swift in Sources */,
 				8DA844EF2B72E1D7006CBCA7 /* LandlineOrNotPredictor.swift in Sources */,
 				8D38ED992CAF3EA500CCC422 /* HandsetRedialView.swift in Sources */,
+				8D32A5002D419FF100F606FC /* ProgrammingWithoutDisplayInfoView.swift in Sources */,
 				8DA844D12B72E1D7006CBCA7 /* CameraViewController.swift in Sources */,
 				8D38ED972CAF3E4C00CCC422 /* HandsetMessagingView.swift in Sources */,
 				8D38ED712CAF325200CCC422 /* PhonePowerView.swift in Sources */,

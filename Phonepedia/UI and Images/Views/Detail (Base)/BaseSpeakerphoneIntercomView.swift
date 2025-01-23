@@ -22,6 +22,12 @@ struct BaseSpeakerphoneIntercomView: View {
                 phone.hasBaseSpeakerphoneChanged(oldValue: oldValue, newValue: newValue)
             }
         }
+        if phone.hasBaseSpeakerphone || (phone.isCordless && phone.hasBaseIntercom) || phone.hasAnsweringSystem == 1 || phone.hasAnsweringSystem == 3 {
+            Picker("Speaker Volume Adjustment", selection: $phone.baseSpeakerVolumeAdjustmentType) {
+                Text("Volume Switch/Dial").tag(0)
+                Text("Volume Buttons").tag(1)
+            }
+        }
         if phone.isCordless {
             Toggle(isOn: $phone.hasIntercom) {
                 Text("Has Intercom")

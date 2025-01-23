@@ -43,6 +43,13 @@ struct HandsetRingersView: View {
                     handset.totalRingtonesChanged(oldValue: oldValue, newValue: newValue)
                 }
             }
+            if handset.handsetStyle == 0 {
+                Picker("Ringer Volume Adjustment", selection: $handset.ringerVolumeAdjustmentType) {
+                    Text("Ringer Switch").tag(0)
+                    Text("Volume Buttons/Menu").tag(1)
+                }
+                Toggle("Supports Ringer Off", isOn: $handset.supportsRingerOff)
+            }
             if handset.cordlessDeviceType == 0 {
                 Toggle("Has Vibrator Motor", isOn: $handset.hasVibratorMotor)
                 InfoText("Some cordless handsets have vibrator motors like cell phones.")

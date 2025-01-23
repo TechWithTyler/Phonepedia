@@ -24,7 +24,7 @@ struct HandsetDisplayBacklightButtonsView: View {
             PhoneNumberLetterInfoView()
                 if handset.cordlessDeviceType == 0 {
                     Picker("Talk/Off Button Type", selection: $handset.talkOffButtonType) {
-                        Text("Single Talk/Off Button").tag(0)
+                        Text("Single Talk/Off Button/Switch").tag(0)
                         Text("Talk and Off").tag(1)
                         Text("Talk/Flash and Off").tag(2)
                         if handset.hasSpeakerphone {
@@ -79,6 +79,19 @@ struct HandsetDisplayBacklightButtonsView: View {
             }
             .onChange(of: handset.displayType) { oldValue, newValue in
                 handset.displayTypeChanged(oldValue: oldValue, newValue: newValue)
+            }
+            if handset.displayType == 0 {
+                ProgrammingWithoutDisplayInfoView()
+                if phone.hasAnsweringSystem > 1 {
+                    InfoText("Answering system settings are typically changed from the handset by pressing the program button followed by the message playback button, then entering codes on the keypad. The current settings may be displayed on the base message counter or display (if it has one), in which case the handset will link to the base after entering answering system programming mode or the desired setting code is entered.\nFor example, the remote access code might be changed by pressing the program button > the message playback button > 2 for remote access code > the desired code > the program or message playback button again to save.")
+                }
+            } else {
+                Picker("Base-Specific Settings On Handset", selection: $handset.baseSettingsChangeMethod) {
+                    Text("None").tag(0)
+                    Text("Base Settings Menu").tag(1)
+                    Text("Handset/Base Selection").tag(2)
+                }
+                InfoText("Some phones allow you to change base-specific settings, such as the ringer volume, from the handset.\n•None: No base-specific settings can be changed from this handset/all base-specific settings can only be changed from the base.\n• Base Settings Menu: All base-specific settings are contained in a dedicated handset menu. This may be a top-level menu or found in the settings menu.\n• Handset/Base Selection: When selecting a setting in the menu and the base also has a corresponding setting, the handset can prompt you to select Handset or Base.\nSeparate handset/base settings menus example: HS Settings > Ringer Settings > Ringer Volume for the handset and Base Settings > Ringer Settings > Ringer Volume for the base.\nHandset/base selection example: Settings > Ringer Settings > Ringer Volume > Handset or Base.")
             }
             if handset.displayType > 0 && handset.cordlessDeviceType == 1 {
                 Toggle("Display Can Tilt", isOn: $handset.desksetDisplayCanTilt)

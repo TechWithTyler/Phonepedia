@@ -64,7 +64,8 @@ struct PhoneCordedCordlessFeaturesView: View {
                 Section(header: Text("Older")) {
                     Text("1.7MHz Analog").tag(1.0)
                     Text("30-37MHz Analog").tag(30.0)
-                    Text("46-49MHz Analog").tag(46.0)
+                    Text("43-49MHz Analog").tag(46.0)
+                    Text("43-49MHz Voice Scramble Analog").tag(46.1)
                 }
                 Section(header: Text("900MHz")) {
                     Text("900MHz Analog/Unknown").tag(900.0)
@@ -222,13 +223,13 @@ In most cases, if the base has a charge light/display message, the completion of
                 phone.cordedPhoneTypeChanged(oldValue: oldValue, newValue: newValue)
             }
             InfoText("""
-                • Rotary phones use a dial with numbers on it. You place your finger on the desired number and turn it until it stops, hence the phrase "dialing a number". When you release the dial, springs and gears return it to its resting position, causing the phone to go on and off-hook very quickly a certain number of times, corresponding to the number you put your finger on. This quick "on and off-hook" is called a pulse. Push-button phones can also send pulses instead of tones.
+                • Rotary phones use a dial with numbers on it. You place your finger on the desired number and turn it until it stops, hence the phrase "dialing a number". When you release the dial, springs and gears return it to its resting position, causing the phone to go on and off-hook very quickly a certain number of times, corresponding to the number you put your finger on. This quick "on and off-hook" is called a pulse. Push-button phones can also send pulses instead of tones. For line-powered push-button phones with button lighting, the light will flash with each pulse.
                 • When the corded receiver is placed on the base, the earpiece pushes down on a piece on the base, or the base pushes down on a piece below the earpiece. This piece is called the hook switch or switch hook, and is how the phone knows if the receiver is on or off the base. You can quickly press the hook switch/switch hook to simulate a pulse dial. This is called "switch hook dialing".
-                • Push-button phones send tones made up of a low and high frequency, called Dual-Tone Multi-Frequency (DTMF) tones, when numbers are dialed. Most phone services today only support tone dialing, so a pulse-to-tone converter is required if you want to use a rotary phone or pulse-only push-button phone on your line. A pulse-to-tone converter detects the number of pulses and then sends out the corresponding DTMF tone through the line.
+                • Most push-button phones send tones made up of a low and high frequency, called Dual-Tone Multi-Frequency (DTMF) tones, when numbers are dialed. Most phone services today only support tone dialing, so a pulse-to-tone converter is required if you want to use a rotary phone or pulse-only push-button phone on your line. A pulse-to-tone converter detects the number of pulses and then sends out the corresponding DTMF tone through the line.
                 • A desk phone has a base, with or without speakerphone, and a corded receiver. These phones may also have other features like a caller ID display or answering system.
                 • A slim/wall phone doesn't have speakerphone and typically doesn't have an answering system, but may have a caller ID display. The keypad or rotary dial can be either in the receiver or in the base. The caller ID buttons and display are on the back of the receiver, not the face where the keypad is.
                 • A base-less phone is a corded phone that doesn't have a base. The phone is a single device that plugs into the line.
-                • A novelty phone is a corded phone that's designed to look like something else, like a hamburger you flip open, a piano whose keys are used to dial numbers, a slim phone that's shaped like a pair of lips, or an animated character that serves as the phone's base.
+                • A novelty phone is a corded phone that's designed to look like something else, like a hamburger you flip open, a piano whose keys are used to dial numbers, a slim phone that's shaped like a pair of lips, an animal, or a cartoon character.
                 """)
         }
         if !phone.isCordless {
@@ -242,6 +243,16 @@ In most cases, if the base has a charge light/display message, the completion of
                     Text("Receiver").tag(1)
                 }
             }
+            Picker("Corded Receiver Volume Adjustment", selection: $phone.cordedReceiverVolumeAdjustmentType) {
+                Text("None").tag(0)
+                Text("Volume Switch/Dial").tag(1)
+                Text("Volume Button(s)").tag(2)
+            }
+            if phone.cordedReceiverVolumeAdjustmentType == 0 {
+                WarningText("If the corded receiver volume isn't adjustable and you find it too loud, you'll need to adjust your line's incoming volume. If you can't adjust it, adding a series of resistors between the phone and jack is recommended (consult a professional to build this for you if necessary). If the corded receiver's cord is removable, you can replace it with one that has a volume control.")
+            }
+            Toggle("Has Hard-Wired Corded Receiver", isOn: $phone.hasHardWiredCordedReceiver)
+            InfoText("Some old phones have hard-wired corded receivers, which means you'll need to have the phone repaired if the cord breaks.")
             if phone.cordedPhoneType == 2 {
                 Picker("Switch Hook", selection: $phone.switchHookType) {
                     Text("On Base").tag(0)

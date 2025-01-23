@@ -127,7 +127,25 @@ final class Phone {
     var deregistration: Int = 2
     
     var buttonType: Int = 0
-    
+
+    var hasRotaryInspiredButtonLayout: Bool = false
+
+    var answeringSystemSwitches: Bool = false
+
+    var baseSpeakerVolumeAdjustmentType: Int = 1
+
+    var cordedReceiverVolumeAdjustmentType: Int = 1
+
+    var hasHardWiredCordedReceiver: Bool = false
+
+    var hasHardWiredLineCord: Bool = false
+
+    var baseRingerVolumeAdjustmentType: Int = 1
+
+    var baseSupportsRingerOff: Bool = true
+
+    var dialMode: Int = 2
+
     var chargeLight: Int = 0
 	
 	var cordedPhoneType: Int = 0
@@ -779,6 +797,9 @@ final class Phone {
 		if newValue {
 			cordedPhoneType = 0
 			cordedRingerType = 1
+            if baseKeyBacklightAmount > 6 {
+                baseKeyBacklightAmount = 5
+            }
 		} else {
 			if hasAnsweringSystem > 1 {
 				hasAnsweringSystem = 1
@@ -842,7 +863,7 @@ final class Phone {
 			baseSoftKeysSide = 0
             basePhonebookCapacity = 0
             baseCallerIDCapacity = 0
-            if baseRedialCapacity > 2 {
+            if baseRedialCapacity >= 2 {
                 baseRedialCapacity = 1
             }
 		}
@@ -999,8 +1020,19 @@ final class Phone {
 		}
         if newValue != 2 {
             switchHookType = 0
+            if baseKeyBacklightAmount == 6 {
+                baseKeyBacklightAmount = 3
+            }
         }
 		if newValue == 1 || newValue == 3 {
+            dialMode = 3
+            if cordedReceiverVolumeAdjustmentType > 1 {
+                cordedReceiverVolumeAdjustmentType = 1
+            }
+            if baseRingerVolumeAdjustmentType == 1 {
+                baseRingerVolumeAdjustmentType = 0
+            }
+            hasBaseKeypad = true
 			baseRedialCapacity = 0
 			baseSpeedDialCapacity = 0
 			baseCallerIDCapacity = 0
@@ -1016,7 +1048,9 @@ final class Phone {
             cordedRingerLocation = 0
             hasBaseSpeakerphone = false
             hasAnsweringSystem = 0
-            baseRingtones = 0
+            if baseRingtones > 2 {
+                baseRingtones = 2
+            }
 			baseMusicRingtones = 0
 			basePhonebookCapacity = 0
 			baseCallerIDCapacity = 0

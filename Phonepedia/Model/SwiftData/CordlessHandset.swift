@@ -119,8 +119,16 @@ final class CordlessHandset {
     var keyBacklightColorBlue: Double = 0
 	
 	var buttonType: Int = 0
-	
+
+    var ringerVolumeAdjustmentType: Int = 1
+
+    var supportsRingerOff: Bool = true
+
+    var volumeAdjustmentType: Int = 1
+
 	var displayType: Int = 2
+
+    var baseSettingsChangeMethod: Int = 0
 
     var desksetDisplayCanTilt: Bool = false
 
@@ -588,6 +596,7 @@ final class CordlessHandset {
 	func sideVolumeButtonsChanged(oldValue: Bool, newValue: Bool) {
 		if !newValue {
 			navigatorKeyUpDownVolume = true
+            ringerVolumeAdjustmentType = 1
 		}
 	}
     

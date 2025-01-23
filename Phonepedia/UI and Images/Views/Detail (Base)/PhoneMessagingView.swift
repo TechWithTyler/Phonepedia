@@ -69,6 +69,9 @@ struct PhoneMessagingView: View {
                 }
                 AnsweringSystemMenuInfoView()
             }
+            if phone.hasAnsweringSystem == 1 || phone.hasAnsweringSystem == 3 {
+                Toggle("Switches For Basic Answering System Settings", isOn: $phone.answeringSystemSwitches)
+            }
             if phone.hasAnsweringSystem == 3 {
                 Picker("Greeting Management From", selection: $phone.greetingRecordingOnBaseOrHandset) {
                     Text("Base Only").tag(0)
