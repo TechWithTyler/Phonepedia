@@ -23,6 +23,7 @@
 		8D32A50B2D42F1ED00F606FC /* callWaitingTone.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D32A5072D42F1ED00F606FC /* callWaitingTone.wav */; };
 		8D32A50C2D42F1ED00F606FC /* dtmfTones.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D32A5092D42F1ED00F606FC /* dtmfTones.wav */; };
 		8D32A50E2D42F23600F606FC /* pulseDialing.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D32A50D2D42F23600F606FC /* pulseDialing.wav */; };
+		8D32A5102D44407D00F606FC /* CordlessFrequency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D32A50F2D44407D00F606FC /* CordlessFrequency.swift */; };
 		8D380B252C3DD35D00505B89 /* PhoneCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D380B242C3DD35D00505B89 /* PhoneCountView.swift */; };
 		8D38ED662CAF2DC500CCC422 /* BaseSpeakerphoneIntercomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38ED652CAF2DC500CCC422 /* BaseSpeakerphoneIntercomView.swift */; };
 		8D38ED682CAF2E9600CCC422 /* PhoneSpecialFeaturesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38ED672CAF2E9600CCC422 /* PhoneSpecialFeaturesView.swift */; };
@@ -180,6 +181,7 @@
 		8D32A5082D42F1ED00F606FC /* dtmfToneD.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dtmfToneD.wav; sourceTree = "<group>"; };
 		8D32A5092D42F1ED00F606FC /* dtmfTones.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dtmfTones.wav; sourceTree = "<group>"; };
 		8D32A50D2D42F23600F606FC /* pulseDialing.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pulseDialing.wav; sourceTree = "<group>"; };
+		8D32A50F2D44407D00F606FC /* CordlessFrequency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordlessFrequency.swift; sourceTree = "<group>"; };
 		8D380B242C3DD35D00505B89 /* PhoneCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneCountView.swift; sourceTree = "<group>"; };
 		8D38ED652CAF2DC500CCC422 /* BaseSpeakerphoneIntercomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSpeakerphoneIntercomView.swift; sourceTree = "<group>"; };
 		8D38ED672CAF2E9600CCC422 /* PhoneSpecialFeaturesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneSpecialFeaturesView.swift; sourceTree = "<group>"; };
@@ -600,6 +602,7 @@
 		8DA844BF2B72E1D7006CBCA7 /* SwiftData */ = {
 			isa = PBXGroup;
 			children = (
+				8D32A50F2D44407D00F606FC /* CordlessFrequency.swift */,
 				8DA844C12B72E1D7006CBCA7 /* Phone.swift */,
 				8DA844C02B72E1D7006CBCA7 /* CordlessHandset.swift */,
 				8DA844C22B72E1D7006CBCA7 /* CordlessHandsetCharger.swift */,
@@ -847,6 +850,7 @@
 			files = (
 				8D2BAF512CD187EA0016C61E /* ChargingDirectionPickerItems.swift in Sources */,
 				8D38ED732CAF32A500CCC422 /* BaseRingersView.swift in Sources */,
+				8D32A5102D44407D00F606FC /* CordlessFrequency.swift in Sources */,
 				8D38ED682CAF2E9600CCC422 /* PhoneSpecialFeaturesView.swift in Sources */,
 				8DA844D62B72E1D7006CBCA7 /* ChargerDetailView.swift in Sources */,
 				8DA844D02B72E1D7006CBCA7 /* CameraCoordinator.swift in Sources */,

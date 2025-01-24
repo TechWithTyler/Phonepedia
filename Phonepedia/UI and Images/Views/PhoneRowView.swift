@@ -28,18 +28,7 @@ struct PhoneRowView: View {
 
     var phoneTypeText: String {
         if phone.isCordless && showFrequencyInList {
-            let frequency: String
-            switch phone.frequency {
-                case 1: frequency = "1.7MHz"
-                case 30: frequency = "30-37MHz"
-            case 46: frequency = "46-49MHz"
-            case 900...901: frequency = "900MHz"
-            case 2400...2401: frequency = "2.4GHz"
-            case 5800...5801: frequency = "5.8GHz"
-            case 1880...1900: frequency = "DECT"
-            default: frequency = "DECT 6.0"
-            }
-            return "\(frequency) \(phone.phoneTypeText)"
+            return "\(Phone.CordlessFrequency.nameFromRawValue(phone.frequency)) \(phone.phoneTypeText)"
         } else {
             return phone.phoneTypeText
         }

@@ -59,48 +59,12 @@ struct PhoneCordedCordlessFeaturesView: View {
                 }
             }
             Picker("Frequency", selection: $phone.frequency) {
-                // The tag of each frequency is its number but without the decimal. For frequencies with multiple communication technologies or dual-band frequencies, the tag also includes a point and a number (e.g. 900MHz Analog has a tag of 900, and 900MHz Voice Scramble Analog has a tag of 900.1.
-                Text("Unknown").tag(0.0)
-                Section(header: Text("Older")) {
-                    Text("1.7MHz Analog").tag(1.0)
-                    Text("30-37MHz Analog").tag(30.0)
-                    Text("43-49MHz Analog").tag(46.0)
-                    Text("43-49MHz Voice Scramble Analog").tag(46.1)
-                }
-                Section(header: Text("900MHz")) {
-                    Text("900MHz Analog/Unknown").tag(900.0)
-                    Text("900MHz Voice Scramble Analog").tag(900.1)
-                    Text("900MHz Digital").tag(900.2)
-                    Text("900MHz DSS").tag(900.3)
-                }
-                Section(header: Text("2.4GHz")) {
-                    Text("2.4GHz Analog/Unknown").tag(2400.0)
-                    Text("2.4GHz/900MHz Analog").tag(2400.900)
-                    Text("2.4GHz Digital").tag(2400.1)
-                    Text("2.4GHz/900MHz Digital").tag(2400.901)
-                    Text("2.4GHz DSS").tag(2400.2)
-                    Text("2.4GHz/900MHz DSS").tag(2400.902)
-                    Text("2.4GHz FHSS").tag(2400.3)
-                    Text("2.4GHz/900MHz FHSS").tag(2400.903)
-                }
-                Section(header: Text("5.8GHz")) {
-                    Text("5.8GHz Analog/Unknown").tag(5800.0)
-                    Text("5.8GHz/900MHz Analog").tag(5800.900)
-                    Text("5.8GHz/2.4GHz Analog").tag(5800.2400)
-                    Text("5.8GHz Digital").tag(5800.1)
-                    Text("5.8GHz/900MHz Digital").tag(5800.901)
-                    Text("5.8GHz/2.4GHz Digital").tag(5800.2401)
-                    Text("5.8GHz DSS").tag(5800.2)
-                    Text("5.8GHz/900MHz DSS").tag(5800.902)
-                    Text("5.8GHz/2.4GHz DSS").tag(5800.2402)
-                    Text("5.8GHz Digital FHSS").tag(5800.3)
-                    Text("5.8GHz/900MHz FHSS").tag(5800.903)
-                    Text("5.8GHz/2.4GHz FHSS").tag(5800.2403)
-                }
-                Section(header: Text("DECT (Digital Enhanced Cordless Telecommunications)")) {
-                    Text("DECT (1.88GHz-1.90GHz)").tag(1880.0)
-                    Text("DECT (1.90GHz-1.92GHz)").tag(1900.0)
-                    Text("DECT 6.0 (1.92GHz-1.93GHz)").tag(1920.0)
+                ForEach(Phone.CordlessFrequency.allCases) { frequency in
+                    if frequency.rawValue < 0 {
+                        Divider()
+                    } else {
+                        Text(frequency.name).tag(frequency)
+                    }
                 }
             }
             InfoButton(title: "Frequencies/Communication Technologies Explanation…") {
