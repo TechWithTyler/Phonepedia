@@ -48,7 +48,6 @@ struct PhoneListDetailOptions: View {
         Toggle("Show Release/Acquisition Years", isOn: $showYearsInList)
         Picker("Handset Number Digit Indication", selection: $highlightHandsetNumberDigitInList) {
             Text("Off").tag(0)
-            Divider()
             Text("Underline").tag(1)
             Text("Highlight").tag(2)
         }
