@@ -45,10 +45,12 @@ struct PhoneListView: View {
 
     @State var phoneFilterActive: Int = 0
 
+    @State var phoneFilterAnsweringSystem: Int = 0
+
     // MARK: - Properties - Booleans
 
     var phoneFilterEnabled: Bool {
-        return phoneFilterType != "all" || phoneFilterActive != 0 || phoneFilterBrand != "all"
+        return phoneFilterType != "all" || phoneFilterActive != 0 || phoneFilterBrand != "all" || phoneFilterAnsweringSystem != 0
     }
 
     // MARK: - Properties - Phones
@@ -86,8 +88,16 @@ struct PhoneListView: View {
         }
     }
 
+    var answeringSystemFilteredPhones: [Phone] {
+        switch phoneFilterAnsweringSystem {
+        case 1: return brandFilteredPhones.filter { $0.hasAnsweringSystem > 0 }
+        case 2: return brandFilteredPhones.filter { $0.hasAnsweringSystem == 0 }
+        default: return brandFilteredPhones
+        }
+    }
+
     var filteredPhones: [Phone] {
-        return brandFilteredPhones
+        return answeringSystemFilteredPhones
     }
 
     @Binding var selectedPhone: Phone?
@@ -263,6 +273,14 @@ struct PhoneListView: View {
             }
             .pickerStyle(.menu)
             .toggleStyle(.automatic)
+            Picker("Answering Systems (\(phoneFilterAnsweringSystem == 0 ? "Off" : "On"))", selection: $phoneFilterAnsweringSystem) {
+                Text("Off").tag(0)
+                Divider()
+                Text("With Answering System").tag(1)
+                Text("Without Answering System").tag(2)
+            }
+            .pickerStyle(.menu)
+            .toggleStyle(.automatic)
             Divider()
             Button("Reset") {
                 resetPhoneFilter()
@@ -276,6 +294,7 @@ struct PhoneListView: View {
         phoneFilterType = "all"
         phoneFilterBrand = "all"
         phoneFilterActive = 0
+        phoneFilterAnsweringSystem = 0
     }
 
     // MARK: - Data Management
