@@ -47,25 +47,26 @@ struct HandsetDetailView: View {
                     }
                 }
                 if handset.cordlessDeviceType < 2 {
-                if handset.handsetStyle < 3 {
+                    if handset.handsetStyle < 3 {
+                        FormNavigationLink {
+                            HandsetDisplayBacklightButtonsView(handset: handset)
+                                .navigationTitle("Disp/B.light/Buttons (HS\(handset.handsetNumber + 1))")
+#if !os(macOS)
+                                .navigationBarTitleDisplayMode(.inline)
+#endif
+                        } label: {
+                            Label("Display/Backlight/Buttons", systemImage: "5.square")
+                        }
+                    }
                     FormNavigationLink {
-                        HandsetDisplayBacklightButtonsView(handset: handset)
-                            .navigationTitle("Disp/B.light/Buttons (HS\(handset.handsetNumber + 1))")
+                        HandsetMessagingView(handset: handset)
+                            .navigationTitle("Msg-ing (HS\(handset.handsetNumber + 1))")
 #if !os(macOS)
                             .navigationBarTitleDisplayMode(.inline)
 #endif
                     } label: {
-                        Label("Display/Backlight/Buttons", systemImage: "5.square")
+                        Label("Messaging", systemImage: "recordingtape")
                     }
-                }
-                FormNavigationLink {
-                    HandsetMessagingView(handset: handset)
-                        .navigationTitle("Msg-ing (HS\(handset.handsetNumber + 1))")
-#if !os(macOS)
-                        .navigationBarTitleDisplayMode(.inline)
-#endif
-                } label: {
-                    Label("Messaging", systemImage: "recordingtape")
                 }
             }
                 Section("Audio") {
@@ -80,12 +81,12 @@ struct HandsetDetailView: View {
                     }
                     FormNavigationLink {
                         HandsetAudioView(handset: handset)
-                            .navigationTitle("Spkr/Headset (HS\(handset.handsetNumber + 1))")
+                            .navigationTitle("Spkr/Headset/Int (HS\(handset.handsetNumber + 1))")
 #if !os(macOS)
                             .navigationBarTitleDisplayMode(.inline)
 #endif
                     } label: {
-                        Label("Speakerphone/Headset", systemImage: "speaker")
+                        Label("Speakerphone/Headset/Intercom", systemImage: "speaker")
                     }
                 }
                 Section("Entries") {
@@ -136,7 +137,6 @@ struct HandsetDetailView: View {
                     } label: {
                         Label("Special Features", systemImage: "sparkle")
                     }
-                }
             }
         }
         .formStyle(.grouped)
