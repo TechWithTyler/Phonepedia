@@ -14,6 +14,8 @@ struct PhoneCountView: View {
 
     @Environment(\.dismiss) var dismiss
 
+    @AppStorage(UserDefaults.KeyNames.brandSortMode) var brandSortMode: Int = 0
+
     // The total number of phones, not counting the individual cordless devices on each cordless phone system.
     var totalPhoneCount: Int {
         let count = phones.count
@@ -94,15 +96,27 @@ struct PhoneCountView: View {
 
     // Brands of phones.
     var brands: [String] {
-        // 1. Create a set to hold the brands.
-        var brands: Set<String> = []
-        // 2. Loop through each phone in the phones array and insert its brand into the set.
+        // 1. Create a dictionary to count the number of phones for each brand.
+        var brandCounts: [String: Int] = [:]
+        // 2. Loop through each phone in the phones array and count the occurrences of each brand.
         for phone in phones {
-            brands.insert(phone.brand)
+            brandCounts[phone.brand, default: 0] += 1
         }
-        // 3. Return the brands set as a sorted array.
-        return brands.sorted(by: <)
+        // 3. Sort based on the selected sort mode.
+        if brandSortMode == 0 {
+            // Sort alphabetically by brand name.
+            return brandCounts.keys.sorted(by: <)
+        } else {
+            // Sort by the number of phones, then alphabetically for ties.
+            return brandCounts.sorted {
+                if $0.value == $1.value {
+                    return $0.key < $1.key // Sort alphabetically if counts are equal.
+                }
+                return $0.value > $1.value // Sort numerically in descending order.
+            }.map { $0.key } // Return only the brand names.
+        }
     }
+
 
     // The total number of phones with answering systems.
     var withAnsweringSystemsCount: Int {
@@ -194,32 +208,38 @@ struct PhoneCountView: View {
                             .foregroundStyle(.secondary)
                             .multilineTextAlignment(.trailing)
                     }
-                    HStack {
-                        Text("Active Cordless Handsets")
-                            .foregroundStyle(.primary)
-                            .multilineTextAlignment(.leading)
-                        Spacer()
-                        Text(activeCordlessHandsetCount, format: .number)
-                            .foregroundStyle(.secondary)
-                            .multilineTextAlignment(.trailing)
+                    if handsetCount > 0 {
+                        HStack {
+                            Text("Active Cordless Handsets")
+                                .foregroundStyle(.primary)
+                                .multilineTextAlignment(.leading)
+                            Spacer()
+                            Text(activeCordlessHandsetCount, format: .number)
+                                .foregroundStyle(.secondary)
+                                .multilineTextAlignment(.trailing)
+                        }
                     }
-                    HStack {
-                        Text("Active Cordless Desksets")
-                            .foregroundStyle(.primary)
-                            .multilineTextAlignment(.leading)
-                        Spacer()
-                        Text(activeCordlessDesksetCount, format: .number)
-                            .foregroundStyle(.secondary)
-                            .multilineTextAlignment(.trailing)
+                    if desksetCount > 0 {
+                        HStack {
+                            Text("Active Cordless Desksets")
+                                .foregroundStyle(.primary)
+                                .multilineTextAlignment(.leading)
+                            Spacer()
+                            Text(activeCordlessDesksetCount, format: .number)
+                                .foregroundStyle(.secondary)
+                                .multilineTextAlignment(.trailing)
+                        }
                     }
-                    HStack {
-                        Text("Active Cordless Headsets/Speakerphones")
-                            .foregroundStyle(.primary)
-                            .multilineTextAlignment(.leading)
-                        Spacer()
-                        Text(activeCordlessHeadsetCount, format: .number)
-                            .foregroundStyle(.secondary)
-                            .multilineTextAlignment(.trailing)
+                    if headsetCount > 0 {
+                        HStack {
+                            Text("Active Cordless Headsets/Speakerphones")
+                                .foregroundStyle(.primary)
+                                .multilineTextAlignment(.leading)
+                            Spacer()
+                            Text(activeCordlessHeadsetCount, format: .number)
+                                .foregroundStyle(.secondary)
+                                .multilineTextAlignment(.trailing)
+                        }
                     }
                 }
                 DisclosureGroup("Features") {
@@ -243,6 +263,11 @@ struct PhoneCountView: View {
                     }
                 }
                 DisclosureGroup("Brands (\(brands.count))") {
+                    Picker("Sort By", selection: $brandSortMode) {
+                        Text("Name").tag(0)
+                        Text("Count").tag(1)
+                    }
+                    .pickerStyle(.segmented)
                     ForEach(brands, id: \.self) { brand in
                         HStack {
                             Text("\(brand) Phones")

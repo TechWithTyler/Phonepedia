@@ -32,6 +32,8 @@ extension UserDefaults {
 
         static let showFrequencyInList: String = "showFrequencyInList"
 
+        static let brandSortMode: String = "brandSortMode"
+
     }
 
 }
