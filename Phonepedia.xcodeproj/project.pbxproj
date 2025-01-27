@@ -24,6 +24,10 @@
 		8D32A50C2D42F1ED00F606FC /* dtmfTones.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D32A5092D42F1ED00F606FC /* dtmfTones.wav */; };
 		8D32A50E2D42F23600F606FC /* pulseDialing.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D32A50D2D42F23600F606FC /* pulseDialing.wav */; };
 		8D32A5102D44407D00F606FC /* CordlessFrequency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D32A50F2D44407D00F606FC /* CordlessFrequency.swift */; };
+		8D32A5122D44481B00F606FC /* analogCordlessPhoneAudioSampleNormal.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D32A5112D44481B00F606FC /* analogCordlessPhoneAudioSampleNormal.wav */; };
+		8D32A5142D4449A200F606FC /* analogCordlessPhoneAudioSampleScrambled.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D32A5132D4449A200F606FC /* analogCordlessPhoneAudioSampleScrambled.wav */; };
+		8D32A5162D4560DC00F606FC /* IntercomAutoAnswerInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D32A5152D4560DC00F606FC /* IntercomAutoAnswerInfoView.swift */; };
+		8D32A5182D4562C500F606FC /* HandsetPowerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D32A5172D4562C500F606FC /* HandsetPowerView.swift */; };
 		8D380B252C3DD35D00505B89 /* PhoneCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D380B242C3DD35D00505B89 /* PhoneCountView.swift */; };
 		8D38ED662CAF2DC500CCC422 /* BaseSpeakerphoneIntercomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38ED652CAF2DC500CCC422 /* BaseSpeakerphoneIntercomView.swift */; };
 		8D38ED682CAF2E9600CCC422 /* PhoneSpecialFeaturesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38ED672CAF2E9600CCC422 /* PhoneSpecialFeaturesView.swift */; };
@@ -182,6 +186,10 @@
 		8D32A5092D42F1ED00F606FC /* dtmfTones.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dtmfTones.wav; sourceTree = "<group>"; };
 		8D32A50D2D42F23600F606FC /* pulseDialing.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pulseDialing.wav; sourceTree = "<group>"; };
 		8D32A50F2D44407D00F606FC /* CordlessFrequency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordlessFrequency.swift; sourceTree = "<group>"; };
+		8D32A5112D44481B00F606FC /* analogCordlessPhoneAudioSampleNormal.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = analogCordlessPhoneAudioSampleNormal.wav; sourceTree = "<group>"; };
+		8D32A5132D4449A200F606FC /* analogCordlessPhoneAudioSampleScrambled.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = analogCordlessPhoneAudioSampleScrambled.wav; sourceTree = "<group>"; };
+		8D32A5152D4560DC00F606FC /* IntercomAutoAnswerInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntercomAutoAnswerInfoView.swift; sourceTree = "<group>"; };
+		8D32A5172D4562C500F606FC /* HandsetPowerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandsetPowerView.swift; sourceTree = "<group>"; };
 		8D380B242C3DD35D00505B89 /* PhoneCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneCountView.swift; sourceTree = "<group>"; };
 		8D38ED652CAF2DC500CCC422 /* BaseSpeakerphoneIntercomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSpeakerphoneIntercomView.swift; sourceTree = "<group>"; };
 		8D38ED672CAF2E9600CCC422 /* PhoneSpecialFeaturesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneSpecialFeaturesView.swift; sourceTree = "<group>"; };
@@ -382,6 +390,7 @@
 				8D38ED9C2CAF3F6400CCC422 /* HandsetCallerIDView.swift */,
 				8D38ED9E2CAF3FC900CCC422 /* HandsetSpeedDialView.swift */,
 				8D38EDA02CAF404C00CCC422 /* HandsetSpecialFeaturesView.swift */,
+				8D32A5172D4562C500F606FC /* HandsetPowerView.swift */,
 			);
 			path = "Detail (Handset)";
 			sourceTree = "<group>";
@@ -429,6 +438,8 @@
 		8D842D5E2D3F0AF500F50F32 /* Audio */ = {
 			isa = PBXGroup;
 			children = (
+				8D32A5132D4449A200F606FC /* analogCordlessPhoneAudioSampleScrambled.wav */,
+				8D32A5112D44481B00F606FC /* analogCordlessPhoneAudioSampleNormal.wav */,
 				8D32A50D2D42F23600F606FC /* pulseDialing.wav */,
 				8D32A5022D42EC0600F606FC /* Tones */,
 				8D32A5012D42EBFD00F606FC /* Messages */,
@@ -536,6 +547,7 @@
 		8DA844A92B72E1D7006CBCA7 /* Info */ = {
 			isa = PBXGroup;
 			children = (
+				8D32A5152D4560DC00F606FC /* IntercomAutoAnswerInfoView.swift */,
 				8D523AFF2C4EF47000AC6862 /* VoicemailQuickDialInfoView.swift */,
 				8DA844AA2B72E1D7006CBCA7 /* AboutDialingCodesView.swift */,
 				8DA844AB2B72E1D7006CBCA7 /* FrequenciesExplanationView.swift */,
@@ -804,6 +816,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DA844CF2B72E1D7006CBCA7 /* Preview Assets.xcassets in Resources */,
+				8D32A5122D44481B00F606FC /* analogCordlessPhoneAudioSampleNormal.wav in Resources */,
 				8DA844ED2B72E1D7006CBCA7 /* Landline Or Not.mlproj in Resources */,
 				8D32A5042D42EC2400F606FC /* stutterDialTone.wav in Resources */,
 				8D842D672D3F122200F50F32 /* answeringSystemGreetingAnswerOnly.wav in Resources */,
@@ -816,6 +829,7 @@
 				8D842D6A2D3F122200F50F32 /* talkingCallerIDNumber.wav in Resources */,
 				8D842D6B2D3F122200F50F32 /* answeringSystemGreetingRecordMessage.wav in Resources */,
 				8D842D6C2D3F122200F50F32 /* talkingCallerIDCNAM.wav in Resources */,
+				8D32A5142D4449A200F606FC /* analogCordlessPhoneAudioSampleScrambled.wav in Resources */,
 				8D32A50E2D42F23600F606FC /* pulseDialing.wav in Resources */,
 				8D842D6D2D3F122200F50F32 /* callBlockPreScreeningCode.wav in Resources */,
 				8D842D6E2D3F122200F50F32 /* talkingCallerIDPhonebook.wav in Resources */,
@@ -927,6 +941,7 @@
 				8DA844E82B72E1D7006CBCA7 /* CordlessHandset.swift in Sources */,
 				8DA844F32B72E1D7006CBCA7 /* PhonepediaApp.swift in Sources */,
 				8DA844EA2B72E1D7006CBCA7 /* CordlessHandsetCharger.swift in Sources */,
+				8D32A5162D4560DC00F606FC /* IntercomAutoAnswerInfoView.swift in Sources */,
 				8DA844EC2B72E1D7006CBCA7 /* DocumentTypes.swift in Sources */,
 				8DB25E902C8BC4A9001617C2 /* FormNavigationLink.swift in Sources */,
 				8D38ED8B2CAF393D00CCC422 /* CallBlockView.swift in Sources */,
@@ -940,6 +955,7 @@
 				8DA844D92B72E1D7006CBCA7 /* SoftKeyExplanationView.swift in Sources */,
 				8DA844F22B72E1D7006CBCA7 /* PhonePhotoError.swift in Sources */,
 				8DA844E62B72E1D7006CBCA7 /* Globals.swift in Sources */,
+				8D32A5182D4562C500F606FC /* HandsetPowerView.swift in Sources */,
 				8DA844D32B72E1D7006CBCA7 /* HandsetDetailView.swift in Sources */,
 				8DA844E12B72E1D7006CBCA7 /* ContentView.swift in Sources */,
 				8D38ED7B2CAF365B00CCC422 /* PhoneAudioView.swift in Sources */,

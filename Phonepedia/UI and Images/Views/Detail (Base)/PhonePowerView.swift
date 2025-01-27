@@ -76,9 +76,9 @@ struct PhonePowerView: View {
                         Text("Restore Full Functionality Without Rebooting").tag(1)
                     }
                     VStack(alignment: .leading) {
-                        InfoText("When the power goes out, placing a charged handset on the base can give it power. The base buttons might not work, and features like the answering system and base Bluetooth might not be available while the handset is powering the base, to help conserve handset battery power.\nRemember that when the handset is powering the base, the battery will drain faster than normal, because some of the battery power is being used to power the base. This is especially true if you're using the handset that's powering the base--you may find that the handset powering the base runs out of charge before the other handset(s). For this reason, the manuals of such phones often advise you to leave a handset on the base specifically for power, and use the other handsets, if you have more than one.")
-                        if phone.cordlessHandsetsIHave.filter({$0.fitsOnBase}).isEmpty {
-                            WarningText("You must have at least one handset which fits on the base to use place-on-base power backup!")
+                        InfoText("When the power goes out, placing a charged handset on the base can give it power. The base buttons might not work, and features like the answering system and base Bluetooth might not be available while the handset is powering the base, to help conserve handset battery power.\nRemember that when the handset is powering the base, the battery will drain faster than normal, because some of the battery power is being used to power the base. This is especially true if you're using the handset that's powering the base--you may find that the handset powering the base runs out of charge before the other handset(s). For this reason, the manuals of such phones often advise you to leave a handset on the base specifically for power, and use the other handsets, if you have more than one.\nOnly speakerphone can be used for calls on the handset powering the base.")
+                        if phone.cordlessHandsetsIHave.filter({$0.fitsOnBase}).isEmpty || phone.cordlessHandsetsIHave.filter({$0.hasSpeakerphone}).isEmpty {
+                            WarningText("You must have at least one handset which fits on the base and has speakerphone to use place-on-base power backup!")
                         }
                     }
                 }

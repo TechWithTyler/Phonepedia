@@ -34,6 +34,9 @@ struct ExampleAudioView: View {
         case .dtmfTones: return "DTMF Tones"
         case .dtmfToneD: return "DTMF Tone D"
         case .pulseDialing: return "Pulse Dialing"
+        // case .ringAndCallerIDFSK: return "Ring Signal and Caller ID FSK Tone"
+        case .analogCordlessPhoneAudioSampleNormal: return "Analog Cordless Phone Audio Sample (Normal)"
+        case .analogCordlessPhoneAudioSampleScrambled: return "Analog Cordless Phone Audio Sample (Scrambled)"
         }
     }
 
@@ -43,12 +46,12 @@ struct ExampleAudioView: View {
 
     var body: some View {
         HStack {
-            Text("Example \(title)")
+            Text(title)
             Spacer()
             Button(isPlayingAudioFile ? "Stop" : "Play", systemImage: isPlayingAudioFile ? "stop.fill" : "play.fill") {
                 audioManager.toggleAudio(audioFile: audioFile)
             }
-            .accessibilityLabel(isPlayingAudioFile ? "Stop Example \(title)" : "Play Example \(title)")
+            .accessibilityLabel(isPlayingAudioFile ? "Stop \(title)" : "Play \(title)")
             .accessibilityAddTraits(.startsMediaSession)
             .animatedSymbolReplacement()
             .buttonStyle(.borderless)

@@ -38,6 +38,10 @@ struct BaseDisplayBacklightButtonsView: View {
                 }
             }
         }
+        if phone.hasBaseSpeakerphone && phone.isCordless && !phone.hasTransmitOnlyBase && !phone.hasCordedReceiver {
+            Toggle("Dial On Base While Using Handset", isOn: $phone.dialWithBaseDuringHandsetCall)
+            InfoText("During a call on a cordless handset, if the base isn't also on the call, you can use the base keypad to dial like on a corded phone.")
+        }
         if (phone.hasBaseKeypad && phone.baseDisplayType == 0) || phone.cordedPhoneType == 2 {
             Toggle("7 Has Q and 9 Has Z", isOn: $phone.hasQZ)
             PhoneNumberLetterInfoView()

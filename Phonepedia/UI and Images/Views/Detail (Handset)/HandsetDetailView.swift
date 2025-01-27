@@ -38,6 +38,14 @@ struct HandsetDetailView: View {
                 } label: {
                     Label("General", systemImage: "gearshape")
                 }
+                if handset.cordlessDeviceType == 0 {
+                    FormNavigationLink {
+                        HandsetPowerView(handset: handset)
+                            .navigationTitle("Power (HS\(handset.handsetNumber + 1))")
+                    } label: {
+                        Label("Power/Charging", systemImage: "battery.100percent")
+                    }
+                }
                 if handset.cordlessDeviceType < 2 {
                 if handset.handsetStyle < 3 {
                     FormNavigationLink {

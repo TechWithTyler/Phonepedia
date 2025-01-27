@@ -53,6 +53,13 @@ class AudioManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
 
         case pulseDialing = "pulseDialing"
 
+        // The audio file for a US ring signal and caller ID FSK tone.
+        // case ringAndCallerIDFSK = "ringAndCallerIDFSK"
+
+        case analogCordlessPhoneAudioSampleNormal = "analogCordlessPhoneAudioSampleNormal"
+
+        case analogCordlessPhoneAudioSampleScrambled = "analogCordlessPhoneAudioSampleScrambled"
+
     }
 
     // MARK: - Properties - Booleans

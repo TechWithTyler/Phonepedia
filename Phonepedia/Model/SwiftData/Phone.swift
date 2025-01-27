@@ -193,7 +193,11 @@ final class Phone {
 	var hasIntercom: Bool = true
 	
 	var hasBaseIntercom: Bool = false
-	
+
+    var intercomAutoAnswer: Int = 0
+
+    var pushToTalkOrBroadcastToAll: Int = 0
+
 	var numberOfLandlines: Int = 1
 	
 	var landlineInUseStatusOnBase: Int = 0
@@ -245,7 +249,11 @@ final class Phone {
 	var voicemailFeatureCodes: Bool = false
 
 	var hasBaseSpeakerphone: Bool = false
-	
+
+    var hasPickUpToSwitch: Bool = true
+
+    var dialWithBaseDuringHandsetCall: Bool = false
+
 	var hasBaseKeypad: Bool = false
 	
 	var hasTalkingCallerID: Bool = false
@@ -750,6 +758,8 @@ final class Phone {
             if maxCordlessHandsets == -1 {
                 maxCordlessHandsets = 1
             }
+            dialWithBaseDuringHandsetCall = false
+            hasPickUpToSwitch = false
             hasChargerSizeBase = false
 			placeOnBaseAutoRegister = false
 			baseHasSeparateDataContact = false
@@ -807,7 +817,9 @@ final class Phone {
 				hasAnsweringSystem = 1
 			}
             cordedReceiverMainColorBinding.wrappedValue = .black
+            dialWithBaseDuringHandsetCall = false
             hasIntercom = false
+            hasPickUpToSwitch = false
             baseIntercomRingtone = 0
 			placeOnBaseAutoRegister = false
 			hasTransmitOnlyBase = false
@@ -991,6 +1003,8 @@ final class Phone {
             if maxCordlessHandsets == -1 {
                 maxCordlessHandsets = 1
             }
+            dialWithBaseDuringHandsetCall = false
+            hasPickUpToSwitch = false
 			placeOnBaseAutoRegister = false
 			hasTransmitOnlyBase = false
 			baseChargingDirection = 0
@@ -999,6 +1013,7 @@ final class Phone {
             if maxCordlessHandsets != 0 {
                 hasBaseKeypad = true
                 hasBaseSpeakerphone = true
+                hasBaseIntercom = true
             }
         } else {
             numberOfIncludedCordlessHandsets = 1

@@ -141,7 +141,17 @@ final class CordlessHandset {
 	var menuUpdateMode: Int = 0
 	
 	var hasSpeakerphone: Bool = true
-	
+
+    var intercomAutoAnswer: Int = 0
+
+    var hasDirectCommunication: Bool = false
+
+    var hasAutoAnswer: Bool = false
+
+    var chargeDuringCall: Int = 0
+
+    var hasChargeTone: Bool = false
+
 	var lineButtons: Int = 0
 	
 	var visualRinger: Int = 0
@@ -711,6 +721,14 @@ final class CordlessHandset {
         newHandset.alarm = self.alarm
         newHandset.handsetStyle = self.handsetStyle
         newHandset.keyBacklightLayer = self.keyBacklightLayer
+        newHandset.volumeAdjustmentType = self.volumeAdjustmentType
+        newHandset.ringerVolumeAdjustmentType = self.ringerVolumeAdjustmentType
+        newHandset.supportsRingerOff = self.supportsRingerOff
+        newHandset.hasAutoAnswer = self.hasAutoAnswer
+        newHandset.intercomAutoAnswer = self.intercomAutoAnswer
+        newHandset.chargeDuringCall = self.chargeDuringCall
+        newHandset.hasChargeTone = self.hasChargeTone
+        newHandset.hasDirectCommunication = self.hasDirectCommunication
         // 4. Return the duplicated handset.
         return newHandset
     }
