@@ -686,6 +686,44 @@ final class Phone {
         }
     }
 
+    func numberOfIncludedCordlessHandsetsChanged(oldValue: Int, newValue: Int) {
+        if let digit = handsetNumberDigit, digit != newValue {
+            handsetNumberDigit = nil
+            handsetNumberDigitIndex = nil
+        }
+        if newValue > maxCordlessHandsets && maxCordlessHandsets != -1 {
+            maxCordlessHandsets = newValue
+        }
+    }
+
+    func maxCordlessHandsetsChanged(oldValue: Int, newValue: Int) {
+        if newValue == -1 {
+            hasTransmitOnlyBase = false
+            cordedReceiverMainColorBinding.wrappedValue = .clear
+            placeOnBaseAutoRegister = false
+            deregistration = 0
+            locatorButtons = 0
+            for handset in cordlessHandsetsIHave {
+                handset.fitsOnBase = true
+            }
+        } else if newValue > 1 {
+            if locatorButtons == 0 {
+                deregistration = 1
+            }
+        }
+        if newValue < 8 {
+            hasAutoAttendantAndPersonalMailboxes = false
+        }
+        if newValue == 0 && oldValue == -1 {
+            maxCordlessHandsets = 1
+        } else if newValue == 0 && oldValue == 1 {
+            maxCordlessHandsets = -1
+        }
+        if newValue < numberOfIncludedCordlessHandsets && newValue >= 1 {
+            numberOfIncludedCordlessHandsets = newValue
+        }
+    }
+
     func hasAnsweringSystemChanged(oldValue: Int, newValue: Int) {
         if newValue == 1 {
             if answeringSystemMenuOnBase == 0 {
@@ -905,31 +943,6 @@ final class Phone {
             }
         }
     }
-	
-	func maxCordlessHandsetsChanged(oldValue: Int, newValue: Int) {
-		if newValue == -1 {
-            hasTransmitOnlyBase = false
-            cordedReceiverMainColorBinding.wrappedValue = .clear
-			placeOnBaseAutoRegister = false
-			deregistration = 0
-			locatorButtons = 0
-			for handset in cordlessHandsetsIHave {
-				handset.fitsOnBase = true
-			}
-        } else if newValue > 1 {
-            if locatorButtons == 0 {
-                deregistration = 1
-            }
-        }
-        if newValue < 8 {
-            hasAutoAttendantAndPersonalMailboxes = false
-        }
-		if newValue == 0 && oldValue == -1 {
-			maxCordlessHandsets = 1
-		} else if newValue == 0 && oldValue == 1 {
-			maxCordlessHandsets = -1
-		}
-	}
 	
 	func baseSoftKeysBottomChanged(oldValue: Int, newValue: Int) {
 		if oldValue == 0 && newValue == 1 {

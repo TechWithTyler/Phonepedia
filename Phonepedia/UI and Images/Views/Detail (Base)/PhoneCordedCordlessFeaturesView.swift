@@ -18,6 +18,9 @@ struct PhoneCordedCordlessFeaturesView: View {
     var body: some View {
         Stepper("Number of Included Cordless Devices (0 if corded-only): \(phone.numberOfIncludedCordlessHandsets)", value: $phone.numberOfIncludedCordlessHandsets, in: 0...Int.max-1)
             .disabled(phone.handsetNumberDigit != nil)
+            .onChange(of: phone.numberOfIncludedCordlessHandsets) { oldValue, newValue in
+                phone.numberOfIncludedCordlessHandsetsChanged(oldValue: oldValue, newValue: newValue)
+            }
             .onChange(of: phone.isCordless) { oldValue, newValue in
                 if !newValue && (!phone.cordlessHandsetsIHave.isEmpty || !phone.chargersIHave.isEmpty) {
                     dialogManager.showingMakeCordedOnly = true
@@ -46,16 +49,8 @@ struct PhoneCordedCordlessFeaturesView: View {
                     .onChange(of: phone.maxCordlessHandsets) { oldValue, newValue in
                         phone.maxCordlessHandsetsChanged(oldValue: oldValue, newValue: newValue)
                     }
-#if os(iOS)
-                    .sensoryFeedback(.error, trigger: phone.numberOfIncludedCordlessHandsets) { oldValue, newValue in
-                        return newValue > phone.maxCordlessHandsets && phone.hasRegistration
-                    }
-#endif
                     InfoButton(title: "Registration/Security Code Explanation…") {
                         dialogManager.showingRegistrationExplanation = true
-                }
-                if phone.numberOfIncludedCordlessHandsets > phone.maxCordlessHandsets && phone.hasRegistration {
-                    WarningText("The base of the \(phone.brand) \(phone.model) can only register \(phone.maxCordlessHandsets == 1 ? "1 handset" : "up to \(phone.maxCordlessHandsets) cordless devices") (you specified that it includes \(phone.numberOfIncludedCordlessHandsets)).")
                 }
             }
             Picker("Frequency", selection: $phone.frequency) {
