@@ -123,7 +123,9 @@ final class Phone {
     var baseBackupBatteryType: Int = 0
     
     var locatorButtons: Int = 0
-    
+
+    var handsetLocatorUsesIntercom: Bool = false
+
     var deregistration: Int = 2
     
     var buttonType: Int = 0
@@ -991,6 +993,7 @@ final class Phone {
 			deregistration = 1
 		}
         if newValue > 0 {
+            handsetLocatorUsesIntercom = true
             placeOnBaseAutoRegister = false
         }
 	}

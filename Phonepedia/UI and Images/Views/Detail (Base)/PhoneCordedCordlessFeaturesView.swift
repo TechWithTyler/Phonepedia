@@ -135,14 +135,19 @@ In most cases, if the base has a charge light/display message, the completion of
             }
             if phone.maxCordlessHandsets > 1 {
                 Picker("Handset Locator", selection: $phone.locatorButtons) {
-                    Text(phone.hasBaseKeypad ? "One For All HS/Keypad Entry" : "One For All Handsets").tag(0)
-                    Text("One For Each Handset").tag(1)
+                    Text(phone.hasBaseKeypad && phone.handsetLocatorUsesIntercom ? "One for All HS/Keypad Entry" : "One For All Handsets").tag(0)
+                    Text("One for Each Handset").tag(1)
                     Text("Each HS + All").tag(2)
                     Text("Select + Call Buttons").tag(3)
                 }
                 .onChange(of: phone.locatorButtons) { oldValue, newValue in
                     phone.locatorButtonsChanged(oldValue: oldValue, newValue: newValue)
                 }
+                InfoText("Handset locator allows you to locate (page) the handset(s) so you can find them.\nOne for All: A single locator button pages or makes an intercom call to all handsets. If the base has a keypad, you can call all handsets or a specific one.\nOne for Each: The base has one locator button for each handset that can be registered. For example, a phone that only expands up to 3 handsets would have 3 handset locator buttons, one for each of the 3 handsets. The paged handset can have an intercom call with the base.\nEach HS + All: The base has one locator button for each handset that can be registered, as well as a button to page all handsets. The paged handset can have an intercom call with the base.\nSelect + Call Buttons: Press the select button to select the handset to page, then press the call button to call it. The paged handset can have an intercom call with the base.")
+                if phone.locatorButtons == 0 {
+                    Toggle("Handset Locator Uses Intercom", isOn: $phone.handsetLocatorUsesIntercom)
+                }
+                InfoText("Some phones use intercom as the means of locating handsets, even if the base doesn't have intercom. This means that the handset locator and intercom from the base are the same feature.\nPhones without base intercom always have a single handset locator button to locate all handsets.")
                 if !phone.isCordedCordless && !phone.hasTransmitOnlyBase && phone.deregistration > 0 && phone.locatorButtons == 0 {
                     Toggle("Place-On-Base Auto-Register", isOn: $phone.placeOnBaseAutoRegister)
                     InfoText("The base can detect an unregistered handset being placed on it, which will put it into registration mode. Aside from putting the base into registration mode, data isn't exchanged through the contacts like it is on phones using the digital security code method. Manually putting the base in registration mode is still available for re-registering handsets or for registering handsets which don't fit on the base.")
