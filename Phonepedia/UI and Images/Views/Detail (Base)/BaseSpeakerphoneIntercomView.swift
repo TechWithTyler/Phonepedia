@@ -55,7 +55,7 @@ struct BaseSpeakerphoneIntercomView: View {
                 Picker("Push-To-Talk (PTT) or Broadcast", selection: $phone.pushToTalkOrBroadcastToAll) {
                     Text("None").tag(0)
                     Text("Push-To-Talk (PTT)").tag(1)
-                    Text("Broadcast to \(phone.hasBaseIntercom ? "Base/All HS" : "All HS")").tag(0)
+                    Text("Broadcast to \(phone.hasBaseIntercom ? "Base/All HS" : "All HS")").tag(2)
                 }
                 InfoText("Push-To-Talk (PTT): You can use the handset/base like a walkie-talkie.\nBroadcast to All: You can use a handset/deskset/base to broadcast a message to the base/all registered handsets/desksets.")
             }
