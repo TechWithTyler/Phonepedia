@@ -31,7 +31,7 @@ struct AboutDisplayTypesView: View {
                     Text("Traditional Monochrome")
                 }
                 DisclosureGroup {
-                    Text("A full-dot or dot-matrix monochrome display is an LCD display where the entire display or the majority of it is filled with dot pixels. These displays are often found on high-end phones and often have soft keys. The smaller the pixels and the more there are, the more information can be displayed and the smaller the text can be. These displays allow for features like menu icons, display of multiple phonebook/caller ID list entries at once, an answering system message list, and more information on the standby display.")
+                    Text("A full-dot or dot-matrix monochrome display is an LCD display where the entire display or the majority of it is filled with dot pixels. These displays are often found on high-end phones and often have soft keys. The size and amount of pixels determines how small the font can be and how much information can be displayed at once. These displays allow for features like menu icons, display of multiple phonebook/caller ID list entries at once, an answering system message list, and more information on the standby display.")
                 } label: {
                     Text("Full-Dot/Dot-Matrix Monochrome")
                 }
