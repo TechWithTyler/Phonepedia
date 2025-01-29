@@ -14,9 +14,9 @@ struct BaseRingersView: View {
     @Bindable var phone: Phone
 
     var body: some View {
-        Stepper("Base Standard Ringtones: \(phone.baseRingtones)", value: $phone.baseRingtones, in: !phone.isCordless || phone.hasBaseSpeakerphone ? 1...50 : 0...50)
+        Stepper("Base Standard Ringtones: \(phone.baseRingtones)", value: $phone.baseRingtones, in: !phone.isCordless || phone.hasBaseSpeakerphone ? .oneToMax(50) : .zeroToMax(50))
         if phone.baseRingtones > 0 && (phone.isCordless || phone.cordedRingerType == 1) {
-            Stepper("Base Music/Melody Ringtones: \(phone.baseMusicRingtones)", value: $phone.baseMusicRingtones, in: 0...50)
+            Stepper("Base Music/Melody Ringtones: \(phone.baseMusicRingtones)", value: $phone.baseMusicRingtones, in: .zeroToMax(50))
         }
         Text("Total Ringtones: \(phone.totalBaseRingtones)")
         RingtoneInfoView()
@@ -35,6 +35,14 @@ struct BaseRingersView: View {
                 }
             }
             InfoText("Bell phones contain at least 2 bells and an electromagnet. The electromagnet is used to strike the bells when the phone rings.\nA bell phone may have 2 ringtone options. These phones have an additional bell ringer and a switch that turns its electromagnet on or off.\nA bell/mechanical ringer requires more power to ring, so it may not work properly on most VoIP lines, especially if multiple phones are ringing at once, as they're usually designed for modern phones which typically don't have mechanical ringers. Electronic ringers, especially those that are software-driven, don't require much power.\nThe amount of ringing power a phone requires is determined by the Ringer Equivalence Number (REN), usually found on the bottom of the phone. A higher REN means more power is required for the phone to ring properly. You can connect a device called a REN booster to your line to increase its REN and allow bell/mechanical ringers to ring.")
+        }
+        if phone.totalBaseRingtones > 0 {
+            Picker("Silent Mode", selection: $phone.silentMode) {
+                Text("None").tag(0)
+                Text("Number of Hours").tag(1)
+                Text("Time Period").tag(2)
+            }
+            SilentModeInfoView()
         }
         if phone.isCordless && phone.hasBaseIntercom && phone.baseRingtones > 0 {
             Picker("Base Intercom Ringtone", selection: $phone.baseIntercomRingtone) {

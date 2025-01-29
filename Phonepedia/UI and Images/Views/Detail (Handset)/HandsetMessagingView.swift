@@ -24,6 +24,10 @@ struct HandsetMessagingView: View {
                 }
                 InfoText("Settings Only: Only settings are available in the answering system menu. This may or may not include greeting recording/playback/deletion. Message playback is a separate menu item or button.\nFull: Most, if not all, features and settings are available in the answering system menu.")
                 AnsweringSystemMenuInfoView()
+                if phone.hasAnsweringSystem >= 2 && handset.displayType > 1 {
+                    Toggle("Has Message List", isOn: $handset.hasMessageList)
+                    MessageListInfoView()
+                }
             }
             Picker("Voicemail Quick Dial", selection: $handset.voicemailQuickDial) {
                 Text("None").tag(0)

@@ -99,11 +99,21 @@ struct HandsetDisplayBacklightButtonsView: View {
             InfoButton(title: "About Display Types…") {
                 dialogManager.showingAboutDisplayTypes = true
             }
-            if handset.displayType >= 3 {
-                Picker("Main Menu Layout", selection: $handset.mainMenuLayout) {
-                    Text("List").tag(0)
-                    Text("Carousel").tag(2)
-                    Text("Grid").tag(3)
+            if phone.baseDisplayType >= 4 && (phone.hasPhonebook || phone.hasCallerIDList || phone.callBlockCapacity > 0 || handset.redialCapacity > 1) {
+                Toggle("Allows Display of Multiple Entries", isOn: $handset.displayMultiEntries)
+                MultiEntryDisplayInfoView()
+            }
+            if handset.displayType >= 2 {
+                Toggle("Menu Shows Multiple Items", isOn: $handset.menuMultiItems)
+                if handset.displayType >= 3 {
+                    if handset.menuMultiItems {
+                        Picker("Main Menu Layout", selection: $handset.mainMenuLayout) {
+                            Text("Single Item").tag(0)
+                            Text("List").tag(1)
+                            Text("Carousel").tag(2)
+                            Text("Grid").tag(3)
+                        }
+                    }
                 }
             }
             if handset.displayType > 0 && handset.displayType < 5 {
@@ -143,7 +153,7 @@ struct HandsetDisplayBacklightButtonsView: View {
                     Toggle("Navigation Button Standby Shortcuts", isOn: $handset.navigatorKeyStandbyShortcuts)
                 }
                 if handset.displayType > 1 {
-                    Stepper("Soft Keys: \(handset.softKeys)", value: $handset.softKeys, in: 0...3)
+                    Stepper("Soft Keys: \(handset.softKeys)", value: $handset.softKeys, in: .zeroToMax(3))
                         .onChange(of: handset.softKeys) { oldValue, newValue in
                             handset.softKeysChanged(oldValue: oldValue, newValue: newValue)
                         }

@@ -132,6 +132,10 @@ final class CordlessHandset {
 
     var desksetDisplayCanTilt: Bool = false
 
+    var displayMultiEntries: Bool = false
+
+    var menuMultiItems: Bool = false
+
     var mainMenuLayout: Int = 0
 
     var batteryType: Int = 0
@@ -165,7 +169,11 @@ final class CordlessHandset {
     var customRingtonesSource: Int = 0
 
     var intercomRingtone: Int = 0
-	
+
+    var silentMode: Int = 0
+
+    var supportsSilentModeBypass: Bool = false
+
 	var oneTouchDialCapacity: Int = 0
 	
 	var speedDialCapacity: Int = 0
@@ -194,10 +202,18 @@ final class CordlessHandset {
 	
 	var answeringSystemMenu: Int = 3
 
+    var hasMessageList: Bool = false
+
     var voicemailQuickDial: Int = 0
 
 	var phonebookCapacity: Int = 0
-	
+
+    var supportsPhonebookRingtones: Bool = false
+
+    var supportsPhonebookGroups: Bool = false
+
+    var favoriteEntriesCapacity: Int = 0
+
 	var callerIDPhonebookMatch: Bool = false
 	
 	var usesBasePhonebook: Bool = true
@@ -729,6 +745,12 @@ final class CordlessHandset {
         newHandset.chargeDuringCall = self.chargeDuringCall
         newHandset.hasChargeTone = self.hasChargeTone
         newHandset.hasDirectCommunication = self.hasDirectCommunication
+        newHandset.displayMultiEntries = self.displayMultiEntries
+        newHandset.menuMultiItems = self.menuMultiItems
+        newHandset.hasMessageList = self.hasMessageList
+        newHandset.favoriteEntriesCapacity = self.favoriteEntriesCapacity
+        newHandset.supportsPhonebookRingtones = self.supportsPhonebookRingtones
+        newHandset.supportsPhonebookGroups = self.supportsPhonebookGroups
         // 4. Return the duplicated handset.
         return newHandset
     }

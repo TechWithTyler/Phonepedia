@@ -84,7 +84,7 @@ When the first ring is suppressed, the number of rings you hear will be one less
                 }
                 InfoText("Call block pre-screening answers the call and plays a message asking callers to press a key so the phone can identify whether they're a human or a robot.\nCallers with numbers stored in the phone's allowed number list/database or phonebook, or callers whose caller ID names are stored in the phone's allowed name list, will always ring through.\nAsking for the caller name allows you to hear the caller's real name in their own voice when you pick up\(phone.hasTalkingCallerID ? " or as the caller ID announcement" : String()).")
                 if phone.callBlockPreScreening > 0 {
-                    InfoText("Example screening message: \"Hello. Your call is being screened to make sure you're a person. Please \(phone.callBlockPreScreening == 2 ? "press \(Int.random(in: 0...999))" : "say your name after the \(AnsweringSystemGreetingComponents.beepOrTone()) then press the pound key") to be connected.\"")
+                    InfoText("Example screening message: \"Hello. Your call is being screened to make sure you're a person. Please \(phone.callBlockPreScreening == 2 ? "press \(Int.random(in: .zeroToMax(999)))" : "say your name after the \(AnsweringSystemGreetingComponents.beepOrTone()) then press the pound key") to be connected.\"")
                     ExampleAudioView(audioFile: phone.callBlockPreScreening == 2 ? .callBlockPreScreeningCode : .callBlockPreScreeningCallerName)
                     if phone.hasAnsweringSystem == 0 {
                         InfoText("Calls can't go to a voicemail service once answered by a call block pre-screening system.")

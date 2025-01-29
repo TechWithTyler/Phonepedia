@@ -25,11 +25,19 @@ struct BasePhonebookView: View {
         if phone.callBlockPreScreening > 0 {
             InfoText("Numbers saved to the base's home phonebook will always ring through. Save frequently-dialed numbers you want to always ring through to the phonebook instead of the allowed numbers list.")
         }
-        if phone.basePhonebookCapacity > 0 && phone.baseDisplayType > 0 {
-            Toggle(isOn: $phone.hasTalkingPhonebook) {
-                Text("Talking Phonebook")
+        if phone.basePhonebookCapacity > 0 {
+            Toggle("Supports Phonebook Groups", isOn: $phone.baseSupportsPhonebookGroups)
+            PhonebookGroupInfoView()
+            FormNumericTextField(phone.isCordless ? "Favorite Entry Capacity (Base)" : "Favorite Entry Capacity", value: $phone.baseFavoriteEntriesCapacity, valueRange: .allPositivesIncludingZero, singularSuffix: "entry", pluralSuffix: "entries")
+            FavoriteEntriesInfoView()
+            if phone.baseDisplayType > 0 {
+                Toggle("Supports Phonebook Ringtones", isOn: $phone.baseSupportsPhonebookRingtones)
+                PhonebookRingtoneInfoView()
+                Toggle(isOn: $phone.hasTalkingPhonebook) {
+                    Text("Talking Phonebook")
+                }
+                InfoText("The phone can announce the names of phonebook entries as you scroll through them.")
             }
-            InfoText("The phone can announce the names of phonebook entries as you scroll through them.")
         }
         if phone.basePhonebookCapacity >= phonebookTransferRequiredMaxCapacity {
             Picker("Bluetooth Cell Phone Phonebook Transfers", selection: $phone.bluetoothPhonebookTransfers) {

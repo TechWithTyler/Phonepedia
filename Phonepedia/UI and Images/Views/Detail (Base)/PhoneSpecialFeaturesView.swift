@@ -36,7 +36,7 @@ struct PhoneSpecialFeaturesView: View {
                 InfoText("When a handset/base detects sound and calls an outside phone number, the person on the outside phone can talk back to the handset/base by dialing a code, or deactivate the feature by dialing another code.")
             }
         }
-        Stepper("Smart Home Devices Supported: \(phone.smartHomeDevicesSupported)", value: $phone.smartHomeDevicesSupported, in: 0...50, step: 5)
+        Stepper("Smart Home Devices Supported: \(phone.smartHomeDevicesSupported)", value: $phone.smartHomeDevicesSupported, in: .zeroToMax(50), step: 5)
         InfoText("Smart home devices registered to a cordless phone can notify the handset/base or outside phone when things happen and the handset/base can control these devices. For example, when someone rings a doorbell, the phone can sound a chime and color display handsets can show a live feed of the doorbell's video.")
         Toggle("Answer By Voice", isOn: $phone.answerByVoice)
         InfoText("The base and compatible handsets can detect sound when landline/cell calls come in, allowing calls to be answered by voice. The phone either listens for any sound or is programmed to listen for a specific phrase.")

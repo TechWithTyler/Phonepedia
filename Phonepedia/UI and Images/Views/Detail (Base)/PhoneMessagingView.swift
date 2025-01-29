@@ -88,6 +88,10 @@ struct PhoneMessagingView: View {
                 Toggle("Has Greeting Only Mode", isOn: $phone.hasGreetingOnlyMode)
                 InfoText("Greeting Only, sometimes called Announce Only or Answer Only, answers calls but doesn't accept incoming messages. Some phones allow you to record a separate greeting for both modes, allowing you to easily switch between modes without having to re-record your greeting each time. If the phone has greeting slots, greeting only is one of those slots rather than a dedicated mode.\nExample: \"Hello. You have reached \(exampleName). I'm not available to take your call, so please call again later.\"")
                 ExampleAudioView(audioFile: .answeringSystemGreetingAnswerOnly)
+                if phone.baseDisplayType > 3 {
+                    Toggle("Has Message List", isOn: $phone.hasMessageList)
+                    MessageListInfoView()
+                }
                 Toggle("Has Message Alert by Call", isOn: $phone.hasMessageAlertByCall)
                 InfoText("This feature allows the answering system to call out to a stored phone number each time a new message is left, so you don't have to constantly be calling to check for new messages while you're away.")
                 Toggle("Can Record Voice Memos", isOn: $phone.canRecordVoiceMemos)

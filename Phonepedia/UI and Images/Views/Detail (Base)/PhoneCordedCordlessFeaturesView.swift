@@ -16,7 +16,7 @@ struct PhoneCordedCordlessFeaturesView: View {
     @EnvironmentObject var dialogManager: DialogManager
 
     var body: some View {
-        Stepper("Number of Included Cordless Devices (0 if corded-only): \(phone.numberOfIncludedCordlessHandsets)", value: $phone.numberOfIncludedCordlessHandsets, in: 0...Int.max-1)
+        Stepper("Number of Included Cordless Devices (0 if corded-only): \(phone.numberOfIncludedCordlessHandsets)", value: $phone.numberOfIncludedCordlessHandsets, in: .zeroToMax(15))
             .disabled(phone.handsetNumberDigit != nil)
             .onChange(of: phone.numberOfIncludedCordlessHandsets) { oldValue, newValue in
                 phone.numberOfIncludedCordlessHandsetsChanged(oldValue: oldValue, newValue: newValue)

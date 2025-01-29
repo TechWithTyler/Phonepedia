@@ -191,7 +191,11 @@ final class Phone {
 	var baseMusicRingtones: Int = 0
 	
     var baseIntercomRingtone: Int = 0
-	
+
+    var silentMode: Int = 0
+
+    var supportsSilentModeBypass: Bool = false
+
 	var hasIntercom: Bool = true
 	
 	var hasBaseIntercom: Bool = false
@@ -221,6 +225,8 @@ final class Phone {
 	var hasAnsweringSystem: Int = 3
 
     var answeringSystemType: Int = 1
+
+    var hasMessageList: Bool = false
 
     var answeringSystemMultilineButtonLayout: Int = 0
 
@@ -266,7 +272,13 @@ final class Phone {
 	
 	var baseDisplayType: Int = 0
 
+    var cordlessBaseMenuType: Int = 0
+
     var baseDisplayCanTilt: Bool = false
+
+    var baseMenuMultiItems: Bool = false
+
+    var baseDisplayMultiEntries: Bool = false
 
     var baseMainMenuLayout: Int = 0
 
@@ -327,7 +339,13 @@ final class Phone {
 	var hasCellPhoneVoiceControl: Bool = false
 	
 	var basePhonebookCapacity: Int = 50
-	
+
+    var baseFavoriteEntriesCapacity: Int = 0
+
+    var baseSupportsPhonebookRingtones: Bool = false
+
+    var baseSupportsPhonebookGroups: Bool = false
+
 	var baseCallerIDCapacity: Int = 50
 	
 	var baseRedialCapacity: Int = 0
@@ -341,7 +359,11 @@ final class Phone {
 	var baseSpeedDialCapacity: Int = 0
 	
 	var baseOneTouchDialCapacity: Int = 0
-	
+
+    var baseOneTouchDialCard: Int = 0
+
+    var baseOneTouchDialExpansionModulesSupported: Bool = false
+
 	var oneTouchDialSupportsHandsetNumbers: Bool = false
 	
 	var speedDialPhonebookEntryMode: Int = 0
@@ -465,7 +487,12 @@ final class Phone {
     var supportsWiredHeadsets: Bool {
         return baseSupportsWiredHeadsets || !cordlessHandsetsIHave.filter({$0.supportsWiredHeadsets}).isEmpty
     }
-    
+
+    @Transient
+    var hasPhonebook: Bool {
+        return basePhonebookCapacity > 0 || !cordlessHandsetsIHave.filter({$0.phonebookCapacity > 0}).isEmpty
+    }
+
     @Transient
     var hasCallerIDList: Bool {
         return baseCallerIDCapacity > 0 || !cordlessHandsetsIHave.filter({$0.callerIDCapacity > 0}).isEmpty
@@ -730,6 +757,14 @@ final class Phone {
                 answeringSystemMenuOnBase = 1
             }
         }
+        if newValue == 0 || newValue == 2 {
+            hasMessageList = false
+        }
+        if newValue < 2 {
+            for handset in cordlessHandsetsIHave {
+                handset.hasMessageList = false
+            }
+        }
     }
 
     func bluetoothPhonebookTransfersChanged(oldValue: Int, newValue: Int) {
@@ -895,7 +930,7 @@ final class Phone {
             if landlineInUseStatusOnBase > 1 {
                 landlineInUseStatusOnBase = 0
             }
-            if cellLineInUseStatusOnBase == 2 {
+            if cellLineInUseStatusOnBase >= 2 {
                 cellLineInUseStatusOnBase = 0
             }
             if baseCellRingtone == 3 {
@@ -912,7 +947,7 @@ final class Phone {
             baseNavigatorKeyCenterButton = 0
             baseNavigatorKeyStandbyShortcuts = false
 		}
-		if newValue <= 2 {
+		if newValue <= 3 {
 			baseSoftKeysBottom = 0
 			baseSoftKeysSide = 0
             basePhonebookCapacity = 0
@@ -924,7 +959,7 @@ final class Phone {
         if newValue < 4 {
             baseMainMenuLayout = 0
         }
-		if newValue < 3 || newValue > 5 {
+		if newValue < 3 || newValue > 6 {
             let colorComponents = Color.Components(fromColor: .white)
             baseDisplayBacklightColorRed = colorComponents.red
             baseDisplayBacklightColorGreen = colorComponents.green

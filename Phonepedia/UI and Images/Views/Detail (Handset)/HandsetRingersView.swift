@@ -15,8 +15,8 @@ struct HandsetRingersView: View {
 
     var body: some View {
         if let phone = handset.phone {
-            Stepper("Standard Ringtones: \(handset.ringtones)", value: $handset.ringtones, in: 1...50)
-            Stepper("Music/Melody Ringtones: \(handset.musicRingtones)", value: $handset.musicRingtones, in: 0...50)
+            Stepper("Standard Ringtones: \(handset.ringtones)", value: $handset.ringtones, in: .oneToMax(50))
+            Stepper("Music/Melody Ringtones: \(handset.musicRingtones)", value: $handset.musicRingtones, in: .zeroToMax(50))
             Text("Total Ringtones: \(handset.totalRingtones)")
             RingtoneInfoView()
             if handset.hasSpeakerphone {
@@ -28,6 +28,12 @@ struct HandsetRingersView: View {
                 }
                 InfoText("Some handsets allow you to record audio to use as ringtones, transfer audio files from a device to use as ringtones, or both.")
             }
+            Picker("Silent Mode", selection: $handset.silentMode) {
+                Text("None").tag(0)
+                Text("Number of Hours").tag(1)
+                Text("Time Period").tag(2)
+            }
+            SilentModeInfoView()
             if phone.hasIntercom {
                 Picker("Intercom Ringtone", selection: $handset.intercomRingtone) {
                     Text("Intercom-Specific Ringtone").tag(0)
