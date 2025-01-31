@@ -96,14 +96,27 @@ struct HandsetDisplayBacklightButtonsView: View {
             if handset.displayType > 0 && handset.cordlessDeviceType == 1 {
                 Toggle("Display Can Tilt", isOn: $handset.desksetDisplayCanTilt)
             }
+            if handset.displayType > 1 && (handset.handsetStyle < 2 || handset.cordlessDeviceType == 1) {
+                Picker("Clock Display", selection: $handset.clock) {
+                    Text("None").tag(0)
+                    Text("Time Only").tag(1)
+                    Text("Day and Time").tag(2)
+                    Text("Date and Time (w/o Year)").tag(3)
+                    Text("Date and Time (w/ Year)").tag(4)
+                }
+                if handset.clock > 0 {
+                    Toggle("Supports Clock Backup", isOn: $handset.supportsTimeBackup)
+                    InfoText("On a handset/deskset which displays a clock, clock backup allows it to store the clock settings for as long as it has power. This allows it to restore them to the base when power returns, since most bases don't preserve them when they lose power.")
+                }
+            }
             InfoButton(title: "About Display Types…") {
                 dialogManager.showingAboutDisplayTypes = true
             }
-            if phone.baseDisplayType >= 4 && (phone.hasPhonebook || phone.hasCallerIDList || phone.callBlockCapacity > 0 || handset.redialCapacity > 1) {
+            if handset.displayType >= 4 && handset.handsetStyle < 2 && (phone.hasPhonebook || phone.hasCallerIDList || phone.callBlockCapacity > 0 || handset.redialCapacity > 1) {
                 Toggle("Allows Display of Multiple Entries", isOn: $handset.displayMultiEntries)
                 MultiEntryDisplayInfoView()
             }
-            if handset.displayType >= 2 {
+            if handset.displayType >= 2 && handset.handsetStyle < 2 {
                 Toggle("Menu Shows Multiple Items", isOn: $handset.menuMultiItems)
                 if handset.displayType >= 3 {
                     if handset.menuMultiItems {

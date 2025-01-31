@@ -73,6 +73,13 @@ struct BaseDisplayBacklightButtonsView: View {
             }
             if phone.baseDisplayType >= 3 {
                 Toggle("Base Display Can Tilt", isOn: $phone.baseDisplayCanTilt)
+                Picker("Clock Display", selection: $phone.clock) {
+                    Text("None").tag(0)
+                    Text("Time Only").tag(1)
+                    Text("Day and Time")
+                    Text("Date and Time (w/o Year)").tag(3)
+                    Text("Date and Time (w/ Year)").tag(4)
+                }
             }
             InfoButton(title: "About Display Types…") {
                 dialogManager.showingAboutDisplayTypes = true
@@ -111,7 +118,7 @@ struct BaseDisplayBacklightButtonsView: View {
             if phone.baseDisplayType == 1 || phone.baseHasDisplayAndMessageCounter {
                 ColorPicker("LED Message Counter Color", selection: phone.baseLEDMessageCounterColorBinding, supportsOpacity: false)
             }
-            if phone.baseDisplayType > 0 {
+            if phone.baseDisplayType > 2 {
                 Picker("Base Navigation Button Type", selection: $phone.baseNavigatorKeyType) {
                     Text("None").tag(0)
                     Text("Up/Down").tag(1)
@@ -138,7 +145,7 @@ struct BaseDisplayBacklightButtonsView: View {
                     }
                     Toggle("Base Navigation Button Standby Shortcuts", isOn: $phone.baseNavigatorKeyStandbyShortcuts)
                 }
-                if phone.baseDisplayType > 2 {
+                if phone.baseDisplayType > 3 {
                     Stepper("Base Soft Keys (Bottom): \(phone.baseSoftKeysBottom)", value: $phone.baseSoftKeysBottom, in: .zeroToMax(6))
                         .onChange(of: phone.baseSoftKeysBottom) { oldValue, newValue in
                             phone.baseSoftKeysBottomChanged(oldValue: oldValue, newValue: newValue)
