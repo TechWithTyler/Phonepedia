@@ -124,6 +124,10 @@ final class CordlessHandset {
 
     var supportsRingerOff: Bool = true
 
+    var clock: Int = 1
+
+    var supportsTimeBackup: Bool = true
+
     var volumeAdjustmentType: Int = 1
 
 	var displayType: Int = 2
@@ -751,6 +755,8 @@ final class CordlessHandset {
         newHandset.favoriteEntriesCapacity = self.favoriteEntriesCapacity
         newHandset.supportsPhonebookRingtones = self.supportsPhonebookRingtones
         newHandset.supportsPhonebookGroups = self.supportsPhonebookGroups
+        newHandset.clock = self.clock
+        newHandset.supportsTimeBackup = self.supportsTimeBackup
         // 4. Return the duplicated handset.
         return newHandset
     }

@@ -149,7 +149,9 @@ final class Phone {
     var dialMode: Int = 2
 
     var chargeLight: Int = 0
-	
+
+    var clock: Int = 0
+
 	var cordedPhoneType: Int = 0
 
     var hasDualReceivers: Bool = false

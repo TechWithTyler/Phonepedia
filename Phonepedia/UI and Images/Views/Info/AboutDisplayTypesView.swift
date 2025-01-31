@@ -36,17 +36,17 @@ struct AboutDisplayTypesView: View {
                     Text("Full-Dot/Dot-Matrix Monochrome")
                 }
                 DisclosureGroup {
-                    Text("A color display is an LCD display that can display colors. These displays are often found on high-end phones and often have soft keys. In addition to the features offered by full-dot monochrome displays, menus can have a color scheme (e.g., white background, black text, blue highlight), and pictures can be assigned to phonebook entries or as the standby display wallpaper.")
+                    Text("A color display is an LCD display that can display colors. These displays are often found on high-end phones and often have soft keys. In addition to the features offered by full-dot monochrome displays, menus can have a color scheme (e.g., white background, black text, blue highlight), and pictures can be assigned to phonebook entries to display when they call, or as the standby display wallpaper.")
                 } label: {
                     Text("Color")
                 }
                 DisclosureGroup {
-                    Text("An LED message counter is made up of 2 7-segment LED displays and are used to display the number of answering system messages, the ringer/speaker volume level, and other info. For example, it might display the letter A to indicate the answering system is answering a call, F to indicate the answering system memory is full, or CL to indicate the clock needs to be set. This type of display makes it easy to see how many messages you have at a glance.")
+                    Text("An LED message counter is made up of 1 or 2 7-segment LED displays and are used to display the number of answering system messages, the ringer/speaker volume level, and other info. For example, it might display the letter A to indicate the answering system is answering a call, F to indicate the answering system memory is full, or CL to indicate the clock needs to be set. This type of display makes it easy to see how many messages you have at a glance.")
                 } label: {
                     Text("LED Message Counter")
                 }
                 DisclosureGroup {
-                    Text("An LCD message counter with status items is a monochrome display with pixels that make up a dual 7-segment display, and pixels for various status items (e.g., a flashing clock to indicate the clock needs to be set). As this type of display usually doesn't have a backlight, it isn't as easy to see how many messages you have at a glance compared to LED message counters.")
+                    Text("An LCD message counter with status items is a monochrome display with pixels that make up 1 or 2 7-segment displays, and pixels for various status items (e.g., a flashing clock to indicate the clock needs to be set). As this type of display usually doesn't have a backlight, it isn't as easy to see how many messages you have at a glance compared to LED message counters.")
                 } label: {
                     Text("LCD Message Counter With Status Items")
                 }
