@@ -63,7 +63,7 @@ struct PhoneRowView: View {
 					.font(.title2)
                     .lineLimit(nil)
                     .multilineTextAlignment(.center)
-                    .animation(.linear, value: phone.handsetNumberDigit)
+                    .animation(.linear, value: phone.handsetNumberDigitIndex)
                 if !phone.nickname.isEmpty {
                     Text("\"\(phone.nickname)\"")
                         .font(.title3)
@@ -160,7 +160,8 @@ struct PhoneRowView: View {
                 let attributedEndIndex = attributedString.index(afterCharacter: attributedStartIndex)
                 switch highlightHandsetNumberDigitInList {
                 case 2:
-                    attributedString[attributedStartIndex..<attributedEndIndex].backgroundColor = .accentColor
+                    attributedString[attributedStartIndex..<attributedEndIndex].backgroundColor = .accentColor.opacity(0.75)
+                    attributedString[attributedStartIndex..<attributedEndIndex].foregroundColor = .white
                 default:
                     attributedString[attributedStartIndex..<attributedEndIndex].underlineStyle = .single
                 }

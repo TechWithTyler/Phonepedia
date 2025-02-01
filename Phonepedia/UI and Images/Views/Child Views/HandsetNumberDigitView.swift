@@ -30,8 +30,9 @@ struct HandsetNumberDigitView: View {
                                 phone.handsetNumberDigitIndex = index
                                 phone.numberOfIncludedCordlessHandsets = phone.handsetNumberDigit! == 0 ? 1 : phone.handsetNumberDigit!
                             }
-                            .tint(phone.handsetNumberDigitIndex == index ? .accentColor : .primary)
+                            .tint(phone.handsetNumberDigitIndex == index ? .accentColor.mix(with: .primary, by: 0.25) : .primary)
                             .bold(phone.handsetNumberDigitIndex == index)
+                            .underline(phone.handsetNumberDigitIndex == index, color: .primary)
                             .padding(4)
                             .accessibilityConditionalTrait(.isSelected, condition: phone.handsetNumberDigitIndex == index)
                         } else {
@@ -44,12 +45,13 @@ struct HandsetNumberDigitView: View {
                         phone.handsetNumberDigit = nil
                         phone.handsetNumberDigitIndex = nil
                     }
-                    .tint(phone.handsetNumberDigitIndex == nil ? .accentColor : .primary)
+                    .tint(phone.handsetNumberDigitIndex == nil ? .accentColor.mix(with: .primary, by: 0.25) : .primary)
                     .bold(phone.handsetNumberDigitIndex == nil)
+                    .underline(phone.handsetNumberDigitIndex == nil, color: .primary)
                     .padding(4)
                     .accessibilityConditionalTrait(.isSelected, condition: phone.handsetNumberDigitIndex == nil)
                 }
-                .animation(.linear, value: phone.handsetNumberDigit)
+                .animation(.linear, value: phone.handsetNumberDigitIndex)
                 .buttonStyle(.borderless)
             }
         }
