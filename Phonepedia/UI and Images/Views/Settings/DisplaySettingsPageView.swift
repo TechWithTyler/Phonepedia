@@ -41,12 +41,48 @@ struct DisplaySettingsPageView: View {
 
     @AppStorage(UserDefaults.KeyNames.phoneDescriptionTextSize) var phoneDescriptionTextSize: Double = SATextViewMinFontSize
 
+    // MARK: - Properties - Booleans
+
+    @AppStorage(UserDefaults.KeyNames.useDetailedPhoneImage) var useDetailedPhoneImage: Bool = false
+
     // MARK: - Body
 
     var body: some View {
         Form {
             Section {
                 TextSizeSlider(labelText: "Phone Description Text Size", textSize: $phoneDescriptionTextSize, previewText: phoneDescriptionSampleText)
+                HStack {
+                    Text("Placeholder Image Style")
+                    Spacer()
+                    Button {
+                        useDetailedPhoneImage = false
+                    } label: {
+                        VStack {
+                            Image(.phone)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 50, height: 50)
+                            Text("Simple")
+                            Image(systemName: useDetailedPhoneImage ? "circle" : "checkmark.circle.fill")
+                                .animatedSymbolReplacement()
+                        }
+                    }
+                    Button {
+                        useDetailedPhoneImage = true
+                    } label: {
+                        VStack {
+                            Image(.phoneDetailed)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 50, height: 50)
+                            Text("Detailed")
+                            Image(systemName: useDetailedPhoneImage ? "checkmark.circle.fill" : "circle")
+                                .animatedSymbolReplacement()
+                        }
+                    }
+                }
+                .buttonStyle(.borderless)
+                .foregroundStyle(.primary)
             }
             Section("Phone List Detail") {
                 PhoneListDetailOptions()

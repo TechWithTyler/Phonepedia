@@ -18,7 +18,9 @@ struct PhoneImage: View {
     // MARK: - Properties - Booleans
 
 	var isThumbnail: Bool
-    
+
+    @AppStorage(UserDefaults.KeyNames.useDetailedPhoneImage) var useDetailedPhoneImage: Bool = false
+
     // MARK: - Properties - Floats
 
 	var size: CGFloat {
@@ -29,18 +31,18 @@ struct PhoneImage: View {
 
     var body: some View {
 		#if os(iOS) || os(visionOS)
-		let image = UIImage(data: phone.photoData ?? getPNGDataFromUIImage(image: .phone))!
+        let image = UIImage(data: phone.photoData ?? getPNGDataFromUIImage(image: useDetailedPhoneImage ? .phoneDetailed : .phone))!
 			Image(uiImage: image)
-                .renderingMode(phone.photoData == nil ? .template : .original)
+                .renderingMode(phone.photoData == nil && !useDetailedPhoneImage ? .template : .original)
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(width: size, height: size)
                 .clipShape(RoundedRectangle(cornerRadius: SAContainerViewCornerRadius))
                 .accessibilityLabel("\(phone.brand) \(phone.model)")
 		#elseif os(macOS)
-		let image = NSImage(data: phone.photoData ?? getPNGDataFromNSImage(image: .phone))!
+		let image = NSImage(data: phone.photoData ?? getPNGDataFromNSImage(image: useDetailedPhoneImage ? .phoneDetailed : .phone))!
 			Image(nsImage: image)
-                .renderingMode(phone.photoData == nil ? .template : .original)
+            .renderingMode(phone.photoData == nil && !useDetailedPhoneImage ? .template : .original)
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(width: size, height: size)

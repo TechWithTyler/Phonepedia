@@ -12,6 +12,8 @@ extension UserDefaults {
 
     struct KeyNames {
 
+        static let useDetailedPhoneImage: String = "useDetailedPhoneImage"
+
         static let phoneDescriptionTextSize: String = "phoneDescriptionTextSize"
 
         static let showPhoneTypeInList: String = "showPhoneTypeInList"

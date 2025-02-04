@@ -19,7 +19,7 @@ struct DocumentLaunchPhoneView: View {
     @Environment(\.colorScheme) var systemTheme
 
     var body: some View {
-        Image(.phone)
+        Image(.phoneDetailed)
             .resizable()
             .scaledToFit()
             .frame(width: 200)

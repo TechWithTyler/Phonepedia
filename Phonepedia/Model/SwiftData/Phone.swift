@@ -19,15 +19,6 @@ final class Phone {
     static let mockBrand: String = "Some Brand"
 
     static let mockModel: String = "M123-2"
-
-    @Transient
-	static var defaultPhotoData: Data {
-#if os(iOS) || os(visionOS)
-		return getPNGDataFromUIImage(image: .phone)
-#elseif os(macOS)
-		return getPNGDataFromNSImage(image: .phone)
-#endif
-	}
     
     // MARK: - Properties - Persistent Data
     
