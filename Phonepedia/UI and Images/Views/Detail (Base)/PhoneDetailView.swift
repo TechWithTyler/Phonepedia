@@ -141,6 +141,9 @@ struct PhoneDetailView: View {
     var basicsGroup: some View {
         Section("Basics") {
             FormTextField("Brand", text: $phone.brand)
+                .onChange(of: phone.brand) { oldValue, newValue in
+                    phone.brandChanged(oldValue: oldValue, newValue: newValue)
+                }
             FormTextField("Model", text: $phone.model)
                 .onChange(of: phone.model) { oldValue, newValue in
                     phone.modelNumberChanged(oldValue: oldValue, newValue: newValue)
@@ -237,12 +240,12 @@ struct PhoneDetailView: View {
                 }
                 FormNavigationLink {
                     PhoneAudioView(phone: phone)
-                        .navigationTitle("Wired/BT Headsets")
+                        .navigationTitle("Headsets")
 #if !os(macOS)
                         .navigationBarTitleDisplayMode(.inline)
 #endif
                 } label: {
-                    Label("Wired/Bluetooth Headsets", systemImage: "headset")
+                    Label("Headsets", systemImage: "headset")
                 }
             }
             FormNavigationLink {

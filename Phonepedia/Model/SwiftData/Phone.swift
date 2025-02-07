@@ -693,7 +693,16 @@ final class Phone {
 
     // MARK: - Property Change Handlers
 
+    func brandChanged(oldValue: String, newValue: String) {
+        if newValue.isEmpty {
+            brand = Phone.mockBrand
+        }
+    }
+
     func modelNumberChanged(oldValue: String, newValue: String) {
+        if newValue.isEmpty {
+            model = Phone.mockModel
+        }
         guard let digit = handsetNumberDigit, let digitIndex = handsetNumberDigitIndex else { return }
         let array = newValue.split(separator: String())
         if digitIndex > array.count - 1 {

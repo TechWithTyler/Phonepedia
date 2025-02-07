@@ -28,6 +28,9 @@ struct HandsetDetailView: View {
             }
             Section("Basics") {
                 FormTextField("Brand", text: $handset.brand)
+                    .onChange(of: handset.brand) { oldValue, newValue in
+                        handset.brandChanged(oldValue: oldValue, newValue: newValue)
+                    }
                 FormTextField("Model", text: $handset.model)
                 FormNavigationLink {
                     HandsetGeneralView(handset: handset)

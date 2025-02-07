@@ -503,6 +503,12 @@ final class CordlessHandset {
 
     // MARK: - Property Change Handlers
 
+    func brandChanged(oldValue: String, newValue: String) {
+        if newValue.isEmpty {
+            brand = Phone.mockBrand
+        }
+    }
+
     func phonebookCapacityChanged(oldValue: Int, newValue: Int) {
         if newValue < phonebookTransferRequiredMaxCapacity {
             bluetoothPhonebookTransfers = false
