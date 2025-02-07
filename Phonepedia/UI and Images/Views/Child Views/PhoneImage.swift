@@ -39,6 +39,7 @@ struct PhoneImage: View {
                 .frame(width: size, height: size)
                 .clipShape(RoundedRectangle(cornerRadius: SAContainerViewCornerRadius))
                 .accessibilityLabel("\(phone.brand) \(phone.model)")
+                .animation(.linear, value: image)
 		#elseif os(macOS)
 		let image = NSImage(data: phone.photoData ?? getPNGDataFromNSImage(image: useDetailedPhoneImage ? .phoneDetailed : .phone))!
 			Image(nsImage: image)
@@ -48,6 +49,7 @@ struct PhoneImage: View {
                 .frame(width: size, height: size)
                 .clipShape(RoundedRectangle(cornerRadius: SAContainerViewCornerRadius))
                 .accessibilityLabel("\(phone.brand) \(phone.model)")
+                .animation(.linear, value: image)
 		#endif
     }
 
