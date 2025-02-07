@@ -1085,7 +1085,6 @@ final class Phone {
             }
         }
 		if newValue == 1 || newValue == 3 {
-            dialMode = 3
             if cordedReceiverVolumeAdjustmentType > 1 {
                 cordedReceiverVolumeAdjustmentType = 1
             }
