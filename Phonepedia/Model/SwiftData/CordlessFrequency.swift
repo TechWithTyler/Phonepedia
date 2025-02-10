@@ -54,9 +54,13 @@ extension Phone {
         case separator5 = -1.4
 
         // DECT
-        case dect_1_88To1_90GHz = 1880.0
-        case dect_1_90To1_92GHz = 1900.0
-        case dect6 = 1920.0
+        case southKoreaDECT = 1786.0
+        case taiwanDECT = 1880.0
+        case europeAsiaAfricaOceaniaDECT = 1880.1
+        case japanJDECT = 1893.0
+        case brazilDECT = 1910.0
+        case latinAmericaDECT = 1910.1
+        case northAmericaDECT6 = 1920.0
 
         var id: Double { return rawValue }
 
@@ -98,9 +102,20 @@ extension Phone {
             case .fhss5_8GHzOver900MHz: return "5.8GHz/900MHz FHSS"
             case .fhss5_8GHzOver2_4GHz: return "5.8GHz/2.4GHz FHSS"
                 // DECT Frequencies
-            case .dect_1_88To1_90GHz: return "DECT (1.88GHz-1.90GHz)"
-            case .dect_1_90To1_92GHz: return "DECT (1.90GHz-1.92GHz)"
-            case .dect6: return "DECT 6.0 (1.92GHz-1.93GHz)"
+            case .southKoreaDECT:
+                return "DECT (1.786–1.792GHz)"
+            case .taiwanDECT:
+                return "DECT (1.88–1.895GHz)"
+            case .europeAsiaAfricaOceaniaDECT:
+                return "DECT (1.88–1.90GHz)"
+            case .japanJDECT:
+                return "J-DECT (1.893–1.906GHz)"
+            case .brazilDECT:
+                return "DECT (1.91–1.92GHz)"
+            case .latinAmericaDECT:
+                return "DECT (1.91–1.93GHz)"
+            case .northAmericaDECT6:
+                return "DECT 6.0 (1.92–1.93GHz)"
             }
         }
 

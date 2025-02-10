@@ -167,7 +167,7 @@ final class Phone {
 	
 	var hasTransmitOnlyBase: Bool = false
 	
-    var frequency: Double = CordlessFrequency.dect6.rawValue
+    var frequency: Double = CordlessFrequency.northAmericaDECT6.rawValue
     
     var hasNoLineAlert: Bool = false
 
