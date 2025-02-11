@@ -51,6 +51,9 @@ struct PhoneRowView: View {
                     if phone.baseSecondaryColorBinding.wrappedValue != phone.baseMainColorBinding.wrappedValue {
                         colorCircle(for: phone.baseSecondaryColorBinding.wrappedValue)
                     }
+                    if phone.baseAccentColorBinding.wrappedValue != phone.baseMainColorBinding.wrappedValue && phone.baseAccentColorBinding.wrappedValue != phone.baseSecondaryColorBinding.wrappedValue {
+                        colorCircle(for: phone.baseAccentColorBinding.wrappedValue)
+                    }
                 }
             }
             Spacer()
