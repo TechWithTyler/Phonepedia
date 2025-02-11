@@ -73,10 +73,10 @@ extension Phone {
             case .analog1_7MHz: return "1.7MHz Analog"
             case .analog30_39MHz: return "30-39MHz Analog"
             case .analog46_49MHz: return "46-49MHz Analog"
-            case .analog46_49MHzVoiceScramble: return "46-49MHz Voice Scramble Analog"
+            case .analog46_49MHzVoiceScramble: return "46-49MHz Voice Scramble"
                 // 900MHz Frequencies
             case .analog900MHz: return "900MHz Analog/Unknown"
-            case .analog900MHzVoiceScramble: return "900MHz Voice Scramble Analog"
+            case .analog900MHzVoiceScramble: return "900MHz Voice Scramble"
             case .digital900MHz: return "900MHz Digital"
             case .dss900MHz: return "900MHz DSS"
                 // 2.4GHz Frequencies
@@ -103,19 +103,19 @@ extension Phone {
             case .fhss5_8GHzOver2_4GHz: return "5.8GHz/2.4GHz FHSS"
                 // DECT Frequencies
             case .southKoreaDECT:
-                return "DECT (1.786–1.792GHz)"
+                return "South Korea DECT"
             case .taiwanDECT:
-                return "DECT (1.88–1.895GHz)"
+                return "Taiwan DECT"
             case .europeAsiaAfricaOceaniaDECT:
-                return "DECT (1.88–1.90GHz)"
+                return "ETSI DECT"
             case .japanJDECT:
-                return "J-DECT (1.893–1.906GHz)"
+                return "Japan J-DECT"
             case .brazilDECT:
-                return "DECT (1.91–1.92GHz)"
+                return "Brazil DECT"
             case .latinAmericaDECT:
-                return "DECT (1.91–1.93GHz)"
+                return "Latin America DECT"
             case .northAmericaDECT6:
-                return "DECT 6.0 (1.92–1.93GHz)"
+                return "North America DECT 6.0"
             }
         }
 

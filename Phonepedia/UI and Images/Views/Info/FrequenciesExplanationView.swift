@@ -26,12 +26,12 @@ struct FrequenciesExplanationView: View {
                         Text("Cordless phones, like any wireless device, use radio waves, and with all radio waves, a lower frequency means a longer wavelength and thus more range.")
                         WaveView()
                     Text("\"Analog\", \"Digital\", and \"Spread Spectrum\" all refer to cordless telecommunication technologies, not the type of network/device the base connects to.")
+                    Text("If a speaker is close to a cordless phone (or any wireless device), a buzzing sound may be heard, and the frequency of the buzzing depends on, but is not equal to, the wireless frequency. For example, a speaker may buzz at 50Hz when near a DECT 6.0 (1.92-1.93GHz or 1920-1930MHz) cordless phone.")
                 }
                 DisclosureGroup("MHz and GHz") {
                     Text("MHz = Megahertz")
                     Text("GHz = Gigahertz")
                     Text("Divide MHz by 1000 to get GHz. For example, 1920MHz divided by 1000 = 1.92GHz. For frequencies above 1000MHz (1GHz), GHz is often used instead of MHz.")
-                    Text("If a speaker is close to a cordless phone (or any wireless device), a buzzing sound may be heard, and the frequency of the buzzing depends on, but is not equal to, the wireless frequency. For example, a speaker may buzz at 50Hz when near a DECT 6.0 (1.92-1.93GHz or 1920-1930MHz) cordless phone.")
                 }
                 DisclosureGroup("Analog") {
                     Text("Analog phones transmit and receive analog audio signals. These phones are prone to interference and their signals can be picked up by anyone using a radio scanner set to the same frequency, which isn't ideal for private conversations (e.g., when giving out your credit card number to a bank or entering the password for your voicemail). When hanging up an analog phone, when dialing numbers, or pressing other buttons that send a command to the base, communication between the handset and base is briefly interrupted, which causes the other end to hear a short burst of noise. On some phones, placing the handset on the base will cause the phone to hang up immediately by terminating the handset and base connections at the same time, in which case this burst of noise won't be heard. Another way you can tell you're using an analog phone is if you or the other end hear static when going out of range, vs the audio clipping in and out on a digital cordless phone.")
@@ -51,8 +51,8 @@ struct FrequenciesExplanationView: View {
                 DisclosureGroup("DECT (Digital Enhanced Cordless Telecommunications)") {
                     Text("DECT uses encryption, making it the most secure cordless phone frequency. Since it is dedicated to cordless phones, baby monitors, and related devices, interference from other wireless technologies is minimal, and DECT devices rarely interfere with each other.")
                     Text("1.786–1.792GHz (1786–1792MHz) is used in South Korea.")
-                    Text("1.88–1.890GHz (1880–1890MHz) is used for DECT in Europe, the UK, Ireland, Australia, New Zealand, and the Middle East.")
                     Text("1.88–1.895GHz (1880–1895MHz) is used in Taiwan.")
+                    Text("1.88–1.90GHz (1880–190MHz) is used for DECT in Europe, the UK, Ireland, Australia, New Zealand, and the Middle East. Throughout \(appName!), it's referred to as ETSI DECT (ETSI standing for European Telecommunications Standards Institute).")
                     Text("J-DECT (1.893–1.906GHz or 1893–1906MHz) is used in Japan.")
                     Text("1.91–1.92GHz (1910–1920MHz) is used in Brazil.")
                     Text("1.91–1.93GHz (1910–1930MHz) is used in parts of Latin America.")
@@ -63,7 +63,7 @@ struct FrequenciesExplanationView: View {
                     Text("The actual frequency range for 900MHz cordless phones is 902-928MHz. Rounding down for marketing/documentation makes it simpler to understand.")
                     Text("The actual frequency range for 2.4GHz cordless phones is 2.400–2.4835GHz (2400-2483.5MHz). Rounding down for marketing/documentation makes it simpler to understand.")
                     Text("The actual frequency range for 5.8GHz cordless phones is 5.725-5.850GHz (5725-5850MHz). Rounding up for marketing/documentation makes it simpler to understand.")
-                    Text("DECT in the US uses the 1.92-1.93GHz (1920-1930MHz) frequency range, often referred to as simply 1.9GHz. However, it's more commonly referred to as DECT 6.0 so people who think \"higher number is better\" will know DECT 6.0 is better than 5.8GHz, 2.4GHz, and 900MHz phones. DECT in other countries uses different frequency ranges as explained in the above section.")
+                    Text("DECT in the US uses the 1.92-1.93GHz (1920-1930MHz) frequency range, often referred to as simply 1.9GHz. DECT in other countries uses different frequency ranges as explained in the above section. DECT in North America is more commonly referred to as DECT 6.0 so people who think \"higher number is better\" will know DECT 6.0 is better than 5.8GHz, 2.4GHz, and 900MHz phones. DECT in other countries may be refered to as DECT 6.0 depending on the manufacturer.")
                 }
             }
             .navigationTitle("Frequencies/Communication Technologies Explanation")
