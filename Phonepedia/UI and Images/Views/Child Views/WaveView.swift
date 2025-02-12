@@ -9,22 +9,28 @@
 import SwiftUI
 
 struct WaveView: View {
+
+    var availableFrequencies = Phone.CordlessFrequency.allCases.compactMap { $0.waveFrequency != 0 ? $0 : nil }.sorted { $1.waveFrequency > $0.waveFrequency }
+
+    @State var selectedFrequency: Phone.CordlessFrequency = .northAmericaDECT6
+
     var body: some View {
         VStack {
-            Text("Shorter wavelength, higher frequency, less range")
+            Picker("Frequency", selection: $selectedFrequency) {
+                ForEach(availableFrequencies, id: \.self) { frequency in
+                    Text(frequency.waveName).tag(frequency.waveFrequency)
+                }
+            }
+            Button("Random") {
+                selectedFrequency = availableFrequencies.randomElement()!
+            }
+            Text("\(selectedFrequency.waveName)")
                 .font(.caption)
-            Wave(frequency: .highLessRange)
+            Wave(frequency: selectedFrequency)
                 .stroke(Color.primary, lineWidth: 2)
+                .animation(.linear, value: selectedFrequency)
                 .frame(height: 100)
-                .accessibilityLabel("High-Frequency Wave")
-        }
-        VStack {
-            Text("Longer wavelength, lower frequency, more range")
-                .font(.caption)
-            Wave(frequency: .lowMoreRange)
-                .stroke(Color.primary, lineWidth: 2)
-                .frame(height: 100)
-                .accessibilityLabel("Low-Frequency Wave")
+                .accessibilityLabel("\(selectedFrequency.waveName) Wave")
         }
     }
 }

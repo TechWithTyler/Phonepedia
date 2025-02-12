@@ -119,6 +119,58 @@ extension Phone {
             }
         }
 
+        var waveFrequency: Double {
+            switch self {
+            case .analog1_7MHz:
+                return 1.7
+            case .analog30_39MHz:
+                return Double.random(in: 30...39)
+            case .analog46_49MHz:
+                return Double.random(in: 43...49)
+            case .analog900MHz:
+                return Double.random(in: 902...928)
+            case .analog2_4GHz:
+                return Double.random(in: 2400...2483)
+            case .analog5_8GHz:
+                return Double.random(in: 5725...5850)
+            case .southKoreaDECT:
+                return Double.random(in: 1786...1792)
+            case .taiwanDECT:
+                return Double.random(in: 1880...1895)
+            case .europeAsiaAfricaOceaniaDECT:
+                return Double.random(in: 1880...1900)
+            case .japanJDECT:
+                return Double.random(in: 1893...1906)
+            case .brazilDECT:
+                return Double.random(in: 1910...1920)
+            case .latinAmericaDECT:
+                return Double.random(in: 1910...1930)
+            case .northAmericaDECT6:
+                return Double.random(in: 1920...1930)
+            default: return 0
+            }
+        }
+
+        var waveName: String {
+            switch self {
+            case .analog1_7MHz:
+                return "1.7MHz"
+            case .analog30_39MHz:
+                return "30-39MHz"
+            case .analog46_49MHz:
+                return "46-49MHz"
+            case .analog900MHz:
+                return "900MHz"
+            case .analog2_4GHz:
+                return "2.4GHz"
+            case .analog5_8GHz:
+                return "5.8GHz"
+            case .southKoreaDECT, .taiwanDECT, .europeAsiaAfricaOceaniaDECT, .japanJDECT, .brazilDECT, .latinAmericaDECT, .northAmericaDECT6:
+                return name
+            default: return String()
+            }
+        }
+
         static func nameFromRawValue(_ rawValue: Double) -> String {
             return (CordlessFrequency(rawValue: rawValue)?.name)!
         }
