@@ -49,7 +49,7 @@ struct FrequenciesExplanationView: View {
                     Text("\"Frequency 1-Frequency 2\" (e.g., 1.92GHz-1.93GHz) means that the phone operates in a range of frequencies, not just one specific frequency. A specific frequency within a range is called a channel. The frequencies are within a few MHz (often 10-20MHz) of each other.")
                 }
                 DisclosureGroup("DECT (Digital Enhanced Cordless Telecommunications)") {
-                    Text("DECT uses encryption, making it the most secure cordless phone frequency. Since it is dedicated to cordless phones, baby monitors, and related devices, interference from other wireless technologies is minimal, and DECT devices rarely interfere with each other.")
+                    Text("DECT uses encryption, making it the most secure cordless phone frequency. Since it's dedicated to cordless phones, baby monitors, and related devices, interference from other wireless technologies is minimal, and DECT devices rarely interfere with each other. Different countries use different frequencies for DECT.")
                     Text("1.786–1.792GHz (1786–1792MHz) is used in South Korea.")
                     Text("1.88–1.895GHz (1880–1895MHz) is used in Taiwan.")
                     Text("1.88–1.90GHz (1880–190MHz) is used for DECT in Europe, the UK, Ireland, Australia, New Zealand, and the Middle East. Throughout \(appName!), it's referred to as ETSI DECT (ETSI standing for European Telecommunications Standards Institute).")
@@ -63,7 +63,7 @@ struct FrequenciesExplanationView: View {
                     Text("The actual frequency range for 900MHz cordless phones is 902-928MHz. Rounding down for marketing/documentation makes it simpler to understand.")
                     Text("The actual frequency range for 2.4GHz cordless phones is 2.400–2.4835GHz (2400-2483.5MHz). Rounding down for marketing/documentation makes it simpler to understand.")
                     Text("The actual frequency range for 5.8GHz cordless phones is 5.725-5.850GHz (5725-5850MHz). Rounding up for marketing/documentation makes it simpler to understand.")
-                    Text("DECT in the US uses the 1.92-1.93GHz (1920-1930MHz) frequency range, often referred to as simply 1.9GHz. DECT in other countries uses different frequency ranges as explained in the above section. DECT in North America is more commonly referred to as DECT 6.0 so people who think \"higher number is better\" will know DECT 6.0 is better than 5.8GHz, 2.4GHz, and 900MHz phones. DECT in other countries may be refered to as DECT 6.0 depending on the manufacturer.")
+                    Text("DECT in the US uses the 1.92-1.93GHz (1920-1930MHz) frequency range, often referred to as simply 1.9GHz. DECT in other countries uses different frequency ranges as explained in the above section, and may be referred to as simply 1.7GHz, 1.8GHz, or 1.9GHz. DECT in North America is more commonly referred to as DECT 6.0 so people who think \"higher number is better\" will know DECT 6.0 is better than 5.8GHz, 2.4GHz, and 900MHz phones. DECT in other countries may be refered to as DECT 6.0 depending on the manufacturer.")
                 }
             }
             .navigationTitle("Frequencies/Communication Technologies Explanation")
