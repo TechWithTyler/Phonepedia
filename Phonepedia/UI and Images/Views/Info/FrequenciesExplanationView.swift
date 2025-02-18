@@ -24,7 +24,7 @@ struct FrequenciesExplanationView: View {
                 Text("Different cordless phones use different wireless frequencies and communication technologies. Expand the following sections to learn more.")
                 DisclosureGroup("General") {
                     Text("Cordless phones, like any wireless device, use radio waves, and with all radio waves, a lower frequency means a longer wavelength and thus more range.")
-                    WaveView()
+                    CordlessPhoneRadioWaveView()
                     Text("\"Analog\", \"Digital\", and \"Spread Spectrum\" all refer to cordless telecommunication technologies, not the type of network/device the base connects to.")
                     Text("If a speaker is close to a cordless phone (or any wireless device), a buzzing sound may be heard, and the frequency of the buzzing depends on, but is not equal to, the wireless frequency. For example, a speaker may buzz at 50Hz when near a DECT 6.0 (1.92-1.93GHz or 1920-1930MHz) cordless phone.")
                 }

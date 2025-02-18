@@ -81,8 +81,8 @@
 		8D85550A2C8F9055006A14E3 /* HandsetActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8555092C8F9055006A14E3 /* HandsetActionsView.swift */; };
 		8D8555522C98D2C1006A14E3 /* AboutDisplayTypesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8555512C98D2C1006A14E3 /* AboutDisplayTypesView.swift */; };
 		8D8E75ED2CC84A2C0022DB85 /* AnsweringSystemMenuInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8E75EC2CC84A2C0022DB85 /* AnsweringSystemMenuInfoView.swift */; };
-		8D94EE0C2B912B9E00B04EBF /* WaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D94EE0B2B912B9E00B04EBF /* WaveView.swift */; };
-		8D94EE0E2B912FB900B04EBF /* Wave.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D94EE0D2B912FB900B04EBF /* Wave.swift */; };
+		8D94EE0C2B912B9E00B04EBF /* CordlessPhoneRadioWaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D94EE0B2B912B9E00B04EBF /* CordlessPhoneRadioWaveView.swift */; };
+		8D94EE0E2B912FB900B04EBF /* CordlessPhoneRadioWave.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D94EE0D2B912FB900B04EBF /* CordlessPhoneRadioWave.swift */; };
 		8D95997D2C22212400FEED40 /* SchemaVersioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D95997C2C22212400FEED40 /* SchemaVersioning.swift */; };
 		8DA844CE2B72E1D7006CBCA7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DA8449B2B72E1D7006CBCA7 /* Assets.xcassets */; };
 		8DA844CF2B72E1D7006CBCA7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DA8449D2B72E1D7006CBCA7 /* Preview Assets.xcassets */; };
@@ -252,8 +252,8 @@
 		8D8555092C8F9055006A14E3 /* HandsetActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandsetActionsView.swift; sourceTree = "<group>"; };
 		8D8555512C98D2C1006A14E3 /* AboutDisplayTypesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutDisplayTypesView.swift; sourceTree = "<group>"; };
 		8D8E75EC2CC84A2C0022DB85 /* AnsweringSystemMenuInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnsweringSystemMenuInfoView.swift; sourceTree = "<group>"; };
-		8D94EE0B2B912B9E00B04EBF /* WaveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveView.swift; sourceTree = "<group>"; };
-		8D94EE0D2B912FB900B04EBF /* Wave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wave.swift; sourceTree = "<group>"; };
+		8D94EE0B2B912B9E00B04EBF /* CordlessPhoneRadioWaveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordlessPhoneRadioWaveView.swift; sourceTree = "<group>"; };
+		8D94EE0D2B912FB900B04EBF /* CordlessPhoneRadioWave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordlessPhoneRadioWave.swift; sourceTree = "<group>"; };
 		8D95997C2C22212400FEED40 /* SchemaVersioning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaVersioning.swift; sourceTree = "<group>"; };
 		8DA8449B2B72E1D7006CBCA7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8DA8449D2B72E1D7006CBCA7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -597,8 +597,8 @@
 			isa = PBXGroup;
 			children = (
 				8DA844B62B72E1D7006CBCA7 /* PhoneImage.swift */,
-				8D94EE0B2B912B9E00B04EBF /* WaveView.swift */,
-				8D94EE0D2B912FB900B04EBF /* Wave.swift */,
+				8D94EE0B2B912B9E00B04EBF /* CordlessPhoneRadioWaveView.swift */,
+				8D94EE0D2B912FB900B04EBF /* CordlessPhoneRadioWave.swift */,
 				8DB25E8F2C8BC4A9001617C2 /* FormNavigationLink.swift */,
 				8D8555092C8F9055006A14E3 /* HandsetActionsView.swift */,
 				8DDE4E4A2CFFAA4D000C3D46 /* HandsetNumberDigitView.swift */,
@@ -934,7 +934,7 @@
 				8D38ED892CAF38EB00CCC422 /* BaseSpeedDialView.swift in Sources */,
 				8D842D5B2D3F060F00F50F32 /* ExampleAudioView.swift in Sources */,
 				8DD3A2942D2C7BDC00595AB3 /* SettingsPage.swift in Sources */,
-				8D94EE0E2B912FB900B04EBF /* Wave.swift in Sources */,
+				8D94EE0E2B912FB900B04EBF /* CordlessPhoneRadioWave.swift in Sources */,
 				8D842D592D3EFFC400F50F32 /* AudioManager.swift in Sources */,
 				8D40612D2B8011E800F182DA /* AboutConnectionTypesView.swift in Sources */,
 				8D1299232CE3F4C4009240EC /* PhonepediaCommands.swift in Sources */,
@@ -959,7 +959,7 @@
 				8D38ED932CAF3D8B00CCC422 /* HandsetDisplayBacklightButtonsView.swift in Sources */,
 				8D38ED6A2CAF2F6600CCC422 /* PhoneGeneralView.swift in Sources */,
 				8D38ED9F2CAF3FC900CCC422 /* HandsetSpeedDialView.swift in Sources */,
-				8D94EE0C2B912B9E00B04EBF /* WaveView.swift in Sources */,
+				8D94EE0C2B912B9E00B04EBF /* CordlessPhoneRadioWaveView.swift in Sources */,
 				8DA844DC2B72E1D7006CBCA7 /* CordlessDeviceInfoView.swift in Sources */,
 				8D38ED852CAF382C00CCC422 /* BasePhonebookView.swift in Sources */,
 				8DA844F02B72E1D7006CBCA7 /* LandlineOrNotV1.mlmodel in Sources */,
