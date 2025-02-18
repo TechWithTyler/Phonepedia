@@ -155,6 +155,7 @@ struct PhoneDetailView: View {
                 InfoButton {
                     dialogManager.showingPhoneTypeDefinitions = true
                 }
+                .labelStyle(.iconOnly)
             }
             FormNavigationLink {
                 PhoneGeneralView(phone: phone)
