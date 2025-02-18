@@ -124,29 +124,29 @@ extension Phone {
             case .analog1_7MHz:
                 return 1.7
             case .analog30_39MHz:
-                return Double.random(in: 30...39)
+                return 30
             case .analog46_49MHz:
-                return Double.random(in: 43...49)
+                return 46
             case .analog900MHz:
-                return Double.random(in: 902...928)
+                return 902
             case .analog2_4GHz:
-                return Double.random(in: 2400...2483)
+                return 2400
             case .analog5_8GHz:
-                return Double.random(in: 5725...5850)
+                return 5800
             case .southKoreaDECT:
-                return Double.random(in: 1786...1792)
+                return 1786
             case .taiwanDECT:
-                return Double.random(in: 1880...1895)
+                return 1880
             case .europeAsiaAfricaOceaniaDECT:
-                return Double.random(in: 1880...1900)
+                return 1890
             case .japanJDECT:
-                return Double.random(in: 1893...1906)
+                return 1893
             case .brazilDECT:
-                return Double.random(in: 1910...1920)
+                return 1910
             case .latinAmericaDECT:
-                return Double.random(in: 1910...1930)
+                return 1920
             case .northAmericaDECT6:
-                return Double.random(in: 1920...1930)
+                return 1930
             default: return 0
             }
         }
