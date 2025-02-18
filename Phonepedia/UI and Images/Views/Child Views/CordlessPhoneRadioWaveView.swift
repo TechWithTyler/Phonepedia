@@ -81,7 +81,7 @@ struct CordlessPhoneRadioWaveView: View {
             } else {
                 wave
             }
-            Button(isPlaying ? "Stop Animation" : "Play Animation", systemImage: isPlaying ? "stop.fill" : "play.fill") {
+            PlayButton(playTitle: "Play Animation", stopTitle: "Stop Animation", isPlaying: isPlaying) {
                 phase = 0
                 isPlaying.toggle()
             }

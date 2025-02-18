@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import SheftAppsStylishUI
 
 struct ExampleAudioView: View {
 
@@ -48,13 +49,11 @@ struct ExampleAudioView: View {
         HStack {
             Text(title)
             Spacer()
-            Button(isPlayingAudioFile ? "Stop" : "Play", systemImage: isPlayingAudioFile ? "stop.fill" : "play.fill") {
+            PlayButton(isPlaying: isPlayingAudioFile) {
                 audioManager.toggleAudio(audioFile: audioFile)
             }
             .accessibilityLabel(isPlayingAudioFile ? "Stop \(title)" : "Play \(title)")
             .accessibilityAddTraits(.startsMediaSession)
-            .animatedSymbolReplacement()
-            .buttonStyle(.borderless)
         }
         .onDisappear {
             audioManager.stopAudio()
