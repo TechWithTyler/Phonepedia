@@ -86,7 +86,8 @@ struct CordlessPhoneRadioWaveView: View {
             .accessibilityLabel("\(selectedFrequency.waveName) Wave")
     }
 
-    // MARK: - Methods
+    // MARK: - Wave Animation
+
     private func startAnimation() {
         stopAnimation()
         phase += 0.1
