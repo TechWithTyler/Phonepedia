@@ -12,43 +12,29 @@ import SheftAppsStylishUI
 struct CordlessPhoneRadioWaveView: View {
 
     // MARK: - Properties - Cordless Phone Frequencies
-
-    // The cordless phone frequencies that can be selected using the slider, which excludes variants of a frequency (e.g. 5.8GHz over 900MHz).
     var availableFrequencies = Phone.CordlessFrequency.allCases.compactMap { $0.waveFrequency != 0 ? $0 : nil }.sorted { $1.waveFrequency > $0.waveFrequency }
 
-    // The selected frequency.
     var selectedFrequency: Phone.CordlessFrequency {
-        // The selected frequency is the item at selectedFrequencyIndex in the availableFrequencies array.
         return availableFrequencies[selectedFrequencyIndex]
     }
 
     // MARK: - Properties - Booleans
-
-    // Whether the wave animation is playing.
     @State var isPlaying: Bool = false
-
-    // Whether the device's Reduce Motion setting is enabled.
     @Environment(\.accessibilityReduceMotion) var reduceMotion
 
     // MARK: - Properties - Floats
-
-    // The wave animation phase.
     @State var phase: CGFloat = 0
+    @State private var timer: Timer? = nil
 
     // MARK: - Properties - Doubles
-
-    // The value of the frequency slider.
     @State var selectedFrequencySliderValue: Double = 0
 
     // MARK: - Properties - Integers
-
-    // The index of the selected frequency, which is the selectedFrequencySliderValue Double value converted to Int.
     var selectedFrequencyIndex: Int {
         return Int(selectedFrequencySliderValue)
     }
 
     // MARK: - Body
-
     var body: some View {
         VStack {
             Text("Select different frequencies and see how the wavelength changes.")
@@ -67,22 +53,23 @@ struct CordlessPhoneRadioWaveView: View {
             selectedFrequencySliderValue = Double(availableFrequencies.firstIndex(of: .northAmericaDECT6)!)
         }
         .onDisappear {
-            isPlaying = false
-            phase = 0
+            stopAnimation()
         }
         VStack {
-            if isPlaying {
-                wave
-                    .onAppear {
-                        withAnimation(Animation.linear(duration: 2).repeatForever(autoreverses: false)) {
-                            phase = 1
-                        }
+            wave
+                .onAppear {
+                    if isPlaying {
+                        startAnimation()
                     }
-            } else {
-                wave
-            }
+                }
+                .onChange(of: isPlaying) { oldValue, newValue in
+                    if newValue {
+                        startAnimation()
+                    } else {
+                        stopAnimation()
+                    }
+                }
             PlayButton(playTitle: "Play Animation", stopTitle: "Stop Animation", isPlaying: isPlaying) {
-                phase = 0
                 isPlaying.toggle()
             }
             .buttonStyle(.borderless)
@@ -90,14 +77,27 @@ struct CordlessPhoneRadioWaveView: View {
     }
 
     // MARK: - Wave
-
     @ViewBuilder
     var wave: some View {
         CordlessPhoneRadioWave(frequency: selectedFrequency, phase: phase)
             .stroke(Color.accentColor, lineWidth: 2)
-            .animation(.linear, value: selectedFrequencySliderValue)
             .frame(height: 100)
+            .animation(isPlaying ? .linear(duration: 0.25) : nil, value: isPlaying ? phase : nil)
             .accessibilityLabel("\(selectedFrequency.waveName) Wave")
+    }
+
+    // MARK: - Methods
+    private func startAnimation() {
+        stopAnimation()
+        phase += 0.1
+        timer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: true) { _ in
+            phase += 0.1
+        }
+    }
+
+    private func stopAnimation() {
+        timer?.invalidate()
+        timer = nil
     }
 
 }

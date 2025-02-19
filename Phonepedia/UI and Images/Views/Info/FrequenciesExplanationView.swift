@@ -24,7 +24,8 @@ struct FrequenciesExplanationView: View {
                 Text("Different cordless phones use different wireless frequencies and communication technologies. Expand the following sections to learn more.")
                 DisclosureGroup("General") {
                     Text("Cordless phones, like any wireless device, use radio waves, and with all radio waves, a lower frequency means a longer wavelength and thus more range.")
-                    CordlessPhoneRadioWaveView()
+                    Text("Frequencies are named for how often a wave oscillates per second. Waves with shorter wavelengths oscillate more frequently. To oscillate means to move back and forth repeatedly.")
+                    Text("In cordless phones, radio waves oscillate by changing their electromagnetic fields. A shorter wavelength means more frequent oscillations, resulting in a higher frequency.")
                     Text("\"Analog\", \"Digital\", and \"Spread Spectrum\" all refer to cordless telecommunication technologies, not the type of network/device the base connects to.")
                     Text("If a speaker is close to a cordless phone (or any wireless device), a buzzing sound may be heard, and the frequency of the buzzing depends on, but is not equal to, the wireless frequency. For example, a speaker may buzz at 50Hz when near a DECT 6.0 (1.92-1.93GHz or 1920-1930MHz) cordless phone.")
                 }
@@ -32,6 +33,9 @@ struct FrequenciesExplanationView: View {
                     Text("MHz = Megahertz")
                     Text("GHz = Gigahertz")
                     Text("Divide MHz by 1000 to get GHz. For example, 1920MHz divided by 1000 = 1.92GHz. For frequencies above 1000MHz (1GHz), GHz is often used instead of MHz.")
+                }
+                DisclosureGroup("Visual Representation of Radio Waves") {
+                    CordlessPhoneRadioWaveView()
                 }
                 DisclosureGroup("Analog") {
                     Text("Analog phones transmit and receive analog audio signals. These phones are prone to interference and their signals can be picked up by anyone using a radio scanner set to the same frequency, which isn't ideal for private conversations (e.g., when giving out your credit card number to a bank or entering the password for your voicemail). When hanging up an analog phone, when dialing numbers, or pressing other buttons that send a command to the base, communication between the handset and base is briefly interrupted, which causes the other end to hear a short burst of noise. On some phones, placing the handset on the base will cause the phone to hang up immediately by terminating the handset and base connections at the same time, in which case this burst of noise won't be heard. Another way you can tell you're using an analog phone is if you or the other end hear static when going out of range, vs the audio clipping in and out on a digital cordless phone.")
