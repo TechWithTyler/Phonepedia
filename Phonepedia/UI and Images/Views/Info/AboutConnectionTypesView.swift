@@ -64,6 +64,7 @@ struct AboutConnectionTypesView: View {
                 }
                 DisclosureGroup {
                     Text("Analog phones receive caller ID and voicemail indicator on/off data in the form of special tones, called Frequency-Shift-Keying (FSK) tones. You can't hear these tones unless you use a device to listen in on the phone line without picking it up (e.g., a lineman's handset, a special phone with wires that clip onto a phone line for testing purposes, in monitor mode). Caller ID FSK tones are sent after the first ring (if you're listening in on the phone line, the ring signal sounds like buzzing/a bunch of rapid clicks), which is why caller ID doesn't display on an analog phone right as it starts ringing or if you connect it to the line after the first ring. If caller ID FSK tones were to be sent after each ring, the phone may end up logging the caller ID data as a missed call each time.")
+                    ExampleAudioView(audioFile: .ringAndCallerIDFSK)
                 } label: {
                     Text("FSK Tones")
                 }

@@ -45,19 +45,25 @@ class AudioManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
         // The audio file for a US busy tone.
         case busyTone = "busyTone"
 
+        // The audio file for a US call waiting tone.
         case callWaitingTone = "callWaitingTone"
 
+        // The audio file for DTMF tones 0-9, star, and pound.
         case dtmfTones = "dtmfTones"
 
+        // The audio file for DTMF tone D.
         case dtmfToneD = "dtmfToneD"
 
+        // The audio file for pulse dialing.
         case pulseDialing = "pulseDialing"
 
         // The audio file for a US ring signal and caller ID FSK tone.
-        // case ringAndCallerIDFSK = "ringAndCallerIDFSK"
+        case ringAndCallerIDFSK = "ringAndCallerIDFSK"
 
+        // The audio file for an analog cordless phone audio sample.
         case analogCordlessPhoneAudioSampleNormal = "analogCordlessPhoneAudioSampleNormal"
 
+        // The audio file for an analog cordless phone audio sample that has had its frequencies inverted.
         case analogCordlessPhoneAudioSampleScrambled = "analogCordlessPhoneAudioSampleScrambled"
 
     }

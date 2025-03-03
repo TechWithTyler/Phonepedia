@@ -35,7 +35,7 @@ struct ExampleAudioView: View {
         case .dtmfTones: return "DTMF Tones"
         case .dtmfToneD: return "DTMF Tone D"
         case .pulseDialing: return "Pulse Dialing"
-        // case .ringAndCallerIDFSK: return "Ring Signal and Caller ID FSK Tone"
+         case .ringAndCallerIDFSK: return "Ring Signal and Caller ID FSK Tone"
         case .analogCordlessPhoneAudioSampleNormal: return "Analog Cordless Phone Audio Sample (Normal)"
         case .analogCordlessPhoneAudioSampleScrambled: return "Analog Cordless Phone Audio Sample (Scrambled)"
         }
