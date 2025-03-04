@@ -6,9 +6,13 @@
 //  Copyright © 2025 SheftApps. All rights reserved.
 //
 
+import Foundation
+
 extension Phone {
 
     enum CordlessFrequency: Double, CaseIterable, Identifiable {
+
+        // MARK: - Frequency Cases
 
         case unknown = 0.0
         case separator1 = -1.0
@@ -62,7 +66,11 @@ extension Phone {
         case latinAmericaDECT = 1910.1
         case northAmericaDECT6 = 1920.0
 
+        // MARK: - Properties - ID
+
         var id: Double { return rawValue }
+
+        // MARK: - Properties - Strings
 
         var name: String {
             switch self {
@@ -119,6 +127,28 @@ extension Phone {
             }
         }
 
+        var waveName: String {
+            switch self {
+            case .analog1_7MHz:
+                return "1.7MHz"
+            case .analog30_39MHz:
+                return "30-39MHz"
+            case .analog46_49MHz:
+                return "46-49MHz"
+            case .analog900MHz:
+                return "900MHz"
+            case .analog2_4GHz:
+                return "2.4GHz"
+            case .analog5_8GHz:
+                return "5.8GHz"
+            case .southKoreaDECT, .taiwanDECT, .europeAsiaAfricaOceaniaDECT, .japanJDECT, .brazilDECT, .latinAmericaDECT, .northAmericaDECT6:
+                return name
+            default: return String()
+            }
+        }
+
+        // MARK: - Properties - Doubles
+
         var waveFrequency: Double {
             switch self {
             case .analog1_7MHz:
@@ -151,25 +181,27 @@ extension Phone {
             }
         }
 
-        var waveName: String {
-            switch self {
-            case .analog1_7MHz:
-                return "1.7MHz"
-            case .analog30_39MHz:
-                return "30-39MHz"
-            case .analog46_49MHz:
-                return "46-49MHz"
-            case .analog900MHz:
-                return "900MHz"
-            case .analog2_4GHz:
-                return "2.4GHz"
-            case .analog5_8GHz:
-                return "5.8GHz"
-            case .southKoreaDECT, .taiwanDECT, .europeAsiaAfricaOceaniaDECT, .japanJDECT, .brazilDECT, .latinAmericaDECT, .northAmericaDECT6:
-                return name
-            default: return String()
-            }
-        }
+        // MARK: - Properties - Default Frequency for Current Region
+
+        // Returns the default cordless phone frequency for the current region based on the device's region setting.
+        static var defaultForCurrentRegion: CordlessFrequency {
+            switch Locale.current.region?.identifier {
+                    case "KR": return .southKoreaDECT // South Korea
+                    case "TW": return .taiwanDECT // Taiwan
+                    case "JP": return .japanJDECT // Japan
+                    case "BR": return .brazilDECT // Brazil
+                    case "US", "CA", "MX": return .northAmericaDECT6 // North America (USA, Canada, Mexico)
+                    case "VI", "PR", "GU", "MP", "AS": return .northAmericaDECT6 // US Territories (Virgin Islands, Puerto Rico, Guam, Northern Mariana Islands, American Samoa)
+                    case "AR", "CL", "CO", "PE", "EC", "UY", "PY", "BO", "VE", "CR", "PA", "SV", "GT", "HN", "NI", "DO": return .latinAmericaDECT // Latin America (Including Central America and the Dominican Republic)
+                    case "GB", "FR", "DE", "AU", "IN", "IT", "ES", "NL", "SE", "NO", "DK", "FI", "BE", "CH", "AT", "IE", "NZ", "SG", "MY", "ZA", "PT", "GR", "CZ", "PL", "HU", "RO", "SK", "SI", "EE", "LV", "LT", "BG", "HR", "CY", "MT", "IS", "LU", "LI": return .europeAsiaAfricaOceaniaDECT // Europe, Asia, Africa, Oceania
+                    case "RU", "UA", "BY", "KZ", "MD", "GE", "AM", "AZ": return .europeAsiaAfricaOceaniaDECT // Eastern Europe & Caucasus
+                    case "SA", "AE", "QA", "KW", "BH", "OM", "EG", "JO", "LB", "MA", "DZ", "TN", "LY": return .europeAsiaAfricaOceaniaDECT // Middle East & North Africa
+                    case "CN", "HK", "MO": return .europeAsiaAfricaOceaniaDECT // China, Hong Kong, Macau
+                    default: return .unknown // Unknown region/unknown default cordless phone frequency for current region
+                    }
+                }
+
+        // MARK: - Frequency Name From Raw Value
 
         static func nameFromRawValue(_ rawValue: Double) -> String {
             return (CordlessFrequency(rawValue: rawValue)?.name)!

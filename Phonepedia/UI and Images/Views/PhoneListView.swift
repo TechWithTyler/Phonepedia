@@ -306,6 +306,7 @@ struct PhoneListView: View {
             // 2. Set the default selections.
             newPhone.landlineConnectedTo = defaultAnalogPhoneConnectedToSelection
             newPhone.whereAcquired = defaultAcquisitionMethod
+            newPhone.frequency = Phone.CordlessFrequency.defaultForCurrentRegion.rawValue
             // A phone's phoneNumberInCoollection property is the index of the phone in the list, and as with any index, it starts at 0. The number of phones in the list before the new phone is added can be used as the phone's index without adding/subtracting 1.
             newPhone.phoneNumberInCollection = phones.count
             // 3. Insert the new phone into the model context.

@@ -50,7 +50,7 @@ struct CordlessPhoneRadioWaveView: View {
         }
         .onAppear {
             isPlaying = !reduceMotion
-            selectedFrequencySliderValue = Double(availableFrequencies.firstIndex(of: .northAmericaDECT6)!)
+            selectedFrequencySliderValue = Double(availableFrequencies.firstIndex(of: Phone.CordlessFrequency.defaultForCurrentRegion) ?? 0)
         }
         .onDisappear {
             stopAnimation()
