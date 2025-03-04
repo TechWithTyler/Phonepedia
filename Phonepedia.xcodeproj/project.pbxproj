@@ -639,11 +639,11 @@
 		8DA844BF2B72E1D7006CBCA7 /* SwiftData */ = {
 			isa = PBXGroup;
 			children = (
-				8D32A50F2D44407D00F606FC /* CordlessFrequency.swift */,
 				8DA844C12B72E1D7006CBCA7 /* Phone.swift */,
 				8DA844C02B72E1D7006CBCA7 /* CordlessHandset.swift */,
 				8DA844C22B72E1D7006CBCA7 /* CordlessHandsetCharger.swift */,
 				8DA844C32B72E1D7006CBCA7 /* PhoneType.swift */,
+				8D32A50F2D44407D00F606FC /* CordlessFrequency.swift */,
 				8D95997C2C22212400FEED40 /* SchemaVersioning.swift */,
 				8DEC3A672C2CB9D200737094 /* HandsetPhonebookType.swift */,
 			);

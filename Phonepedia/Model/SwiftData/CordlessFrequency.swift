@@ -186,20 +186,280 @@ extension Phone {
         // Returns the default cordless phone frequency for the current region based on the device's region setting.
         static var defaultForCurrentRegion: CordlessFrequency {
             switch Locale.current.region?.identifier {
-                    case "KR": return .southKoreaDECT // South Korea
-                    case "TW": return .taiwanDECT // Taiwan
-                    case "JP": return .japanJDECT // Japan
-                    case "BR": return .brazilDECT // Brazil
-                    case "US", "CA", "MX": return .northAmericaDECT6 // North America (USA, Canada, Mexico)
-                    case "VI", "PR", "GU", "MP", "AS": return .northAmericaDECT6 // US Territories (Virgin Islands, Puerto Rico, Guam, Northern Mariana Islands, American Samoa)
-                    case "AR", "CL", "CO", "PE", "EC", "UY", "PY", "BO", "VE", "CR", "PA", "SV", "GT", "HN", "NI", "DO": return .latinAmericaDECT // Latin America (Including Central America and the Dominican Republic)
-                    case "GB", "FR", "DE", "AU", "IN", "IT", "ES", "NL", "SE", "NO", "DK", "FI", "BE", "CH", "AT", "IE", "NZ", "SG", "MY", "ZA", "PT", "GR", "CZ", "PL", "HU", "RO", "SK", "SI", "EE", "LV", "LT", "BG", "HR", "CY", "MT", "IS", "LU", "LI": return .europeAsiaAfricaOceaniaDECT // Europe, Asia, Africa, Oceania
-                    case "RU", "UA", "BY", "KZ", "MD", "GE", "AM", "AZ": return .europeAsiaAfricaOceaniaDECT // Eastern Europe & Caucasus
-                    case "SA", "AE", "QA", "KW", "BH", "OM", "EG", "JO", "LB", "MA", "DZ", "TN", "LY": return .europeAsiaAfricaOceaniaDECT // Middle East & North Africa
-                    case "CN", "HK", "MO": return .europeAsiaAfricaOceaniaDECT // China, Hong Kong, Macau
-                    default: return .unknown // Unknown region/unknown default cordless phone frequency for current region
-                    }
-                }
+            case "KR":
+                // South Korea
+                return .southKoreaDECT
+            case "TW":
+                // Taiwan
+                return .taiwanDECT
+            case "JP":
+                // Japan
+                return .japanJDECT
+            case "BR":
+                // Brazil
+                return .brazilDECT
+            case "US":
+                // United States
+                return .northAmericaDECT6
+            case "CA":
+                // Canada
+                return .northAmericaDECT6
+            case "MX":
+                // Mexico
+                return .northAmericaDECT6
+            case "VI":
+                // Virgin Islands
+                return .northAmericaDECT6
+            case "PR":
+                // Puerto Rico
+                return .northAmericaDECT6
+            case "GU":
+                // Guam
+                return .northAmericaDECT6
+            case "MP":
+                // Northern Mariana Islands
+                return .northAmericaDECT6
+            case "AS":
+                // American Samoa
+                return .northAmericaDECT6
+            case "AR":
+                // Argentina
+                return .latinAmericaDECT
+            case "CL":
+                // Chile
+                return .latinAmericaDECT
+            case "CO":
+                // Colombia
+                return .latinAmericaDECT
+            case "PE":
+                // Peru
+                return .latinAmericaDECT
+            case "EC":
+                // Ecuador
+                return .latinAmericaDECT
+            case "UY":
+                // Uruguay
+                return .latinAmericaDECT
+            case "PY":
+                // Paraguay
+                return .latinAmericaDECT
+            case "BO":
+                // Bolivia
+                return .latinAmericaDECT
+            case "VE":
+                // Venezuela
+                return .latinAmericaDECT
+            case "CR":
+                // Costa Rica
+                return .latinAmericaDECT
+            case "PA":
+                // Panama
+                return .latinAmericaDECT
+            case "SV":
+                // El Salvador
+                return .latinAmericaDECT
+            case "GT":
+                // Guatemala
+                return .latinAmericaDECT
+            case "HN":
+                // Honduras
+                return .latinAmericaDECT
+            case "NI":
+                // Nicaragua
+                return .latinAmericaDECT
+            case "DO":
+                // Dominican Republic
+                return .latinAmericaDECT
+            case "GB":
+                // United Kingdom
+                return .europeAsiaAfricaOceaniaDECT
+            case "FR":
+                // France
+                return .europeAsiaAfricaOceaniaDECT
+            case "DE":
+                // Germany
+                return .europeAsiaAfricaOceaniaDECT
+            case "AU":
+                // Australia
+                return .europeAsiaAfricaOceaniaDECT
+            case "IN":
+                // India
+                return .europeAsiaAfricaOceaniaDECT
+            case "IT":
+                // Italy
+                return .europeAsiaAfricaOceaniaDECT
+            case "ES":
+                // Spain
+                return .europeAsiaAfricaOceaniaDECT
+            case "NL":
+                // Netherlands
+                return .europeAsiaAfricaOceaniaDECT
+            case "SE":
+                // Sweden
+                return .europeAsiaAfricaOceaniaDECT
+            case "NO":
+                // Norway
+                return .europeAsiaAfricaOceaniaDECT
+            case "DK":
+                // Denmark
+                return .europeAsiaAfricaOceaniaDECT
+            case "FI":
+                // Finland
+                return .europeAsiaAfricaOceaniaDECT
+            case "BE":
+                // Belgium
+                return .europeAsiaAfricaOceaniaDECT
+            case "CH":
+                // Switzerland
+                return .europeAsiaAfricaOceaniaDECT
+            case "AT":
+                // Austria
+                return .europeAsiaAfricaOceaniaDECT
+            case "IE":
+                // Ireland
+                return .europeAsiaAfricaOceaniaDECT
+            case "NZ":
+                // New Zealand
+                return .europeAsiaAfricaOceaniaDECT
+            case "SG":
+                // Singapore
+                return .europeAsiaAfricaOceaniaDECT
+            case "MY":
+                // Malaysia
+                return .europeAsiaAfricaOceaniaDECT
+            case "ZA":
+                // South Africa
+                return .europeAsiaAfricaOceaniaDECT
+            case "PT":
+                // Portugal
+                return .europeAsiaAfricaOceaniaDECT
+            case "GR":
+                // Greece
+                return .europeAsiaAfricaOceaniaDECT
+            case "CZ":
+                // Czech Republic
+                return .europeAsiaAfricaOceaniaDECT
+            case "PL":
+                // Poland
+                return .europeAsiaAfricaOceaniaDECT
+            case "HU":
+                // Hungary
+                return .europeAsiaAfricaOceaniaDECT
+            case "RO":
+                // Romania
+                return .europeAsiaAfricaOceaniaDECT
+            case "SK":
+                // Slovakia
+                return .europeAsiaAfricaOceaniaDECT
+            case "SI":
+                // Slovenia
+                return .europeAsiaAfricaOceaniaDECT
+            case "EE":
+                // Estonia
+                return .europeAsiaAfricaOceaniaDECT
+            case "LV":
+                // Latvia
+                return .europeAsiaAfricaOceaniaDECT
+            case "LT":
+                // Lithuania
+                return .europeAsiaAfricaOceaniaDECT
+            case "BG":
+                // Bulgaria
+                return .europeAsiaAfricaOceaniaDECT
+            case "HR":
+                // Croatia
+                return .europeAsiaAfricaOceaniaDECT
+            case "CY":
+                // Cyprus
+                return .europeAsiaAfricaOceaniaDECT
+            case "MT":
+                // Malta
+                return .europeAsiaAfricaOceaniaDECT
+            case "IS":
+                // Iceland
+                return .europeAsiaAfricaOceaniaDECT
+            case "LU":
+                // Luxembourg
+                return .europeAsiaAfricaOceaniaDECT
+            case "LI":
+                // Liechtenstein
+                return .europeAsiaAfricaOceaniaDECT
+            case "RU":
+                // Russia
+                return .europeAsiaAfricaOceaniaDECT
+            case "UA":
+                // Ukraine
+                return .europeAsiaAfricaOceaniaDECT
+            case "BY":
+                // Belarus
+                return .europeAsiaAfricaOceaniaDECT
+            case "KZ":
+                // Kazakhstan
+                return .europeAsiaAfricaOceaniaDECT
+            case "MD":
+                // Moldova
+                return .europeAsiaAfricaOceaniaDECT
+            case "GE":
+                // Georgia
+                return .europeAsiaAfricaOceaniaDECT
+            case "AM":
+                // Armenia
+                return .europeAsiaAfricaOceaniaDECT
+            case "AZ":
+                // Azerbaijan
+                return .europeAsiaAfricaOceaniaDECT
+            case "SA":
+                // Saudi Arabia
+                return .europeAsiaAfricaOceaniaDECT
+            case "AE":
+                // United Arab Emirates
+                return .europeAsiaAfricaOceaniaDECT
+            case "QA":
+                // Qatar
+                return .europeAsiaAfricaOceaniaDECT
+            case "KW":
+                // Kuwait
+                return .europeAsiaAfricaOceaniaDECT
+            case "BH":
+                // Bahrain
+                return .europeAsiaAfricaOceaniaDECT
+            case "OM":
+                // Oman
+                return .europeAsiaAfricaOceaniaDECT
+            case "EG":
+                // Egypt
+                return .europeAsiaAfricaOceaniaDECT
+            case "JO":
+                // Jordan
+                return .europeAsiaAfricaOceaniaDECT
+            case "LB":
+                // Lebanon
+                return .europeAsiaAfricaOceaniaDECT
+            case "MA":
+                // Morocco
+                return .europeAsiaAfricaOceaniaDECT
+            case "DZ":
+                // Algeria
+                return .europeAsiaAfricaOceaniaDECT
+            case "TN":
+                // Tunisia
+                return .europeAsiaAfricaOceaniaDECT
+            case "LY":
+                // Libya
+                return .europeAsiaAfricaOceaniaDECT
+            case "CN":
+                // China
+                return .europeAsiaAfricaOceaniaDECT
+            case "HK":
+                // Hong Kong
+                return .europeAsiaAfricaOceaniaDECT
+            case "MO":
+                // Macau
+                return .europeAsiaAfricaOceaniaDECT
+            default:
+                return .unknown // Unknown region/unknown default cordless phone frequency for current region
+            }
+        }
 
         // MARK: - Frequency Name From Raw Value
 
