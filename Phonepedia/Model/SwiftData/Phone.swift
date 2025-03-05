@@ -371,6 +371,12 @@ final class Phone {
 
 	var hasOneTouchCallBlock: Bool = false
 
+    var canBlockEveryoneNotInPhonebook: Bool = false
+
+    var canBlockNumberlessCalls: Bool = false
+
+    var callBlockAutoDeletesOldestEntry: Int = 0
+
 	var callBlockPreProgrammedDatabaseEntryCount: Int = 0
 	
 	var callBlockPreScreening: Int = 0
@@ -780,6 +786,7 @@ final class Phone {
             bluetoothPhonebookTransfers = 0
         }
         if newValue == 0 {
+            canBlockEveryoneNotInPhonebook = false
             redialNameDisplay = 0
             callerIDPhonebookMatch = false
             hasTalkingPhonebook = false
@@ -789,8 +796,11 @@ final class Phone {
 
     func callBlockCapacityChanged(oldValue: Int, newValue: Int) {
         if newValue == 0 {
+            canBlockNumberlessCalls = false
+            canBlockEveryoneNotInPhonebook = false
             hasOneTouchCallBlock = false
             callBlockSupportsPrefixes = false
+            callBlockAutoDeletesOldestEntry = 0
             callBlockPreProgrammedDatabaseEntryCount = 0
             callBlockPreScreening = 0
             callBlockPreScreeningCustomGreeting = false
