@@ -24,6 +24,8 @@ struct BaseSpeedDialView: View {
     }
 
     var body: some View {
+        Toggle("Has One-Touch Emergency Calling", isOn: $phone.hasOneTouchEmergencyCalling)
+        OneTouchEmergencyCallingInfoView()
         Stepper(phone.isCordless ? "Dial-Key Speed Dial Slots (Base): \(phone.baseSpeedDialCapacity)" : "Dial-Key Speed Dial Locations: \(phone.baseSpeedDialCapacity)", value: $phone.baseSpeedDialCapacity, in: baseSpeedDialRange)
         InfoText("Speed dial is usually used by holding down the desired number key or by pressing a button (usually called \"Auto\", \"Mem\", or \"Memory\") followed by the desired number key.")
         if phone.baseSpeedDialCapacity > 10 {

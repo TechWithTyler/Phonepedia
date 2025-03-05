@@ -14,6 +14,8 @@ struct HandsetSpeedDialView: View {
     @Bindable var handset: CordlessHandset
 
     var body: some View {
+        Toggle("Has One-Touch Emergency Calling", isOn: $handset.hasOneTouchEmergencyCalling)
+        OneTouchEmergencyCallingInfoView()
         Stepper("Dial-Key Speed Dial Capacity: \(handset.speedDialCapacity)", value: $handset.speedDialCapacity, in: .zeroToMax(handset.voicemailQuickDial == 2 ? 9 : 10))
         if handset.handsetStyle < 3 {
             Toggle("Uses Base Speed Dial", isOn: $handset.usesBaseSpeedDial)

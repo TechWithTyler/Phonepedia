@@ -256,7 +256,9 @@ final class Phone {
     var dialWithBaseDuringHandsetCall: Bool = false
 
 	var hasBaseKeypad: Bool = false
-	
+
+    var hasKeypadLock: Bool = false
+
 	var hasTalkingCallerID: Bool = false
 	
 	var hasTalkingKeypad: Bool = false
@@ -347,10 +349,14 @@ final class Phone {
 
     var supportsCallWaiting: Bool = true
 
+    var callRestriction: Int = 0
+
 	var callerIDPhonebookMatch: Bool = true
 	
 	var baseSpeedDialCapacity: Int = 0
-	
+
+    var hasOneTouchEmergencyCalling: Bool = false
+
 	var baseOneTouchDialCapacity: Int = 0
 
     var baseOneTouchDialCard: Int = 0
@@ -1012,6 +1018,10 @@ final class Phone {
         }
         if newValue && baseCellRingtone == 0 {
             baseCellRingtone = 1
+        }
+        if !newValue {
+            hasQZ = false
+            hasKeypadLock = false
         }
     }
     

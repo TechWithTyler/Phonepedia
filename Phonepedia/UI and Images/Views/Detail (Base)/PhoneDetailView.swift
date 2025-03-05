@@ -212,6 +212,15 @@ struct PhoneDetailView: View {
                     } label: {
                         Label("Messaging", systemImage: "recordingtape")
                     }
+                FormNavigationLink {
+                    PhoneOutgoingCallProtectionView(phone: phone)
+                        .navigationTitle("Outgoing Protection")
+#if !os(macOS)
+                        .navigationBarTitleDisplayMode(.inline)
+                    #endif
+                } label: {
+                    Label("Outgoing Call Protection", systemImage: "key.horizontal")
+            }
             }
         }
         .formStyle(.grouped)

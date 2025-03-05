@@ -17,6 +17,10 @@ struct HandsetDisplayBacklightButtonsView: View {
 
     var body: some View {
         if let phone = handset.phone {
+            if handset.cordlessDeviceType < 2 {
+                Toggle("Has Keypad Lock", isOn: $handset.hasKeypadLock)
+                KeypadLockInfoView()
+            }
             if handset.handsetStyle < 2 {
                 if handset.displayType == 0 {
                     Toggle("7 Has Q and 9 Has Z", isOn: $handset.hasQZ)

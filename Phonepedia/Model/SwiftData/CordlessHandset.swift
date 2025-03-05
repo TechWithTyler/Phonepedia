@@ -179,7 +179,9 @@ final class CordlessHandset {
     var supportsSilentModeBypass: Bool = false
 
 	var oneTouchDialCapacity: Int = 0
-	
+
+    var hasOneTouchEmergencyCalling: Bool = false
+
 	var speedDialCapacity: Int = 0
 	
 	var redialCapacity: Int = 5
@@ -245,7 +247,9 @@ final class CordlessHandset {
     var alarm: Int = 0
 
 	var hasTalkingCallerID: Bool = false
-	
+
+    var hasKeypadLock: Bool = false
+
 	var hasTalkingKeypad: Bool = false
 	
 	var hasTalkingPhonebook: Bool = false

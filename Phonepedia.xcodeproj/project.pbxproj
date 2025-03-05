@@ -85,6 +85,9 @@
 		8D94EE0C2B912B9E00B04EBF /* CordlessPhoneRadioWaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D94EE0B2B912B9E00B04EBF /* CordlessPhoneRadioWaveView.swift */; };
 		8D94EE0E2B912FB900B04EBF /* CordlessPhoneRadioWave.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D94EE0D2B912FB900B04EBF /* CordlessPhoneRadioWave.swift */; };
 		8D95997D2C22212400FEED40 /* SchemaVersioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D95997C2C22212400FEED40 /* SchemaVersioning.swift */; };
+		8DA72F062D78FEDA00A957A4 /* PhoneOutgoingCallProtectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA72F052D78FEDA00A957A4 /* PhoneOutgoingCallProtectionView.swift */; };
+		8DA72F082D79021100A957A4 /* KeypadLockInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA72F072D79021100A957A4 /* KeypadLockInfoView.swift */; };
+		8DA72F0A2D79042700A957A4 /* OneTouchEmergencyCallingInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA72F092D79042700A957A4 /* OneTouchEmergencyCallingInfoView.swift */; };
 		8DA844CE2B72E1D7006CBCA7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DA8449B2B72E1D7006CBCA7 /* Assets.xcassets */; };
 		8DA844CF2B72E1D7006CBCA7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DA8449D2B72E1D7006CBCA7 /* Preview Assets.xcassets */; };
 		8DA844D02B72E1D7006CBCA7 /* CameraCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844A02B72E1D7006CBCA7 /* CameraCoordinator.swift */; };
@@ -257,6 +260,9 @@
 		8D94EE0B2B912B9E00B04EBF /* CordlessPhoneRadioWaveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordlessPhoneRadioWaveView.swift; sourceTree = "<group>"; };
 		8D94EE0D2B912FB900B04EBF /* CordlessPhoneRadioWave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordlessPhoneRadioWave.swift; sourceTree = "<group>"; };
 		8D95997C2C22212400FEED40 /* SchemaVersioning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaVersioning.swift; sourceTree = "<group>"; };
+		8DA72F052D78FEDA00A957A4 /* PhoneOutgoingCallProtectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneOutgoingCallProtectionView.swift; sourceTree = "<group>"; };
+		8DA72F072D79021100A957A4 /* KeypadLockInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeypadLockInfoView.swift; sourceTree = "<group>"; };
+		8DA72F092D79042700A957A4 /* OneTouchEmergencyCallingInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneTouchEmergencyCallingInfoView.swift; sourceTree = "<group>"; };
 		8DA8449B2B72E1D7006CBCA7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8DA8449D2B72E1D7006CBCA7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8DA844A02B72E1D7006CBCA7 /* CameraCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraCoordinator.swift; sourceTree = "<group>"; };
@@ -559,6 +565,7 @@
 				8D38ED8A2CAF393D00CCC422 /* CallBlockView.swift */,
 				8D38ED672CAF2E9600CCC422 /* PhoneSpecialFeaturesView.swift */,
 				8DA844A62B72E1D7006CBCA7 /* NoPhoneSelectedView.swift */,
+				8DA72F052D78FEDA00A957A4 /* PhoneOutgoingCallProtectionView.swift */,
 			);
 			path = "Detail (Base)";
 			sourceTree = "<group>";
@@ -592,6 +599,8 @@
 				8DBCB7E82D4AC95100878A1F /* PhonebookRingtoneInfoView.swift */,
 				8DBCB7EA2D4ACD2F00878A1F /* PhonebookGroupInfoView.swift */,
 				8DBCB7EC2D4AD04000878A1F /* SilentModeInfoView.swift */,
+				8DA72F072D79021100A957A4 /* KeypadLockInfoView.swift */,
+				8DA72F092D79042700A957A4 /* OneTouchEmergencyCallingInfoView.swift */,
 			);
 			path = Info;
 			sourceTree = "<group>";
@@ -902,6 +911,7 @@
 				8D38ED732CAF32A500CCC422 /* BaseRingersView.swift in Sources */,
 				8D32A5102D44407D00F606FC /* CordlessFrequency.swift in Sources */,
 				8D38ED682CAF2E9600CCC422 /* PhoneSpecialFeaturesView.swift in Sources */,
+				8DA72F062D78FEDA00A957A4 /* PhoneOutgoingCallProtectionView.swift in Sources */,
 				8DA844D62B72E1D7006CBCA7 /* ChargerDetailView.swift in Sources */,
 				8DA844D02B72E1D7006CBCA7 /* CameraCoordinator.swift in Sources */,
 				8D38ED952CAF3DE900CCC422 /* HandsetAudioView.swift in Sources */,
@@ -971,6 +981,7 @@
 				8DA844EE2B72E1D7006CBCA7 /* CGImagePropertyOrientationExtension.swift in Sources */,
 				8D8E75ED2CC84A2C0022DB85 /* AnsweringSystemMenuInfoView.swift in Sources */,
 				8D38ED6D2CAF310600CCC422 /* PhoneCordedCordlessFeaturesView.swift in Sources */,
+				8DA72F082D79021100A957A4 /* KeypadLockInfoView.swift in Sources */,
 				8DA844EB2B72E1D7006CBCA7 /* PhoneType.swift in Sources */,
 				8D38ED912CAF3C8300CCC422 /* HandsetRingersView.swift in Sources */,
 				8D523B002C4EF47000AC6862 /* VoicemailQuickDialInfoView.swift in Sources */,
@@ -1008,6 +1019,7 @@
 				8DA844DF2B72E1D7006CBCA7 /* ChargingContactInfoView.swift in Sources */,
 				8DA844E02B72E1D7006CBCA7 /* PhoneRowView.swift in Sources */,
 				8DEC01642C20D78D006E0233 /* PhoneDetailView.swift in Sources */,
+				8DA72F0A2D79042700A957A4 /* OneTouchEmergencyCallingInfoView.swift in Sources */,
 				8DA844DA2B72E1D7006CBCA7 /* PhoneButtonLegendItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
