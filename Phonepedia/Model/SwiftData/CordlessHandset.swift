@@ -377,26 +377,26 @@ final class CordlessHandset {
     @Transient
     var chargeLightColorChargedBinding: Binding<Color> {
         Binding<Color> { [self] in
-            Color(red: chargeLightColorChargedRed, green: chargeLightColorChargedGreen, blue: chargeLightColorChargedBlue, opacity: Double(Int(chargeLightColorChargedAlpha)))
+            Color(red: chargeLightColorChargedRed, green: chargeLightColorChargedGreen, blue: chargeLightColorChargedBlue, opacity: Double(Int(chargeLightColorChargedAlpha.rounded(.toNearestOrEven))))
         } set: { [self] newValue in
             let components = newValue.components
             chargeLightColorChargedRed = components.red
             chargeLightColorChargedGreen = components.green
             chargeLightColorChargedBlue = components.blue
-            chargeLightColorChargedAlpha = Double(Int(components.opacity))
+            chargeLightColorChargedAlpha = Double(Int(components.opacity.rounded(.toNearestOrEven)))
         }
     }
 
     @Transient
     var cordedReceiverMainColorBinding: Binding<Color> {
         Binding<Color> { [self] in
-            Color(red: cordedReceiverMainColorRed, green: cordedReceiverMainColorGreen, blue: cordedReceiverMainColorBlue, opacity: Double(Int(cordedReceiverMainColorAlpha)))
+            Color(red: cordedReceiverMainColorRed, green: cordedReceiverMainColorGreen, blue: cordedReceiverMainColorBlue, opacity: Double(Int(cordedReceiverMainColorAlpha.rounded(.toNearestOrEven))))
         } set: { [self] newColor in
             let components = newColor.components
             cordedReceiverMainColorRed = components.red
             cordedReceiverMainColorGreen = components.green
             cordedReceiverMainColorBlue = components.blue
-            cordedReceiverMainColorAlpha = Double(Int(components.opacity))
+            cordedReceiverMainColorAlpha = Double(Int(components.opacity.rounded(.toNearestOrEven)))
         }
     }
     
