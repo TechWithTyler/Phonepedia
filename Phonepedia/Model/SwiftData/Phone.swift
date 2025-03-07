@@ -166,7 +166,9 @@ final class Phone {
 	var supportsRangeExtenders: Bool = false
 	
 	var hasTransmitOnlyBase: Bool = false
-	
+
+    var ecoMode: Int = 0
+
     var frequency: Double = CordlessFrequency.northAmericaDECT6.rawValue
     
     var hasNoLineAlert: Bool = false
@@ -908,6 +910,7 @@ final class Phone {
 			if hasAnsweringSystem > 1 {
 				hasAnsweringSystem = 1
 			}
+            ecoMode = 0
             cordedReceiverMainColorBinding.wrappedValue = .black
             dialWithBaseDuringHandsetCall = false
             hasIntercom = false

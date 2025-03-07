@@ -65,6 +65,12 @@ struct PhoneCordedCordlessFeaturesView: View {
             InfoButton(title: "Frequencies/Communication Technologies Explanation…") {
                 dialogManager.showingFrequenciesExplanation = true
             }
+            Picker("ECO Mode", selection: $phone.ecoMode) {
+                Text("Not Supported").tag(0)
+                Text("Reduced Power Only").tag(1)
+                Text("Reduced Power or No Transmit").tag(2)
+            }
+            InfoText("ECO mode allows transmission power to be reduced to save energy, either for cordless devices that are close to or placed on the base, or for the entire system by manual activation.\nSome phones can stop all transmission when in standby mode. The handset distinguishes between \"base not transmitting\" and \"out of range\" by occasionally sending a signal to the base to wake it up. A wake-up signal is also sent when the handset is picked up from charge or when any button is pressed. If the handset fails to receive an acknowledgment from the base, the handset is considered out of range. Since the handset needs to check for the base more frequently in \"no transmit\" mode, the phone will still occasionally transmit in standby mode and the handset battery life may be reduced.")
             Picker("Antenna(s)", selection: $phone.antennas) {
                 Text("Hidden").tag(0)
                 Text("Telescopic").tag(1)
