@@ -117,7 +117,23 @@ final class CordlessHandset {
     var keyBacklightColorGreen: Double = 255
 
     var keyBacklightColorBlue: Double = 0
-	
+
+    var chargeLightColorChargingRed: Double = 255
+
+    var chargeLightColorChargingGreen: Double = 0
+
+    var chargeLightColorChargingBlue: Double = 0
+
+    var chargeLightColorChargedRed: Double = 0
+
+    var chargeLightColorChargedGreen: Double = 255
+
+    var chargeLightColorChargedBlue: Double = 0
+
+    var chargeLightColorChargedAlpha: Double = 1
+
+    var hasChargeLight: Bool = false
+
 	var buttonType: Int = 0
 
     var ringerVolumeAdjustmentType: Int = 1
@@ -347,15 +363,40 @@ final class CordlessHandset {
     }
 
     @Transient
+    var chargeLightColorChargingBinding: Binding<Color> {
+        Binding<Color> { [self] in
+            Color(red: chargeLightColorChargingRed, green: chargeLightColorChargingGreen, blue: chargeLightColorChargingBlue)
+        } set: { [self] newValue in
+            let components = newValue.components
+            chargeLightColorChargingRed = components.red
+            chargeLightColorChargingGreen = components.green
+            chargeLightColorChargingBlue = components.blue
+        }
+    }
+
+    @Transient
+    var chargeLightColorChargedBinding: Binding<Color> {
+        Binding<Color> { [self] in
+            Color(red: chargeLightColorChargedRed, green: chargeLightColorChargedGreen, blue: chargeLightColorChargedBlue, opacity: Double(Int(chargeLightColorChargedAlpha)))
+        } set: { [self] newValue in
+            let components = newValue.components
+            chargeLightColorChargedRed = components.red
+            chargeLightColorChargedGreen = components.green
+            chargeLightColorChargedBlue = components.blue
+            chargeLightColorChargedAlpha = Double(Int(components.opacity))
+        }
+    }
+
+    @Transient
     var cordedReceiverMainColorBinding: Binding<Color> {
         Binding<Color> { [self] in
-            Color(red: cordedReceiverMainColorRed, green: cordedReceiverMainColorGreen, blue: cordedReceiverMainColorBlue, opacity: cordedReceiverMainColorAlpha)
+            Color(red: cordedReceiverMainColorRed, green: cordedReceiverMainColorGreen, blue: cordedReceiverMainColorBlue, opacity: Double(Int(cordedReceiverMainColorAlpha)))
         } set: { [self] newColor in
             let components = newColor.components
             cordedReceiverMainColorRed = components.red
             cordedReceiverMainColorGreen = components.green
             cordedReceiverMainColorBlue = components.blue
-            cordedReceiverMainColorAlpha = components.opacity
+            cordedReceiverMainColorAlpha = Double(Int(components.opacity))
         }
     }
     
@@ -477,6 +518,14 @@ final class CordlessHandset {
         accentColorRed = components.red
         accentColorGreen = components.green
         accentColorBlue = components.blue
+    }
+
+    func setChargeLightChargedColorToCharging() {
+        let components = chargeLightColorChargingBinding.wrappedValue.components
+        chargeLightColorChargedRed = components.red
+        chargeLightColorChargedGreen = components.green
+        chargeLightColorChargedBlue = components.blue
+        chargeLightColorChargedAlpha = 1
     }
 
     func setCordedReceiverAccentColorToMain() {
@@ -767,6 +816,14 @@ final class CordlessHandset {
         newHandset.supportsPhonebookGroups = self.supportsPhonebookGroups
         newHandset.clock = self.clock
         newHandset.supportsTimeBackup = self.supportsTimeBackup
+        newHandset.chargeLightColorChargingRed = self.chargeLightColorChargingRed
+        newHandset.chargeLightColorChargingGreen = self.chargeLightColorChargingGreen
+        newHandset.chargeLightColorChargingBlue = self.chargeLightColorChargingBlue
+        newHandset.chargeLightColorChargedRed = self.chargeLightColorChargedRed
+        newHandset.chargeLightColorChargedGreen = self.chargeLightColorChargedGreen
+        newHandset.chargeLightColorChargedBlue = self.chargeLightColorChargedBlue
+        newHandset.chargeLightColorChargedAlpha = self.chargeLightColorChargedAlpha
+        newHandset.hasChargeLight = self.hasChargeLight
         // 4. Return the duplicated handset.
         return newHandset
     }

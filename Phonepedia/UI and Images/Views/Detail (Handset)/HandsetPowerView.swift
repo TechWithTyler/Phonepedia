@@ -15,6 +15,14 @@ struct HandsetPowerView: View {
 
     var body: some View {
         if handset.cordlessDeviceType == 0 {
+            Toggle("Has Charge Light", isOn: $handset.hasChargeLight)
+            ColorPicker("Charge Light Color (Charging)", selection: handset.chargeLightColorChargingBinding, supportsOpacity: false)
+            ClearSupportedColorPicker("Charge Light Color (Charged)", selection: handset.chargeLightColorChargedBinding) {
+                Text("Off When Charged")
+            }
+            Button("Use Charging Color") {
+                handset.setChargeLightChargedColorToCharging()
+            }
             Toggle("Has Auto-Answer", isOn: $handset.hasAutoAnswer)
             InfoText("Auto-answer, sometimes called auto talk, allows you to answer calls by simply picking up the handset from charge.")
             Toggle("Has Charge Tone", isOn: $handset.hasChargeTone)

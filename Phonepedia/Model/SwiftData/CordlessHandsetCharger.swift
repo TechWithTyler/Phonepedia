@@ -38,6 +38,22 @@ final class CordlessHandsetCharger {
 
     var accentColorBlue: Double = 0
 
+    var chargeLightColorChargingRed: Double = 255
+
+    var chargeLightColorChargingGreen: Double = 0
+
+    var chargeLightColorChargingBlue: Double = 0
+
+    var chargeLightColorChargedRed: Double = 0
+
+    var chargeLightColorChargedGreen: Double = 255
+
+    var chargeLightColorChargedBlue: Double = 0
+
+    var chargeLightColorChargedAlpha: Double = 1
+
+    var hasChargeLight: Bool = false
+
 	var chargingDirection: Int = 0
 
 	var chargeContactPlacement: Int = 0
@@ -88,6 +104,31 @@ final class CordlessHandsetCharger {
         }
     }
 
+    @Transient
+    var chargeLightColorChargingBinding: Binding<Color> {
+        Binding<Color> { [self] in
+            Color(red: chargeLightColorChargingRed, green: chargeLightColorChargingGreen, blue: chargeLightColorChargingBlue)
+        } set: { [self] newValue in
+            let components = newValue.components
+            chargeLightColorChargingRed = components.red
+            chargeLightColorChargingGreen = components.green
+            chargeLightColorChargingBlue = components.blue
+        }
+    }
+
+    @Transient
+    var chargeLightColorChargedBinding: Binding<Color> {
+        Binding<Color> { [self] in
+            Color(red: chargeLightColorChargedRed, green: chargeLightColorChargedGreen, blue: chargeLightColorChargedBlue, opacity: Double(Int(chargeLightColorChargedAlpha)))
+        } set: { [self] newValue in
+            let components = newValue.components
+            chargeLightColorChargedRed = components.red
+            chargeLightColorChargedGreen = components.green
+            chargeLightColorChargedBlue = components.blue
+            chargeLightColorChargedAlpha = Double(Int(components.opacity))
+        }
+    }
+
     // MARK: - Initialization
 
     init(mainColorRed: Double, mainColorGreen: Double, mainColorBlue: Double, secondaryColorRed: Double, secondaryColorGreen: Double, secondaryColorBlue: Double, accentColorRed: Double, accentColorGreen: Double, accentColorBlue: Double) {
@@ -127,6 +168,14 @@ final class CordlessHandsetCharger {
         accentColorBlue = components.blue
     }
 
+    func setChargeLightChargedColorToCharging() {
+        let components = chargeLightColorChargingBinding.wrappedValue.components
+        chargeLightColorChargedRed = components.red
+        chargeLightColorChargedGreen = components.green
+        chargeLightColorChargedBlue = components.blue
+        chargeLightColorChargedAlpha = 1
+    }
+
     // MARK: - Duplicate
 
     func duplicate() -> CordlessHandsetCharger {
@@ -141,6 +190,14 @@ final class CordlessHandsetCharger {
         newCharger.chargeContactType = chargeContactType
         newCharger.chargeContactPlacement = chargeContactPlacement
         newCharger.chargingDirection = chargingDirection
+        newCharger.chargeLightColorChargingRed = self.chargeLightColorChargingRed
+        newCharger.chargeLightColorChargingGreen = self.chargeLightColorChargingGreen
+        newCharger.chargeLightColorChargingBlue = self.chargeLightColorChargingBlue
+        newCharger.chargeLightColorChargedRed = self.chargeLightColorChargedRed
+        newCharger.chargeLightColorChargedGreen = self.chargeLightColorChargedGreen
+        newCharger.chargeLightColorChargedBlue = self.chargeLightColorChargedBlue
+        newCharger.chargeLightColorChargedAlpha = self.chargeLightColorChargedAlpha
+        newCharger.hasChargeLight = self.hasChargeLight
         return newCharger
     }
 

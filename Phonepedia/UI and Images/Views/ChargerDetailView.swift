@@ -67,6 +67,14 @@ struct ChargerDetailView: View {
                         Text("Handset").tag(0)
                         Text("Headset/Speakerphone").tag(1)
                     }
+                    Toggle("Has Charge Light", isOn: $charger.hasChargeLight)
+                    ColorPicker("Charge Light Color (Charging)", selection: charger.chargeLightColorChargingBinding, supportsOpacity: false)
+                    ClearSupportedColorPicker("Charge Light Color (Charged)", selection: charger.chargeLightColorChargedBinding) {
+                        Text("Off When Charged")
+                    }
+                    Button("Use Charging Color") {
+                        charger.setChargeLightChargedColorToCharging()
+                    }
                     if charger.type == 0 {
                         Picker("Charging Direction", selection: $charger.chargingDirection) {
                             ChargingDirectionPickerItems()

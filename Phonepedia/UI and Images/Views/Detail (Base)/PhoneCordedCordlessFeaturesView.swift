@@ -100,15 +100,17 @@ struct PhoneCordedCordlessFeaturesView: View {
                     InfoText("Some cordless phone bases look similar/have a similar size to chargers. In some cases, such as when the base has no answering system controls, they can be easily mistaken for chargers, although a base is always slightly bigger than a charger.\nThese kinds of bases are ideal for those who want a small-footprint base. The differentiating factor between a charger-style base vs a standard base is that the handset charging area is in the same position as that of the charger (usually the center).\nTip: The main base has at least a phone jack or handset locator button. Chargers just plug into power.")
                 }
             }
-            Picker("Charge Light", selection: $phone.chargeLight) {
-                Text("None").tag(0)
-                if phone.baseChargesHandset {
-                    Text("On Base Only").tag(1)
-                    Text("On Base/Charger").tag(2)
-                } else {
-                    Text("On Charger").tag(2)
+            if phone.baseChargesHandset {
+                Toggle("Has Charge Light", isOn: $phone.hasChargeLight)
+                if phone.hasChargeLight {
+                    ColorPicker("Charge Light Color (Charging)", selection: phone.chargeLightColorChargingBinding, supportsOpacity: false)
+                    ClearSupportedColorPicker("Charge Light Color (Charged)", selection: phone.chargeLightColorChargedBinding) {
+                        Text("Off When Charged")
+                    }
+                    Button("Use Charging Color") {
+                        phone.setChargeLightChargedColorToCharging()
+                    }
                 }
-                Text("On Handset").tag(3)
             }
             if phone.baseChargesHandset {
                 Group {
