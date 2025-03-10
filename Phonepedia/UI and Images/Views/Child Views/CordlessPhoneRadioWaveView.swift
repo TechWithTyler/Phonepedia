@@ -69,7 +69,7 @@ struct CordlessPhoneRadioWaveView: View {
                         stopAnimation()
                     }
                 }
-            PlayButton(playTitle: "Play Animation", stopTitle: "Stop Animation", isPlaying: isPlaying) {
+            PlayButton(noun: "Animation", isPlaying: isPlaying) {
                 isPlaying.toggle()
             }
             .buttonStyle(.borderless)
