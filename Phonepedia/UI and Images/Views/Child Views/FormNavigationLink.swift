@@ -10,10 +10,6 @@ import SwiftUI
 
 struct FormNavigationLink<Destination: View, Label: View>: View {
 
-    // MARK: - Properties - Dismiss Action
-
-    @Environment(\.dismiss) var dismiss
-
     // MARK: - Properties - Destination
 
     var destination: Destination
