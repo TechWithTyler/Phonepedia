@@ -43,7 +43,7 @@ struct PhoneRowView: View {
     var body: some View {
 		HStack {
             Text("\(phone.phoneNumberInCollection + 1)")
-            PhoneImage(phone: phone, isThumbnail: true)
+            PhoneImage(phone: phone, mode: .thumbnail)
             Spacer()
             if showPhoneColorsInList {
                 VStack {

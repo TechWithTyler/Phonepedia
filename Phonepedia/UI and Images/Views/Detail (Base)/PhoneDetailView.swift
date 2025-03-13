@@ -24,6 +24,7 @@ struct PhoneDetailView: View {
     // MARK: - Body
     
     var body: some View {
+        SlickBackdropView {
         NavigationStack {
             Form {
                 if photoViewModel.showingLoadingPhoto {
@@ -39,7 +40,7 @@ struct PhoneDetailView: View {
                 audioGroup
                 entriesGroup
                 if phone.isCordless || phone.cordedPhoneType == 0 {
-                    FormNavigationLink {
+                    FormNavigationLink(phone: phone) {
                         PhoneSpecialFeaturesView(phone: phone)
                             .navigationTitle("Special Features")
 #if !os(macOS)
@@ -55,7 +56,11 @@ struct PhoneDetailView: View {
 #if !os(macOS)
             .navigationBarTitleDisplayMode(.inline)
 #endif
+    }
+        } backdropContent: {
+            PhoneImage(phone: phone, mode: .backdrop)
         }
+        .scrollContentBackground(.hidden)
         .photosPicker(isPresented: $photoViewModel.showingPhotoPicker, selection: $photoViewModel.selectedPhoto, matching: .images, preferredItemEncoding: .automatic)
         .onChange(of: photoViewModel.selectedPhoto, { oldValue, newValue in
             photoViewModel.updatePhonePhoto(for: phone, oldValue: oldValue, newValue: newValue)
@@ -109,7 +114,7 @@ struct PhoneDetailView: View {
         Group {
             HStack {
                 Spacer()
-                PhoneImage(phone: phone, isThumbnail: false)
+                PhoneImage(phone: phone, mode: .full)
                 Spacer()
             }
 #if os(iOS)
@@ -157,7 +162,7 @@ struct PhoneDetailView: View {
                 }
                 .labelStyle(.iconOnly)
             }
-            FormNavigationLink {
+            FormNavigationLink(phone: phone) {
                 PhoneGeneralView(phone: phone)
                     .navigationTitle("General")
 #if !os(macOS)
@@ -166,7 +171,7 @@ struct PhoneDetailView: View {
             } label: {
                 Label("General", systemImage: "gearshape")
             }
-            FormNavigationLink {
+            FormNavigationLink(phone: phone) {
                 PhoneCordedCordlessFeaturesView(phone: phone)
                     .navigationTitle("\(phone.isCordless ? "Cordless" : "Corded") Features")
 #if !os(macOS)
@@ -175,7 +180,7 @@ struct PhoneDetailView: View {
             } label: {
                 Label("\(phone.isCordless ? "Cordless" : "Corded") Features", systemImage: "phone")
             }
-            FormNavigationLink {
+            FormNavigationLink(phone: phone) {
                 PhonePowerView(phone: phone)
                     .navigationTitle("Power")
 #if !os(macOS)
@@ -184,7 +189,7 @@ struct PhoneDetailView: View {
             } label: {
                 Label("Power", systemImage: "bolt")
             }
-            FormNavigationLink {
+            FormNavigationLink(phone: phone) {
                 PhoneColorView(phone: phone)
                     .navigationTitle(phone.isCordless ? "Base Colors" : "Colors")
 #if !os(macOS)
@@ -194,7 +199,7 @@ struct PhoneDetailView: View {
                 Label(phone.isCordless ? "Base Colors" : "Colors", systemImage: "paintpalette")
             }
             if phone.isCordless || phone.cordedPhoneType == 0 || phone.cordedPhoneType == 2 {
-                FormNavigationLink {
+                FormNavigationLink(phone: phone) {
                     BaseDisplayBacklightButtonsView(phone: phone)
                         .navigationTitle("Disp/B.light/Buttons")
 #if !os(macOS)
@@ -203,7 +208,7 @@ struct PhoneDetailView: View {
                 } label: {
                     Label("Display/Backlight/Buttons", systemImage: "5.square")
                 }
-                    FormNavigationLink {
+                    FormNavigationLink(phone: phone) {
                         PhoneMessagingView(phone: phone)
                             .navigationTitle("Messaging")
         #if !os(macOS)
@@ -212,7 +217,7 @@ struct PhoneDetailView: View {
                     } label: {
                         Label("Messaging", systemImage: "recordingtape")
                     }
-                FormNavigationLink {
+                FormNavigationLink(phone: phone) {
                     PhoneOutgoingCallProtectionView(phone: phone)
                         .navigationTitle("Outgoing Protection")
 #if !os(macOS)
@@ -229,7 +234,7 @@ struct PhoneDetailView: View {
     @ViewBuilder
     var audioGroup: some View {
         Section("Audio") {
-            FormNavigationLink {
+            FormNavigationLink(phone: phone) {
                 BaseRingersView(phone: phone)
                     .navigationTitle("Ringers")
 #if !os(macOS)
@@ -239,7 +244,7 @@ struct PhoneDetailView: View {
                 Label("Ringers", systemImage: "bell")
             }
             if phone.isCordless || phone.cordedPhoneType == 0 {
-                FormNavigationLink {
+                FormNavigationLink(phone: phone) {
                     BaseSpeakerphoneIntercomView(phone: phone)
                         .navigationTitle(phone.isCordless ? "Speaker/Int" : "Speakerphone")
 #if !os(macOS)
@@ -248,7 +253,7 @@ struct PhoneDetailView: View {
                 } label: {
                     Label(phone.isCordless ? "Speakerphone/Intercom" : "Speakerphone", systemImage: "speaker")
                 }
-                FormNavigationLink {
+                FormNavigationLink(phone: phone) {
                     PhoneAudioView(phone: phone)
                         .navigationTitle("Headsets")
 #if !os(macOS)
@@ -258,7 +263,7 @@ struct PhoneDetailView: View {
                     Label("Headsets", systemImage: "headset")
                 }
             }
-            FormNavigationLink {
+            FormNavigationLink(phone: phone) {
                 PhoneMOHView(phone: phone)
                     .navigationTitle("MOH")
 #if !os(macOS)
@@ -273,7 +278,7 @@ struct PhoneDetailView: View {
     @ViewBuilder
     var linesGroup: some View {
         Section("Lines/Cell Phone Linking") {
-            FormNavigationLink {
+            FormNavigationLink(phone: phone) {
                 LandlineDetailView(phone: phone)
                     .navigationTitle("Main Line")
 #if !os(macOS)
@@ -283,7 +288,7 @@ struct PhoneDetailView: View {
                 Label("Main Line", systemImage: "phone.connection")
             }
             if phone.isCordless || phone.cordedPhoneType == 0 {
-                FormNavigationLink {
+                FormNavigationLink(phone: phone) {
                     CellPhoneLinkingView(phone: phone)
                         .navigationTitle("Cell Phone Linking")
 #if !os(macOS)
@@ -300,7 +305,7 @@ struct PhoneDetailView: View {
     var entriesGroup: some View {
         Section("Entries/Phone Numbers") {
             if phone.hasBaseSpeakerphone || !phone.isCordless || phone.isCordedCordless {
-                FormNavigationLink {
+                FormNavigationLink(phone: phone) {
                     BaseRedialView(phone: phone)
                         .navigationTitle("Redial")
 #if !os(macOS)
@@ -311,7 +316,7 @@ struct PhoneDetailView: View {
                 }
             }
             if phone.isCordless || (phone.cordedPhoneType == 0 && phone.baseDisplayType > 0) {
-                FormNavigationLink {
+                FormNavigationLink(phone: phone) {
                     DialingCodesView(phone: phone)
                         .navigationTitle("Dialing Codes")
 #if !os(macOS)
@@ -320,7 +325,7 @@ struct PhoneDetailView: View {
                 } label: {
                     Label("Dialing Codes (e.g., International, Area Code, Country Code)", systemImage: "numbers")
                 }
-                FormNavigationLink {
+                FormNavigationLink(phone: phone) {
                     BasePhonebookView(phone: phone)
                         .navigationTitle("Phonebook")
 #if !os(macOS)
@@ -331,7 +336,7 @@ struct PhoneDetailView: View {
                 }
             }
             if phone.isCordless || phone.cordedPhoneType == 0 || (phone.cordedPhoneType == 2 && phone.baseDisplayType > 0) {
-                FormNavigationLink {
+                FormNavigationLink(phone: phone) {
                     BaseCallerIDView(phone: phone)
                         .navigationTitle("Caller ID")
 #if !os(macOS)
@@ -340,7 +345,7 @@ struct PhoneDetailView: View {
                 } label: {
                     Label("Caller ID", systemImage: "phone.bubble.left")
                 }
-                FormNavigationLink {
+                FormNavigationLink(phone: phone) {
                     BaseSpeedDialView(phone: phone)
                         .navigationTitle("Quick Dialing")
 #if !os(macOS)
@@ -350,7 +355,7 @@ struct PhoneDetailView: View {
                     Label("Quick Dialing", systemImage: "person.3")
                 }
                 if phone.isCordless || phone.cordedPhoneType == 0 {
-                    FormNavigationLink {
+                    FormNavigationLink(phone: phone) {
                         CallBlockView(phone: phone)
                             .navigationTitle("Call Blocking")
 #if !os(macOS)

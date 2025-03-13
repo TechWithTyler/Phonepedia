@@ -22,127 +22,134 @@ struct HandsetDetailView: View {
     // MARK: - Body
 
     var body: some View {
-        Form {
-            Section {
-                HandsetActionsView(handset: handset)
-            }
-            Section("Basics") {
-                FormTextField("Brand", text: $handset.brand)
-                    .onChange(of: handset.brand) { oldValue, newValue in
-                        handset.brandChanged(oldValue: oldValue, newValue: newValue)
+        if let phone = handset.phone {
+            SlickBackdropView {
+                Form {
+                    Section {
+                        HandsetActionsView(handset: handset)
                     }
-                FormTextField("Model", text: $handset.model)
-                FormNavigationLink {
-                    HandsetGeneralView(handset: handset)
-                        .navigationTitle("General (HS\(handset.handsetNumber + 1))")
-#if !os(macOS)
-                        .navigationBarTitleDisplayMode(.inline)
-#endif
-                } label: {
-                    Label("General", systemImage: "gearshape")
-                }
-                if handset.cordlessDeviceType == 0 {
-                    FormNavigationLink {
-                        HandsetPowerView(handset: handset)
-                            .navigationTitle("Power (HS\(handset.handsetNumber + 1))")
-                    } label: {
-                        Label("Power/Charging", systemImage: "battery.100percent")
-                    }
-                }
-                if handset.cordlessDeviceType < 2 {
-                    if handset.handsetStyle < 3 {
-                        FormNavigationLink {
-                            HandsetDisplayBacklightButtonsView(handset: handset)
-                                .navigationTitle("Disp/B.light/Buttons (HS\(handset.handsetNumber + 1))")
+                    Section("Basics") {
+                        FormTextField("Brand", text: $handset.brand)
+                            .onChange(of: handset.brand) { oldValue, newValue in
+                                handset.brandChanged(oldValue: oldValue, newValue: newValue)
+                            }
+                        FormTextField("Model", text: $handset.model)
+                        FormNavigationLink(phone: phone) {
+                            HandsetGeneralView(handset: handset)
+                                .navigationTitle("General (HS\(handset.handsetNumber + 1))")
 #if !os(macOS)
                                 .navigationBarTitleDisplayMode(.inline)
 #endif
                         } label: {
-                            Label("Display/Backlight/Buttons", systemImage: "5.square")
+                            Label("General", systemImage: "gearshape")
+                        }
+                        if handset.cordlessDeviceType == 0 {
+                            FormNavigationLink(phone: phone) {
+                                HandsetPowerView(handset: handset)
+                                    .navigationTitle("Power (HS\(handset.handsetNumber + 1))")
+                            } label: {
+                                Label("Power/Charging", systemImage: "battery.100percent")
+                            }
+                        }
+                        if handset.cordlessDeviceType < 2 {
+                            if handset.handsetStyle < 3 {
+                                FormNavigationLink(phone: phone) {
+                                    HandsetDisplayBacklightButtonsView(handset: handset)
+                                        .navigationTitle("Disp/B.light/Buttons (HS\(handset.handsetNumber + 1))")
+#if !os(macOS)
+                                        .navigationBarTitleDisplayMode(.inline)
+#endif
+                                } label: {
+                                    Label("Display/Backlight/Buttons", systemImage: "5.square")
+                                }
+                            }
+                            FormNavigationLink(phone: phone) {
+                                HandsetMessagingView(handset: handset)
+                                    .navigationTitle("Msg-ing (HS\(handset.handsetNumber + 1))")
+#if !os(macOS)
+                                    .navigationBarTitleDisplayMode(.inline)
+#endif
+                            } label: {
+                                Label("Messaging", systemImage: "recordingtape")
+                            }
                         }
                     }
-                    FormNavigationLink {
-                        HandsetMessagingView(handset: handset)
-                            .navigationTitle("Msg-ing (HS\(handset.handsetNumber + 1))")
+                    Section("Audio") {
+                        FormNavigationLink(phone: phone) {
+                            HandsetRingersView(handset: handset)
+                                .navigationTitle("Ringers (HS\(handset.handsetNumber + 1))")
 #if !os(macOS)
-                            .navigationBarTitleDisplayMode(.inline)
+                                .navigationBarTitleDisplayMode(.inline)
 #endif
-                    } label: {
-                        Label("Messaging", systemImage: "recordingtape")
+                        } label: {
+                            Label("Ringers", systemImage: "bell")
+                        }
+                        FormNavigationLink(phone: phone) {
+                            HandsetAudioView(handset: handset)
+                                .navigationTitle("Spkr/Headset/Int (HS\(handset.handsetNumber + 1))")
+#if !os(macOS)
+                                .navigationBarTitleDisplayMode(.inline)
+#endif
+                        } label: {
+                            Label("Speakerphone/Headset/Intercom", systemImage: "speaker")
+                        }
+                    }
+                    Section("Entries") {
+                        FormNavigationLink(phone: phone) {
+                            HandsetRedialView(handset: handset)
+                                .navigationTitle("Redial (HS\(handset.handsetNumber + 1))")
+#if !os(macOS)
+                                .navigationBarTitleDisplayMode(.inline)
+#endif
+                        } label: {
+                            Label("Redial", systemImage: "phone.arrow.up.right")
+                        }
+                        FormNavigationLink(phone: phone) {
+                            HandsetPhonebookView(handset: handset)
+                                .navigationTitle("P.book (HS\(handset.handsetNumber + 1))")
+#if !os(macOS)
+                                .navigationBarTitleDisplayMode(.inline)
+#endif
+                        } label: {
+                            Label("Phonebook", systemImage: "book")
+                        }
+                        FormNavigationLink(phone: phone) {
+                            HandsetCallerIDView(handset: handset)
+                                .navigationTitle("CID (HS\(handset.handsetNumber + 1))")
+#if !os(macOS)
+                                .navigationBarTitleDisplayMode(.inline)
+#endif
+                        } label: {
+                            Label("Caller ID", systemImage: "phone.bubble.left")
+                        }
+                        FormNavigationLink(phone: phone) {
+                            HandsetSpeedDialView(handset: handset)
+                                .navigationTitle("Quick Dial (HS\(handset.handsetNumber + 1))")
+#if !os(macOS)
+                                .navigationBarTitleDisplayMode(.inline)
+#endif
+                        } label: {
+                            Label("Quick Dialing", systemImage: "person.3")
+                        }
+                    }
+                    Section {
+                        FormNavigationLink(phone: phone) {
+                            HandsetSpecialFeaturesView(handset: handset)
+                                .navigationTitle("Special (HS\(handset.handsetNumber + 1))")
+#if !os(macOS)
+                                .navigationBarTitleDisplayMode(.inline)
+#endif
+                        } label: {
+                            Label("Special Features", systemImage: "sparkle")
+                        }
                     }
                 }
+                .formStyle(.grouped)
+            } backdropContent: {
+                PhoneImage(phone: phone, mode: .backdrop)
             }
-                Section("Audio") {
-                    FormNavigationLink {
-                        HandsetRingersView(handset: handset)
-                            .navigationTitle("Ringers (HS\(handset.handsetNumber + 1))")
-#if !os(macOS)
-                            .navigationBarTitleDisplayMode(.inline)
-#endif
-                    } label: {
-                        Label("Ringers", systemImage: "bell")
-                    }
-                    FormNavigationLink {
-                        HandsetAudioView(handset: handset)
-                            .navigationTitle("Spkr/Headset/Int (HS\(handset.handsetNumber + 1))")
-#if !os(macOS)
-                            .navigationBarTitleDisplayMode(.inline)
-#endif
-                    } label: {
-                        Label("Speakerphone/Headset/Intercom", systemImage: "speaker")
-                    }
-                }
-                Section("Entries") {
-                    FormNavigationLink {
-                        HandsetRedialView(handset: handset)
-                            .navigationTitle("Redial (HS\(handset.handsetNumber + 1))")
-#if !os(macOS)
-                            .navigationBarTitleDisplayMode(.inline)
-#endif
-                    } label: {
-                        Label("Redial", systemImage: "phone.arrow.up.right")
-                    }
-                    FormNavigationLink {
-                        HandsetPhonebookView(handset: handset)
-                            .navigationTitle("P.book (HS\(handset.handsetNumber + 1))")
-#if !os(macOS)
-                            .navigationBarTitleDisplayMode(.inline)
-#endif
-                    } label: {
-                        Label("Phonebook", systemImage: "book")
-                    }
-                    FormNavigationLink {
-                        HandsetCallerIDView(handset: handset)
-                            .navigationTitle("CID (HS\(handset.handsetNumber + 1))")
-#if !os(macOS)
-                            .navigationBarTitleDisplayMode(.inline)
-#endif
-                    } label: {
-                        Label("Caller ID", systemImage: "phone.bubble.left")
-                    }
-                    FormNavigationLink {
-                        HandsetSpeedDialView(handset: handset)
-                            .navigationTitle("Quick Dial (HS\(handset.handsetNumber + 1))")
-#if !os(macOS)
-                            .navigationBarTitleDisplayMode(.inline)
-#endif
-                    } label: {
-                        Label("Quick Dialing", systemImage: "person.3")
-                    }
-                }
-                Section {
-                    FormNavigationLink {
-                        HandsetSpecialFeaturesView(handset: handset)
-                            .navigationTitle("Special (HS\(handset.handsetNumber + 1))")
-#if !os(macOS)
-                            .navigationBarTitleDisplayMode(.inline)
-#endif
-                    } label: {
-                        Label("Special Features", systemImage: "sparkle")
-                    }
-            }
+            .scrollContentBackground(.hidden)
         }
-        .formStyle(.grouped)
     }
 
 }
