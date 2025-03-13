@@ -283,6 +283,8 @@ struct CordlessDeviceInfoView: View {
             // For cordless devices, an additional option is available for the "Where I Got This" selection, "Included With Base/Set", with a tag of 0, so we need to add 1 to the default acquisition method.
             newHandset.whereAcquired = defaultAcquisitionMethod + 1
         }
+        // A handset's handsetNumber property is the index of the handset in the list, and as with any index, it starts at 0. The number of handsets in the list before the new handset is added can be used as the handset's index without adding/subtracting 1.
+        newHandset.handsetNumber = phone.cordlessHandsetsIHave.count
         // 3. Add the handset to the phone's list of handsets.
         phone.cordlessHandsetsIHave.append(newHandset)
     }
@@ -338,7 +340,12 @@ struct CordlessDeviceInfoView: View {
     // MARK: - Charger Management
 
     func addCharger() {
-        phone.chargersIHave.append(CordlessHandsetCharger(mainColorRed: phone.baseMainColorRed, mainColorGreen: phone.baseMainColorGreen, mainColorBlue: phone.baseMainColorBlue, secondaryColorRed: phone.baseSecondaryColorRed, secondaryColorGreen: phone.baseSecondaryColorGreen, secondaryColorBlue: phone.baseSecondaryColorBlue, accentColorRed: phone.baseAccentColorRed, accentColorGreen: phone.baseAccentColorGreen, accentColorBlue: phone.baseAccentColorBlue))
+        // 1. Create a new CordlessHandsetCharger object.
+        let newCharger = CordlessHandsetCharger(mainColorRed: phone.baseMainColorRed, mainColorGreen: phone.baseMainColorGreen, mainColorBlue: phone.baseMainColorBlue, secondaryColorRed: phone.baseSecondaryColorRed, secondaryColorGreen: phone.baseSecondaryColorGreen, secondaryColorBlue: phone.baseSecondaryColorBlue, accentColorRed: phone.baseAccentColorRed, accentColorGreen: phone.baseAccentColorGreen, accentColorBlue: phone.baseAccentColorBlue)
+        // A charger's chargerNumber property is the index of the charger in the list, and as with any index, it starts at 0. The number of chargers in the list before the new charger is added can be used as the charger's index without adding/subtracting 1.
+        newCharger.chargerNumber = phone.chargersIHave.count
+        // 3. Add the new charger to the phone's list of chargers.
+        phone.chargersIHave.append(newCharger)
     }
 
     func duplicateCharger(_ charger: CordlessHandsetCharger) {
