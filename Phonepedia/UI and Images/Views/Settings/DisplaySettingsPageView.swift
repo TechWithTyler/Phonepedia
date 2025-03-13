@@ -71,7 +71,7 @@ struct DisplaySettingsPageView: View {
                         useDetailedPhoneImage = true
                     } label: {
                         VStack {
-                            Image(.phoneDetailed)
+                            Image(.phoneDetailedThumbnail)
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 50, height: 50)

@@ -24,14 +24,14 @@ struct PhoneImage: View {
     // MARK: - Properties - Floats
 
 	var size: CGFloat {
-		return isThumbnail ? 50 : 300
+		return isThumbnail ? 100 : 300
 	}
     
     // MARK: - View
 
     var body: some View {
 		#if os(iOS) || os(visionOS)
-        let image = UIImage(data: phone.photoData ?? getPNGDataFromUIImage(image: useDetailedPhoneImage ? .phoneDetailed : .phone))!
+        let image = UIImage(data: phone.photoData ?? getPNGDataFromUIImage(image: useDetailedPhoneImage ? (isThumbnail ? .phoneDetailedThumbnail : .phoneDetailed) : .phone))!
 			Image(uiImage: image)
                 .renderingMode(phone.photoData == nil && !useDetailedPhoneImage ? .template : .original)
                 .resizable()
@@ -41,7 +41,7 @@ struct PhoneImage: View {
                 .accessibilityLabel("\(phone.brand) \(phone.model)")
                 .animation(.linear, value: image)
 		#elseif os(macOS)
-		let image = NSImage(data: phone.photoData ?? getPNGDataFromNSImage(image: useDetailedPhoneImage ? .phoneDetailed : .phone))!
+        let image = NSImage(data: phone.photoData ?? getPNGDataFromNSImage(image: useDetailedPhoneImage ? (isThumbnail ? .phoneDetailedThumbnail : .phoneDetailed) : .phone))!
 			Image(nsImage: image)
             .renderingMode(phone.photoData == nil && !useDetailedPhoneImage ? .template : .original)
                 .resizable()
