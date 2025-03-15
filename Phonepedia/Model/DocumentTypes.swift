@@ -12,7 +12,7 @@ import UniformTypeIdentifiers
 extension UTType {
 
     static var phonepediaDatabase: UTType {
-        UTType(importedAs: "com.tylersheft.PhonepediaDatabase")
+        UTType(importedAs: "com.tylersheft.PhonepediaCatalog")
     }
 
 }
