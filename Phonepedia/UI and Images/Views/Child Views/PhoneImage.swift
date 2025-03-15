@@ -31,6 +31,8 @@ struct PhoneImage: View {
 
     @AppStorage(UserDefaults.KeyNames.useDetailedPhoneImage) var useDetailedPhoneImage: Bool = false
 
+    @Environment(\.colorScheme) var systemTheme
+
     // MARK: - Properties - Floats
 
 	var size: CGFloat {
@@ -40,9 +42,7 @@ struct PhoneImage: View {
     // MARK: - View
 
     var body: some View {
-		#if os(iOS) || os(visionOS)
-        let image = UIImage(data: phone.photoData ?? getPNGDataFromUIImage(image: useDetailedPhoneImage ? (mode == .thumbnail ? .phoneDetailedThumbnail : .phoneDetailed) : .phone))!
-			Image(uiImage: image)
+            image
                 .renderingMode(phone.photoData == nil && !useDetailedPhoneImage ? .template : .original)
                 .resizable()
                 .aspectRatio(contentMode: .fill)
@@ -50,17 +50,22 @@ struct PhoneImage: View {
                 .clipShape(RoundedRectangle(cornerRadius: mode == .backdrop ? 0 : SAContainerViewCornerRadius))
                 .accessibilityLabel("\(phone.brand) \(phone.model)")
                 .animation(.linear, value: image)
-		#elseif os(macOS)
-        let image = NSImage(data: phone.photoData ?? getPNGDataFromNSImage(image: useDetailedPhoneImage ? (mode == .thumbnail ? .phoneDetailedThumbnail : .phoneDetailed) : .phone))!
-			Image(nsImage: image)
-            .renderingMode(phone.photoData == nil && !useDetailedPhoneImage ? .template : .original)
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: size, height: size)
-                .clipShape(RoundedRectangle(cornerRadius: SAContainerViewCornerRadius))
-                .accessibilityLabel("\(phone.brand) \(phone.model)")
-                .animation(.linear, value: image)
-		#endif
+    }
+
+    var image: Image {
+        if let photoData = phone.photoData {
+            #if os(macOS)
+            Image(nsImage: NSImage(data: photoData)!)
+            #else
+            Image(uiImage: UIImage(data: photoData)!)
+            #endif
+        } else {
+            if useDetailedPhoneImage {
+                Image(mode == .thumbnail ? .phoneDetailedThumbnail : .phoneDetailed)
+            } else {
+                Image(.phone)
+            }
+        }
     }
 
 }
