@@ -46,6 +46,7 @@ struct FormNavigationLink<Destination: View, Label: View>: View {
                     destination
                 }
                 .formStyle(.grouped)
+                .scrollContentBackground(.hidden)
             } backdropContent: {
                 PhoneImage(phone: phone, mode: .backdrop)
             }

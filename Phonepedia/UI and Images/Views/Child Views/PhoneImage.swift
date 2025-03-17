@@ -11,32 +11,46 @@ import SheftAppsStylishUI
 
 struct PhoneImage: View {
 
-    enum Mode: CGFloat {
+    // MARK: - Image Mode Enum
 
-        case thumbnail = 100
+    enum Mode {
 
-        case full = 300
+        case thumbnail
 
-        case backdrop = 500
+        case full
+
+        case backdrop
 
     }
 
     // MARK: - Properties - Phone
 
 	@Bindable var phone: Phone
-    
-    // MARK: - Properties - Booleans
+
+    // MARK: - Properties - Image Mode
 
     var mode: Mode
 
+    // MARK: - Properties - Booleans
+
     @AppStorage(UserDefaults.KeyNames.useDetailedPhoneImage) var useDetailedPhoneImage: Bool = false
+
+    @State private var isAnimating: Bool = false
+
+    @Environment(\.accessibilityReduceMotion) var reduceMotion
+
+    // MARK: - Properties - System Theme
 
     @Environment(\.colorScheme) var systemTheme
 
     // MARK: - Properties - Floats
 
 	var size: CGFloat {
-        return mode.rawValue
+        switch mode {
+        case .thumbnail: return 100
+        case .full: return 300
+        case .backdrop: return .infinity
+        }
 	}
     
     // MARK: - View
@@ -49,7 +63,14 @@ struct PhoneImage: View {
                 .frame(width: size, height: size)
                 .clipShape(RoundedRectangle(cornerRadius: mode == .backdrop ? 0 : SAContainerViewCornerRadius))
                 .accessibilityLabel("\(phone.brand) \(phone.model)")
-                .animation(.linear, value: image)
+                .opacity(isAnimating ? 1 : 0)
+                .blur(radius: isAnimating ? 0 : 100)
+                // Use the animation modifier with a value to animate a view when a property changes.
+                .animation(.easeIn(duration: reduceMotion ? 0 : 0.5), value: isAnimating)
+                .animation(.easeInOut(duration: 1.0), value: phone.photoData)
+                .onAppear {
+                    isAnimating = true
+                }
     }
 
     var image: Image {

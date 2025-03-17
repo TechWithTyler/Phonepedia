@@ -43,8 +43,8 @@ class PhonePhotoViewModel: ObservableObject {
                 selectedPhoto = nil
                 switch result {
                 case .success(let data):
-                    // 2. If successful, check the photo for landline phones. Ask the user for confirmation if no landline phones could be detected.
-                    checkImageForLandlines(data!, phone: phone)
+                    // 2. If successful, check the photo for landline/VoIP phones. Ask the user for confirmation if no landline/VoIP phones could be detected.
+                    checkImageForLandlines(photoData: data!, phone: phone)
                 case .failure(let error as NSError):
                     // 3. If photo loading fails, log an error.
 #if(DEBUG)
@@ -60,7 +60,7 @@ class PhonePhotoViewModel: ObservableObject {
         showingLoadingPhoto = true
     }
     
-    func checkImageForLandlines(_ photoData: Data, phone: Phone) {
+    func checkImageForLandlines(photoData: Data, phone: Phone) {
         do {
             // 1. Pass the photo data through the LandlineOrNot image classification model to check it for landline/VoIP phones.
             try imagePredictor.makePredictions(for: photoData, phone: phone, completionHandler: imagePredictionHandler)
