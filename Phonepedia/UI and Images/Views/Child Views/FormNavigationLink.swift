@@ -43,6 +43,13 @@ struct FormNavigationLink<Destination: View, Label: View>: View {
         NavigationLink {
             SlickBackdropView {
                 Form {
+                    Section {
+                        HStack {
+                            Spacer()
+                            PhoneImage(phone: phone, mode: .full)
+                            Spacer()
+                        }
+                    }
                     destination
                 }
                 .formStyle(.grouped)

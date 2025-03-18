@@ -34,6 +34,13 @@ struct ChargerDetailView: View {
             SlickBackdropView {
                 Form {
                     Section {
+                        HStack {
+                            Spacer()
+                            PhoneImage(phone: phone, mode: .full)
+                            Spacer()
+                        }
+                    }
+                    Section {
                         Button {
                             phone.chargersIHave.insert(charger.duplicate(), at: chargerNumber)
                             dismiss()

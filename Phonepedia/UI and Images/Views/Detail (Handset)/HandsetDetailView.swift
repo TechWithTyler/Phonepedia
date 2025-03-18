@@ -26,6 +26,13 @@ struct HandsetDetailView: View {
             SlickBackdropView {
                 Form {
                     Section {
+                        HStack {
+                            Spacer()
+                            PhoneImage(phone: phone, mode: .full)
+                            Spacer()
+                        }
+                    }
+                    Section {
                         HandsetActionsView(handset: handset)
                     }
                     Section("Basics") {
