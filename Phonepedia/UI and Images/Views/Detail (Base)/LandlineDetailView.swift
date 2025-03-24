@@ -18,9 +18,12 @@ struct LandlineDetailView: View {
     var body: some View {
         Picker("Connection Type", selection: $phone.landlineConnectionType) {
             Text("Analog").tag(0)
+            Divider()
             Text("Digital").tag(1)
+            Divider()
             Text("VoIP (Ethernet)").tag(2)
             Text("VoIP (Wi-Fi)").tag(3)
+            Divider()
             Text("Built-In Cellular").tag(4)
         }
         .onChange(of: phone.landlineConnectionType) { oldValue, newValue in
@@ -31,7 +34,7 @@ struct LandlineDetailView: View {
                 AnalogPhoneConnectedToPickerItems()
             }
         }
-        InfoText("Select \"Multiple\" if you alternate between connection types (e.g. a phone line simulator for internal test calls and a VoIP modem for real calls) or each line on a multi-line phone is connected to a different one.")
+        InfoText("Select \"Multiple\" if you alternate between connection types (e.g. a phone line simulator for internal test calls and a VoIP modem for real calls) or each line on a multi-line phone is connected to a different one. You can use a phone line switcher for this.")
         InfoButton(title: "About Connection Types/Devices…") {
             dialogManager.showingAboutConnectionTypes = true
         }
