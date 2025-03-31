@@ -41,6 +41,8 @@ final class Phone {
 
     var whereAcquired: Int = 0
 
+    var isWiFiHandset: Bool = false
+
     var mainHandsetModel: String = "MH12"
 
     var baseMainColorRed: Double = 0
@@ -441,6 +443,8 @@ final class Phone {
 
     var landlineConnectionType: Int = 0
 
+    var grade: Int = 0
+
     var landlineConnectedTo: Int = 2
 
     var storageOrSetup: Int = 0
@@ -467,6 +471,8 @@ final class Phone {
                 return PhoneType.cordlessWithTransmitOnlyBase.rawValue
             }
             return PhoneType.cordless.rawValue
+        } else if isWiFiHandset {
+            return PhoneType.wiFiHandset.rawValue
         } else {
             return PhoneType.corded.rawValue
         }
@@ -946,6 +952,14 @@ final class Phone {
         }
     }
 
+    func isWiFiHandsetChanged(oldValue: Bool, newValue: Bool) {
+        if newValue {
+            numberOfIncludedCordlessHandsets = 0
+            landlineConnectionType = 3
+            hasBaseKeypad = true
+        }
+    }
+
     func isCordlessChanged(oldValue: Bool, newValue: Bool) {
         if newValue {
             cordedPhoneType = 0
@@ -1089,6 +1103,9 @@ final class Phone {
             if isCordedCordless && cordlessPowerBackupMode == 1 {
                 cordlessPowerBackupMode = 0
             }
+        }
+        if newValue > 3 {
+            grade = 0
         }
         if newValue != 2 {
             supportsPoE = false

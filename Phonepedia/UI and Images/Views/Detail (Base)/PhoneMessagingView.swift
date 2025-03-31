@@ -119,19 +119,21 @@ struct PhoneMessagingView: View {
             }
         }
         Section("Voicemail") {
-            Picker("\"New Voicemail\" Detection Method", selection: $phone.voicemailIndication) {
-                Text("None").tag(0)
-                Text("Frequency-Shift-Keying (FSK) Tones").tag(1)
-                Text("Listen For Stutter Dial Tones").tag(2)
-                Text("FSK and Stutter Dial Tone").tag(3)
-            }
-            InfoText("""
+            if phone.landlineConnectionType == 0 {
+                Picker("\"New Voicemail\" Detection Method", selection: $phone.voicemailIndication) {
+                    Text("None").tag(0)
+                    Text("Frequency-Shift-Keying (FSK) Tones").tag(1)
+                    Text("Listen For Stutter Dial Tones").tag(2)
+                    Text("FSK and Stutter Dial Tone").tag(3)
+                }
+                InfoText("""
 A phone's voicemail indicator usually works in one or both of the following ways:
 • Your phone company may send FSK tones to the phone whenever a new voicemail is left and when all new voicemails are played, to tell the phone to turn on or off its voicemail indicator.
 • The phone may go off-hook for a few seconds periodically, or when you hang up or it stops ringing, to listen for a stutter dial tone ("bee-bee-bee-beeeeeeeep") which your phone company may use as an audible indication of new voicemails.
 """)
-            if phone.voicemailIndication >= 2 {
-                ExampleAudioView(audioFile: .stutterDialTone)
+                if phone.voicemailIndication >= 2 {
+                    ExampleAudioView(audioFile: .stutterDialTone)
+                }
             }
             if !phone.isCordless || phone.hasBaseSpeakerphone {
                 Picker("Voicemail Quick Dial", selection: $phone.voicemailQuickDial) {

@@ -34,7 +34,7 @@ struct PhoneDetailView: View {
                 }
                 basicsGroup
                 linesGroup
-                if phone.isCordless {
+                if phone.isCordless || phone.isWiFiHandset {
                     CordlessDeviceInfoView(phone: phone)
                 }
                 audioGroup

@@ -14,12 +14,12 @@ struct PhoneColorView: View {
     @Bindable var phone: Phone
 
     var body: some View {
-        ColorPicker("Base Top Color", selection: phone.baseMainColorBinding, supportsOpacity: false)
-        ColorPicker("Base Bottom Color", selection: phone.baseSecondaryColorBinding, supportsOpacity: false)
+        ColorPicker(phone.isWiFiHandset ? "Top Color" : "Base Top Color", selection: phone.baseMainColorBinding, supportsOpacity: false)
+        ColorPicker(phone.isWiFiHandset ? "Bottom Color" : "Base Bottom Color", selection: phone.baseSecondaryColorBinding, supportsOpacity: false)
             Button("Use Top Color") {
                 phone.setBaseSecondaryColorToMain()
         }
-        ColorPicker("Base Accent Color", selection: phone.baseAccentColorBinding, supportsOpacity: false)
+        ColorPicker(phone.isWiFiHandset ? "Accent Color" : "Base Accent Color", selection: phone.baseAccentColorBinding, supportsOpacity: false)
             Button("Use Top Color") {
                 phone.setBaseAccentColorToMain()
         }
@@ -27,24 +27,26 @@ struct PhoneColorView: View {
             phone.setBaseAccentColorToSecondary()
     }
         InfoText("The accent color is seen in various places, such as around the edges. Sometimes the bottom/back color is used as an additional accent color on the top/front.")
-        ClearSupportedColorPicker("Corded Receiver Outer Color", selection: phone.cordedReceiverMainColorBinding) {
-            Text("Make Cordless-Only")
-        }
+        if !phone.isWiFiHandset {
+            ClearSupportedColorPicker("Corded Receiver Outer Color", selection: phone.cordedReceiverMainColorBinding) {
+                Text("Make Cordless-Only")
+            }
             .onChange(of: phone.cordedReceiverMainColorBinding.wrappedValue) { oldValue, newValue in
                 phone.cordedReceiverColorChanged(oldValue: oldValue, newValue: newValue)
             }
-        if phone.hasCordedReceiver {
-            ColorPicker("Corded Receiver Inner Color", selection: phone.cordedReceiverSecondaryColorBinding, supportsOpacity: false)
-            Button("Use Outer Color") {
-                phone.setCordedReceiverSecondaryColorToMain()
-        }
-            ColorPicker("Corded Receiver Accent Color", selection: phone.cordedReceiverAccentColorBinding, supportsOpacity: false)
+            if phone.hasCordedReceiver {
+                ColorPicker("Corded Receiver Inner Color", selection: phone.cordedReceiverSecondaryColorBinding, supportsOpacity: false)
+                Button("Use Outer Color") {
+                    phone.setCordedReceiverSecondaryColorToMain()
+                }
+                ColorPicker("Corded Receiver Accent Color", selection: phone.cordedReceiverAccentColorBinding, supportsOpacity: false)
                 Button("Use Outer Color") {
                     phone.setCordedReceiverAccentColorToMain()
+                }
+                Button("Use Inner Color") {
+                    phone.setCordedReceiverAccentColorToSecondary()
+                }
             }
-            Button("Use Inner Color") {
-                phone.setCordedReceiverAccentColorToSecondary()
-        }
         }
     }
 }

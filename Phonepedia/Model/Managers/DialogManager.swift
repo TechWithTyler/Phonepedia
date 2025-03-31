@@ -32,6 +32,8 @@ class DialogManager: ObservableObject {
 
     @Published var showingMoveFailedHandset: Bool = false
 
+    @Published var showingAboutPhoneGrades: Bool = false
+
     @Published var showingPhoneTypeDefinitions: Bool = false
 
     @Published var showingAnsweringSystemVsVoicemail: Bool = false
@@ -61,6 +63,8 @@ class DialogManager: ObservableObject {
     @Published var showingAboutDialingCodes: Bool = false
 
     @Published var showingAboutConnectionTypes: Bool = false
+
+    @Published var aboutPBXExpanded: Bool = false
 
     #if !os(macOS)
     @Published var showingSettings: Bool = false

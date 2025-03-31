@@ -14,7 +14,7 @@ struct BaseSpeakerphoneIntercomView: View {
     @Bindable var phone: Phone
 
     var body: some View {
-        if !phone.isCordedCordless {
+        if !phone.isCordedCordless && !phone.isWiFiHandset {
             Toggle(isOn: $phone.hasBaseSpeakerphone) {
                 Text("Has Base Speakerphone")
             }

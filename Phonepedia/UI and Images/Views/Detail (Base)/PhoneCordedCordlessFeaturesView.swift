@@ -42,6 +42,8 @@ struct PhoneCordedCordlessFeaturesView: View {
             } message: {
                 Text("This will delete all cordless devices and chargers.")
             }
+        Toggle("Is Wi-Fi Handset", isOn: $phone.isWiFiHandset)
+        if !phone.isWiFiHandset {
         if phone.isCordless {
             Group {
                 HandsetNumberDigitView(phone: phone)
@@ -204,32 +206,33 @@ In most cases, if the base has a charge light/display message, the completion of
                 • A novelty phone is a corded phone that's designed to look like something else, like a hamburger you flip open, a piano whose keys are used to dial numbers, a slim phone that's shaped like a pair of lips, an animal, or a cartoon character.
                 """)
         }
-        if !phone.isCordless {
-            if phone.cordedPhoneType == 0 {
-                Toggle("Has Dual Receivers", isOn: $phone.hasDualReceivers)
-                InfoText("A corded phone with dual receivers allows 2 people to use the phone at the same time without having to connect 2 separate phones to the same line. These kinds of phones are often used by those requiring a language interpreter.")
-            }
-            if phone.cordedPhoneType == 2 || phone.cordedPhoneType == 3 {
-                Picker("\(phone.cordedPhoneType == 2 ? "Keypad" : "Rotary Dial") Location", selection: $phone.dialLocation) {
-                    Text("Base").tag(0)
-                    Text("Receiver").tag(1)
+            if !phone.isCordless {
+                if phone.cordedPhoneType == 0 {
+                    Toggle("Has Dual Receivers", isOn: $phone.hasDualReceivers)
+                    InfoText("A corded phone with dual receivers allows 2 people to use the phone at the same time without having to connect 2 separate phones to the same line. These kinds of phones are often used by those requiring a language interpreter.")
                 }
-            }
-            Picker("Corded Receiver Volume Adjustment", selection: $phone.cordedReceiverVolumeAdjustmentType) {
-                Text("None").tag(0)
-                Text("Volume Switch/Dial").tag(1)
-                Text("Volume Button(s)").tag(2)
-            }
-            if phone.cordedReceiverVolumeAdjustmentType == 0 {
-                WarningText("If the corded receiver volume isn't adjustable and you find it too loud, you'll need to adjust your line's incoming volume. If you can't adjust it, adding a series of resistors between the phone and jack is recommended (consult a professional to build this for you if necessary). If the corded receiver's cord is removable, you can replace it with one that has a volume control.")
-            }
-            Toggle("Has Hard-Wired Corded Receiver", isOn: $phone.hasHardWiredCordedReceiver)
-            InfoText("Some old phones have hard-wired corded receivers, which means you'll need to have the phone repaired if the cord breaks.")
-            if phone.cordedPhoneType == 2 {
-                Picker("Switch Hook", selection: $phone.switchHookType) {
-                    Text("On Base").tag(0)
-                    Text("On Receiver").tag(1)
-                    Text("Magnetic").tag(2)
+                if phone.cordedPhoneType == 2 || phone.cordedPhoneType == 3 {
+                    Picker("\(phone.cordedPhoneType == 2 ? "Keypad" : "Rotary Dial") Location", selection: $phone.dialLocation) {
+                        Text("Base").tag(0)
+                        Text("Receiver").tag(1)
+                    }
+                }
+                Picker("Corded Receiver Volume Adjustment", selection: $phone.cordedReceiverVolumeAdjustmentType) {
+                    Text("None").tag(0)
+                    Text("Volume Switch/Dial").tag(1)
+                    Text("Volume Button(s)").tag(2)
+                }
+                if phone.cordedReceiverVolumeAdjustmentType == 0 {
+                    WarningText("If the corded receiver volume isn't adjustable and you find it too loud, you'll need to adjust your line's incoming volume. If you can't adjust it, adding a series of resistors between the phone and jack is recommended (consult a professional to build this for you if necessary). If the corded receiver's cord is removable, you can replace it with one that has a volume control.")
+                }
+                Toggle("Has Hard-Wired Corded Receiver", isOn: $phone.hasHardWiredCordedReceiver)
+                InfoText("Some old phones have hard-wired corded receivers, which means you'll need to have the phone repaired if the cord breaks.")
+                if phone.cordedPhoneType == 2 {
+                    Picker("Switch Hook", selection: $phone.switchHookType) {
+                        Text("On Base").tag(0)
+                        Text("On Receiver").tag(1)
+                        Text("Magnetic").tag(2)
+                    }
                 }
             }
         }

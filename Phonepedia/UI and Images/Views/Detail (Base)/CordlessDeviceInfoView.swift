@@ -59,18 +59,19 @@ struct CordlessDeviceInfoView: View {
     // MARK: - Body
 
     var body: some View {
-        Section("Cordless Devices") {
-            HStack {
-                Picker("Filter", selection: $cordlessDeviceFilter) {
-                    Text("All Cordless Devices").tag("all")
-                    Divider()
-                    Text(CordlessHandset.CordlessDeviceType.handset.rawValue + "s").tag(CordlessHandset.CordlessDeviceType.handset.rawValue)
-                    Text(CordlessHandset.CordlessDeviceType.deskset.rawValue + "s").tag(CordlessHandset.CordlessDeviceType.deskset.rawValue)
-                    Text(CordlessHandset.CordlessDeviceType.headset.rawValue + "s").tag(CordlessHandset.CordlessDeviceType.headset.rawValue)
+        if !phone.isWiFiHandset {
+            Section("Cordless Devices") {
+                HStack {
+                    Picker("Filter", selection: $cordlessDeviceFilter) {
+                        Text("All Cordless Devices").tag("all")
+                        Divider()
+                        Text(CordlessHandset.CordlessDeviceType.handset.rawValue + "s").tag(CordlessHandset.CordlessDeviceType.handset.rawValue)
+                        Text(CordlessHandset.CordlessDeviceType.deskset.rawValue + "s").tag(CordlessHandset.CordlessDeviceType.deskset.rawValue)
+                        Text(CordlessHandset.CordlessDeviceType.headset.rawValue + "s").tag(CordlessHandset.CordlessDeviceType.headset.rawValue)
+                    }
+                    .labelsHidden()
+                    Text("(\(handsetCount))")
                 }
-                .labelsHidden()
-                Text("(\(handsetCount))")
-            }
                 Menu {
                     if !phone.cordlessHandsetsIHave.isEmpty {
                         Button(action: duplicateLastHandset) {
@@ -91,92 +92,93 @@ struct CordlessDeviceInfoView: View {
                     dialogManager.showingDeleteAllHandsets = true
                 } label: {
                     Label("Delete All…", systemImage: "trash.fill")
-    #if !os(macOS)
+#if !os(macOS)
                         .foregroundStyle(.red)
-    #endif
+#endif
                 }
-            if !filteredCordlessDevices.isEmpty {
-                List {
-                    ForEach(filteredCordlessDevices) { handset in
-                        NavigationLink {
-                            HandsetDetailView(handset: handset)
-                                .navigationTitle("Device \(handset.handsetNumber + 1)")
-                        } label: {
-                            HStack {
-                                VStack(alignment: .leading) {
-                                    Text("\(handset.brand) \(handset.model.isEmpty ? "<No Model Number>" : handset.model)")
-                                    Text(handset.storageOrSetup > 1 ? "In Storage" : "Active")
-                                        .foregroundStyle(.secondary)
-                                }
-                                Spacer()
-                                VStack(alignment: .trailing) {
-                                    Text("Device \(handset.handsetNumber + 1)")
-                                    if cordlessDeviceFilter == "all" {
-                                        Text(handset.cordlessDeviceTypeText)
+                if !filteredCordlessDevices.isEmpty {
+                    List {
+                        ForEach(filteredCordlessDevices) { handset in
+                            NavigationLink {
+                                HandsetDetailView(handset: handset)
+                                    .navigationTitle("Device \(handset.handsetNumber + 1)")
+                            } label: {
+                                HStack {
+                                    VStack(alignment: .leading) {
+                                        Text("\(handset.brand) \(handset.model.isEmpty ? "<No Model Number>" : handset.model)")
+                                        Text(handset.storageOrSetup > 1 ? "In Storage" : "Active")
+                                            .foregroundStyle(.secondary)
                                     }
+                                    Spacer()
+                                    VStack(alignment: .trailing) {
+                                        Text("Device \(handset.handsetNumber + 1)")
+                                        if cordlessDeviceFilter == "all" {
+                                            Text(handset.cordlessDeviceTypeText)
+                                        }
+                                    }
+                                    .foregroundStyle(.secondary)
                                 }
-                                .foregroundStyle(.secondary)
+                                .padding(.vertical, 5)
                             }
-                            .padding(.vertical, 5)
+                            .contextMenu {
+                                Button {
+                                    duplicateHandset(handset)
+                                } label: {
+                                    Label("Duplicate", systemImage: "doc.on.doc")
+                                }
+                                Divider()
+                                Button(role: .destructive) {
+                                    dialogManager.showingDeleteHandset = true
+                                    dialogManager.handsetToDelete = handset
+                                } label: {
+                                    Label("Delete…", systemImage: "trash")
+                                }
+                            }
+                            .swipeActions {
+                                Button(role: .destructive) {
+                                    dialogManager.showingDeleteHandset = true
+                                    dialogManager.handsetToDelete = handset
+                                } label: {
+                                    Label("Delete", systemImage: "trash")
+                                }
+                            }
                         }
-                        .contextMenu {
-                            Button {
-                                duplicateHandset(handset)
-                            } label: {
-                                Label("Duplicate", systemImage: "doc.on.doc")
-                            }
-                            Divider()
-                            Button(role: .destructive) {
-                                dialogManager.showingDeleteHandset = true
-                                dialogManager.handsetToDelete = handset
-                            } label: {
-                                Label("Delete…", systemImage: "trash")
-                            }
-                        }
-                        .swipeActions {
-                            Button(role: .destructive) {
-                                dialogManager.showingDeleteHandset = true
-                                dialogManager.handsetToDelete = handset
-                            } label: {
-                                Label("Delete", systemImage: "trash")
-                            }
-                        }
+                        .onMove(perform: moveHandsets)
                     }
-                    .onMove(perform: moveHandsets)
+                    if phone.cordlessHandsetsIHave.count > phone.maxCordlessHandsets {
+                        WarningText("You have more cordless devices than the base can handle!")
+                    }
                 }
-                if phone.cordlessHandsetsIHave.count > phone.maxCordlessHandsets {
-                    WarningText("You have more cordless devices than the base can handle!")
+                FormTextField("Main Cordless Device Model", text: $phone.mainHandsetModel)
+                InfoText("Enter the model number of the main cordless handset or deskset included with the \(phone.brand) \(phone.model) so newly-added cordless devices will default to that model number.\nA cordless phone's main handset/deskset is registered to the base as number 1, and may have some special features, like backing up the time in case of power outage, not available to other devices on the system.\nSome non-expandable cordless phones won't have a handset model number or it will be the same as that of the set it came with--leave this field blank in this case.")
+            }
+            .alert("Delete this cordless device?", isPresented: $dialogManager.showingDeleteHandset, presenting: $dialogManager.handsetToDelete) { handset in
+                Button("Delete", role: .destructive) {
+                    deleteHandset(handset.wrappedValue!)
+                    dialogManager.handsetToDelete = nil
+                    dialogManager.showingDeleteHandset = false
                 }
+                Button("Cancel", role: .cancel) {
+                    dialogManager.handsetToDelete = nil
+                    dialogManager.showingDeleteHandset = false
+                }
+            } message: { handset in
+                let wrappedHandset = handset.wrappedValue!
+                Text("This \(wrappedHandset.brand) \(wrappedHandset.model.isEmpty ? "cordless device" : wrappedHandset.model) will be deleted from this \(phone.brand) \(phone.model).")
             }
-            FormTextField("Main Cordless Device Model", text: $phone.mainHandsetModel)
-            InfoText("Enter the model number of the main cordless handset or deskset included with the \(phone.brand) \(phone.model) so newly-added cordless devices will default to that model number.\nA cordless phone's main handset/deskset is registered to the base as number 1, and may have some special features, like backing up the time in case of power outage, not available to other devices on the system.\nSome non-expandable cordless phones won't have a handset model number or it will be the same as that of the set it came with--leave this field blank in this case.")
+            .alert("Delete all cordless devices?", isPresented: $dialogManager.showingDeleteAllHandsets) {
+                Button("Delete", role: .destructive) {
+                    phone.cordlessHandsetsIHave.removeAll()
+                    dialogManager.showingDeleteAllHandsets = false
+                }
+                Button("Cancel", role: .cancel) {
+                    dialogManager.showingDeleteAllHandsets = false
+                }
+            } message: {
+                Text("All cordless devices will be deleted from this \(phone.brand) \(phone.model).")
+            }
         }
-        .alert("Delete this cordless device?", isPresented: $dialogManager.showingDeleteHandset, presenting: $dialogManager.handsetToDelete) { handset in
-            Button("Delete", role: .destructive) {
-                deleteHandset(handset.wrappedValue!)
-                dialogManager.handsetToDelete = nil
-                dialogManager.showingDeleteHandset = false
-            }
-            Button("Cancel", role: .cancel) {
-                dialogManager.handsetToDelete = nil
-                dialogManager.showingDeleteHandset = false
-            }
-        } message: { handset in
-            let wrappedHandset = handset.wrappedValue!
-            Text("This \(wrappedHandset.brand) \(wrappedHandset.model.isEmpty ? "cordless device" : wrappedHandset.model) will be deleted from this \(phone.brand) \(phone.model).")
-        }
-        .alert("Delete all cordless devices?", isPresented: $dialogManager.showingDeleteAllHandsets) {
-            Button("Delete", role: .destructive) {
-                phone.cordlessHandsetsIHave.removeAll()
-                dialogManager.showingDeleteAllHandsets = false
-            }
-            Button("Cancel", role: .cancel) {
-                dialogManager.showingDeleteAllHandsets = false
-            }
-        } message: {
-            Text("All cordless devices will be deleted from this \(phone.brand) \(phone.model).")
-        }
-        Section("Cordless Device Chargers") {
+        Section(phone.isWiFiHandset ? "Chargers" : "Cordless Device Chargers") {
                 Text("\(chargerCount) \(chargerCount == 1 ? "Charger" : "Chargers")")
                 Menu {
                     if !phone.chargersIHave.isEmpty {

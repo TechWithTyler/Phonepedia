@@ -367,6 +367,7 @@ struct PhoneListView: View {
     func deleteAllPhones() {
         // 1. Clear the phone selection.
         selectedPhone = nil
+        resetPhoneFilter()
         // 2. Delete each phone.
         for phone in phones {
             phone.cordlessHandsetsIHave.removeAll()

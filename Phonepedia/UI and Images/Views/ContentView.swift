@@ -10,7 +10,7 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
-    
+
     // MARK: - Properties - Objects
 
     @Environment(\.modelContext) private var modelContext
@@ -25,8 +25,8 @@ struct ContentView: View {
 
     // MARK: - Body
 
-	var body: some View {
-		NavigationSplitView {
+    var body: some View {
+        NavigationSplitView {
             PhoneListView(phones: phones, selectedPhone: $selectedPhone)
                 .environmentObject(dialogManager)
                 .navigationTitle("Phone List")
@@ -35,21 +35,24 @@ struct ContentView: View {
                 #else
                 .navigationBarTitleDisplayMode(.inline)
                 #endif
-		} detail: {
-			if !phones.isEmpty {
-				if let phone = selectedPhone {
+        } detail: {
+            if !phones.isEmpty {
+                if let phone = selectedPhone {
                     PhoneDetailView(phone: phone)
                         .environmentObject(dialogManager)
-				} else {
-					NoPhoneSelectedView()
-				}
-			} else {
-				EmptyView()
-			}
-		}
+                } else {
+                    NoPhoneSelectedView()
+                }
+            } else {
+                EmptyView()
+            }
+        }
         // Info views
         .sheet(isPresented: $dialogManager.showingPhoneTypeDefinitions) {
             PhoneTypeDefinitionsView()
+        }
+        .sheet(isPresented: $dialogManager.showingAboutPhoneGrades) {
+            AboutPhoneGradesView()
         }
         .sheet(isPresented: $dialogManager.showingAnsweringSystemVsVoicemail) {
             AnsweringSystemVsVoicemailView()

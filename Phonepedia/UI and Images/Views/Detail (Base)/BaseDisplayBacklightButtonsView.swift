@@ -16,7 +16,7 @@ struct BaseDisplayBacklightButtonsView: View {
     @EnvironmentObject var dialogManager: DialogManager
 
     var body: some View {
-        if phone.isCordless || phone.cordedPhoneType == 0 {
+        if phone.isCordless || phone.cordedPhoneType == 0 || phone.isWiFiHandset {
             Picker("Button Type", selection: $phone.buttonType) {
                 Text("Spaced").tag(0)
                 Text("Spaced with Click Feel").tag(1)
@@ -25,7 +25,7 @@ struct BaseDisplayBacklightButtonsView: View {
                 Text("Diamond-Cut (No Space Between Buttons, Click Feel)").tag(4)
                 Text("Touch Button Panel").tag(5)
             }
-            if (!phone.isCordless && (phone.cordedPhoneType == 0 || phone.cordedPhoneType == 2)) || (phone.isCordless && phone.hasBaseSpeakerphone) {
+            if !phone.isWiFiHandset && ((!phone.isCordless && (phone.cordedPhoneType == 0 || phone.cordedPhoneType == 2)) || (phone.isCordless && phone.hasBaseSpeakerphone)) {
                 Toggle(isOn: $phone.hasBaseKeypad) {
                     Text(phone.isCordless ? "Has Base Keypad" : "Has User-Accessible Keypad")
                 }
@@ -46,10 +46,11 @@ struct BaseDisplayBacklightButtonsView: View {
             Toggle("7 Has Q and 9 Has Z", isOn: $phone.hasQZ)
             PhoneNumberLetterInfoView()
         }
-        if phone.hasBaseKeypad || phone.hasAnsweringSystem == 1 || phone.hasAnsweringSystem == 3 {
+        if !phone.isWiFiHandset && (phone.hasBaseKeypad || phone.hasAnsweringSystem == 1 || phone.hasAnsweringSystem == 3) {
             Toggle("Has Rotary Phone-Inspired Button Layout", isOn: $phone.hasRotaryInspiredButtonLayout)
-            InfoText("Some phones have a rotary phone-inspired design, with the buttons arranged like a rotary dial. The display, if any, is located in the center of the \"dial\".")
+            InfoText("Some phones have a rotary phone-inspired design, with the buttons arranged like a rotary dial. The display, if any, is often located in the center of the \"dial\".")
         }
+        if !phone.isWiFiHandset {
         if phone.isCordless || phone.cordedPhoneType == 0 {
             Picker(phone.isCordless ? "Display Type (Base)" : "Display Type", selection: $phone.baseDisplayType) {
                 Text("None").tag(0)
@@ -159,42 +160,43 @@ struct BaseDisplayBacklightButtonsView: View {
                 }
             }
         }
-        if phone.isCordless || phone.cordedPhoneType == 0 || phone.cordedPhoneType == 2 {
-            Picker("Button Lighting Type", selection: $phone.baseKeyBacklightAmount) {
-                Text("None").tag(0)
-                Text("Numbers Only").tag(1)
-                Text("Numbers + Some Function Buttons").tag(2)
-                Text("Numbers + All Function Buttons").tag(3)
-                if phone.baseNavigatorKeyType > 0 {
-                    Text("Numbers + Navigation Button").tag(4)
-                    Text("All Buttons").tag(5)
-                }
-                if !phone.isCordless && phone.cordedPhoneType == 2 {
-                    Text("Front Light").tag(6)
-                }
-            }
-            if !phone.isCordless && phone.cordedPowerSource == 0 {
-                InfoText("The brightness of a line-powered phone's button lighting depends on the line's off-hook voltage. If the phone's off-hook voltage is low, the backlight will be dim.")
-            }
-            if phone.baseKeyBacklightAmount > 0 {
-                ColorPicker("Button Lighting Color", selection: phone.baseKeyBacklightColorBinding, supportsOpacity: false)
-                if phone.baseKeyBacklightAmount < 6 {
-                    Picker("Button Backlight Layer", selection: $phone.baseKeyBacklightLayer) {
-                        Text("Background").tag(0)
-                        Text("Foreground").tag(1)
+            if phone.isCordless || phone.cordedPhoneType == 0 || phone.cordedPhoneType == 2 {
+                Picker("Button Lighting Type", selection: $phone.baseKeyBacklightAmount) {
+                    Text("None").tag(0)
+                    Text("Numbers Only").tag(1)
+                    Text("Numbers + Some Function Buttons").tag(2)
+                    Text("Numbers + All Function Buttons").tag(3)
+                    if phone.baseNavigatorKeyType > 0 {
+                        Text("Numbers + Navigation Button").tag(4)
+                        Text("All Buttons").tag(5)
+                    }
+                    if !phone.isCordless && phone.cordedPhoneType == 2 {
+                        Text("Front Light").tag(6)
                     }
                 }
-                VStack {
-                    Text("Button Backlight Example")
-                    Image(systemName: phone.baseKeyBacklightLayer == 1 ? "5.square" : "5.square.fill")
-                        .foregroundStyle(phone.baseKeyBacklightColorBinding.wrappedValue)
-                        .font(.system(size: 40))
+                if !phone.isCordless && phone.cordedPowerSource == 0 {
+                    InfoText("The brightness of a line-powered phone's button lighting depends on the line's off-hook voltage. If the phone's off-hook voltage is low, the backlight will be dim.")
                 }
-            }
-            ColorPicker("Button Foreground Color", selection: phone.baseKeyForegroundColorBinding, supportsOpacity: false)
-            ColorPicker("Button Background Color", selection: phone.baseKeyBackgroundColorBinding, supportsOpacity: false)
-            Button("Swap Foreground/Background Colors", systemImage: "arrow.swap") {
-                phone.swapKeyBackgroundAndForegroundColors()
+                if phone.baseKeyBacklightAmount > 0 {
+                    ColorPicker("Button Lighting Color", selection: phone.baseKeyBacklightColorBinding, supportsOpacity: false)
+                    if phone.baseKeyBacklightAmount < 6 {
+                        Picker("Button Backlight Layer", selection: $phone.baseKeyBacklightLayer) {
+                            Text("Background").tag(0)
+                            Text("Foreground").tag(1)
+                        }
+                    }
+                    VStack {
+                        Text("Button Backlight Example")
+                        Image(systemName: phone.baseKeyBacklightLayer == 1 ? "5.square" : "5.square.fill")
+                            .foregroundStyle(phone.baseKeyBacklightColorBinding.wrappedValue)
+                            .font(.system(size: 40))
+                    }
+                }
+                ColorPicker("Button Foreground Color", selection: phone.baseKeyForegroundColorBinding, supportsOpacity: false)
+                ColorPicker("Button Background Color", selection: phone.baseKeyBackgroundColorBinding, supportsOpacity: false)
+                Button("Swap Foreground/Background Colors", systemImage: "arrow.swap") {
+                    phone.swapKeyBackgroundAndForegroundColors()
+                }
             }
         }
     }

@@ -21,7 +21,9 @@ extension Phone {
         case cordedCordless = "Corded/Cordless"
         
         case cordlessWithTransmitOnlyBase = "Cordless With Transmit-Only Base"
-        
+
+        case wiFiHandset = "Wi-Fi Handset"
+
         // MARK: - Phone Type Definitions
         
         struct DictionaryEntry: Identifiable {

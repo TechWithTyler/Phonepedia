@@ -13,7 +13,11 @@ struct AboutConnectionTypesView: View {
     // MARK: - Properties - Dismiss Action
     
     @Environment(\.dismiss) var dismiss
-    
+
+    // MARK: - Properties - Dialog Manager
+
+    @EnvironmentObject var dialogManager: DialogManager
+
     // MARK: - Body
     
     var body: some View {
@@ -55,7 +59,7 @@ struct AboutConnectionTypesView: View {
                 } label: {
                     Text("Cell-To-Landline Solutions")
                 }
-                DisclosureGroup {
+                DisclosureGroup(isExpanded: $dialogManager.aboutPBXExpanded) {
                     Text("A PBX is a device that creates multiple internal phone lines (analog, digital, or VoIP) and are usually seen in businesses and hotels. The connection type specifies the type of phones that can be natively connected to it. Each internal phone line is given a unique phone number, called an extension number, which can only be directly dialed from other phones on the same PBX. To access the outside line, a leading digit (e.g. 9) must be dialed to connect the given extension to an outside line (this is why hotel phones say something like \"dial 9 + area code + number\") on their faceplates. There can only be as many extensions on separate outside calls as there are outside lines. The outside line is optional on many PBXs, so if you just want internal lines, a PBX is a great option.")
                 } label: {
                     Text("PBX (Private Branch Exchange)")
@@ -84,6 +88,7 @@ struct AboutConnectionTypesView: View {
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button {
+                        dialogManager.aboutPBXExpanded = false
                         dismiss()
                     } label: {
                         Text("Done")

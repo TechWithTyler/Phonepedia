@@ -28,6 +28,7 @@
 		8D32A5142D4449A200F606FC /* analogCordlessPhoneAudioSampleScrambled.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D32A5132D4449A200F606FC /* analogCordlessPhoneAudioSampleScrambled.wav */; };
 		8D32A5162D4560DC00F606FC /* IntercomAutoAnswerInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D32A5152D4560DC00F606FC /* IntercomAutoAnswerInfoView.swift */; };
 		8D32A5182D4562C500F606FC /* HandsetPowerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D32A5172D4562C500F606FC /* HandsetPowerView.swift */; };
+		8D3625A32D9346D300CA3D93 /* AboutPhoneGradesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3625A22D9346D300CA3D93 /* AboutPhoneGradesView.swift */; };
 		8D380B252C3DD35D00505B89 /* PhoneCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D380B242C3DD35D00505B89 /* PhoneCountView.swift */; };
 		8D38ED662CAF2DC500CCC422 /* BaseSpeakerphoneIntercomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38ED652CAF2DC500CCC422 /* BaseSpeakerphoneIntercomView.swift */; };
 		8D38ED682CAF2E9600CCC422 /* PhoneSpecialFeaturesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38ED672CAF2E9600CCC422 /* PhoneSpecialFeaturesView.swift */; };
@@ -202,6 +203,7 @@
 		8D32A5132D4449A200F606FC /* analogCordlessPhoneAudioSampleScrambled.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = analogCordlessPhoneAudioSampleScrambled.wav; sourceTree = "<group>"; };
 		8D32A5152D4560DC00F606FC /* IntercomAutoAnswerInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntercomAutoAnswerInfoView.swift; sourceTree = "<group>"; };
 		8D32A5172D4562C500F606FC /* HandsetPowerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandsetPowerView.swift; sourceTree = "<group>"; };
+		8D3625A22D9346D300CA3D93 /* AboutPhoneGradesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutPhoneGradesView.swift; sourceTree = "<group>"; };
 		8D380B242C3DD35D00505B89 /* PhoneCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneCountView.swift; sourceTree = "<group>"; };
 		8D38ED652CAF2DC500CCC422 /* BaseSpeakerphoneIntercomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSpeakerphoneIntercomView.swift; sourceTree = "<group>"; };
 		8D38ED672CAF2E9600CCC422 /* PhoneSpecialFeaturesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneSpecialFeaturesView.swift; sourceTree = "<group>"; };
@@ -601,6 +603,7 @@
 				8DBCB7EC2D4AD04000878A1F /* SilentModeInfoView.swift */,
 				8DA72F072D79021100A957A4 /* KeypadLockInfoView.swift */,
 				8DA72F092D79042700A957A4 /* OneTouchEmergencyCallingInfoView.swift */,
+				8D3625A22D9346D300CA3D93 /* AboutPhoneGradesView.swift */,
 			);
 			path = Info;
 			sourceTree = "<group>";
@@ -922,6 +925,7 @@
 				8D38ED752CAF32F700CCC422 /* PhoneMOHView.swift in Sources */,
 				8D38ED792CAF35FE00CCC422 /* PhoneMessagingView.swift in Sources */,
 				8DDE4E4B2CFFAA4D000C3D46 /* HandsetNumberDigitView.swift in Sources */,
+				8D3625A32D9346D300CA3D93 /* AboutPhoneGradesView.swift in Sources */,
 				8D2BAF552CD188740016C61E /* ChargeContactTypePickerItems.swift in Sources */,
 				8DBCB7E52D498D2200878A1F /* MessageListInfoView.swift in Sources */,
 				8D19F0BD2D07962A00C3B67C /* PhoneListDetailOptions.swift in Sources */,
@@ -1264,6 +1268,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Phonepedia/Supporting Files/Info.plist";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.reference";
 				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Use the camera to take a photo of your phone to display in the phones list and detail view.";
@@ -1284,7 +1289,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 2025.3;
+				MARKETING_VERSION = 2025.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tylersheft.Phonepedia;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
@@ -1313,6 +1318,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Phonepedia/Supporting Files/Info.plist";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.reference";
 				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Use the camera to take a photo of your phone to display in the phones list and detail view.";
@@ -1333,7 +1339,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 2025.3;
+				MARKETING_VERSION = 2025.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tylersheft.Phonepedia;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;

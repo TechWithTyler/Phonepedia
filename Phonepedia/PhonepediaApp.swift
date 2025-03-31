@@ -29,7 +29,7 @@ struct PhonepediaApp: App {
             DocumentLaunchPhonesAccessoryView()
         }
 #endif
-        DocumentGroup(editing: .phonepediaDatabase, migrationPlan: PhonepediaMigrationPlan.self) {
+        DocumentGroup(editing: .phonepediaCatalog, migrationPlan: PhonepediaMigrationPlan.self) {
             ContentView()
                 .environmentObject(photoViewModel)
                 .environmentObject(dialogManager)
