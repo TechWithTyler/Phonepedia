@@ -351,6 +351,8 @@ struct PhoneListView: View {
         let deletedIndex = phone.phoneNumberInCollection
         // 2. Delete the phone.
         dialogManager.phoneToDelete = nil
+        phone.cordlessHandsetsIHave.removeAll()
+        phone.chargersIHave.removeAll()
         modelContext.delete(phone)
         // 3. Clear the phone selection.
         selectedPhone = nil
@@ -367,6 +369,8 @@ struct PhoneListView: View {
         selectedPhone = nil
         // 2. Delete each phone.
         for phone in phones {
+            phone.cordlessHandsetsIHave.removeAll()
+            phone.chargersIHave.removeAll()
             modelContext.delete(phone)
         }
     }
