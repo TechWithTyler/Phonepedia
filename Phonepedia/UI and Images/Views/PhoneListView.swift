@@ -62,13 +62,18 @@ struct PhoneListView: View {
     }
 
     var cordedPhones: [Phone] {
-        return phones.filter { $0.numberOfIncludedCordlessHandsets == 0 }
+        return phones.filter { $0.numberOfIncludedCordlessHandsets == 0 && !$0.isWiFiHandset }
+    }
+
+    var wiFiHandsets: [Phone] {
+        return phones.filter { $0.isWiFiHandset }
     }
 
     var typeFilteredPhones: [Phone] {
         switch phoneFilterType {
         case Phone.PhoneType.cordless.rawValue.lowercased(): return cordlessPhones
         case Phone.PhoneType.corded.rawValue.lowercased(): return cordedPhones
+        case Phone.PhoneType.wiFiHandset.rawValue.lowercased(): return wiFiHandsets
         default: return phones
         }
     }
@@ -253,6 +258,7 @@ struct PhoneListView: View {
                 Divider()
                 Text("Cordless or Corded/Cordless Phones").tag(Phone.PhoneType.cordless.rawValue.lowercased())
                 Text("Corded Phones").tag(Phone.PhoneType.corded.rawValue.lowercased())
+                Text("Wi-Fi Handsets").tag(Phone.PhoneType.wiFiHandset.rawValue.lowercased())
             }
             .pickerStyle(.menu)
             .toggleStyle(.automatic)
