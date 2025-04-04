@@ -45,9 +45,10 @@ struct BaseCallerIDView: View {
 #endif
         }
         Toggle("Supports Call Waiting", isOn: $phone.supportsCallWaiting)
-        InfoText("Call waiting allows you to receive calls even when you are on the phone. Call Waiting Caller ID (CWID) allows you to receive caller ID for the 2nd call. On analog phones, a high-pitched tone, called the Customer Premise Equipment Alert Signal tone, will be played after the call waiting tone. This tone tells the phone to play a DTMF \"D\" tone to let the provider know it can send caller ID data for the call.")
+        InfoText("Call waiting allows you to receive calls even when you are on the phone.\nCall Waiting Caller ID (CWID) allows you to receive caller ID for the 2nd call. On analog phones, a high-pitched tone, called the Customer Premise Equipment Alert Signal tone, will be played after the call waiting tone. This tone tells the phone to play a DTMF \"A\" or \"D\" tone (depending on the caller ID standards the phone supports, if it supports caller ID and is off-hook, to let the provider know it can send caller ID data for the call. Once the phone detects the Customer Premise Equipment Alert Signal tone, incoming audio is briefly muted to prevent the caller ID data tones from being heard and making you wonder \"What was that weird sound I just heard?\".")
         ExampleAudioView(audioFile: .callWaitingTone)
         ExampleAudioView(audioFile: .dtmfToneD)
+        ExampleAudioView(audioFile: .dtmfToneA)
     }
 }
 

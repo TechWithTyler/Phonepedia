@@ -54,11 +54,17 @@ class AudioManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
         // The audio file for DTMF tone D.
         case dtmfToneD = "dtmfToneD"
 
+        // The audio file for DTMF tone A.
+        case dtmfToneA = "dtmfToneA"
+
         // The audio file for pulse dialing.
         case pulseDialing = "pulseDialing"
 
         // The audio file for a US ring signal and caller ID FSK tone.
         case ringAndCallerIDFSK = "ringAndCallerIDFSK"
+
+        // The audio file for DTMF caller ID.
+        case dtmfCallerID = "dtmfCallerID"
 
         // The audio file for an analog cordless phone audio sample.
         case analogCordlessPhoneAudioSampleNormal = "analogCordlessPhoneAudioSampleNormal"

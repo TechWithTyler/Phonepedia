@@ -63,6 +63,7 @@
 		8D3D27902ABCDDF30005FEC2 /* PhonepediaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3D278F2ABCDDF30005FEC2 /* PhonepediaUITests.swift */; };
 		8D3D27922ABCDDF30005FEC2 /* PhonepediaUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3D27912ABCDDF30005FEC2 /* PhonepediaUITestsLaunchTests.swift */; };
 		8D40612D2B8011E800F182DA /* AboutConnectionTypesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D40612C2B8011E800F182DA /* AboutConnectionTypesView.swift */; };
+		8D46478B2D9F2701001A53F4 /* dtmfToneA.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D46478A2D9F2701001A53F4 /* dtmfToneA.wav */; };
 		8D4E2A582B8FD4E600FF4FE5 /* PhoneNumberLetterInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4E2A572B8FD4E600FF4FE5 /* PhoneNumberLetterInfoView.swift */; };
 		8D523B002C4EF47000AC6862 /* VoicemailQuickDialInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D523AFF2C4EF47000AC6862 /* VoicemailQuickDialInfoView.swift */; };
 		8D71C8172CDD651D00072E50 /* RedialNameDisplayInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D71C8162CDD651D00072E50 /* RedialNameDisplayInfoView.swift */; };
@@ -135,6 +136,7 @@
 		8DBCB7ED2D4AD04000878A1F /* SilentModeInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBCB7EC2D4AD04000878A1F /* SilentModeInfoView.swift */; };
 		8DC725892D4D778800ED9D68 /* DocumentLaunchBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC725882D4D778800ED9D68 /* DocumentLaunchBackgroundView.swift */; };
 		8DC7258B2D4D7B6100ED9D68 /* DocumentLaunchPhoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC7258A2D4D7B6100ED9D68 /* DocumentLaunchPhoneView.swift */; };
+		8DC9620C2D9C8A2D006A3BF6 /* dtmfCallerID.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8DC9620B2D9C8A2D006A3BF6 /* dtmfCallerID.wav */; };
 		8DC964E02D0B6C9E00984466 /* AnalogPhoneConnectedToPickerItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC964DF2D0B6C9E00984466 /* AnalogPhoneConnectedToPickerItems.swift */; };
 		8DC964E22D0B716800984466 /* AcquisitionMethodPickerItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC964E12D0B716800984466 /* AcquisitionMethodPickerItems.swift */; };
 		8DC9E7DC2C37434C0089B48A /* AnsweringSystemGreetingComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC9E7DB2C37434C0089B48A /* AnsweringSystemGreetingComponents.swift */; };
@@ -239,6 +241,7 @@
 		8D3D278F2ABCDDF30005FEC2 /* PhonepediaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhonepediaUITests.swift; sourceTree = "<group>"; };
 		8D3D27912ABCDDF30005FEC2 /* PhonepediaUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhonepediaUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		8D40612C2B8011E800F182DA /* AboutConnectionTypesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutConnectionTypesView.swift; sourceTree = "<group>"; };
+		8D46478A2D9F2701001A53F4 /* dtmfToneA.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dtmfToneA.wav; sourceTree = "<group>"; };
 		8D4E2A572B8FD4E600FF4FE5 /* PhoneNumberLetterInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberLetterInfoView.swift; sourceTree = "<group>"; };
 		8D523AFF2C4EF47000AC6862 /* VoicemailQuickDialInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoicemailQuickDialInfoView.swift; sourceTree = "<group>"; };
 		8D71C8162CDD651D00072E50 /* RedialNameDisplayInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedialNameDisplayInfoView.swift; sourceTree = "<group>"; };
@@ -314,6 +317,7 @@
 		8DBCB7EC2D4AD04000878A1F /* SilentModeInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SilentModeInfoView.swift; sourceTree = "<group>"; };
 		8DC725882D4D778800ED9D68 /* DocumentLaunchBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentLaunchBackgroundView.swift; sourceTree = "<group>"; };
 		8DC7258A2D4D7B6100ED9D68 /* DocumentLaunchPhoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentLaunchPhoneView.swift; sourceTree = "<group>"; };
+		8DC9620B2D9C8A2D006A3BF6 /* dtmfCallerID.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dtmfCallerID.wav; sourceTree = "<group>"; };
 		8DC964DF2D0B6C9E00984466 /* AnalogPhoneConnectedToPickerItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalogPhoneConnectedToPickerItems.swift; sourceTree = "<group>"; };
 		8DC964E12D0B716800984466 /* AcquisitionMethodPickerItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcquisitionMethodPickerItems.swift; sourceTree = "<group>"; };
 		8DC9E7DB2C37434C0089B48A /* AnsweringSystemGreetingComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnsweringSystemGreetingComponents.swift; sourceTree = "<group>"; };
@@ -393,6 +397,8 @@
 		8D32A5022D42EC0600F606FC /* Tones */ = {
 			isa = PBXGroup;
 			children = (
+				8D46478A2D9F2701001A53F4 /* dtmfToneA.wav */,
+				8DC9620B2D9C8A2D006A3BF6 /* dtmfCallerID.wav */,
 				8D8198A12D7645B90026D882 /* ringAndCallerIDFSK.wav */,
 				8D32A5072D42F1ED00F606FC /* callWaitingTone.wav */,
 				8D32A5082D42F1ED00F606FC /* dtmfToneD.wav */,
@@ -875,6 +881,7 @@
 				8D842D692D3F122200F50F32 /* callBlockPreScreeningCallerName.wav in Resources */,
 				8D842D6A2D3F122200F50F32 /* talkingCallerIDNumber.wav in Resources */,
 				8D842D6B2D3F122200F50F32 /* answeringSystemGreetingRecordMessage.wav in Resources */,
+				8DC9620C2D9C8A2D006A3BF6 /* dtmfCallerID.wav in Resources */,
 				8D842D6C2D3F122200F50F32 /* talkingCallerIDCNAM.wav in Resources */,
 				8D32A5142D4449A200F606FC /* analogCordlessPhoneAudioSampleScrambled.wav in Resources */,
 				8D32A50E2D42F23600F606FC /* pulseDialing.wav in Resources */,
@@ -883,6 +890,7 @@
 				8D842D6E2D3F122200F50F32 /* talkingCallerIDPhonebook.wav in Resources */,
 				8D71C81B2CDEBDF600072E50 /* PrivacyInfo.xcprivacy in Resources */,
 				8DA844CE2B72E1D7006CBCA7 /* Assets.xcassets in Resources */,
+				8D46478B2D9F2701001A53F4 /* dtmfToneA.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
