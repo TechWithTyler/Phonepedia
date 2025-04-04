@@ -14,7 +14,7 @@ struct BaseCallerIDView: View {
     @Bindable var phone: Phone
 
     var body: some View {
-        let exampleName = NameNumberExamples.names.randomElement()!
+        let exampleName = NameNumberExamples.callerIDNames.randomElement()!
         let exampleFullNumber = NameNumberExamples.examplePhoneNumber()
         let exampleAreaCode = exampleFullNumber.areaCode
         let exampleCentralExchange = exampleFullNumber.centralExchange

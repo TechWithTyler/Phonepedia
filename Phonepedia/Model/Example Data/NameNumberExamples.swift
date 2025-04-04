@@ -12,10 +12,14 @@ struct NameNumberExamples {
 
     // MARK: - Phone Number Format Enum
 
-    enum PhoneNumberFormat {
+    enum NANPPhoneNumberFormat {
+
         case parentheses // Example: (555) 555-1234
+
         case dashed      // Example: 555-555-1234
+
         case plain        // Example: 5555551234
+
     }
 
     // MARK: - Properties - Arrays
@@ -29,12 +33,17 @@ struct NameNumberExamples {
         "Charlie Johnson"
     ]
 
+    // The example names filtered to only include those with two components (first and last name).
+    static var callerIDNames: [String] {
+        return names.filter { $0.components(separatedBy: .whitespaces).count == 2 }
+    }
+
     // MARK: - CNAM for Name
 
     // Takes the given name and converts it from "First Last" to "LAST, FIRST".
     static func cnamForName(_ name: String) -> String {
         // 1. Split name into separate components.
-        let splitName = name.components(separatedBy: " ")
+        let splitName = name.components(separatedBy: .whitespaces)
         // 2. Get the first and last names and convert them to uppercase.
         let firstName = splitName.first?.uppercased()
         let lastName = splitName.last?.uppercased()
@@ -65,7 +74,7 @@ struct NameNumberExamples {
         return (areaCode: randomAreaCode, centralExchange: randomNumber.prefix(3), number: randomNumber.suffix(4))
     }
 
-    static func formatPhoneNumber(areaCode: String, centralExchange: String.SubSequence, localNumber: String.SubSequence, withFormat format: PhoneNumberFormat) -> String {
+    static func formatPhoneNumber(areaCode: String, centralExchange: String.SubSequence, localNumber: String.SubSequence, withFormat format: NANPPhoneNumberFormat) -> String {
         // Format the number based on the requested format.
         switch format {
         case .parentheses:
