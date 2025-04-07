@@ -54,6 +54,9 @@ struct ContentView: View {
         .sheet(isPresented: $dialogManager.showingAboutPhoneGrades) {
             AboutPhoneGradesView()
         }
+        .sheet(isPresented: $dialogManager.showingAboutCallerIDNameFormatting) {
+            AboutCallerIDNameFormattingView()
+        }
         .sheet(isPresented: $dialogManager.showingAnsweringSystemVsVoicemail) {
             AnsweringSystemVsVoicemailView()
         }

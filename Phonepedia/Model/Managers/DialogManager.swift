@@ -64,6 +64,8 @@ class DialogManager: ObservableObject {
 
     @Published var showingAboutConnectionTypes: Bool = false
 
+    @Published var showingAboutCallerIDNameFormatting: Bool = false
+
     @Published var aboutPBXExpanded: Bool = false
 
     #if !os(macOS)
