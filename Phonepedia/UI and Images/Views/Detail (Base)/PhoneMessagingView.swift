@@ -122,14 +122,23 @@ struct PhoneMessagingView: View {
             if phone.landlineConnectionType == 0 {
                 Picker("\"New Voicemail\" Detection Method", selection: $phone.voicemailIndication) {
                     Text("None").tag(0)
-                    Text("Frequency-Shift-Keying (FSK) Tones").tag(1)
-                    Text("Listen For Stutter Dial Tones").tag(2)
-                    Text("FSK and Stutter Dial Tone").tag(3)
+                    Divider()
+                    Text("1 - Frequency-Shift-Keying (FSK) Tones").tag(1)
+                    Text("2 - Listen For Stutter Dial Tones").tag(2)
+                    Text("3 - High Voltage (NEON)").tag(4)
+                    Text("4 - Polarity Reversal").tag(5)
+                    Divider()
+                    Text("Both 1 and 2").tag(3)
+                    Text("Selectable").tag(6)
                 }
                 InfoText("""
-A phone's voicemail indicator usually works in one or both of the following ways:
-• Your phone company may send FSK tones to the phone whenever a new voicemail is left and when all new voicemails are played, to tell the phone to turn on or off its voicemail indicator.
-• The phone may go off-hook for a few seconds periodically, or when you hang up or it stops ringing, to listen for a stutter dial tone ("bee-bee-bee-beeeeeeeep") which your phone company may use as an audible indication of new voicemails.
+A phone's voicemail indicator works in one of the following ways:
+• 1: Your phone provider may send FSK tones to the phone whenever a new voicemail is left and when all new voicemails are played, to tell the phone to turn on or off its voicemail indicator.
+• 2: The phone may go off-hook for a few seconds periodically, or when you hang up or it stops ringing, to listen for a stutter dial tone ("bee-bee-bee-beeeeeeeep") which your phone provider may use as an audible indication of new voicemails.
+• 3: A high voltage signal on the line turns on and off repeatedly, or stays on, as long as you have new voicemails. This voltage causes the phone's LED, incandescent, or neon bulb message waiting indicator to turn on or flash. If you use a device to listen in on the phone line without going off-hook, this signal sounds like purring or hissing. This is often used in conjunction with a constantly-pulsing dial tone.
+• 4: The phone can use line polarity reversal to indicate new voicemails. This method is the least reliable as the provider and phone aren't guaranteed to be in sync (e.g. if the phone wasn't connected to the line when the expected indicator state changed).
+• Both 1 and 2: The phone can go off-hook to listen for a stutter dial tone, or respond to FSK tones. This allows the voicemail indicator to work when one of the 2 methods is unreliable (e.g. stutter dial tone detection only happens after going on-hook or the phone stops ringing, or the FSK tone isn't sent for some reason). The phone may have an option to disable stutter dial tone detection, which is useful if your provider only sends FSK tones.
+• Selectable: The phone can be set to use any of the above methods. This selectability is often present on hotel phones, since they're designed to be compatible with a wide range of hotel PBX systems which may not offer the same selectability.
 """)
                 if phone.voicemailIndication >= 2 {
                     ExampleAudioView(audioFile: .stutterDialTone)
