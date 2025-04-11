@@ -1005,6 +1005,9 @@ final class Phone {
     func baseDisplayTypeChanged(oldValue: Int, newValue: Int) {
         if newValue == 0 {
             baseDisplayCanTilt = false
+            if voicemailIndication == 6 {
+                voicemailIndication = 4
+            }
             if handsetRenaming == 2 {
                 handsetRenaming = 1
             }
