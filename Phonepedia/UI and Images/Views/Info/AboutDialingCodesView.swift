@@ -60,7 +60,7 @@ When you store your international exit code, country code, and trunk prefix code
 • The international dialing symbol (+) will be replaced with the international exit code (e.g., 011 in the US or 00 in the UK).
 • If you add the international prefix and your country code to domestic phone numbers (i.e., phone numbers in the same country your phone number is in) in your contacts, and it matches the country code stored in the phone, the transferred entries will have the international prefix and country code (e.g., +1 for US numbers or +44 for UK numbers) replaced with the trunk prefix code (e.g., 1 for US numbers or 0 for UK numbers).
 Example scenario: You live in the US and store the international code 011, country code 1, and trunk prefix code 1 into the phone so your contacts will be transferred to the phonebook as follows.
-• One of your friends lives in your coutry, the US, and their number is stored as +1 (555) 555-1234. This number has your country code, so it will be stored as 1-555-555-1234 in the phonebook.
+• One of your friends lives in your country, the US, and their number is stored as +1 (555) 555-1234. This number has your country code, so it will be stored as 1-555-555-1234 in the phonebook.
 • Another one of your friends lives in a different country, the UK, and their number is stored as +44 (20) 4567-8901. This number has a different country code than yours since it's in a different country, so it will be stored as 011442045678901 in the phonebook. Note that international numbers may appear without punctuation.
 """)
                 } label: {

@@ -313,7 +313,7 @@ struct PhoneListView: View {
             newPhone.landlineConnectedTo = defaultAnalogPhoneConnectedToSelection
             newPhone.whereAcquired = defaultAcquisitionMethod
             newPhone.frequency = Phone.CordlessFrequency.defaultForCurrentRegion.rawValue
-            // A phone's phoneNumberInCoollection property is the index of the phone in the list, and as with any index, it starts at 0. The number of phones in the list before the new phone is added can be used as the phone's index without adding/subtracting 1.
+            // A phone's phoneNumberInCollection property is the index of the phone in the list, and as with any index, it starts at 0. The number of phones in the list before the new phone is added can be used as the phone's index without adding/subtracting 1.
             newPhone.phoneNumberInCollection = phones.count
             // 3. Insert the new phone into the model context.
             modelContext.insert(newPhone)
@@ -335,7 +335,7 @@ struct PhoneListView: View {
             var phonesCopy = phones
             // 3. Perform the move operation on the copy.
             phonesCopy.move(fromOffsets: source, toOffset: destination)
-            // 4. Use the copy's items and their indicies to move the phones in the original array.
+            // 4. Use the copy's items and their indices to move the phones in the original array.
             for (index, phone) in phonesCopy.reversed().enumerated() {
                 if let originalPhone = phones.filter({ $0.id == phone.id}).first {
                     originalPhone.phoneNumberInCollection = index

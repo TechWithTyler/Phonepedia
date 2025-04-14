@@ -317,7 +317,7 @@ struct CordlessDeviceInfoView: View {
             var handsetsCopy = sortedCordlessDevices
             // 3. Perform the move operation on the copy.
             handsetsCopy.move(fromOffsets: source, toOffset: destination)
-            // 4. Use the copy's items and their indicies to move the cordless devices in the original array.
+            // 4. Use the copy's items and their indices to move the cordless devices in the original array.
             for (index, handset) in handsetsCopy.enumerated() {
                 if let originalHandset = sortedCordlessDevices.filter({ $0.id == handset.id}).first {
                     originalHandset.handsetNumber = index
@@ -371,7 +371,7 @@ struct CordlessDeviceInfoView: View {
             var chargersCopy = sortedChargers
             // 2. Perform the move operation on the copy.
             chargersCopy.move(fromOffsets: source, toOffset: destination)
-            // 3. Use the copy's items and their indicies to move the cordless devices in the original array.
+            // 3. Use the copy's items and their indices to move the cordless devices in the original array.
             for (index, charger) in chargersCopy.enumerated() {
                 if let originalCharger = sortedChargers.filter({ $0.id == charger.id}).first {
                     originalCharger.chargerNumber = index
