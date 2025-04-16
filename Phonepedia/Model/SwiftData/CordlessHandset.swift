@@ -230,6 +230,8 @@ final class CordlessHandset {
 
 	var phonebookCapacity: Int = 0
 
+    var numbersPerPhonebookEntry: Int = 1
+
     var supportsPhonebookRingtones: Bool = false
 
     var supportsPhonebookGroups: Bool = false

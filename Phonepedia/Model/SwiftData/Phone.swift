@@ -353,6 +353,8 @@ final class Phone {
 
     var basePhonebookCapacity: Int = 50
 
+    var numbersPerPhonebookEntry: Int = 1
+
     var baseFavoriteEntriesCapacity: Int = 0
 
     var baseSupportsPhonebookRingtones: Bool = false

@@ -18,10 +18,15 @@ struct BasePhonebookView: View {
 #if !os(visionOS)
             .scrollDismissesKeyboard(.interactively)
 #endif
+        FormNumericTextField(phone.isCordless ? "Numbers Per Phonebook Entry (Base)" : "Numbers Per Phonebook Entry", value: $phone.numbersPerPhonebookEntry, valueRange: .oneToMax(5), singularSuffix: "number", pluralSuffix: "numbers")
+#if !os(visionOS)
+            .scrollDismissesKeyboard(.interactively)
+#endif
             .onChange(of: phone.basePhonebookCapacity) {
                 oldValue, newValue in
                 phone.basePhonebookCapacityChanged(oldValue: oldValue, newValue: newValue)
             }
+        InfoText("Depending on the phone, each number assigned to a phonebook entry may count as an individual phonebook entry. For example, for a 150-entry phonebook where 3 phone numbers can be assigned per entry, if you assigned 3 phone numbers for all of your 150 entries, you can only save 50 individual entries, each with 3 numbers. Doing it this way allows compatibility with handsets which can only display a single number per entry at a time.")
         if phone.callBlockPreScreening > 0 {
             InfoText("Numbers saved to the base's home phonebook will always ring through. Save frequently-dialed numbers you want to always ring through to the phonebook instead of the allowed numbers list.")
         }
