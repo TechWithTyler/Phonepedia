@@ -21,7 +21,7 @@ var phoneDescriptionSampleText: String = "I bought this phone at a thrift store 
 // The current year to use as the default value of a phone or handset's release year/acquisition year.
 var currentYear = Calendar.current.component(.year, from: Date())
 
-// The least amount of maximum phonebook capacity required to support Bluetooth phonebook transfers.
+// The least maximum phonebook entries required to support Bluetooth phonebook transfers.
 var phonebookTransferRequiredMaxCapacity = 150
 
 // MARK: - Functions

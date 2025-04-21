@@ -38,9 +38,11 @@ struct AboutConnectionTypesView: View {
                 }
                 DisclosureGroup {
                     Text("VoIP is how most telecommunication works today, and is the backbone for video conferencing services. Modern cell towers use VoIP for their network connection, allowing for features like Wi-Fi calling.")
+                    Text("The latency in VoIP audio varies depending on the network connection and the infrastructure the call is travelling through. For example, if both ends of a call are extensions on the same VoIP PBX system on your local network, the latency is lower than if you were talking to someone over the internet.")
                     Text("Dedicated VoIP phones can only work with an Ethernet (RJ45 jack) or Wi-Fi connection, and may require paying for extra hardware or subscriptions, which makes them not as good for phone collectors who don't want to pay too much for the necessary hardware and providers. These phones offer landline comfort and convenience while integrating natively with VoIP provider features like voicemail and call forwarding.")
                     Text("To connect an analog phone to VoIP, you need a cable modem or analog telephone adaptor (ATA).")
-                    Text("To place a VoIP phone or ATA in locations where Ethernet jacks aren't available, such as in a bedroom away from your modem, you need a Wi-Fi-to-Ethernet bridge (most Wi-Fi range extenders can be used this way). This is not to be confused with a Wi-Fi router, which takes in an Ethernet connection and transmits it as Wi-Fi.")
+                    Text("Some phones can connect to an analog line and Ethernet, allowing you to use both an analog and VoIP line on the same phone. This allows you to fall back to an analog line if your VoIP service isn't available, or to use an analog line now and VoIP in the future. You can also use this to connect a cell-to-landline Bluetooth adaptor and VoIP to the same phone.")
+                    Text("To place an Ethernet VoIP phone or ATA in locations where Ethernet jacks aren't available, such as in a bedroom away from your modem, you need a Wi-Fi-to-Ethernet bridge (most Wi-Fi range extenders can be used this way if they're set to extender or client mode). This is not to be confused with a Wi-Fi router, which takes in an Ethernet connection and transmits it as Wi-Fi.")
                 } label: {
                     Text("VoIP (Voice-over-Internet Protocol)")
                 }
