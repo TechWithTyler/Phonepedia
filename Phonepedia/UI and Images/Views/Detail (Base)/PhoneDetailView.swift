@@ -255,12 +255,12 @@ struct PhoneDetailView: View {
                 }
                 FormNavigationLink(phone: phone) {
                     PhoneAudioView(phone: phone)
-                        .navigationTitle("Headsets")
+                        .navigationTitle(phone.landlineConnectionType > 0 ? "Headsets/Codecs" : "Headsets")
 #if !os(macOS)
                         .navigationBarTitleDisplayMode(.inline)
 #endif
                 } label: {
-                    Label("Headsets", systemImage: "headset")
+                    Label(phone.landlineConnectionType > 0 ? "Headsets/Codecs" : "Headsets", systemImage: "headset")
                 }
             }
             FormNavigationLink(phone: phone) {

@@ -461,6 +461,24 @@ final class Phone {
 
     var cellCallRejection: Int = 0
 
+    // MARK: - Properties - Supported VoIP Audio Codecs
+
+    var supportsULaw: Bool = true
+
+    var supportsALaw: Bool = true
+
+    var supportsOpus: Bool = true
+
+    var supportsG729: Bool = true
+
+    var supportsG723: Bool = true
+
+    var supportsG722: Bool = true
+
+    var supportsG726: Bool = true
+
+    var supportsILBC: Bool = true
+
     // MARK: - Properties - Transient (Non-Persistent) Properties
 
     // Properties marked with the @Transient property wrapper won't persist their values to SwiftData.
@@ -1101,6 +1119,9 @@ final class Phone {
     }
 
     func landlineConnectionTypeChanged(oldValue: Int, newValue: Int) {
+        if newValue > 0 {
+            dialMode = 1
+        }
         if newValue > 1 {
             if cordedPowerSource < 2 {
                 cordedPowerSource = 2
@@ -1112,7 +1133,7 @@ final class Phone {
         if newValue > 3 {
             grade = 0
         }
-        if newValue != 2 {
+        if newValue != 2 && newValue != 5 {
             supportsPoE = false
         }
     }
