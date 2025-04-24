@@ -14,11 +14,11 @@ struct NameNumberExamples {
 
     enum NANPPhoneNumberFormat {
 
-        case parentheses // Example: (555) 555-1234
+        case parentheses // Example: (201) 555-1234
 
-        case dashed      // Example: 555-555-1234
+        case dashed      // Example: 201-555-1234
 
-        case plain        // Example: 5555551234
+        case plain        // Example: 2015551234
 
     }
 
@@ -67,7 +67,7 @@ struct NameNumberExamples {
             "4567890"
         ]
         // 2. Create an array of area codes commonly used in examples.
-        let areaCodes = ["555", "201", "800", "212"] // 201 (New Jersey), 212 (NYC)
+        let areaCodes = ["555", "201", "800", "212"] // 201 (New Jersey), 212 (NYC), 800 (Toll-Free)
         // 3. Pick a random area code and phone number.
         let randomAreaCode = areaCodes.randomElement()!
         let randomNumber = exampleNumbers.randomElement()!
