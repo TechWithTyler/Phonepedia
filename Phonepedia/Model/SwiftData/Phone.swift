@@ -445,6 +445,8 @@ final class Phone {
 
     var landlineConnectionType: Int = 0
 
+    var usesSingleLinePowerFeed: Bool = false
+
     var grade: Int = 0
 
     var landlineConnectedTo: Int = 2
