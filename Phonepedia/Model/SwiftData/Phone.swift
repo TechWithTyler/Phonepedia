@@ -1135,6 +1135,9 @@ final class Phone {
         if newValue > 3 {
             grade = 0
         }
+        if newValue < 2 && numberOfLandlines > 4 {
+            numberOfLandlines = 1
+        }
         if newValue != 2 && newValue != 5 {
             supportsPoE = false
         }
