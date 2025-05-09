@@ -50,68 +50,69 @@ struct BaseDisplayBacklightButtonsView: View {
             Toggle("Has Rotary Phone-Inspired Button Layout", isOn: $phone.hasRotaryInspiredButtonLayout)
             InfoText("Some phones have a rotary phone-inspired design, with the buttons arranged like a rotary dial. The display, if any, is often located in the center of the \"dial\".")
         }
-        if !phone.isWiFiHandset {
-        if phone.isCordless || phone.cordedPhoneType == 0 {
-            Picker(phone.isCordless ? "Display Type (Base)" : "Display Type", selection: $phone.baseDisplayType) {
-                Text("None").tag(0)
-                if phone.hasAnsweringSystem > 0 {
-                    Text("LED Message Counter").tag(1)
-                    Text("LCD Message Counter With Status Items").tag(2)
-                }
-                Text("Monochrome Display (Segmented)").tag(3)
-                Text("Monochrome Display (Traditional)").tag(4)
-                Text("Monochrome Display (Full-Dot with Status Items)").tag(5)
-                Text("Monochrome Display (Full-Dot)").tag(6)
-                Text("Color Display").tag(7)
-                Text("Monochrome Touchscreen").tag(8)
-                Text("Color Touchscreen").tag(9)
-            }
-            .onChange(of: phone.baseDisplayType) { oldValue, newValue in
-                phone.baseDisplayTypeChanged(oldValue: oldValue, newValue: newValue)
-            }
-            if phone.baseDisplayType < 3 && !phone.isCordless {
-                ProgrammingWithoutDisplayInfoView()
-            }
-            if phone.baseDisplayType >= 3 {
-                Toggle("Base Display Can Tilt", isOn: $phone.baseDisplayCanTilt)
-                Picker("Clock Display", selection: $phone.clock) {
+        if phone.isCordless || phone.cordedPhoneType == 0 || phone.isWiFiHandset {
+            if !phone.isWiFiHandset {
+                Picker(phone.isCordless ? "Display Type (Base)" : "Display Type", selection: $phone.baseDisplayType) {
                     Text("None").tag(0)
-                    Text("Time Only").tag(1)
-                    Text("Day and Time")
-                    Text("Date and Time (w/o Year)").tag(3)
-                    Text("Date and Time (w/ Year)").tag(4)
+                    if phone.hasAnsweringSystem > 0 {
+                        Text("LED Message Counter").tag(1)
+                        Text("LCD Message Counter With Status Items").tag(2)
+                    }
+                    Text("Monochrome Display (Segmented)").tag(3)
+                    Text("Monochrome Display (Traditional)").tag(4)
+                    Text("Monochrome Display (Full-Dot with Status Items)").tag(5)
+                    Text("Monochrome Display (Full-Dot)").tag(6)
+                    Text("Color Display").tag(7)
+                    Text("Monochrome Touchscreen").tag(8)
+                    Text("Color Touchscreen").tag(9)
                 }
-            }
-            InfoButton(title: "About Display Types…") {
-                dialogManager.showingAboutDisplayTypes = true
-            }
-            if phone.baseDisplayType >= 5 && (phone.hasPhonebook || phone.hasCallerIDList || phone.callBlockCapacity > 0 || phone.baseRedialCapacity > 1) {
-                Toggle("Allows Display of Multiple Entries", isOn: $phone.baseDisplayMultiEntries)
-                MultiEntryDisplayInfoView()
-            }
-            if phone.isCordless && phone.baseDisplayType > 2 && (phone.basePhonebookCapacity > 0 || phone.baseCallerIDCapacity > 0 || phone.baseRedialCapacity > 0) {
-                Picker("Base Menu Type", selection: $phone.cordlessBaseMenuType) {
-                    Text("None").tag(0)
-                    Text("Partial").tag(1)
-                    Text("Full").tag(2)
+                .onChange(of: phone.baseDisplayType) { oldValue, newValue in
+                    phone.baseDisplayTypeChanged(oldValue: oldValue, newValue: newValue)
                 }
-                InfoText("None: The base doesn't have a menu. The display is only used for lists and other information.\nPartial: The base has a menu, but it doesn't contain many of the options found in the handset menu, requiring use of the handset to change certain settings.\nFull: The base has a menu that contains most of the options found in the handset menu.")
-            }
-            if phone.cordlessBaseMenuType > 0 {
-            Toggle("Menu Shows Multiple Items", isOn: $phone.baseMenuMultiItems)
-                if phone.baseDisplayType >= 5 {
-                    if phone.baseMenuMultiItems {
-                        Picker("Main Menu Layout", selection: $phone.baseMainMenuLayout) {
-                            Text("Single Item").tag(0)
-                            Text("List").tag(1)
-                            Text("Carousel").tag(2)
-                            Text("Grid").tag(3)
+                if phone.baseDisplayType < 3 && !phone.isCordless {
+                    ProgrammingWithoutDisplayInfoView()
+                }
+                if phone.baseDisplayType >= 3 {
+                    Toggle("Base Display Can Tilt", isOn: $phone.baseDisplayCanTilt)
+                    Picker("Clock Display", selection: $phone.clock) {
+                        Text("None").tag(0)
+                        Text("Time Only").tag(1)
+                        Text("Day and Time")
+                        Text("Date and Time (w/o Year)").tag(3)
+                        Text("Date and Time (w/ Year)").tag(4)
+                    }
+                }
+                InfoButton(title: "About Display Types…") {
+                    dialogManager.showingAboutDisplayTypes = true
+                }
+                if phone.baseDisplayType >= 5 && (phone.hasPhonebook || phone.hasCallerIDList || phone.callBlockCapacity > 0 || phone.baseRedialCapacity > 1) {
+                    Toggle("Allows Display of Multiple Entries", isOn: $phone.baseDisplayMultiEntries)
+                    MultiEntryDisplayInfoView()
+                }
+                if phone.isCordless && phone.baseDisplayType > 2 && (phone.basePhonebookCapacity > 0 || phone.baseCallerIDCapacity > 0 || phone.baseRedialCapacity > 0) {
+                    Picker("Base Menu Type", selection: $phone.cordlessBaseMenuType) {
+                        Text("None").tag(0)
+                        Text("Partial").tag(1)
+                        Text("Full").tag(2)
+                    }
+                    InfoText("None: The base doesn't have a menu. The display is only used for lists and other information.\nPartial: The base has a menu, but it doesn't contain many of the options found in the handset menu, requiring use of the handset to change certain settings.\nFull: The base has a menu that contains most of the options found in the handset menu.")
+                }
+                if phone.cordlessBaseMenuType > 0 {
+                    Toggle("Menu Shows Multiple Items", isOn: $phone.baseMenuMultiItems)
+                    if phone.baseDisplayType >= 5 {
+                        if phone.baseMenuMultiItems {
+                            Picker("Main Menu Layout", selection: $phone.baseMainMenuLayout) {
+                                Text("Single Item").tag(0)
+                                Text("List").tag(1)
+                                Text("Carousel").tag(2)
+                                Text("Grid").tag(3)
+                            }
                         }
                     }
                 }
             }
-            if phone.baseDisplayType > 2 && phone.baseDisplayType < 7 {
-                ColorPicker("Base Display Backlight Color", selection: phone.baseDisplayBacklightColorBinding, supportsOpacity: false)
+            if phone.isWiFiHandset || (phone.baseDisplayType > 2 && phone.baseDisplayType < 7) {
+                ColorPicker(phone.isCordless ? "Base Display Backlight Color" : "Display Backlight Color", selection: phone.baseDisplayBacklightColorBinding, supportsOpacity: false)
             }
             if phone.baseDisplayType >= 3 {
                 Toggle("Base Has LED Message Counter In Addition To Display", isOn: $phone.baseHasDisplayAndMessageCounter)
@@ -160,7 +161,7 @@ struct BaseDisplayBacklightButtonsView: View {
                 }
             }
         }
-            if phone.isCordless || phone.cordedPhoneType == 0 || phone.cordedPhoneType == 2 {
+            if phone.isCordless || phone.cordedPhoneType == 0 || phone.cordedPhoneType == 2 || phone.isWiFiHandset {
                 Picker("Button Lighting Type", selection: $phone.baseKeyBacklightAmount) {
                     Text("None").tag(0)
                     Text("Numbers Only").tag(1)
@@ -174,8 +175,8 @@ struct BaseDisplayBacklightButtonsView: View {
                         Text("Front Light").tag(6)
                     }
                 }
-                if !phone.isCordless && phone.cordedPowerSource == 0 {
-                    InfoText("The brightness of a line-powered phone's button lighting depends on the line's off-hook voltage. If the phone's off-hook voltage is low, the backlight will be dim.")
+                if !phone.isCordless && !phone.isWiFiHandset && phone.cordedPowerSource == 0 {
+                    InfoText("The brightness of a line-powered phone's button lighting depends on the line's off-hook power. If it's low, the backlight will be dim.")
                 }
                 if phone.baseKeyBacklightAmount > 0 {
                     ColorPicker("Button Lighting Color", selection: phone.baseKeyBacklightColorBinding, supportsOpacity: false)
@@ -198,7 +199,6 @@ struct BaseDisplayBacklightButtonsView: View {
                     phone.swapKeyBackgroundAndForegroundColors()
                 }
             }
-        }
     }
 }
 
