@@ -33,7 +33,6 @@
 		8D38ED662CAF2DC500CCC422 /* BaseSpeakerphoneIntercomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38ED652CAF2DC500CCC422 /* BaseSpeakerphoneIntercomView.swift */; };
 		8D38ED682CAF2E9600CCC422 /* PhoneSpecialFeaturesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38ED672CAF2E9600CCC422 /* PhoneSpecialFeaturesView.swift */; };
 		8D38ED6A2CAF2F6600CCC422 /* PhoneGeneralView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38ED692CAF2F6600CCC422 /* PhoneGeneralView.swift */; };
-		8D38ED6D2CAF310600CCC422 /* PhoneCordedCordlessFeaturesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38ED6C2CAF310600CCC422 /* PhoneCordedCordlessFeaturesView.swift */; };
 		8D38ED6F2CAF31BA00CCC422 /* PhoneColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38ED6E2CAF31BA00CCC422 /* PhoneColorView.swift */; };
 		8D38ED712CAF325200CCC422 /* PhonePowerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38ED702CAF325200CCC422 /* PhonePowerView.swift */; };
 		8D38ED732CAF32A500CCC422 /* BaseRingersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38ED722CAF32A500CCC422 /* BaseRingersView.swift */; };
@@ -211,7 +210,6 @@
 		8D38ED652CAF2DC500CCC422 /* BaseSpeakerphoneIntercomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSpeakerphoneIntercomView.swift; sourceTree = "<group>"; };
 		8D38ED672CAF2E9600CCC422 /* PhoneSpecialFeaturesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneSpecialFeaturesView.swift; sourceTree = "<group>"; };
 		8D38ED692CAF2F6600CCC422 /* PhoneGeneralView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneGeneralView.swift; sourceTree = "<group>"; };
-		8D38ED6C2CAF310600CCC422 /* PhoneCordedCordlessFeaturesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneCordedCordlessFeaturesView.swift; sourceTree = "<group>"; };
 		8D38ED6E2CAF31BA00CCC422 /* PhoneColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneColorView.swift; sourceTree = "<group>"; };
 		8D38ED702CAF325200CCC422 /* PhonePowerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhonePowerView.swift; sourceTree = "<group>"; };
 		8D38ED722CAF32A500CCC422 /* BaseRingersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRingersView.swift; sourceTree = "<group>"; };
@@ -557,7 +555,6 @@
 				8D38ED692CAF2F6600CCC422 /* PhoneGeneralView.swift */,
 				8DA844AF2B72E1D7006CBCA7 /* CordlessDeviceInfoView.swift */,
 				8D38ED652CAF2DC500CCC422 /* BaseSpeakerphoneIntercomView.swift */,
-				8D38ED6C2CAF310600CCC422 /* PhoneCordedCordlessFeaturesView.swift */,
 				8D38ED6E2CAF31BA00CCC422 /* PhoneColorView.swift */,
 				8D38ED702CAF325200CCC422 /* PhonePowerView.swift */,
 				8D38ED722CAF32A500CCC422 /* BaseRingersView.swift */,
@@ -996,7 +993,6 @@
 				8DD3A2962D2C7CB200595AB3 /* NewPhonesSettingsPageView.swift in Sources */,
 				8DA844EE2B72E1D7006CBCA7 /* CGImagePropertyOrientationExtension.swift in Sources */,
 				8D8E75ED2CC84A2C0022DB85 /* AnsweringSystemMenuInfoView.swift in Sources */,
-				8D38ED6D2CAF310600CCC422 /* PhoneCordedCordlessFeaturesView.swift in Sources */,
 				8DA72F082D79021100A957A4 /* KeypadLockInfoView.swift in Sources */,
 				8DA844EB2B72E1D7006CBCA7 /* PhoneType.swift in Sources */,
 				8D38ED912CAF3C8300CCC422 /* HandsetRingersView.swift in Sources */,

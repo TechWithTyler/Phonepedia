@@ -20,7 +20,7 @@ struct PhoneDetailView: View {
     @EnvironmentObject var dialogManager: DialogManager
     
     @EnvironmentObject var photoViewModel: PhonePhotoViewModel
-    
+
     // MARK: - Body
     
     var body: some View {
@@ -170,15 +170,6 @@ struct PhoneDetailView: View {
 #endif
             } label: {
                 Label("General", systemImage: "gearshape")
-            }
-            FormNavigationLink(phone: phone) {
-                PhoneCordedCordlessFeaturesView(phone: phone)
-                    .navigationTitle("\(phone.isCordless ? "Cordless" : "Corded") Features")
-#if !os(macOS)
-                    .navigationBarTitleDisplayMode(.inline)
-#endif
-            } label: {
-                Label("\(phone.isCordless ? "Cordless" : "Corded") Features", systemImage: "phone")
             }
             FormNavigationLink(phone: phone) {
                 PhonePowerView(phone: phone)
