@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 12/6/23.
-//  Copyright © 2023-2024 SheftApps. All rights reserved.
+//  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
 import SwiftUI
@@ -25,7 +25,8 @@ struct PhoneTypeDefinitionsView: View {
         DictionaryEntry("\(Phone.PhoneType.cordless.rawValue)", definition: "A phone with a main transmitting base that connects to power, a phone line/network (and/or connects to a cell phone via Bluetooth), and charges a cordless handset. Cordless phones with 2 or more handsets have one or more chargers, which are small bases which only connect to power and charge a cordless handset. When the phone or its documentation says \"base\", it's referring to the main transmitting base, NOT the additional charging bases. This is very important to keep in mind when you're asked to \"check if the base is plugged in\". When purchasing an \"additional handset\", it MUST be used with a main transmitting base--it won't work by itself!"),
         DictionaryEntry("\(Phone.PhoneType.corded.rawValue)", definition: "A traditional phone with a receiver which connects to the base using a coiled cord. These can have either mechanical/bell or electronic ringers and come in a range of styles from slim, basic wall phones to fully-featured desk phones."),
         DictionaryEntry("\(Phone.PhoneType.cordedCordless.rawValue)", definition: "A corded phone that acts as a transmitting base for cordless handsets. All cordless handsets charge on chargers. You can tell a corded/cordless phone from a standard corded phone by the presence of an external antenna, handset locator buttons/options, or any mentions of \"handsets\" or a wireless frequency."),
-        DictionaryEntry("\(Phone.PhoneType.cordlessWithTransmitOnlyBase.rawValue)", definition: "A cordless phone where the base doesn't have a cordless handset charging area or corded receiver. All cordless handsets charge on chargers. Sometimes, these kinds of bases have speakerphone, but usually, they only have a handset locator button and nothing else. A transmit-only base with no features on it is often called a \"hidden base\" as these kinds of bases are often placed out-of-sight.\nTip: If you ever see a cordless phone somewhere but can't find the base, it may very well be a transmit-only base that's been placed out-of-sight. This is very common on cordless-only business-grade VoIP phones.")
+        DictionaryEntry("\(Phone.PhoneType.cordlessWithTransmitOnlyBase.rawValue)", definition: "A cordless phone where the base doesn't have a cordless handset charging area or corded receiver. All cordless handsets charge on chargers. Sometimes, these kinds of bases have speakerphone, but usually, they only have a handset locator button and nothing else. A transmit-only base with no features on it is often called a \"hidden base\" as these kinds of bases are often placed out-of-sight.\nTip: If you ever see a cordless phone somewhere but can't find the base, it may very well be a transmit-only base that's been placed out-of-sight. This is very common on cordless-only business-grade VoIP phones."),
+        DictionaryEntry("\(Phone.PhoneType.wiFiHandset.rawValue)", definition: "A cordless phone handset-style phone that connects directly to a Wi-Fi network and is configured like any VoIP phone. It charges on a charger like a regular cordless phone.")
     ]
     
     // MARK: - Body
@@ -59,7 +60,6 @@ struct PhoneTypeDefinitionsView: View {
     }
     
 }
-
 
 #Preview {
     PhoneTypeDefinitionsView()

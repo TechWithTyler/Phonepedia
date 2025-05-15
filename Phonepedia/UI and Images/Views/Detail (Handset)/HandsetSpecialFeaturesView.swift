@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 10/3/24.
-//  Copyright © 2023-2024 SheftApps. All rights reserved.
+//  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
 import SwiftUI
@@ -14,12 +14,14 @@ struct HandsetSpecialFeaturesView: View {
     @Bindable var handset: CordlessHandset
 
     var body: some View {
-        Picker("Alarm", selection: $handset.alarm) {
-            Text("Not Supported").tag(0)
-            Text("Ringtones").tag(1)
-            Text("Ringtones or Voice").tag(2)
+        if handset.handsetStyle < 3 {
+            Picker("Alarm", selection: $handset.alarm) {
+                Text("Not Supported").tag(0)
+                Text("Ringtones").tag(1)
+                Text("Ringtones or Voice").tag(2)
+            }
+            InfoText("The handset can be used as an alarm clock by playing a ringtone or voice announcement at the set time(s).")
         }
-        InfoText("The handset can be used as an alarm clock by playing a ringtone or voice announcement at the set time(s).")
         if handset.cordlessDeviceType == 0 {
             Picker("Key Finders Supported", selection: $handset.keyFindersSupported) {
                 Text("None").tag(0)
@@ -34,7 +36,7 @@ struct HandsetSpecialFeaturesView: View {
 
 #Preview {
     Form {
-        HandsetSpecialFeaturesView(handset: CordlessHandset(brand: "Panasonic", model: "KX-TGFA72", mainColorRed: 0, mainColorGreen: 0, mainColorBlue: 0, secondaryColorRed: 0, secondaryColorGreen: 0, secondaryColorBlue: 0))
+        HandsetSpecialFeaturesView(handset: CordlessHandset(brand: "Panasonic", model: "KX-TGFA72", mainColorRed: 0, mainColorGreen: 0, mainColorBlue: 0, secondaryColorRed: 0, secondaryColorGreen: 0, secondaryColorBlue: 0, accentColorRed: 0, accentColorGreen: 0, accentColorBlue: 0))
     }
     .formStyle(.grouped)
 }

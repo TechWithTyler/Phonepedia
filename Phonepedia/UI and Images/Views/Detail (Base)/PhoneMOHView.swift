@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 10/3/24.
-//  Copyright © 2023-2024 SheftApps. All rights reserved.
+//  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
 import SwiftUI
@@ -19,7 +19,7 @@ struct PhoneMOHView: View {
         if phone.supportsWiredHeadsets {
             Toggle("Live Input", isOn: $phone.musicOnHoldLive)
         }
-        InfoText("When a call is put on hold, the caller can hear music or a message, which can be audio built into the phone, recorded by the user, or a live feed of a connected audio device for phones that support wired headsets. For phones without MOH, the caller just hears silence.")
+        InfoText("When a call is put on hold, the caller can hear music or a message, which can be audio built into the phone, recorded by the user, or a live feed of a connected audio device for phones that support wired headsets. For phones without MOH, the caller just hears silence.\nNote: When placing a call on hold on an analog phone, the provider isn't sent the \"hold\" signal. To place the call on hold at the provider level, press the flash button or switch hook.")
     }
 }
 

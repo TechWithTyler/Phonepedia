@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 12/19/23.
-//  Copyright © 2023-2024 SheftApps. All rights reserved.
+//  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
 import SwiftUI
@@ -30,50 +30,56 @@ class PhonePhotoViewModel: ObservableObject {
     @Published var showingPhotoPicker: Bool = false
     
     @Published var showingResetAlert: Bool = false
-    
+
+    @Published var showingLoadingPhoto: Bool = false
+
     @Published var phonePhotoError: PhonePhotoError? = nil
     
     func updatePhonePhoto(for phone: Phone, oldValue: PhotosPickerItem?, newValue: PhotosPickerItem?) {
         guard let newValue = newValue else { return }
         let progress = newValue.loadTransferable(type: Data.self) { [self] result in
             // 1. Nil-out the photo picker selection after it's loaded into the app.
-            selectedPhoto = nil
-            switch result {
-            case .success(let data):
-                // 2. If successful, check the photo for landline phones. Ask the user for confirmation if no landline phones could be detected.
-                DispatchQueue.main.async { [self] in
-                    checkImageForLandlines(data!, phone: phone)
+            DispatchQueue.main.async { [self] in
+                selectedPhoto = nil
+                switch result {
+                case .success(let data):
+                    // 2. If successful, check the photo for landline/VoIP phones. Ask the user for confirmation if no landline/VoIP phones could be detected.
+                    checkImageForLandlines(photoData: data!, phone: phone)
+                case .failure(let error as NSError):
+                    // 3. If photo loading fails, log an error.
+#if(DEBUG)
+                    print("Error: \(error)")
+#endif
+                    phonePhotoError = .loadFailed
+                    showingPhonePhotoErrorAlert = true
+                    showingLoadingPhoto = false
                 }
-            case .failure(let error as NSError):
-                // 3. If photo loading fails, log an error.
-                #if(DEBUG)
-                print("Error: \(error)")
-                #endif
-                phonePhotoError = .loadFailed
-                showingPhonePhotoErrorAlert = true
             }
         }
         progress.resume()
+        showingLoadingPhoto = true
     }
     
-    func checkImageForLandlines(_ photoData: Data, phone: Phone) {
+    func checkImageForLandlines(photoData: Data, phone: Phone) {
         do {
-            // 1. Pass the photo data through the LandlineOrNot image classification model to check it for landline phones.
+            // 1. Pass the photo data through the LandlineOrNot image classification model to check it for landline/VoIP phones.
             try imagePredictor.makePredictions(for: photoData, phone: phone, completionHandler: imagePredictionHandler)
         } catch {
             // 2. If prediction fails, log an error.
-            phonePhotoError = .predictionFailed(reason: "Vision was unable to make a prediction...\n\n\(error.localizedDescription)")
+            showingLoadingPhoto = false
+            phonePhotoError = .predictionFailed(reason: "Vision was unable to make a prediction…\n\n\(error.localizedDescription)")
         }
     }
     
     private func imagePredictionHandler(_ predictions: [LandlineOrNotPredictor.Prediction]?, photoData: Data, phone: Phone) {
         // 1. Make sure we can get the first prediction. If we can't, log an error.
+        showingLoadingPhoto = false
         guard let predictions = predictions, let firstPrediction = predictions.first else {
             phonePhotoError = .predictionFailed(reason: "No predictions available.")
             showingPhonePhotoErrorAlert = true
             return
         }
-        // 2. If the photo contains landline phones, set the photo without asking. If not, ask the user whether they want to use this photo anyways.
+        // 2. If the photo contains landline/VoIP phones, set the photo without asking. If not, ask the user whether they want to use this photo anyways.
         if firstPrediction.isLandline {
             phone.photoData = photoData
         } else {

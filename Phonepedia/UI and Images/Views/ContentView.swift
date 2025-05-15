@@ -3,14 +3,14 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 6/15/23.
-//  Copyright © 2023-2024 SheftApps. All rights reserved.
+//  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
 import SwiftUI
 import SwiftData
 
 struct ContentView: View {
-    
+
     // MARK: - Properties - Objects
 
     @Environment(\.modelContext) private var modelContext
@@ -19,34 +19,46 @@ struct ContentView: View {
 
     @EnvironmentObject var dialogManager: DialogManager
 
-    @Query private var phones: [Phone]
-    
+    @Query(sort: \Phone.phoneNumberInCollection, order: .reverse) private var phones: [Phone]
+
     @State var selectedPhone: Phone?
 
     // MARK: - Body
 
-	var body: some View {
-		NavigationSplitView {
+    var body: some View {
+        NavigationSplitView {
             PhoneListView(phones: phones, selectedPhone: $selectedPhone)
                 .environmentObject(dialogManager)
                 .navigationTitle("Phone List")
-                #if !os(macOS)
+                #if os(macOS)
+                .navigationSplitViewColumnWidth(min: 300, ideal: 350, max: 400)
+                #else
                 .navigationBarTitleDisplayMode(.inline)
                 #endif
-		} detail: {
-			if !phones.isEmpty {
-				if let phone = selectedPhone {
+        } detail: {
+            if !phones.isEmpty {
+                if let phone = selectedPhone {
                     PhoneDetailView(phone: phone)
                         .environmentObject(dialogManager)
-				} else {
-					NoPhoneSelectedView()
-				}
-			} else {
-				EmptyView()
-			}
-		}
+                } else {
+                    NoPhoneSelectedView()
+                }
+            } else {
+                EmptyView()
+            }
+        }
+        // Info views
         .sheet(isPresented: $dialogManager.showingPhoneTypeDefinitions) {
             PhoneTypeDefinitionsView()
+        }
+        .sheet(isPresented: $dialogManager.showingAboutPhoneGrades) {
+            AboutPhoneGradesView()
+        }
+        .sheet(isPresented: $dialogManager.showingAboutCallerIDNameFormatting) {
+            AboutCallerIDNameFormattingView()
+        }
+        .sheet(isPresented: $dialogManager.showingAnsweringSystemVsVoicemail) {
+            AnsweringSystemVsVoicemailView()
         }
         .sheet(isPresented: $dialogManager.showingAboutDisplayTypes) {
             AboutDisplayTypesView()
@@ -63,10 +75,13 @@ struct ContentView: View {
         .sheet(isPresented: $dialogManager.showingAboutConnectionTypes) {
             AboutConnectionTypesView()
         }
-        .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
-        #if os(iOS)
-        .pickerStyle(.navigationLink)
+        // iOS/visionOS settings view
+        #if !os(macOS)
+        .sheet(isPresented: $dialogManager.showingSettings) {
+            SettingsView()
+        }
         #endif
+        .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
         .formNumericTextFieldStepperVisibility(true)
     }
 

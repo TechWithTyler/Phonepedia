@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 10/3/24.
-//  Copyright © 2023-2024 SheftApps. All rights reserved.
+//  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
 import SwiftUI
@@ -23,7 +23,7 @@ struct DialingCodesView: View {
                 Text("Yours + Overlay").tag(2)
                 Text("Auto-Format").tag(3)
             }
-            InfoText("Your Area Code: You can store your area code so calls from that area code will appear as 7 digits. This is useful if your provider requires local calls to be dialed with only 7 digits.\nYours + Overlay: You can store the additional area code(s) for your area (overlay area codes) in addition to your area code. The phone can choose which area code to use when dialing only 7 digits, by remembering a number's prefix (the digits after the area code but before the last digits) when calling back the 10-digit number in the caller ID list.\nAuto-Format: Instead of storing area codes yourself, you can edit the format of a caller ID entry and the phone will display all caller ID entries from that area code in the desired format. Different formats, including whether the trunk prefix should be included, can be remembered for multiple area codes (e.g., your area code and your area's overlay area code(s)).\nThese features only apply to numbers dialed from the caller ID list.")
+            InfoText("Your Area Code: You can store your area code so calls from that area code will appear as 7 digits. This is useful if your provider requires local calls to be dialed with only 7 digits.\nYours + Overlay: You can store the additional area code(s) for your area (overlay area codes) in addition to your area code. The phone can choose which area code to use when dialing only 7 digits, by remembering a number's prefix (the digits after the area code but before the last digits) when calling back the 10-digit number in the caller ID list, or for phones which add a trunk prefix to the number, the trunk prefix won't be added to numbers from your area code or from your area's overlay area code(s).\nAuto-Format: Instead of storing area codes yourself, you can edit the format of a caller ID entry and the phone will display all caller ID entries from that area code in the desired format. Different formats, including whether the trunk prefix should be included, can be remembered for multiple area codes (e.g., your area code and your area's overlay area code(s)).\nThese features only apply to numbers dialed from the caller ID list.")
         }
         Toggle("Can Add PBX Line Access Number", isOn: $phone.supportsAddingOfPBXLineAccessNumber)
         InfoText("If you're using the phone on a PBX (private branch exchange) system, storing the line access number allows the phone to automatically dial it before the outside number you dialed.")

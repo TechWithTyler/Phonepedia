@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 6/28/23.
-//  Copyright © 2023-2024 SheftApps. All rights reserved.
+//  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
 import SwiftUI
@@ -12,23 +12,47 @@ import SwiftData
 @Model
 final class CordlessHandsetCharger {
     
-    // MARK: - Properties
+    // MARK: - Properties - Persistent Data
 
 	var phone: Phone?
     
     var id = UUID()
 
+    var chargerNumber: Int = 0
+
     var mainColorRed: Double = 0
-    
+
     var mainColorGreen: Double = 0
-    
+
     var mainColorBlue: Double = 0
-    
+
     var secondaryColorRed: Double = 0
-    
+
     var secondaryColorGreen: Double = 0
-    
+
     var secondaryColorBlue: Double = 0
+
+    var accentColorRed: Double = 0
+
+    var accentColorGreen: Double = 0
+
+    var accentColorBlue: Double = 0
+
+    var chargeLightColorChargingRed: Double = 255
+
+    var chargeLightColorChargingGreen: Double = 0
+
+    var chargeLightColorChargingBlue: Double = 0
+
+    var chargeLightColorChargedRed: Double = 0
+
+    var chargeLightColorChargedGreen: Double = 255
+
+    var chargeLightColorChargedBlue: Double = 0
+
+    var chargeLightColorChargedAlpha: Double = 1
+
+    var hasChargeLight: Bool = false
 
 	var chargingDirection: Int = 0
 
@@ -44,8 +68,8 @@ final class CordlessHandsetCharger {
 
     var hasHardWiredACAdaptor: Bool = false
 
-    // MARK: - Color Bindings
-    
+    // MARK: - Properties - Color Bindings
+
     var mainColorBinding: Binding<Color> {
         Binding<Color> { [self] in
             Color(red: mainColorRed, green: mainColorGreen, blue: mainColorBlue)
@@ -67,18 +91,58 @@ final class CordlessHandsetCharger {
             secondaryColorBlue = components.blue
         }
     }
-    
+
+    @Transient
+    var accentColorBinding: Binding<Color> {
+        Binding<Color> { [self] in
+            Color(red: accentColorRed, green: accentColorGreen, blue: accentColorBlue)
+        } set: { [self] newColor in
+            let components = newColor.components
+            accentColorRed = components.red
+            accentColorGreen = components.green
+            accentColorBlue = components.blue
+        }
+    }
+
+    @Transient
+    var chargeLightColorChargingBinding: Binding<Color> {
+        Binding<Color> { [self] in
+            Color(red: chargeLightColorChargingRed, green: chargeLightColorChargingGreen, blue: chargeLightColorChargingBlue)
+        } set: { [self] newValue in
+            let components = newValue.components
+            chargeLightColorChargingRed = components.red
+            chargeLightColorChargingGreen = components.green
+            chargeLightColorChargingBlue = components.blue
+        }
+    }
+
+    @Transient
+    var chargeLightColorChargedBinding: Binding<Color> {
+        Binding<Color> { [self] in
+            Color(red: chargeLightColorChargedRed, green: chargeLightColorChargedGreen, blue: chargeLightColorChargedBlue, opacity: Double(Int(chargeLightColorChargedAlpha.rounded(.toNearestOrEven))))
+        } set: { [self] newValue in
+            let components = newValue.components
+            chargeLightColorChargedRed = components.red
+            chargeLightColorChargedGreen = components.green
+            chargeLightColorChargedBlue = components.blue
+            chargeLightColorChargedAlpha = Double(Int(components.opacity.rounded(.toNearestOrEven)))
+        }
+    }
+
     // MARK: - Initialization
 
-	init() {
-		self.mainColorRed = 0
-        self.mainColorGreen = 0
-        self.mainColorBlue = 0
-        self.secondaryColorRed = 0
-        self.secondaryColorGreen = 0
-        self.secondaryColorBlue = 0
-	}
-    
+    init(mainColorRed: Double, mainColorGreen: Double, mainColorBlue: Double, secondaryColorRed: Double, secondaryColorGreen: Double, secondaryColorBlue: Double, accentColorRed: Double, accentColorGreen: Double, accentColorBlue: Double) {
+        self.mainColorRed = mainColorRed
+        self.mainColorGreen = mainColorGreen
+        self.mainColorBlue = mainColorBlue
+        self.secondaryColorRed = secondaryColorRed
+        self.secondaryColorGreen = secondaryColorGreen
+        self.secondaryColorBlue = secondaryColorBlue
+        self.accentColorRed = accentColorRed
+        self.accentColorGreen = accentColorGreen
+        self.accentColorBlue = accentColorBlue
+    }
+
     // MARK: - Set Secondary Color to Main
     
     func setSecondaryColorToMain() {
@@ -88,21 +152,52 @@ final class CordlessHandsetCharger {
         secondaryColorBlue = components.blue
     }
 
+    // MARK: - Set Accent Color
+
+    func setAccentColorToMain() {
+        let components = mainColorBinding.wrappedValue.components
+        accentColorRed = components.red
+        accentColorGreen = components.green
+        accentColorBlue = components.blue
+    }
+
+    func setAccentColorToSecondary() {
+        let components = secondaryColorBinding.wrappedValue.components
+        accentColorRed = components.red
+        accentColorGreen = components.green
+        accentColorBlue = components.blue
+    }
+
+    func setChargeLightChargedColorToCharging() {
+        let components = chargeLightColorChargingBinding.wrappedValue.components
+        chargeLightColorChargedRed = components.red
+        chargeLightColorChargedGreen = components.green
+        chargeLightColorChargedBlue = components.blue
+        chargeLightColorChargedAlpha = 1
+    }
+
+    // MARK: - Duplicate
+
     func duplicate() -> CordlessHandsetCharger {
-        // 1. Initialize a new CordlessHandset, passing the original's properties to the initializer.
-        let newCharger = CordlessHandsetCharger()
+        // 1. Initialize a new CordlessHandsetCharger, passing the original's properties to the initializer.
+        let newCharger = CordlessHandsetCharger(mainColorRed: mainColorRed, mainColorGreen: mainColorGreen, mainColorBlue: mainColorBlue, secondaryColorRed: secondaryColorRed, secondaryColorGreen: secondaryColorGreen, secondaryColorBlue: secondaryColorBlue, accentColorRed: accentColorRed, accentColorGreen: accentColorGreen, accentColorBlue: accentColorBlue)
+        // 2. Give the duplicated charger a new UUID.
+        newCharger.id = UUID()
+        // 3. Copy all other properties.
         newCharger.phone = phone
-        newCharger.mainColorRed = mainColorRed
-        newCharger.mainColorGreen = mainColorGreen
-        newCharger.mainColorBlue = mainColorBlue
-        newCharger.secondaryColorRed = secondaryColorRed
-        newCharger.secondaryColorGreen = secondaryColorGreen
-        newCharger.secondaryColorBlue = secondaryColorBlue
         newCharger.hasRangeExtender = hasRangeExtender
         newCharger.wallMountability = wallMountability
         newCharger.chargeContactType = chargeContactType
         newCharger.chargeContactPlacement = chargeContactPlacement
         newCharger.chargingDirection = chargingDirection
+        newCharger.chargeLightColorChargingRed = self.chargeLightColorChargingRed
+        newCharger.chargeLightColorChargingGreen = self.chargeLightColorChargingGreen
+        newCharger.chargeLightColorChargingBlue = self.chargeLightColorChargingBlue
+        newCharger.chargeLightColorChargedRed = self.chargeLightColorChargedRed
+        newCharger.chargeLightColorChargedGreen = self.chargeLightColorChargedGreen
+        newCharger.chargeLightColorChargedBlue = self.chargeLightColorChargedBlue
+        newCharger.chargeLightColorChargedAlpha = self.chargeLightColorChargedAlpha
+        newCharger.hasChargeLight = self.hasChargeLight
         return newCharger
     }
 

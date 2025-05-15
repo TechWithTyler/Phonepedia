@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 10/3/24.
-//  Copyright © 2023-2024 SheftApps. All rights reserved.
+//  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
 import SwiftUI
@@ -20,21 +20,23 @@ struct PhoneSpecialFeaturesView: View {
             Toggle("One-Ring Scam Call Detection", isOn: $phone.scamCallDetection)
             InfoText("If a caller hangs up within 1 or 2 rings and caller ID is received, the phone can mark the call as a one-ring scam call when viewed in the caller ID list, and warn the user when trying to call that caller. One-ring scams often come from international numbers, which cost money to call.")
         }
-        Picker("Room/Baby Monitor", selection: $phone.roomMonitor) {
-            Text("Not Supported").tag(0)
-            Text("Call From Handset/Base").tag(1)
-            Text("Call To Handset/Base").tag(2)
-            Text("Sound-Activated Call").tag(3)
-        }
-        InfoText("Room/baby monitor allows you to listen to the sounds in a room where a handset/base is located.\nCall From: You call the room monitor handset/base.\nCall To: The room monitor handset/base calls you at another handset/base.\nSound-Activated Call: The room monitor handset/base calls you at another handset/base or an outside phone number when sound is detected (e.g., a crying baby or barking dog).")
-        if phone.roomMonitor == 3 {
-            Picker("External Room Monitor Keypad Entry Handled By", selection: $phone.externalRoomMonitorAutomatedSystem) {
-                Text("Base").tag(0)
-                Text("Handset").tag(1)
+        if phone.hasIntercom {
+            Picker("Room/Baby Monitor", selection: $phone.roomMonitor) {
+                Text("Not Supported").tag(0)
+                Text("Call From Handset/Base").tag(1)
+                Text("Call To Handset/Base").tag(2)
+                Text("Sound-Activated Call").tag(3)
             }
-            InfoText("When a handset/base detects sound and calls an outside phone number, the person on the outside phone can talk back to the handset/base by dialing a code, or deactivate the feature by dialing another code.")
+            InfoText("Room/baby monitor allows you to listen to the sounds in a room where a handset/base is located.\nCall From: You call the room monitor handset/base.\nCall To: The room monitor handset/base calls you at another handset/base.\nSound-Activated Call: The room monitor handset/base calls you at another handset/base or an outside phone number when sound is detected (e.g., a crying baby or barking dog).")
+            if phone.roomMonitor == 3 {
+                Picker("External Room Monitor Keypad Entry Handled By", selection: $phone.externalRoomMonitorAutomatedSystem) {
+                    Text("Base").tag(0)
+                    Text("Handset").tag(1)
+                }
+                InfoText("When a handset/base detects sound and calls an outside phone number, the person on the outside phone can talk back to the handset/base by dialing a code, or deactivate the feature by dialing another code.")
+            }
         }
-        Stepper("Smart Home Devices Supported: \(phone.smartHomeDevicesSupported)", value: $phone.smartHomeDevicesSupported, in: 0...50, step: 5)
+        Stepper("Smart Home Devices Supported: \(phone.smartHomeDevicesSupported)", value: $phone.smartHomeDevicesSupported, in: .zeroToMax(50), step: 5)
         InfoText("Smart home devices registered to a cordless phone can notify the handset/base or outside phone when things happen and the handset/base can control these devices. For example, when someone rings a doorbell, the phone can sound a chime and color display handsets can show a live feed of the doorbell's video.")
         Toggle("Answer By Voice", isOn: $phone.answerByVoice)
         InfoText("The base and compatible handsets can detect sound when landline/cell calls come in, allowing calls to be answered by voice. The phone either listens for any sound or is programmed to listen for a specific phrase.")

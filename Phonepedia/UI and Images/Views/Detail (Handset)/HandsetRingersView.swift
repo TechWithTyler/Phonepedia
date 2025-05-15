@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 10/3/24.
-//  Copyright © 2023-2024 SheftApps. All rights reserved.
+//  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
 import SwiftUI
@@ -15,8 +15,8 @@ struct HandsetRingersView: View {
 
     var body: some View {
         if let phone = handset.phone {
-            Stepper("Standard Ringtones: \(handset.ringtones)", value: $handset.ringtones, in: 1...50)
-            Stepper("Music/Melody Ringtones: \(handset.musicRingtones)", value: $handset.musicRingtones, in: 0...50)
+            Stepper("Standard Ringtones: \(handset.ringtones)", value: $handset.ringtones, in: .oneToMax(50))
+            Stepper("Music/Melody Ringtones: \(handset.musicRingtones)", value: $handset.musicRingtones, in: .zeroToMax(50))
             Text("Total Ringtones: \(handset.totalRingtones)")
             RingtoneInfoView()
             if handset.hasSpeakerphone {
@@ -28,6 +28,12 @@ struct HandsetRingersView: View {
                 }
                 InfoText("Some handsets allow you to record audio to use as ringtones, transfer audio files from a device to use as ringtones, or both.")
             }
+            Picker("Silent Mode", selection: $handset.silentMode) {
+                Text("None").tag(0)
+                Text("Number of Hours").tag(1)
+                Text("Time Period").tag(2)
+            }
+            SilentModeInfoView()
             if phone.hasIntercom {
                 Picker("Intercom Ringtone", selection: $handset.intercomRingtone) {
                     Text("Intercom-Specific Ringtone").tag(0)
@@ -43,6 +49,17 @@ struct HandsetRingersView: View {
                     handset.totalRingtonesChanged(oldValue: oldValue, newValue: newValue)
                 }
             }
+            if handset.handsetStyle == 0 {
+                Picker("Ringer Volume Adjustment", selection: $handset.ringerVolumeAdjustmentType) {
+                    Text("Ringer Switch").tag(0)
+                    Text("Volume Buttons/Menu").tag(1)
+                }
+                Toggle("Supports Ringer Off", isOn: $handset.supportsRingerOff)
+            }
+            if handset.cordlessDeviceType == 0 {
+                Toggle("Has Vibrator Motor", isOn: $handset.hasVibratorMotor)
+                InfoText("Some cordless handsets have vibrator motors like cell phones.")
+            }
         } else {
             Text("Error")
         }
@@ -51,7 +68,7 @@ struct HandsetRingersView: View {
 
 #Preview {
     Form {
-        HandsetRingersView(handset: CordlessHandset(brand: "Vtech", model: "DS6401-16", mainColorRed: 255, mainColorGreen: 0, mainColorBlue: 0, secondaryColorRed: 0, secondaryColorGreen: 0, secondaryColorBlue: 0))
+        HandsetRingersView(handset: CordlessHandset(brand: "Vtech", model: "DS6401-16", mainColorRed: 255, mainColorGreen: 0, mainColorBlue: 0, secondaryColorRed: 0, secondaryColorGreen: 0, secondaryColorBlue: 0, accentColorRed: 200, accentColorGreen: 200, accentColorBlue: 200))
     }
     .formStyle(.grouped)
 }

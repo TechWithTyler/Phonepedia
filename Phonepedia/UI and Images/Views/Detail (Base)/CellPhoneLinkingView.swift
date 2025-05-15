@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 10/3/24.
-//  Copyright © 2023-2024 SheftApps. All rights reserved.
+//  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
 import SwiftUI
@@ -32,7 +32,8 @@ struct CellPhoneLinkingView: View {
                 Text("None").tag(0)
                 Text("Light").tag(1)
                 if phone.baseDisplayType > 1 {
-                    Text("Display and Light").tag(2)
+                    Text("Display").tag(2)
+                    Text("Display and Light").tag(3)
                 }
             }
             Picker("Cell Line Only Behavior", selection: $phone.cellLineOnlyBehavior) {

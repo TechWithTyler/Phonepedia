@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 10/3/24.
-//  Copyright © 2023-2024 SheftApps. All rights reserved.
+//  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
 import SwiftUI
@@ -17,13 +17,17 @@ struct HandsetMessagingView: View {
         if let phone = handset.phone {
             if phone.hasAnsweringSystem > 1 && handset.displayType > 0 {
                 Picker("Answering System Menu", selection: $handset.answeringSystemMenu) {
-                    Text("Settings Only (doesn't require link to base").tag(0)
-                    Text("Settings Only (requires link to base)").tag(1)
-                    Text("Full (doesn't require link to base").tag(2)
-                    Text("Full (requires link to base)").tag(3)
+                    Text("Settings Only (Doesn't Require Link to Base)").tag(0)
+                    Text("Settings Only (Requires Link to Base)").tag(1)
+                    Text("Full (Doesn't Require Link to Base)").tag(2)
+                    Text("Full (Requires Link to Base)").tag(3)
                 }
-                InfoText("Settings Only: Only settings are available in the answering system menu. This may or may not include greeting recording/playback/deletion. Message playback is a separate menu item or button.\nFull: Message playback/deletion, memo recording, greeting recording/playback/deletion, and settings are available in the answering system menu.")
+                InfoText("Settings Only: Only settings are available in the answering system menu. This may or may not include greeting recording/playback/deletion. Message playback is a separate menu item or button.\nFull: Most, if not all, features and settings are available in the answering system menu.")
                 AnsweringSystemMenuInfoView()
+                if phone.hasAnsweringSystem >= 2 && handset.displayType > 1 {
+                    Toggle("Has Message List", isOn: $handset.hasMessageList)
+                    MessageListInfoView()
+                }
             }
             Picker("Voicemail Quick Dial", selection: $handset.voicemailQuickDial) {
                 Text("None").tag(0)
@@ -47,7 +51,7 @@ struct HandsetMessagingView: View {
 
 #Preview {
     Form {
-        HandsetMessagingView(handset: CordlessHandset(brand: "AT&T", model: "CL80107", mainColorRed: 200, mainColorGreen: 200, mainColorBlue: 200, secondaryColorRed: 0, secondaryColorGreen: 0, secondaryColorBlue: 0))
+        HandsetMessagingView(handset: CordlessHandset(brand: "AT&T", model: "CL80107", mainColorRed: 200, mainColorGreen: 200, mainColorBlue: 200, secondaryColorRed: 0, secondaryColorGreen: 0, secondaryColorBlue: 0, accentColorRed: 0, accentColorGreen: 0, accentColorBlue: 0))
     }
     .formStyle(.grouped)
 }

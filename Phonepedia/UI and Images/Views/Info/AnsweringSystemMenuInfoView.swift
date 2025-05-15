@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 10/22/24.
-//  Copyright © 2024 SheftApps. All rights reserved.
+//  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
 import SwiftUI
@@ -18,7 +18,7 @@ The answering system menu allows you to change settings such as:
 • Remote access code: The code to be entered from a phone while the greeting is playing/a message is being recorded, to play messages and access the system remotely.
 • Greeting only mode: Whether to play the greeting and not accept incoming messages. This may be an option in the recording time setting.
 • Call screening: Whether the greeting and/or incoming messages are heard on the speaker.
-• Message alert: Whether to sound a tone every so often when there are new messages.
+• Message alert: Whether to sound a tone every so often when there are new messages. Handsets may have an option for the indicator light (if it has one) to flash when there are new messages in either the answering system or phone company voicemail.
 """)
     }
 }

@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 10/3/24.
-//  Copyright © 2023-2024 SheftApps. All rights reserved.
+//  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
 import SwiftUI
@@ -14,7 +14,11 @@ struct BasePhonebookView: View {
     @Bindable var phone: Phone
 
     var body: some View {
-        FormNumericTextField(phone.isCordless ? "Phonebook Capacity (base)" : "Phonebook Capacity", value: $phone.basePhonebookCapacity, valueRange: .allPositivesIncludingZero, singularSuffix: "entry", pluralSuffix: "entries")
+        FormNumericTextField(phone.isCordless ? "Phonebook Capacity (Base)" : "Phonebook Capacity", value: $phone.basePhonebookCapacity, valueRange: .allPositivesIncludingZero, singularSuffix: "entry", pluralSuffix: "entries")
+#if !os(visionOS)
+            .scrollDismissesKeyboard(.interactively)
+#endif
+        FormNumericTextField(phone.isCordless ? "Numbers Per Phonebook Entry (Base)" : "Numbers Per Phonebook Entry", value: $phone.numbersPerPhonebookEntry, valueRange: .oneToMax(5), singularSuffix: "number", pluralSuffix: "numbers")
 #if !os(visionOS)
             .scrollDismissesKeyboard(.interactively)
 #endif
@@ -22,14 +26,23 @@ struct BasePhonebookView: View {
                 oldValue, newValue in
                 phone.basePhonebookCapacityChanged(oldValue: oldValue, newValue: newValue)
             }
+        InfoText("Depending on the phone, each number assigned to a phonebook entry may count as an individual phonebook entry. For example, for a 150-entry phonebook where 3 phone numbers can be assigned per entry, if you assigned 3 phone numbers for all of your 150 entries, you can only save 50 individual entries, each with 3 numbers. Doing it this way allows compatibility with handsets which can only display a single number per entry at a time.")
         if phone.callBlockPreScreening > 0 {
             InfoText("Numbers saved to the base's home phonebook will always ring through. Save frequently-dialed numbers you want to always ring through to the phonebook instead of the allowed numbers list.")
         }
-        if phone.basePhonebookCapacity > 0 && phone.baseDisplayType > 0 {
-            Toggle(isOn: $phone.hasTalkingPhonebook) {
-                Text("Talking Phonebook")
+        if phone.basePhonebookCapacity > 0 {
+            Toggle("Supports Phonebook Groups", isOn: $phone.baseSupportsPhonebookGroups)
+            PhonebookGroupInfoView()
+            FormNumericTextField(phone.isCordless ? "Favorite Entry Capacity (Base)" : "Favorite Entry Capacity", value: $phone.baseFavoriteEntriesCapacity, valueRange: .allPositivesIncludingZero, singularSuffix: "entry", pluralSuffix: "entries")
+            FavoriteEntriesInfoView()
+            if phone.baseDisplayType > 0 {
+                Toggle("Supports Phonebook Ringtones", isOn: $phone.baseSupportsPhonebookRingtones)
+                PhonebookRingtoneInfoView()
+                Toggle(isOn: $phone.hasTalkingPhonebook) {
+                    Text("Talking Phonebook")
+                }
+                InfoText("The phone can announce the names of phonebook entries as you scroll through them.")
             }
-            InfoText("The phone can announce the names of phonebook entries as you scroll through them.")
         }
         if phone.basePhonebookCapacity >= phonebookTransferRequiredMaxCapacity {
             Picker("Bluetooth Cell Phone Phonebook Transfers", selection: $phone.bluetoothPhonebookTransfers) {

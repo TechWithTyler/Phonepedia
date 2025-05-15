@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 6/28/23.
-//  Copyright © 2023-2024 SheftApps. All rights reserved.
+//  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
 import SwiftUI
@@ -11,8 +11,26 @@ import SwiftData
 
 @Model
 final class CordlessHandset {
-    
-    // MARK: - Properties
+
+    // MARK: - Cordless Device Type Enum
+
+    // Types of cordless devices.
+    enum CordlessDeviceType : String {
+
+        case handset = "Handset"
+
+        case deskset = "Deskset"
+
+        case headset = "Headset/Speakerphone"
+
+    }
+
+    // MARK: - Properties - Default Data
+
+    @Transient
+    static var mockModel: String = "MH12"
+
+    // MARK: - Properties - Persistent Data
     
     var id = UUID()
 	
@@ -21,7 +39,9 @@ final class CordlessHandset {
 	var brand: String
 	
 	var model: String
-	
+
+    var handsetNumber: Int = 0
+
 	var releaseYear: Int = currentYear
 
     var acquisitionYear: Int = currentYear
@@ -33,7 +53,9 @@ final class CordlessHandset {
 	var maxBases: Int = 1
 	
 	var cordlessDeviceType: Int = 0
-    
+
+    var handsetStyle: Int = 0
+
     var mainColorRed: Double = 0
     
     var mainColorGreen: Double = 0
@@ -45,6 +67,12 @@ final class CordlessHandset {
     var secondaryColorGreen: Double = 0
     
     var secondaryColorBlue: Double = 0
+
+    var accentColorRed: Double = 0
+
+    var accentColorGreen: Double = 0
+
+    var accentColorBlue: Double = 0
 
     var displayBacklightColorRed: Double = 255
     
@@ -77,16 +105,56 @@ final class CordlessHandset {
     var cordedReceiverSecondaryColorGreen: Double = 0
     
     var cordedReceiverSecondaryColorBlue: Double = 0
-    
+
+    var cordedReceiverAccentColorRed: Double = 0
+
+    var cordedReceiverAccentColorGreen: Double = 0
+
+    var cordedReceiverAccentColorBlue: Double = 0
+
     var keyBacklightColorRed: Double = 0
     
-    var keyBacklightColorGreen: Double = 0
-    
+    var keyBacklightColorGreen: Double = 255
+
     var keyBacklightColorBlue: Double = 0
-	
+
+    var chargeLightColorChargingRed: Double = 255
+
+    var chargeLightColorChargingGreen: Double = 0
+
+    var chargeLightColorChargingBlue: Double = 0
+
+    var chargeLightColorChargedRed: Double = 0
+
+    var chargeLightColorChargedGreen: Double = 255
+
+    var chargeLightColorChargedBlue: Double = 0
+
+    var chargeLightColorChargedAlpha: Double = 1
+
+    var hasChargeLight: Bool = false
+
 	var buttonType: Int = 0
-	
+
+    var ringerVolumeAdjustmentType: Int = 1
+
+    var supportsRingerOff: Bool = true
+
+    var clock: Int = 1
+
+    var supportsTimeBackup: Bool = true
+
+    var volumeAdjustmentType: Int = 1
+
 	var displayType: Int = 2
+
+    var baseSettingsChangeMethod: Int = 0
+
+    var desksetDisplayCanTilt: Bool = false
+
+    var displayMultiEntries: Bool = false
+
+    var menuMultiItems: Bool = false
 
     var mainMenuLayout: Int = 0
 
@@ -97,21 +165,39 @@ final class CordlessHandset {
 	var menuUpdateMode: Int = 0
 	
 	var hasSpeakerphone: Bool = true
-	
+
+    var intercomAutoAnswer: Int = 0
+
+    var hasDirectCommunication: Bool = false
+
+    var hasAutoAnswer: Bool = false
+
+    var chargeDuringCall: Int = 0
+
+    var hasChargeTone: Bool = false
+
 	var lineButtons: Int = 0
 	
 	var visualRinger: Int = 0
 	
 	var ringtones: Int = 5
-	
-	var musicRingtones: Int = 5
+
+    var musicRingtones: Int = 5
+
+    var hasVibratorMotor: Bool = false
 
     var customRingtonesSource: Int = 0
 
     var intercomRingtone: Int = 0
-	
+
+    var silentMode: Int = 0
+
+    var supportsSilentModeBypass: Bool = false
+
 	var oneTouchDialCapacity: Int = 0
-	
+
+    var hasOneTouchEmergencyCalling: Bool = false
+
 	var speedDialCapacity: Int = 0
 	
 	var redialCapacity: Int = 5
@@ -126,7 +212,7 @@ final class CordlessHandset {
 	
 	var navigatorKeyStandbyShortcuts: Bool = true
 	
-	var navigatorKeyCenterButton: Int = 1
+	var navigatorKeyCenterButton: Int = 0
 	
 	var sideVolumeButtons: Bool = false
 	
@@ -138,10 +224,20 @@ final class CordlessHandset {
 	
 	var answeringSystemMenu: Int = 3
 
+    var hasMessageList: Bool = false
+
     var voicemailQuickDial: Int = 0
 
 	var phonebookCapacity: Int = 0
-	
+
+    var numbersPerPhonebookEntry: Int = 1
+
+    var supportsPhonebookRingtones: Bool = false
+
+    var supportsPhonebookGroups: Bool = false
+
+    var favoriteEntriesCapacity: Int = 0
+
 	var callerIDPhonebookMatch: Bool = false
 	
 	var usesBasePhonebook: Bool = true
@@ -169,7 +265,9 @@ final class CordlessHandset {
     var alarm: Int = 0
 
 	var hasTalkingCallerID: Bool = false
-	
+
+    var hasKeypadLock: Bool = false
+
 	var hasTalkingKeypad: Bool = false
 	
 	var hasTalkingPhonebook: Bool = false
@@ -190,6 +288,16 @@ final class CordlessHandset {
 
     // MARK: - Properties - Transient (Non-Persistent) Properties
 
+    @Transient
+    var cordlessDeviceTypeText: String {
+        switch cordlessDeviceType {
+        case 1: return CordlessDeviceType.deskset.rawValue
+        case 2: return CordlessDeviceType.headset.rawValue
+        default: return CordlessDeviceType.handset.rawValue
+        }
+    }
+
+    @Transient
     var phonebookTypeText: String {
         if usesBasePhonebook && phonebookCapacity > 0 {
             return CordlessHandset.HandsetPhonebookType.sharedAndIndividual.rawValue
@@ -215,10 +323,10 @@ final class CordlessHandset {
     @Transient
     var hasPhysicalCellButton: Bool {
         guard let phone = phone else { return false }
-        return softKeys > 0 && phone.baseBluetoothCellPhonesSupported > 0 && lineButtons == 0
+        return phone.baseBluetoothCellPhonesSupported > 0 && lineButtons == 0
     }
     
-    // MARK: - Color Bindings
+    // MARK: - Properties - Color Bindings
     
     @Transient
     var mainColorBinding: Binding<Color> {
@@ -243,17 +351,54 @@ final class CordlessHandset {
             secondaryColorBlue = components.blue
         }
     }
-    
+
+    @Transient
+    var accentColorBinding: Binding<Color> {
+        Binding<Color> { [self] in
+            Color(red: accentColorRed, green: accentColorGreen, blue: accentColorBlue)
+        } set: { [self] newColor in
+            let components = newColor.components
+            accentColorRed = components.red
+            accentColorGreen = components.green
+            accentColorBlue = components.blue
+        }
+    }
+
+    @Transient
+    var chargeLightColorChargingBinding: Binding<Color> {
+        Binding<Color> { [self] in
+            Color(red: chargeLightColorChargingRed, green: chargeLightColorChargingGreen, blue: chargeLightColorChargingBlue)
+        } set: { [self] newValue in
+            let components = newValue.components
+            chargeLightColorChargingRed = components.red
+            chargeLightColorChargingGreen = components.green
+            chargeLightColorChargingBlue = components.blue
+        }
+    }
+
+    @Transient
+    var chargeLightColorChargedBinding: Binding<Color> {
+        Binding<Color> { [self] in
+            Color(red: chargeLightColorChargedRed, green: chargeLightColorChargedGreen, blue: chargeLightColorChargedBlue, opacity: Double(Int(chargeLightColorChargedAlpha.rounded(.toNearestOrEven))))
+        } set: { [self] newValue in
+            let components = newValue.components
+            chargeLightColorChargedRed = components.red
+            chargeLightColorChargedGreen = components.green
+            chargeLightColorChargedBlue = components.blue
+            chargeLightColorChargedAlpha = Double(Int(components.opacity.rounded(.toNearestOrEven)))
+        }
+    }
+
     @Transient
     var cordedReceiverMainColorBinding: Binding<Color> {
         Binding<Color> { [self] in
-            Color(red: cordedReceiverMainColorRed, green: cordedReceiverMainColorGreen, blue: cordedReceiverMainColorBlue, opacity: cordedReceiverMainColorAlpha)
+            Color(red: cordedReceiverMainColorRed, green: cordedReceiverMainColorGreen, blue: cordedReceiverMainColorBlue, opacity: Double(Int(cordedReceiverMainColorAlpha.rounded(.toNearestOrEven))))
         } set: { [self] newColor in
             let components = newColor.components
             cordedReceiverMainColorRed = components.red
             cordedReceiverMainColorGreen = components.green
             cordedReceiverMainColorBlue = components.blue
-            cordedReceiverMainColorAlpha = components.opacity
+            cordedReceiverMainColorAlpha = Double(Int(components.opacity.rounded(.toNearestOrEven)))
         }
     }
     
@@ -268,7 +413,19 @@ final class CordlessHandset {
             cordedReceiverSecondaryColorBlue = components.blue
         }
     }
-    
+
+    @Transient
+    var cordedReceiverAccentColorBinding: Binding<Color> {
+        Binding<Color> { [self] in
+            Color(red: cordedReceiverAccentColorRed, green: cordedReceiverAccentColorGreen, blue: cordedReceiverAccentColorBlue)
+        } set: { [self] newColor in
+            let components = newColor.components
+            cordedReceiverAccentColorRed = components.red
+            cordedReceiverAccentColorGreen = components.green
+            cordedReceiverAccentColorBlue = components.blue
+        }
+    }
+
     @Transient
     var displayBacklightColorBinding: Binding<Color> {
         Binding<Color> { [self] in
@@ -319,7 +476,7 @@ final class CordlessHandset {
     
     // MARK: - Initialization
 	
-    init(brand: String, model: String, mainColorRed: Double, mainColorGreen: Double, mainColorBlue: Double, secondaryColorRed: Double, secondaryColorGreen: Double, secondaryColorBlue: Double) {
+    init(brand: String, model: String, mainColorRed: Double, mainColorGreen: Double, mainColorBlue: Double, secondaryColorRed: Double, secondaryColorGreen: Double, secondaryColorBlue: Double, accentColorRed: Double, accentColorGreen: Double, accentColorBlue: Double) {
 		self.brand = brand
 		self.model = model
         self.mainColorRed = mainColorRed
@@ -328,6 +485,9 @@ final class CordlessHandset {
         self.secondaryColorRed = secondaryColorRed
         self.secondaryColorGreen = secondaryColorGreen
         self.secondaryColorBlue = secondaryColorBlue
+        self.accentColorRed = accentColorRed
+        self.accentColorGreen = accentColorGreen
+        self.accentColorBlue = accentColorBlue
 	}
     
     // MARK: - Color Methods
@@ -346,6 +506,44 @@ final class CordlessHandset {
         cordedReceiverSecondaryColorBlue = components.blue
     }
 
+    // MARK: - Set Accent Color
+
+    func setAccentColorToMain() {
+        let components = mainColorBinding.wrappedValue.components
+        accentColorRed = components.red
+        accentColorGreen = components.green
+        accentColorBlue = components.blue
+    }
+
+    func setAccentColorToSecondary() {
+        let components = secondaryColorBinding.wrappedValue.components
+        accentColorRed = components.red
+        accentColorGreen = components.green
+        accentColorBlue = components.blue
+    }
+
+    func setChargeLightChargedColorToCharging() {
+        let components = chargeLightColorChargingBinding.wrappedValue.components
+        chargeLightColorChargedRed = components.red
+        chargeLightColorChargedGreen = components.green
+        chargeLightColorChargedBlue = components.blue
+        chargeLightColorChargedAlpha = 1
+    }
+
+    func setCordedReceiverAccentColorToMain() {
+        let components = cordedReceiverMainColorBinding.wrappedValue.components
+        cordedReceiverAccentColorRed = components.red
+        cordedReceiverAccentColorGreen = components.green
+        cordedReceiverAccentColorBlue = components.blue
+    }
+
+    func setCordedReceiverAccentColorToSecondary() {
+        let components = cordedReceiverSecondaryColorBinding.wrappedValue.components
+        cordedReceiverAccentColorRed = components.red
+        cordedReceiverAccentColorGreen = components.green
+        cordedReceiverAccentColorBlue = components.blue
+    }
+
     func swapKeyBackgroundAndForegroundColors() {
         let previousBackgroundRed = keyBackgroundColorRed
         let previousBackgroundGreen = keyBackgroundColorGreen
@@ -360,6 +558,12 @@ final class CordlessHandset {
 
     // MARK: - Property Change Handlers
 
+    func brandChanged(oldValue: String, newValue: String) {
+        if newValue.isEmpty {
+            brand = Phone.mockBrand
+        }
+    }
+
     func phonebookCapacityChanged(oldValue: Int, newValue: Int) {
         if newValue < phonebookTransferRequiredMaxCapacity {
             bluetoothPhonebookTransfers = false
@@ -372,8 +576,27 @@ final class CordlessHandset {
         }
     }
 
+    func handsetStyleChanged(oldValue: Int, newValue: Int) {
+        if newValue > 2 {
+            talkOffButtonType = 1
+            hasVibratorMotor = true
+            hasSpeakerphone = true
+        }
+        if newValue == 2 {
+            displayType = 4
+            navigatorKeyType = 2
+        } else if newValue == 3 {
+            phonebookCapacity = 50
+            callerIDCapacity = 50
+            oneTouchDialCapacity = 0
+            sideVolumeButtons = true
+            displayType = 5
+        }
+    }
+
 	func cordlessDeviceTypeChanged(oldValue: Int, newValue: Int) {
 		if newValue > 0 {
+            handsetStyle = 0
             talkOffButtonType = 0
             talkOffColorLayer = 0
 			fitsOnBase = false
@@ -384,6 +607,7 @@ final class CordlessHandset {
             cordedReceiverMainColorBinding.wrappedValue = .clear
             cordedReceiverSecondaryColorBinding.wrappedValue = .black
             desksetSupportsBackupBatteries = false
+            desksetDisplayCanTilt = false
         }
 	}
     
@@ -420,6 +644,7 @@ final class CordlessHandset {
 
 	func displayTypeChanged(oldValue: Int, newValue: Int) {
 		if newValue == 0 {
+            desksetDisplayCanTilt = false
             if answeringSystemMenu > 0 {
                 answeringSystemMenu = 0
             }
@@ -462,6 +687,7 @@ final class CordlessHandset {
 	func sideVolumeButtonsChanged(oldValue: Bool, newValue: Bool) {
 		if !newValue {
 			navigatorKeyUpDownVolume = true
+            ringerVolumeAdjustmentType = 1
 		}
 	}
     
@@ -480,17 +706,22 @@ final class CordlessHandset {
 		}
 	}
 
+    // MARK: - Duplicate
+
     func duplicate() -> CordlessHandset {
         // 1. Initialize a new CordlessHandset, passing the original's properties to the initializer.
         let newHandset = CordlessHandset(
-            brand: self.brand,
-            model: self.model,
-            mainColorRed: self.mainColorRed,
-            mainColorGreen: self.mainColorGreen,
-            mainColorBlue: self.mainColorBlue,
-            secondaryColorRed: self.secondaryColorRed,
-            secondaryColorGreen: self.secondaryColorGreen,
-            secondaryColorBlue: self.secondaryColorBlue
+            brand: brand,
+            model: model,
+            mainColorRed: mainColorRed,
+            mainColorGreen: mainColorGreen,
+            mainColorBlue: mainColorBlue,
+            secondaryColorRed: secondaryColorRed,
+            secondaryColorGreen: secondaryColorGreen,
+            secondaryColorBlue: secondaryColorBlue,
+            accentColorRed: accentColorRed,
+            accentColorGreen: accentColorGreen,
+            accentColorBlue: accentColorBlue
         )
         // 2. Give the duplicated handset a new UUID.
         newHandset.id = UUID()
@@ -568,6 +799,33 @@ final class CordlessHandset {
         newHandset.hasSpeakerphoneButtonLight = self.hasSpeakerphoneButtonLight
         newHandset.storageOrSetup = self.storageOrSetup
         newHandset.hasQZ = self.hasQZ
+        newHandset.alarm = self.alarm
+        newHandset.handsetStyle = self.handsetStyle
+        newHandset.keyBacklightLayer = self.keyBacklightLayer
+        newHandset.volumeAdjustmentType = self.volumeAdjustmentType
+        newHandset.ringerVolumeAdjustmentType = self.ringerVolumeAdjustmentType
+        newHandset.supportsRingerOff = self.supportsRingerOff
+        newHandset.hasAutoAnswer = self.hasAutoAnswer
+        newHandset.intercomAutoAnswer = self.intercomAutoAnswer
+        newHandset.chargeDuringCall = self.chargeDuringCall
+        newHandset.hasChargeTone = self.hasChargeTone
+        newHandset.hasDirectCommunication = self.hasDirectCommunication
+        newHandset.displayMultiEntries = self.displayMultiEntries
+        newHandset.menuMultiItems = self.menuMultiItems
+        newHandset.hasMessageList = self.hasMessageList
+        newHandset.favoriteEntriesCapacity = self.favoriteEntriesCapacity
+        newHandset.supportsPhonebookRingtones = self.supportsPhonebookRingtones
+        newHandset.supportsPhonebookGroups = self.supportsPhonebookGroups
+        newHandset.clock = self.clock
+        newHandset.supportsTimeBackup = self.supportsTimeBackup
+        newHandset.chargeLightColorChargingRed = self.chargeLightColorChargingRed
+        newHandset.chargeLightColorChargingGreen = self.chargeLightColorChargingGreen
+        newHandset.chargeLightColorChargingBlue = self.chargeLightColorChargingBlue
+        newHandset.chargeLightColorChargedRed = self.chargeLightColorChargedRed
+        newHandset.chargeLightColorChargedGreen = self.chargeLightColorChargedGreen
+        newHandset.chargeLightColorChargedBlue = self.chargeLightColorChargedBlue
+        newHandset.chargeLightColorChargedAlpha = self.chargeLightColorChargedAlpha
+        newHandset.hasChargeLight = self.hasChargeLight
         // 4. Return the duplicated handset.
         return newHandset
     }

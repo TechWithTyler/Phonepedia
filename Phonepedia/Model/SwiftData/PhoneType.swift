@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 12/22/23.
-//  Copyright © 2023-2024 SheftApps. All rights reserved.
+//  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
 import Foundation
@@ -21,7 +21,9 @@ extension Phone {
         case cordedCordless = "Corded/Cordless"
         
         case cordlessWithTransmitOnlyBase = "Cordless With Transmit-Only Base"
-        
+
+        case wiFiHandset = "Wi-Fi Handset"
+
         // MARK: - Phone Type Definitions
         
         struct DictionaryEntry: Identifiable {

@@ -3,16 +3,13 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 9/6/24.
-//  Copyright © 2023-2024 SheftApps. All rights reserved.
+//  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
 import SwiftUI
+import SheftAppsStylishUI
 
 struct FormNavigationLink<Destination: View, Label: View>: View {
-
-    // MARK: - Properties - Dismiss Action
-
-    @Environment(\.dismiss) var dismiss
 
     // MARK: - Properties - Destination
 
@@ -22,26 +19,44 @@ struct FormNavigationLink<Destination: View, Label: View>: View {
 
     var label: Label
 
+    // MARK: - Properties - Phone
+
+    var phone: Phone
+
     // MARK: - Initialization
 
-    init(@ViewBuilder destination: @escaping () -> Destination, @ViewBuilder label: @escaping () -> Label) {
+    init(phone: Phone, @ViewBuilder destination: @escaping () -> Destination, @ViewBuilder label: @escaping () -> Label) {
         self.destination = destination()
         self.label = label()
+        self.phone = phone
     }
 
-    init(_ label: String, @ViewBuilder destination: @escaping () -> Destination) where Label == Text {
+    init(_ label: String, phone: Phone, @ViewBuilder destination: @escaping () -> Destination) where Label == Text {
         self.destination = destination()
         self.label = Text(label)
+        self.phone = phone
     }
 
     // MARK: - Body
 
     var body: some View {
         NavigationLink {
-            Form {
-                destination
+            SlickBackdropView {
+                Form {
+                    Section {
+                        HStack {
+                            Spacer()
+                            PhoneImage(phone: phone, mode: .full)
+                            Spacer()
+                        }
+                    }
+                    destination
+                }
+                .formStyle(.grouped)
+                .scrollContentBackground(.hidden)
+            } backdropContent: {
+                PhoneImage(phone: phone, mode: .backdrop)
             }
-            .formStyle(.grouped)
         } label: {
             label
         }
@@ -51,7 +66,7 @@ struct FormNavigationLink<Destination: View, Label: View>: View {
 // MARK: - Preview
 
 #Preview {
-    FormNavigationLink("Navigation Link") {
+    FormNavigationLink("Navigation Link", phone: Phone(brand: Phone.mockBrand, model: Phone.mockModel)) {
         Text("I'm some text.")
     }
 }

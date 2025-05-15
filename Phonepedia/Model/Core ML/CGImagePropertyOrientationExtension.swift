@@ -3,13 +3,14 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 12/20/23.
-//  Copyright © 2023-2024 SheftApps. All rights reserved.
+//  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
 import SwiftUI
 
 #if !os(macOS)
 extension CGImagePropertyOrientation {
+    
     // Converts a UIImage orientation to a Core Graphics image property orientation. The two orientation types use different raw values.
     init(_ orientation: UIImage.Orientation) {
         switch orientation {

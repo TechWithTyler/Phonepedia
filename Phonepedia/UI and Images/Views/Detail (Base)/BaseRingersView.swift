@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 10/3/24.
-//  Copyright © 2023-2024 SheftApps. All rights reserved.
+//  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
 import SwiftUI
@@ -14,20 +14,35 @@ struct BaseRingersView: View {
     @Bindable var phone: Phone
 
     var body: some View {
-        if (phone.hasAnsweringSystem == 1 || phone.hasAnsweringSystem == 3) || phone.hasBaseSpeakerphone {
-            Stepper("Base Standard Ringtones: \(phone.baseRingtones)", value: $phone.baseRingtones, in: !phone.isCordless || phone.hasBaseSpeakerphone ? 1...50 : 0...50)
-            if phone.baseRingtones > 0 {
-                Stepper("Base Music/Melody Ringtones: \(phone.baseMusicRingtones)", value: $phone.baseMusicRingtones, in: 0...50)
-            }
-            Text("Total Ringtones: \(phone.totalBaseRingtones)")
-            RingtoneInfoView()
+        Stepper(phone.isWiFiHandset ? "Standard Ringtones: \(phone.baseRingtones)" : "Base Standard Ringtones: \(phone.baseRingtones)", value: $phone.baseRingtones, in: !phone.isCordless || phone.hasBaseSpeakerphone ? .oneToMax(50) : .zeroToMax(50))
+        if phone.baseRingtones > 0 && (phone.isCordless || phone.cordedRingerType == 1) {
+            Stepper(phone.isWiFiHandset ? "Music/Melody Ringtones: \(phone.baseMusicRingtones)" : "Base Music/Melody Ringtones: \(phone.baseMusicRingtones)", value: $phone.baseMusicRingtones, in: .zeroToMax(50))
         }
-        else if !phone.isCordless && (phone.cordedPhoneType == 0 || phone.cordedPhoneType == 2) {
+        Text("Total Ringtones: \(phone.totalBaseRingtones)")
+        RingtoneInfoView()
+        if !phone.isCordless && !phone.isWiFiHandset && (phone.cordedPhoneType == 0 || phone.cordedPhoneType == 2) && phone.baseRingtones <= 2 && phone.baseBluetoothCellPhonesSupported == 0 {
             Picker("Ringer Type", selection: $phone.cordedRingerType) {
                 Text("Bell/Mechanical").tag(0)
                 Text("Electronic").tag(1)
             }
-            InfoText("A bell/mechanical ringer requires more power to ring, so it may not work properly on most VoIP lines, especially if multiple phones are ringing at once, as they're usually designed for modern phones which typically don't have mechanical ringers. Electronic ringers, especially those that are software-driven, don't require much power.\nThe amount of ringing power a phone requires is determined by the Ringer Equivalence Number (REN), usually found on the bottom of the phone. A higher REN means more power is required for the phone to ring properly.")
+            .onChange(of: phone.cordedRingerType) { oldValue, newValue in
+                phone.cordedRingerTypeChanged(oldValue: oldValue, newValue: newValue)
+            }
+            if phone.cordedRingerType == 1 {
+                Picker("Ringer Location", selection: $phone.cordedRingerLocation) {
+                    Text("Base").tag(0)
+                    Text("Receiver").tag(1)
+                }
+            }
+            InfoText("Bell phones contain at least 2 bells and an electromagnet. The electromagnet is used to strike the bells when the phone rings.\nA bell phone may have 2 ringtone options. These phones have an additional bell ringer and a switch that turns its electromagnet on or off.\nA bell/mechanical ringer requires more power to ring, so it may not work properly on most VoIP lines, especially if multiple phones are ringing at once, as they're usually designed for modern phones which typically don't have mechanical ringers. Electronic ringers, especially those that are software-driven, don't require much power.\nThe amount of ringing power a phone requires is determined by the Ringer Equivalence Number (REN), usually found on the bottom of the phone. A higher REN means more power is required for the phone to ring properly. You can connect a device called a REN booster to your line to increase its REN and allow bell/mechanical ringers to ring.")
+        }
+        if phone.totalBaseRingtones > 0 {
+            Picker("Silent Mode", selection: $phone.silentMode) {
+                Text("None").tag(0)
+                Text("Number of Hours").tag(1)
+                Text("Time Period").tag(2)
+            }
+            SilentModeInfoView()
         }
         if phone.isCordless && phone.hasBaseIntercom && phone.baseRingtones > 0 {
             Picker("Base Intercom Ringtone", selection: $phone.baseIntercomRingtone) {
@@ -63,6 +78,13 @@ struct BaseRingersView: View {
                 Toggle("Can Play Cell Ringtone", isOn: $phone.supportsCellRingtone)
                 InfoText("The phone can play your cell phone's ringtone instead of the ringtone selected for the cell line if the cell phone supports Bluetooth In-Band Ringtone.")
             }
+        }
+        if (phone.totalBaseRingtones >= 1 || !phone.isCordless) && !phone.isWiFiHandset {
+            Picker(phone.isCordless ? "Base Ringer Volume Adjustment" : "Ringer Volume Adjustment", selection: $phone.baseRingerVolumeAdjustmentType) {
+                Text("Ringer Switch/Dial").tag(0)
+                Text("Volume Buttons").tag(1)
+            }
+            Toggle("Supports Ringer Off", isOn: $phone.baseSupportsRingerOff)
         }
     }
 }
