@@ -10,7 +10,7 @@ import SwiftUI
 
 struct AnalogPhoneConnectedToPickerItems: View {
     var body: some View {
-        Text("No Line").tag(0)
+        Text("No Line (Not Recommended)").tag(0)
         Divider()
         Text("Copper (POTS) Line").tag(1)
         Text("VoIP Modem/ATA").tag(2)

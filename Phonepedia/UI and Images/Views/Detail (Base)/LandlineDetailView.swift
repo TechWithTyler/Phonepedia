@@ -35,6 +35,9 @@ struct LandlineDetailView: View {
             Picker("Analog Line Connected To", selection: $phone.landlineConnectedTo) {
                 AnalogPhoneConnectedToPickerItems()
             }
+            if phone.landlineConnectedTo == 0 {
+                WarningText("It's recommended to connect your phone to a line to enjoy all of its features!")
+            }
         }
         InfoText("Select \"Multiple\" if you alternate between connection types (e.g. a phone line simulator for internal test calls and a VoIP modem for real calls) or each analog line on a multi-line phone is connected to a different one. You can use a phone line switcher for this.")
         InfoButton(title: "About Connection Types/Devices…") {
