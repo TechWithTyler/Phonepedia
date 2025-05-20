@@ -1267,7 +1267,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Phonepedia/Supporting Files/Phonepedia.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1100;
+				CURRENT_PROJECT_VERSION = 1150;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Phonepedia/UI and Images/Preview Content\"";
 				DEVELOPMENT_TEAM = 3B6G4T54X3;
@@ -1297,7 +1297,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 2025.5;
+				MARKETING_VERSION = 2025.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tylersheft.Phonepedia;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
@@ -1317,7 +1317,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Phonepedia/Supporting Files/Phonepedia.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1100;
+				CURRENT_PROJECT_VERSION = 1150;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Phonepedia/UI and Images/Preview Content\"";
 				DEVELOPMENT_TEAM = 3B6G4T54X3;
@@ -1347,7 +1347,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 2025.5;
+				MARKETING_VERSION = 2025.6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tylersheft.Phonepedia;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
