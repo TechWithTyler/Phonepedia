@@ -15,7 +15,7 @@ struct AnalogPhoneConnectedToPickerItems: View {
         Text("Copper (POTS) Line").tag(1)
         Text("VoIP Modem/ATA").tag(2)
         Text("Cell-to-Landline Bluetooth").tag(3)
-        Text("Cellular Jack/Base").tag(4)
+        Text("Cellular Jack/Gateway").tag(4)
         Text("PBX").tag(5)
         Text("Phone Line Simulator").tag(6)
         Divider()
