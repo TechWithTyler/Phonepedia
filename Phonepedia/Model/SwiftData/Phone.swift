@@ -237,6 +237,10 @@ final class Phone {
 
     var answeringSystemType: Int = 1
 
+    var remoteAccessCodeType: Int = 2
+
+    var remoteAccessCodeCommonToAllLines: Bool = false
+
     var hasMessageList: Bool = false
 
     var answeringSystemMultilineButtonLayout: Int = 0

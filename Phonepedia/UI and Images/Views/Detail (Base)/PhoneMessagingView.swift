@@ -88,6 +88,16 @@ struct PhoneMessagingView: View {
                 Toggle("Has Greeting Only Mode", isOn: $phone.hasGreetingOnlyMode)
                 InfoText("Greeting Only, sometimes called Announce Only or Answer Only, answers calls but doesn't accept incoming messages. Some phones allow you to record a separate greeting for both modes, allowing you to easily switch between modes without having to re-record your greeting each time. If the phone has greeting slots, greeting only is one of those slots rather than a dedicated mode.\nExample: \"Hello. You have reached \(exampleName). I'm not available to take your call, so please call again later.\"")
                 ExampleAudioView(audioFile: .answeringSystemGreetingAnswerOnly)
+                Picker("Remote Access Code Type", selection: $phone.remoteAccessCodeType) {
+                    Text("Fixed (Factory-Selected)").tag(0)
+                    Text("Partially-Selectable").tag(1)
+                    Text("Fully-Selectable").tag(2)
+                }
+                InfoText("The remote access code is a numeric code (at least 2 digits) you dial during the greeting, sometimes with another digit entered first, to remotely access the answering system just as you would with a voicemail service.\nA fixed remote access code is programmed into the phone by the factory and is often unique to each instance of that phone. For example, one instance of a phone model might have the code 47, and another instance of that same model might have the code 26. The code is printed on the back or bottom of the phone.\nWith a partially-selectable remote access code, one or more digits are programmed into the phone by the factory, and you select the remaining digit(s). For example, one instance of a phone model might have the code 6x, and another instance of that same model might have the code 3x, with x representing the digit you can choose (e.g. 60-69 on one instance and 30-39 on another). The fixed portion of the code is printed on the back or bottom of the phone.\nA fully-selectable remote access code means that all digits of the code can be selected by the user, either by scrolling through numbers or by simply entering the desired code using the base/handset keypad.")
+                if phone.numberOfLandlines > 1 {
+                    Toggle("Remote Access Code Common to All Lines", isOn: $phone.remoteAccessCodeCommonToAllLines)
+                    InfoText("On multi-line phones, the answering system for each line either has a separate fixed remote access code or remote access code setting, or a single remote access code that applies to all lines.")
+                }
                 if phone.baseDisplayType > 3 {
                     Toggle("Has Message List", isOn: $phone.hasMessageList)
                     MessageListInfoView()
