@@ -283,8 +283,10 @@ In most cases, if the base has a charge light/display message, the completion of
                         Text("On Base").tag(0)
                         Text("On Receiver").tag(1)
                         Text("Magnetic").tag(2)
+                        Text("Contacts").tag(3)
                     }
                 }
+                InfoText("Most corded phones have a switch hook which presses, located on either the base or the receiver. More advanced corded phones might have magnetic switch hooks, where magnets in the base and receiver trigger a magnetically-activated switch, called a reed switch. Some corded phones might use contacts like those found on cordless phones, instead of a switch hook. This is mostly seen on corded phones which are extensions of a cordless system, where placing the corded receiver on the cordless base registers the corded extension phone to the base.")
             }
         }
     }

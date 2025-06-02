@@ -209,6 +209,8 @@ final class Phone {
 
     var hasIntercom: Bool = true
 
+    var callPrivacyMode: Int = 0
+
     var hasBaseIntercom: Bool = false
 
     var intercomAutoAnswer: Int = 0
@@ -276,6 +278,8 @@ final class Phone {
     var hasPickUpToSwitch: Bool = true
 
     var dialWithBaseDuringHandsetCall: Bool = false
+
+    var handsetToBaseCallPickupBehavior: Int = 2
 
     var hasBaseKeypad: Bool = false
 

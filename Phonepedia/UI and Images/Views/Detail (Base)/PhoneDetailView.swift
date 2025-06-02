@@ -234,7 +234,7 @@ struct PhoneDetailView: View {
             } label: {
                 Label("Ringers", systemImage: "bell")
             }
-            if phone.isCordless || phone.cordedPhoneType == 0 {
+            if phone.isCordless || phone.cordedPhoneType == 0 || phone.cordedPhoneType == 2 {
                 FormNavigationLink(phone: phone) {
                     BaseSpeakerphoneIntercomView(phone: phone)
                         .navigationTitle(phone.isCordless ? "Speaker/Int" : "Speakerphone")
