@@ -54,7 +54,7 @@ struct BaseSpeakerphoneIntercomView: View {
                     Text("Per-Call Only").tag(1)
                     Text("All Calls").tag(2)
                 }
-                Text("Call privacy mode allows you to prevent the base and/or other cordless devices from joining a call. When call privacy is enabled for a call, the only way to create a conference call is once a call transfer intercom call is established between 2 cordless devices/the base and a cordless device, and the base/other cordless devices can't join that conference call.")
+                Text("Call privacy mode allows you to prevent the base and/or other cordless devices from joining a call. When call privacy is enabled for a call, the only way to create a conference call is once a call transfer intercom call is established between 2 cordless devices/the base and a cordless device, and the base/other cordless devices can't join that conference call. This feature is only useful when this cordless phone is the only phone on the line, since someone can still join the call using any other phone on the same line.")
             }
             if phone.hasIntercom && !phone.hasBaseSpeakerphone && !phone.isCordedCordless {
                 Toggle(isOn: $phone.hasBaseIntercom) {
@@ -76,7 +76,7 @@ struct BaseSpeakerphoneIntercomView: View {
                     Text("Push-To-Talk (PTT)").tag(1)
                     Text("Broadcast to \(phone.hasBaseIntercom ? "Base/All HS" : "All HS")").tag(2)
                 }
-                InfoText("Push-To-Talk (PTT): You can use the handset/base like a walkie-talkie.\nBroadcast to All: You can use a handset/deskset/base to broadcast a message to the base/all registered handsets/desksets.")
+                InfoText("Push-To-Talk (PTT): You can use the handset/deskset/base like a walkie-talkie to talk with the base/another handset/deskset, or the base and all registered handsets/desksets, and anyone in the PTT session can respond.\nBroadcast to All: You can use a handset/deskset/base to broadcast a message to the base/all registered handsets/desksets, but no one can respond back unless someone answers to establish an intercom call (if answering a broadcast is supported).")
             }
             if phone.hasIntercom && !phone.hasBaseIntercom && phone.cordlessHandsetsIHave.count <= 1 {
                 WarningText("Intercom requires 2 or more handsets/desksets, or at least 1 handset/deskset and 1 headset/speakerphone, to be registered to the base.")
