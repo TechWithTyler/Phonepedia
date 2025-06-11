@@ -10,9 +10,19 @@ import SwiftUI
 
 struct PhoneCountView: View {
 
+    // MARK: - Properties - Phones
+
     var phones: [Phone]
 
+    var cordlessPhones: [Phone] {
+        return phones.filter({ $0.isCordless })
+    }
+
+    // MARK: - Properties - Dismiss Action
+
     @Environment(\.dismiss) var dismiss
+
+    // MARK: - Properties - Integers
 
     @AppStorage(UserDefaults.KeyNames.brandSortMode) var brandSortMode: Int = 0
 
@@ -30,7 +40,7 @@ struct PhoneCountView: View {
 
     // The total number of cordless phones, not counting the individual cordless devices on each cordless phone system.
     var cordlessPhoneCount: Int {
-        let count = phones.filter({ $0.isCordless }).count
+        let count = cordlessPhones.count
         return count
     }
 
@@ -43,7 +53,7 @@ struct PhoneCountView: View {
     // The total number of cordless handsets.
     var handsetCount: Int {
         var totalHandsets = 0
-        for phone in phones.filter({$0.isCordless}) {
+        for phone in cordlessPhones {
             totalHandsets += phone.cordlessHandsetsIHave.filter({$0.cordlessDeviceType == 0}).count
         }
         return totalHandsets
@@ -52,7 +62,7 @@ struct PhoneCountView: View {
     // The number of active cordless handsets.
     var activeCordlessHandsetCount: Int {
         var activeHandsets = 0
-        for phone in phones.filter({$0.isCordless}) {
+        for phone in cordlessPhones {
             activeHandsets += phone.cordlessHandsetsIHave.filter({$0.storageOrSetup <= 1 && $0.cordlessDeviceType == 0}).count
         }
         return activeHandsets
@@ -61,7 +71,7 @@ struct PhoneCountView: View {
     // The total number of cordless desksets.
     var desksetCount: Int {
         var totalDesksets = 0
-        for phone in phones.filter({$0.isCordless}) {
+        for phone in cordlessPhones {
             totalDesksets += phone.cordlessHandsetsIHave.filter({$0.cordlessDeviceType == 1}).count
         }
         return totalDesksets
@@ -70,7 +80,7 @@ struct PhoneCountView: View {
     // The number of active cordless desksets.
     var activeCordlessDesksetCount: Int {
         var activeDesksets = 0
-        for phone in phones.filter({$0.isCordless}) {
+        for phone in cordlessPhones {
             activeDesksets += phone.cordlessHandsetsIHave.filter({$0.storageOrSetup <= 1 && $0.cordlessDeviceType == 1}).count
         }
         return activeDesksets
@@ -79,7 +89,7 @@ struct PhoneCountView: View {
     // The total number of cordless headsets/speakerphones.
     var headsetCount: Int {
         var totalHeadsets = 0
-        for phone in phones.filter({$0.isCordless}) {
+        for phone in cordlessPhones {
             totalHeadsets += phone.cordlessHandsetsIHave.filter({$0.cordlessDeviceType == 2}).count
         }
         return totalHeadsets
@@ -88,11 +98,13 @@ struct PhoneCountView: View {
     // The number of active cordless headsets/speakerphones.
     var activeCordlessHeadsetCount: Int {
         var activeHeadsets = 0
-        for phone in phones.filter({$0.isCordless}) {
+        for phone in cordlessPhones {
             activeHeadsets += phone.cordlessHandsetsIHave.filter({$0.storageOrSetup <= 1 && $0.cordlessDeviceType == 2}).count
         }
         return activeHeadsets
     }
+
+    // MARK: - Properties - Strings
 
     // Brands of phones.
     var brands: [String] {
@@ -102,7 +114,7 @@ struct PhoneCountView: View {
         for phone in phones {
             brandCounts[phone.brand, default: 0] += 1
         }
-        // 3. Sort based on the selected sort mode.
+        // 3. Sort based on the selected sort mode. Brands will be sorted alphabetically if sorting by name (brandSortMode is 0), or numerically in descending order if sorting by count (brandSortMode is 1). For any counts that are tied, sort those brands alphabetically.
         if brandSortMode == 0 {
             // Sort alphabetically by brand name.
             return brandCounts.keys.sorted(by: <)
@@ -116,7 +128,6 @@ struct PhoneCountView: View {
             }.map { $0.key } // Return only the brand names.
         }
     }
-
 
     // The total number of phones with answering systems.
     var withAnsweringSystemsCount: Int {

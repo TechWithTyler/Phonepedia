@@ -161,16 +161,19 @@ struct PhoneRowView: View {
                 // 5. Calculate the range in AttributedString and apply highlighting.
                 let attributedStartIndex = attributedString.index(attributedString.startIndex, offsetByCharacters: index)
                 let attributedEndIndex = attributedString.index(afterCharacter: attributedStartIndex)
+                // 6. Choose whether to apply an underline or highlight to the digit based on the "Handset Number Digit Indication" setting.
                 switch highlightHandsetNumberDigitInList {
                 case 2:
+                    // Highlight
                     attributedString[attributedStartIndex..<attributedEndIndex].backgroundColor = .accentColor.opacity(0.75)
                     attributedString[attributedStartIndex..<attributedEndIndex].foregroundColor = .white
                 default:
+                    // Underline
                     attributedString[attributedStartIndex..<attributedEndIndex].underlineStyle = .single
                 }
             }
         }
-        // 6. Return the attributed string. If digit and index are nil, no highlighting is applied.
+        // 7. Return the attributed string. If digit and index are nil in step 2, no highlighting/underlining is applied (steps 3-6 are skipped).
         return attributedString
     }
 
