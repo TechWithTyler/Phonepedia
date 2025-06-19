@@ -11,7 +11,7 @@
 		8D19F0BD2D07962A00C3B67C /* PhoneListDetailOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D19F0BC2D07962A00C3B67C /* PhoneListDetailOptions.swift */; };
 		8D20E37B2C45B9740016800C /* PhoneInCollectionStatusPickerItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D20E37A2C45B9740016800C /* PhoneInCollectionStatusPickerItems.swift */; };
 		8D20E37D2C45BB7C0016800C /* RingtoneInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D20E37C2C45BB7C0016800C /* RingtoneInfoView.swift */; };
-		8D239BC82DF8D1C80022F0A4 /* Phonepedia.icon in Resources */ = {isa = PBXBuildFile; fileRef = 8D239BC72DF8D1C80022F0A4 /* Phonepedia.icon */; };
+		8D239BC82DF8D1C80022F0A4 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 8D239BC72DF8D1C80022F0A4 /* AppIcon.icon */; };
 		8D27B18D2D03AABB004B75E4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D27B18C2D03AABB004B75E4 /* SettingsView.swift */; };
 		8D27B1902D03AC3B004B75E4 /* UserDefaultsKeyNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D27B18F2D03AC3B004B75E4 /* UserDefaultsKeyNames.swift */; };
 		8D2BAF512CD187EA0016C61E /* ChargingDirectionPickerItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2BAF502CD187EA0016C61E /* ChargingDirectionPickerItems.swift */; };
@@ -189,7 +189,7 @@
 		8D19F0BC2D07962A00C3B67C /* PhoneListDetailOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneListDetailOptions.swift; sourceTree = "<group>"; };
 		8D20E37A2C45B9740016800C /* PhoneInCollectionStatusPickerItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneInCollectionStatusPickerItems.swift; sourceTree = "<group>"; };
 		8D20E37C2C45BB7C0016800C /* RingtoneInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingtoneInfoView.swift; sourceTree = "<group>"; };
-		8D239BC72DF8D1C80022F0A4 /* Phonepedia.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = Phonepedia.icon; sourceTree = "<group>"; };
+		8D239BC72DF8D1C80022F0A4 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		8D27B18C2D03AABB004B75E4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		8D27B18F2D03AC3B004B75E4 /* UserDefaultsKeyNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeyNames.swift; sourceTree = "<group>"; };
 		8D2BAF502CD187EA0016C61E /* ChargingDirectionPickerItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargingDirectionPickerItems.swift; sourceTree = "<group>"; };
@@ -501,7 +501,7 @@
 				8DA844A22B72E1D7006CBCA7 /* Views */,
 				8DA8449E2B72E1D7006CBCA7 /* Supporting View Controllers */,
 				8DA8449B2B72E1D7006CBCA7 /* Assets.xcassets */,
-				8D239BC72DF8D1C80022F0A4 /* Phonepedia.icon */,
+				8D239BC72DF8D1C80022F0A4 /* AppIcon.icon */,
 				8DA8449C2B72E1D7006CBCA7 /* Preview Content */,
 			);
 			path = "UI and Images";
@@ -882,7 +882,7 @@
 				8D32A50C2D42F1ED00F606FC /* dtmfTones.wav in Resources */,
 				8D32A5062D42EEBF00F606FC /* busyTone.wav in Resources */,
 				8D842D692D3F122200F50F32 /* callBlockPreScreeningCallerName.wav in Resources */,
-				8D239BC82DF8D1C80022F0A4 /* Phonepedia.icon in Resources */,
+				8D239BC82DF8D1C80022F0A4 /* AppIcon.icon in Resources */,
 				8D842D6A2D3F122200F50F32 /* talkingCallerIDNumber.wav in Resources */,
 				8D842D6B2D3F122200F50F32 /* answeringSystemGreetingRecordMessage.wav in Resources */,
 				8DC9620C2D9C8A2D006A3BF6 /* dtmfCallerID.wav in Resources */,
@@ -1267,9 +1267,9 @@
 		8DFC9C052A3BAB9F00295700 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = Phonepedia;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = "Phonepedia/Supporting Files/Phonepedia.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1303;
@@ -1319,9 +1319,9 @@
 		8DFC9C062A3BAB9F00295700 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = Phonepedia;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = "Phonepedia/Supporting Files/Phonepedia.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1303;
