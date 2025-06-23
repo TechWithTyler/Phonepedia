@@ -190,20 +190,22 @@ In most cases, if the base has a charge light/display message, the completion of
                 }
             }
             if phone.maxCordlessHandsets > 1 {
-                Picker("Handset Locator", selection: $phone.locatorButtons) {
-                    Text(phone.hasBaseKeypad && phone.handsetLocatorUsesIntercom ? "One for All HS/Keypad Entry" : "One For All Handsets").tag(0)
-                    Text("One for Each Handset").tag(1)
-                    Text("Each HS + All").tag(2)
-                    Text("Select + Call Buttons").tag(3)
+                if phone.hasBaseIntercom {
+                    Picker("Handset Locator", selection: $phone.locatorButtons) {
+                        Text(phone.hasBaseKeypad && phone.handsetLocatorUsesIntercom ? "One for All HS/Keypad Entry" : "One For All Handsets").tag(0)
+                        Text("One for Each Handset").tag(1)
+                        Text("Each HS + All").tag(2)
+                        Text("Select + Call Buttons").tag(3)
+                    }
+                    .onChange(of: phone.locatorButtons) { oldValue, newValue in
+                        phone.locatorButtonsChanged(oldValue: oldValue, newValue: newValue)
+                    }
+                    InfoText("Handset locator allows you to locate (page) the handset(s) so you can find them.\nOne for All: A single locator button pages or makes an intercom call to all handsets. If the base has a keypad, you can call all handsets or a specific one.\nOne for Each: The base has one locator button for each handset that can be registered. For example, a phone that only expands up to 3 handsets would have 3 handset locator buttons, one for each of the 3 handsets. The paged handset can have an intercom call with the base.\nEach HS + All: The base has one locator button for each handset that can be registered, as well as a button to page all handsets. The paged handset can have an intercom call with the base.\nSelect + Call Buttons: Press the select button to select the handset to page, then press the call button to call it. The paged handset can have an intercom call with the base.")
+                    if phone.locatorButtons == 0 {
+                        Toggle("Handset Locator Uses Intercom", isOn: $phone.handsetLocatorUsesIntercom)
+                    }
+                    InfoText("Some phones use intercom as the means of locating handsets, even if the base doesn't have intercom. This means that the handset locator and intercom from the base are the same feature.\nPhones without base intercom always have a single handset locator button to locate all handsets.")
                 }
-                .onChange(of: phone.locatorButtons) { oldValue, newValue in
-                    phone.locatorButtonsChanged(oldValue: oldValue, newValue: newValue)
-                }
-                InfoText("Handset locator allows you to locate (page) the handset(s) so you can find them.\nOne for All: A single locator button pages or makes an intercom call to all handsets. If the base has a keypad, you can call all handsets or a specific one.\nOne for Each: The base has one locator button for each handset that can be registered. For example, a phone that only expands up to 3 handsets would have 3 handset locator buttons, one for each of the 3 handsets. The paged handset can have an intercom call with the base.\nEach HS + All: The base has one locator button for each handset that can be registered, as well as a button to page all handsets. The paged handset can have an intercom call with the base.\nSelect + Call Buttons: Press the select button to select the handset to page, then press the call button to call it. The paged handset can have an intercom call with the base.")
-                if phone.locatorButtons == 0 {
-                    Toggle("Handset Locator Uses Intercom", isOn: $phone.handsetLocatorUsesIntercom)
-                }
-                InfoText("Some phones use intercom as the means of locating handsets, even if the base doesn't have intercom. This means that the handset locator and intercom from the base are the same feature.\nPhones without base intercom always have a single handset locator button to locate all handsets.")
                 if !phone.isCordedCordless && !phone.hasTransmitOnlyBase && phone.deregistration > 0 && phone.locatorButtons == 0 {
                     Toggle("Place-On-Base Auto-Register", isOn: $phone.placeOnBaseAutoRegister)
                     InfoText("The base can detect an unregistered handset being placed on it, which will put it into registration mode. Aside from putting the base into registration mode, data isn't exchanged through the contacts like it is on phones using the digital security code method. Manually putting the base in registration mode is still available for re-registering handsets or for registering handsets which don't fit on the base.")
@@ -249,10 +251,10 @@ In most cases, if the base has a charge light/display message, the completion of
             }
             InfoText("""
                 • Rotary phones use a dial with numbers on it. You place your finger on the desired number and turn it until it stops, hence the phrase "dialing a number". When you release the dial, springs and gears return it to its resting position, causing the phone to go on and off-hook very quickly a certain number of times, corresponding to the number you put your finger on. This quick "on and off-hook" is called a pulse. Push-button phones can also send pulses instead of tones. For line-powered push-button phones with button lighting, the light will flash with each pulse.
-                • When the corded receiver is placed on the base, the earpiece pushes down on a piece on the base, or the base pushes down on a piece below the earpiece. This piece is called the hook switch or switch hook, and is how the phone knows if the receiver is on or off the base. You can quickly press the hook switch/switch hook to simulate a pulse dial. This is called "switch hook dialing".
+                • When the corded receiver is placed on the base, the earpiece pushes down on a piece on the base, the base pushes down on a piece below the earpiece, triggers a magnetically-controlled switch, or rests on contacts like those found on cordless phones. This is called the hook switch or switch hook, and is how the phone knows if the receiver is on or off the base. You can quickly press the hook switch/switch hook to simulate a pulse dial. This is called "switch hook dialing".
                 • Most push-button phones send tones made up of a low and high frequency, called Dual-Tone Multi-Frequency (DTMF) tones, when numbers are dialed. Most phone services today only support tone dialing, so a pulse-to-tone converter is required if you want to use a rotary phone or pulse-only push-button phone on your line. A pulse-to-tone converter detects the number of pulses and then sends out the corresponding DTMF tone through the line.
                 • A desk phone has a base, with or without speakerphone, and a corded receiver. These phones may also have other features like a caller ID display or answering system.
-                • A slim/wall phone doesn't have speakerphone and typically doesn't have an answering system, but may have a caller ID display. The keypad or rotary dial can be either in the receiver or in the base. The caller ID buttons and display are on the back of the receiver, not the face where the keypad is.
+                • A slim/wall phone typically doesn't have speakerphone or an answering system, but may have a caller ID display. The keypad or rotary dial can be either in the receiver or in the base. The caller ID buttons and display are on the back of the receiver, not the face where the keypad is. If wall mounted, this design allows you to view the caller ID list or change settings without picking up the phone.
                 • A base-less phone is a corded phone that doesn't have a base. The phone is a single device that plugs into the line.
                 • A novelty phone is a corded phone that's designed to look like something else, like a hamburger you flip open, a piano whose keys are used to dial numbers, a slim phone that's shaped like a pair of lips, an animal, or a cartoon character.
                 """)
@@ -280,8 +282,8 @@ In most cases, if the base has a charge light/display message, the completion of
                 InfoText("Some old phones have hard-wired corded receivers, which means you'll need to have the phone repaired if the cord breaks.")
                 if phone.cordedPhoneType == 2 {
                     Picker("Switch Hook", selection: $phone.switchHookType) {
-                        Text("On Base").tag(0)
-                        Text("On Receiver").tag(1)
+                        Text("Press (On Base)").tag(0)
+                        Text("Press (On Receiver)").tag(1)
                         Text("Magnetic").tag(2)
                         Text("Contacts").tag(3)
                     }

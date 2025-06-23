@@ -1163,6 +1163,12 @@ final class Phone {
         }
     }
 
+    func hasBaseIntercomChanged(oldValue: Bool, newValue: Bool) {
+        if !newValue {
+            locatorButtons = 0
+        }
+    }
+
     func locatorButtonsChanged(oldValue: Int, newValue: Int) {
         if newValue == 0 {
             deregistration = 1

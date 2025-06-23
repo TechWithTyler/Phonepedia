@@ -60,6 +60,9 @@ struct BaseSpeakerphoneIntercomView: View {
                 Toggle(isOn: $phone.hasBaseIntercom) {
                     Text("Has Base Intercom")
                 }
+                .onChange(of: phone.hasBaseIntercom) { oldValue, newValue in
+                    phone.hasBaseIntercomChanged(oldValue: oldValue, newValue: newValue)
+                }
             }
             if phone.hasBaseIntercom {
                 Picker("Intercom Auto-Answer", selection: $phone.intercomAutoAnswer) {
