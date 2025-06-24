@@ -18,7 +18,7 @@ struct BaseSpeakerphoneIntercomView: View {
             Toggle(isOn: $phone.hasBaseSpeakerphone) {
                 Text(phone.isCordless ? "Has Base Speakerphone" : "Has Speakerphone")
                 if !phone.isCordless && !phone.isWiFiHandset && phone.cordedPowerSource == 0 {
-                    InfoText("On a line-powered corded phone, speakerphone performance depends on the power the line provides to the phone while off-hook. If used on a line with very low off-hook power, you or your caller may have trouble hearing on the speakerphone, or it may not work at all, especially if more than one phone is off-hook.\nIf line power drops for long enough (this depends on the phone), the speakerphone won't come back on once line power comes back, so you don't have to hang up manually.")
+                    InfoText("On a line-powered corded phone, speakerphone performance depends on the power the line provides to the phone while off-hook. If used on a line with very low off-hook power, or multiple phones on the line are off-hook, you may have trouble hearing the caller and they might have trouble hearing you, or it may not work at all.\nIf line power drops for long enough (this depends on the phone), the speakerphone won't come back on once line power comes back, so you don't have to hang up manually.")
                 }
             }
             .onChange(of: phone.hasBaseSpeakerphone) { oldValue, newValue in
