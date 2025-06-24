@@ -134,6 +134,8 @@ final class CordlessHandset {
 
     var hasChargeLight: Bool = false
 
+    var supportsPlaceOnBasePowerBackup: Bool = true
+
 	var buttonType: Int = 0
 
     var ringerVolumeAdjustmentType: Int = 1
