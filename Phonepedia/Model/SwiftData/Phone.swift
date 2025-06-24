@@ -209,6 +209,8 @@ final class Phone {
 
     var hasIntercom: Bool = true
 
+    var callTransferType: Int = 1
+
     var callPrivacyMode: Int = 0
 
     var hasBaseIntercom: Bool = false
