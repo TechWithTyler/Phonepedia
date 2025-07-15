@@ -103,7 +103,7 @@ struct PhoneDetailView: View {
                 Text("Cancel")
             }
         } message: {
-            Text("Tip: Landline phone detection works best with images where the phone takes up most of the image.")
+            Text("Tip: Landline phone detection works best with photos where the phone takes up most of the photo.")
         }
     }
     
