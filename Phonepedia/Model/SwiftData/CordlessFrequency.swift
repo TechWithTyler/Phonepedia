@@ -461,6 +461,10 @@ extension Phone {
             }
         }
 
+        var isDigital: Bool {
+            return name.contains("Digital") || name.contains("DSS") || name.contains("FHSS") || name.contains("DECT")
+        }
+
         // MARK: - Frequency Name From Raw Value
 
         static func nameFromRawValue(_ rawValue: Double) -> String {

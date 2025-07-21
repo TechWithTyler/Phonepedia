@@ -181,6 +181,8 @@ final class Phone {
 
     var supportsRangeExtenders: Bool = false
 
+    var holdForOutOfRange: Bool = false
+
     var hasTransmitOnlyBase: Bool = false
 
     var ecoMode: Int = 0
@@ -523,6 +525,12 @@ final class Phone {
     @Transient
     var isCordless: Bool {
         return numberOfIncludedCordlessHandsets > 0
+    }
+
+    @Transient
+    var isDigitalCordless: Bool {
+        guard let frequency = Phone.CordlessFrequency(rawValue: frequency) else { return false }
+        return frequency.isDigital
     }
 
     @Transient

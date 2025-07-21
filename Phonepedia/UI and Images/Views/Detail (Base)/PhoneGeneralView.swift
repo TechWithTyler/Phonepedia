@@ -67,7 +67,7 @@ struct PhoneGeneralView: View {
                 .padding()
                 .font(.system(size: phoneDescriptionTextSize))
         }
-        Stepper("Number of Included Cordless Devices (0 if corded-only): \(phone.numberOfIncludedCordlessHandsets)", value: $phone.numberOfIncludedCordlessHandsets, in: .zeroToMax(15))
+        Stepper("Number of Included Cordless Devices (0 If Not Cordless): \(phone.numberOfIncludedCordlessHandsets)", value: $phone.numberOfIncludedCordlessHandsets, in: .zeroToMax(15))
             .disabled(phone.handsetNumberDigit != nil)
             .onChange(of: phone.numberOfIncludedCordlessHandsets) { oldValue, newValue in
                 phone.numberOfIncludedCordlessHandsetsChanged(oldValue: oldValue, newValue: newValue)
@@ -80,7 +80,7 @@ struct PhoneGeneralView: View {
                 }
                 phone.isCordlessChanged(oldValue: oldValue, newValue: newValue)
             }
-            .alert("Make this phone corded-only?", isPresented: $dialogManager.showingMakeCordedOnly) {
+            .alert("Specifying that this phone comes with 0 cordless devices makes it a non-cordless phone. Continue?", isPresented: $dialogManager.showingMakeCordedOnly) {
                 Button("OK") {
                     phone.cordlessHandsetsIHave.removeAll()
                     phone.chargersIHave.removeAll()
@@ -93,7 +93,9 @@ struct PhoneGeneralView: View {
             } message: {
                 Text("This will delete all cordless devices and chargers.")
             }
-        Toggle("Is Wi-Fi Handset", isOn: $phone.isWiFiHandset)
+        if !phone.isCordless {
+            Toggle("Is Wi-Fi Handset", isOn: $phone.isWiFiHandset)
+        }
         if !phone.isWiFiHandset {
         if phone.isCordless {
             Group {
@@ -118,12 +120,16 @@ struct PhoneGeneralView: View {
             InfoButton(title: "Frequencies/Communication Technologies Explanation…") {
                 dialogManager.showingFrequenciesExplanation = true
             }
-            Picker("ECO Mode", selection: $phone.ecoMode) {
-                Text("Not Supported").tag(0)
-                Text("Reduced Power Only").tag(1)
-                Text("Reduced Power or No Transmit").tag(2)
+            if phone.isDigitalCordless {
+                Toggle("Briefly Holds Ongoing Call When Out Of Range", isOn: $phone.holdForOutOfRange)
+                InfoText("Typically, with digital cordless phones, when a handset moves out of range from the base during a call, the call is dropped. With some cordless phones, the base can put the call on hold for a short time once it detects that the handset has gone out of range, to allow the call to continue if the handset moves back in range quickly enough. On analog cordless phones, the base can't know that the handset went out of range, so the phone will remain off-hook until the base is unplugged and plugged back in, or the handset goes back in range without having been hung up first.")
+                Picker("ECO Mode", selection: $phone.ecoMode) {
+                    Text("Not Supported").tag(0)
+                    Text("Reduced Power Only").tag(1)
+                    Text("Reduced Power or No Transmit").tag(2)
+                }
+                InfoText("ECO mode allows transmission power to be reduced to save energy, either for cordless devices that are close to or placed on the base, or for the entire system by manual activation.\nSome phones can stop all transmission when in standby mode. The handset distinguishes between \"base not transmitting\" and \"out of range\" by occasionally sending a signal to the base to wake it up. A wake-up signal is also sent when the handset is picked up from charge or when any button is pressed. If the handset fails to receive an acknowledgment from the base, the handset is considered out of range. Since the handset needs to check for the base more frequently in \"no transmit\" mode, the phone will still occasionally transmit in standby mode and the handset battery life may be reduced.")
             }
-            InfoText("ECO mode allows transmission power to be reduced to save energy, either for cordless devices that are close to or placed on the base, or for the entire system by manual activation.\nSome phones can stop all transmission when in standby mode. The handset distinguishes between \"base not transmitting\" and \"out of range\" by occasionally sending a signal to the base to wake it up. A wake-up signal is also sent when the handset is picked up from charge or when any button is pressed. If the handset fails to receive an acknowledgment from the base, the handset is considered out of range. Since the handset needs to check for the base more frequently in \"no transmit\" mode, the phone will still occasionally transmit in standby mode and the handset battery life may be reduced.")
             Picker("Antenna(s)", selection: $phone.antennas) {
                 Text("Hidden").tag(0)
                 Text("Telescopic").tag(1)
@@ -134,7 +140,7 @@ struct PhoneGeneralView: View {
             AntennaInfoView()
             if phone.hasRegistration {
                 Toggle("Supports Range Extenders", isOn: $phone.supportsRangeExtenders)
-                InfoText("A range extender extends the range of the base it's registered to. Devices communicating with the base choose the base or a range extender based on which has the strongest signal.\nIf you register 2 or more range extenders, they can be \"daisy-chained\" (one can communicate with the base via another) to create a larger useable coverage area.\nWhen a cordless device moves between the base or range extender(s), your call may briefly cut out.\nIf a handset is communicating with a range extender and that range extender loses power or its link to the base, the handset will also lose its link to the base for a few seconds, so the handset may drop the call or switch to communicating with the base or another range extender.")
+                InfoText("A range extender, also known as a repeater, extends  the range (or \"repeats the signal\") of the base it's registered to. Devices communicating with the base choose the base or a range extender based on which has the strongest signal, just like devices connected to a mesh Wi-Fi network.\nIf you register 2 or more range extenders, they can be \"daisy-chained\" (one can communicate with the base via another) to create a larger useable coverage area.\nWhen a cordless device moves between the base or range extender(s), your call may briefly cut out.\nIf a handset is communicating with a range extender and that range extender loses power or its link to the base, the handset will also lose its link to the base for a few seconds, which will cause the handset to either connect to the base or another range extender, or drop the call entirely.")
             }
             if !phone.isCordedCordless {
                 Toggle("Base Is Transmit-Only", isOn: $phone.hasTransmitOnlyBase)
