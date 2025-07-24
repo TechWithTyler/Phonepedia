@@ -100,10 +100,13 @@ struct PhoneGeneralView: View {
         if phone.isCordless {
             Group {
                 HandsetNumberDigitView(phone: phone)
-                Stepper("Maximum Number of Cordless Devices (-1 If Using \"Security Codes Must Match\"): \(phone.maxCordlessHandsets)", value: $phone.maxCordlessHandsets, in: -1...15)
-                    .onChange(of: phone.maxCordlessHandsets) { oldValue, newValue in
-                        phone.maxCordlessHandsetsChanged(oldValue: oldValue, newValue: newValue)
-                    }
+                if phone.isDigitalCordless {
+                    Stepper("Maximum Number of Cordless Devices (-1 If No Limit): \(phone.maxCordlessHandsets)", value: $phone.maxCordlessHandsets, in: -1...15)
+                        .onChange(of: phone.maxCordlessHandsets) { oldValue, newValue in
+                            phone.maxCordlessHandsetsChanged(oldValue: oldValue, newValue: newValue)
+                        }
+                    InfoText("If the phone uses the \"security codes must match\" method where the base doesn't know or care how many cordless handsets are being used with it, set this to -1. Press the button below to learn more about the differences between registration and \"security codes must match\".")
+                }
                     InfoButton(title: "Registration/Security Code Explanation…") {
                         dialogManager.showingRegistrationExplanation = true
                 }
@@ -117,12 +120,15 @@ struct PhoneGeneralView: View {
                     }
                 }
             }
+            .onChange(of: phone.isDigitalCordless) { oldValue, newValue in
+                phone.isDigitalCordlessChanged(oldValue: oldValue, newValue: newValue)
+            }
             InfoButton(title: "Frequencies/Communication Technologies Explanation…") {
                 dialogManager.showingFrequenciesExplanation = true
             }
             if phone.isDigitalCordless {
                 Toggle("Briefly Holds Ongoing Call When Out Of Range", isOn: $phone.holdForOutOfRange)
-                InfoText("Typically, with digital cordless phones, when a handset moves out of range from the base during a call, the call is dropped. With some cordless phones, the base can put the call on hold for a short time once it detects that the handset has gone out of range, to allow the call to continue if the handset moves back in range quickly enough. On analog cordless phones, the base can't know that the handset went out of range, so the phone will remain off-hook until the base is unplugged and plugged back in, or the handset goes back in range without having been hung up first.")
+                InfoText("Typically, with digital cordless phones, when a handset moves out of range from the base during a call, the call is dropped. With some cordless phones, the base can put the call on hold for a short time once it detects that the handset has gone out of range, to allow the call to continue if the handset moves back in range quickly enough. On analog cordless phones, the base can't know that the handset went out of range, so the phone will remain off-hook until the base is unplugged and plugged back in, or the handset goes back in range without having been hung up first (or for some single-handset models, placing a handset on the base).")
                 Picker("ECO Mode", selection: $phone.ecoMode) {
                     Text("Not Supported").tag(0)
                     Text("Reduced Power Only").tag(1)
@@ -195,7 +201,7 @@ In most cases, if the base has a charge light/display message, the completion of
                     }
                 }
             }
-            if phone.maxCordlessHandsets > 1 {
+            if phone.isDigitalCordless && phone.maxCordlessHandsets > 1 {
                 if phone.hasBaseIntercom {
                     Picker("Handset Locator", selection: $phone.locatorButtons) {
                         Text(phone.hasBaseKeypad && phone.handsetLocatorUsesIntercom ? "One for All HS/Keypad Entry" : "One For All Handsets").tag(0)

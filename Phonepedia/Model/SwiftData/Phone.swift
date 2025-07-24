@@ -540,7 +540,7 @@ final class Phone {
 
     @Transient
     var hasRegistration: Bool {
-        return maxCordlessHandsets != -1
+        return isDigitalCordless
     }
 
     @Transient
@@ -828,6 +828,14 @@ final class Phone {
         }
         if newValue > maxCordlessHandsets && maxCordlessHandsets != -1 {
             maxCordlessHandsets = newValue
+        }
+    }
+
+    func isDigitalCordlessChanged(oldValue: Bool, newValue: Bool) {
+        if !newValue {
+            maxCordlessHandsets = -1
+            locatorButtons = 0
+            deregistration = 1
         }
     }
 
