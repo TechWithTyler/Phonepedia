@@ -253,6 +253,10 @@ In most cases, if the base has a charge light/display message, the completion of
                     Text("Push-Button Slim/Wall").tag(2)
                     Text("Rotary Slim/Wall").tag(3)
                 }
+                Section(header: Text("Vintage/Replicas")) {
+                    Text("Candlestick").tag(6)
+                    Text("Wooden Box").tag(7)
+                }
                 Section(header: Text("Other")) {
                     Text("Base-less").tag(4)
                     Text("Novelty").tag(5)
@@ -267,6 +271,8 @@ In most cases, if the base has a charge light/display message, the completion of
                 • Most push-button phones send tones made up of a low and high frequency, called Dual-Tone Multi-Frequency (DTMF) tones, when numbers are dialed. Most phone services today only support tone dialing, so a pulse-to-tone converter is required if you want to use a rotary phone or pulse-only push-button phone on your line. A pulse-to-tone converter detects the number of pulses and then sends out the corresponding DTMF tone through the line.
                 • A desk phone has a base, with or without speakerphone, and a corded receiver. These phones may also have other features like a caller ID display or answering system.
                 • A slim/wall phone typically doesn't have speakerphone or an answering system, but may have a caller ID display. The keypad or rotary dial can be either in the receiver or in the base. The caller ID buttons and display are on the back of the receiver, not the face where the keypad is. If wall mounted, this design allows you to view the caller ID list or change settings without picking up the phone.
+                • A candlestick phone is a corded phone where the receiver is only used to listen, and the microphone is on the part of the base that sticks up like a candlestick holder, hence the name. The receiver hangs up on a hook to the left of the "candlestick holder", hence the terms "on-hook", "off-hook", and "switch hook". This design of phone came before dialing, so picking up the receiver would connect you to an operator (or on today's lines, just give you a dial tone). Unlike most phones, the ringer and most of the circuitry were usually contained in a separate box, called a subset, that was connected to the phone. This was because these components couldn't fit into the candlestick phone itself at the time. As this design of phone is very old and was from the "phone company owns the phones" era, most candlestick phones seen today are replicas which have either a rotary dial or keypad, and the ringer and circuitry in the phone itself.
+                • A wooden box phone is similar in concept to a candlestick phone, but the base is shaped like a wooden box instead of a candlestick holder. Visible bells at the top serve as the ringer. These kinds of phones often have a crank on the side, which you turn to ring the operator, and you would stop cranking once the operator answers. These kinds of phones are very old and were from the "phone company owns the phones" era, so most wooden box phones seen today are replicas which have either a rotary dial or keypad.
                 • A base-less phone is a corded phone that doesn't have a base. The phone is a single device that plugs into the line.
                 • A novelty phone is a corded phone that's designed to look like something else, like a hamburger you flip open, a piano whose keys are used to dial numbers, a slim phone that's shaped like a pair of lips, an animal, or a cartoon character.
                 """)

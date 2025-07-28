@@ -30,9 +30,8 @@ struct ContentView: View {
             PhoneListView(phones: phones, selectedPhone: $selectedPhone)
                 .environmentObject(dialogManager)
                 .navigationTitle("Phone List")
-                #if os(macOS)
                 .navigationSplitViewColumnWidth(min: 300, ideal: 350, max: 400)
-                #else
+                #if !os(macOS)
                 .navigationBarTitleDisplayMode(.inline)
                 #endif
         } detail: {
