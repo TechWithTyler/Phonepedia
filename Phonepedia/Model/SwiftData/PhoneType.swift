@@ -17,7 +17,7 @@ extension Phone {
         case cordless = "Cordless"
         
         case corded = "Corded"
-        
+
         case cordedCordless = "Corded/Cordless"
         
         case cordlessWithTransmitOnlyBase = "Cordless With Transmit-Only Base"

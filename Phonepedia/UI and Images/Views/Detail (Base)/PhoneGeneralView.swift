@@ -91,7 +91,7 @@ struct PhoneGeneralView: View {
                     dialogManager.showingMakeCordedOnly = false
                 }
             } message: {
-                Text("This will delete all cordless devices and chargers.")
+                Text("This will delete all cordless devices (\(phone.cordlessHandsetsIHave.count)) and chargers \(phone.chargersIHave.count)!")
             }
         if !phone.isCordless {
             Toggle("Is Wi-Fi Handset", isOn: $phone.isWiFiHandset)
@@ -162,7 +162,7 @@ struct PhoneGeneralView: View {
                 }
                 if !phone.hasBaseKeypad && !phone.hasTransmitOnlyBase {
                     Toggle("Has Charger-Style Base", isOn: $phone.hasChargerSizeBase)
-                    InfoText("Some cordless phone bases look similar/have a similar size to chargers. In some cases, such as when the base has no answering system controls, they can be easily mistaken for chargers, although a base is always slightly bigger than a charger.\nThese kinds of bases are ideal for those who want a small-footprint base. The differentiating factor between a charger-style base vs a standard base is that the handset charging area is in the same position as that of the charger (usually the center).\nTip: The main base has at least a phone jack or handset locator button. Chargers just plug into power.")
+                    InfoText("Some cordless phone bases look similar to/have a similar size to chargers. In some cases, such as when the base has no answering system controls, they can be easily mistaken for chargers, although a base is always slightly bigger than a charger.\nThese kinds of bases are ideal for those who want a small-footprint base. The differentiating factor between a charger-style base vs a standard base is that the handset charging area is in the same horizontal position as that of the charger (usually the center).\nTip: The main base has at least a phone jack or handset locator button. Chargers just plug into power.")
                 }
             }
             if phone.baseChargesHandset {
@@ -212,11 +212,11 @@ In most cases, if the base has a charge light/display message, the completion of
                     .onChange(of: phone.locatorButtons) { oldValue, newValue in
                         phone.locatorButtonsChanged(oldValue: oldValue, newValue: newValue)
                     }
-                    InfoText("Handset locator allows you to locate (page) the handset(s) so you can find them.\nOne for All: A single locator button pages or makes an intercom call to all handsets. If the base has a keypad, you can call all handsets or a specific one.\nOne for Each: The base has one locator button for each handset that can be registered. For example, a phone that only expands up to 3 handsets would have 3 handset locator buttons, one for each of the 3 handsets. The paged handset can have an intercom call with the base.\nEach HS + All: The base has one locator button for each handset that can be registered, as well as a button to page all handsets. The paged handset can have an intercom call with the base.\nSelect + Call Buttons: Press the select button to select the handset to page, then press the call button to call it. The paged handset can have an intercom call with the base.")
+                    InfoText("Handset locator allows you to locate (page) the handset(s) so you can find them.\nOne for All: A single locator button pages or makes an intercom call to all handsets. If the base has a keypad, you can call all handsets or a specific one.\nOne for Each: The base has one locator button for each handset that can be registered. For example, a phone that only expands up to 3 handsets would have 3 handset locator buttons, one for each of the 3 handsets.\nEach HS + All: The base has one locator button for each handset that can be registered, as well as a button to page all handsets.\nSelect + Call Buttons: Press the select button to select the handset to page, then press the call button to call it. This is often seen on phones where the base's physical design is shared between a 2-handset model and a 3-or-more-handset model.")
                     if phone.locatorButtons == 0 {
                         Toggle("Handset Locator Uses Intercom", isOn: $phone.handsetLocatorUsesIntercom)
                     }
-                    InfoText("Some phones use intercom as the means of locating handsets, even if the base doesn't have intercom. This means that the handset locator and intercom from the base are the same feature.\nPhones without base intercom always have a single handset locator button to locate all handsets.")
+                    InfoText("Some phones use intercom as the means of locating handsets, even if the base doesn't have intercom. This means that the handset locator and intercom from the base are the same feature.")
                 }
                 if !phone.isCordedCordless && !phone.hasTransmitOnlyBase && phone.deregistration > 0 && phone.locatorButtons == 0 {
                     Toggle("Place-On-Base Auto-Register", isOn: $phone.placeOnBaseAutoRegister)
@@ -234,6 +234,7 @@ In most cases, if the base has a charge light/display message, the completion of
                 .onChange(of: phone.deregistration) { oldValue, newValue in
                     phone.deregistrationChanged(oldValue: oldValue, newValue: newValue)
                 }
+                InfoText("Deregistration allows the base and handset to delete their registration information, allowing you to make room for new handsets and/or to use a handset on a different base.\n• Not Supported: Handsets can't be deregistered. Depending on the phone, you may be able to register a handset over an unwanted slot, then back to the desired slot, to \"deregister\" the unwanted one.\n • From This Handset: Deregistration can only be done from the handset you want to deregister. The base may have the ability to \"forget\" a handset if it's not available.\n• One From Any Handset/Base: Deregistration can be done from any handset or the base, by selecting the desired one from a list of all registered handsets or by pressing the handset number.\n• Multiple From Any Handset/Base: Deregistration can be done from any handset or the base, and multiple handsets can be deregistered at once. If using a handset and you choose to deregister that one, it will be deregistered after the other handset(s) if any others were selected.\n• All From Base: You can deregister all handsets at once using the base. On most phones with this deregistration method, handsets are removed from the base memory, and handsets will see that they've been deregistered the next time they try to come in range of the base.")
                 Picker("Handset/Base Renaming", selection: $phone.handsetRenaming) {
                     Text("Not Supported").tag(0)
                     Text("Handset").tag(1)
@@ -265,17 +266,9 @@ In most cases, if the base has a charge light/display message, the completion of
             .onChange(of: phone.cordedPhoneType) { oldValue, newValue in
                 phone.cordedPhoneTypeChanged(oldValue: oldValue, newValue: newValue)
             }
-            InfoText("""
-                • Rotary phones use a dial with numbers on it. You place your finger on the desired number and turn it until it stops, hence the phrase "dialing a number". When you release the dial, springs and gears return it to its resting position, causing the phone to go on and off-hook very quickly a certain number of times, corresponding to the number you put your finger on. This quick "on and off-hook" is called a pulse. Push-button phones can also send pulses instead of tones. For line-powered push-button phones with button lighting, the light will flash with each pulse.
-                • When the corded receiver is placed on the base, the earpiece pushes down on a piece on the base, the base pushes down on a piece below the earpiece, triggers a magnetically-controlled switch, or rests on contacts like those found on cordless phones. This is called the hook switch or switch hook, and is how the phone knows if the receiver is on or off the base. You can quickly press the hook switch/switch hook to simulate a pulse dial. This is called "switch hook dialing".
-                • Most push-button phones send tones made up of a low and high frequency, called Dual-Tone Multi-Frequency (DTMF) tones, when numbers are dialed. Most phone services today only support tone dialing, so a pulse-to-tone converter is required if you want to use a rotary phone or pulse-only push-button phone on your line. A pulse-to-tone converter detects the number of pulses and then sends out the corresponding DTMF tone through the line.
-                • A desk phone has a base, with or without speakerphone, and a corded receiver. These phones may also have other features like a caller ID display or answering system.
-                • A slim/wall phone typically doesn't have speakerphone or an answering system, but may have a caller ID display. The keypad or rotary dial can be either in the receiver or in the base. The caller ID buttons and display are on the back of the receiver, not the face where the keypad is. If wall mounted, this design allows you to view the caller ID list or change settings without picking up the phone.
-                • A candlestick phone is a corded phone where the receiver is only used to listen, and the microphone is on the part of the base that sticks up like a candlestick holder, hence the name. The receiver hangs up on a hook to the left of the "candlestick holder", hence the terms "on-hook", "off-hook", and "switch hook". This design of phone came before dialing, so picking up the receiver would connect you to an operator (or on today's lines, just give you a dial tone). Unlike most phones, the ringer and most of the circuitry were usually contained in a separate box, called a subset, that was connected to the phone. This was because these components couldn't fit into the candlestick phone itself at the time. As this design of phone is very old and was from the "phone company owns the phones" era, most candlestick phones seen today are replicas which have either a rotary dial or keypad, and the ringer and circuitry in the phone itself.
-                • A wooden box phone is similar in concept to a candlestick phone, but the base is shaped like a wooden box instead of a candlestick holder. Visible bells at the top serve as the ringer. These kinds of phones often have a crank on the side, which you turn to ring the operator, and you would stop cranking once the operator answers. These kinds of phones are very old and were from the "phone company owns the phones" era, so most wooden box phones seen today are replicas which have either a rotary dial or keypad.
-                • A base-less phone is a corded phone that doesn't have a base. The phone is a single device that plugs into the line.
-                • A novelty phone is a corded phone that's designed to look like something else, like a hamburger you flip open, a piano whose keys are used to dial numbers, a slim phone that's shaped like a pair of lips, an animal, or a cartoon character.
-                """)
+            InfoButton(title: "About Corded Phone Types…") {
+                dialogManager.showingAboutCordedPhoneTypes = true
+            }
         }
             if !phone.isCordless {
                 if phone.cordedPhoneType == 0 {
@@ -306,7 +299,7 @@ In most cases, if the base has a charge light/display message, the completion of
                         Text("Contacts").tag(3)
                     }
                 }
-                InfoText("Most corded phones have a switch hook which presses, located on either the base or the receiver. More advanced corded phones might have magnetic switch hooks, where magnets in the base and receiver trigger a magnetically-activated switch, called a reed switch. Some corded phones might use contacts like those found on cordless phones, instead of a switch hook. This is mostly seen on corded phones which are extensions of a cordless system, where placing the corded receiver on the cordless base registers the corded extension phone to the base.")
+                InfoText("Most corded phones have a switch hook which presses, located on either the base (pressed by the receiver) or the receiver (pressed by the base). More advanced corded phones might have magnetic switch hooks, where magnets in the base and receiver trigger a magnetically-activated switch, called a reed switch. Some corded phones might use contacts like those found on cordless phones, instead of a switch hook. This is mostly seen on corded phones which are extensions of a cordless system, where placing the corded receiver on the cordless base registers the corded extension phone to the base.")
             }
         }
     }
