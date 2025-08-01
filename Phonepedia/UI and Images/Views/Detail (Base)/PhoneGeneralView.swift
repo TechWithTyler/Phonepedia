@@ -176,13 +176,23 @@ struct PhoneGeneralView: View {
                         phone.setChargeLightChargedColorToCharging()
                     }
                 }
-            }
-            if phone.baseChargesHandset {
                 Group {
                     Picker("Base Charging Direction", selection: $phone.baseChargingDirection) {
                         ChargingDirectionPickerItems()
                     }
                     InfoText("Variations in charging area designs are one of the many ways cordless phones look different from one another.\nA reversible handset can charge with the keypad facing either up or down.")
+                    if phone.wallMountability > 0 && phone.hasLayDownCharging {
+                        Picker(
+                            "Lay-Down Hook Type",
+                            selection: $phone.cordlessHandsetLayDownHookType
+                        ) {
+                            Text("None").tag(0)
+                            Text("Fixed").tag(1)
+                            Text("Flip/Rotate (Face/Back)").tag(2)
+                            Text("Flip (Top)").tag(3)
+                        }
+                        InfoText("• None: The handset doesn't need an extra hook to stay in place while the base is wall-mounted.\n• Fixed: The base has a hook that slots into a hole on the handset.\n • Flip/Rotate (Face/Back): The base has a hook that can be flipped or rotated so it sticks out when you want to mount the base on the wall, or so it doesn't stick out when you don't want to mount it on the wall.\n• Flip (Top): The hook is located at the top of the charging area and needs to be flipped down to hold the handset in place while the base is wall-mounted, and flipped back up to take the handset off the base.")
+                    }
                     if !phone.isCordedCordless {
                         Picker("Base Charge Contact Placement", selection: $phone.baseChargeContactPlacement) {
                             ChargeContactPlacementPickerItems()
@@ -300,6 +310,17 @@ In most cases, if the base has a charge light/display message, the completion of
                     }
                 }
                 InfoText("Most corded phones have a switch hook which presses, located on either the base (pressed by the receiver) or the receiver (pressed by the base). More advanced corded phones might have magnetic switch hooks, where magnets in the base and receiver trigger a magnetically-activated switch, called a reed switch. Some corded phones might use contacts like those found on cordless phones, instead of a switch hook. This is mostly seen on corded phones which are extensions of a cordless system, where placing the corded receiver on the cordless base registers the corded extension phone to the base.")
+            }
+            if phone.isCordedCordless || (!phone.isCordless && (phone.cordedPhoneType == 0 || phone.cordedPhoneType == 2)) {
+                Picker(
+                    "Corded Receiver Hook Type",
+                    selection: $phone.cordedReceiverHookType
+                ) {
+                    Text("Fixed").tag(0)
+                    Text("Flip/Rotate").tag(1)
+                    Text("Removable").tag(2)
+                }
+                InfoText("• Fixed: The phone has a hook that slots into a hole on the corded receiver below the earpiece. On slim/wall phones where the switch hook is on the receiver instead of on the base, the switch hook is located directly below this hole and gets pressed by the hook on the base.\n• Flip/Rotate: The hook can be flipped or rotated so it sticks out when you want to mount the phone on the wall, or so it doesn't stick out when you don't want to mount it on the wall.\n• Removable: The phone has a removable hook which is inserted one way for desk use and another way for wall use. This is the most common type of corded receiver hook and has the risk of getting lost.")
             }
         }
     }

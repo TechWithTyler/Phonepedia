@@ -161,6 +161,10 @@ final class Phone {
 
     var cordedPhoneType: Int = 0
 
+    var cordedReceiverHookType: Int = 2
+
+    var cordlessHandsetLayDownHookType: Int = 0
+
     var hasDualReceivers: Bool = false
 
     var dialLocation: Int = 1
@@ -510,6 +514,11 @@ final class Phone {
         } else {
             return PhoneType.corded.rawValue
         }
+    }
+
+    @Transient
+    var hasLayDownCharging: Bool {
+        return baseChargingDirection == 2 || baseChargingDirection == 5 || baseChargingDirection == 6 || baseChargingDirection == 7
     }
 
     @Transient
