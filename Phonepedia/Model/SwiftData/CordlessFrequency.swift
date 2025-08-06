@@ -185,7 +185,8 @@ extension Phone {
 
         // Returns the default cordless phone frequency for the current region based on the device's region setting.
         static var defaultForCurrentRegion: CordlessFrequency {
-            switch Locale.current.region?.identifier {
+            let currentRegion = Locale.current.region
+            switch currentRegion?.identifier {
             case "KR":
                 // South Korea
                 return .southKoreaDECT
@@ -462,7 +463,7 @@ extension Phone {
         }
 
         var isDigital: Bool {
-            return name.contains("Digital") || name.contains("DSS") || name.contains("FHSS") || name.contains("DECT")
+            return name.contains("Digital") || name.contains("DSS") /*Digital Spread Spectrum*/ || name.contains("FHSS") /*Frequency-Hopping Spread Spectrum, doesn't include digital in the name but is digital*/ || name.contains("DECT") /*Digital Enhanced Cordless Telecommunications*/
         }
 
         // MARK: - Frequency Name From Raw Value

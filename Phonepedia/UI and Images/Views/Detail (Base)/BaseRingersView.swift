@@ -28,13 +28,13 @@ struct BaseRingersView: View {
             .onChange(of: phone.cordedRingerType) { oldValue, newValue in
                 phone.cordedRingerTypeChanged(oldValue: oldValue, newValue: newValue)
             }
-            if phone.cordedRingerType == 1 {
+            if (phone.cordedRingerType == 1 || phone.totalBaseRingtones > 1) && phone.cordedPhoneType == 2 {
                 Picker("Ringer Location", selection: $phone.cordedRingerLocation) {
                     Text("Base").tag(0)
                     Text("Receiver").tag(1)
                 }
             }
-            InfoText("Bell phones contain at least 2 bells and an electromagnet. The electromagnet is used to strike the bells when the phone rings.\nA bell phone may have 2 ringtone options. These phones have an additional bell ringer and a switch that turns its electromagnet on or off.\nA bell/mechanical ringer requires more power to ring, so it may not work properly on most VoIP lines, especially if multiple phones are ringing at once, as they're usually designed for modern phones which typically don't have mechanical ringers. Electronic ringers, especially those that are software-driven, don't require much power.\nThe amount of ringing power a phone requires is determined by the Ringer Equivalence Number (REN), usually found on the bottom of the phone. A higher REN means more power is required for the phone to ring properly. You can connect a device called a REN booster to your line to increase its REN and allow bell/mechanical ringers to ring.")
+            InfoText("Bell phones contain one or more bells and an electromagnet. The electromagnet is used to strike the bell(s) when the phone rings.\nA bell phone may have 2 ringtone options. These phones have an additional bell ringer and a switch that turns its electromagnet on or off.\nA bell/mechanical ringer requires more power to ring, so it may not work properly on most VoIP lines, especially if multiple phones are ringing at once, as they're usually designed for modern phones which typically don't have mechanical ringers. Electronic ringers, especially those that are software-driven, don't require much power.\nThe amount of ringing power a phone requires is determined by the Ringer Equivalence Number (REN), usually found on the bottom of the phone. A higher REN means more power is required for the phone to ring properly. You can connect a device called a REN booster to your line to increase its REN and allow bell/mechanical ringers to ring.")
         }
         if phone.totalBaseRingtones > 0 {
             Picker("Silent Mode", selection: $phone.silentMode) {
