@@ -88,7 +88,7 @@ struct PhoneDetailView: View {
                 Text("Delete")
             }
         }
-        .alert("Selected photo doesn't appear to contain landline phones. Save anyway?", isPresented: $photoViewModel.showingUnsurePhotoDataAlert) {
+        .alert("This photo doesn't appear to contain landline or VoIP phones. Save anyway?", isPresented: $photoViewModel.showingUnsurePhotoDataAlert) {
             Button {
                 phone.photoData = photoViewModel.unsurePhotoDataToUse
                 photoViewModel.unsurePhotoDataToUse = nil
@@ -103,7 +103,7 @@ struct PhoneDetailView: View {
                 Text("Cancel")
             }
         } message: {
-            Text("Tip: Landline phone detection works best with photos where the phone takes up most of the photo.")
+            Text("Tip: Landline/VoIP phone detection works best with photos where the phone takes up most of the photo.")
         }
     }
     
@@ -115,6 +115,13 @@ struct PhoneDetailView: View {
             HStack {
                 Spacer()
                 PhoneImage(phone: phone, mode: .full)
+                    .onDrop(of: [.image], isTargeted: nil) { providers in
+                        guard let provider = providers.first else {
+                            return false
+                        }
+                        photoViewModel.handleDroppedPhoto(phone: phone, with: provider)
+                        return true
+                    }
                 Spacer()
             }
 #if os(iOS)
@@ -359,7 +366,7 @@ struct PhoneDetailView: View {
             }
         }
     }
-    
+
 }
 
 #Preview {

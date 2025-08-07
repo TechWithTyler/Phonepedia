@@ -50,7 +50,7 @@ class PhonePhotoViewModel: ObservableObject {
 #if(DEBUG)
                     print("Error: \(error)")
 #endif
-                    phonePhotoError = .loadFailed
+                    phonePhotoError = .loadFailed(error: error)
                     showingPhonePhotoErrorAlert = true
                     showingLoadingPhoto = false
                 }
@@ -59,7 +59,22 @@ class PhonePhotoViewModel: ObservableObject {
         progress.resume()
         showingLoadingPhoto = true
     }
-    
+
+    func handleDroppedPhoto(phone: Phone, with provider: NSItemProvider) {
+            let progress = provider.loadDataRepresentation(forTypeIdentifier: UTType.image.identifier) { [self] data, error in
+                if let data = data {
+                    checkImageForLandlines(photoData: data, phone: phone)
+                }
+                if let error = error {
+                    phonePhotoError = .loadFailed(error: error)
+                    showingPhonePhotoErrorAlert = true
+                    showingLoadingPhoto = false
+                }
+            }
+            progress.resume()
+            showingLoadingPhoto = true
+    }
+
     func checkImageForLandlines(photoData: Data, phone: Phone) {
         do {
             // 1. Pass the photo data through the LandlineOrNot image classification model to check it for landline/VoIP phones.
