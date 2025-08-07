@@ -13,7 +13,7 @@ struct SettingsView: View {
 
     // MARK: - Properties - Dialog Manager
 
-    @EnvironmentObject var dialogManager: DialogManager
+    @ObservedObject var dialogManager = DialogManager()
 
     // MARK: - Properties - Dismiss Action
 

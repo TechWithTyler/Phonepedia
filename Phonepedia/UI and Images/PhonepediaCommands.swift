@@ -11,17 +11,19 @@ import SheftAppsStylishUI
 
 struct PhonepediaCommands: Commands {
 
-    @ObservedObject var dialogManager: DialogManager
+    @FocusedObject private var dialogManager: DialogManager?
 
     // MARK: - Menu Commands
 
     var body: some Commands {
-        CommandGroup(before: .sidebar) {
-            Section {
-                PhoneCountButton()
-                    .environmentObject(dialogManager)
-                PhoneTypeDefinitionsButton()
-                    .environmentObject(dialogManager)
+        if let dialogManager = dialogManager {
+            CommandGroup(before: .sidebar) {
+                Section {
+                    PhoneCountButton()
+                        .environmentObject(dialogManager)
+                    PhoneTypeDefinitionsButton()
+                        .environmentObject(dialogManager)
+                }
             }
         }
         CommandGroup(replacing: .help) {

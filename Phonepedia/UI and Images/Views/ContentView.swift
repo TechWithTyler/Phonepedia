@@ -17,7 +17,11 @@ struct ContentView: View {
 
     // MARK: - Properties - Dialog Manager
 
-    @EnvironmentObject var dialogManager: DialogManager
+    @ObservedObject var dialogManager = DialogManager()
+
+    @ObservedObject var audioManager = AudioManager()
+
+    @ObservedObject var photoViewModel = PhonePhotoViewModel()
 
     @Query(sort: \Phone.phoneNumberInCollection, order: .reverse) private var phones: [Phone]
 
@@ -28,7 +32,6 @@ struct ContentView: View {
     var body: some View {
         NavigationSplitView {
             PhoneListView(phones: phones, selectedPhone: $selectedPhone)
-                .environmentObject(dialogManager)
                 .navigationTitle("Phone List")
                 .navigationSplitViewColumnWidth(min: 300, ideal: 350, max: 400)
                 #if !os(macOS)
@@ -38,7 +41,6 @@ struct ContentView: View {
             if !phones.isEmpty {
                 if let phone = selectedPhone {
                     PhoneDetailView(phone: phone)
-                        .environmentObject(dialogManager)
                 } else {
                     NoPhoneSelectedView()
                 }
@@ -85,6 +87,13 @@ struct ContentView: View {
         #endif
         .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
         .formNumericTextFieldStepperVisibility(true)
+        // Model objects
+        .environmentObject(dialogManager)
+        .focusedSceneObject(dialogManager)
+        .environmentObject(audioManager)
+        .focusedSceneObject(audioManager)
+        .environmentObject(photoViewModel)
+        .focusedSceneObject(photoViewModel)
     }
 
 }
