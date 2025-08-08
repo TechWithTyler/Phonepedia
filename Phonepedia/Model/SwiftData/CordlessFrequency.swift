@@ -40,6 +40,7 @@ extension Phone {
         case dss2_4GHzOver900MHz = 2400.902
         case fhss2_4GHz = 2400.3
         case fhss2_4GHzOver900MHz = 2400.903
+        case dss2_4GHzOverAnalog900MHz = 2400.904
         case separator4 = -1.3
 
         // 5.8GHz
@@ -94,6 +95,7 @@ extension Phone {
             case .digital2_4GHzOver900MHz: return "2.4GHz/900MHz Digital"
             case .dss2_4GHz: return "2.4GHz DSS"
             case .dss2_4GHzOver900MHz: return "2.4GHz/900MHz DSS"
+            case .dss2_4GHzOverAnalog900MHz: return "2.4GHz DSS/900MHz Analog"
             case .fhss2_4GHz: return "2.4GHz FHSS"
             case .fhss2_4GHzOver900MHz: return "2.4GHz/900MHz FHSS"
                 // 5.8GHz Frequencies
