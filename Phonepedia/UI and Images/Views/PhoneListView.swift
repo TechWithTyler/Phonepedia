@@ -225,10 +225,10 @@ struct PhoneListView: View {
         #endif
         ToolbarItem {
             OptionsMenu(title: .menu) {
-                PhoneCountButton()
-                .badge(phones.count)
                 PhoneTypeDefinitionsButton()
                 Divider()
+                PhoneCountButton()
+                .badge(phones.count)
                 Menu("Phone List Detail") {
                     PhoneListDetailOptions(menu: true)
                 }
