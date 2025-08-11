@@ -123,6 +123,9 @@ struct PhoneGeneralView: View {
             .onChange(of: phone.isDigitalCordless) { oldValue, newValue in
                 phone.isDigitalCordlessChanged(oldValue: oldValue, newValue: newValue)
             }
+            if phone.frequency == 0 {
+                WarningText("You may not be able to specify certain features/aspects of this phone without knowing its frequency! Try looking up the wireless frequency and communication technology (whether it's analog or digital) of the \(phone.brand) \(phone.model) and select the correct option above.")
+            }
             InfoButton(title: "Frequencies/Communication Technologies Explanation…") {
                 dialogManager.showingFrequenciesExplanation = true
             }

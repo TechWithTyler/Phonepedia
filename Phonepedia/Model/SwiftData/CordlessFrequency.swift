@@ -14,6 +14,7 @@ extension Phone {
 
         // MARK: - Frequency Cases
 
+        // Unknown
         case unknown = 0.0
         case separator1 = -1.0
 
@@ -465,7 +466,7 @@ extension Phone {
         }
 
         var isDigital: Bool {
-            return name.contains("Digital") || name.contains("DSS") /*Digital Spread Spectrum*/ || name.contains("FHSS") /*Frequency-Hopping Spread Spectrum, doesn't include digital in the name but is digital*/ || name.contains("DECT") /*Digital Enhanced Cordless Telecommunications*/
+            return (name.contains("Digital") || name.contains("DSS") /*Digital Spread Spectrum*/ || name.contains("FHSS") /*Frequency-Hopping Spread Spectrum, doesn't include digital in the name but is digital*/ || name.contains("DECT") /*Digital Enhanced Cordless Telecommunications*/) && !name.contains("Analog")
         }
 
         // MARK: - Frequency Name From Raw Value
