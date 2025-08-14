@@ -188,15 +188,21 @@ struct BaseDisplayBacklightButtonsView: View {
                     }
                     VStack {
                         Text("Button Backlight Example")
-                        Image(systemName: phone.baseKeyBacklightLayer == 1 ? "5.square" : "5.square.fill")
-                            .foregroundStyle(phone.baseKeyBacklightColorBinding.wrappedValue)
+                        Image(systemName: "5.square.fill")
+                            .foregroundStyle(phone.baseKeyBacklightLayer == 0 ? phone.baseKeyForegroundColorBinding.wrappedValue : phone.baseKeyBacklightColorBinding.wrappedValue, phone.baseKeyBacklightLayer == 0 ? phone.baseKeyBacklightColorBinding.wrappedValue : phone.baseKeyBackgroundColorBinding.wrappedValue)
                             .font(.system(size: 40))
                     }
                 }
-                ColorPicker("Button Foreground Color", selection: phone.baseKeyForegroundColorBinding, supportsOpacity: false)
-                ColorPicker("Button Background Color", selection: phone.baseKeyBackgroundColorBinding, supportsOpacity: false)
-                Button("Swap Foreground/Background Colors", systemImage: "arrow.swap") {
-                    phone.swapKeyBackgroundAndForegroundColors()
+                if phone.baseKeyBacklightAmount == 0 || phone.baseKeyBacklightAmount == 6 || phone.baseKeyBacklightLayer == 0 {
+                    ColorPicker("Button Foreground Color", selection: phone.baseKeyForegroundColorBinding, supportsOpacity: false)
+                }
+                if phone.baseKeyBacklightAmount == 0 || phone.baseKeyBacklightAmount == 6 || phone.baseKeyBacklightLayer == 1 {
+                    ColorPicker("Button Background Color", selection: phone.baseKeyBackgroundColorBinding, supportsOpacity: false)
+                }
+                if phone.baseKeyBacklightAmount == 0 || phone.baseKeyBacklightAmount == 6 {
+                    Button("Swap Foreground/Background Colors", systemImage: "arrow.swap") {
+                        phone.swapKeyBackgroundAndForegroundColors()
+                    }
                 }
             }
     }

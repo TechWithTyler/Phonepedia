@@ -201,15 +201,24 @@ struct HandsetDisplayBacklightButtonsView: View {
                 }
                 VStack {
                     Text("Button Backlight Example")
-                    Image(systemName: handset.keyBacklightLayer == 1 ? "5.square" : "5.square.fill")
-                        .foregroundStyle(handset.keyBacklightColorBinding.wrappedValue)
+                    Image(systemName: "5.square.fill")
+                        .foregroundStyle(
+                            handset.keyBacklightLayer == 0 ? handset.keyForegroundColorBinding.wrappedValue : handset.keyBacklightColorBinding.wrappedValue,
+                            handset.keyBacklightLayer == 0 ? handset.keyBacklightColorBinding.wrappedValue : handset.keyBackgroundColorBinding.wrappedValue
+                        )
                         .font(.system(size: 40))
                 }
             }
-            ColorPicker("Button Foreground Color", selection: handset.keyForegroundColorBinding, supportsOpacity: false)
-            ColorPicker("Button Background Color", selection: handset.keyBackgroundColorBinding, supportsOpacity: false)
-            Button("Swap Foreground/Background Colors", systemImage: "arrow.swap") {
-                handset.swapKeyBackgroundAndForegroundColors()
+            if handset.keyBacklightAmount == 0 || handset.keyBacklightLayer == 0 {
+                ColorPicker("Button Foreground Color", selection: handset.keyForegroundColorBinding, supportsOpacity: false)
+            }
+            if handset.keyBacklightAmount == 0 || handset.keyBacklightLayer == 1 {
+                ColorPicker("Button Background Color", selection: handset.keyBackgroundColorBinding, supportsOpacity: false)
+            }
+            if handset.keyBacklightAmount == 0 {
+                Button("Swap Foreground/Background Colors", systemImage: "arrow.swap") {
+                    handset.swapKeyBackgroundAndForegroundColors()
+                }
             }
         } else {
             Text("Error")
