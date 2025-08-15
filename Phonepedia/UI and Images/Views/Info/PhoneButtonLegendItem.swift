@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import SheftAppsStylishUI
 
 struct PhoneButtonLegendItem: View {
 
@@ -131,6 +132,7 @@ struct PhoneButtonLegendItem: View {
     @ViewBuilder
     var talkButton: some View {
         Label(PhoneButtonDescription.talk.rawValue.capitalized, systemImage: "phone.fill")
+            .labelStyle(.topIconBottomTitle)
             .foregroundStyle(talkButtonForegroundColor)
             .padding(.horizontal)
             .background(
@@ -142,6 +144,7 @@ struct PhoneButtonLegendItem: View {
     @ViewBuilder
     var homeButton: some View {
         Label(PhoneButtonDescription.home.rawValue.capitalized, systemImage: "house.fill")
+            .labelStyle(.topIconBottomTitle)
             .foregroundStyle(talkButtonForegroundColor)
             .padding(.horizontal)
             .background(
@@ -155,6 +158,7 @@ struct PhoneButtonLegendItem: View {
     @ViewBuilder
     var cellButton: some View {
         Label(PhoneButtonDescription.cell.rawValue.capitalized, systemImage: "antenna.radiowaves.left.and.right")
+            .labelStyle(.topIconBottomTitle)
             .foregroundStyle(cellButtonForegroundColor)
             .padding(.horizontal)
     }
@@ -164,6 +168,7 @@ struct PhoneButtonLegendItem: View {
     @ViewBuilder
     var offButton: some View {
         Label(PhoneButtonDescription.off.rawValue.capitalized, systemImage: "phone.down.fill")
+            .labelStyle(.topIconBottomTitle)
             .foregroundStyle(offButtonForegroundColor)
             .padding(.horizontal)
             .background(
@@ -177,6 +182,7 @@ struct PhoneButtonLegendItem: View {
     @ViewBuilder
     var speakerphoneButton: some View {
         Label("Speakerphone", systemImage: "speaker.fill")
+            .labelStyle(.topIconBottomTitle)
             .foregroundStyle(speakerphoneButtonForegroundColor)
             .padding(.horizontal)
             .background(
