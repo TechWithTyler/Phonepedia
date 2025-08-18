@@ -69,6 +69,8 @@ final class Phone {
 
     var baseDisplayBacklightColorBlue: Double = 255
 
+    var baseDisplayBacklightColorAlpha: Double = 1
+
     var baseKeyForegroundColorRed: Double = 255
 
     var baseKeyForegroundColorGreen: Double = 255
@@ -654,12 +656,13 @@ final class Phone {
     @Transient
     var baseDisplayBacklightColorBinding: Binding<Color> {
         Binding<Color> { [self] in
-            Color(red: baseDisplayBacklightColorRed, green: baseDisplayBacklightColorGreen, blue: baseDisplayBacklightColorBlue)
+            Color(red: baseDisplayBacklightColorRed, green: baseDisplayBacklightColorGreen, blue: baseDisplayBacklightColorBlue, opacity: baseDisplayBacklightColorAlpha)
         } set: { [self] newColor in
             let components = newColor.components
             baseDisplayBacklightColorRed = components.red
             baseDisplayBacklightColorGreen = components.green
             baseDisplayBacklightColorBlue = components.blue
+            baseDisplayBacklightColorAlpha = components.opacity
         }
     }
 

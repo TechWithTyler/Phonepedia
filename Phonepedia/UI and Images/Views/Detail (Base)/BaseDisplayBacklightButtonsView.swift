@@ -96,7 +96,7 @@ struct BaseDisplayBacklightButtonsView: View {
                 PhoneNumberLetterInfoView()
             }
         }
-        if phone.isCordless || phone.cordedPhoneType == 0 || phone.isWiFiHandset {
+        if phone.isCordless || phone.cordedPhoneType == 0 || phone.cordedPhoneType == 2 || phone.isWiFiHandset {
             Section("Display") {
                 if !phone.isWiFiHandset {
                     Picker(phone.isCordless ? "Display Type (Base)" : "Display Type", selection: $phone.baseDisplayType) {
@@ -124,7 +124,7 @@ struct BaseDisplayBacklightButtonsView: View {
                         Picker("Clock Display", selection: $phone.clock) {
                             Text("None").tag(0)
                             Text("Time Only").tag(1)
-                            Text("Day and Time")
+                            Text("Day and Time").tag(2)
                             Text("Date and Time (w/o Year)").tag(3)
                             Text("Date and Time (w/ Year)").tag(4)
                         }
@@ -159,17 +159,19 @@ struct BaseDisplayBacklightButtonsView: View {
                     }
                 }
                 if phone.isWiFiHandset || (phone.baseDisplayType > 2 && phone.baseDisplayType < 7) {
-                    ColorPicker(phone.isCordless ? "Base Display Backlight Color" : "Display Backlight Color", selection: phone.baseDisplayBacklightColorBinding, supportsOpacity: false)
+                    ClearSupportedColorPicker(phone.isCordless ? "Base Display Backlight Color" : "Display Backlight Color", selection: phone.baseDisplayBacklightColorBinding) {
+                        Text("No Backlight")
+                    }
                 }
-                if phone.baseDisplayType >= 3 {
+                if phone.baseDisplayType >= 3 && (phone.isCordless || phone.cordedPhoneType == 0) && phone.hasAnsweringSystem > 0 {
                     Toggle("Base Has LED Message Counter In Addition To Display", isOn: $phone.baseHasDisplayAndMessageCounter)
                 }
                 if phone.baseDisplayType == 1 || phone.baseHasDisplayAndMessageCounter {
                     ColorPicker("LED Message Counter Color", selection: phone.baseLEDMessageCounterColorBinding, supportsOpacity: false)
                 }
             }
+            if phone.baseDisplayType > 2 {
             Section("Navigation Button/Soft Keys") {
-                if phone.baseDisplayType > 2 {
                     Picker("Base Navigation Button Type", selection: $phone.baseNavigatorKeyType) {
                         Text("None").tag(0)
                         Text("Up/Down").tag(1)
