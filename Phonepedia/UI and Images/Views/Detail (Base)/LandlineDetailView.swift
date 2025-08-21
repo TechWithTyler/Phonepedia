@@ -63,7 +63,7 @@ struct LandlineDetailView: View {
                 InfoText("Business-grade VoIP phones often have support for more than 4 lines. Lines can be registered as extensions on the same VoIP system, or as separate lines/extensions on different VoIP systems.\nOn Ethernet VoIP phones, the number of lines DOES NOT determine how many Ethernet jacks the phone has. A single Ethernet cable connects the phone to the network, and the phone's software determines how many lines it can support. Additional Ethernet jacks, if any, are used to connect additional devices to the same network as the phone.")
             }
         }
-        if phone.landlineConnectionType == 0 || phone.landlineConnectionType == 5 {
+        if phone.hasAnalogLineConnection {
             Picker(phone.landlineConnectionType == 5 ? "Analog Line Dial Mode" : "Dial Mode", selection: $phone.dialMode) {
                 if phone.landlineConnectionType == 0 {
                     Text("Pulse Only").tag(0)
@@ -89,7 +89,7 @@ struct LandlineDetailView: View {
                     Text("Display and Light").tag(3)
                 }
             }
-            if phone.landlineInUseStatusOnBase == 1 || phone.landlineInUseStatusOnBase == 3 {
+            if phone.hasLandlineInUseLight {
                 Toggle("Landline In Use Light Follows Ring Signal", isOn: $phone.landlineInUseVisualRingerFollowsRingSignal)
                 InfoText("An in use light that follows the ring signal starts flashing when the ring signal starts and stops flashing when the ring signal stops. An in use light that ignores the ring signal flashes for as long as the \(phone.isCordless ? "base" : "phone") is indicating an incoming call.")
             }

@@ -25,7 +25,7 @@ struct BaseSpeakerphoneIntercomView: View {
                 InfoText("On a line-powered corded phone, speakerphone performance depends on the power the line provides to the phone while off-hook. If used on a line with very low off-hook power, or multiple phones on the line are off-hook, you may have trouble hearing the caller and they might have trouble hearing you, or it may not work at all.\nIf line power drops for long enough (this depends on the phone), the speakerphone won't come back on once line power comes back, so you don't have to hang up manually.")
             }
         }
-        if phone.hasBaseSpeakerphone && phone.isCordless && !phone.hasTransmitOnlyBase && !phone.hasCordedReceiver {
+        if phone.hasBaseSpeakerphone && phone.baseChargesHandset {
             Toggle("Supports Pick Up to Switch", isOn: $phone.hasPickUpToSwitch)
             InfoText("During a call on the base speakerphone with the handset placed on the base, you can pick up the handset to switch from the base speakerphone to the handset. This works in one of 3 ways:\n• If the base and handset both have 3 contacts (i.e., 2 charging contacts and a data contact), the call is immediately switched from the base to the handset since the presence of a call is passed through that data contact. The call will only switch over once the handset links to the base.\n• Through the charging contacts, the base detects that a handset is placed on it. When the handset is picked up, it links to the base, which then accepts the switchover since it's on speakerphone. If a handset is picked up from a charger (or a base it's not registered to), the handset will unlink and the call won't be switched, unless another handset is also being picked up from the base.\n• Through the charging contacts, both the base and handset detect that the handset is placed on the base, and picking up the handset switches the call to the handset. If the handset doesn't have a link to the base, an error tone may sound/an error message may be displayed and the call won't switch over. The call will only switch over once the handset links to the base.")
             if phone.hasPickUpToSwitch && phone.hasBaseIntercom {
@@ -37,7 +37,7 @@ struct BaseSpeakerphoneIntercomView: View {
                 InfoText("• Not Supported: The base can't join a handset call, nor can the handset join a base call.\n• Move Call: When the base speakerphone is turned on during a call on the handset or vice versa, the call is moved to the handset/base and the other is dropped from the call. This is often seen on cordless hotel phones since they combine the best of both worlds: cordless convenience and corded familiarity.\n• Conference Call: The handset/base joins the call with the other.\nHandsets joining calls with other handsets will always create a conference call.")
             }
         }
-        if phone.hasBaseSpeakerphone || (phone.isCordless && phone.hasBaseIntercom) || phone.hasAnsweringSystem == 1 || phone.hasAnsweringSystem == 3 {
+        if phone.hasBaseSpeaker {
             Picker("Speaker Volume Adjustment", selection: $phone.baseSpeakerVolumeAdjustmentType) {
                 Text("Volume Switch/Dial").tag(0)
                 Text("Volume Buttons").tag(1)
@@ -62,7 +62,7 @@ struct BaseSpeakerphoneIntercomView: View {
                 }
                 InfoText("Call privacy mode allows you to prevent the base and/or other cordless devices from joining a call. When call privacy is enabled for a call, the only way to create a conference call is once a call transfer intercom call is established between 2 cordless devices/the base and a cordless device, and the base/other cordless devices can't join that conference call. This feature is only useful when this cordless phone is the only phone on the line, since someone can still join the call using any other phone on the same line.")
             }
-            if phone.hasIntercom && !phone.hasBaseSpeakerphone && !phone.isCordedCordless {
+            if phone.hasIntercom && !phone.canTalkOnBase {
                 Toggle(isOn: $phone.hasBaseIntercom) {
                     Text("Has Base Intercom")
                 }

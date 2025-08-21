@@ -35,7 +35,7 @@ struct BasePhonebookView: View {
             PhonebookGroupInfoView()
             FormNumericTextField(phone.isCordless ? "Favorite Entry Capacity (Base)" : "Favorite Entry Capacity", value: $phone.baseFavoriteEntriesCapacity, valueRange: .allPositivesIncludingZero, singularSuffix: "entry", pluralSuffix: "entries")
             FavoriteEntriesInfoView()
-            if phone.baseDisplayType > 0 {
+            if phone.baseDisplayType > 2 {
                 Toggle("Supports Phonebook Ringtones", isOn: $phone.baseSupportsPhonebookRingtones)
                 PhonebookRingtoneInfoView()
                 Toggle(isOn: $phone.hasTalkingPhonebook) {

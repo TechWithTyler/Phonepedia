@@ -15,7 +15,7 @@ struct HandsetCallerIDView: View {
 
     var body: some View {
         if let phone = handset.phone {
-            if handset.phonebookCapacity > 0 || (phone.basePhonebookCapacity > 0 && handset.usesBasePhonebook) && handset.handsetStyle < 3 {
+            if handset.hasPhonebook && handset.handsetStyle < 3 {
                 Toggle(isOn: $handset.callerIDPhonebookMatch) {
                     Text("Caller ID Name Uses Matching Phonebook Entry Name")
                 }

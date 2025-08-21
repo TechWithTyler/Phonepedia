@@ -318,16 +318,59 @@ final class CordlessHandset {
     }
 
     @Transient
+    var isDesksetWithDisplay: Bool {
+        return displayType > 0 && cordlessDeviceType == 1 
+    }
+
+    @Transient
     var totalRingtones: Int {
         return ringtones + musicRingtones
     }
-    
+
+    @Transient
+    var hasTalkButton: Bool {
+        return talkOffButtonType > 0 && talkOffButtonType < 4
+    }
+
     @Transient
     var hasPhysicalCellButton: Bool {
         guard let phone = phone else { return false }
-        return phone.baseBluetoothCellPhonesSupported > 0 && lineButtons == 0
+        return phone.baseBluetoothCellPhonesSupported > 0 && (lineButtons == 0 || talkOffButtonType == 4)
     }
-    
+
+    @Transient
+    var acquiredInYearOfRelease: Bool {
+        return acquisitionYear == releaseYear && acquisitionYear != -1 && releaseYear != -1
+    }
+
+    @Transient
+    var hasMonochromeDisplay: Bool {
+        return displayType > 0 && displayType < 5
+    }
+
+    @Transient
+    var hasListsOfEntries: Bool {
+        guard let phone = phone else { return false }
+        return (phone.hasPhonebook || phone.hasCallerIDList || phone.callBlockCapacity > 0 || redialCapacity > 1)
+    }
+
+    @Transient
+    var hasPhonebook: Bool {
+        guard let phone = phone else { return false }
+        return phonebookCapacity > 0 || (phone.basePhonebookCapacity > 0 && usesBasePhonebook)
+    }
+
+    @Transient
+    var hasPhonebookAndRedialList: Bool {
+        guard let phone = phone else { return false }
+        return redialCapacity > 1 && (phonebookCapacity > 0 || (phone.basePhonebookCapacity > 0 && usesBasePhonebook))
+    }
+
+    @Transient
+    var takesBatteries: Bool {
+        return cordlessDeviceType == 0 || (cordlessDeviceType == 1 && desksetSupportsBackupBatteries)
+    }
+
     // MARK: - Properties - Color Bindings
     
     @Transient

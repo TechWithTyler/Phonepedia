@@ -39,7 +39,7 @@ struct PhoneDetailView: View {
                 }
                 audioGroup
                 entriesGroup
-                if phone.isCordless || phone.cordedPhoneType == 0 {
+                if phone.isCordlessOrPushButtonDesk {
                     FormNavigationLink(phone: phone) {
                         PhoneSpecialFeaturesView(phone: phone)
                             .navigationTitle("Special Features")
@@ -196,7 +196,7 @@ struct PhoneDetailView: View {
             } label: {
                 Label(phone.isCordless ? "Base Colors" : "Colors", systemImage: "paintpalette")
             }
-            if phone.isCordless || phone.cordedPhoneType == 0 || phone.cordedPhoneType == 2 {
+            if phone.isCordless || phone.isPushButtonCorded {
                 FormNavigationLink(phone: phone) {
                     BaseDisplayBacklightButtonsView(phone: phone)
                         .navigationTitle("Disp/B.light/Buttons")
@@ -241,7 +241,7 @@ struct PhoneDetailView: View {
             } label: {
                 Label("Ringers", systemImage: "bell")
             }
-            if phone.isCordless || phone.cordedPhoneType == 0 || phone.cordedPhoneType == 2 {
+            if phone.isCordless || phone.isPushButtonCorded {
                 FormNavigationLink(phone: phone) {
                     BaseSpeakerphoneIntercomView(phone: phone)
                         .navigationTitle(phone.isCordless ? "Speaker/Int" : "Speakerphone")
@@ -285,7 +285,7 @@ struct PhoneDetailView: View {
             } label: {
                 Label("Main Line", systemImage: "phone.connection")
             }
-            if phone.isCordless || phone.cordedPhoneType == 0 {
+            if phone.isCordlessOrPushButtonDesk {
                 FormNavigationLink(phone: phone) {
                     CellPhoneLinkingView(phone: phone)
                         .navigationTitle("Cell Phone Linking")
@@ -302,7 +302,7 @@ struct PhoneDetailView: View {
     @ViewBuilder
     var entriesGroup: some View {
         Section("Entries/Phone Numbers") {
-            if phone.hasBaseSpeakerphone || !phone.isCordless || phone.isCordedCordless {
+            if phone.canTalkOnBase {
                 FormNavigationLink(phone: phone) {
                     BaseRedialView(phone: phone)
                         .navigationTitle("Redial")
@@ -313,7 +313,7 @@ struct PhoneDetailView: View {
                     Label("Redial", systemImage: "phone.arrow.up.right")
                 }
             }
-            if phone.isCordless || (phone.cordedPhoneType == 0 && phone.baseDisplayType > 0) {
+            if phone.canShowPhoneNumbers {
                 FormNavigationLink(phone: phone) {
                     DialingCodesView(phone: phone)
                         .navigationTitle("Dialing Codes")
@@ -332,8 +332,6 @@ struct PhoneDetailView: View {
                 } label: {
                     Label("Phonebook", systemImage: "book")
                 }
-            }
-            if phone.isCordless || phone.cordedPhoneType == 0 || (phone.cordedPhoneType == 2 && phone.baseDisplayType > 0) {
                 FormNavigationLink(phone: phone) {
                     BaseCallerIDView(phone: phone)
                         .navigationTitle("Caller ID")
@@ -352,7 +350,7 @@ struct PhoneDetailView: View {
                 } label: {
                     Label("Quick Dialing", systemImage: "person.3")
                 }
-                if phone.isCordless || phone.cordedPhoneType == 0 {
+                if phone.isCordlessOrPushButtonDesk {
                     FormNavigationLink(phone: phone) {
                         CallBlockView(phone: phone)
                             .navigationTitle("Call Blocking")

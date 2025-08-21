@@ -524,13 +524,33 @@ final class Phone {
     }
 
     @Transient
+    var hasElectronicRinger: Bool {
+        return baseRingtones > 0 && (isCordless || cordedRingerType == 1)
+    }
+
+    @Transient
     var totalBaseRingtones: Int {
         return baseRingtones + baseMusicRingtones
     }
 
     @Transient
+    var canTalkOnBase: Bool {
+        return hasBaseSpeakerphone || !isCordless || isCordedCordless
+    }
+
+    @Transient
     var hasCordedReceiver: Bool {
         return cordedReceiverMainColorBinding.wrappedValue != .clear
+    }
+
+    @Transient
+    var isPushButtonCorded: Bool {
+        return cordedPhoneType == 0 || cordedPhoneType == 2
+    }
+
+    @Transient
+    var isSlimCorded: Bool {
+        return cordedPhoneType == 2 || cordedPhoneType == 3
     }
 
     @Transient
@@ -550,8 +570,8 @@ final class Phone {
     }
 
     @Transient
-    var hasRegistration: Bool {
-        return isDigitalCordless
+    var tooManyCordlessDevices: Bool {
+        return cordlessHandsetsIHave.count > maxCordlessHandsets
     }
 
     @Transient
@@ -559,7 +579,77 @@ final class Phone {
         return isCordless && !hasCordedReceiver && !hasTransmitOnlyBase
     }
 
+    @Transient
+    var isCordlessOrPushButtonDesk: Bool {
+        return isCordless || cordedPhoneType == 0
+    }
+
+    @Transient
+    var hasSecondaryColor: Bool {
+        return baseSecondaryColorBinding.wrappedValue != baseMainColorBinding.wrappedValue
+    }
+
+    @Transient
+    var hasAccentColor: Bool {
+        return baseAccentColorBinding.wrappedValue != baseMainColorBinding.wrappedValue && baseAccentColorBinding.wrappedValue != baseSecondaryColorBinding.wrappedValue
+    }
+
+    @Transient
+    var acquiredInYearOfRelease: Bool {
+        return acquisitionYear == releaseYear && acquisitionYear != -1 && releaseYear != -1
+    }
+
+    @Transient
+    var isMultiline: Bool {
+        return numberOfLandlines > 1 || landlineConnectionType == 5
+    }
+
+    @Transient
+    var hasAnalogLineConnection: Bool {
+        return landlineConnectionType == 0 || landlineConnectionType == 5
+    }
+
+    @Transient
+    var hasLandlineInUseLight: Bool {
+        return landlineInUseStatusOnBase == 1 || landlineInUseStatusOnBase == 3
+    }
+
+    @Transient
+    var isBusinessCordedCordlessSystem: Bool {
+        return isCordedCordless && maxCordlessHandsets >= 8 && numberOfLandlines == 4
+    }
+
+    @Transient
+    var canShowPhoneNumbers: Bool {
+        return isCordless || cordedPhoneType == 0 || (cordedPhoneType == 2 && baseDisplayType > 0)
+    }
+
+    @Transient
+    var hasListsOfEntries: Bool {
+        return canShowPhoneNumbers && (basePhonebookCapacity > 0 || baseCallerIDCapacity > 0 || callBlockCapacity > 0 || baseRedialCapacity > 1)
+    }
+
+    @Transient
+    var baseDisplayIsMonochrome: Bool {
+        return baseDisplayType == 8 || (baseDisplayType > 2 && baseDisplayType < 7)
+    }
+
+    @Transient
+    var hasBaseAccessibleAnsweringSystem: Bool {
+        return hasAnsweringSystem == 1 || hasAnsweringSystem == 3
+    }
+
+    @Transient
+    var hasBaseSpeaker: Bool {
+        return hasBaseSpeakerphone || (isCordless && hasBaseIntercom) || hasBaseAccessibleAnsweringSystem
+    }
+
     // The following computed properties check whether the base and/or cordless handsets of a cordless phone have a given feature. For corded phones, the cordless handset checks don't apply.
+
+    @Transient
+    var noHandsetsForPlaceOnBasePowerBackup: Bool {
+        return cordlessHandsetsIHave.filter({$0.fitsOnBase && $0.hasSpeakerphone && $0.supportsPlaceOnBasePowerBackup}).isEmpty
+    }
 
     @Transient
     var supportsWiredHeadsets: Bool {

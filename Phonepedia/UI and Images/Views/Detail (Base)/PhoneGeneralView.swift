@@ -33,7 +33,7 @@ struct PhoneGeneralView: View {
             .onChange(of: phone.acquisitionYear) { oldValue, newValue in
                 phone.acquisitionYearChanged(oldValue: oldValue, newValue: newValue)
             }
-        if phone.acquisitionYear == phone.releaseYear && phone.acquisitionYear != -1 && phone.releaseYear != -1 {
+        if phone.acquiredInYearOfRelease {
             HStack {
                 Image(systemName: "sparkle")
                 Text("You got the \(String(phone.releaseYear)) \(phone.brand) \(phone.model) the year it was released!")
@@ -46,7 +46,7 @@ struct PhoneGeneralView: View {
         Picker("Place In My Collection", selection: $phone.storageOrSetup) {
             PhoneInCollectionStatusPickerItems()
         }
-        if phone.landlineConnectionType < 4 && !phone.isWiFiHandset {
+        if phone.landlineConnectionType != 4 && !phone.isWiFiHandset && !phone.isBusinessCordedCordlessSystem {
             Picker("Grade", selection: $phone.grade) {
                 Text("1 - Residential/Small Business").tag(0)
                 Text("2 - Hotel").tag(2)
@@ -147,7 +147,7 @@ struct PhoneGeneralView: View {
                 Text("One On Each Side").tag(4)
             }
             AntennaInfoView()
-            if phone.hasRegistration {
+            if phone.isDigitalCordless {
                 Toggle("Supports Range Extenders", isOn: $phone.supportsRangeExtenders)
                 InfoText("A range extender, also known as a repeater, extends  the range (or \"repeats the signal\") of the base it's registered to. Devices communicating with the base choose the base or a range extender based on which has the strongest signal, just like devices connected to a mesh Wi-Fi network.\nIf you register 2 or more range extenders, they can be \"daisy-chained\" (one can communicate with the base via another) to create a larger useable coverage area.\nWhen a cordless device moves between the base or range extender(s), your call may briefly cut out.\nIf a handset is communicating with a range extender and that range extender loses power or its link to the base, the handset will also lose its link to the base for a few seconds, which will cause the handset to either connect to the base or another range extender, or drop the call entirely.")
             }
@@ -288,7 +288,7 @@ In most cases, if the base has a charge light/display message, the completion of
                     Toggle("Has Dual Receivers", isOn: $phone.hasDualReceivers)
                     InfoText("A corded phone with dual receivers allows 2 people to use the phone at the same time without having to connect 2 separate phones to the same line. These kinds of phones are often used by those requiring a language interpreter.")
                 }
-                if phone.cordedPhoneType == 2 || phone.cordedPhoneType == 3 {
+                if phone.isSlimCorded {
                     Picker("\(phone.cordedPhoneType == 2 ? "Keypad" : "Rotary Dial") Location", selection: $phone.dialLocation) {
                         Text("Base").tag(0)
                         Text("Receiver").tag(1)
@@ -314,7 +314,7 @@ In most cases, if the base has a charge light/display message, the completion of
                 }
                 InfoText("Most corded phones have a switch hook which presses, located on either the base (pressed by the receiver) or the receiver (pressed by the base). More advanced corded phones might have magnetic switch hooks, where magnets in the base and receiver trigger a magnetically-activated switch, called a reed switch. Some corded phones might use contacts like those found on cordless phones, instead of a switch hook. This is mostly seen on corded phones which are extensions of a cordless system, where placing the corded receiver on the cordless base registers the corded extension phone to the base.")
             }
-            if phone.isCordedCordless || (!phone.isCordless && (phone.cordedPhoneType == 0 || phone.cordedPhoneType == 2)) {
+            if phone.isCordedCordless || (!phone.isCordless && phone.isPushButtonCorded) {
                 Picker(
                     "Corded Receiver Hook Type",
                     selection: $phone.cordedReceiverHookType

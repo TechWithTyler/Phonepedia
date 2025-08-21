@@ -22,7 +22,7 @@ struct HandsetSpeedDialView: View {
             Stepper("One-Touch Dial Buttons: \(handset.oneTouchDialCapacity)", value: $handset.oneTouchDialCapacity, in: .zeroToMax(4))
         Toggle("Uses Base One-Touch Dials", isOn: $handset.usesBaseOneTouchDial)
             InfoText("The handset can use the speed dials/one-touch dials stored in the base, or its own entries if the base doesn't share the entries between the base/handsets.")
-            if handset.speedDialCapacity > 0 && (handset.phonebookCapacity > 0 || handset.usesBasePhonebook) {
+            if handset.speedDialCapacity > 0 && handset.hasPhonebook {
                 Picker("Speed Dial Entry Mode", selection: $handset.speedDialPhonebookEntryMode) {
                     Text("Manual or Phonebook (Copy)").tag(0)
                     Text("Phonebook Only (Copy)").tag(1)

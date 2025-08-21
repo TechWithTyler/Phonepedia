@@ -48,10 +48,10 @@ struct PhoneRowView: View {
             if showPhoneColorsInList {
                 VStack {
                     colorCircle(for: phone.baseMainColorBinding.wrappedValue)
-                    if phone.baseSecondaryColorBinding.wrappedValue != phone.baseMainColorBinding.wrappedValue {
+                    if phone.hasSecondaryColor {
                         colorCircle(for: phone.baseSecondaryColorBinding.wrappedValue)
                     }
-                    if phone.baseAccentColorBinding.wrappedValue != phone.baseMainColorBinding.wrappedValue && phone.baseAccentColorBinding.wrappedValue != phone.baseSecondaryColorBinding.wrappedValue {
+                    if phone.hasAccentColor {
                         colorCircle(for: phone.baseAccentColorBinding.wrappedValue)
                     }
                 }
@@ -74,26 +74,24 @@ struct PhoneRowView: View {
                         .multilineTextAlignment(.center)
                 }
                 if showYearsInList {
-                    if phone.acquisitionYear == phone.releaseYear {
-                        Text("Released and purchased/acquired \(String(phone.acquisitionYear))")
+                    if phone.acquiredInYearOfRelease {
+                        Text("Released and acquired \(String(phone.acquisitionYear))")
                             .font(.callout)
                             .multilineTextAlignment(.center)
                             .lineLimit(nil)
-                        if phone.acquisitionYear == phone.releaseYear {
                             HStack {
                                 Image(systemName: "sparkle")
-                                Text("Purchased/acquired the year it was released!")
+                                Text("Acquired the year it was released!")
                                     .font(.callout)
                                     .multilineTextAlignment(.center)
                                     .lineLimit(nil)
                             }
-                        }
                     } else {
                         Text("Released \(String(phone.releaseYear))")
                             .font(.callout)
                             .multilineTextAlignment(.center)
                             .lineLimit(nil)
-                        Text("Purchased/acquired \(String(phone.acquisitionYear))")
+                        Text("Acquired \(String(phone.acquisitionYear))")
                             .font(.callout)
                             .multilineTextAlignment(.center)
                             .lineLimit(nil)

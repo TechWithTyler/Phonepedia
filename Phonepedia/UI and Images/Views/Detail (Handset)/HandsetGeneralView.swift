@@ -41,7 +41,7 @@ struct HandsetGeneralView: View {
                 .onChange(of: handset.acquisitionYear) { oldValue, newValue in
                     handset.acquisitionYearChanged(oldValue: oldValue, newValue: newValue)
                 }
-            if handset.acquisitionYear == handset.releaseYear && handset.acquisitionYear != -1 && handset.releaseYear != -1 {
+            if handset.acquiredInYearOfRelease {
                 HStack {
                     Image(systemName: "sparkle")
                     Text("You got the \(String(handset.releaseYear)) \(handset.brand) \(handset.model) the year it was released!")
@@ -100,7 +100,7 @@ struct HandsetGeneralView: View {
                 }
                 AntennaInfoView()
             }
-            if handset.cordlessDeviceType == 0 && !phone.isCordedCordless && !phone.hasTransmitOnlyBase && phone.hasRegistration {
+            if handset.cordlessDeviceType == 0 && phone.baseChargesHandset && phone.isDigitalCordless {
                 Toggle("Fits On Base", isOn: $handset.fitsOnBase)
                 if !handset.fitsOnBase {
                     InfoText("For a handset to \"fit on the base\", the charging contacts of the handset and base must be able to touch each other without having to force the handset into the base.\nA handset which doesn't fit on the base misses out on many features including place-on-base power backup and place-on-base auto-register.")

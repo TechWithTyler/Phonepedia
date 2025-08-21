@@ -42,7 +42,7 @@ struct BaseCallerIDView: View {
                 ExampleAudioView(audioFile: .talkingCallerIDNumber)
             }
         }
-        if phone.isCordless || phone.baseDisplayType > 0 {
+        if phone.isCordless || phone.baseDisplayType > 2 {
             FormNumericTextField(phone.isCordless ? "Caller ID List Capacity (Base)" : "Caller ID List Capacity", value: $phone.baseCallerIDCapacity, valueRange: .allPositivesIncludingZero, singularSuffix: "entry", pluralSuffix: "entries")
 #if !os(visionOS)
                 .scrollDismissesKeyboard(.interactively)

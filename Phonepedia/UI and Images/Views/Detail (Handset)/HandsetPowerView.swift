@@ -24,7 +24,7 @@ struct HandsetPowerView: View {
                 Button("Use Charging Color") {
                     handset.setChargeLightChargedColorToCharging()
                 }
-                if handset.fitsOnBase && handset.hasSpeakerphone && phone.cordlessPowerBackupMode == 1 && !phone.hasTransmitOnlyBase && !phone.isCordedCordless {
+                if handset.fitsOnBase && handset.hasSpeakerphone && phone.cordlessPowerBackupMode == 1 && phone.baseChargesHandset {
                     Toggle("Supports Place-On-Base Power Backup", isOn: $handset.supportsPlaceOnBasePowerBackup)
                     InfoText("Even if a handset with speakerphone can fit on the base and that base has place-on-base power backup, it doesn't mean the handset supports it. If a handset doesn't come with any models with place-on-base power backup, the feature is often left out of the handset since it wouldn't work on the base it came with.")
                 }
@@ -45,7 +45,7 @@ struct HandsetPowerView: View {
             if handset.cordlessDeviceType == 1 {
                 Toggle("Supports Backup Batteries", isOn: $handset.desksetSupportsBackupBatteries)
             }
-            if handset.cordlessDeviceType == 0 || (handset.cordlessDeviceType == 1 && handset.desksetSupportsBackupBatteries) {
+            if handset.takesBatteries {
                 Picker(handset.cordlessDeviceType == 0 ? "Battery Type" : "Backup Battery Type", selection: $handset.batteryType) {
                     Text("Pack with Plug").tag(0)
                     Text("Pack with Contacts").tag(1)

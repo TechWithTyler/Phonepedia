@@ -33,13 +33,13 @@ struct PhoneMessagingView: View {
             .onChange(of: phone.hasAnsweringSystem) { oldValue, newValue in
                 phone.hasAnsweringSystemChanged(oldValue: oldValue, newValue: newValue)
             }
-            if phone.hasAnsweringSystem == 1 || phone.hasAnsweringSystem == 3 {
+            if phone.hasBaseAccessibleAnsweringSystem {
                 Picker("Answering System Type", selection: $phone.answeringSystemType) {
                     Text("Digital").tag(1)
                     Text("Tape Cassette(s)").tag(0)
                 }
                 InfoText("Early answering systems stored messages on a tape cassette. The greeting is stored either on the same cassette as the messages (single-cassette systems), on a separate cassette (dual-cassette systems), or digitally. Storing the greeting on the same cassette as the messages results in a delay between the greeting and the beep, as the system needs to move the tape forward to the end where the message is to be recorded. Some models can count the number of messages on the tape by detecting the beeps on the tape.\nModern answering systems are fully digital, meaning messages are stored on a memory chip. This allows for quicker operation.")
-                if phone.numberOfLandlines > 1 {
+                if phone.isMultiline {
                     Picker("Multi-Line Button Layout", selection: $phone.answeringSystemMultilineButtonLayout) {
                         Text("Separate Buttons").tag(0)
                         Text("Line Selection Button").tag(1)
@@ -54,7 +54,7 @@ struct PhoneMessagingView: View {
             if phone.hasAnsweringSystem == 1 {
                 Picker("Answering System Menu", selection: $phone.answeringSystemMenuOnBase) {
                     Text("Voice Prompts").tag(0)
-                    if phone.baseDisplayType > 0 {
+                    if phone.baseDisplayType > 2 {
                         Text("Display Menu").tag(1)
                     }
                 }
@@ -69,7 +69,7 @@ struct PhoneMessagingView: View {
                 }
                 AnsweringSystemMenuInfoView()
             }
-            if phone.hasAnsweringSystem == 1 || phone.hasAnsweringSystem == 3 {
+            if phone.hasBaseAccessibleAnsweringSystem {
                 Toggle("Switches For Basic Answering System Settings", isOn: $phone.answeringSystemSwitches)
             }
             if phone.hasAnsweringSystem == 3 {
@@ -94,7 +94,7 @@ struct PhoneMessagingView: View {
                     Text("Fully-Selectable").tag(2)
                 }
                 InfoText("The remote access code is a numeric code (at least 2 digits) you dial during the greeting, sometimes with another digit entered first, to remotely access the answering system just as you would with a voicemail service.\nA fixed remote access code is programmed into the phone by the factory and is often unique to each instance of that phone. For example, one instance of a phone model might have the code 47, and another instance of that same model might have the code 26. The code is printed on the back or bottom of the phone.\nWith a partially-selectable remote access code, one or more digits are programmed into the phone by the factory, and you select the remaining digit(s). For example, one instance of a phone model might have the code 6x, and another instance of that same model might have the code 3x, with x representing the digit you can choose (e.g. 60-69 on one instance and 30-39 on another). The fixed portion of the code is printed on the back or bottom of the phone.\nA fully-selectable remote access code means that all digits of the code can be selected by the user, either by scrolling through numbers or by simply entering the desired code using the base/handset keypad.")
-                if phone.numberOfLandlines > 1 {
+                if phone.isMultiline {
                     Toggle("Remote Access Code Common to All Lines", isOn: $phone.remoteAccessCodeCommonToAllLines)
                     InfoText("On multi-line phones, the answering system for each line either has a separate fixed remote access code or remote access code setting, or a single remote access code that applies to all lines.")
                 }
@@ -116,7 +116,7 @@ struct PhoneMessagingView: View {
                     }
                 }
                 InfoText("On single-line phones, mailboxes allow you to organize messages for different people or purposes. In your greeting, instruct callers to choose the desired mailbox. Example: \"For Jack, press 1, or just stay on the line. For Jill, press 2. For Jim, press 3.\"\nSome phones/answering systems designate one mailbox as the primary/general mailbox. When determining how many mailboxes your phone has, count the primary mailbox as one of those mailboxes in addition to mailbox 1, 2, etc.\nOn multi-line phones, each line has its own answering system, which can be independently turned on/off. Incoming messages will be stored in the answering system corresponding to the line receiving the call. On some phones, you can only remotely access the answering system of the line you're calling, while on others, you can access any line remotely no matter which line you're calling.")
-                if phone.isCordedCordless && phone.maxCordlessHandsets >= 8 && phone.numberOfLandlines == 4 {
+                if phone.isBusinessCordedCordlessSystem {
                     Toggle("Auto Attendant/Personal Mailboxes", isOn: $phone.hasAutoAttendantAndPersonalMailboxes)
                     InfoText("On a business phone with multiple cordless handsets/desksets, each handset/deskset can have its own mailbox, which can only be accessed by that handset/deskset or the base. There's also a main mailbox, often called the general delivery mailbox, for any messages not directed to a specific personal mailbox, that the base and all handsets/desksets can access.\nAn automated attendant system can route callers to a specific handset/deskset by asking callers to enter the handset's/deskset's extension number, which is the number assigned when the handset/deskset is registered to the base. If the call isn't answered, the caller can leave a message in the personal mailbox.\nMessages are stored in the base in the slot corresponding to the registered handset/deskset--you can't access the personal mailbox of a handset/deskset if it's out of range of the base.")
                 }
@@ -130,7 +130,7 @@ struct PhoneMessagingView: View {
             }
         }
         Section("Voicemail") {
-            if phone.landlineConnectionType == 0 {
+            if phone.hasAnalogLineConnection {
                 Picker("\"New Voicemail\" Detection Method", selection: $phone.voicemailIndication) {
                     Text("None").tag(0)
                     Divider()
@@ -140,7 +140,7 @@ struct PhoneMessagingView: View {
                     Text("4 - Polarity Reversal").tag(5)
                     Divider()
                     Text("1 and 2").tag(3)
-                    if phone.baseDisplayType > 0 {
+                    if phone.baseDisplayType > 2 {
                         Text("1 and 3").tag(6)
                     }
                     Text("Selectable").tag(7)
@@ -164,7 +164,7 @@ A phone's voicemail indicator works in one of the following ways:
                     Text("None").tag(0)
                     Text("Button").tag(1)
                     Text("Speed Dial 1").tag(2)
-                    if phone.baseDisplayType > 0 {
+                    if phone.baseDisplayType > 2 {
                         Text("Message Menu Item").tag(3)
                         Text("Main Menu Item").tag(4)
                         Text("Main Menu Item and Button").tag(5)

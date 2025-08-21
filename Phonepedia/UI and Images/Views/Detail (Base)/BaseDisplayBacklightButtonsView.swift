@@ -25,7 +25,7 @@ struct BaseDisplayBacklightButtonsView: View {
                     Text("Diamond-Cut (No Space Between Buttons, Click Feel)").tag(4)
                     Text("Touch Button Panel").tag(5)
                 }
-                if !phone.isWiFiHandset && ((!phone.isCordless && (phone.cordedPhoneType == 0 || phone.cordedPhoneType == 2)) || (phone.isCordless && phone.hasBaseSpeakerphone)) {
+                if !phone.isWiFiHandset && ((!phone.isCordless && (phone.isPushButtonCorded)) || (phone.isCordless && phone.hasBaseSpeakerphone)) {
                     Toggle(isOn: $phone.hasBaseKeypad) {
                         Text(phone.isCordless ? "Has Base Keypad" : "Has User-Accessible Keypad")
                     }
@@ -42,9 +42,8 @@ struct BaseDisplayBacklightButtonsView: View {
                     InfoText("Some phones have a rotary phone-inspired design, with the buttons arranged like a rotary dial. The display, if any, is often located in the center of the \"dial\".")
                 }
             }
-            if phone.isCordless || phone.cordedPhoneType == 0 || phone.cordedPhoneType == 2 || phone.isWiFiHandset {
-                // Button Lighting Type and related pickers/toggles first
-                Picker("Button Lighting Type", selection: $phone.baseKeyBacklightAmount) {
+            if phone.isCordless || phone.isPushButtonCorded || phone.isWiFiHandset {
+                Picker("Button Lighting", selection: $phone.baseKeyBacklightAmount) {
                     Text("None").tag(0)
                     Text("Numbers Only").tag(1)
                     Text("Numbers + Some Function Buttons").tag(2)
@@ -87,7 +86,7 @@ struct BaseDisplayBacklightButtonsView: View {
                     }
                 }
             }
-            if phone.hasBaseSpeakerphone && phone.isCordless && !phone.hasTransmitOnlyBase && !phone.hasCordedReceiver {
+            if phone.hasBaseSpeakerphone && phone.baseChargesHandset {
                 Toggle("Dial On Base While Using Handset", isOn: $phone.dialWithBaseDuringHandsetCall)
                 InfoText("During a call on a cordless handset, if the base isn't also on the call, you can use the base keypad to dial like on a corded phone.")
             }
@@ -96,7 +95,7 @@ struct BaseDisplayBacklightButtonsView: View {
                 PhoneNumberLetterInfoView()
             }
         }
-        if phone.isCordless || phone.cordedPhoneType == 0 || phone.cordedPhoneType == 2 || phone.isWiFiHandset {
+        if phone.isCordless || phone.isPushButtonCorded || phone.isWiFiHandset {
             Section("Display") {
                 if !phone.isWiFiHandset {
                     Picker(phone.isCordless ? "Display Type (Base)" : "Display Type", selection: $phone.baseDisplayType) {
@@ -132,11 +131,11 @@ struct BaseDisplayBacklightButtonsView: View {
                     InfoButton(title: "About Display Types…") {
                         dialogManager.showingAboutDisplayTypes = true
                     }
-                    if phone.baseDisplayType >= 5 && (phone.hasPhonebook || phone.hasCallerIDList || phone.callBlockCapacity > 0 || phone.baseRedialCapacity > 1) {
+                    if phone.baseDisplayType >= 5 && phone.hasListsOfEntries {
                         Toggle("Allows Display of Multiple Entries", isOn: $phone.baseDisplayMultiEntries)
                         MultiEntryDisplayInfoView()
                     }
-                    if phone.isCordless && phone.baseDisplayType > 2 && (phone.basePhonebookCapacity > 0 || phone.baseCallerIDCapacity > 0 || phone.baseRedialCapacity > 0) {
+                    if phone.isCordless && phone.hasListsOfEntries {
                         Picker("Base Menu Type", selection: $phone.cordlessBaseMenuType) {
                             Text("None").tag(0)
                             Text("Partial").tag(1)
@@ -158,12 +157,12 @@ struct BaseDisplayBacklightButtonsView: View {
                         }
                     }
                 }
-                if phone.isWiFiHandset || (phone.baseDisplayType > 2 && phone.baseDisplayType < 7) {
+                if phone.isWiFiHandset || phone.baseDisplayIsMonochrome {
                     ClearSupportedColorPicker(phone.isCordless ? "Base Display Backlight Color" : "Display Backlight Color", selection: phone.baseDisplayBacklightColorBinding) {
                         Text("No Backlight")
                     }
                 }
-                if phone.baseDisplayType >= 3 && (phone.isCordless || phone.cordedPhoneType == 0) && phone.hasAnsweringSystem > 0 {
+                if phone.baseDisplayType >= 3 && phone.isCordlessOrPushButtonDesk && phone.hasAnsweringSystem > 0 {
                     Toggle("Base Has LED Message Counter In Addition To Display", isOn: $phone.baseHasDisplayAndMessageCounter)
                 }
                 if phone.baseDisplayType == 1 || phone.baseHasDisplayAndMessageCounter {
@@ -218,7 +217,7 @@ struct BaseDisplayBacklightButtonsView: View {
                             Text("None").tag(0)
                             Text("Select").tag(1)
                             Text("Menu/Select").tag(2)
-                            if phone.hasAnsweringSystem == 1 || phone.hasAnsweringSystem == 3 {
+                            if phone.hasBaseAccessibleAnsweringSystem {
                                 Text("Play/Stop").tag(3)
                                 Text("Play/Select").tag(4)
                                 Text("Play/Stop/Select").tag(5)
@@ -226,7 +225,7 @@ struct BaseDisplayBacklightButtonsView: View {
                             Text("Other Function").tag(6)
                         }
                         Toggle("Base Navigation Button Up/Down for Volume", isOn: $phone.baseNavigatorKeyUpDownVolume)
-                        if phone.hasAnsweringSystem == 1 || phone.hasAnsweringSystem == 3 {
+                        if phone.hasBaseAccessibleAnsweringSystem {
                             Toggle("Base Navigation Button Left/Right for Repeat/Skip", isOn: $phone.baseNavigatorKeyLeftRightRepeatSkip)
                         }
                         Toggle("Base Navigation Button Standby Shortcuts", isOn: $phone.baseNavigatorKeyStandbyShortcuts)

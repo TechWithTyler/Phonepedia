@@ -145,7 +145,7 @@ struct CordlessDeviceInfoView: View {
                         }
                         .onMove(perform: moveHandsets)
                     }
-                    if phone.cordlessHandsetsIHave.count > phone.maxCordlessHandsets {
+                    if phone.tooManyCordlessDevices {
                         WarningText("You have more cordless devices than the base can handle!")
                     }
                 }

@@ -75,14 +75,14 @@ struct PhonePowerView: View {
                 if phone.cordlessPowerBackupMode == 1 && phone.isCordedCordless {
                     InfoText("When the power goes out, the corded base will work as a line-powered corded phone with basic features, and will often use a piezo speaker for the ringer.")
                 }
-                if phone.cordlessPowerBackupMode == 1 && !phone.hasTransmitOnlyBase && !phone.isCordedCordless {
+                if phone.cordlessPowerBackupMode == 1 && phone.baseChargesHandset {
                     Picker("When Power Returns", selection: $phone.cordlessPowerBackupReturnBehavior) {
                         Text("Reboot/Refresh Handset Menus").tag(0)
                         Text("Restore Full Functionality Without Rebooting").tag(1)
                     }
                     VStack(alignment: .leading) {
                         InfoText("When the power goes out, placing a charged handset on the base can give it power. The base buttons might not work, and features like the answering system and base Bluetooth might not be available while the handset is powering the base, to help conserve handset battery power.\nRemember that when the handset is powering the base, the battery will drain faster than normal, because some of the battery power is being used to power the base. This is especially true if you're using the handset that's powering the base--you may find that the handset powering the base runs out of charge before the other handset(s), or that you can be on a call on the other handset(s) longer than you can on the one powering the base. For this reason, the manuals of such phones often advise you to leave a handset on the base specifically for power, and use the other handset(s), if you have more than one.\nIf using the handset placed on the base, only the speakerphone is available for calls, since holding the phone up to your ear would not only feel uncomfortable (since you'd have to hold it with the handset placed on the base), but the handset could lose connection with the base charging contacts too easily.")
-                        if phone.cordlessHandsetsIHave.filter({$0.fitsOnBase && $0.hasSpeakerphone && $0.supportsPlaceOnBasePowerBackup}).isEmpty {
+                        if phone.noHandsetsForPlaceOnBasePowerBackup {
                             WarningText("To use place-on-base power backup, you must have at least one handset which:\n• Has speakerphone.\n• Fits on the base.\n• Supports place-on-base power backup.")
                         }
                     }

@@ -19,7 +19,7 @@ struct HandsetRedialView: View {
 #if !os(visionOS)
                 .scrollDismissesKeyboard(.interactively)
 #endif
-            if handset.redialCapacity > 1 && (handset.phonebookCapacity > 0 || (phone.basePhonebookCapacity > 0 && handset.usesBasePhonebook)) {
+            if handset.hasPhonebookAndRedialList {
                 Picker("Redial Name Display", selection: $handset.redialNameDisplay) {
                     Text("None").tag(0)
                     Text("Phonebook Match").tag(1)
@@ -27,7 +27,7 @@ struct HandsetRedialView: View {
                 }
                 RedialNameDisplayInfoView()
             }
-            if handset.redialNameDisplay == 1 && handset.usesBasePhonebook {
+            if handset.redialNameDisplay == 1 && handset.usesBasePhonebook && handset.phonebookCapacity == 0 {
                 InfoText("Although the redial list is stored in the handset, it may still require you to be in range of the base if the handset doesn't have a fallback to display entries without their names.")
             }
         } else {
