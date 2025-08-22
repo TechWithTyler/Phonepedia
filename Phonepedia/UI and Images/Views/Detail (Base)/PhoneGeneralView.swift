@@ -183,18 +183,15 @@ struct PhoneGeneralView: View {
                     Picker("Base Charging Direction", selection: $phone.baseChargingDirection) {
                         ChargingDirectionPickerItems()
                     }
-                    InfoText("Variations in charging area designs are one of the many ways cordless phones look different from one another.\nA reversible handset can charge with the keypad facing either up or down.")
+                    InfoText("Variations in charging area designs are one of the many ways cordless phones look different from one another.\nA reversible handset can charge with the keypad facing either up or down. While there's no benefit to this design with phones without handset displays, the phone may still have this design if the base or handset casing is shared with a model that has a handset display.")
                     if phone.wallMountability > 0 && phone.hasLayDownCharging {
-                        Picker(
-                            "Lay-Down Hook Type",
-                            selection: $phone.cordlessHandsetLayDownHookType
-                        ) {
+                        Picker("Lay-Down Hook Type", selection: $phone.cordlessHandsetLayDownHookType) {
                             Text("None").tag(0)
                             Text("Fixed").tag(1)
                             Text("Flip/Rotate (Face/Back)").tag(2)
                             Text("Flip (Top)").tag(3)
                         }
-                        InfoText("• None: The handset doesn't need an extra hook to stay in place while the base is wall-mounted.\n• Fixed: The base has a hook that slots into a hole on the handset.\n • Flip/Rotate (Face/Back): The base has a hook that can be flipped or rotated so it sticks out when you want to mount the base on the wall, or so it doesn't stick out when you don't want to mount it on the wall.\n• Flip (Top): The hook is located at the top of the charging area and needs to be flipped down to hold the handset in place while the base is wall-mounted, and flipped back up to take the handset off the base.")
+                        InfoText("• None: The handset doesn't need an extra hook to stay in place while the base is wall-mounted.\n• Fixed: The base has a hook that slots into a hole on the handset.\n• Flip/Rotate (Face/Back): The base has a hook that can be flipped or rotated so it sticks out when you want to mount the base on the wall, or so it doesn't stick out when you don't want to mount it on the wall.\n• Flip (Top): The hook is located at the top of the charging area and needs to be flipped down to hold the handset in place while the base is wall-mounted, and flipped back up to take the handset off the base.")
                     }
                     if !phone.isCordedCordless {
                         Picker("Base Charge Contact Placement", selection: $phone.baseChargeContactPlacement) {
@@ -225,7 +222,7 @@ In most cases, if the base has a charge light/display message, the completion of
                     .onChange(of: phone.locatorButtons) { oldValue, newValue in
                         phone.locatorButtonsChanged(oldValue: oldValue, newValue: newValue)
                     }
-                    InfoText("Handset locator allows you to locate (page) the handset(s) so you can find them.\nOne for All: A single locator button pages or makes an intercom call to all handsets. If the base has a keypad, you can call all handsets or a specific one.\nOne for Each: The base has one locator button for each handset that can be registered. For example, a phone that only expands up to 3 handsets would have 3 handset locator buttons, one for each of the 3 handsets.\nEach HS + All: The base has one locator button for each handset that can be registered, as well as a button to page all handsets.\nSelect + Call Buttons: Press the select button to select the handset to page, then press the call button to call it. This is often seen on phones where the base's physical design is shared between a 2-handset model and a 3-or-more-handset model.")
+                    InfoText("Handset locator allows you to locate (page) the handset(s) so you can find them. The term \"page\" comes from the fact that this makes the handset beep or ring, just like how pagers beep when they're called.\n• One for All: A single locator button pages or makes an intercom call to all handsets. If the base has a keypad, you can call all handsets or a specific one.\n• One for Each: The base has one locator button for each handset slot. For example, a phone that only expands up to 3 handsets would have 3 handset locator buttons, one for each of the 3 handsets.\nEach HS + All: The base has one locator button for each handset slot, as well as a button to page all handsets.\nSelect + Call Buttons: Press the select button to select the desired handset, then press the call button to call it. This is often seen on phones where the base's physical design is shared between a 2-handset model and a 3-or-more-handset model.")
                     if phone.locatorButtons == 0 {
                         Toggle("Handset Locator Uses Intercom", isOn: $phone.handsetLocatorUsesIntercom)
                     }
@@ -323,7 +320,7 @@ In most cases, if the base has a charge light/display message, the completion of
                     Text("Flip/Rotate").tag(1)
                     Text("Removable").tag(2)
                 }
-                InfoText("• Fixed: The phone has a hook that slots into a hole on the corded receiver below the earpiece. On slim/wall phones where the switch hook is on the receiver instead of on the base, the switch hook is located directly below this hole and gets pressed by the hook on the base.\n• Flip/Rotate: The hook can be flipped or rotated so it sticks out when you want to mount the phone on the wall, or so it doesn't stick out when you don't want to mount it on the wall.\n• Removable: The phone has a removable hook which is inserted one way for desk use and another way for wall use. This is the most common type of corded receiver hook and has the risk of getting lost.")
+                InfoText("The corded receiver hook holds it in place when the phone is wall-mounted, which prevents it from falling off the base. This is not to be confused with the switch hook, which is what tells the phone whether it's on or off-hook.\n• Fixed: The phone has a hook that slots into a hole on the corded receiver below the earpiece. On slim/wall phones where the switch hook is on the receiver instead of on the base, the switch hook is located directly below this hole and gets pressed by the hook on the base.\n• Flip/Rotate: The hook can be flipped or rotated so it sticks out when you want to mount the phone on the wall, or so it doesn't stick out when you don't want to mount it on the wall.\n• Removable: The phone has a removable hook which is inserted one way for desk use and another way for wall use. This is the most common type of corded receiver hook and has the risk of getting lost.")
             }
         }
     }
