@@ -40,7 +40,7 @@ struct ChargerDetailView: View {
                             Spacer()
                         }
                     }
-                    Section {
+                    Section("Charger \(chargerNumber + 1) Actions") {
                         Button {
                             phone.chargersIHave.insert(charger.duplicate(), at: chargerNumber)
                             dismiss()
@@ -76,12 +76,14 @@ struct ChargerDetailView: View {
                             Text("Headset/Speakerphone").tag(1)
                         }
                         Toggle("Has Charge Light", isOn: $charger.hasChargeLight)
-                        ColorPicker("Charge Light Color (Charging)", selection: charger.chargeLightColorChargingBinding, supportsOpacity: false)
-                        ClearSupportedColorPicker("Charge Light Color (Charged)", selection: charger.chargeLightColorChargedBinding) {
-                            Text("Off When Charged")
-                        }
-                        Button("Use Charging Color") {
-                            charger.setChargeLightChargedColorToCharging()
+                        if charger.hasChargeLight {
+                            ColorPicker("Charge Light Color (Charging)", selection: charger.chargeLightColorChargingBinding, supportsOpacity: false)
+                            ClearSupportedColorPicker("Charge Light Color (Charged)", selection: charger.chargeLightColorChargedBinding) {
+                                Text("Off When Charged")
+                            }
+                            Button("Use Charging Color") {
+                                charger.setChargeLightChargedColorToCharging()
+                            }
                         }
                         if charger.type == 0 {
                             Picker("Charging Direction", selection: $charger.chargingDirection) {
@@ -102,7 +104,7 @@ struct ChargerDetailView: View {
                             Toggle("Has Hard-Wired AC Adaptor", isOn: $charger.hasHardWiredACAdaptor)
                         }
                         if phone.supportsRangeExtenders {
-                            Toggle("Has Range Extender", isOn: $charger.hasRangeExtender)
+                            Toggle("Has Built-In Range Extender", isOn: $charger.hasRangeExtender)
                             InfoText("A charger with a built-in range extender allows you to have a range extender where you have a charger, without having to place a separate range extender.")
                         }
                     }

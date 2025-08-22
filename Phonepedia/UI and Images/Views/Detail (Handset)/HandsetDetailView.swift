@@ -32,7 +32,7 @@ struct HandsetDetailView: View {
                             Spacer()
                         }
                     }
-                    Section {
+                    Section("Cordless Device \(handset.handsetNumber + 1) Actions") {
                         HandsetActionsView(handset: handset)
                     }
                     Section("Basics") {
