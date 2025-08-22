@@ -142,6 +142,7 @@
 		8DC964E02D0B6C9E00984466 /* AnalogPhoneConnectedToPickerItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC964DF2D0B6C9E00984466 /* AnalogPhoneConnectedToPickerItems.swift */; };
 		8DC964E22D0B716800984466 /* AcquisitionMethodPickerItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC964E12D0B716800984466 /* AcquisitionMethodPickerItems.swift */; };
 		8DC9E7DC2C37434C0089B48A /* AnsweringSystemGreetingComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC9E7DB2C37434C0089B48A /* AnsweringSystemGreetingComponents.swift */; };
+		8DCAD9DE2E59087F006C03CB /* HandsetColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DCAD9DD2E59087F006C03CB /* HandsetColorView.swift */; };
 		8DD3A2942D2C7BDC00595AB3 /* SettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD3A2932D2C7BDC00595AB3 /* SettingsPage.swift */; };
 		8DD3A2962D2C7CB200595AB3 /* NewPhonesSettingsPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD3A2952D2C7CB200595AB3 /* NewPhonesSettingsPageView.swift */; };
 		8DD3A2982D2C7D5100595AB3 /* DisplaySettingsPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD3A2972D2C7D5100595AB3 /* DisplaySettingsPageView.swift */; };
@@ -325,6 +326,7 @@
 		8DC964DF2D0B6C9E00984466 /* AnalogPhoneConnectedToPickerItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalogPhoneConnectedToPickerItems.swift; sourceTree = "<group>"; };
 		8DC964E12D0B716800984466 /* AcquisitionMethodPickerItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcquisitionMethodPickerItems.swift; sourceTree = "<group>"; };
 		8DC9E7DB2C37434C0089B48A /* AnsweringSystemGreetingComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnsweringSystemGreetingComponents.swift; sourceTree = "<group>"; };
+		8DCAD9DD2E59087F006C03CB /* HandsetColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandsetColorView.swift; sourceTree = "<group>"; };
 		8DD3A2932D2C7BDC00595AB3 /* SettingsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPage.swift; sourceTree = "<group>"; };
 		8DD3A2952D2C7CB200595AB3 /* NewPhonesSettingsPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPhonesSettingsPageView.swift; sourceTree = "<group>"; };
 		8DD3A2972D2C7D5100595AB3 /* DisplaySettingsPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplaySettingsPageView.swift; sourceTree = "<group>"; };
@@ -428,6 +430,7 @@
 				8D38ED9E2CAF3FC900CCC422 /* HandsetSpeedDialView.swift */,
 				8D38EDA02CAF404C00CCC422 /* HandsetSpecialFeaturesView.swift */,
 				8D32A5172D4562C500F606FC /* HandsetPowerView.swift */,
+				8DCAD9DD2E59087F006C03CB /* HandsetColorView.swift */,
 			);
 			path = "Detail (Handset)";
 			sourceTree = "<group>";
@@ -983,6 +986,7 @@
 				8DBA56BD2D3081C3005DC013 /* AnsweringSystemVsVoicemailView.swift in Sources */,
 				8D38ED662CAF2DC500CCC422 /* BaseSpeakerphoneIntercomView.swift in Sources */,
 				8DC964E22D0B716800984466 /* AcquisitionMethodPickerItems.swift in Sources */,
+				8DCAD9DE2E59087F006C03CB /* HandsetColorView.swift in Sources */,
 				8DE9F4272D32343E002B4EB4 /* NameNumberExamples.swift in Sources */,
 				8DA844EF2B72E1D7006CBCA7 /* LandlineOrNotPredictor.swift in Sources */,
 				8D38ED992CAF3EA500CCC422 /* HandsetRedialView.swift in Sources */,

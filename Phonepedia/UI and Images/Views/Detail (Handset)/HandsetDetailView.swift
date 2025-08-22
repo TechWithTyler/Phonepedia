@@ -58,6 +58,12 @@ struct HandsetDetailView: View {
                                 Label("Power/Charging", systemImage: "battery.100percent")
                             }
                         }
+                        FormNavigationLink(phone: phone) {
+                            HandsetColorView(handset: handset)
+                                .navigationTitle("Colors (HS\(handset.handsetNumber + 1))")
+                        } label: {
+                            Label("Colors", systemImage: "paintpalette")
+                        }
                         if handset.cordlessDeviceType < 2 {
                             if handset.handsetStyle < 3 {
                                 FormNavigationLink(phone: phone) {
