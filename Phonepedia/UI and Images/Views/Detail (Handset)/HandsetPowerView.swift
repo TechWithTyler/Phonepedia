@@ -17,12 +17,14 @@ struct HandsetPowerView: View {
         if let phone = handset.phone {
             if handset.cordlessDeviceType == 0 {
                 Toggle("Has Charge Light", isOn: $handset.hasChargeLight)
-                ColorPicker("Charge Light Color (Charging)", selection: handset.chargeLightColorChargingBinding, supportsOpacity: false)
-                ClearSupportedColorPicker("Charge Light Color (Charged)", selection: handset.chargeLightColorChargedBinding) {
-                    Text("Off When Charged")
-                }
-                Button("Use Charging Color") {
-                    handset.setChargeLightChargedColorToCharging()
+                if handset.hasChargeLight {
+                    ColorPicker("Charge Light Color (Charging)", selection: handset.chargeLightColorChargingBinding, supportsOpacity: false)
+                    ClearSupportedColorPicker("Charge Light Color (Charged)", selection: handset.chargeLightColorChargedBinding) {
+                        Text("Off When Charged")
+                    }
+                    Button("Use Charging Color") {
+                        handset.setChargeLightChargedColorToCharging()
+                    }
                 }
                 if handset.fitsOnBase && handset.hasSpeakerphone && phone.cordlessPowerBackupMode == 1 && phone.baseChargesHandset {
                     Toggle("Supports Place-On-Base Power Backup", isOn: $handset.supportsPlaceOnBasePowerBackup)
