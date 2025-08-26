@@ -14,7 +14,6 @@ struct HandsetRedialView: View {
     @Bindable var handset: CordlessHandset
 
     var body: some View {
-        if let phone = handset.phone {
             FormNumericTextField("Redial Capacity", value: $handset.redialCapacity, valueRange: .zeroToMax(20), singularSuffix: "entry", pluralSuffix: "entries")
 #if !os(visionOS)
                 .scrollDismissesKeyboard(.interactively)
@@ -30,9 +29,6 @@ struct HandsetRedialView: View {
             if handset.redialNameDisplay == 1 && handset.usesBasePhonebook && handset.phonebookCapacity == 0 {
                 InfoText("Although the redial list is stored in the handset, it may still require you to be in range of the base if the handset doesn't have a fallback to display entries without their names.")
             }
-        } else {
-            Text("Error")
-        }
     }
 }
 

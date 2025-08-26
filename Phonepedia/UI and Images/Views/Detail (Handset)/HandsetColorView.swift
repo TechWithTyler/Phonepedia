@@ -32,7 +32,6 @@ struct HandsetColorView: View {
     }
 
     var body: some View {
-        if let phone = handset.phone {
             Section {
                 ColorPicker("\(mainColorLocation) Color", selection: handset.mainColorBinding, supportsOpacity: false)
                 ColorPicker("\(secondaryColorLocation) Color", selection: handset.secondaryColorBinding, supportsOpacity: false)
@@ -64,7 +63,6 @@ struct HandsetColorView: View {
 
                 }
             }
-        }
     }
 
 }

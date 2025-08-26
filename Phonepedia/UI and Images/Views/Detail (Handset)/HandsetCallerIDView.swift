@@ -14,7 +14,6 @@ struct HandsetCallerIDView: View {
     @Bindable var handset: CordlessHandset
 
     var body: some View {
-        if let phone = handset.phone {
             if handset.hasPhonebook && handset.handsetStyle < 3 {
                 Toggle(isOn: $handset.callerIDPhonebookMatch) {
                     Text("Caller ID Name Uses Matching Phonebook Entry Name")
@@ -43,9 +42,6 @@ struct HandsetCallerIDView: View {
                 Toggle("Uses Base Caller ID List", isOn: $handset.usesBaseCallerID)
             }
             InfoText("When handsets use the base caller ID list instead of having their own, the caller ID list, and the indication/number of missed calls, is shared by the base and all handsets. Only one can access it at a time.")
-        } else {
-            Text("Error")
-        }
     }
 }
 
