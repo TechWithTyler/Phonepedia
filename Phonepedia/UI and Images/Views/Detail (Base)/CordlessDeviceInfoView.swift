@@ -87,7 +87,10 @@ struct CordlessDeviceInfoView: View {
                 .frame(width: 80, alignment: .leading)
                 .menuIndicator(.hidden)
                 .accessibilityIdentifier("AddHandsetButton")
-                .disabled(phone.cordlessHandsetsIHave.count >= phone.maxCordlessHandsets && phone.maxCordlessHandsets != -1)
+                .disabled(phone.maxOrTooManyCordlessDevices)
+                if phone.maxOrTooManyCordlessDevices {
+                    WarningText("You currently have the maximum number of cordless devices (\(phone.maxCordlessHandsets)) for this \(phone.brand) \(phone.model). If you're trying to add another cordless device, make sure you've specified the correct number of maximum cordless devices on the General page.")
+                }
                 Button(role: .destructive) {
                     dialogManager.showingDeleteAllHandsets = true
                 } label: {
@@ -150,7 +153,7 @@ struct CordlessDeviceInfoView: View {
                     }
                 }
                 FormTextField("Main Cordless Device Model", text: $phone.mainHandsetModel)
-                InfoText("Enter the model number of the main cordless handset or deskset included with the \(phone.brand) \(phone.model) so newly-added cordless devices will default to that model number.\nA cordless phone's main handset/deskset is registered to the base as number 1, and may have some special features, like backing up the time in case of power outage, not available to other devices on the system.\nSome non-expandable cordless phones won't have a handset model number or it will be the same as that of the set it came with--leave this field blank in this case.")
+                InfoText("Enter the model number of the main cordless device included with the \(phone.brand) \(phone.model) so newly-added cordless devices will default to that model number.\nA cordless phone's main handset/deskset is registered to the base as number 1, and may have some special features, like backing up the time in case of power outage, not available to other devices on the system.\nSome non-expandable cordless phones won't have a handset model number or it will be the same as that of the set it came with--leave this field blank in this case.")
             }
             .alert("Delete this cordless device?", isPresented: $dialogManager.showingDeleteHandset, presenting: $dialogManager.handsetToDelete) { handset in
                 Button("Delete", role: .destructive) {

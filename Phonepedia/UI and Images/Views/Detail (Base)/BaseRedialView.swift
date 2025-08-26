@@ -26,6 +26,7 @@ struct BaseRedialView: View {
             }
             RedialNameDisplayInfoView()
         }
+        InfoText("On many phones, the redial button has another function, pause. Inserting a pause in a dialing sequence tells the phone to wait for a few seconds before dialing more digits. This is often used if storing a number which requires more digits to be entered after the call connects, such as your voicemail access number and password. These functions are often the same button since they're both related to dialing.")
     }
 }
 

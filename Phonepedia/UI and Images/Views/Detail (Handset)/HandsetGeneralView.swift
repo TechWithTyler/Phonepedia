@@ -17,7 +17,6 @@ struct HandsetGeneralView: View {
 
     var body: some View {
         if let phone = handset.phone {
-            Section {
                 Stepper("Release Year (-1 If Unknown): \(String(handset.releaseYear))", value: $handset.releaseYear, in: -1...currentYear)
                     .onChange(of: handset.releaseYear) { oldValue, newValue in
                         handset.releaseYearChanged(oldValue: oldValue, newValue: newValue)
@@ -92,7 +91,6 @@ struct HandsetGeneralView: View {
                     Text("Follow Ring Signal").tag(2)
                 }
                 InfoText("A visual ringer that follows the ring signal starts flashing when the ring signal starts and stops flashing when the ring signal stops. A visual ringer that ignores the ring signal flashes for as long as the cordless device is indicating an incoming call.")
-            }
         } else {
             Text("Error")
         }

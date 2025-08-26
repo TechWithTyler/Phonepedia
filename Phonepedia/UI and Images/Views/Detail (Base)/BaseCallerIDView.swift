@@ -48,8 +48,8 @@ struct BaseCallerIDView: View {
                 .scrollDismissesKeyboard(.interactively)
 #endif
         }
-        Toggle("Supports Call Waiting", isOn: $phone.supportsCallWaiting)
-        InfoText("Call waiting allows you to receive calls even when you are on the phone.\nCall Waiting Caller ID (CWID) allows you to receive caller ID for the 2nd call. On analog phones, a high-pitched tone (2130Hz + 2750Hz), called the Customer Premise Equipment Alert Signal tone, will be played after the call waiting tone. This tone tells the phone to play a DTMF \"A\" or \"D\" tone (depending on the caller ID standards the phone supports, if it supports caller ID and is off-hook, to let the provider know it can send caller ID data for the call. Once the phone detects the Customer Premise Equipment Alert Signal tone, incoming audio is briefly muted to prevent the caller ID data tones from being heard and making you wonder \"What was that weird sound I just heard?\".")
+        Toggle("Supports Flash/Call Waiting", isOn: $phone.supportsCallWaiting)
+        InfoText("Call waiting allows you to receive calls even when you are on the phone. Call waiting calls are answered by pressing the flash button or switch hook, and you can do the same to switch between 2 calls, start a new call, or conference 2 calls to create a 3-way call.\nCall Waiting Caller ID (CWID) allows you to receive caller ID for the 2nd call. On analog phones, a high-pitched tone (2130Hz + 2750Hz), called the Customer Premise Equipment Alert Signal tone, will be played after the call waiting tone. This tone tells the phone to play a DTMF \"A\" or \"D\" tone (depending on the caller ID standards the phone supports, if it supports caller ID and is off-hook, to let the provider know it can send caller ID data for the call. Once the phone detects the Customer Premise Equipment Alert Signal tone, incoming audio is briefly muted to prevent the caller ID data tones from being heard and making you wonder \"What was that weird sound I just heard?\".")
         ExampleAudioView(audioFile: .callWaitingTone)
         ExampleAudioView(audioFile: .dtmfToneD)
         ExampleAudioView(audioFile: .dtmfToneA)

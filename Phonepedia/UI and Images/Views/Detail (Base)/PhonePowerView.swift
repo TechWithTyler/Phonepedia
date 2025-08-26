@@ -14,13 +14,14 @@ struct PhonePowerView: View {
     @Bindable var phone: Phone
 
     var body: some View {
-        if phone.landlineConnectionType == 2 {
-            Toggle("Supports Power-over-Ethernet (PoE)", isOn: $phone.supportsPoE)
-            InfoText("If an Ethernet phone gets its power only via the Ethernet port instead of a separate power cord, the phone won't work without plugging it into the network.\nFor phones that only use PoE, if the network hardware doesn't support PoE, you'll need to connect a PoE injector between the network and the phone.")
-                .onChange(of: phone.supportsPoE) { oldValue, newValue in
-                    phone.supportsPoEChanged(oldValue: oldValue, newValue: newValue)
-                }
-        }
+        Section("Main Power Source") {
+            if phone.landlineConnectionType == 2 {
+                Toggle("Supports Power-over-Ethernet (PoE)", isOn: $phone.supportsPoE)
+                InfoText("If an Ethernet phone gets its power only via the Ethernet port instead of a separate power cord, the phone won't work without plugging it into the network.\nFor phones that only use PoE, if the network hardware doesn't support PoE, you'll need to connect a PoE injector between the network and the phone.")
+                    .onChange(of: phone.supportsPoE) { oldValue, newValue in
+                        phone.supportsPoEChanged(oldValue: oldValue, newValue: newValue)
+                    }
+            }
             if !phone.isCordless {
                 Picker(phone.supportsPoE ? "When PoE Isn't Available" : "Power Source", selection: $phone.cordedPowerSource) {
                     if phone.landlineConnectionType < 2 {
@@ -37,13 +38,15 @@ struct PhonePowerView: View {
                     InfoText("When a phone is on-hook, the voltage on an analog line is ~48V DC. When a phone goes off-hook, this voltage is reduced to ~6V DC. These voltage levels make line power only good for basic corded phones, because the on-hook voltage is too high and the off-hook voltage is too low. The circuit (loop) is also open when on-hook, so loop current is 0mA.\nSome line-powered phones can take batteries, which stabilize the power required for features like speed dial and caller ID display. You can access the phone's features even when it isn't connected to a line.\nMost line-powered or battery-powered corded phones will keep their memory intact for some time if line/battery power is lost (usually 72 hours).\nMost AC-powered corded phones can work on line power when the power is out. If the phone takes AC power and backup batteries, usually only the batteries will provide backup power--the phone won't work at all once the batteries run out.")
                 }
             }
-        if phone.landlineConnectionType < 2 && (phone.isCordless || phone.cordedPowerSource > 2) {
-            Toggle("Uses Single Line + Power Feed", isOn: $phone.usesSingleLinePowerFeed)
-            InfoText("A single line + power feed means the line and power connections are combined into a single cable which plugs into the phone. These kinds of phones often use an RJ45-style jack/cable.\nYou can tell if the phone is analog/digital or VoIP by unplugging it and plugging it back in. If it takes a minute or so to boot up, it's a VoIP phone with PoE. If it boots up immediately, it's an analog/digital phone.")
+            if phone.landlineConnectionType < 2 && (phone.isCordless || phone.cordedPowerSource > 2) {
+                Toggle("Uses Single Line + Power Feed", isOn: $phone.usesSingleLinePowerFeed)
+                InfoText("A single line + power feed means the line and power connections are combined into a single cable which plugs into the phone. These kinds of phones often use an RJ45-style jack/cable.\nYou can tell if the phone is analog/digital or VoIP by unplugging it and plugging it back in. If it takes a minute or so to boot up, it's a VoIP phone with PoE. If it boots up immediately, it's an analog/digital phone.")
 
+            }
         }
-            if phone.isCordless {
-                Picker("Power Backup", selection: $phone.cordlessPowerBackupMode) {
+        if phone.isCordless {
+            Section("Cordless Phone Power Backup") {
+                Picker("Method", selection: $phone.cordlessPowerBackupMode) {
                     Text("External Battery Backup (If Available)").tag(0)
                     if phone.isCordedCordless && phone.landlineConnectionType < 2 {
                         Text("Line Power").tag(1)
@@ -87,6 +90,7 @@ struct PhonePowerView: View {
                         }
                     }
                 }
+            }
         }
     }
 }

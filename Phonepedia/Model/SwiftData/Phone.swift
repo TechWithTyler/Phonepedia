@@ -570,8 +570,13 @@ final class Phone {
     }
 
     @Transient
+    var maxOrTooManyCordlessDevices: Bool {
+        return cordlessHandsetsIHave.count >= maxCordlessHandsets && maxCordlessHandsets != -1
+    }
+
+    @Transient
     var tooManyCordlessDevices: Bool {
-        return cordlessHandsetsIHave.count > maxCordlessHandsets
+        return cordlessHandsetsIHave.count > maxCordlessHandsets && maxCordlessHandsets != -1
     }
 
     @Transient
