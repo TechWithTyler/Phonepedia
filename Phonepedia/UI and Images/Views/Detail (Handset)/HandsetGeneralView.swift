@@ -61,7 +61,7 @@ struct HandsetGeneralView: View {
                     }
                     InfoText("Futuristic handset designs include design elements like curves and a seamless look when placed on the base or charger. For example, a base might resemble part of a ring, with a curved handset completing the ring when placed on the base.\nCell phone-style handsets flip or slide open like traditional cell phones.\nSmartphone-style handsets run a smartphone operating system and can run smartphone apps. Software and hardware is mostly identical to a smartphone, plus a cordless handset antenna and a specialized app for cordless phone features like base settings and answering system access. Some smartphone-style handsets can function as both a cordless handset and a smartphone.")
                 }
-                if handset.cordlessDeviceType < 2 {
+            if handset.cordlessDeviceType < 2 && handset.handsetStyle < 3 {
                     Picker("Antenna", selection: $handset.antenna) {
                         Text("Hidden").tag(0)
                         if handset.cordlessDeviceType == 0 {
@@ -83,6 +83,20 @@ struct HandsetGeneralView: View {
                         Text("Deskset Type")
                         Spacer()
                         Text(handset.hasCordedReceiver ? "Corded Phone" : "Speakerphone")
+                    }
+                    if handset.hasCordedReceiver {
+                        Toggle("Is Slim Corded Deskset", isOn: $handset.isSlimCordedDeskset)
+                        Picker("Switch Hook", selection: $handset.switchHookType) {
+                            Text(handset.isSlimCordedDeskset ? "Press (On Base)" : "Press").tag(0)
+                            Text("Press (On Receiver)").tag(1)
+                            }
+                            Text("Magnetic").tag(2)
+                            Text("Contacts").tag(3)
+                        }
+                    Picker("Corded Receiver Hook Type", selection: $handset.cordedReceiverHookType) {
+                        Text("Fixed").tag(0)
+                        Text("Flip/Rotate").tag(1)
+                        Text("Removable").tag(2)
                     }
                 }
                 Picker("Visual Ringer", selection: $handset.visualRinger) {

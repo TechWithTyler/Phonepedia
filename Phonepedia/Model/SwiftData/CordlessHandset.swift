@@ -163,7 +163,13 @@ final class CordlessHandset {
     var batteryType: Int = 0
     
     var desksetSupportsBackupBatteries: Bool = true
-	
+
+    var isSlimCordedDeskset: Bool = false
+
+    var switchHookType: Int = 0
+
+    var cordedReceiverHookType: Int = 0
+
 	var menuUpdateMode: Int = 0
 	
 	var hasSpeakerphone: Bool = true
@@ -653,6 +659,9 @@ final class CordlessHandset {
             cordedReceiverSecondaryColorBinding.wrappedValue = .black
             desksetSupportsBackupBatteries = false
             desksetDisplayCanTilt = false
+            isSlimCordedDeskset = false
+            switchHookType = 0
+            cordedReceiverHookType = 0
         }
 	}
     
