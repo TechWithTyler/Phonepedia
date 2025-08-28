@@ -148,7 +148,7 @@ struct PhoneGeneralView: View {
                     }
                     if phone.isDigitalCordless {
                         Toggle("Supports Range Extenders", isOn: $phone.supportsRangeExtenders)
-                        InfoText("A range extender, also known as a repeater, extends  the range (or \"repeats the signal\") of the base it's registered to. Devices communicating with the base choose the base or a range extender based on which has the strongest signal, just like devices connected to a mesh Wi-Fi network.\nIf you register 2 or more range extenders, they can be \"daisy-chained\" (one can communicate with the base via another) to create a larger useable coverage area.\nWhen a cordless device moves between the base or range extender(s), your call may briefly cut out.\nIf a handset is communicating with a range extender and that range extender loses power or its link to the base, the handset will also lose its link to the base for a few seconds, which will cause the handset to either connect to the base or another range extender, or drop the call entirely.")
+                        InfoText("A range extender, also known as a repeater, extends the range (or \"repeats the signal\") of the base it's registered to. Devices communicating with the base choose the base or a range extender based on which has the strongest signal, just like devices connected to a mesh Wi-Fi network.\nIf you register 2 or more range extenders, they can be \"daisy-chained\" (one can communicate with the base via another) to create a larger useable coverage area.\nWhen a cordless device moves between the base or range extender(s), your call may briefly cut out.\nIf a handset is communicating with a range extender and that range extender loses power or its link to the base, the handset will also lose its link to the base for a few seconds, which will cause the handset to either connect to the base or another range extender, or drop the call entirely.")
                         Toggle("Briefly Holds Ongoing Call When Out Of Range", isOn: $phone.holdForOutOfRange)
                         InfoText("Typically, with digital cordless phones, when a handset moves out of range from the base during a call, the call is dropped. With some cordless phones, the base can put the call on hold for a short time once it detects that the handset has gone out of range, to allow the call to continue if the handset moves back in range quickly enough. On analog cordless phones, the base can't know that the handset went out of range, so the phone will remain off-hook until the base is unplugged and plugged back in, or the handset goes back in range without having been hung up first (or for some single-handset models, placing a handset on the base).")
                         Picker("ECO Mode", selection: $phone.ecoMode) {
@@ -198,7 +198,10 @@ struct PhoneGeneralView: View {
                             Picker("Base Charging Direction", selection: $phone.baseChargingDirection) {
                                 ChargingDirectionPickerItems()
                             }
-                            InfoText("Variations in charging area designs are one of the many ways cordless phones look different from one another.\nA reversible handset can charge with the keypad facing either up or down. While there's no benefit to this design with phones without handset displays, the phone may still have this design if the base or handset casing is shared with a model that has a handset display.")
+                            InfoText("Variations in charging area designs are one of the many ways cordless phones look different from one another.\n\"Lean Back\" means the handset leans back in the charging area but isn't fully flat (\"Lay Down\").\nA reversible handset can charge with the keypad facing either up or down. While there's no benefit to this design with phones without handset displays, the phone may still have this design if the base or handset casing is shared with a model that has a handset display.")
+                            if phone.baseChargingDirection == 6 {
+                                InfoText("This charging area design is often seen on phones where the base sits flush with the wall when wall-mounted. When wall-mounted, the face-down lay down position is the only way the handset can charge securely.")
+                            }
                             if phone.wallMountability > 0 && phone.hasLayDownCharging {
                                 Picker("Lay-Down Hook Type", selection: $phone.cordlessHandsetLayDownHookType) {
                                     Text("None").tag(0)
@@ -226,7 +229,7 @@ In most cases, if the base has a charge light/display message, the completion of
                     }
                     if phone.isDigitalCordless && phone.maxCordlessHandsets > 1 {
                         if phone.hasBaseIntercom {
-                            Picker("Handset Locator", selection: $phone.locatorButtons) {
+                            Picker("Handset Locator Button(s)", selection: $phone.locatorButtons) {
                                 Text(phone.hasBaseKeypad && phone.handsetLocatorUsesIntercom ? "One for All HS/Keypad Entry" : "One For All Handsets").tag(0)
                                 Text("One for Each Handset").tag(1)
                                 Text("Each HS + All").tag(2)
@@ -239,11 +242,14 @@ In most cases, if the base has a charge light/display message, the completion of
                             if phone.locatorButtons == 0 {
                                 Toggle("Handset Locator Uses Intercom", isOn: $phone.handsetLocatorUsesIntercom)
                             }
-                            InfoText("Some phones use intercom as the means of locating handsets, even if the base doesn't have intercom. This means that the handset locator and intercom from the base are the same feature.")
+                            InfoText("Some phones use intercom as the means of locating handsets, even if the base doesn't have intercom. This means that the handset locator and intercom from the base are the same feature, and therefore, the handset may indicate \"call from base\" instead of \"paging\".")
                         }
                         if !phone.isCordedCordless && !phone.hasTransmitOnlyBase && phone.deregistration > 0 && phone.locatorButtons == 0 {
                             Toggle("Place-On-Base Auto-Register", isOn: $phone.placeOnBaseAutoRegister)
-                            InfoText("The base can detect an unregistered handset being placed on it, which will put it into registration mode. Aside from putting the base into registration mode, data isn't exchanged through the contacts like it is on phones using the digital security code method. Manually putting the base in registration mode is still available for re-registering handsets or for registering handsets which don't fit on the base.")
+                            InfoText("The base can detect an unregistered handset being placed on it, which will put it into registration mode. Aside from putting the base into registration mode, data isn't exchanged through the contacts like it is on phones using the \"place handset on base to set digital security code\" method. Manually putting the base in registration mode is still available for re-registering handsets or for registering handsets which don't fit on the base.")
+                            if phone.placeOnBaseAutoRegister && phone.noFittingHandsets {
+                                WarningText("This feature can't be used since you don't have any handsets which fit on the base!")
+                            }
                         }
                         Picker("Deregistration", selection: $phone.deregistration) {
                             if phone.locatorButtons > 0 {
@@ -313,10 +319,12 @@ In most cases, if the base has a charge light/display message, the completion of
                 }
                 Toggle("Has Hard-Wired Corded Receiver", isOn: $phone.hasHardWiredCordedReceiver)
                 InfoText("Some old phones have hard-wired corded receivers, which means you'll need to have the phone repaired if the cord breaks.")
-                if phone.cordedPhoneType == 2 {
+                if phone.isPushButtonCorded {
                     Picker("Switch Hook", selection: $phone.switchHookType) {
-                        Text("Press (On Base)").tag(0)
-                        Text("Press (On Receiver)").tag(1)
+                        Text(phone.isSlimCorded ? "Press (On Base)" : "Press").tag(0)
+                        if phone.isSlimCorded {
+                            Text("Press (On Receiver)").tag(1)
+                        }
                         Text("Magnetic").tag(2)
                         Text("Contacts").tag(3)
                     }

@@ -652,6 +652,11 @@ final class Phone {
     // The following computed properties check whether the base and/or cordless handsets of a cordless phone have a given feature. For corded phones, the cordless handset checks don't apply.
 
     @Transient
+    var noFittingHandsets: Bool {
+        return cordlessHandsetsIHave.filter({ $0.fitsOnBase }).isEmpty
+    }
+
+    @Transient
     var noHandsetsForPlaceOnBasePowerBackup: Bool {
         return cordlessHandsetsIHave.filter({$0.fitsOnBase && $0.hasSpeakerphone && $0.supportsPlaceOnBasePowerBackup}).isEmpty
     }
@@ -1345,7 +1350,9 @@ final class Phone {
             hasTalkingCallerID = false
         }
         if newValue != 2 {
-            switchHookType = 0
+            if switchHookType == 1 {
+                switchHookType = 0
+            }
             if baseKeyBacklightAmount == 6 {
                 baseKeyBacklightAmount = 3
             }
