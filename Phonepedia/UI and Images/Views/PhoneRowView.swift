@@ -109,7 +109,7 @@ struct PhoneRowView: View {
                     .font(.callout)
                     .multilineTextAlignment(.center)
                     .lineLimit(nil)
-                    Text("Acquired the year it was released!")
+                    Text("Acquired in year of release!")
                         .font(.callout)
                         .multilineTextAlignment(.center)
                         .lineLimit(nil)
@@ -184,7 +184,7 @@ struct PhoneRowView: View {
         // 1. Convert the model number String to an AttributedString. As AttributedString is a data type, it's declared in the Foundation framework instead of the SwiftUI framework, even though its cross-platform design makes it shine with SwiftUI. Unlike with NSAttributedString, you can simply initialize it with a String argument without having to use an argument label.
         var attributedString = AttributedString(modelNumber)
         // 2. Ensure digit and index aren't nil and that index is within modelNumber's bounds.
-        if let digit = digit, let index = index, modelNumber.count > index, highlightHandsetNumberDigitInList > 0 {
+        if let digit = digit, let index = index, (modelNumber.count > index && highlightHandsetNumberDigitInList > 0) {
             // 3. Calculate the String.Index for the given Int index.
             let stringIndex = modelNumber.index(modelNumber.startIndex, offsetBy: index)
             // 4. Check if the character at index matches digit.
@@ -204,7 +204,7 @@ struct PhoneRowView: View {
                 }
             }
         }
-        // 7. Return the attributed string. If digit and index are nil in step 2, no highlighting/underlining is applied (steps 3-6 are skipped).
+        // 7. Return the attributed string. If digit and index are nil in step 2, or "Handset Number Digit Indication" is turned off, no highlighting/underlining is applied (steps 3-6 are skipped).
         return attributedString
     }
 
