@@ -17,6 +17,7 @@ struct HandsetGeneralView: View {
 
     var body: some View {
         if let phone = handset.phone {
+            Section("Basic Info") {
                 Stepper("Release Year (-1 If Unknown): \(String(handset.releaseYear))", value: $handset.releaseYear, in: -1...currentYear)
                     .onChange(of: handset.releaseYear) { oldValue, newValue in
                         handset.releaseYearChanged(oldValue: oldValue, newValue: newValue)
@@ -49,19 +50,7 @@ struct HandsetGeneralView: View {
                     handset.cordlessDeviceTypeChanged(oldValue: oldValue, newValue: newValue)
                 }
                 InfoText("A deskset is a phone that connects wirelessly to a main base and is treated like a handset. Desksets can have a corded receiver or a charging area for a cordless handset.\nA cordless headset/speakerphone can pick up the line and answer/join calls, but can't dial or use other features.")
-                if handset.cordlessDeviceType == 0 {
-                    Picker("Handset Style", selection: $handset.handsetStyle) {
-                        Text("Traditional").tag(0)
-                        Text("Futuristic").tag(1)
-                        Text("Cell Phone").tag(2)
-                        Text("Smartphone").tag(3)
-                    }
-                    .onChange(of: handset.handsetStyle) { oldValue, newValue in
-                        handset.handsetStyleChanged(oldValue: oldValue, newValue: newValue)
-                    }
-                    InfoText("Futuristic handset designs include design elements like curves and a seamless look when placed on the base or charger. For example, a base might resemble part of a ring, with a curved handset completing the ring when placed on the base.\nCell phone-style handsets flip or slide open like traditional cell phones.\nSmartphone-style handsets run a smartphone operating system and can run smartphone apps. Software and hardware is mostly identical to a smartphone, plus a cordless handset antenna and a specialized app for cordless phone features like base settings and answering system access. Some smartphone-style handsets can function as both a cordless handset and a smartphone.")
-                }
-            if handset.cordlessDeviceType < 2 && handset.handsetStyle < 3 {
+                if handset.cordlessDeviceType < 2 && handset.handsetStyle < 3 {
                     Picker("Antenna", selection: $handset.antenna) {
                         Text("Hidden").tag(0)
                         if handset.cordlessDeviceType == 0 {
@@ -72,39 +61,55 @@ struct HandsetGeneralView: View {
                     }
                     AntennaInfoView()
                 }
-                if handset.cordlessDeviceType == 0 && phone.baseChargesHandset && phone.isDigitalCordless {
-                    Toggle("Fits On Base", isOn: $handset.fitsOnBase)
-                    if !handset.fitsOnBase {
-                        InfoText("For a handset to \"fit on the base\", the charging contacts of the handset and base must be able to touch each other without having to force the handset into the base.\nA handset which doesn't fit on the base misses out on many features including place-on-base power backup and place-on-base auto-register.")
-                    }
-                }
-                if handset.cordlessDeviceType == 1 {
-                    HStack {
-                        Text("Deskset Type")
-                        Spacer()
-                        Text(handset.hasCordedReceiver ? "Corded Phone" : "Speakerphone")
-                    }
-                    if handset.hasCordedReceiver {
-                        Toggle("Is Slim Corded Deskset", isOn: $handset.isSlimCordedDeskset)
-                        Picker("Switch Hook", selection: $handset.switchHookType) {
-                            Text(handset.isSlimCordedDeskset ? "Press (On Base)" : "Press").tag(0)
-                            Text("Press (On Receiver)").tag(1)
-                            }
-                            Text("Magnetic").tag(2)
-                            Text("Contacts").tag(3)
-                        }
-                    Picker("Corded Receiver Hook Type", selection: $handset.cordedReceiverHookType) {
-                        Text("Fixed").tag(0)
-                        Text("Flip/Rotate").tag(1)
-                        Text("Removable").tag(2)
-                    }
-                }
                 Picker("Visual Ringer", selection: $handset.visualRinger) {
                     Text("None").tag(0)
                     Text("Ignore Ring Signal").tag(1)
                     Text("Follow Ring Signal").tag(2)
                 }
                 InfoText("A visual ringer that follows the ring signal starts flashing when the ring signal starts and stops flashing when the ring signal stops. A visual ringer that ignores the ring signal flashes for as long as the cordless device is indicating an incoming call.")
+            }
+            if handset.cordlessDeviceType < 2 {
+                Section(handset.cordlessDeviceTypeText) {
+                    if handset.cordlessDeviceType == 0 {
+                        Picker("Handset Style", selection: $handset.handsetStyle) {
+                            Text("Traditional").tag(0)
+                            Text("Futuristic").tag(1)
+                            Text("Cell Phone").tag(2)
+                            Text("Smartphone").tag(3)
+                        }
+                        .onChange(of: handset.handsetStyle) { oldValue, newValue in
+                            handset.handsetStyleChanged(oldValue: oldValue, newValue: newValue)
+                        }
+                        InfoText("Futuristic handset designs include design elements like curves and a seamless look when placed on the base or charger. For example, a base might resemble part of a ring, with a curved handset completing the ring when placed on the base.\nCell phone-style handsets flip or slide open like traditional cell phones.\nSmartphone-style handsets run a smartphone operating system and can run smartphone apps. Software and hardware is mostly identical to a smartphone, plus a cordless handset antenna and a specialized app for cordless phone features like base settings and answering system access. Some smartphone-style handsets can function as both a cordless handset and a smartphone.")
+                        if phone.baseChargesHandset && phone.isDigitalCordless {
+                            Toggle("Fits On Base", isOn: $handset.fitsOnBase)
+                            if !handset.fitsOnBase {
+                                InfoText("For a handset to \"fit on the base\", the charging contacts of the handset and base must be able to touch each other without having to force the handset into the base.\nA handset which doesn't fit on the base misses out on many features including place-on-base power backup and place-on-base auto-register.")
+                            }
+                        }
+                    } else if handset.cordlessDeviceType == 1 {
+                        HStack {
+                            Text("Deskset Type")
+                            Spacer()
+                            Text(handset.hasCordedReceiver ? "Corded Phone" : "Speakerphone")
+                        }
+                        if handset.hasCordedReceiver {
+                            Toggle("Is Slim Corded Deskset", isOn: $handset.isSlimCordedDeskset)
+                            Picker("Switch Hook", selection: $handset.switchHookType) {
+                                Text(handset.isSlimCordedDeskset ? "Press (On Base)" : "Press").tag(0)
+                                Text("Press (On Receiver)").tag(1)
+                            }
+                            Text("Magnetic").tag(2)
+                            Text("Contacts").tag(3)
+                        }
+                        Picker("Corded Receiver Hook Type", selection: $handset.cordedReceiverHookType) {
+                            Text("Fixed").tag(0)
+                            Text("Flip/Rotate").tag(1)
+                            Text("Removable").tag(2)
+                        }
+                    }
+                }
+            }
         } else {
             Text("Error")
         }

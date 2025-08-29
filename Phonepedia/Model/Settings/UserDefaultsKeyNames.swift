@@ -20,6 +20,8 @@ extension UserDefaults {
 
         static let showPhoneActiveStatusInList: String = "showPhoneActiveStatusInList"
 
+        static let showAnsweringSystemInList: String = "showAnsweringSystemInList"
+
         static let showNumberOfCordlessHandsetsInList: String = "showNumberOfCordlessHandsetsInList"
 
         static let highlightHandsetNumberDigitInList: String = "highlightHandsetNumberDigitInList"

@@ -19,6 +19,8 @@ struct PhoneListDetailOptions: View {
 
     @AppStorage(UserDefaults.KeyNames.showPhoneActiveStatusInList) var showPhoneActiveStatusInList: Bool = true
 
+    @AppStorage(UserDefaults.KeyNames.showAnsweringSystemInList) var showAnsweringSystemInList: Bool = true
+
     @AppStorage(UserDefaults.KeyNames.highlightHandsetNumberDigitInList) var highlightHandsetNumberDigitInList: Int = 2
 
     @AppStorage(UserDefaults.KeyNames.showNumberOfCordlessHandsetsInList) var showNumberOfCordlessHandsetsInList: Bool = true
@@ -36,6 +38,7 @@ struct PhoneListDetailOptions: View {
         if showPhoneTypeInList {
             Toggle("Show Cordless Phone Frequency", isOn: $showFrequencyInList)
         }
+        Toggle("Show Answering System Type", isOn: $showAnsweringSystemInList)
         Toggle("Show Phone Active Status", isOn: $showPhoneActiveStatusInList)
         Toggle("Show Number Of Cordless Handsets", isOn: $showNumberOfCordlessHandsetsInList)
         if !menu {
