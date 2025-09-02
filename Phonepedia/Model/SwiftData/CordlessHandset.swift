@@ -296,6 +296,7 @@ final class CordlessHandset {
 
     // MARK: - Properties - Transient (Non-Persistent) Properties
 
+    // The text to display for the cordless device's type.
     @Transient
     var cordlessDeviceTypeText: String {
         switch cordlessDeviceType {
@@ -305,6 +306,7 @@ final class CordlessHandset {
         }
     }
 
+    // The text to display for the cordless device's phonebook type.
     @Transient
     var phonebookTypeText: String {
         if usesBasePhonebook && phonebookCapacity > 0 {
@@ -318,60 +320,71 @@ final class CordlessHandset {
         }
     }
 
+    // Whether the cordless device is a deskset with a corded receiver.
     @Transient
     var hasCordedReceiver: Bool {
         return cordedReceiverMainColorBinding.wrappedValue != .clear
     }
 
+    // Whether the cordless device is a deskset with a display.
     @Transient
     var isDesksetWithDisplay: Bool {
         return displayType > 0 && cordlessDeviceType == 1 
     }
 
+    // The total number of ringtones (standard and music/melody).
     @Transient
     var totalRingtones: Int {
         return ringtones + musicRingtones
     }
 
+    // Whether the handset has a talk button instead of a single talk/off button or individual line buttons.
     @Transient
     var hasTalkButton: Bool {
         return talkOffButtonType > 0 && talkOffButtonType < 4
     }
 
+    // Whether the handset has a physical cell button.
     @Transient
     var hasPhysicalCellButton: Bool {
         guard let phone = phone else { return false }
         return phone.baseBluetoothCellPhonesSupported > 0 && (lineButtons == 0 || talkOffButtonType == 4)
     }
 
+    // Whether the cordless device was acquired in the year of release (the acquisition year is the same as the release year, and both years are known).
     @Transient
     var acquiredInYearOfRelease: Bool {
         return acquisitionYear == releaseYear && acquisitionYear != -1 && releaseYear != -1
     }
 
+    // Whether the cordless device has a monochrome (i.e. non-color) display.
     @Transient
     var hasMonochromeDisplay: Bool {
         return displayType > 0 && displayType < 5
     }
 
+    // Whether the cordless device has lists of entries (e.g. phonebook, caller ID list).
     @Transient
     var hasListsOfEntries: Bool {
         guard let phone = phone else { return false }
         return (phone.hasPhonebook || phone.hasCallerIDList || phone.callBlockCapacity > 0 || redialCapacity > 1)
     }
 
+    // Whether the cordless device has a phonebook or supports a base's shared phonebook.
     @Transient
     var hasPhonebook: Bool {
         guard let phone = phone else { return false }
         return phonebookCapacity > 0 || (phone.basePhonebookCapacity > 0 && usesBasePhonebook)
     }
 
+    // Whether the cordless device has both a phonebook and a redial list.
     @Transient
     var hasPhonebookAndRedialList: Bool {
         guard let phone = phone else { return false }
         return redialCapacity > 1 && (phonebookCapacity > 0 || (phone.basePhonebookCapacity > 0 && usesBasePhonebook))
     }
 
+    // Whether the cordless device takes batteries (i.e. is a handset, headset, or speakerphone, or a deskset that supports backup batteries).
     @Transient
     var takesBatteries: Bool {
         return cordlessDeviceType == 0 || (cordlessDeviceType == 1 && desksetSupportsBackupBatteries)

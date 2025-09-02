@@ -501,6 +501,7 @@ final class Phone {
 
     // MARK: - Properties - Transient (Non-Persistent) Properties
 
+    // The text to display for the phone's type.
     // Properties marked with the @Transient property wrapper won't persist their values to SwiftData.
     @Transient
     var phoneTypeText: String {
@@ -518,132 +519,158 @@ final class Phone {
         }
     }
 
+    // Whether the base charges a handset in a lay-down position.
     @Transient
     var hasLayDownCharging: Bool {
         return baseChargingDirection == 2 || baseChargingDirection == 5 || baseChargingDirection == 6 || baseChargingDirection == 7
     }
 
+    // Whether a corded phone has an electronic ringer or a cordless phone has a base ringer.
     @Transient
     var hasElectronicRinger: Bool {
         return baseRingtones > 0 && (isCordless || cordedRingerType == 1)
     }
 
+    // The total number of base ringtones (standard + music/melody).
     @Transient
     var totalBaseRingtones: Int {
         return baseRingtones + baseMusicRingtones
     }
 
+    // Whether the base can be used to talk on the phone.
     @Transient
     var canTalkOnBase: Bool {
         return hasBaseSpeakerphone || !isCordless || isCordedCordless
     }
 
+    // Whether the base has a corded receiver.
     @Transient
     var hasCordedReceiver: Bool {
         return cordedReceiverMainColorBinding.wrappedValue != .clear
     }
 
+    // Whether the phone is a push-button corded phone.
     @Transient
     var isPushButtonCorded: Bool {
-        return cordedPhoneType == 0 || cordedPhoneType == 2
+        return !isCordless && (cordedPhoneType == 0 || cordedPhoneType == 2)
     }
 
+    // Whether the phone is a slim corded phone.
     @Transient
     var isSlimCorded: Bool {
-        return cordedPhoneType == 2 || cordedPhoneType == 3
+        return !isCordless && (cordedPhoneType == 2 || cordedPhoneType == 3)
     }
 
+    // Whether the phone is cordless, which is true if it came with 1 or more cordless devices (handsets/headsets/speakerphones).
     @Transient
     var isCordless: Bool {
         return numberOfIncludedCordlessHandsets > 0
     }
 
+    // Whether the phone is a digital cordless phone, which means signals are transmitted/received as digital data.
     @Transient
     var isDigitalCordless: Bool {
         guard let frequency = Phone.CordlessFrequency(rawValue: frequency) else { return false }
         return frequency.isDigital
     }
 
+    // Whether the phone is corded/cordless, meaning the base is a corded phone and acts as a main transmitting base for cordless devices.
     @Transient
     var isCordedCordless: Bool {
         return isCordless && hasCordedReceiver
     }
 
+    // Whether the user has added the maximum number of, or too many, cordless devices to the phone based on how many can be registered to its base.
     @Transient
     var maxOrTooManyCordlessDevices: Bool {
         return cordlessHandsetsIHave.count >= maxCordlessHandsets && maxCordlessHandsets != -1
     }
 
+    // Whether the user has added too many cordless devices to the phone based on how many can be registered to its base.
     @Transient
     var tooManyCordlessDevices: Bool {
         return cordlessHandsetsIHave.count > maxCordlessHandsets && maxCordlessHandsets != -1
     }
 
+    // Whether the phone has a charging area for a cordless handset.
     @Transient
     var baseChargesHandset: Bool {
         return isCordless && !hasCordedReceiver && !hasTransmitOnlyBase
     }
 
+    // Whether the phone is cordless or a push-button corded desk phone.
     @Transient
     var isCordlessOrPushButtonDesk: Bool {
         return isCordless || cordedPhoneType == 0
     }
 
+    // Whether the phone has a secondary color (the main and secondary colors aren't the same).
     @Transient
     var hasSecondaryColor: Bool {
         return baseSecondaryColorBinding.wrappedValue != baseMainColorBinding.wrappedValue
     }
 
+    // Whether the phone has an accent color (the accent color is different from both the main and secondary colors).
     @Transient
     var hasAccentColor: Bool {
         return baseAccentColorBinding.wrappedValue != baseMainColorBinding.wrappedValue && baseAccentColorBinding.wrappedValue != baseSecondaryColorBinding.wrappedValue
     }
 
+    // Whether the phone was acquired in the year of release (the acquisition year is the same as the release year, and both years are known).
     @Transient
     var acquiredInYearOfRelease: Bool {
         return acquisitionYear == releaseYear && acquisitionYear != -1 && releaseYear != -1
     }
 
+    // Whether the phone has multiple lines or is a VoIP/landline combo phone.
     @Transient
     var isMultiline: Bool {
         return numberOfLandlines > 1 || landlineConnectionType == 5
     }
 
+    // Whether the phone has an analog line jack.
     @Transient
     var hasAnalogLineConnection: Bool {
         return landlineConnectionType == 0 || landlineConnectionType == 5
     }
 
+    // Whether the phone has a line in use light.
     @Transient
     var hasLandlineInUseLight: Bool {
         return landlineInUseStatusOnBase == 1 || landlineInUseStatusOnBase == 3
     }
 
+    // Whether the phone is a business corded/cordless system (i.e., a 4-line system with a corded base that can accept 8 or more cordless handsets/desksets).
     @Transient
     var isBusinessCordedCordlessSystem: Bool {
         return isCordedCordless && maxCordlessHandsets >= 8 && numberOfLandlines == 4
     }
 
+    // Whether the phone has a display to show phone numbers.
     @Transient
     var canShowPhoneNumbers: Bool {
-        return isCordless || cordedPhoneType == 0 || (cordedPhoneType == 2 && baseDisplayType > 0)
+        return isCordless || ((cordedPhoneType == 0 || cordedPhoneType == 2) && baseDisplayType > 0)
     }
 
+    // Whether the phone has lists of entries (e.g. phonebook, caller ID list).
     @Transient
     var hasListsOfEntries: Bool {
         return canShowPhoneNumbers && (basePhonebookCapacity > 0 || baseCallerIDCapacity > 0 || callBlockCapacity > 0 || baseRedialCapacity > 1)
     }
 
+    // Whether the base has a monochrome (i.e. non-color) display.
     @Transient
     var baseDisplayIsMonochrome: Bool {
         return baseDisplayType == 8 || (baseDisplayType > 2 && baseDisplayType < 7)
     }
 
+    // Whether the phone has an answering system that is accessible from the base.
     @Transient
     var hasBaseAccessibleAnsweringSystem: Bool {
         return hasAnsweringSystem == 1 || hasAnsweringSystem == 3
     }
 
+    // Whether the base has a speaker for a speakerphone, base intercom on a cordless phone, or an answering system that can be accessed from the base.
     @Transient
     var hasBaseSpeaker: Bool {
         return hasBaseSpeakerphone || (isCordless && hasBaseIntercom) || hasBaseAccessibleAnsweringSystem
@@ -651,11 +678,13 @@ final class Phone {
 
     // The following computed properties check whether the base and/or cordless handsets of a cordless phone have a given feature. For corded phones, the cordless handset checks don't apply.
 
+    // Whether the phone doesn't have any handsets which fit on the base.
     @Transient
     var noFittingHandsets: Bool {
         return cordlessHandsetsIHave.filter({ $0.fitsOnBase }).isEmpty
     }
 
+    // Whether the phone doesn't have any handsets which support place-on-base power backup.
     @Transient
     var noHandsetsForPlaceOnBasePowerBackup: Bool {
         return cordlessHandsetsIHave.filter({$0.fitsOnBase && $0.hasSpeakerphone && $0.supportsPlaceOnBasePowerBackup}).isEmpty
@@ -666,11 +695,13 @@ final class Phone {
         return baseSupportsWiredHeadsets || !cordlessHandsetsIHave.filter({$0.supportsWiredHeadsets}).isEmpty
     }
 
+    // Whether the base or any cordless handset has a phonebook.
     @Transient
     var hasPhonebook: Bool {
         return basePhonebookCapacity > 0 || !cordlessHandsetsIHave.filter({$0.phonebookCapacity > 0}).isEmpty
     }
 
+    // Whether the base or any cordless handset has a caller ID list.
     @Transient
     var hasCallerIDList: Bool {
         return baseCallerIDCapacity > 0 || !cordlessHandsetsIHave.filter({$0.callerIDCapacity > 0}).isEmpty
