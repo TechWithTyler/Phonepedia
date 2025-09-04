@@ -41,7 +41,7 @@ final class Phone {
 
     var whereAcquired: Int = 0
 
-    var isWiFiHandset: Bool = false
+    var basePhoneType: Int = 0
 
     var mainHandsetModel: String = "MH12"
 
@@ -512,8 +512,10 @@ final class Phone {
                 return PhoneType.cordlessWithTransmitOnlyBase.rawValue
             }
             return PhoneType.cordless.rawValue
-        } else if isWiFiHandset {
+        } else if basePhoneType == 1 {
             return PhoneType.wiFiHandset.rawValue
+        } else if basePhoneType == 2 {
+            return PhoneType.cellularHandset.rawValue
         } else {
             return PhoneType.corded.rawValue
         }
@@ -1158,6 +1160,7 @@ final class Phone {
             if baseKeyBacklightAmount > 6 {
                 baseKeyBacklightAmount = 5
             }
+            basePhoneType = 0
         } else {
             if hasAnsweringSystem > 1 {
                 hasAnsweringSystem = 1

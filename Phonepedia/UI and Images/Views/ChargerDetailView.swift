@@ -71,9 +71,11 @@ struct ChargerDetailView: View {
                         Button("Use Bottom Color") {
                             charger.setAccentColorToSecondary()
                         }
-                        Picker("Charger For", selection: $charger.type) {
-                            Text("Handset").tag(0)
-                            Text("Headset/Speakerphone").tag(1)
+                        if phone.basePhoneType == 0 {
+                            Picker("Charger For", selection: $charger.type) {
+                                Text("Handset").tag(0)
+                                Text("Headset/Speakerphone").tag(1)
+                            }
                         }
                         Toggle("Has Charge Light", isOn: $charger.hasChargeLight)
                         if charger.hasChargeLight {

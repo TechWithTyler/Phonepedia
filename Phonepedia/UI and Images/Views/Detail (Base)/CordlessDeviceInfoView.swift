@@ -59,7 +59,7 @@ struct CordlessDeviceInfoView: View {
     // MARK: - Body
 
     var body: some View {
-        if !phone.isWiFiHandset {
+        if phone.basePhoneType == 0 {
             Section("Cordless Devices") {
                 HStack {
                     Picker("Filter", selection: $cordlessDeviceFilter) {
@@ -181,7 +181,7 @@ struct CordlessDeviceInfoView: View {
                 Text("All cordless devices will be deleted from this \(phone.brand) \(phone.model).")
             }
         }
-        Section(phone.isWiFiHandset ? "Chargers" : "Cordless Device Chargers") {
+        Section(phone.basePhoneType > 0 ? "Chargers" : "Cordless Device Chargers") {
                 Text("\(chargerCount) \(chargerCount == 1 ? "Charger" : "Chargers")")
                 Menu {
                     if !phone.chargersIHave.isEmpty {

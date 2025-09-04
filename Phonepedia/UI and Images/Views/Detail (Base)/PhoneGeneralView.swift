@@ -24,8 +24,10 @@ struct PhoneGeneralView: View {
             return "Corded/Cordless Phone"
         } else if phone.isCordless {
             return "Cordless Phone"
-        } else if phone.isWiFiHandset {
+        } else if phone.basePhoneType == 1 {
             return "Wi-Fi Handset"
+        } else  if phone.basePhoneType == 2 {
+            return "Cellular Handset"
         } else {
             return "Corded Phone"
         }
@@ -61,7 +63,7 @@ struct PhoneGeneralView: View {
             Picker("Place In My Collection", selection: $phone.storageOrSetup) {
                 PhoneInCollectionStatusPickerItems()
             }
-            if phone.landlineConnectionType != 4 && !phone.isWiFiHandset && !phone.isBusinessCordedCordlessSystem {
+            if phone.landlineConnectionType != 4 && phone.basePhoneType == 0 && !phone.isBusinessCordedCordlessSystem {
                 Picker("Grade", selection: $phone.grade) {
                     Text("1 - Residential/Small Business").tag(0)
                     Text("2 - Hotel").tag(2)
@@ -109,11 +111,16 @@ struct PhoneGeneralView: View {
                     Text("This will delete all cordless devices (\(phone.cordlessHandsetsIHave.count)) and chargers \(phone.chargersIHave.count)!")
                 }
             if !phone.isCordless {
-                Toggle("Is Wi-Fi Handset", isOn: $phone.isWiFiHandset)
+                Picker("Phone Type", selection: $phone.basePhoneType) {
+                    Text(Phone.PhoneType.corded.rawValue).tag(0)
+                    Text(Phone.PhoneType.wiFiHandset.rawValue).tag(1)
+                    Text(Phone.PhoneType.cellularHandset.rawValue).tag(2)
+                }
             }
         }
+        if phone.basePhoneType == 0 {
         Section(cordedCordlessSectionName) {
-            if !phone.isWiFiHandset {
+            if phone.basePhoneType == 0 {
                 if phone.isCordless {
                     Group {
                         HandsetNumberDigitView(phone: phone)
@@ -274,7 +281,7 @@ In most cases, if the base has a charge light/display message, the completion of
                         InfoText("Renaming the handset/base makes it easier to find the desired one in a list (e.g., when making intercom calls) and/or so you know where to put it. For example, if you have a handset in your kitchen, living room, and master bedroom, you might give each handset the names \"Kitchen\", \"Living RM\", and \"Bedroom\", respectively.\nIf the handset name shows in handset lists, the name is stored in the base, and the handset either links to the base when showing handset lists or syncs the list from the base.")
                     }
                 } else {
-                    Picker("Corded Phone Type", selection: $phone.cordedPhoneType) {
+                    Picker("Style", selection: $phone.cordedPhoneType) {
                         Section(header: Text("Desk")) {
                             Text("Push-Button Desk").tag(0)
                             Text("Rotary Desk").tag(1)
@@ -295,8 +302,8 @@ In most cases, if the base has a charge light/display message, the completion of
                     .onChange(of: phone.cordedPhoneType) { oldValue, newValue in
                         phone.cordedPhoneTypeChanged(oldValue: oldValue, newValue: newValue)
                     }
-                    InfoButton(title: "About Corded Phone Types…") {
-                        dialogManager.showingAboutCordedPhoneTypes = true
+                    InfoButton(title: "About Corded Phone Styles…") {
+                        dialogManager.showingAboutCordedPhoneStyles = true
                     }
                 }
                 if phone.cordedPhoneType == 0 {
@@ -340,6 +347,7 @@ In most cases, if the base has a charge light/display message, the completion of
                 InfoText("The corded receiver hook holds it in place when the phone is wall-mounted, which prevents it from falling off the base. This is not to be confused with the switch hook, which is what tells the phone whether it's on or off-hook.\n• Fixed: The phone has a hook that slots into a hole on the corded receiver below the earpiece. On slim/wall phones where the switch hook is on the receiver instead of on the base, the switch hook is located directly below this hole and gets pressed by the hook on the base.\n• Flip/Rotate: The hook can be flipped or rotated so it sticks out when you want to mount the phone on the wall, or so it doesn't stick out when you don't want to mount it on the wall.\n• Removable: The phone has a removable hook which is inserted one way for desk use and another way for wall use. This is the most common type of corded receiver hook and has the risk of getting lost.")
             }
         }
+    }
     }
 
 }

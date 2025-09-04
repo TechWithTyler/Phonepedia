@@ -16,7 +16,7 @@ struct BaseDisplayBacklightButtonsView: View {
 
     var body: some View {
         Section("Buttons") {
-            if phone.isCordless || phone.cordedPhoneType == 0 || phone.isWiFiHandset {
+            if phone.isCordless || phone.cordedPhoneType == 0 || phone.basePhoneType > 0 {
                 Picker("Button Type", selection: $phone.buttonType) {
                     Text("Spaced").tag(0)
                     Text("Spaced with Click Feel").tag(1)
@@ -25,7 +25,7 @@ struct BaseDisplayBacklightButtonsView: View {
                     Text("Diamond-Cut (No Space Between Buttons, Click Feel)").tag(4)
                     Text("Touch Button Panel").tag(5)
                 }
-                if !phone.isWiFiHandset && ((!phone.isCordless && (phone.isPushButtonCorded)) || (phone.isCordless && phone.hasBaseSpeakerphone)) {
+                if phone.basePhoneType == 0 && ((!phone.isCordless && (phone.isPushButtonCorded)) || (phone.isCordless && phone.hasBaseSpeakerphone)) {
                     Toggle(isOn: $phone.hasBaseKeypad) {
                         Text(phone.isCordless ? "Has Base Keypad" : "Has User-Accessible Keypad")
                     }
@@ -37,12 +37,12 @@ struct BaseDisplayBacklightButtonsView: View {
                         InfoText("The phone can announce the keys you press when dialing numbers. Sometimes, this announcement plays instead of the DTMF tones (the tones heard when you dial numbers) on your end.")
                     }
                 }
-                if !phone.isWiFiHandset && (phone.hasBaseKeypad || phone.hasAnsweringSystem == 1 || phone.hasAnsweringSystem == 3) {
+                if phone.basePhoneType == 0 && (phone.hasBaseKeypad || phone.hasAnsweringSystem == 1 || phone.hasAnsweringSystem == 3) {
                     Toggle("Has Rotary Phone-Inspired Button Layout", isOn: $phone.hasRotaryInspiredButtonLayout)
                     InfoText("Some phones have a rotary phone-inspired design, with the buttons arranged like a rotary dial. The display, if any, is often located in the center of the \"dial\".")
                 }
             }
-            if phone.isCordless || phone.isPushButtonCorded || phone.isWiFiHandset {
+            if phone.isCordless || phone.isPushButtonCorded || phone.basePhoneType > 0 {
                 Picker("Button Lighting", selection: $phone.baseKeyBacklightAmount) {
                     Text("None").tag(0)
                     Text("Numbers Only").tag(1)
@@ -56,7 +56,7 @@ struct BaseDisplayBacklightButtonsView: View {
                         Text("Front Light").tag(6)
                     }
                 }
-                if !phone.isCordless && !phone.isWiFiHandset && phone.cordedPowerSource == 0 {
+                if !phone.isCordless && phone.basePhoneType == 0 && phone.cordedPowerSource == 0 {
                     InfoText("The brightness of a line-powered phone's button lighting depends on the line's off-hook power. If it's low, the backlight will be dim.")
                 }
                 if phone.baseKeyBacklightAmount > 0 {
@@ -95,9 +95,9 @@ struct BaseDisplayBacklightButtonsView: View {
                 PhoneNumberLetterInfoView()
             }
         }
-        if phone.isCordless || phone.isPushButtonCorded || phone.isWiFiHandset {
+        if phone.isCordless || phone.isPushButtonCorded || phone.basePhoneType > 0 {
             Section("Display") {
-                if !phone.isWiFiHandset {
+                if phone.basePhoneType == 0 {
                     Picker(phone.isCordless ? "Display Type (Base)" : "Display Type", selection: $phone.baseDisplayType) {
                         Text("None").tag(0)
                         if phone.hasAnsweringSystem > 0 {
@@ -157,7 +157,7 @@ struct BaseDisplayBacklightButtonsView: View {
                         }
                     }
                 }
-                if phone.isWiFiHandset || phone.baseDisplayIsMonochrome {
+                if phone.basePhoneType > 0 || phone.baseDisplayIsMonochrome {
                     ClearSupportedColorPicker(phone.isCordless ? "Base Display Backlight Color" : "Display Backlight Color", selection: phone.baseDisplayBacklightColorBinding) {
                         Text("No Backlight")
                     }

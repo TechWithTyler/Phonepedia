@@ -14,12 +14,12 @@ struct PhoneColorView: View {
     @Bindable var phone: Phone
 
     var body: some View {
-        ColorPicker(phone.isWiFiHandset ? "Top Color" : "Base Top Color", selection: phone.baseMainColorBinding, supportsOpacity: false)
-        ColorPicker(phone.isWiFiHandset ? "Bottom Color" : "Base Bottom Color", selection: phone.baseSecondaryColorBinding, supportsOpacity: false)
+        ColorPicker(phone.basePhoneType > 0 ? "Top Color" : "Base Top Color", selection: phone.baseMainColorBinding, supportsOpacity: false)
+        ColorPicker(phone.basePhoneType > 0 ? "Bottom Color" : "Base Bottom Color", selection: phone.baseSecondaryColorBinding, supportsOpacity: false)
             Button("Use Top Color") {
                 phone.setBaseSecondaryColorToMain()
         }
-        ColorPicker(phone.isWiFiHandset ? "Accent Color" : "Base Accent Color", selection: phone.baseAccentColorBinding, supportsOpacity: false)
+        ColorPicker(phone.basePhoneType > 0 ? "Accent Color" : "Base Accent Color", selection: phone.baseAccentColorBinding, supportsOpacity: false)
             Button("Use Top Color") {
                 phone.setBaseAccentColorToMain()
         }
@@ -27,7 +27,7 @@ struct PhoneColorView: View {
             phone.setBaseAccentColorToSecondary()
     }
         InfoText("The accent color is seen in various places, such as around the edges. Sometimes the bottom/back color is used as an additional accent color on the top/front.")
-        if !phone.isWiFiHandset {
+        if phone.basePhoneType == 0 {
             ClearSupportedColorPicker("Corded Receiver Outer Color", selection: phone.cordedReceiverMainColorBinding) {
                 Text("Make Cordless-Only")
             }

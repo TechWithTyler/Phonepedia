@@ -24,6 +24,8 @@ extension Phone {
 
         case wiFiHandset = "Wi-Fi Handset"
 
+        case cellularHandset = "Cellular Handset"
+
         // MARK: - Phone Type Definitions
         
         struct DictionaryEntry: Identifiable {

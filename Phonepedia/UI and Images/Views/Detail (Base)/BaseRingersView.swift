@@ -14,13 +14,13 @@ struct BaseRingersView: View {
     @Bindable var phone: Phone
 
     var body: some View {
-        Stepper(phone.isWiFiHandset ? "Standard Ringtones: \(phone.baseRingtones)" : "Base Standard Ringtones: \(phone.baseRingtones)", value: $phone.baseRingtones, in: !phone.isCordless || phone.hasBaseSpeakerphone ? .oneToMax(50) : .zeroToMax(50))
+        Stepper(phone.basePhoneType > 0 ? "Standard Ringtones: \(phone.baseRingtones)" : "Base Standard Ringtones: \(phone.baseRingtones)", value: $phone.baseRingtones, in: !phone.isCordless || phone.hasBaseSpeakerphone ? .oneToMax(50) : .zeroToMax(50))
         if phone.hasElectronicRinger {
-            Stepper(phone.isWiFiHandset ? "Music/Melody Ringtones: \(phone.baseMusicRingtones)" : "Base Music/Melody Ringtones: \(phone.baseMusicRingtones)", value: $phone.baseMusicRingtones, in: .zeroToMax(50))
+            Stepper(phone.basePhoneType > 0 ? "Music/Melody Ringtones: \(phone.baseMusicRingtones)" : "Base Music/Melody Ringtones: \(phone.baseMusicRingtones)", value: $phone.baseMusicRingtones, in: .zeroToMax(50))
         }
         Text("Total Ringtones: \(phone.totalBaseRingtones)")
         RingtoneInfoView()
-        if !phone.isCordless && !phone.isWiFiHandset && (phone.isPushButtonCorded) && phone.baseRingtones <= 2 && phone.baseBluetoothCellPhonesSupported == 0 {
+        if !phone.isCordless && phone.basePhoneType == 0 && (phone.isPushButtonCorded) && phone.baseRingtones <= 2 && phone.baseBluetoothCellPhonesSupported == 0 {
             Picker("Ringer Type", selection: $phone.cordedRingerType) {
                 Text("Bell/Mechanical").tag(0)
                 Text("Electronic").tag(1)
@@ -79,7 +79,7 @@ struct BaseRingersView: View {
                 InfoText("The phone can play your cell phone's ringtone instead of the ringtone selected for the cell line if the cell phone supports Bluetooth In-Band Ringtone.")
             }
         }
-        if (phone.totalBaseRingtones >= 1 || !phone.isCordless) && !phone.isWiFiHandset {
+        if (phone.totalBaseRingtones >= 1 || !phone.isCordless) && phone.basePhoneType == 0 {
             Picker(phone.isCordless ? "Base Ringer Volume Adjustment" : "Ringer Volume Adjustment", selection: $phone.baseRingerVolumeAdjustmentType) {
                 Text("Ringer Switch/Dial").tag(0)
                 Text("Volume Buttons").tag(1)

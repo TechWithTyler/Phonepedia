@@ -1,5 +1,5 @@
 //
-//  AboutCordedPhoneTypesView.swift
+//  AboutCordedPhoneStylesView.swift
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 7/31/25.
@@ -9,7 +9,7 @@
 import SwiftUI
 import SheftAppsStylishUI
 
-struct AboutCordedPhoneTypesView: View {
+struct AboutCordedPhoneStylesView: View {
 
     // MARK: - Properties - Dismiss Action
 
@@ -82,5 +82,5 @@ struct AboutCordedPhoneTypesView: View {
 }
 
 #Preview {
-    AboutCordedPhoneTypesView()
+    AboutCordedPhoneStylesView()
 }

@@ -15,7 +15,7 @@ struct BaseSpeakerphoneIntercomView: View {
 
     var body: some View {
         Section("Speaker/Speakerphone") {
-            if !phone.isCordedCordless && !phone.isWiFiHandset {
+            if !phone.isCordedCordless && phone.basePhoneType == 0 {
                 Toggle(isOn: $phone.hasBaseSpeakerphone) {
                     Text(phone.isCordless ? "Has Base Speakerphone" : "Has Speakerphone")
                 }
