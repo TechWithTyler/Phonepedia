@@ -131,7 +131,7 @@ struct PhoneRowView: View {
                 .multilineTextAlignment(.center)
                 .lineLimit(nil)
         }
-        if showAnsweringSystemInList {
+        if showAnsweringSystemInList && phone.basePhoneType == 0 {
             Text(answeringSystemText)
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
