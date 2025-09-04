@@ -339,6 +339,8 @@ final class Phone {
 
     var cordlessPowerBackupMode: Int = 0
 
+    var cordedFunctionalityOnBackupBatteries: Int = 1
+
     var cordlessPowerBackupReturnBehavior: Int = 0
 
     var baseSupportsWiredHeadsets: Bool = false
@@ -1157,6 +1159,7 @@ final class Phone {
         if newValue {
             cordedPhoneType = 0
             cordedRingerType = 1
+            cordedPowerSource = 0
             if baseKeyBacklightAmount > 6 {
                 baseKeyBacklightAmount = 5
             }
@@ -1165,6 +1168,7 @@ final class Phone {
             if hasAnsweringSystem > 1 {
                 hasAnsweringSystem = 1
             }
+            cordlessPowerBackupMode = 0
             ecoMode = 0
             cordedReceiverMainColorBinding.wrappedValue = .black
             dialWithBaseDuringHandsetCall = false

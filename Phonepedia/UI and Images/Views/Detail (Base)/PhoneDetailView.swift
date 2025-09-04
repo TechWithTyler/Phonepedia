@@ -33,7 +33,9 @@ struct PhoneDetailView: View {
                     photoAndOptions
                 }
                 basicsGroup
-                linesGroup
+                if phone.basePhoneType == 0 {
+                    linesGroup
+                }
                 if phone.isCordless || phone.basePhoneType > 0 {
                     CordlessDeviceInfoView(phone: phone)
                 }
@@ -178,14 +180,16 @@ struct PhoneDetailView: View {
             } label: {
                 Label("General", systemImage: "gearshape")
             }
-            FormNavigationLink(phone: phone) {
-                PhonePowerView(phone: phone)
-                    .navigationTitle("Power")
+            if phone.basePhoneType == 0 {
+                FormNavigationLink(phone: phone) {
+                    PhonePowerView(phone: phone)
+                        .navigationTitle("Power")
 #if !os(macOS)
-                    .navigationBarTitleDisplayMode(.inline)
+                        .navigationBarTitleDisplayMode(.inline)
 #endif
-            } label: {
-                Label("Power", systemImage: "bolt")
+                } label: {
+                    Label("Power", systemImage: "bolt")
+                }
             }
             FormNavigationLink(phone: phone) {
                 PhoneColorView(phone: phone)
