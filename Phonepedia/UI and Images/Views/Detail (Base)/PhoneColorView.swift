@@ -11,21 +11,39 @@ import SheftAppsStylishUI
 
 struct PhoneColorView: View {
 
+    // MARK: - Properties - Phone
+
     @Bindable var phone: Phone
+
+    // MARK: - Properties - Strings
+
+    var mainColorLocation: String {
+        switch phone.basePhoneType {
+        case 1...2: return "Front"
+        default: return "Top"
+        }
+    }
+
+    var secondaryColorLocation: String {
+        switch phone.basePhoneType {
+        case 1...2: return "Back"
+        default: return "Bottom"
+        }
+    }
 
     var body: some View {
         ColorPicker(phone.basePhoneType > 0 ? "Top Color" : "Base Top Color", selection: phone.baseMainColorBinding, supportsOpacity: false)
         ColorPicker(phone.basePhoneType > 0 ? "Bottom Color" : "Base Bottom Color", selection: phone.baseSecondaryColorBinding, supportsOpacity: false)
-            Button("Use Top Color") {
-                phone.setBaseSecondaryColorToMain()
+        Button("Use Top Color") {
+            phone.setBaseSecondaryColorToMain()
         }
         ColorPicker(phone.basePhoneType > 0 ? "Accent Color" : "Base Accent Color", selection: phone.baseAccentColorBinding, supportsOpacity: false)
-            Button("Use Top Color") {
-                phone.setBaseAccentColorToMain()
+        Button("Use \(mainColorLocation) Color") {
+            phone.setBaseAccentColorToMain()
         }
-        Button("Use Bottom Color") {
+        Button("Use \(secondaryColorLocation) Color") {
             phone.setBaseAccentColorToSecondary()
-    }
+        }
         InfoText("The accent color is seen in various places, such as around the edges. Sometimes the bottom/back color is used as an additional accent color on the top/front.")
         if phone.basePhoneType == 0 {
             ClearSupportedColorPicker("Corded Receiver Outer Color", selection: phone.cordedReceiverMainColorBinding) {
