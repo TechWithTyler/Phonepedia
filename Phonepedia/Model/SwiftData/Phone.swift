@@ -970,48 +970,6 @@ final class Phone {
         }
     }
 
-    func numberOfIncludedCordlessHandsetsChanged(oldValue: Int, newValue: Int) {
-        if newValue > maxCordlessHandsets && maxCordlessHandsets != -1 {
-            maxCordlessHandsets = newValue
-        }
-    }
-
-    func isDigitalCordlessChanged(oldValue: Bool, newValue: Bool) {
-        if !newValue {
-            maxCordlessHandsets = -1
-            locatorButtons = 0
-            deregistration = 1
-        }
-    }
-
-    func maxCordlessHandsetsChanged(oldValue: Int, newValue: Int) {
-        if newValue == -1 {
-            hasTransmitOnlyBase = false
-            cordedReceiverMainColorBinding.wrappedValue = .clear
-            placeOnBaseAutoRegister = false
-            deregistration = 0
-            locatorButtons = 0
-            for handset in cordlessHandsetsIHave {
-                handset.fitsOnBase = true
-            }
-        } else if newValue > 1 {
-            if locatorButtons == 0 {
-                deregistration = 1
-            }
-        }
-        if newValue < 8 {
-            hasAutoAttendantAndPersonalMailboxes = false
-        }
-        if newValue == 0 && oldValue == -1 {
-            maxCordlessHandsets = 1
-        } else if newValue == 0 && oldValue == 1 {
-            maxCordlessHandsets = -1
-        }
-        if newValue < numberOfIncludedCordlessHandsets && newValue >= 1 {
-            numberOfIncludedCordlessHandsets = newValue
-        }
-    }
-
     func hasAnsweringSystemChanged(oldValue: Int, newValue: Int) {
         if newValue == 1 {
             if answeringSystemMenuOnBase == 0 {
@@ -1090,28 +1048,6 @@ final class Phone {
         }
     }
 
-    func transmitOnlyBaseChanged(oldValue: Bool, newValue: Bool) {
-        if newValue {
-            for handset in cordlessHandsetsIHave {
-                handset.fitsOnBase = false
-            }
-            if maxCordlessHandsets == -1 {
-                maxCordlessHandsets = 1
-            }
-            dialWithBaseDuringHandsetCall = false
-            hasPickUpToSwitch = false
-            hasChargerSizeBase = false
-            placeOnBaseAutoRegister = false
-            baseHasSeparateDataContact = false
-            baseChargeContactType = 0
-            baseChargeContactPlacement = 0
-            baseChargingDirection = 0
-            if cordlessPowerBackupMode == 1 {
-                cordlessPowerBackupMode = 0
-            }
-        }
-    }
-
     func releaseYearChanged(oldValue: Int, newValue: Int) {
         if acquisitionYear < newValue {
             acquisitionYear = releaseYear
@@ -1145,16 +1081,11 @@ final class Phone {
         }
     }
 
-    func isWiFiHandsetChanged(oldValue: Bool, newValue: Bool) {
-        if newValue {
-            numberOfIncludedCordlessHandsets = 0
-            landlineConnectionType = 3
-            hasBaseKeypad = true
-        }
-    }
-
     func isCordlessChanged(oldValue: Bool, newValue: Bool) {
         if newValue {
+            if dialMode == 0 {
+                dialMode = 2
+            }
             cordedPhoneType = 0
             cordedRingerType = 1
             cordedPowerSource = 0
@@ -1180,6 +1111,70 @@ final class Phone {
             baseChargeContactType = 0
             baseChargeContactPlacement = 0
             baseHasSeparateDataContact = false
+        }
+    }
+
+    func numberOfIncludedCordlessHandsetsChanged(oldValue: Int, newValue: Int) {
+        if newValue > maxCordlessHandsets && maxCordlessHandsets != -1 {
+            maxCordlessHandsets = newValue
+        }
+    }
+
+    func maxCordlessHandsetsChanged(oldValue: Int, newValue: Int) {
+        if newValue == -1 {
+            hasTransmitOnlyBase = false
+            cordedReceiverMainColorBinding.wrappedValue = .clear
+            placeOnBaseAutoRegister = false
+            deregistration = 0
+            locatorButtons = 0
+            for handset in cordlessHandsetsIHave {
+                handset.fitsOnBase = true
+            }
+        } else if newValue > 1 {
+            if locatorButtons == 0 {
+                deregistration = 1
+            }
+        }
+        if newValue < 8 {
+            hasAutoAttendantAndPersonalMailboxes = false
+        }
+        if newValue == 0 && oldValue == -1 {
+            maxCordlessHandsets = 1
+        } else if newValue == 0 && oldValue == 1 {
+            maxCordlessHandsets = -1
+        }
+        if newValue < numberOfIncludedCordlessHandsets && newValue >= 1 {
+            numberOfIncludedCordlessHandsets = newValue
+        }
+    }
+
+    func isDigitalCordlessChanged(oldValue: Bool, newValue: Bool) {
+        if !newValue {
+            maxCordlessHandsets = -1
+            locatorButtons = 0
+            deregistration = 1
+        }
+    }
+
+    func transmitOnlyBaseChanged(oldValue: Bool, newValue: Bool) {
+        if newValue {
+            for handset in cordlessHandsetsIHave {
+                handset.fitsOnBase = false
+            }
+            if maxCordlessHandsets == -1 {
+                maxCordlessHandsets = 1
+            }
+            dialWithBaseDuringHandsetCall = false
+            hasPickUpToSwitch = false
+            hasChargerSizeBase = false
+            placeOnBaseAutoRegister = false
+            baseHasSeparateDataContact = false
+            baseChargeContactType = 0
+            baseChargeContactPlacement = 0
+            baseChargingDirection = 0
+            if cordlessPowerBackupMode == 1 {
+                cordlessPowerBackupMode = 0
+            }
         }
     }
 
