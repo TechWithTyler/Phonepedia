@@ -120,7 +120,6 @@ struct PhoneGeneralView: View {
         }
         if phone.basePhoneType == 0 {
         Section(cordedCordlessSectionName) {
-            if phone.basePhoneType == 0 {
                 if phone.isCordless {
                     Group {
                         HandsetNumberDigitView(phone: phone)
@@ -337,7 +336,6 @@ In most cases, if the base has a charge light/display message, the completion of
                     }
                 }
                 InfoText("Most corded phones have a switch hook which presses, located on either the base (pressed by the receiver) or the receiver (pressed by the base). More advanced corded phones might have magnetic switch hooks, where magnets in the base and receiver trigger a magnetically-activated switch, called a reed switch. Some corded phones might use contacts like those found on cordless phones, instead of a switch hook. This is mostly seen on corded phones which are extensions of a cordless system, where placing the corded receiver on the cordless base registers the corded extension phone to the base.")
-            }
             if phone.isCordedCordless || (!phone.isCordless && phone.isPushButtonCorded) {
                 Picker("Corded Receiver Hook Type", selection: $phone.cordedReceiverHookType) {
                     Text("Fixed").tag(0)

@@ -971,10 +971,6 @@ final class Phone {
     }
 
     func numberOfIncludedCordlessHandsetsChanged(oldValue: Int, newValue: Int) {
-        if let digit = handsetNumberDigit, digit != newValue {
-            handsetNumberDigit = nil
-            handsetNumberDigitIndex = nil
-        }
         if newValue > maxCordlessHandsets && maxCordlessHandsets != -1 {
             maxCordlessHandsets = newValue
         }
