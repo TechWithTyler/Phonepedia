@@ -163,6 +163,8 @@ final class Phone {
 
     var cordedPhoneType: Int = 0
 
+    var cordedPhoneHasClockRadioAlarm: Bool = false
+
     var cordedReceiverHookType: Int = 2
 
     var cordlessHandsetLayDownHookType: Int = 0
@@ -553,7 +555,7 @@ final class Phone {
         return cordedReceiverMainColorBinding.wrappedValue != .clear
     }
 
-    // Whether the phone is a push-button corded phone.
+    // Wss a push-button corded phone.
     @Transient
     var isPushButtonCorded: Bool {
         return !isCordless && (cordedPhoneType == 0 || cordedPhoneType == 2)

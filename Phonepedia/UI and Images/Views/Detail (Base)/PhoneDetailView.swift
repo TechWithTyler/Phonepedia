@@ -41,7 +41,7 @@ struct PhoneDetailView: View {
                 }
                 audioGroup
                 entriesGroup
-                if phone.isCordlessOrPushButtonDesk {
+                if phone.isCordless || phone.isPushButtonCorded {
                     FormNavigationLink(phone: phone) {
                         PhoneSpecialFeaturesView(phone: phone)
                             .navigationTitle("Special Features")

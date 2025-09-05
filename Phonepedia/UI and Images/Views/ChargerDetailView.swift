@@ -58,7 +58,7 @@ struct ChargerDetailView: View {
 #endif
                         }
                     }
-                    Section {
+                    Section("Basic Info") {
                         ColorPicker("Main Color", selection: charger.mainColorBinding, supportsOpacity: false)
                         ColorPicker("Secondary/Accent Color", selection: charger.secondaryColorBinding, supportsOpacity: false)
                         Button("Use Main Color") {
@@ -105,9 +105,15 @@ struct ChargerDetailView: View {
                             }
                             Toggle("Has Hard-Wired AC Adaptor", isOn: $charger.hasHardWiredACAdaptor)
                         }
-                        if phone.supportsRangeExtenders {
-                            Toggle("Has Built-In Range Extender", isOn: $charger.hasRangeExtender)
-                            InfoText("A charger with a built-in range extender allows you to have a range extender where you have a charger, without having to place a separate range extender.")
+                    }
+                    if charger.type == 0 && phone.basePhoneType == 0 {
+                        Section("Special Features") {
+                            if phone.supportsRangeExtenders {
+                                Toggle("Has Built-In Range Extender", isOn: $charger.hasRangeExtender)
+                                InfoText("A charger with a built-in range extender allows you to have a range extender where you have a charger, without having to place a separate range extender.")
+                            }
+                            Toggle("Has Clock/Radio/Alarm", isOn: $charger.hasClockRadioAlarm)
+                            InfoText("Some chargers have a built-in clock/radio/alarm, which combines several nightstand devices (cordless handset charger, clock, radio, and alarm) into one.")
                         }
                     }
                 }

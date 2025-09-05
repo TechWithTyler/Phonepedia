@@ -62,6 +62,8 @@ final class CordlessHandsetCharger {
 
 	var hasRangeExtender: Bool = false
 
+    var hasClockRadioAlarm: Bool = false
+
 	var wallMountability: Int = 0
 
     var type: Int = 0
