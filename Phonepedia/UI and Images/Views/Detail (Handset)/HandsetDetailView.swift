@@ -50,14 +50,12 @@ struct HandsetDetailView: View {
                         } label: {
                             Label("General", systemImage: "gearshape")
                         }
-                        if handset.cordlessDeviceType == 0 {
                             FormNavigationLink(phone: phone) {
                                 HandsetPowerView(handset: handset)
                                     .navigationTitle("Power (HS\(handset.handsetNumber + 1))")
                             } label: {
                                 Label("Power/Charging", systemImage: "battery.100percent")
                             }
-                        }
                         FormNavigationLink(phone: phone) {
                             HandsetColorView(handset: handset)
                                 .navigationTitle("Colors (HS\(handset.handsetNumber + 1))")
@@ -108,14 +106,16 @@ struct HandsetDetailView: View {
                         }
                     }
                     Section("Entries") {
-                        FormNavigationLink(phone: phone) {
-                            HandsetRedialView(handset: handset)
-                                .navigationTitle("Redial (HS\(handset.handsetNumber + 1))")
+                        if handset.handsetStyle < 3 {
+                            FormNavigationLink(phone: phone) {
+                                HandsetRedialView(handset: handset)
+                                    .navigationTitle("Redial (HS\(handset.handsetNumber + 1))")
 #if !os(macOS)
-                                .navigationBarTitleDisplayMode(.inline)
+                                    .navigationBarTitleDisplayMode(.inline)
 #endif
-                        } label: {
-                            Label("Redial", systemImage: "phone.arrow.up.right")
+                            } label: {
+                                Label("Redial", systemImage: "phone.arrow.up.right")
+                            }
                         }
                         FormNavigationLink(phone: phone) {
                             HandsetPhonebookView(handset: handset)
@@ -135,14 +135,16 @@ struct HandsetDetailView: View {
                         } label: {
                             Label("Caller ID", systemImage: "phone.bubble.left")
                         }
-                        FormNavigationLink(phone: phone) {
-                            HandsetSpeedDialView(handset: handset)
-                                .navigationTitle("Quick Dial (HS\(handset.handsetNumber + 1))")
+                        if handset.handsetStyle < 3 {
+                            FormNavigationLink(phone: phone) {
+                                HandsetSpeedDialView(handset: handset)
+                                    .navigationTitle("Quick Dial (HS\(handset.handsetNumber + 1))")
 #if !os(macOS)
-                                .navigationBarTitleDisplayMode(.inline)
+                                    .navigationBarTitleDisplayMode(.inline)
 #endif
-                        } label: {
-                            Label("Quick Dialing", systemImage: "person.3")
+                            } label: {
+                                Label("Quick Dialing", systemImage: "person.3")
+                            }
                         }
                     }
                     Section {

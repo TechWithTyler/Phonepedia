@@ -23,7 +23,7 @@ struct HandsetMessagingView: View {
                         Text("Full (Doesn't Require Link to Base)").tag(2)
                         Text("Full (Requires Link to Base)").tag(3)
                     }
-                    InfoText("Settings Only: Only settings are available in the answering system menu. This may or may not include greeting recording/playback/deletion. Message playback is a separate menu item or button.\nFull: Most, if not all, features and settings are available in the answering system menu.")
+                    InfoText("• Settings Only: Only settings are available in the answering system menu. This may or may not include greeting recording/playback/deletion. Message playback is a separate menu item or button.\n• Full: Most, if not all, features and settings are available in the answering system menu.")
                     AnsweringSystemMenuInfoView()
                     if phone.hasAnsweringSystem > 1 && handset.displayType > 1 {
                         Toggle("Has Message List", isOn: $handset.hasMessageList)

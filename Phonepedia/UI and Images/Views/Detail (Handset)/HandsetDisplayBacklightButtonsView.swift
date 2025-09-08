@@ -24,7 +24,7 @@ struct HandsetDisplayBacklightButtonsView: View {
                             Text("Prompt to Pick Up").tag(1)
                             Text("Normal").tag(2)
                         }
-                    InfoText("• Locked: Button presses are ignored while the handset is on charge.\n• Prompt to Pick Up: Pressing any button while the handset is on charge prompts the user to pick it up.\n• Normal: You can use the handset as normal while it's on charge. This is useful if you're trying to configure it but the battery is too low to use off charge.")
+                    InfoText("• Locked: Button presses are ignored while the handset is on charge.\n• Prompt to Pick Up: Pressing any button while the handset is on charge prompts you to pick it up.\n• Normal: You can use the handset as normal while it's on charge. This is useful if you're trying to configure it but the battery is too low to use off charge.")
                     Toggle("Has Keypad Lock", isOn: $handset.hasKeypadLock)
                     KeypadLockInfoView()
                 }
@@ -45,7 +45,7 @@ struct HandsetDisplayBacklightButtonsView: View {
                                 Text("Line Buttons + Off").tag(4)
                             }
                         }
-                        InfoText("Sometimes, the talk button will have a function during a call, either switching between the earpiece and speakerphone or acting as the flash button.\nOn Bluetooth cell phone linking-capable models, if the cell button is a physical button and not a soft key, the talk button is often labeled \"Home\".\nOn multi-landline phones, the handset usually has multiple line buttons instead of a talk button.")
+                        InfoText("On some handsets, the talk button has a secondary function during a call, either switching between the earpiece and speakerphone or acting as the flash button.\nOn Bluetooth cell phone linking-capable models, if the cell button is a physical button and not a soft key, the talk button is often labeled \"Home\".\nOn multi-landline phones, the handset usually has multiple line buttons instead of a talk button.")
                     }
                     if handset.hasTalkButton {
                         Picker("Talk/Off Button Coloring", selection: $handset.talkOffColorLayer) {
@@ -186,7 +186,7 @@ struct HandsetDisplayBacklightButtonsView: View {
                         Text("Based on Registered Base").tag(0)
                         Text("In Real-Time").tag(1)
                     }
-                    InfoText("When a handset menu is updated based on the base it's registered to, the available options are updated only when registering the handset to a base, and those same options will be available when the handset boots up. When a handset menu is updated in real-time, the available options depend on the state of the registered base (e.g. whether it's on power backup or if there's enough devices to support intercom), and some options might not be available when the handset boots up.")
+                    InfoText("When a handset menu is updated based on the base it's registered to, the available options are updated only when registering the handset to a base, and those same options will be available when the handset boots up. When a handset menu is updated in real-time, the available options depend on the state of the registered base (e.g. whether it's on place-on-base power backup or if there's enough devices to support intercom), and some options might not be available when the handset boots up.")
                 }
             }
             Section("Navigation Button/Soft Keys") {

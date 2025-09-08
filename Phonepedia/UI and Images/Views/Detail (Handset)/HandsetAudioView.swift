@@ -15,6 +15,7 @@ struct HandsetAudioView: View {
 
     var body: some View {
         if let phone = handset.phone {
+            if handset.handsetStyle < 2 {
             Section("Earpiece/Speakerphone") {
                 if handset.handsetStyle == 0 && handset.sideVolumeButtons {
                     Picker("Speaker/Earpiece Volume Adjustment", selection: $handset.volumeAdjustmentType) {
@@ -22,7 +23,6 @@ struct HandsetAudioView: View {
                         Text("Volume Buttons").tag(1)
                     }
                 }
-                if handset.handsetStyle < 2 {
                     Toggle("Has Speakerphone", isOn: $handset.hasSpeakerphone)
                     if handset.hasSpeakerphone {
                         Picker("Speakerphone Button Coloring", selection: $handset.speakerphoneColorLayer) {
