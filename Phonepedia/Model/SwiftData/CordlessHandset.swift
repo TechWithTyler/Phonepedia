@@ -136,6 +136,10 @@ final class CordlessHandset {
 
     var supportsPlaceOnBasePowerBackup: Bool = true
 
+    var canDialThenPlaceOnBase: Bool = false
+
+    var keyLockWhenPowerReturns: Bool = false
+
 	var buttonType: Int = 0
 
     var ringerVolumeAdjustmentType: Int = 1
@@ -223,7 +227,9 @@ final class CordlessHandset {
 	var navigatorKeyCenterButton: Int = 0
 	
 	var sideVolumeButtons: Bool = false
-	
+
+    var buttonPressOnChargeBehavior: Int = 0
+
 	var keyBacklightAmount: Int = 0
 
     var keyBacklightLayer: Int = 0

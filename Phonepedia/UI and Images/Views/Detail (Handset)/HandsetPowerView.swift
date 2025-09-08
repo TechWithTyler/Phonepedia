@@ -42,9 +42,17 @@ struct HandsetPowerView: View {
                     }
                 }
                 if handset.fitsOnBase && handset.hasSpeakerphone && phone.cordlessPowerBackupMode == 1 && phone.baseChargesHandset {
-                Section("Place-On-Base Power Backup") {
+                    Section("Place-On-Base Power Backup") {
                         Toggle("Supported", isOn: $handset.supportsPlaceOnBasePowerBackup)
                         InfoText("Even if a handset with speakerphone can fit on the base and that base has place-on-base power backup, it doesn't mean the handset supports it. If a handset doesn't come with any models with place-on-base power backup, the feature is often left out of the handset since it wouldn't work on the base it came with.")
+                        if handset.supportsPlaceOnBasePowerBackup {
+                            Toggle("Can Dial Before Placing On Base", isOn: $handset.canDialThenPlaceOnBase)
+                            InfoText("If you must use the handset that's powering the base (e.g. you only have 1 handset), you can pick up the handset, dial a number or select it from a list, then place the handset back on the base. This makes it easier to make a call without the handset's charge contacts unexpectedly disconnecting from the base's charge contacts. As soon as the handset finds the base, the call is placed using the speakerphone.")
+                            if handset.buttonPressOnChargeBehavior == 0 {
+                                Toggle("Keypad Locked If Power Returns During Call", isOn: $handset.keyLockWhenPowerReturns)
+                                InfoText("If power returns during a call on the handset that's powering the base, the handset's keypad may be locked just as it is while charging. Depending on the phone and other items around you (e.g. lights in the room turning back on or the handset's prompt to not pick it up disappearing), you can see that it's safe to pick up the handset to continue the call normally.")
+                            }
+                        }
                     }
                 }
             }
