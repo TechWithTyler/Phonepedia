@@ -200,6 +200,9 @@ final class CordlessHandsetCharger {
         newCharger.chargeLightColorChargedBlue = self.chargeLightColorChargedBlue
         newCharger.chargeLightColorChargedAlpha = self.chargeLightColorChargedAlpha
         newCharger.hasChargeLight = self.hasChargeLight
+        newCharger.hasHardWiredACAdaptor = self.hasHardWiredACAdaptor
+        newCharger.type = self.type
+        newCharger.hasClockRadioAlarm = self.hasClockRadioAlarm
         return newCharger
     }
 

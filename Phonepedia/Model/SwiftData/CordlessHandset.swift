@@ -899,6 +899,11 @@ final class CordlessHandset {
         newHandset.chargeLightColorChargedBlue = self.chargeLightColorChargedBlue
         newHandset.chargeLightColorChargedAlpha = self.chargeLightColorChargedAlpha
         newHandset.hasChargeLight = self.hasChargeLight
+        newHandset.supportsPlaceOnBasePowerBackup = self.supportsPlaceOnBasePowerBackup
+        newHandset.keyLockWhenPowerReturns = self.keyLockWhenPowerReturns
+        newHandset.canDialThenPlaceOnBase = self.canDialThenPlaceOnBase
+        newHandset.buttonPressOnChargeBehavior = self.buttonPressOnChargeBehavior
+        newHandset.hasKeypadLock = self.hasKeypadLock
         // 4. Return the duplicated handset.
         return newHandset
     }
