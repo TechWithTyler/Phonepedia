@@ -10,32 +10,44 @@ import SwiftUI
 import PhotosUI
 
 class PhonePhotoViewModel: ObservableObject {
-    
+
+    // MARK: - Properties - Image Predictor
+
     var imagePredictor: LandlineOrNotPredictor {
         return LandlineOrNotPredictor(photoViewModel: self)
     }
-    
+
+    // MARK: - Properties - Booleans
+
     @Published var showingPhonePhotoErrorAlert: Bool = false
-    
+
     @Published var showingUnsurePhotoDataAlert: Bool = false
-    
-    @Published var unsurePhotoDataToUse: Data? = nil
-    
-    @Published var selectedPhoto: PhotosPickerItem? = nil
-    
+
 #if os(iOS)
     @Published var takingPhoto: Bool = false
 #endif
-    
+
     @Published var showingPhotoPicker: Bool = false
-    
+
     @Published var showingResetAlert: Bool = false
 
     @Published var showingLoadingPhoto: Bool = false
 
+    // MARK: - Properties - Data
+
+    @Published var unsurePhotoDataToUse: Data? = nil
+
+    // MARK: - Properties - Photos Picker Items
+
+    @Published var selectedPhoto: PhotosPickerItem? = nil
+
+    // MARK: - Properties - Errors
+
     @Published var phonePhotoError: PhonePhotoError? = nil
-    
-    func updatePhonePhoto(for phone: Phone, oldValue: PhotosPickerItem?, newValue: PhotosPickerItem?) {
+
+    // MARK: - Phone Photo Update - Photos Picker Selection
+
+    func updatePhonePhotoToPickerSelection(for phone: Phone, oldValue: PhotosPickerItem?, newValue: PhotosPickerItem?) {
         guard let newValue = newValue else { return }
         let progress = newValue.loadTransferable(type: Data.self) { [self] result in
             // 1. Nil-out the photo picker selection after it's loaded into the app.
@@ -60,20 +72,24 @@ class PhonePhotoViewModel: ObservableObject {
         showingLoadingPhoto = true
     }
 
+    // MARK: - Phone Photo Update - Drag and Drop
+
     func handleDroppedPhoto(phone: Phone, with provider: NSItemProvider) {
-            let progress = provider.loadDataRepresentation(forTypeIdentifier: UTType.image.identifier) { [self] data, error in
-                if let data = data {
-                    checkImageForLandlines(photoData: data, phone: phone)
-                }
-                if let error = error {
-                    phonePhotoError = .loadFailed(error: error)
-                    showingPhonePhotoErrorAlert = true
-                    showingLoadingPhoto = false
-                }
+        let progress = provider.loadDataRepresentation(forTypeIdentifier: UTType.image.identifier) { [self] data, error in
+            if let data = data {
+                checkImageForLandlines(photoData: data, phone: phone)
             }
-            progress.resume()
-            showingLoadingPhoto = true
+            if let error = error {
+                phonePhotoError = .loadFailed(error: error)
+                showingPhonePhotoErrorAlert = true
+                showingLoadingPhoto = false
+            }
+        }
+        progress.resume()
+        showingLoadingPhoto = true
     }
+
+    // MARK: - Phone Photo Update - Image Classification
 
     func checkImageForLandlines(photoData: Data, phone: Phone) {
         do {
@@ -85,7 +101,7 @@ class PhonePhotoViewModel: ObservableObject {
             phonePhotoError = .predictionFailed(reason: "Vision was unable to make a prediction…\n\n\(error.localizedDescription)")
         }
     }
-    
+
     private func imagePredictionHandler(_ predictions: [LandlineOrNotPredictor.Prediction]?, photoData: Data, phone: Phone) {
         // 1. Make sure we can get the first prediction. If we can't, log an error.
         showingLoadingPhoto = false
@@ -102,5 +118,27 @@ class PhonePhotoViewModel: ObservableObject {
             showingUnsurePhotoDataAlert = true
         }
     }
-    
+
+    // MARK: - Export Dragged Photo
+
+    func handleDraggedPhotoForExport(phone: Phone) -> NSItemProvider {
+        // 1. Make sure the phone has photo data. If not, return an empty NSItemProvider.
+        guard let data = phone.photoData else { return NSItemProvider() }
+        // 2. Define the filename and file extension for the exported image. The filename is the phone's brand and model number (e.g. "Some Brand M123-2").
+        let filename = "\(phone.brand) \(phone.model)"
+        let fileExtension = "png"
+        // 3. Create a temporary file URL for the image.
+        let temporaryDirectory = FileManager.default.temporaryDirectory
+        let temporaryURL = temporaryDirectory.appending(path: "\(filename).\(fileExtension)", directoryHint: .notDirectory)
+        // 4. Try to write the phone photo data to that temporary URL and return an NSItemProvider for that URL. If writing the data fails, show an error and return an empty NSItemProvider.
+        do {
+            try data.write(to: temporaryURL)
+            return NSItemProvider(item: temporaryURL as NSSecureCoding, typeIdentifier: UTType.fileURL.identifier)
+        } catch {
+            phonePhotoError = .exportFailed(reason: "Error saving image to temporary file: \(error.localizedDescription)")
+            showingPhonePhotoErrorAlert = true
+            return NSItemProvider()
+        }
+    }
+
 }

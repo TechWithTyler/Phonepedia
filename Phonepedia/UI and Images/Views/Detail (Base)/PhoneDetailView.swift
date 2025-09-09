@@ -65,7 +65,7 @@ struct PhoneDetailView: View {
         .scrollContentBackground(.hidden)
         .photosPicker(isPresented: $photoViewModel.showingPhotoPicker, selection: $photoViewModel.selectedPhoto, matching: .images, preferredItemEncoding: .automatic)
         .onChange(of: photoViewModel.selectedPhoto, { oldValue, newValue in
-            photoViewModel.updatePhonePhoto(for: phone, oldValue: oldValue, newValue: newValue)
+            photoViewModel.updatePhonePhotoToPickerSelection(for: phone, oldValue: oldValue, newValue: newValue)
         })
 #if os(iOS)
         .sheet(isPresented: $photoViewModel.takingPhoto) {
@@ -124,6 +124,10 @@ struct PhoneDetailView: View {
                         photoViewModel.handleDroppedPhoto(phone: phone, with: provider)
                         return true
                     }
+                    .onDrag {
+                        photoViewModel.handleDraggedPhotoForExport(phone: phone)
+                    }
+
                 Spacer()
             }
 #if os(iOS)
