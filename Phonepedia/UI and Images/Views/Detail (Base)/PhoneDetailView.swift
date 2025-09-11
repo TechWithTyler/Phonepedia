@@ -67,6 +67,7 @@ struct PhoneDetailView: View {
         .onChange(of: photoViewModel.selectedPhoto, { oldValue, newValue in
             photoViewModel.updatePhonePhotoToPickerSelection(for: phone, oldValue: oldValue, newValue: newValue)
         })
+        // Photo dialogs
 #if os(iOS)
         .sheet(isPresented: $photoViewModel.takingPhoto) {
             CameraViewController(viewModel: photoViewModel, phone: phone)
@@ -82,6 +83,11 @@ struct PhoneDetailView: View {
 #if os(macOS)
         .dialogSeverity(.critical)
 #endif
+        .alert("This phone's photo has successfully been saved to your Photos library!", isPresented: $photoViewModel.showingPhonePhotoExportSuccessfulAlert) {
+            Button("OK") {
+                photoViewModel.showingPhonePhotoExportSuccessfulAlert = false
+            }
+        }
         .alert("Reset photo?", isPresented: $photoViewModel.showingResetAlert) {
             Button(role: .destructive) {
                 phone.photoData = nil
@@ -117,6 +123,11 @@ struct PhoneDetailView: View {
             HStack {
                 Spacer()
                 PhoneImage(phone: phone, mode: .full)
+                    .contextMenu {
+                        Button("Save to Photos Library…", systemImage: "square.and.arrow.down") {
+                            photoViewModel.savePhonePhotoToLibrary(phone: phone)
+                        }
+                    }
                     .onDrop(of: [.image], isTargeted: nil) { providers in
                         guard let provider = providers.first else {
                             return false
@@ -125,7 +136,7 @@ struct PhoneDetailView: View {
                         return true
                     }
                     .onDrag {
-                        photoViewModel.handleDraggedPhotoForExport(phone: phone)
+                        photoViewModel.exportPhonePhoto(phone: phone)
                     }
 
                 Spacer()

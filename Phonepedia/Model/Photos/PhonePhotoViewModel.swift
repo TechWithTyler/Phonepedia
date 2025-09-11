@@ -21,6 +21,8 @@ class PhonePhotoViewModel: ObservableObject {
 
     @Published var showingPhonePhotoErrorAlert: Bool = false
 
+    @Published var showingPhonePhotoExportSuccessfulAlert: Bool = false
+
     @Published var showingUnsurePhotoDataAlert: Bool = false
 
 #if os(iOS)
@@ -119,26 +121,67 @@ class PhonePhotoViewModel: ObservableObject {
         }
     }
 
-    // MARK: - Export Dragged Photo
-
-    func handleDraggedPhotoForExport(phone: Phone) -> NSItemProvider {
-        // 1. Make sure the phone has photo data. If not, return an empty NSItemProvider.
-        guard let data = phone.photoData else { return NSItemProvider() }
-        // 2. Define the filename and file extension for the exported image. The filename is the phone's brand and model number (e.g. "Some Brand M123-2").
-        let filename = "\(phone.brand) \(phone.model)"
-        let fileExtension = "png"
-        // 3. Create a temporary file URL for the image.
-        let temporaryDirectory = FileManager.default.temporaryDirectory
-        let temporaryURL = temporaryDirectory.appending(path: "\(filename).\(fileExtension)", directoryHint: .notDirectory)
-        // 4. Try to write the phone photo data to that temporary URL and return an NSItemProvider for that URL. If writing the data fails, show an error and return an empty NSItemProvider.
-        do {
-            try data.write(to: temporaryURL)
-            return NSItemProvider(item: temporaryURL as NSSecureCoding, typeIdentifier: UTType.fileURL.identifier)
-        } catch {
-            phonePhotoError = .exportFailed(reason: "Error saving image to temporary file: \(error.localizedDescription)")
+    func savePhonePhotoToLibrary(phone: Phone) {
+        // 2. Export the phone photo to an NSItemProvider.
+        let itemProvider = exportPhonePhoto(phone: phone)
+        // 3. Ensure that provider can load PNG data.
+        if itemProvider.hasItemConformingToTypeIdentifier(UTType.png.identifier) {
+            itemProvider.loadDataRepresentation(forTypeIdentifier: UTType.png.identifier) { [self] data, error in
+                if let error = error {
+                    phonePhotoError = .exportFailed(reason: error.localizedDescription)
+                    showingPhonePhotoErrorAlert = true
+                }
+                guard let photoData = data else {
+                    phonePhotoError = .exportFailed(reason: "Couldn't load photo data.")
+                    showingPhonePhotoErrorAlert = true
+                    return
+                }
+                // 4. Try to create an image from the photo data. If it fails, show an error.
+                PHPhotoLibrary.shared().performChanges { [self] in
+#if os(macOS)
+                    let image = NSImage(data: photoData)
+#else
+                    let image = UIImage(data: photoData)
+#endif
+                    guard let image = image else {
+                        phonePhotoError = .exportFailed(reason: "Couldn't create image from photo data.")
+                        return
+                    }
+                    // 5. Try to save the image to the Photos library. If it fails, show an error.
+                    PHAssetChangeRequest.creationRequestForAsset(from: image)
+                } completionHandler: { [self] success, error in
+                    if let error = error {
+                        phonePhotoError = .exportFailed(reason: error.localizedDescription)
+                        showingPhonePhotoErrorAlert = true
+                    }
+                    if success {
+                        showingPhonePhotoExportSuccessfulAlert = true
+                    }
+                }
+            }
+        } else {
+            // 6. If the item provider doesn't contain a file URL, show an error.
+            phonePhotoError = .exportFailed(reason: "Item provider doesn't contain a file URL.")
             showingPhonePhotoErrorAlert = true
-            return NSItemProvider()
         }
+    }
+
+
+    // MARK: - Export Photo
+
+    func exportPhonePhoto(phone: Phone) -> NSItemProvider {
+        // 1. Define the filename and file extension for the exported image. The filename is the phone's brand and model number (e.g. "Some Brand M123-2").
+        let filename = "\(phone.brand) \(phone.model)"
+        // 3. Create an NSItemProvider that provides PNG data.
+        let provider = NSItemProvider()
+        provider.registerDataRepresentation(forTypeIdentifier: UTType.png.identifier, visibility: .all) { completion in
+            completion(phone.photoData, nil)
+            return nil
+        }
+        // 4. Set the filename for the exported photo.
+        provider.suggestedName = "\(filename)"
+        // 5. Return the provider.
+        return provider
     }
 
 }
