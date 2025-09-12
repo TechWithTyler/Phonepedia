@@ -127,39 +127,43 @@ struct PhoneDetailView: View {
                         Button("Save to Photos Library…", systemImage: "square.and.arrow.down") {
                             photoViewModel.savePhonePhotoToLibrary(phone: phone)
                         }
+                        .disabled(phone.photoData == nil)
                     }
-                    .onDrop(of: [.image], isTargeted: nil) { providers in
-                        guard let provider = providers.first else {
-                            return false
-                        }
-                        photoViewModel.handleDroppedPhoto(phone: phone, with: provider)
-                        return true
+                    .onDrop(of: [.image], isTargeted: $photoViewModel.hoveringItemOverPhoto) { providers in
+                        photoViewModel.handleDroppedPhoto(phone: phone, with: providers)
                     }
                     .onDrag {
                         photoViewModel.exportPhonePhoto(phone: phone)
                     }
-
+                    .sensoryFeedback(.alignment, trigger: photoViewModel.hoveringItemOverPhoto)
+                    .sensoryFeedback(.error, trigger: photoViewModel.showingPhonePhotoErrorAlert == true)
                 Spacer()
             }
+            if photoViewModel.hoveringItemOverPhoto {
+                Text("Release to set photo")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            } else {
 #if os(iOS)
-            Button {
-                photoViewModel.takingPhoto = true
-            } label: {
-                Label("Take Photo…", systemImage: "camera")
-            }
+                Button {
+                    photoViewModel.takingPhoto = true
+                } label: {
+                    Label("Take Photo…", systemImage: "camera")
+                }
 #endif
-            Button {
-                photoViewModel.showingPhotoPicker = true
-            } label: {
-                Label("Select From Library…", systemImage: "photo")
-            }
-            Button(role: .destructive) {
-                photoViewModel.showingResetAlert = true
-            } label: {
-                Label("Reset to Placeholder…", systemImage: "arrow.clockwise")
+                Button {
+                    photoViewModel.showingPhotoPicker = true
+                } label: {
+                    Label("Select From Library…", systemImage: "photo")
+                }
+                Button(role: .destructive) {
+                    photoViewModel.showingResetAlert = true
+                } label: {
+                    Label("Reset to Placeholder…", systemImage: "arrow.clockwise")
 #if !os(macOS)
-                    .foregroundStyle(.red)
+                        .foregroundStyle(.red)
 #endif
+                }
             }
         }
     }
