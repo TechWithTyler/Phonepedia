@@ -22,7 +22,7 @@ struct BaseSpeakerphoneIntercomView: View {
                 .onChange(of: phone.hasBaseSpeakerphone) { oldValue, newValue in
                     phone.hasBaseSpeakerphoneChanged(oldValue: oldValue, newValue: newValue)
                 }
-                if !phone.isCordless && phone.cordedPowerSource == 0 {
+                if phone.isLinePoweredCorded {
                     InfoText("On a line-powered corded phone, speakerphone performance depends on the power the line provides to the phone while off-hook. If used on a line with very low off-hook power, or multiple phones on the line are off-hook, you may have trouble hearing the caller and they might have trouble hearing you, or it may not work at all.\nIf line power drops for long enough (this depends on the phone), the speakerphone won't come back on once line power comes back, so you don't have to hang up manually.")
                 }
             }

@@ -56,7 +56,7 @@ struct BaseDisplayBacklightButtonsView: View {
                         Text("Front Light").tag(6)
                     }
                 }
-                if !phone.isCordless && phone.basePhoneType == 0 && phone.cordedPowerSource == 0 {
+                if phone.isLinePoweredCorded {
                     InfoText("The brightness of a line-powered phone's button lighting depends on the line's off-hook power. If it's low, the backlight will be dim.")
                 }
                 if phone.baseKeyBacklightAmount > 0 {

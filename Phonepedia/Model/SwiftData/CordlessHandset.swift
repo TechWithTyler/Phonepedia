@@ -213,7 +213,9 @@ final class CordlessHandset {
 	var speedDialCapacity: Int = 0
 	
 	var redialCapacity: Int = 5
-	
+
+    var busyRedialMode: Int = 0
+
 	var softKeys: Int = 0
     
     var standbySoftKeysCustomizable: Bool = false

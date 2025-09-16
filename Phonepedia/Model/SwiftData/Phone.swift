@@ -387,6 +387,8 @@ final class Phone {
 
     var baseRedialCapacity: Int = 0
 
+    var busyRedialMode: Int = 0
+
     var redialNameDisplay: Int = 0
 
     var supportsCallWaiting: Bool = true
@@ -655,7 +657,7 @@ final class Phone {
     // Whether the phone has a display to show phone numbers.
     @Transient
     var canShowPhoneNumbers: Bool {
-        return isCordless || ((cordedPhoneType == 0 || cordedPhoneType == 2) && baseDisplayType > 0)
+        return isCordless || ((cordedPhoneType == 0 || cordedPhoneType == 2) && baseDisplayType > 2)
     }
 
     // Whether the phone has lists of entries (e.g. phonebook, caller ID list).
@@ -680,6 +682,12 @@ final class Phone {
     @Transient
     var hasBaseSpeaker: Bool {
         return hasBaseSpeakerphone || (isCordless && hasBaseIntercom) || hasBaseAccessibleAnsweringSystem
+    }
+
+    // Whether the phone is a corded phone powered only by the phone line.
+    @Transient
+    var isLinePoweredCorded: Bool {
+        return !isCordless && cordedPowerSource == 0 && landlineConnectionType == 0 && basePhoneType == 0
     }
 
     // The following computed properties check whether the base and/or cordless handsets of a cordless phone have a given feature. For corded phones, the cordless handset checks don't apply.

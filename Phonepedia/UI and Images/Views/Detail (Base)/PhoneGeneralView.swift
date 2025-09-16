@@ -304,28 +304,28 @@ In most cases, if the base has a charge light/display message, the completion of
                     InfoButton(title: "About Corded Phone Styles…") {
                         dialogManager.showingAboutCordedPhoneStyles = true
                     }
-                }
-                if phone.cordedPhoneType == 0 {
-                    Toggle("Has Dual Receivers", isOn: $phone.hasDualReceivers)
-                    InfoText("A corded phone with dual receivers allows 2 people to use the phone at the same time without having to connect 2 separate phones to the same line. These kinds of phones are often used by those requiring a language interpreter.")
-                }
-                if phone.isSlimCorded {
-                    Picker("\(phone.cordedPhoneType == 2 ? "Keypad" : "Rotary Dial") Location", selection: $phone.dialLocation) {
-                        Text("Base").tag(0)
-                        Text("Receiver").tag(1)
+                    if phone.cordedPhoneType == 0 {
+                        Toggle("Has Dual Receivers", isOn: $phone.hasDualReceivers)
+                        InfoText("A corded phone with dual receivers allows 2 people to use the phone at the same time without having to connect 2 separate phones to the same line. These kinds of phones are often used by those requiring a language interpreter.")
                     }
+                    if phone.isSlimCorded {
+                        Picker("\(phone.cordedPhoneType == 2 ? "Keypad" : "Rotary Dial") Location", selection: $phone.dialLocation) {
+                            Text("Base").tag(0)
+                            Text("Receiver").tag(1)
+                        }
+                    }
+                    Picker("Corded Receiver Volume Adjustment", selection: $phone.cordedReceiverVolumeAdjustmentType) {
+                        Text("None").tag(0)
+                        Text("Volume Switch/Dial").tag(1)
+                        Text("Volume Button(s)").tag(2)
+                    }
+                    if phone.cordedReceiverVolumeAdjustmentType == 0 {
+                        WarningText("If the corded receiver volume isn't adjustable and you find it too loud, you'll need to adjust your line's incoming volume. If you can't adjust it, adding a series of resistors between the phone and jack is recommended (consult a professional to build this for you if necessary). If the corded receiver's cord is removable, you can replace it with one that has a volume control.")
+                    }
+                    Toggle("Has Hard-Wired Corded Receiver", isOn: $phone.hasHardWiredCordedReceiver)
+                    InfoText("Some old phones have hard-wired corded receivers, which means you'll need to have the phone repaired if the cord breaks.")
                 }
-                Picker("Corded Receiver Volume Adjustment", selection: $phone.cordedReceiverVolumeAdjustmentType) {
-                    Text("None").tag(0)
-                    Text("Volume Switch/Dial").tag(1)
-                    Text("Volume Button(s)").tag(2)
-                }
-                if phone.cordedReceiverVolumeAdjustmentType == 0 {
-                    WarningText("If the corded receiver volume isn't adjustable and you find it too loud, you'll need to adjust your line's incoming volume. If you can't adjust it, adding a series of resistors between the phone and jack is recommended (consult a professional to build this for you if necessary). If the corded receiver's cord is removable, you can replace it with one that has a volume control.")
-                }
-                Toggle("Has Hard-Wired Corded Receiver", isOn: $phone.hasHardWiredCordedReceiver)
-                InfoText("Some old phones have hard-wired corded receivers, which means you'll need to have the phone repaired if the cord breaks.")
-                if phone.isPushButtonCorded {
+            if phone.isPushButtonCorded || phone.isCordedCordless {
                     Picker("Switch Hook", selection: $phone.switchHookType) {
                         Text(phone.isSlimCorded ? "Press (On Base)" : "Press").tag(0)
                         if phone.isSlimCorded {
@@ -334,9 +334,9 @@ In most cases, if the base has a charge light/display message, the completion of
                         Text("Magnetic").tag(2)
                         Text("Contacts").tag(3)
                     }
+                    InfoText("Most corded phones have a switch hook which presses, located on either the base (pressed by the receiver) or the receiver (pressed by the base). More advanced corded phones might have magnetic switch hooks, where magnets in the base and receiver trigger a magnetically-activated switch, called a reed switch. Some corded phones might use contacts like those found on cordless phones, instead of a switch hook. This is mostly seen on corded phones which are extensions of a cordless system, where placing the corded receiver on the cordless base registers the corded extension phone to the base.")
                 }
-                InfoText("Most corded phones have a switch hook which presses, located on either the base (pressed by the receiver) or the receiver (pressed by the base). More advanced corded phones might have magnetic switch hooks, where magnets in the base and receiver trigger a magnetically-activated switch, called a reed switch. Some corded phones might use contacts like those found on cordless phones, instead of a switch hook. This is mostly seen on corded phones which are extensions of a cordless system, where placing the corded receiver on the cordless base registers the corded extension phone to the base.")
-            if phone.isCordedCordless || (!phone.isCordless && phone.isPushButtonCorded) {
+            if phone.isCordedCordless || phone.isPushButtonCorded {
                 Picker("Corded Receiver Hook Type", selection: $phone.cordedReceiverHookType) {
                     Text("Fixed").tag(0)
                     Text("Flip/Rotate").tag(1)

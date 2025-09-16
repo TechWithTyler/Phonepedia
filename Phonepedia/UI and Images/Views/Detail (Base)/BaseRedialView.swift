@@ -14,10 +14,18 @@ struct BaseRedialView: View {
     @Bindable var phone: Phone
 
     var body: some View {
-        FormNumericTextField(phone.isCordless ? "Redial Capacity (Base)" : "Redial Capacity", value: $phone.baseRedialCapacity, valueRange: .zeroToMax(20), singularSuffix: "entry", pluralSuffix: "entries")
+        FormNumericTextField(phone.isCordless ? "Redial Capacity (Base)" : "Redial Capacity", value: $phone.baseRedialCapacity, valueRange: .zeroToMax(phone.baseDisplayType > 2 ? 20 : 1), singularSuffix: "entry", pluralSuffix: "entries")
 #if !os(visionOS)
             .scrollDismissesKeyboard(.interactively)
 #endif
+        if phone.baseRedialCapacity > 0 && (phone.isCordless || !phone.isLinePoweredCorded) {
+            Picker("Redial When Busy", selection: $phone.busyRedialMode) {
+                Text("Not Supported").tag(0)
+                Text("Press Redial Button").tag(1)
+                Text("Auto-Redial").tag(2)
+            }
+            RedialWhenBusyInfoView()
+        }
         if phone.baseRedialCapacity > 1 && phone.basePhonebookCapacity > 0 {
             Picker("Redial Name Display", selection: $phone.redialNameDisplay) {
                 Text("None").tag(0)
