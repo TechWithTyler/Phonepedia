@@ -20,7 +20,7 @@ struct BaseRingersView: View {
         }
         Text("Total Ringtones: \(phone.totalBaseRingtones)")
         RingtoneInfoView()
-        if !phone.isCordless && phone.basePhoneType == 0 && (phone.isPushButtonCorded) && phone.baseRingtones <= 2 && phone.baseBluetoothCellPhonesSupported == 0 {
+        if phone.basePhoneType == 0 && phone.isPushButtonCorded && phone.baseRingtones <= 2 && phone.baseBluetoothCellPhonesSupported == 0 {
             Picker("Ringer Type", selection: $phone.cordedRingerType) {
                 Text("Bell/Mechanical").tag(0)
                 Text("Electronic").tag(1)
@@ -34,7 +34,15 @@ struct BaseRingersView: View {
                     Text("Receiver").tag(1)
                 }
             }
-            InfoText("Bell phones contain one or more bells and an electromagnet. The electromagnet is used to strike the bell(s) when the phone rings.\nA bell phone may have 2 ringtone options. These phones have an additional bell ringer and a switch that turns its electromagnet on or off.\nA bell/mechanical ringer requires more power to ring, so it may not work properly on most VoIP lines, especially if multiple phones are ringing at once, as they're usually designed for modern phones which typically don't have mechanical ringers. Electronic ringers, especially those that are software-driven, don't require much power.\nThe amount of ringing power a phone requires is determined by the Ringer Equivalence Number (REN), usually found on the bottom of the phone. A higher REN means more power is required for the phone to ring properly. You can connect a device called a REN booster to your line to increase its REN and allow bell/mechanical ringers to ring.")
+            InfoText("""
+            Bell phones contain one or more bells and an electromagnet. The electromagnet causes a striker to move and strike the bell(s) when the phone rings.
+            Some bell phones have two ringtone options. These models include an additional bell and a switch that turns its electromagnet on or off.
+            Because a bell or other mechanical ringer requires more power than modern electronic ringers, it may not work properly on many VoIP lines, especially if multiple phones are ringing at once. Electronic ringers, particularly software-driven ones, need very little power by comparison.
+            The amount of ringing power a phone requires is measured differently depending on the country. In the US and Canada, it's called the Ringer Equivalence Number (REN), usually printed on the bottom of the phone. A higher REN means the phone draws more power to ring. The total REN a line can support is usually 5 for a POTS line, but is usually less (around 2 or 3) for VoIP modems, ATAs, and cell-to-landline solutions.
+            Other countries use different systems. In the UK, older phones were labeled with a Load Number (LN), where 4 LNs ≈ 1 REN. A UK POTS line typically supports up to 4 LNs. Australia and New Zealand also use REN, though with slightly different limits. Most of Europe, Asia, and South America follow ETSI (European Telecommunications Standards Institute)-style standards without REN labels, but the practical limit is usually 3–4 phones per line.
+            If your line cannot provide enough power for mechanical ringers, you can connect a REN booster to increase ringing capacity and ensure bell/mechanical phones ring properly. Exceeding the REN (or equivalent) limit for your line or provider device can cause damage to it.
+            """)
+
         }
         if phone.totalBaseRingtones > 0 {
             Picker("Silent Mode", selection: $phone.silentMode) {
