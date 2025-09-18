@@ -213,8 +213,11 @@ struct CordlessDeviceInfoView: View {
                             ChargerDetailView(charger: charger, chargerNumber: charger.chargerNumber)
                                 .navigationTitle("Charger \(charger.chargerNumber + 1)")
                         } label: {
-                            Text("Charger \(charger.chargerNumber + 1)")
-                                .padding(.vertical, 5)
+                            VStack(alignment: .leading) {
+                                Text("Charger \(charger.chargerNumber + 1)")
+                                Text("Cordless \(charger.type == 0 ? "handset" : "headset/speakerphone") charger")
+                                    .foregroundStyle(.secondary)
+                            }
                         }
                         .contextMenu {
                             Button {
