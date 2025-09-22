@@ -65,7 +65,7 @@ struct PhoneDetailView: View {
         .scrollContentBackground(.hidden)
         .photosPicker(isPresented: $photoViewModel.showingPhotoPicker, selection: $photoViewModel.selectedPhoto, matching: .images, preferredItemEncoding: .automatic)
         .onChange(of: photoViewModel.selectedPhoto, { oldValue, newValue in
-            photoViewModel.updatePhonePhotoToPickerSelection(for: phone, oldValue: oldValue, newValue: newValue)
+            photoViewModel.updatePhonePhotoToPickerSelection(for: phone, to: newValue)
         })
         // Photo dialogs
 #if os(iOS)
@@ -88,7 +88,7 @@ struct PhoneDetailView: View {
                 photoViewModel.showingPhonePhotoExportSuccessfulAlert = false
             }
         }
-        .alert("Reset photo?", isPresented: $photoViewModel.showingResetAlert) {
+        .alert("Reset to the placeholder photo?", isPresented: $photoViewModel.showingResetAlert) {
             Button(role: .destructive) {
                 phone.photoData = nil
                 photoViewModel.showingResetAlert = false

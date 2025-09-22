@@ -359,6 +359,12 @@ final class CordlessHandset {
         return phone.baseBluetoothCellPhonesSupported > 0 && (lineButtons == 0 || talkOffButtonType == 4)
     }
 
+    // Whether the handset's navigation button is an up/down/left/right button/joystick.
+    @Transient
+    var navigatorKeyLeftRight: Bool {
+        return navigatorKeyType == 2 || navigatorKeyType == 3
+    }
+
     // Whether the cordless device was acquired in the year of release (the acquisition year is the same as the release year, and both years are known).
     @Transient
     var acquiredInYearOfRelease: Bool {
@@ -906,6 +912,7 @@ final class CordlessHandset {
         newHandset.canDialThenPlaceOnBase = self.canDialThenPlaceOnBase
         newHandset.buttonPressOnChargeBehavior = self.buttonPressOnChargeBehavior
         newHandset.hasKeypadLock = self.hasKeypadLock
+        newHandset.busyRedialMode = self.busyRedialMode
         // 4. Return the duplicated handset.
         return newHandset
     }

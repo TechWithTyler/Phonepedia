@@ -536,7 +536,7 @@ final class Phone {
     // Whether a corded phone has an electronic ringer or a cordless phone has a base ringer.
     @Transient
     var hasElectronicRinger: Bool {
-        return baseRingtones > 0 && (isCordless || cordedRingerType == 1)
+        return baseRingtones > 2 || isCordless || cordedRingerType == 1
     }
 
     // The total number of base ringtones (standard + music/melody).
@@ -586,6 +586,12 @@ final class Phone {
     @Transient
     var isCordedCordless: Bool {
         return isCordless && hasCordedReceiver
+    }
+
+    // The number of cordless devices the user has added to the phone plus 1, which is used to set a new cordless device's properties before it's added to the phone's numberOfCordlessHandsets array.
+    @Transient
+    var cordlessHandsetsIHaveAfterAddHandset: Int {
+        return cordlessHandsetsIHave.count + 1
     }
 
     // Whether the user has added the maximum number of, or too many, cordless devices to the phone based on how many can be registered to its base.

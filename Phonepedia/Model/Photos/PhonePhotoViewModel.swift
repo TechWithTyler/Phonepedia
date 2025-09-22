@@ -51,7 +51,7 @@ class PhonePhotoViewModel: ObservableObject {
 
     // MARK: - Phone Photo Update - Photos Picker Selection
 
-    func updatePhonePhotoToPickerSelection(for phone: Phone, oldValue: PhotosPickerItem?, newValue: PhotosPickerItem?) {
+    func updatePhonePhotoToPickerSelection(for phone: Phone, to newValue: PhotosPickerItem?) {
         guard let newValue = newValue else { return }
         let progress = newValue.loadTransferable(type: Data.self) { [self] result in
             // 1. Nil-out the photo picker selection after it's loaded into the app.
@@ -62,7 +62,7 @@ class PhonePhotoViewModel: ObservableObject {
                     // 2. If successful, check the photo for landline/VoIP phones. Ask the user for confirmation if no landline/VoIP phones could be detected.
                     checkImageForLandlinesAndSave(photoData: data!, phone: phone)
                 case .failure(let error as NSError):
-                    // 3. If photo loading fails, log an error.
+                    // 3. If photo loading fails, show an error.
 #if(DEBUG)
                     print("Error: \(error)")
 #endif

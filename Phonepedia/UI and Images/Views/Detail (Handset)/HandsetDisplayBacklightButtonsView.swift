@@ -226,7 +226,7 @@ struct HandsetDisplayBacklightButtonsView: View {
                                     Image(systemName: "arrowtriangle.up.fill")
                                         .accessibilityLabel("Up")
                                     HStack(alignment: .center, spacing: 20) {
-                                        if handset.navigatorKeyType == 3 {
+                                        if handset.navigatorKeyLeftRight {
                                             Image(systemName: "arrowtriangle.left.fill")
                                                 .accessibilityLabel("Left")
                                         }
@@ -235,7 +235,7 @@ struct HandsetDisplayBacklightButtonsView: View {
                                                 .font(.system(size: 18))
                                                 .accessibilityLabel("Center Button")
                                         }
-                                        if handset.navigatorKeyType == 3 {
+                                        if handset.navigatorKeyLeftRight {
                                             Image(systemName: "arrowtriangle.right.fill")
                                                 .accessibilityLabel("Right")
                                         }

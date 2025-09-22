@@ -18,7 +18,7 @@ var phoneDescriptionSampleText: String = "I bought this phone at a thrift store 
 
 // MARK: - Properties - Integers
 
-// The current year to use as the default value of a phone or handset's release year/acquisition year.
+// The current year to use as the default value of a phone or cordless device's release year/acquisition year.
 var currentYear = Calendar.current.component(.year, from: Date())
 
 // The least maximum phonebook entries required to support Bluetooth phonebook transfers.

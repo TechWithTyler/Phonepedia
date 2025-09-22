@@ -119,7 +119,7 @@ struct PhoneGeneralView: View {
             }
         }
         if phone.basePhoneType == 0 {
-        Section(cordedCordlessSectionName) {
+            Section(cordedCordlessSectionName) {
                 if phone.isCordless {
                     Group {
                         HandsetNumberDigitView(phone: phone)
@@ -133,24 +133,24 @@ struct PhoneGeneralView: View {
                         InfoButton(title: "Registration/Security Code Explanation…") {
                             dialogManager.showingRegistrationExplanation = true
                         }
-                    }
-                    Picker("Frequency", selection: $phone.frequency) {
-                        ForEach(Phone.CordlessFrequency.allCases) { frequency in
-                            if frequency.rawValue < 0 {
-                                Divider()
-                            } else {
-                                Text(frequency.name).tag(frequency)
+                        Picker("Frequency", selection: $phone.frequency) {
+                            ForEach(Phone.CordlessFrequency.allCases) { frequency in
+                                if frequency.rawValue < 0 {
+                                    Divider()
+                                } else {
+                                    Text(frequency.name).tag(frequency)
+                                }
                             }
                         }
-                    }
-                    .onChange(of: phone.isDigitalCordless) { oldValue, newValue in
-                        phone.isDigitalCordlessChanged(oldValue: oldValue, newValue: newValue)
-                    }
-                    if phone.frequency == 0 {
-                        WarningText("You may not be able to specify certain features/aspects of this phone without knowing its frequency! Try looking up the wireless frequency and communication technology (whether it's analog or digital) of the \(phone.brand) \(phone.model) and select the correct option above.")
-                    }
-                    InfoButton(title: "Frequencies/Communication Technologies Explanation…") {
-                        dialogManager.showingFrequenciesExplanation = true
+                        .onChange(of: phone.isDigitalCordless) { oldValue, newValue in
+                            phone.isDigitalCordlessChanged(oldValue: oldValue, newValue: newValue)
+                        }
+                        if phone.frequency == 0 {
+                            WarningText("You may not be able to specify certain features/aspects of this phone without knowing its frequency! Try looking up the wireless frequency and communication technology (whether it's analog or digital) of the \(phone.brand) \(phone.model) and select the correct option above.")
+                        }
+                        InfoButton(title: "Frequencies/Communication Technologies Explanation…") {
+                            dialogManager.showingFrequenciesExplanation = true
+                        }
                     }
                     if phone.isDigitalCordless {
                         Toggle("Supports Range Extenders", isOn: $phone.supportsRangeExtenders)
@@ -325,7 +325,7 @@ In most cases, if the base has a charge light/display message, the completion of
                     Toggle("Has Hard-Wired Corded Receiver", isOn: $phone.hasHardWiredCordedReceiver)
                     InfoText("Some old phones have hard-wired corded receivers, which means you'll need to have the phone repaired if the cord breaks.")
                 }
-            if phone.isPushButtonCorded || phone.isCordedCordless {
+                if phone.isPushButtonCorded || phone.isCordedCordless {
                     Picker("Switch Hook", selection: $phone.switchHookType) {
                         Text(phone.isSlimCorded ? "Press (On Base)" : "Press").tag(0)
                         if phone.isSlimCorded {
@@ -336,16 +336,16 @@ In most cases, if the base has a charge light/display message, the completion of
                     }
                     InfoText("Most corded phones have a switch hook which presses, located on either the base (pressed by the receiver) or the receiver (pressed by the base). More advanced corded phones might have magnetic switch hooks, where magnets in the base and receiver trigger a magnetically-activated switch, called a reed switch. Some corded phones might use contacts like those found on cordless phones, instead of a switch hook. This is mostly seen on corded phones which are extensions of a cordless system, where placing the corded receiver on the cordless base registers the corded extension phone to the base.")
                 }
-            if phone.isCordedCordless || phone.isPushButtonCorded {
-                Picker("Corded Receiver Hook Type", selection: $phone.cordedReceiverHookType) {
-                    Text("Fixed").tag(0)
-                    Text("Flip/Rotate").tag(1)
-                    Text("Removable").tag(2)
+                if phone.isCordedCordless || phone.isPushButtonCorded {
+                    Picker("Corded Receiver Hook Type", selection: $phone.cordedReceiverHookType) {
+                        Text("Fixed").tag(0)
+                        Text("Flip/Rotate").tag(1)
+                        Text("Removable").tag(2)
+                    }
+                    InfoText("The corded receiver hook holds it in place when the phone is wall-mounted, which prevents it from falling off the base. This is not to be confused with the switch hook, which is what tells the phone whether it's on or off-hook.\n• Fixed: The phone has a hook that slots into a hole on the corded receiver below the earpiece. On slim/wall phones where the switch hook is on the receiver instead of on the base, the switch hook is located directly below this hole and gets pressed by the hook on the base.\n• Flip/Rotate: The hook can be flipped or rotated so it sticks out when you want to mount the phone on the wall, or so it doesn't stick out when you don't want to mount it on the wall.\n• Removable: The phone has a removable hook which is inserted one way for desk use and another way for wall use. This is the most common type of corded receiver hook and has the risk of getting lost.")
                 }
-                InfoText("The corded receiver hook holds it in place when the phone is wall-mounted, which prevents it from falling off the base. This is not to be confused with the switch hook, which is what tells the phone whether it's on or off-hook.\n• Fixed: The phone has a hook that slots into a hole on the corded receiver below the earpiece. On slim/wall phones where the switch hook is on the receiver instead of on the base, the switch hook is located directly below this hole and gets pressed by the hook on the base.\n• Flip/Rotate: The hook can be flipped or rotated so it sticks out when you want to mount the phone on the wall, or so it doesn't stick out when you don't want to mount it on the wall.\n• Removable: The phone has a removable hook which is inserted one way for desk use and another way for wall use. This is the most common type of corded receiver hook and has the risk of getting lost.")
             }
         }
-    }
     }
 
 }
