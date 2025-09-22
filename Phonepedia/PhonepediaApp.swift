@@ -12,12 +12,6 @@ import SwiftData
 
 @main
 struct PhonepediaApp: App {
-    
-    @ObservedObject var photoViewModel = PhonePhotoViewModel()
-
-    @ObservedObject var dialogManager = DialogManager()
-
-    @ObservedObject var audioManager = AudioManager()
 
     var body: some Scene {
 #if os(iOS) || os(visionOS)
@@ -31,20 +25,16 @@ struct PhonepediaApp: App {
 #endif
         DocumentGroup(editing: .phonepediaCatalog, migrationPlan: PhonepediaMigrationPlan.self) {
             ContentView()
-                .environmentObject(photoViewModel)
-                .environmentObject(dialogManager)
-                .environmentObject(audioManager)
             #if os(macOS)
                 .frame(minWidth: 1000)
             #endif
         }
         .commands {
-            PhonepediaCommands(dialogManager: dialogManager)
+            PhonepediaCommands()
         }
         #if os(macOS)
         Settings {
             SettingsView()
-                .environmentObject(dialogManager)
         }
         #endif
     }

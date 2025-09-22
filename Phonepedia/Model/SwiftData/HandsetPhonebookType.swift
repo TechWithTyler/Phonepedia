@@ -15,13 +15,13 @@ extension CordlessHandset {
 
         // MARK: - Handset Phonebook Types
 
-        // The phonebook is stored in each device separately.
+        // The phonebook is stored in each cordless handset/deskset separately.
         case individual = "Individual"
 
-        // The phonebook is stored in the base and is shared by all devices.
+        // The phonebook is stored in the base and is shared by all cordless handsets/desksets.
         case shared = "Shared"
 
-        // The device has its own phonebook but can also access the one in the base.
+        // The cordless handset/deskset has its own phonebook but can also access the one in the base.
         case sharedAndIndividual = "Shared and Individual"
 
     }

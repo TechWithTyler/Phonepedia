@@ -24,6 +24,10 @@ struct PhoneListView: View {
 
     @State var phoneFilterType: String = "all"
 
+    var wiFiHandsetTypeString: String = Phone.PhoneType.wiFiHandset.rawValue.lowercased()
+
+    var cellularHandsetTypeString: String = Phone.PhoneType.cellularHandset.rawValue.lowercased()
+
     @State var phoneFilterBrand: String = "all"
 
     var allBrands: [String] {
@@ -53,6 +57,10 @@ struct PhoneListView: View {
         return phoneFilterType != "all" || phoneFilterActive != 0 || phoneFilterBrand != "all" || phoneFilterAnsweringSystem != 0
     }
 
+    var phoneFilterTypeNotStandaloneWirelessHandsets: Bool {
+        return phoneFilterType != wiFiHandsetTypeString && phoneFilterType != cellularHandsetTypeString
+    }
+
     // MARK: - Properties - Phones
 
     var phones: [Phone]
@@ -62,18 +70,23 @@ struct PhoneListView: View {
     }
 
     var cordedPhones: [Phone] {
-        return phones.filter { $0.numberOfIncludedCordlessHandsets == 0 && !$0.isWiFiHandset }
+        return phones.filter { $0.numberOfIncludedCordlessHandsets == 0 && $0.basePhoneType == 0 }
     }
 
     var wiFiHandsets: [Phone] {
-        return phones.filter { $0.isWiFiHandset }
+        return phones.filter { $0.basePhoneType == 1 }
+    }
+
+    var cellularHandsets: [Phone] {
+        return phones.filter { $0.basePhoneType == 2 }
     }
 
     var typeFilteredPhones: [Phone] {
         switch phoneFilterType {
         case Phone.PhoneType.cordless.rawValue.lowercased(): return cordlessPhones
         case Phone.PhoneType.corded.rawValue.lowercased(): return cordedPhones
-        case Phone.PhoneType.wiFiHandset.rawValue.lowercased(): return wiFiHandsets
+        case wiFiHandsetTypeString: return wiFiHandsets
+        case cellularHandsetTypeString: return cellularHandsets
         default: return phones
         }
     }
@@ -94,6 +107,9 @@ struct PhoneListView: View {
     }
 
     var answeringSystemFilteredPhones: [Phone] {
+        guard phoneFilterTypeNotStandaloneWirelessHandsets else {
+            return brandFilteredPhones
+        }
         switch phoneFilterAnsweringSystem {
         case 1: return brandFilteredPhones.filter { $0.hasAnsweringSystem > 0 }
         case 2: return brandFilteredPhones.filter { $0.hasAnsweringSystem == 0 }
@@ -225,10 +241,10 @@ struct PhoneListView: View {
         #endif
         ToolbarItem {
             OptionsMenu(title: .menu) {
-                PhoneCountButton()
-                .badge(phones.count)
                 PhoneTypeDefinitionsButton()
                 Divider()
+                PhoneCountButton()
+                .badge(phones.count)
                 Menu("Phone List Detail") {
                     PhoneListDetailOptions(menu: true)
                 }
@@ -256,9 +272,10 @@ struct PhoneListView: View {
             Picker("Phone Type (\(phoneFilterType == "all" ? "Off" : "On"))", selection: $phoneFilterType) {
                 Text("All").tag("all")
                 Divider()
-                Text("Cordless or Corded/Cordless Phones").tag(Phone.PhoneType.cordless.rawValue.lowercased())
+                Text("Cordless (Incl. Corded/Cordless) Phones").tag(Phone.PhoneType.cordless.rawValue.lowercased())
                 Text("Corded Phones").tag(Phone.PhoneType.corded.rawValue.lowercased())
                 Text("Wi-Fi Handsets").tag(Phone.PhoneType.wiFiHandset.rawValue.lowercased())
+                Text("Cellular Handsets").tag(Phone.PhoneType.cellularHandset.rawValue.lowercased())
             }
             .pickerStyle(.menu)
             .toggleStyle(.automatic)
@@ -279,14 +296,16 @@ struct PhoneListView: View {
             }
             .pickerStyle(.menu)
             .toggleStyle(.automatic)
-            Picker("Answering Systems (\(phoneFilterAnsweringSystem == 0 ? "Off" : "On"))", selection: $phoneFilterAnsweringSystem) {
-                Text("Off").tag(0)
-                Divider()
-                Text("With Answering System").tag(1)
-                Text("Without Answering System").tag(2)
+            if phoneFilterTypeNotStandaloneWirelessHandsets {
+                Picker("Answering Systems (\(phoneFilterAnsweringSystem == 0 ? "Off" : "On"))", selection: $phoneFilterAnsweringSystem) {
+                    Text("Off").tag(0)
+                    Divider()
+                    Text("With Answering System").tag(1)
+                    Text("Without Answering System").tag(2)
+                }
+                .pickerStyle(.menu)
+                .toggleStyle(.automatic)
             }
-            .pickerStyle(.menu)
-            .toggleStyle(.automatic)
             Divider()
             Button("Reset") {
                 resetPhoneFilter()

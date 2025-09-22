@@ -1,0 +1,63 @@
+{
+  "fill-specializations" : [
+    {
+      "value" : {
+        "linear-gradient" : [
+          "srgb:0.32142,0.42754,0.99886,1.00000",
+          "srgb:0.37737,0.31147,0.94043,1.00000"
+        ]
+      }
+    },
+    {
+      "appearance" : "dark",
+      "value" : "system-dark"
+    }
+  ],
+  "groups" : [
+    {
+      "layers" : [
+        {
+          "fill-specializations" : [
+            {
+              "appearance" : "dark",
+              "value" : {
+                "linear-gradient" : [
+                  "srgb:0.32142,0.42754,0.99886,1.00000",
+                  "srgb:0.37737,0.31147,0.94043,1.00000"
+                ]
+              }
+            }
+          ],
+          "image-name" : "Foreground Phone.png",
+          "name" : "Foreground Phone"
+        },
+        {
+          "fill-specializations" : [
+            {
+              "appearance" : "dark",
+              "value" : {
+                "linear-gradient" : [
+                  "srgb:0.32142,0.42754,0.99886,1.00000",
+                  "srgb:0.37737,0.31147,0.94043,1.00000"
+                ]
+              }
+            }
+          ],
+          "image-name" : "background Phone.png",
+          "name" : "background Phone"
+        }
+      ],
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0.5
+      },
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.5
+      }
+    }
+  ],
+  "supported-platforms" : {
+    "squares" : "shared"
+  }
+}

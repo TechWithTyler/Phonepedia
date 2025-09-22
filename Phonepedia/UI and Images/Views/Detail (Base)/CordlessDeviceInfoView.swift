@@ -59,7 +59,7 @@ struct CordlessDeviceInfoView: View {
     // MARK: - Body
 
     var body: some View {
-        if !phone.isWiFiHandset {
+        if phone.basePhoneType == 0 {
             Section("Cordless Devices") {
                 HStack {
                     Picker("Filter", selection: $cordlessDeviceFilter) {
@@ -74,20 +74,22 @@ struct CordlessDeviceInfoView: View {
                 }
                 Menu {
                     if !phone.cordlessHandsetsIHave.isEmpty {
-                        Button(action: duplicateLastHandset) {
+                        Button(action: duplicateLastCordlessDevice) {
                             Text("Duplicate of Last Cordless Device")
                         }
                     }
-                    Button(action: addHandset) {
+                    Button(action: addCordlessDevice) {
                         Text("New Cordless Device")
                     }
                 } label: {
                     Label("Add", systemImage: "plus")
                 }
-                .frame(width: 80, alignment: .leading)
                 .menuIndicator(.hidden)
                 .accessibilityIdentifier("AddHandsetButton")
-                .disabled(phone.cordlessHandsetsIHave.count >= phone.maxCordlessHandsets && phone.maxCordlessHandsets != -1)
+                .disabled(phone.maxOrTooManyCordlessDevices)
+                if phone.maxOrTooManyCordlessDevices {
+                    WarningText("You currently have the maximum number of cordless devices (\(phone.maxCordlessHandsets)) for this \(phone.brand) \(phone.model). If you're trying to add another cordless device, make sure you've specified the correct number of maximum cordless devices on the General page.")
+                }
                 Button(role: .destructive) {
                     dialogManager.showingDeleteAllHandsets = true
                 } label: {
@@ -97,64 +99,14 @@ struct CordlessDeviceInfoView: View {
 #endif
                 }
                 if !filteredCordlessDevices.isEmpty {
-                    List {
-                        ForEach(filteredCordlessDevices) { handset in
-                            NavigationLink {
-                                HandsetDetailView(handset: handset)
-                                    .navigationTitle("Device \(handset.handsetNumber + 1)")
-                            } label: {
-                                HStack {
-                                    VStack(alignment: .leading) {
-                                        Text("\(handset.brand) \(handset.model.isEmpty ? "<No Model Number>" : handset.model)")
-                                        Text(handset.storageOrSetup > 1 ? "In Storage" : "Active")
-                                            .foregroundStyle(.secondary)
-                                    }
-                                    Spacer()
-                                    VStack(alignment: .trailing) {
-                                        Text("Device \(handset.handsetNumber + 1)")
-                                        if cordlessDeviceFilter == "all" {
-                                            Text(handset.cordlessDeviceTypeText)
-                                        }
-                                    }
-                                    .foregroundStyle(.secondary)
-                                }
-                                .padding(.vertical, 5)
-                            }
-                            .contextMenu {
-                                Button {
-                                    duplicateHandset(handset)
-                                } label: {
-                                    Label("Duplicate", systemImage: "doc.on.doc")
-                                }
-                                Divider()
-                                Button(role: .destructive) {
-                                    dialogManager.showingDeleteHandset = true
-                                    dialogManager.handsetToDelete = handset
-                                } label: {
-                                    Label("Delete…", systemImage: "trash")
-                                }
-                            }
-                            .swipeActions {
-                                Button(role: .destructive) {
-                                    dialogManager.showingDeleteHandset = true
-                                    dialogManager.handsetToDelete = handset
-                                } label: {
-                                    Label("Delete", systemImage: "trash")
-                                }
-                            }
-                        }
-                        .onMove(perform: moveHandsets)
-                    }
-                    if phone.cordlessHandsetsIHave.count > phone.maxCordlessHandsets {
-                        WarningText("You have more cordless devices than the base can handle!")
-                    }
+                    cordlessDeviceList
                 }
                 FormTextField("Main Cordless Device Model", text: $phone.mainHandsetModel)
-                InfoText("Enter the model number of the main cordless handset or deskset included with the \(phone.brand) \(phone.model) so newly-added cordless devices will default to that model number.\nA cordless phone's main handset/deskset is registered to the base as number 1, and may have some special features, like backing up the time in case of power outage, not available to other devices on the system.\nSome non-expandable cordless phones won't have a handset model number or it will be the same as that of the set it came with--leave this field blank in this case.")
+                InfoText("Enter the model number of the main cordless device included with the \(phone.brand) \(phone.model) so newly-added cordless devices will default to that model number.\nA cordless phone's main handset/deskset is registered to the base as number 1, and may have some special features, like backing up the time in case of power outage, not available to other devices on the system.\nSome non-expandable cordless phones won't have a handset model number or it will be the same as that of the set it came with--leave this field blank in this case.")
             }
             .alert("Delete this cordless device?", isPresented: $dialogManager.showingDeleteHandset, presenting: $dialogManager.handsetToDelete) { handset in
                 Button("Delete", role: .destructive) {
-                    deleteHandset(handset.wrappedValue!)
+                    deleteCordlessDevice(handset.wrappedValue!)
                     dialogManager.handsetToDelete = nil
                     dialogManager.showingDeleteHandset = false
                 }
@@ -178,66 +130,32 @@ struct CordlessDeviceInfoView: View {
                 Text("All cordless devices will be deleted from this \(phone.brand) \(phone.model).")
             }
         }
-        Section(phone.isWiFiHandset ? "Chargers" : "Cordless Device Chargers") {
-                Text("\(chargerCount) \(chargerCount == 1 ? "Charger" : "Chargers")")
-                Menu {
-                    if !phone.chargersIHave.isEmpty {
-                        Button(action: duplicateLastCharger) {
-                            Text("Duplicate of Last Charger")
-                        }
+        Section(phone.basePhoneType > 0 ? "Chargers" : "Cordless Device Chargers") {
+            Text("\(chargerCount) \(chargerCount == 1 ? "Charger" : "Chargers")")
+            Menu {
+                if !phone.chargersIHave.isEmpty {
+                    Button(action: duplicateLastCharger) {
+                        Text("Duplicate of Last Charger")
                     }
-                    Button(action: addCharger) {
-                        Text("New Charger")
-                    }
-                } label: {
-                    Label("Add", systemImage: "plus")
                 }
-                .frame(width: 80, alignment: .leading)
-                .menuIndicator(.hidden)
-                .accessibilityIdentifier("AddChargerButton")
-                Button(role: .destructive) {
-                    dialogManager.showingDeleteAllChargers = true
-                } label: {
-                    Label("Delete All…", systemImage: "trash.fill")
-    #if !os(macOS)
-                        .foregroundStyle(.red)
-    #endif
+                Button(action: addCharger) {
+                    Text("New Charger")
                 }
+            } label: {
+                Label("Add", systemImage: "plus")
+            }
+            .menuIndicator(.hidden)
+            .accessibilityIdentifier("AddChargerButton")
+            Button(role: .destructive) {
+                dialogManager.showingDeleteAllChargers = true
+            } label: {
+                Label("Delete All…", systemImage: "trash.fill")
+#if !os(macOS)
+                    .foregroundStyle(.red)
+#endif
+            }
             if !phone.chargersIHave.isEmpty {
-                List {
-                    ForEach(sortedChargers) { charger in
-                        NavigationLink {
-                            ChargerDetailView(charger: charger, chargerNumber: charger.chargerNumber)
-                                .navigationTitle("Charger \(charger.chargerNumber + 1)")
-                        } label: {
-                            Text("Charger \(charger.chargerNumber + 1)")
-                                .padding(.vertical, 5)
-                        }
-                        .contextMenu {
-                            Button {
-                                duplicateCharger(charger)
-                            } label: {
-                                Label("Duplicate", systemImage: "doc.on.doc")
-                            }
-                            Divider()
-                            Button(role: .destructive) {
-                                dialogManager.showingDeleteCharger = true
-                                dialogManager.chargerToDelete = charger
-                            } label: {
-                                Label("Delete…", systemImage: "trash")
-                            }
-                        }
-                        .swipeActions {
-                            Button(role: .destructive) {
-                                dialogManager.showingDeleteCharger = true
-                                dialogManager.chargerToDelete = charger
-                            } label: {
-                                Label("Delete", systemImage: "trash")
-                            }
-                        }
-                    }
-                    .onMove(perform: moveChargers)
-                }
+                chargerList
             }
         }
         .alert("Rearranging the cordless device list isn't possible while the cordless device filter is enabled.", isPresented: $dialogManager.showingMoveFailedHandset) {
@@ -273,65 +191,166 @@ struct CordlessDeviceInfoView: View {
         }
     }
 
-    // MARK: - Handset Management
+    // MARK: - Cordless Device List
 
-    func addHandset() {
-        // 1. Create a new CordlessHandset object. Newly-added handsets default to the phone's brand, the phone's main handset model number, and the phone base's colors.
-        let newHandset = CordlessHandset(brand: phone.brand, model: phone.mainHandsetModel, mainColorRed: phone.baseMainColorRed, mainColorGreen: phone.baseMainColorGreen, mainColorBlue: phone.baseMainColorBlue, secondaryColorRed: phone.baseSecondaryColorRed, secondaryColorGreen: phone.baseSecondaryColorGreen, secondaryColorBlue: phone.baseSecondaryColorBlue, accentColorRed: phone.baseAccentColorRed, accentColorGreen: phone.baseAccentColorGreen, accentColorBlue: phone.baseAccentColorBlue)
-        // 2. If the handset count is the same as the number of included handsets, set "Where I Got This Cordless Device" to 0 (Included With Base/Set). Otherwise, use the default acquisition method.
-        if phone.cordlessHandsetsIHave.count + 1 <= phone.numberOfIncludedCordlessHandsets {
-            newHandset.whereAcquired = 0
+    @ViewBuilder
+    var cordlessDeviceList: some View {
+        List {
+            ForEach(filteredCordlessDevices) { handset in
+                NavigationLink {
+                    HandsetDetailView(handset: handset)
+                        .navigationTitle("Device \(handset.handsetNumber + 1)")
+                } label: {
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text("\(handset.brand) \(handset.model.isEmpty ? "<No Model Number>" : handset.model)")
+                            Text(handset.storageOrSetup > 1 ? "In Storage" : "Active")
+                                .foregroundStyle(.secondary)
+                        }
+                        Spacer()
+                        VStack(alignment: .trailing) {
+                            Text("Device \(handset.handsetNumber + 1)")
+                            if cordlessDeviceFilter == "all" {
+                                Text(handset.cordlessDeviceTypeText)
+                            }
+                        }
+                        .foregroundStyle(.secondary)
+                    }
+                    .padding(.vertical, 5)
+                }
+                .contextMenu {
+                    Button {
+                        duplicateCordlessDevice(handset)
+                    } label: {
+                        Label("Duplicate", systemImage: "doc.on.doc")
+                    }
+                    Divider()
+                    Button(role: .destructive) {
+                        dialogManager.showingDeleteHandset = true
+                        dialogManager.handsetToDelete = handset
+                    } label: {
+                        Label("Delete…", systemImage: "trash")
+                    }
+                }
+                .swipeActions {
+                    Button(role: .destructive) {
+                        dialogManager.showingDeleteHandset = true
+                        dialogManager.handsetToDelete = handset
+                    } label: {
+                        Label("Delete", systemImage: "trash")
+                    }
+                }
+            }
+            .onMove(perform: moveCordlessDevices)
+        }
+        if phone.tooManyCordlessDevices {
+            WarningText("You have more cordless devices than the base can handle!")
+        }
+    }
+
+    // MARK: - Charger List
+
+    @ViewBuilder
+    var chargerList: some View {
+        List {
+            ForEach(sortedChargers) { charger in
+                NavigationLink {
+                    ChargerDetailView(charger: charger, chargerNumber: charger.chargerNumber)
+                        .navigationTitle("Charger \(charger.chargerNumber + 1)")
+                } label: {
+                    VStack(alignment: .leading) {
+                        Text("Charger \(charger.chargerNumber + 1)")
+                        Text("Cordless \(charger.type == 0 ? "handset" : "headset/speakerphone") charger")
+                            .foregroundStyle(.secondary)
+                    }
+                }
+                .contextMenu {
+                    Button {
+                        duplicateCharger(charger)
+                    } label: {
+                        Label("Duplicate", systemImage: "doc.on.doc")
+                    }
+                    Divider()
+                    Button(role: .destructive) {
+                        dialogManager.showingDeleteCharger = true
+                        dialogManager.chargerToDelete = charger
+                    } label: {
+                        Label("Delete…", systemImage: "trash")
+                    }
+                }
+                .swipeActions {
+                    Button(role: .destructive) {
+                        dialogManager.showingDeleteCharger = true
+                        dialogManager.chargerToDelete = charger
+                    } label: {
+                        Label("Delete", systemImage: "trash")
+                    }
+                }
+            }
+            .onMove(perform: moveChargers)
+        }
+    }
+
+    // MARK: - Cordless Device Management
+
+    func addCordlessDevice() {
+        // 1. Create a new CordlessHandset object. Newly-added cordless devices default to the phone's brand, the phone's main cordless device model number, and the phone base's colors.
+        let newCordlessDevice = CordlessHandset(brand: phone.brand, model: phone.mainHandsetModel, mainColorRed: phone.baseMainColorRed, mainColorGreen: phone.baseMainColorGreen, mainColorBlue: phone.baseMainColorBlue, secondaryColorRed: phone.baseSecondaryColorRed, secondaryColorGreen: phone.baseSecondaryColorGreen, secondaryColorBlue: phone.baseSecondaryColorBlue, accentColorRed: phone.baseAccentColorRed, accentColorGreen: phone.baseAccentColorGreen, accentColorBlue: phone.baseAccentColorBlue)
+        // 2. If the cordless device count is the same as the number of included cordless devices, set "Where I Got This Cordless Device" to 0 (Included With Base/Set). Otherwise, use the default acquisition method.
+        if phone.cordlessHandsetsIHaveAfterAddHandset <= phone.numberOfIncludedCordlessHandsets {
+            newCordlessDevice.whereAcquired = 0
         } else {
             // For cordless devices, an additional option is available for the "Where I Got This" selection, "Included With Base/Set", with a tag of 0, so we need to add 1 to the default acquisition method.
-            newHandset.whereAcquired = defaultAcquisitionMethod + 1
+            newCordlessDevice.whereAcquired = defaultAcquisitionMethod + 1
         }
-        // A handset's handsetNumber property is the index of the handset in the list, and as with any index, it starts at 0. The number of handsets in the list before the new handset is added can be used as the handset's index without adding/subtracting 1.
-        newHandset.handsetNumber = phone.cordlessHandsetsIHave.count
-        // 3. Add the handset to the phone's list of handsets.
-        phone.cordlessHandsetsIHave.append(newHandset)
+        // A cordless device's handsetNumber property is the index of the cordless device in the list, and as with any index, it starts at 0. The number of cordless devices in the list before the new one is added can be used as its index without adding/subtracting 1.
+        newCordlessDevice.handsetNumber = phone.cordlessHandsetsIHave.count
+        // 3. Add the cordless device to the phone's list of cordless devices.
+        phone.cordlessHandsetsIHave.append(newCordlessDevice)
     }
 
-    func duplicateHandset(_ handset: CordlessHandset) {
+    func duplicateCordlessDevice(_ cordlessDevice: CordlessHandset) {
         // 1. Create a duplicate of handset and set its number.
-        let newHandsetNumber = sortedCordlessDevices.endIndex
-        let newHandset = handset.duplicate()
-        newHandset.handsetNumber = newHandsetNumber
+        let newCordlessDeviceNumber = sortedCordlessDevices.endIndex
+        let newCordlessDevice = cordlessDevice.duplicate()
+        newCordlessDevice.handsetNumber = newCordlessDeviceNumber
         // 2. Insert the duplicate handset at the end of the array.
-        phone.cordlessHandsetsIHave.append(newHandset)
+        phone.cordlessHandsetsIHave.append(newCordlessDevice)
         // 3. Move the duplicate handset to after the original.
-        moveHandsets(source: IndexSet(integer: newHandsetNumber), destination: handset.handsetNumber + 1)
+        moveCordlessDevices(source: IndexSet(integer: newCordlessDeviceNumber), destination: cordlessDevice.handsetNumber + 1)
     }
 
-    func duplicateLastHandset() {
-        duplicateHandset(sortedCordlessDevices.last!)
+    func duplicateLastCordlessDevice() {
+        guard let lastCordlessDevice = sortedCordlessDevices.last else { return }
+        duplicateCordlessDevice(lastCordlessDevice)
     }
 
-    private func moveHandsets(source: IndexSet, destination: Int) {
+    private func moveCordlessDevices(source: IndexSet, destination: Int) {
         // 1. If the cordless device filter is enabled, show an alert and don't continue.
         guard cordlessDeviceFilter == "all" else {
-                dialogManager.showingMoveFailedHandset = true
-                return
-            }
+            dialogManager.showingMoveFailedHandset = true
+            return
+        }
         withAnimation {
             // 2. Create a copy of the sortedCordlessDevices array pre-move.
-            var handsetsCopy = sortedCordlessDevices
+            var cordlessDevicesCopy = sortedCordlessDevices
             // 3. Perform the move operation on the copy.
-            handsetsCopy.move(fromOffsets: source, toOffset: destination)
-            // 4. Use the copy's items and their indicies to move the cordless devices in the original array.
-            for (index, handset) in handsetsCopy.enumerated() {
-                if let originalHandset = sortedCordlessDevices.filter({ $0.id == handset.id}).first {
-                    originalHandset.handsetNumber = index
+            cordlessDevicesCopy.move(fromOffsets: source, toOffset: destination)
+            // 4. Use the copy's items and their indices to move the cordless devices in the original Dearray.
+            for (index, cordlessDevice) in cordlessDevicesCopy.enumerated() {
+                if let originalCordlessDevice = sortedCordlessDevices.filter({ $0.id == cordlessDevice.id}).first {
+                    originalCordlessDevice.handsetNumber = index
                 }
             }
         }
     }
 
-    func deleteHandset(_ handset: CordlessHandset) {
-        // 1. Create a snapshot of the index of the handset to be deleted so handsets after the deleted one can be shifted down after deletion.
-        let deletedIndex = handset.handsetNumber
-        // 2. Delete the handset.
-        phone.cordlessHandsetsIHave.removeAll { $0.id == handset.id }
-        // 3. For any handset whose index is higher than the one that was just deleted, decrease handsetNumber by 1.
+    func deleteCordlessDevice(_ cordlessDevice: CordlessHandset) {
+        // 1. Create a snapshot of the index of the cordless device to be deleted so cordless devices after the deleted one can be shifted down after deletion.
+        let deletedIndex = cordlessDevice.handsetNumber
+        // 2. Delete the cordless device.
+        phone.cordlessHandsetsIHave.removeAll { $0.id == cordlessDevice.id }
+        // 3. For any cordless device whose index is higher than the one that was just deleted, decrease handsetNumber by 1.
         sortedCordlessDevices.forEach {
             if $0.handsetNumber > deletedIndex {
                 $0.handsetNumber -= 1
@@ -344,7 +363,7 @@ struct CordlessDeviceInfoView: View {
     func addCharger() {
         // 1. Create a new CordlessHandsetCharger object.
         let newCharger = CordlessHandsetCharger(mainColorRed: phone.baseMainColorRed, mainColorGreen: phone.baseMainColorGreen, mainColorBlue: phone.baseMainColorBlue, secondaryColorRed: phone.baseSecondaryColorRed, secondaryColorGreen: phone.baseSecondaryColorGreen, secondaryColorBlue: phone.baseSecondaryColorBlue, accentColorRed: phone.baseAccentColorRed, accentColorGreen: phone.baseAccentColorGreen, accentColorBlue: phone.baseAccentColorBlue)
-        // A charger's chargerNumber property is the index of the charger in the list, and as with any index, it starts at 0. The number of chargers in the list before the new charger is added can be used as the charger's index without adding/subtracting 1.
+        // A charger's chargerNumber property is the index of the charger in the list, and as with any index, it starts at 0. The number of chargers in the list before the new one is added can be used as its index without adding/subtracting 1.
         newCharger.chargerNumber = phone.chargersIHave.count
         // 3. Add the new charger to the phone's list of chargers.
         phone.chargersIHave.append(newCharger)
@@ -362,7 +381,8 @@ struct CordlessDeviceInfoView: View {
     }
 
     func duplicateLastCharger() {
-        duplicateCharger(sortedChargers.last!)
+        guard let lastCharger = sortedChargers.last else { return }
+        duplicateCharger(lastCharger)
     }
 
     private func moveChargers(source: IndexSet, destination: Int) {
@@ -371,7 +391,7 @@ struct CordlessDeviceInfoView: View {
             var chargersCopy = sortedChargers
             // 2. Perform the move operation on the copy.
             chargersCopy.move(fromOffsets: source, toOffset: destination)
-            // 3. Use the copy's items and their indicies to move the cordless devices in the original array.
+            // 3. Use the copy's items and their indices to move the chargers in the original array.
             for (index, charger) in chargersCopy.enumerated() {
                 if let originalCharger = sortedChargers.filter({ $0.id == charger.id}).first {
                     originalCharger.chargerNumber = index

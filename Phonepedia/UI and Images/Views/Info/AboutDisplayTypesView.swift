@@ -26,7 +26,7 @@ struct AboutDisplayTypesView: View {
                     Text("Segmented Monochrome")
                 }
                 DisclosureGroup {
-                    Text("A traditional monochrome display has at least one line that can display letters, numbers, and special characters. Each line is made up of squares, which contain several small dots, called pixels, and there are often pixels for various pieces of information, such as the date and time. Some phones also have a section for an answering system message counter on the display. These displays may or may not have soft keys.")
+                    Text("A traditional monochrome display has at least one line that can display letters, numbers, and special characters. Each line is made up of squares, which contain several small dots, called pixels, and there are often pixels/segments for various pieces of information, such as the date and time. Some phones also have a section for an answering system message counter on the display. These displays may or may not have soft keys.")
                 } label: {
                     Text("Traditional Monochrome")
                 }
@@ -41,12 +41,12 @@ struct AboutDisplayTypesView: View {
                     Text("Color")
                 }
                 DisclosureGroup {
-                    Text("An LED message counter is made up of 1 or 2 7-segment LED displays and are used to display the number of answering system messages, the ringer/speaker volume level, and other info. For example, it might display the letter A to indicate the answering system is answering a call, F to indicate the answering system memory is full, or CL to indicate the clock needs to be set. This type of display makes it easy to see how many messages you have at a glance.")
+                    Text("An LED message counter is made up of 1 or 2 7-segment LED displays and are used to display the number of answering system messages, the ringer/speaker volume level while adjusting, and other info. For example, it might display the letter A to indicate the answering system is answering a call, F to indicate the answering system memory is full, or CL to indicate the clock needs to be set. This type of display makes it easy to see how many messages you have at a glance.")
                 } label: {
                     Text("LED Message Counter")
                 }
                 DisclosureGroup {
-                    Text("An LCD message counter with status items is a monochrome display with pixels that make up 1 or 2 7-segment displays, and pixels for various status items (e.g., a flashing clock to indicate the clock needs to be set). As this type of display usually doesn't have a backlight, it isn't as easy to see how many messages you have at a glance compared to LED message counters.")
+                    Text("An LCD message counter with status items is a monochrome display with pixels/segments that make up 1 or 2 7-segment displays, and pixels for various status items (e.g., a flashing clock to indicate the clock needs to be set). As this type of display usually doesn't have a backlight, it isn't as easy to see how many messages you have at a glance compared to LED message counters.")
                 } label: {
                     Text("LCD Message Counter With Status Items")
                 }

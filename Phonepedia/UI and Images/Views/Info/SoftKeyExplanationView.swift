@@ -38,7 +38,7 @@ struct SoftKeyExplanationView: View {
     }
     
     var body: some View {
-        InfoText("Soft keys are unlabeled buttons which have different functions displayed next to or above them on the display depending on what menu or screen is displayed. When nothing is displayed next to or above a soft key, it has no function at this time.")
+        InfoText("Soft keys are unlabeled buttons which have different functions displayed next to or above them on the display depending on what menu or screen is displayed. This helps to reduce the number of labeled buttons. The term \"soft key\" is used since the labels for these buttons depend on the current state of the phone's software. When nothing is displayed next to or above a soft key, it has no function at this time.")
         HStack {
             Spacer()
             VStack {

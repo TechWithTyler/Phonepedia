@@ -13,7 +13,7 @@ struct SettingsView: View {
 
     // MARK: - Properties - Dialog Manager
 
-    @EnvironmentObject var dialogManager: DialogManager
+    @ObservedObject var dialogManager = DialogManager()
 
     // MARK: - Properties - Dismiss Action
 
@@ -26,10 +26,9 @@ struct SettingsView: View {
     var body: some View {
 #if os(macOS)
         // macOS settings window
-        SAMVisualEffectViewSwiftUIRepresentable {
             TabView(selection: $dialogManager.selectedSettingsPage) {
                 Tab(value: SettingsPage.display) {
-                    SAMVisualEffectViewSwiftUIRepresentable {
+                    SAMVisualEffectViewSwiftUIRepresentable(activeState: .active) {
                         DisplaySettingsPageView()
                     }
                     .frame(width: 500, height: 500)
@@ -38,7 +37,7 @@ struct SettingsView: View {
                     Label(SettingsPage.display.rawValue.capitalized, systemImage: SettingsPage.Icons.display.rawValue)
                 }
                 Tab(value: SettingsPage.newPhones) {
-                    SAMVisualEffectViewSwiftUIRepresentable {
+                    SAMVisualEffectViewSwiftUIRepresentable(activeState: .active) {
                         NewPhonesSettingsPageView()
                     }
                     .frame(width: 500, height: 200)
@@ -47,7 +46,6 @@ struct SettingsView: View {
                     Label(SettingsPage.newPhones.rawValue.capitalized, systemImage: SettingsPage.Icons.newPhones.rawValue)
                 }
             }
-        }
         .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
 #else
         // iOS/visionOS settings page

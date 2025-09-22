@@ -40,7 +40,7 @@ struct ChargerDetailView: View {
                             Spacer()
                         }
                     }
-                    Section {
+                    Section("Charger \(chargerNumber + 1) Actions") {
                         Button {
                             phone.chargersIHave.insert(charger.duplicate(), at: chargerNumber)
                             dismiss()
@@ -58,7 +58,7 @@ struct ChargerDetailView: View {
 #endif
                         }
                     }
-                    Section {
+                    Section("Basic Info") {
                         ColorPicker("Main Color", selection: charger.mainColorBinding, supportsOpacity: false)
                         ColorPicker("Secondary/Accent Color", selection: charger.secondaryColorBinding, supportsOpacity: false)
                         Button("Use Main Color") {
@@ -71,17 +71,21 @@ struct ChargerDetailView: View {
                         Button("Use Bottom Color") {
                             charger.setAccentColorToSecondary()
                         }
-                        Picker("Charger For", selection: $charger.type) {
-                            Text("Handset").tag(0)
-                            Text("Headset/Speakerphone").tag(1)
+                        if phone.basePhoneType == 0 {
+                            Picker("Charger For", selection: $charger.type) {
+                                Text("Handset").tag(0)
+                                Text("Headset/Speakerphone").tag(1)
+                            }
                         }
                         Toggle("Has Charge Light", isOn: $charger.hasChargeLight)
-                        ColorPicker("Charge Light Color (Charging)", selection: charger.chargeLightColorChargingBinding, supportsOpacity: false)
-                        ClearSupportedColorPicker("Charge Light Color (Charged)", selection: charger.chargeLightColorChargedBinding) {
-                            Text("Off When Charged")
-                        }
-                        Button("Use Charging Color") {
-                            charger.setChargeLightChargedColorToCharging()
+                        if charger.hasChargeLight {
+                            ColorPicker("Charge Light Color (Charging)", selection: charger.chargeLightColorChargingBinding, supportsOpacity: false)
+                            ClearSupportedColorPicker("Charge Light Color (Charged)", selection: charger.chargeLightColorChargedBinding) {
+                                Text("Off When Charged")
+                            }
+                            Button("Use Charging Color") {
+                                charger.setChargeLightChargedColorToCharging()
+                            }
                         }
                         if charger.type == 0 {
                             Picker("Charging Direction", selection: $charger.chargingDirection) {
@@ -101,9 +105,15 @@ struct ChargerDetailView: View {
                             }
                             Toggle("Has Hard-Wired AC Adaptor", isOn: $charger.hasHardWiredACAdaptor)
                         }
-                        if phone.supportsRangeExtenders {
-                            Toggle("Has Range Extender", isOn: $charger.hasRangeExtender)
-                            InfoText("A charger with a built-in range extender allows you to have a range extender where you have a charger, without having to place a separate range extender.")
+                    }
+                    if charger.type == 0 && phone.basePhoneType == 0 {
+                        Section("Special Features") {
+                            if phone.supportsRangeExtenders {
+                                Toggle("Has Built-In Range Extender", isOn: $charger.hasRangeExtender)
+                                InfoText("A charger with a built-in range extender allows you to have a range extender where you have a charger, without having to place a separate range extender.")
+                            }
+                            Toggle("Has Clock/Radio/Alarm", isOn: $charger.hasClockRadioAlarm)
+                            InfoText("Some chargers have a built-in clock/radio/alarm, which combines several nightstand devices (cordless handset charger, clock, radio, and alarm) into one.")
                         }
                     }
                 }

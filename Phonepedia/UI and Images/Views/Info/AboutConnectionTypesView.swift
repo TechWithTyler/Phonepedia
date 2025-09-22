@@ -9,9 +9,9 @@
 import SwiftUI
 
 struct AboutConnectionTypesView: View {
-    
+
     // MARK: - Properties - Dismiss Action
-    
+
     @Environment(\.dismiss) var dismiss
 
     // MARK: - Properties - Dialog Manager
@@ -19,7 +19,7 @@ struct AboutConnectionTypesView: View {
     @EnvironmentObject var dialogManager: DialogManager
 
     // MARK: - Body
-    
+
     var body: some View {
         NavigationStack {
             Text("The connection type specifies how a phone connects to the telephone network or to an internal line. Expand the following sections to learn about each one.")
@@ -33,7 +33,9 @@ struct AboutConnectionTypesView: View {
                     Text("Analog Phone")
                 }
                 DisclosureGroup {
-                    Text("Digital phones were very rare, connecting to a special digital phone modem or RJ45 jack. \"Digital\" refers to the phone line connection, and is not to be confused with \"digital cordless phone\", which refers to a digital wireless connection between a cordless phone's handset and base.")
+                    Text("Digital phones were very rare, connecting to a special digital phone modem, RJ11, or RJ45 (not Ethernet) jack. \"Digital\" refers to the phone line connection, and is not to be confused with \"digital cordless phone\", which refers to a digital wireless connection between a cordless phone's handset and base.")
+                    Text("The digital phone network is known as ISDN (Integrated Services Digital Network).")
+                    Text("Some PBX systems can support either analog or their own proprietary digital (not ISDN) phones via the same RJ11 jack. When connecting a phone, the system detects whether the phone is analog or digital, usually by the impedance (resistance and/or capacitance) of the line with the phone connected, or by receiving a signal from a digital phone booting up. For PBXs which assume an analog phone when no phone is connected, or if the last phone connected was analog, there's a risk of ring voltage damaging a digital phone if plugging one in during a ring signal. Also note that you can't connect a proprietary digital phone and an analog phone to the same jack using a splitter.")
                 } label: {
                     Text("Digital Phone")
                 }
@@ -43,7 +45,7 @@ struct AboutConnectionTypesView: View {
                     Text("Dedicated VoIP phones can only work with an Ethernet (RJ45 jack) or Wi-Fi connection, and may require paying for extra hardware or subscriptions, which makes them not as good for phone collectors who don't want to pay too much for the necessary hardware and providers. These phones offer landline comfort and convenience while integrating natively with VoIP provider features like voicemail and call forwarding.")
                     Text("To connect an analog phone to VoIP, you need a cable modem or analog telephone adaptor (ATA).")
                     Text("Some phones can connect to an analog line and Ethernet, allowing you to use both an analog and VoIP line on the same phone. This allows you to fall back to an analog line if your VoIP service isn't available, or to use an analog line now and VoIP in the future. You can also use this to connect a cell-to-landline Bluetooth adaptor and VoIP to the same phone.")
-                    Text("To place an Ethernet VoIP phone or ATA in locations where Ethernet jacks aren't available, such as in a bedroom away from your modem, you need a Wi-Fi-to-Ethernet bridge (most Wi-Fi range extenders can be used this way if they're set to extender or client mode). This is not to be confused with a Wi-Fi router, which takes in an Ethernet connection and transmits it as Wi-Fi.")
+                    Text("To place an Ethernet VoIP phone or ATA in locations where Ethernet jacks aren't available, such as in a bedroom away from your modem, you need a Wi-Fi-to-Ethernet bridge (most Wi-Fi range extenders and travel routers can be used this way if they're set to extender, repeater, or client mode).")
                 } label: {
                     Text("VoIP (Voice-over-Internet Protocol)")
                 }
@@ -53,7 +55,7 @@ struct AboutConnectionTypesView: View {
                     Text("Cellular Corded or Cordless Phone")
                 }
                 DisclosureGroup {
-                    Text("An ATA (Analog Telephone Adaptor/Analog Terminal Adaptor) allows an analog phone (most home phones sold today) to be used on a digital, VoIP, or cellular service. These can connect to any compatible provider of the respective service. A VoIP modem, on the other hand, combines the internet connection and ATA (and sometimes Wi-Fi router) into a single device, and is the most common device used for those who have internet and phone (or TV, internet, and phone) from the same cable company. Some even have built-in DECT, allowing select DECT cordless phone handsets to be directly registered to it, without needing a separate base.")
+                    Text("An ATA (Analog Telephone Adaptor/Analog Terminal Adaptor) allows an analog phone (most home phones sold today) to be used on a digital, VoIP, or cellular service. These can connect to any compatible provider of the respective service. A VoIP modem, on the other hand, combines the internet connection and ATA (and sometimes Wi-Fi router) into a single device which connects to cable or fiber, and is the most common device used for those who have internet and phone (or TV, internet, and phone) from the same cable/fiber company. Some even have built-in DECT, allowing select DECT cordless phone handsets to be directly registered to them, without needing a separate base.")
                 } label: {
                     Text("VoIP Modem/ATA")
                 }
@@ -63,16 +65,16 @@ struct AboutConnectionTypesView: View {
                     Text("Cell-To-Landline Solutions")
                 }
                 DisclosureGroup(isExpanded: $dialogManager.aboutPBXExpanded) {
-                    Text("A PBX is a device that creates multiple internal phone lines (analog, digital, or VoIP). PBXs are usually seen in businesses and hotels. Analog or digital phone jacks on a PBX directly correspond to an internal phone line called an extension. Ethernet jacks on a VoIP PBX are only used to connect phones/devices to the network--the device itself needs to be configured to use the desired extension. Each extension is assigned an internal number called an extension number, which can only be dialed from phones/devices on the same PBX. To access the outside line, a leading digit (e.g. 9) must be dialed to connect the given extension to an outside line (this is why hotel phones say something like \"dial 9 + area code + number\") on their faceplates. There can only be as many extensions on separate outside calls as there are outside lines. The outside line is optional on many PBXs, so if you just want internal lines, a PBX is a great option.")
-                    Text("Many PBXs allow dialing of the emergency number (e.g. 911 in the US) without a leading digit. When the emergency number is dialed, the PBX \"repeats\" the number to an analog outside line or sends the corresponding VoIP signal to a VoIP outside line.")
+                    Text("A PBX is a device that creates multiple internal phone lines (analog, digital, or VoIP). PBXs are usually seen in businesses and hotels. Analog or digital phone jacks on a PBX directly correspond to an internal phone line called an extension. Ethernet jacks on a VoIP PBX are only used to connect phones/devices to the network--the device itself needs to be configured to use the desired extension. Each extension is assigned an internal number called an extension number, which can only be dialed from phones/devices on the same PBX. To access the outside line, a leading digit (e.g. 9) must be dialed to connect the given extension to an outside line (this is why hotel phones say something like \"dial 9 + area code + number\") on their faceplates. There can only be as many extensions on separate outside calls as there are outside lines--if one extension is using one outside line, another outside line is used if another extension wants to make an outside call, and the phone gives a busy signal if all outside lines are in use. The outside line is optional on many PBXs, so if you just want internal lines, a PBX is a great option.")
+                    Text("Many PBXs allow dialing of the emergency number (e.g. 911 in the US) without a leading digit. When the emergency number is dialed via an analog outside line, the PBX \"repeats\" the number to an analog outside line.")
                     Text("On a PBX, an outside line is often called a trunk. The outside line(s) can be thought of like the trunks of a tree, with the internal lines being the branches.")
-                    Text("Early PBXs worked like switchboards but for a business' internal phone system. With switchboards and early PBX systems, an operator would connect the caller to the desired extension by plugging a cord into the correct jack, which would connect the caller to the extension. Modern PBXs automate the process and are sometimes called Private Automatic Branch Exchanges (PABX).")
+                    Text("Early PBXs worked like switchboards but for a business' internal phone system. With switchboards and early PBX systems, an operator would connect the caller to the desired extension by plugging a cord into the correct jack, which would connect the caller to the extension. Modern PBXs automate the process and are sometimes called Private Automatic Branch Exchanges (PABX). However, since today's PBXs are automatic, they're usually just called PBXs.")
                     Text("Voicemail on a PBX is stored on the PBX itself or a module connected to it, and can be accessed by dialing a specific extension number.")
                 } label: {
                     Text("PBX (Private Branch Exchange)")
                 }
                 DisclosureGroup {
-                    Text("A phone line simulator is a device that has 2 internal analog phone lines and is designed to simulate a central office (CO). Picking up a phone connected to one of the 2 internal lines will ring the other internal line after a few seconds or after a number is dialed. This is an ideal setup for testing or demonstrating phones as you don't have to worry about accidentally calling random numbers since the lines are all internal. A PBX's internal lines can also serve the same purpose, but PBXs often have different dial tones and ring cadences compared to a real line, which a phone line simulator replicates.")
+                    Text("A phone line simulator is a device that has 2 internal analog phone lines and is designed to simulate a central office (CO). Picking up a phone connected to one of the 2 internal lines will ring the other internal line after a few seconds or after a number is dialed. This is an ideal setup for testing or demonstrating phones as you don't have to worry about accidentally calling random numbers since the lines are all internal. A PBX's internal lines can also serve the same purpose, but PBXs often have different dial tones and ring cadences compared to a real line, which a phone line simulator replicates. A combination of a software-based PBX and 2 or more ATAs can also be used as a phone line simulator by configuring the software-based PBX and ATAs to simulate a real phone line/central office.")
                 } label: {
                     Text("Phone Line Simulator")
                 }

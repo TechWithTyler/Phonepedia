@@ -14,12 +14,19 @@ struct HandsetRedialView: View {
     @Bindable var handset: CordlessHandset
 
     var body: some View {
-        if let phone = handset.phone {
-            FormNumericTextField("Redial Capacity", value: $handset.redialCapacity, valueRange: .zeroToMax(20), singularSuffix: "entry", pluralSuffix: "entries")
+        FormNumericTextField("Redial Capacity", value: $handset.redialCapacity, valueRange: .zeroToMax(handset.displayType > 0 ? 20 : 1), singularSuffix: "entry", pluralSuffix: "entries")
 #if !os(visionOS)
                 .scrollDismissesKeyboard(.interactively)
 #endif
-            if handset.redialCapacity > 1 && (handset.phonebookCapacity > 0 || (phone.basePhonebookCapacity > 0 && handset.usesBasePhonebook)) {
+        if handset.redialCapacity > 0 {
+            Picker("Redial When Busy", selection: $handset.busyRedialMode) {
+                Text("Not Supported").tag(0)
+                Text("Press Redial Button").tag(1)
+                Text("Auto-Redial").tag(2)
+            }
+            RedialWhenBusyInfoView()
+        }
+            if handset.hasPhonebookAndRedialList {
                 Picker("Redial Name Display", selection: $handset.redialNameDisplay) {
                     Text("None").tag(0)
                     Text("Phonebook Match").tag(1)
@@ -27,12 +34,9 @@ struct HandsetRedialView: View {
                 }
                 RedialNameDisplayInfoView()
             }
-            if handset.redialNameDisplay == 1 && handset.usesBasePhonebook {
+            if handset.redialNameDisplay == 1 && handset.usesBasePhonebook && handset.phonebookCapacity == 0 {
                 InfoText("Although the redial list is stored in the handset, it may still require you to be in range of the base if the handset doesn't have a fallback to display entries without their names.")
             }
-        } else {
-            Text("Error")
-        }
     }
 }
 

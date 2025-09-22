@@ -42,7 +42,7 @@ struct BaseSpeedDialView: View {
             InfoText("Most phones with one-touch dial buttons have a paper card or faceplate where you can write the names/numbers stored to the corresponding buttons.\nMore advanced phones might instead have a display (independent of the main display if any) showing the names/numbers stored to the corresponding buttons.\nIn the case of hotel phones with paper faceplates, the hotel staff fill out worksheets with the desired one-touch dial names (e.g., Front Desk, Concierge, Room Service) and the desired dialing instructions (e.g. to dial 9 + 1 + area code + number for long-distance calls), then send them to the phone manufacturer when placing an order for one or more phones. Depending on the phone, programming is done by the manufacturer, in which case it can't be changed later, or the hotel staff can do it using buttons hidden beneath the faceplate.")
             Toggle("Supports Key Expansion Modules", isOn: $phone.baseOneTouchDialExpansionModulesSupported)
             InfoText("Key expansion modules are cards with additional one-touch dial buttons which attach to a phone.")
-            if phone.isCordless {
+            if phone.isCordless && (phone.hasBaseIntercom || phone.callTransferType > 0) {
                 Toggle("Base One-Touch/Memory Dial Supports Handset Numbers", isOn: $phone.oneTouchDialSupportsHandsetNumbers)
                 InfoText("By assigning a handset number to a cordless or corded/cordless phone base's one-touch dial button, you can press it to quickly intercom/transfer a call to that handset, just like how one-touch dial buttons on a business/hotel phone system are often programmed to dial other extension numbers in the business/hotel.")
             }

@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 1/24/25.
-//  Copyright © 2025 SheftApps. All rights reserved.
+//  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
 import Foundation
@@ -14,6 +14,7 @@ extension Phone {
 
         // MARK: - Frequency Cases
 
+        // Unknown
         case unknown = 0.0
         case separator1 = -1.0
 
@@ -40,6 +41,7 @@ extension Phone {
         case dss2_4GHzOver900MHz = 2400.902
         case fhss2_4GHz = 2400.3
         case fhss2_4GHzOver900MHz = 2400.903
+        case dss2_4GHzOverAnalog900MHz = 2400.904
         case separator4 = -1.3
 
         // 5.8GHz
@@ -94,6 +96,7 @@ extension Phone {
             case .digital2_4GHzOver900MHz: return "2.4GHz/900MHz Digital"
             case .dss2_4GHz: return "2.4GHz DSS"
             case .dss2_4GHzOver900MHz: return "2.4GHz/900MHz DSS"
+            case .dss2_4GHzOverAnalog900MHz: return "2.4GHz DSS/900MHz Analog"
             case .fhss2_4GHz: return "2.4GHz FHSS"
             case .fhss2_4GHzOver900MHz: return "2.4GHz/900MHz FHSS"
                 // 5.8GHz Frequencies
@@ -185,7 +188,8 @@ extension Phone {
 
         // Returns the default cordless phone frequency for the current region based on the device's region setting.
         static var defaultForCurrentRegion: CordlessFrequency {
-            switch Locale.current.region?.identifier {
+            let currentRegion = Locale.current.region
+            switch currentRegion?.identifier {
             case "KR":
                 // South Korea
                 return .southKoreaDECT
@@ -459,6 +463,10 @@ extension Phone {
             default:
                 return .unknown // Unknown region/unknown default cordless phone frequency for current region
             }
+        }
+
+        var isDigital: Bool {
+            return (name.contains("Digital") || name.contains("DSS") /*Digital Spread Spectrum*/ || name.contains("FHSS") /*Frequency-Hopping Spread Spectrum, doesn't include digital in the name but is digital*/ || name.contains("DECT") /*Digital Enhanced Cordless Telecommunications*/) && !name.contains("Analog")
         }
 
         // MARK: - Frequency Name From Raw Value

@@ -11,6 +11,7 @@
 		8D19F0BD2D07962A00C3B67C /* PhoneListDetailOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D19F0BC2D07962A00C3B67C /* PhoneListDetailOptions.swift */; };
 		8D20E37B2C45B9740016800C /* PhoneInCollectionStatusPickerItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D20E37A2C45B9740016800C /* PhoneInCollectionStatusPickerItems.swift */; };
 		8D20E37D2C45BB7C0016800C /* RingtoneInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D20E37C2C45BB7C0016800C /* RingtoneInfoView.swift */; };
+		8D239BC82DF8D1C80022F0A4 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 8D239BC72DF8D1C80022F0A4 /* AppIcon.icon */; };
 		8D27B18D2D03AABB004B75E4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D27B18C2D03AABB004B75E4 /* SettingsView.swift */; };
 		8D27B1902D03AC3B004B75E4 /* UserDefaultsKeyNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D27B18F2D03AC3B004B75E4 /* UserDefaultsKeyNames.swift */; };
 		8D2BAF512CD187EA0016C61E /* ChargingDirectionPickerItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2BAF502CD187EA0016C61E /* ChargingDirectionPickerItems.swift */; };
@@ -66,6 +67,7 @@
 		8D46478D2DA07DF0001A53F4 /* AboutCallerIDNameFormattingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D46478C2DA07DF0001A53F4 /* AboutCallerIDNameFormattingView.swift */; };
 		8D4E2A582B8FD4E600FF4FE5 /* PhoneNumberLetterInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4E2A572B8FD4E600FF4FE5 /* PhoneNumberLetterInfoView.swift */; };
 		8D523B002C4EF47000AC6862 /* VoicemailQuickDialInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D523AFF2C4EF47000AC6862 /* VoicemailQuickDialInfoView.swift */; };
+		8D53EBAB2E7A026300B71D8C /* RedialWhenBusyInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D53EBAA2E7A026300B71D8C /* RedialWhenBusyInfoView.swift */; };
 		8D71C8172CDD651D00072E50 /* RedialNameDisplayInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D71C8162CDD651D00072E50 /* RedialNameDisplayInfoView.swift */; };
 		8D71C8192CDD666C00072E50 /* SpeedDialEntryModeInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D71C8182CDD666C00072E50 /* SpeedDialEntryModeInfoView.swift */; };
 		8D71C81B2CDEBDF600072E50 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 8D71C81A2CDEBDF600072E50 /* PrivacyInfo.xcprivacy */; };
@@ -124,6 +126,7 @@
 		8DA844F22B72E1D7006CBCA7 /* PhonePhotoError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844CC2B72E1D7006CBCA7 /* PhonePhotoError.swift */; };
 		8DA844F32B72E1D7006CBCA7 /* PhonepediaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844CD2B72E1D7006CBCA7 /* PhonepediaApp.swift */; };
 		8DB25E902C8BC4A9001617C2 /* FormNavigationLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB25E8F2C8BC4A9001617C2 /* FormNavigationLink.swift */; };
+		8DB29E252E3C04260066D238 /* AboutCordedPhoneTypesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB29E242E3C04260066D238 /* AboutCordedPhoneTypesView.swift */; };
 		8DB9A30E2CEBEDFB005BC70B /* PhoneCountButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB9A30D2CEBEDFB005BC70B /* PhoneCountButton.swift */; };
 		8DB9A3102CEBEE37005BC70B /* PhoneTypeDefinitionsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB9A30F2CEBEE37005BC70B /* PhoneTypeDefinitionsButton.swift */; };
 		8DBA56BD2D3081C3005DC013 /* AnsweringSystemVsVoicemailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBA56BC2D3081C3005DC013 /* AnsweringSystemVsVoicemailView.swift */; };
@@ -140,6 +143,7 @@
 		8DC964E02D0B6C9E00984466 /* AnalogPhoneConnectedToPickerItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC964DF2D0B6C9E00984466 /* AnalogPhoneConnectedToPickerItems.swift */; };
 		8DC964E22D0B716800984466 /* AcquisitionMethodPickerItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC964E12D0B716800984466 /* AcquisitionMethodPickerItems.swift */; };
 		8DC9E7DC2C37434C0089B48A /* AnsweringSystemGreetingComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC9E7DB2C37434C0089B48A /* AnsweringSystemGreetingComponents.swift */; };
+		8DCAD9DE2E59087F006C03CB /* HandsetColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DCAD9DD2E59087F006C03CB /* HandsetColorView.swift */; };
 		8DD3A2942D2C7BDC00595AB3 /* SettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD3A2932D2C7BDC00595AB3 /* SettingsPage.swift */; };
 		8DD3A2962D2C7CB200595AB3 /* NewPhonesSettingsPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD3A2952D2C7CB200595AB3 /* NewPhonesSettingsPageView.swift */; };
 		8DD3A2982D2C7D5100595AB3 /* DisplaySettingsPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD3A2972D2C7D5100595AB3 /* DisplaySettingsPageView.swift */; };
@@ -188,6 +192,7 @@
 		8D19F0BC2D07962A00C3B67C /* PhoneListDetailOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneListDetailOptions.swift; sourceTree = "<group>"; };
 		8D20E37A2C45B9740016800C /* PhoneInCollectionStatusPickerItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneInCollectionStatusPickerItems.swift; sourceTree = "<group>"; };
 		8D20E37C2C45BB7C0016800C /* RingtoneInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingtoneInfoView.swift; sourceTree = "<group>"; };
+		8D239BC72DF8D1C80022F0A4 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		8D27B18C2D03AABB004B75E4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		8D27B18F2D03AC3B004B75E4 /* UserDefaultsKeyNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeyNames.swift; sourceTree = "<group>"; };
 		8D2BAF502CD187EA0016C61E /* ChargingDirectionPickerItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargingDirectionPickerItems.swift; sourceTree = "<group>"; };
@@ -244,6 +249,7 @@
 		8D46478C2DA07DF0001A53F4 /* AboutCallerIDNameFormattingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutCallerIDNameFormattingView.swift; sourceTree = "<group>"; };
 		8D4E2A572B8FD4E600FF4FE5 /* PhoneNumberLetterInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumberLetterInfoView.swift; sourceTree = "<group>"; };
 		8D523AFF2C4EF47000AC6862 /* VoicemailQuickDialInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoicemailQuickDialInfoView.swift; sourceTree = "<group>"; };
+		8D53EBAA2E7A026300B71D8C /* RedialWhenBusyInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedialWhenBusyInfoView.swift; sourceTree = "<group>"; };
 		8D71C8162CDD651D00072E50 /* RedialNameDisplayInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedialNameDisplayInfoView.swift; sourceTree = "<group>"; };
 		8D71C8182CDD666C00072E50 /* SpeedDialEntryModeInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedDialEntryModeInfoView.swift; sourceTree = "<group>"; };
 		8D71C81A2CDEBDF600072E50 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
@@ -305,6 +311,7 @@
 		8DA844CC2B72E1D7006CBCA7 /* PhonePhotoError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhonePhotoError.swift; sourceTree = "<group>"; };
 		8DA844CD2B72E1D7006CBCA7 /* PhonepediaApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhonepediaApp.swift; sourceTree = "<group>"; };
 		8DB25E8F2C8BC4A9001617C2 /* FormNavigationLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormNavigationLink.swift; sourceTree = "<group>"; };
+		8DB29E242E3C04260066D238 /* AboutCordedPhoneTypesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutCordedPhoneTypesView.swift; sourceTree = "<group>"; };
 		8DB9A30D2CEBEDFB005BC70B /* PhoneCountButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneCountButton.swift; sourceTree = "<group>"; };
 		8DB9A30F2CEBEE37005BC70B /* PhoneTypeDefinitionsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneTypeDefinitionsButton.swift; sourceTree = "<group>"; };
 		8DBA56BC2D3081C3005DC013 /* AnsweringSystemVsVoicemailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnsweringSystemVsVoicemailView.swift; sourceTree = "<group>"; };
@@ -321,6 +328,7 @@
 		8DC964DF2D0B6C9E00984466 /* AnalogPhoneConnectedToPickerItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalogPhoneConnectedToPickerItems.swift; sourceTree = "<group>"; };
 		8DC964E12D0B716800984466 /* AcquisitionMethodPickerItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcquisitionMethodPickerItems.swift; sourceTree = "<group>"; };
 		8DC9E7DB2C37434C0089B48A /* AnsweringSystemGreetingComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnsweringSystemGreetingComponents.swift; sourceTree = "<group>"; };
+		8DCAD9DD2E59087F006C03CB /* HandsetColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandsetColorView.swift; sourceTree = "<group>"; };
 		8DD3A2932D2C7BDC00595AB3 /* SettingsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPage.swift; sourceTree = "<group>"; };
 		8DD3A2952D2C7CB200595AB3 /* NewPhonesSettingsPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPhonesSettingsPageView.swift; sourceTree = "<group>"; };
 		8DD3A2972D2C7D5100595AB3 /* DisplaySettingsPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplaySettingsPageView.swift; sourceTree = "<group>"; };
@@ -424,6 +432,7 @@
 				8D38ED9E2CAF3FC900CCC422 /* HandsetSpeedDialView.swift */,
 				8D38EDA02CAF404C00CCC422 /* HandsetSpecialFeaturesView.swift */,
 				8D32A5172D4562C500F606FC /* HandsetPowerView.swift */,
+				8DCAD9DD2E59087F006C03CB /* HandsetColorView.swift */,
 			);
 			path = "Detail (Handset)";
 			sourceTree = "<group>";
@@ -499,6 +508,7 @@
 				8DA844A22B72E1D7006CBCA7 /* Views */,
 				8DA8449E2B72E1D7006CBCA7 /* Supporting View Controllers */,
 				8DA8449B2B72E1D7006CBCA7 /* Assets.xcassets */,
+				8D239BC72DF8D1C80022F0A4 /* AppIcon.icon */,
 				8DA8449C2B72E1D7006CBCA7 /* Preview Content */,
 			);
 			path = "UI and Images";
@@ -610,6 +620,8 @@
 				8DA72F092D79042700A957A4 /* OneTouchEmergencyCallingInfoView.swift */,
 				8D3625A22D9346D300CA3D93 /* AboutPhoneGradesView.swift */,
 				8D46478C2DA07DF0001A53F4 /* AboutCallerIDNameFormattingView.swift */,
+				8DB29E242E3C04260066D238 /* AboutCordedPhoneTypesView.swift */,
+				8D53EBAA2E7A026300B71D8C /* RedialWhenBusyInfoView.swift */,
 			);
 			path = Info;
 			sourceTree = "<group>";
@@ -811,7 +823,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1500;
-				LastUpgradeCheck = 1600;
+				LastUpgradeCheck = 2600;
 				ORGANIZATIONNAME = SheftApps;
 				TargetAttributes = {
 					8D3D278C2ABCDDF30005FEC2 = {
@@ -879,6 +891,7 @@
 				8D32A50C2D42F1ED00F606FC /* dtmfTones.wav in Resources */,
 				8D32A5062D42EEBF00F606FC /* busyTone.wav in Resources */,
 				8D842D692D3F122200F50F32 /* callBlockPreScreeningCallerName.wav in Resources */,
+				8D239BC82DF8D1C80022F0A4 /* AppIcon.icon in Resources */,
 				8D842D6A2D3F122200F50F32 /* talkingCallerIDNumber.wav in Resources */,
 				8D842D6B2D3F122200F50F32 /* answeringSystemGreetingRecordMessage.wav in Resources */,
 				8DC9620C2D9C8A2D006A3BF6 /* dtmfCallerID.wav in Resources */,
@@ -976,6 +989,7 @@
 				8DBA56BD2D3081C3005DC013 /* AnsweringSystemVsVoicemailView.swift in Sources */,
 				8D38ED662CAF2DC500CCC422 /* BaseSpeakerphoneIntercomView.swift in Sources */,
 				8DC964E22D0B716800984466 /* AcquisitionMethodPickerItems.swift in Sources */,
+				8DCAD9DE2E59087F006C03CB /* HandsetColorView.swift in Sources */,
 				8DE9F4272D32343E002B4EB4 /* NameNumberExamples.swift in Sources */,
 				8DA844EF2B72E1D7006CBCA7 /* LandlineOrNotPredictor.swift in Sources */,
 				8D38ED992CAF3EA500CCC422 /* HandsetRedialView.swift in Sources */,
@@ -1023,6 +1037,7 @@
 				8DA844F22B72E1D7006CBCA7 /* PhonePhotoError.swift in Sources */,
 				8DA844E62B72E1D7006CBCA7 /* Globals.swift in Sources */,
 				8D32A5182D4562C500F606FC /* HandsetPowerView.swift in Sources */,
+				8D53EBAB2E7A026300B71D8C /* RedialWhenBusyInfoView.swift in Sources */,
 				8DA844D32B72E1D7006CBCA7 /* HandsetDetailView.swift in Sources */,
 				8DA844E12B72E1D7006CBCA7 /* ContentView.swift in Sources */,
 				8D38ED7B2CAF365B00CCC422 /* PhoneAudioView.swift in Sources */,
@@ -1030,6 +1045,7 @@
 				8DD3A2982D2C7D5100595AB3 /* DisplaySettingsPageView.swift in Sources */,
 				8DA844DF2B72E1D7006CBCA7 /* ChargingContactInfoView.swift in Sources */,
 				8DA844E02B72E1D7006CBCA7 /* PhoneRowView.swift in Sources */,
+				8DB29E252E3C04260066D238 /* AboutCordedPhoneTypesView.swift in Sources */,
 				8DEC01642C20D78D006E0233 /* PhoneDetailView.swift in Sources */,
 				8DA72F0A2D79042700A957A4 /* OneTouchEmergencyCallingInfoView.swift in Sources */,
 				8DA844DA2B72E1D7006CBCA7 /* PhoneButtonLegendItem.swift in Sources */,
@@ -1058,7 +1074,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = 3B6G4T54X3;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				MACOSX_DEPLOYMENT_TARGET = 14.5;
@@ -1080,7 +1095,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = 3B6G4T54X3;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				MACOSX_DEPLOYMENT_TARGET = 14.5;
@@ -1103,7 +1117,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = 3B6G4T54X3;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				MACOSX_DEPLOYMENT_TARGET = 14.5;
@@ -1126,7 +1139,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = 3B6G4T54X3;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				MACOSX_DEPLOYMENT_TARGET = 14.5;
@@ -1178,6 +1190,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 3B6G4T54X3;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -1200,6 +1213,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -1241,6 +1255,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 3B6G4T54X3;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -1256,6 +1271,7 @@
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 			};
 			name = Release;
@@ -1265,15 +1281,24 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				AUTOMATION_APPLE_EVENTS = NO;
 				CODE_SIGN_ENTITLEMENTS = "Phonepedia/Supporting Files/Phonepedia.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1100;
+				CURRENT_PROJECT_VERSION = 1303;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Phonepedia/UI and Images/Preview Content\"";
-				DEVELOPMENT_TEAM = 3B6G4T54X3;
+				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
+				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
+				ENABLE_RESOURCE_ACCESS_CAMERA = NO;
+				ENABLE_RESOURCE_ACCESS_CONTACTS = NO;
+				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
+				ENABLE_RESOURCE_ACCESS_PHOTO_LIBRARY = YES;
+				ENABLE_USER_SELECTED_FILES = readwrite;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Phonepedia/Supporting Files/Info.plist";
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
@@ -1290,16 +1315,22 @@
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UISupportsDocumentBrowser = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 2025.5;
+				MARKETING_VERSION = 2025.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tylersheft.Phonepedia;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				RUNTIME_EXCEPTION_ALLOW_DYLD_ENVIRONMENT_VARIABLES = NO;
+				RUNTIME_EXCEPTION_ALLOW_JIT = NO;
+				RUNTIME_EXCEPTION_ALLOW_UNSIGNED_EXECUTABLE_MEMORY = NO;
+				RUNTIME_EXCEPTION_DEBUGGING_TOOL = NO;
+				RUNTIME_EXCEPTION_DISABLE_EXECUTABLE_PAGE_PROTECTION = NO;
+				RUNTIME_EXCEPTION_DISABLE_LIBRARY_VALIDATION = NO;
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -1315,15 +1346,24 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				AUTOMATION_APPLE_EVENTS = NO;
 				CODE_SIGN_ENTITLEMENTS = "Phonepedia/Supporting Files/Phonepedia.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1100;
+				CURRENT_PROJECT_VERSION = 1303;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Phonepedia/UI and Images/Preview Content\"";
-				DEVELOPMENT_TEAM = 3B6G4T54X3;
+				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
+				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
+				ENABLE_RESOURCE_ACCESS_CAMERA = NO;
+				ENABLE_RESOURCE_ACCESS_CONTACTS = NO;
+				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
+				ENABLE_RESOURCE_ACCESS_PHOTO_LIBRARY = YES;
+				ENABLE_USER_SELECTED_FILES = readwrite;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Phonepedia/Supporting Files/Info.plist";
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
@@ -1340,16 +1380,22 @@
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UISupportsDocumentBrowser = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 2025.5;
+				MARKETING_VERSION = 2025.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tylersheft.Phonepedia;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				RUNTIME_EXCEPTION_ALLOW_DYLD_ENVIRONMENT_VARIABLES = NO;
+				RUNTIME_EXCEPTION_ALLOW_JIT = NO;
+				RUNTIME_EXCEPTION_ALLOW_UNSIGNED_EXECUTABLE_MEMORY = NO;
+				RUNTIME_EXCEPTION_DEBUGGING_TOOL = NO;
+				RUNTIME_EXCEPTION_DISABLE_EXECUTABLE_PAGE_PROTECTION = NO;
+				RUNTIME_EXCEPTION_DISABLE_LIBRARY_VALIDATION = NO;
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
 				SUPPORTS_MACCATALYST = NO;

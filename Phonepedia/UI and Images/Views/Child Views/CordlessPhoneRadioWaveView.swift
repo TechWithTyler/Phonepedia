@@ -12,6 +12,7 @@ import SheftAppsStylishUI
 struct CordlessPhoneRadioWaveView: View {
 
     // MARK: - Properties - Cordless Phone Frequencies
+
     var availableFrequencies = Phone.CordlessFrequency.allCases.compactMap { $0.waveFrequency != 0 ? $0 : nil }.sorted { $1.waveFrequency > $0.waveFrequency }
 
     var selectedFrequency: Phone.CordlessFrequency {
@@ -19,17 +20,23 @@ struct CordlessPhoneRadioWaveView: View {
     }
 
     // MARK: - Properties - Booleans
+
     @State var isPlaying: Bool = false
+
     @Environment(\.accessibilityReduceMotion) var reduceMotion
 
     // MARK: - Properties - Floats
+
     @State var phase: CGFloat = 0
+
     @State private var timer: Timer? = nil
 
     // MARK: - Properties - Doubles
+
     @State var selectedFrequencySliderValue: Double = 0
 
     // MARK: - Properties - Integers
+
     var selectedFrequencyIndex: Int {
         return Int(selectedFrequencySliderValue)
     }

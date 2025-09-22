@@ -17,12 +17,14 @@ extension Phone {
         case cordless = "Cordless"
         
         case corded = "Corded"
-        
+
         case cordedCordless = "Corded/Cordless"
         
         case cordlessWithTransmitOnlyBase = "Cordless With Transmit-Only Base"
 
         case wiFiHandset = "Wi-Fi Handset"
+
+        case cellularHandset = "Cellular Handset"
 
         // MARK: - Phone Type Definitions
         

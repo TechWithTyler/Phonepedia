@@ -33,13 +33,15 @@ struct PhoneDetailView: View {
                     photoAndOptions
                 }
                 basicsGroup
-                linesGroup
-                if phone.isCordless || phone.isWiFiHandset {
+                if phone.basePhoneType == 0 {
+                    linesGroup
+                }
+                if phone.isCordless || phone.basePhoneType > 0 {
                     CordlessDeviceInfoView(phone: phone)
                 }
                 audioGroup
                 entriesGroup
-                if phone.isCordless || phone.cordedPhoneType == 0 {
+                if phone.isCordless || phone.isPushButtonCorded {
                     FormNavigationLink(phone: phone) {
                         PhoneSpecialFeaturesView(phone: phone)
                             .navigationTitle("Special Features")
@@ -63,8 +65,9 @@ struct PhoneDetailView: View {
         .scrollContentBackground(.hidden)
         .photosPicker(isPresented: $photoViewModel.showingPhotoPicker, selection: $photoViewModel.selectedPhoto, matching: .images, preferredItemEncoding: .automatic)
         .onChange(of: photoViewModel.selectedPhoto, { oldValue, newValue in
-            photoViewModel.updatePhonePhoto(for: phone, oldValue: oldValue, newValue: newValue)
+            photoViewModel.updatePhonePhotoToPickerSelection(for: phone, to: newValue)
         })
+        // Photo dialogs
 #if os(iOS)
         .sheet(isPresented: $photoViewModel.takingPhoto) {
             CameraViewController(viewModel: photoViewModel, phone: phone)
@@ -80,7 +83,12 @@ struct PhoneDetailView: View {
 #if os(macOS)
         .dialogSeverity(.critical)
 #endif
-        .alert("Reset photo?", isPresented: $photoViewModel.showingResetAlert) {
+        .alert("This phone's photo has successfully been saved to your Photos library!", isPresented: $photoViewModel.showingPhonePhotoExportSuccessfulAlert) {
+            Button("OK") {
+                photoViewModel.showingPhonePhotoExportSuccessfulAlert = false
+            }
+        }
+        .alert("Reset to the placeholder photo?", isPresented: $photoViewModel.showingResetAlert) {
             Button(role: .destructive) {
                 phone.photoData = nil
                 photoViewModel.showingResetAlert = false
@@ -88,7 +96,7 @@ struct PhoneDetailView: View {
                 Text("Delete")
             }
         }
-        .alert("Selected photo doesn't appear to contain landline phones. Save anyway?", isPresented: $photoViewModel.showingUnsurePhotoDataAlert) {
+        .alert("This photo doesn't appear to contain landline or VoIP phones. Save anyway?", isPresented: $photoViewModel.showingUnsurePhotoDataAlert) {
             Button {
                 phone.photoData = photoViewModel.unsurePhotoDataToUse
                 photoViewModel.unsurePhotoDataToUse = nil
@@ -103,7 +111,7 @@ struct PhoneDetailView: View {
                 Text("Cancel")
             }
         } message: {
-            Text("Tip: Landline phone detection works best with images where the phone takes up most of the image.")
+            Text("Tip: Landline/VoIP phone detection works best with photos where the phone takes up most of the photo.")
         }
     }
     
@@ -115,27 +123,47 @@ struct PhoneDetailView: View {
             HStack {
                 Spacer()
                 PhoneImage(phone: phone, mode: .full)
+                    .contextMenu {
+                        Button("Save to Photos Library…", systemImage: "square.and.arrow.down") {
+                            photoViewModel.savePhonePhotoToLibrary(phone: phone)
+                        }
+                        .disabled(phone.photoData == nil)
+                    }
+                    .onDrop(of: [.image], isTargeted: $photoViewModel.hoveringItemOverPhoto) { providers in
+                        photoViewModel.handleDroppedPhoto(phone: phone, with: providers)
+                    }
+                    .onDrag {
+                        photoViewModel.exportPhonePhoto(phone: phone)
+                    }
+                    .sensoryFeedback(.alignment, trigger: photoViewModel.hoveringItemOverPhoto)
+                    .sensoryFeedback(.error, trigger: photoViewModel.showingPhonePhotoErrorAlert == true)
                 Spacer()
             }
+            if photoViewModel.hoveringItemOverPhoto {
+                Text("Release to set photo")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            } else {
 #if os(iOS)
-            Button {
-                photoViewModel.takingPhoto = true
-            } label: {
-                Label("Take Photo…", systemImage: "camera")
-            }
+                Button {
+                    photoViewModel.takingPhoto = true
+                } label: {
+                    Label("Take Photo…", systemImage: "camera")
+                }
 #endif
-            Button {
-                photoViewModel.showingPhotoPicker = true
-            } label: {
-                Label("Select From Library…", systemImage: "photo")
-            }
-            Button(role: .destructive) {
-                photoViewModel.showingResetAlert = true
-            } label: {
-                Label("Reset to Placeholder…", systemImage: "arrow.clockwise")
+                Button {
+                    photoViewModel.showingPhotoPicker = true
+                } label: {
+                    Label("Select From Library…", systemImage: "photo")
+                }
+                Button(role: .destructive) {
+                    photoViewModel.showingResetAlert = true
+                } label: {
+                    Label("Reset to Placeholder…", systemImage: "arrow.clockwise")
 #if !os(macOS)
-                    .foregroundStyle(.red)
+                        .foregroundStyle(.red)
 #endif
+                }
             }
         }
     }
@@ -171,14 +199,16 @@ struct PhoneDetailView: View {
             } label: {
                 Label("General", systemImage: "gearshape")
             }
-            FormNavigationLink(phone: phone) {
-                PhonePowerView(phone: phone)
-                    .navigationTitle("Power")
+            if phone.basePhoneType == 0 {
+                FormNavigationLink(phone: phone) {
+                    PhonePowerView(phone: phone)
+                        .navigationTitle("Power")
 #if !os(macOS)
-                    .navigationBarTitleDisplayMode(.inline)
+                        .navigationBarTitleDisplayMode(.inline)
 #endif
-            } label: {
-                Label("Power", systemImage: "bolt")
+                } label: {
+                    Label("Power", systemImage: "bolt")
+                }
             }
             FormNavigationLink(phone: phone) {
                 PhoneColorView(phone: phone)
@@ -189,7 +219,7 @@ struct PhoneDetailView: View {
             } label: {
                 Label(phone.isCordless ? "Base Colors" : "Colors", systemImage: "paintpalette")
             }
-            if phone.isCordless || phone.cordedPhoneType == 0 || phone.cordedPhoneType == 2 {
+            if phone.isCordless || phone.isPushButtonCorded || phone.basePhoneType > 0 {
                 FormNavigationLink(phone: phone) {
                     BaseDisplayBacklightButtonsView(phone: phone)
                         .navigationTitle("Disp/B.light/Buttons")
@@ -199,15 +229,17 @@ struct PhoneDetailView: View {
                 } label: {
                     Label("Display/Backlight/Buttons", systemImage: "5.square")
                 }
+                if phone.basePhoneType == 0 {
                     FormNavigationLink(phone: phone) {
                         PhoneMessagingView(phone: phone)
                             .navigationTitle("Messaging")
-        #if !os(macOS)
+#if !os(macOS)
                             .navigationBarTitleDisplayMode(.inline)
-        #endif
+#endif
                     } label: {
                         Label("Messaging", systemImage: "recordingtape")
                     }
+                }
                 FormNavigationLink(phone: phone) {
                     PhoneOutgoingCallProtectionView(phone: phone)
                         .navigationTitle("Outgoing Protection")
@@ -234,7 +266,7 @@ struct PhoneDetailView: View {
             } label: {
                 Label("Ringers", systemImage: "bell")
             }
-            if phone.isCordless || phone.cordedPhoneType == 0 {
+            if phone.isCordless || phone.isPushButtonCorded {
                 FormNavigationLink(phone: phone) {
                     BaseSpeakerphoneIntercomView(phone: phone)
                         .navigationTitle(phone.isCordless ? "Speaker/Int" : "Speakerphone")
@@ -278,7 +310,7 @@ struct PhoneDetailView: View {
             } label: {
                 Label("Main Line", systemImage: "phone.connection")
             }
-            if phone.isCordless || phone.cordedPhoneType == 0 {
+            if phone.isCordlessOrPushButtonDesk {
                 FormNavigationLink(phone: phone) {
                     CellPhoneLinkingView(phone: phone)
                         .navigationTitle("Cell Phone Linking")
@@ -295,7 +327,7 @@ struct PhoneDetailView: View {
     @ViewBuilder
     var entriesGroup: some View {
         Section("Entries/Phone Numbers") {
-            if phone.hasBaseSpeakerphone || !phone.isCordless || phone.isCordedCordless {
+            if phone.canTalkOnBase {
                 FormNavigationLink(phone: phone) {
                     BaseRedialView(phone: phone)
                         .navigationTitle("Redial")
@@ -306,7 +338,7 @@ struct PhoneDetailView: View {
                     Label("Redial", systemImage: "phone.arrow.up.right")
                 }
             }
-            if phone.isCordless || (phone.cordedPhoneType == 0 && phone.baseDisplayType > 0) {
+            if phone.canShowPhoneNumbers {
                 FormNavigationLink(phone: phone) {
                     DialingCodesView(phone: phone)
                         .navigationTitle("Dialing Codes")
@@ -325,8 +357,6 @@ struct PhoneDetailView: View {
                 } label: {
                     Label("Phonebook", systemImage: "book")
                 }
-            }
-            if phone.isCordless || phone.cordedPhoneType == 0 || (phone.cordedPhoneType == 2 && phone.baseDisplayType > 0) {
                 FormNavigationLink(phone: phone) {
                     BaseCallerIDView(phone: phone)
                         .navigationTitle("Caller ID")
@@ -345,7 +375,7 @@ struct PhoneDetailView: View {
                 } label: {
                     Label("Quick Dialing", systemImage: "person.3")
                 }
-                if phone.isCordless || phone.cordedPhoneType == 0 {
+                if phone.isCordlessOrPushButtonDesk {
                     FormNavigationLink(phone: phone) {
                         CallBlockView(phone: phone)
                             .navigationTitle("Call Blocking")
@@ -359,7 +389,7 @@ struct PhoneDetailView: View {
             }
         }
     }
-    
+
 }
 
 #Preview {

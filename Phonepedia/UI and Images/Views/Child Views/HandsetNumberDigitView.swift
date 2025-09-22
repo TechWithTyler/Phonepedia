@@ -31,8 +31,8 @@ struct HandsetNumberDigitView: View {
                 HStack {
                     ForEach(0..<modelNumber.count, id: \.self) { index in
                         let character = modelNumber[index]
-                        // If the character is a number greater than 0, display it as a button.
-                        if let newDigitStringAsInt = Int(String(character)), newDigitStringAsInt > 0 {
+                        // If the character is a number, display it as a button.
+                        if let newDigitStringAsInt = Int(String(character)) {
                             Button(String(character)) {
                                     setHandsetNumberDigit(to: newDigitStringAsInt, at: index)
                             }
@@ -45,7 +45,7 @@ struct HandsetNumberDigitView: View {
                             #endif
                             .accessibilityConditionalTrait(.isSelected, condition: phone.handsetNumberDigitIndex == index)
                         } else {
-                            // If the character isn't a number greater than 0, display it as text.
+                            // If the character isn't a number, display it as text.
                             Text(String(modelNumber[index]))
                                 .padding(4)
                         }
@@ -75,7 +75,7 @@ struct HandsetNumberDigitView: View {
 
     func setHandsetNumberDigit(to newDigit: Int, at index: Int) {
         // 1. Set the number of included cordless handsets to the value corresponding to the new digit. For example, if the 2 after the dash in M123-2 is selected, the number of included cordless handsets will be set to 2.
-        phone.numberOfIncludedCordlessHandsets = newDigit
+        phone.numberOfIncludedCordlessHandsets = newDigit == 0 ? 1 : newDigit
         // 2. Set the handset number digit and index to the new digit and index.
         phone.handsetNumberDigit = newDigit
         phone.handsetNumberDigitIndex = index

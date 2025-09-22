@@ -49,19 +49,20 @@ struct PhoneImage: View {
         switch mode {
         case .thumbnail: return 100
         case .full: return 300
-        case .backdrop: return .infinity
+        case .backdrop: return 300
         }
 	}
     
     // MARK: - View
 
     var body: some View {
+        if mode == .backdrop {
             image
                 .renderingMode(phone.photoData == nil && !useDetailedPhoneImage ? .template : .original)
                 .resizable()
                 .aspectRatio(contentMode: .fill)
-                .frame(width: size, height: size)
-                .clipShape(RoundedRectangle(cornerRadius: mode == .backdrop ? 0 : SAContainerViewCornerRadius))
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .clipShape(RoundedRectangle(cornerRadius: 0))
                 .accessibilityLabel("\(phone.brand) \(phone.model)")
                 .opacity(isAnimating ? 1 : 0)
                 .blur(radius: isAnimating ? 0 : 100)
@@ -71,6 +72,23 @@ struct PhoneImage: View {
                 .onAppear {
                     isAnimating = true
                 }
+        } else {
+            image
+                .renderingMode(phone.photoData == nil && !useDetailedPhoneImage ? .template : .original)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: size, height: size)
+                .clipShape(RoundedRectangle(cornerRadius: SAContainerViewCornerRadius))
+                .accessibilityLabel("\(phone.brand) \(phone.model)")
+                .opacity(isAnimating ? 1 : 0)
+                .blur(radius: isAnimating ? 0 : 100)
+                // Use the animation modifier with a value to animate a view when a property changes.
+                .animation(.easeIn(duration: reduceMotion ? 0 : 0.5), value: isAnimating)
+                .animation(.easeInOut(duration: 1.0), value: phone.photoData)
+                .onAppear {
+                    isAnimating = true
+                }
+        }
     }
 
     var image: Image {
