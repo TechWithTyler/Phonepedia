@@ -16,7 +16,9 @@ struct HandsetPowerView: View {
     var body: some View {
         if let phone = handset.phone {
             if handset.cordlessDeviceType == 0 {
-                Section("Charging/Picking Up") {
+                Section("On/Off/Charging/Picking Up") {
+                    Toggle("Can Power Off", isOn: $handset.canPowerOff)
+                    InfoText("Some handsets allow you to turn them off, just like a cell phone. This allows you to save battery or transport the handset powered off without removing the battery/ies. If the handset doesn't turn on when inserting charged batteries and it doesn't have the ability to turn on/off, it can be placed on charge to turn on.")
                     Toggle("Has Charge Light", isOn: $handset.hasChargeLight)
                     if handset.hasChargeLight {
                         ColorPicker("Charge Light Color (Charging)", selection: handset.chargeLightColorChargingBinding, supportsOpacity: false)
@@ -28,7 +30,7 @@ struct HandsetPowerView: View {
                         }
                     }
                     Toggle("Has Auto-Answer", isOn: $handset.hasAutoAnswer)
-                    InfoText("Auto-answer, sometimes called auto talk, allows you to answer calls by simply picking up the handset from charge.")
+                    InfoText("Auto-answer, sometimes called auto talk, allows you to answer calls by simply picking up the handset from charge without having to press any buttons.")
                     Toggle("Has Charge Tone", isOn: $handset.hasChargeTone)
                     InfoText("A charge tone sounds when the handset is placed on charge.")
                     if handset.hasSpeakerphone && handset.handsetStyle < 2 {

@@ -188,6 +188,8 @@ final class CordlessHandset {
 
     var hasChargeTone: Bool = false
 
+    var canPowerOff: Bool = false
+
 	var lineButtons: Int = 0
 	
 	var visualRinger: Int = 0
