@@ -204,7 +204,7 @@ struct PhoneGeneralView: View {
                             Picker("Base Charging Direction", selection: $phone.baseChargingDirection) {
                                 ChargingDirectionPickerItems()
                             }
-                            InfoText("Variations in charging area designs are one of the many ways cordless phones look different from one another.\n\"Lean Back\" means the handset leans back in the charging area but isn't fully flat (\"Lay Down\").\nA reversible handset can charge with the keypad facing either up or down. While there's no benefit to this design with phones without handset displays, the phone may still have this design if the base or handset casing is shared with a model that has a handset display.")
+                            InfoText("Variations in charging area designs are one of the many ways cordless phones look different from one another.\n\"Lean Back\" means the handset leans back in the charging area but isn't fully flat (\"Lay Down\").\nA reversible handset can charge with the keypad facing either up or down. While there's no benefit to this design if the handset doesn't have a display, the phone may still have this design if the base or handset casing is shared with a model that has a handset display.")
                             if phone.baseChargingDirection == 6 {
                                 InfoText("This charging area design is often seen on phones where the base sits flush with the wall when wall-mounted. When wall-mounted, the face-down lay down position is the only way the handset can charge securely.")
                             }
