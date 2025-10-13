@@ -126,7 +126,6 @@
 		8DA844F22B72E1D7006CBCA7 /* PhonePhotoError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844CC2B72E1D7006CBCA7 /* PhonePhotoError.swift */; };
 		8DA844F32B72E1D7006CBCA7 /* PhonepediaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844CD2B72E1D7006CBCA7 /* PhonepediaApp.swift */; };
 		8DB25E902C8BC4A9001617C2 /* FormNavigationLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB25E8F2C8BC4A9001617C2 /* FormNavigationLink.swift */; };
-		8DB29E252E3C04260066D238 /* AboutCordedPhoneTypesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB29E242E3C04260066D238 /* AboutCordedPhoneTypesView.swift */; };
 		8DB9A30E2CEBEDFB005BC70B /* PhoneCountButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB9A30D2CEBEDFB005BC70B /* PhoneCountButton.swift */; };
 		8DB9A3102CEBEE37005BC70B /* PhoneTypeDefinitionsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB9A30F2CEBEE37005BC70B /* PhoneTypeDefinitionsButton.swift */; };
 		8DBA56BD2D3081C3005DC013 /* AnsweringSystemVsVoicemailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBA56BC2D3081C3005DC013 /* AnsweringSystemVsVoicemailView.swift */; };
@@ -311,7 +310,6 @@
 		8DA844CC2B72E1D7006CBCA7 /* PhonePhotoError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhonePhotoError.swift; sourceTree = "<group>"; };
 		8DA844CD2B72E1D7006CBCA7 /* PhonepediaApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhonepediaApp.swift; sourceTree = "<group>"; };
 		8DB25E8F2C8BC4A9001617C2 /* FormNavigationLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormNavigationLink.swift; sourceTree = "<group>"; };
-		8DB29E242E3C04260066D238 /* AboutCordedPhoneTypesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutCordedPhoneTypesView.swift; sourceTree = "<group>"; };
 		8DB9A30D2CEBEDFB005BC70B /* PhoneCountButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneCountButton.swift; sourceTree = "<group>"; };
 		8DB9A30F2CEBEE37005BC70B /* PhoneTypeDefinitionsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneTypeDefinitionsButton.swift; sourceTree = "<group>"; };
 		8DBA56BC2D3081C3005DC013 /* AnsweringSystemVsVoicemailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnsweringSystemVsVoicemailView.swift; sourceTree = "<group>"; };
@@ -620,7 +618,6 @@
 				8DA72F092D79042700A957A4 /* OneTouchEmergencyCallingInfoView.swift */,
 				8D3625A22D9346D300CA3D93 /* AboutPhoneGradesView.swift */,
 				8D46478C2DA07DF0001A53F4 /* AboutCallerIDNameFormattingView.swift */,
-				8DB29E242E3C04260066D238 /* AboutCordedPhoneTypesView.swift */,
 				8D53EBAA2E7A026300B71D8C /* RedialWhenBusyInfoView.swift */,
 			);
 			path = Info;
@@ -1045,7 +1042,6 @@
 				8DD3A2982D2C7D5100595AB3 /* DisplaySettingsPageView.swift in Sources */,
 				8DA844DF2B72E1D7006CBCA7 /* ChargingContactInfoView.swift in Sources */,
 				8DA844E02B72E1D7006CBCA7 /* PhoneRowView.swift in Sources */,
-				8DB29E252E3C04260066D238 /* AboutCordedPhoneTypesView.swift in Sources */,
 				8DEC01642C20D78D006E0233 /* PhoneDetailView.swift in Sources */,
 				8DA72F0A2D79042700A957A4 /* OneTouchEmergencyCallingInfoView.swift in Sources */,
 				8DA844DA2B72E1D7006CBCA7 /* PhoneButtonLegendItem.swift in Sources */,

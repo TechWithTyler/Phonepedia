@@ -52,9 +52,6 @@ struct ContentView: View {
         .sheet(isPresented: $dialogManager.showingPhoneTypeDefinitions) {
             PhoneTypeDefinitionsView()
         }
-        .sheet(isPresented: $dialogManager.showingAboutCordedPhoneStyles) {
-            AboutCordedPhoneStylesView()
-        }
         .sheet(isPresented: $dialogManager.showingAboutPhoneGrades) {
             AboutPhoneGradesView()
         }

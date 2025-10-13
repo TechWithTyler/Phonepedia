@@ -44,5 +44,36 @@ extension Phone {
         }
         
     }
-    
+
+    enum CordlessBaseType : String {
+
+        case locatorBase = "Locator Base"
+
+        case hiddenBase = "Hidden Base"
+
+        case messagingBase = "Messaging Base"
+
+        case speakerphoneBase = "Speakerphone Base"
+
+        case dialingBase = "Dialing Base"
+
+    }
+
+    enum CordedPhoneStyle : String {
+
+        case desk = "Desk"
+
+        case slim = "Slim/Wall"
+
+        case candlestick = "Candlestick"
+
+        case woodenBox = "Wooden Box"
+
+        case baseless = "Baseless"
+
+        case novelty = "Novelty"
+
+
+    }
+
 }

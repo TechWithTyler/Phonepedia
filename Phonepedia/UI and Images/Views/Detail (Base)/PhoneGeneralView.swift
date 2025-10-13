@@ -301,9 +301,7 @@ In most cases, if the base has a charge light/display message, the completion of
                     .onChange(of: phone.cordedPhoneType) { oldValue, newValue in
                         phone.cordedPhoneTypeChanged(oldValue: oldValue, newValue: newValue)
                     }
-                    InfoButton(title: "About Corded Phone Styles…") {
-                        dialogManager.showingAboutCordedPhoneStyles = true
-                    }
+                    InfoText("Most push-button phones send tones made up of a low and high frequency, called Dual-Tone Multi-Frequency (DTMF) tones, when numbers are dialed. Most phone services today only support tone dialing, so a pulse-to-tone converter is required if you want to use a rotary phone or pulse-only push-button phone on your line. A pulse-to-tone converter detects the number of pulses and then sends out the corresponding DTMF tone through the line.\nRotary phones use a dial with numbers on it. You place your finger on the desired number and turn it until it stops, hence the phrase \"dialing a number\". When you release the dial, springs and gears return it to its resting position, causing the phone to go on and off-hook very quickly a certain number of times, corresponding to the number you put your finger on. This quick \"on and off-hook\" is called a pulse. Push-button phones can also send pulses instead of tones. For line-powered push-button phones with button lighting, the light will flash with each pulse.\nOn most corded phones, you can quickly press the hook switch/switch hook to simulate a pulse dial. This is called \"switch hook dialing\".")
                     if phone.cordedPhoneType == 0 {
                         Toggle("Has Dual Receivers", isOn: $phone.hasDualReceivers)
                         InfoText("A corded phone with dual receivers allows 2 people to use the phone at the same time without having to connect 2 separate phones to the same line. These kinds of phones are often used by those requiring a language interpreter.")

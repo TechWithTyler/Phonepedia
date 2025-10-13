@@ -16,6 +16,12 @@ let appName: String? = (Bundle.main.infoDictionary?[String(kCFBundleNameKey)] as
 // The sample text to display above the phone description text view and when previewing the current font size in Settings.
 var phoneDescriptionSampleText: String = "I bought this phone at a thrift store in June 2023. I've always been wanting this model because of its stylish design."
 
+// The name of the PhoneTypeDefinitionsView section explaining the various cordless phone base types.
+let cordlessBaseTypeSectionName: String = "Cordless Phone Base Types"
+
+// The name of the PhoneTypeDefinitionsView section explaining the various corded phone styles.
+let cordedPhoneStyleSectionName: String = "Corded Phone Styles"
+
 // MARK: - Properties - Integers
 
 // The current year to use as the default value of a phone or cordless device's release year/acquisition year.

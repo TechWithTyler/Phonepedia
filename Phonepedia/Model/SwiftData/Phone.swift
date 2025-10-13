@@ -514,16 +514,35 @@ final class Phone {
         if isCordedCordless {
             return PhoneType.cordedCordless.rawValue
         } else if isCordless {
+            let type: String
             if hasTransmitOnlyBase {
-                return PhoneType.cordlessWithTransmitOnlyBase.rawValue
+                type = PhoneType.cordlessWithTransmitOnlyBase.rawValue
+            } else {
+                type = PhoneType.cordless.rawValue
             }
-            return PhoneType.cordless.rawValue
+            return "\(type) (\(cordlessBaseTypeText))"
         } else if basePhoneType == 1 {
             return PhoneType.wiFiHandset.rawValue
         } else if basePhoneType == 2 {
             return PhoneType.cellularHandset.rawValue
         } else {
             return PhoneType.corded.rawValue
+        }
+    }
+
+    // The text to display for a cordless phone's base type.
+    @Transient
+    var cordlessBaseTypeText: String {
+        if hasCordedReceiver {
+            return String()
+        } else if hasBaseKeypad {
+            return CordlessBaseType.dialingBase.rawValue
+        } else if hasBaseSpeakerphone {
+            return CordlessBaseType.speakerphoneBase.rawValue
+        } else if hasBaseAccessibleAnsweringSystem {
+            return CordlessBaseType.messagingBase.rawValue
+        } else {
+            return hasTransmitOnlyBase ? CordlessBaseType.hiddenBase.rawValue : CordlessBaseType.locatorBase.rawValue
         }
     }
 
