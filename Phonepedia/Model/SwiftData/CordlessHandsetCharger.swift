@@ -75,10 +75,10 @@ final class CordlessHandsetCharger {
     var mainColorBinding: Binding<Color> {
         rgbBinding(
             get: { (self.mainColorRed, self.mainColorGreen, self.mainColorBlue) },
-            set: { r, g, b in
-                self.mainColorRed = r
-                self.mainColorGreen = g
-                self.mainColorBlue = b
+            set: { red, green, blue in
+                self.mainColorRed = red
+                self.mainColorGreen = green
+                self.mainColorBlue = blue
             }
         )
     }
@@ -86,10 +86,10 @@ final class CordlessHandsetCharger {
     var secondaryColorBinding: Binding<Color> {
         rgbBinding(
             get: { (self.secondaryColorRed, self.secondaryColorGreen, self.secondaryColorBlue) },
-            set: { r, g, b in
-                self.secondaryColorRed = r
-                self.secondaryColorGreen = g
-                self.secondaryColorBlue = b
+            set: { red, green, blue in
+                self.secondaryColorRed = red
+                self.secondaryColorGreen = green
+                self.secondaryColorBlue = blue
             }
         )
     }
@@ -98,10 +98,10 @@ final class CordlessHandsetCharger {
     var accentColorBinding: Binding<Color> {
         rgbBinding(
             get: { (self.accentColorRed, self.accentColorGreen, self.accentColorBlue) },
-            set: { r, g, b in
-                self.accentColorRed = r
-                self.accentColorGreen = g
-                self.accentColorBlue = b
+            set: { red, green, blue in
+                self.accentColorRed = red
+                self.accentColorGreen = green
+                self.accentColorBlue = blue
             }
         )
     }
@@ -110,10 +110,10 @@ final class CordlessHandsetCharger {
     var chargeLightColorChargingBinding: Binding<Color> {
         rgbBinding(
             get: { (self.chargeLightColorChargingRed, self.chargeLightColorChargingGreen, self.chargeLightColorChargingBlue) },
-            set: { r, g, b in
-                self.chargeLightColorChargingRed = r
-                self.chargeLightColorChargingGreen = g
-                self.chargeLightColorChargingBlue = b
+            set: { red, green, blue in
+                self.chargeLightColorChargingRed = red
+                self.chargeLightColorChargingGreen = green
+                self.chargeLightColorChargingBlue = blue
             }
         )
     }
@@ -122,11 +122,11 @@ final class CordlessHandsetCharger {
     var chargeLightColorChargedBinding: Binding<Color> {
         rgbaBinding(
             get: { (self.chargeLightColorChargedRed, self.chargeLightColorChargedGreen, self.chargeLightColorChargedBlue, Double(Int(self.chargeLightColorChargedAlpha.rounded(.toNearestOrEven)))) },
-            set: { r, g, b, a in
-                self.chargeLightColorChargedRed = r
-                self.chargeLightColorChargedGreen = g
-                self.chargeLightColorChargedBlue = b
-                self.chargeLightColorChargedAlpha = Double(Int(a.rounded(.toNearestOrEven)))
+            set: { red, green, blue, alpha in
+                self.chargeLightColorChargedRed = red
+                self.chargeLightColorChargedGreen = green
+                self.chargeLightColorChargedBlue = blue
+                self.chargeLightColorChargedAlpha = Double(Int(alpha.rounded(.toNearestOrEven)))
             }
         )
     }

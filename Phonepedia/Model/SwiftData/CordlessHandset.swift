@@ -412,10 +412,10 @@ final class CordlessHandset {
     var mainColorBinding: Binding<Color> {
         rgbBinding(
             get: { (self.mainColorRed, self.mainColorGreen, self.mainColorBlue) },
-            set: { r, g, b in
-                self.mainColorRed = r
-                self.mainColorGreen = g
-                self.mainColorBlue = b
+            set: { red, green, blue in
+                self.mainColorRed = red
+                self.mainColorGreen = green
+                self.mainColorBlue = blue
             }
         )
     }
@@ -424,10 +424,10 @@ final class CordlessHandset {
     var secondaryColorBinding: Binding<Color> {
         rgbBinding(
             get: { (self.secondaryColorRed, self.secondaryColorGreen, self.secondaryColorBlue) },
-            set: { r, g, b in
-                self.secondaryColorRed = r
-                self.secondaryColorGreen = g
-                self.secondaryColorBlue = b
+            set: { red, green, blue in
+                self.secondaryColorRed = red
+                self.secondaryColorGreen = green
+                self.secondaryColorBlue = blue
             }
         )
     }
@@ -436,10 +436,10 @@ final class CordlessHandset {
     var accentColorBinding: Binding<Color> {
         rgbBinding(
             get: { (self.accentColorRed, self.accentColorGreen, self.accentColorBlue) },
-            set: { r, g, b in
-                self.accentColorRed = r
-                self.accentColorGreen = g
-                self.accentColorBlue = b
+            set: { red, green, blue in
+                self.accentColorRed = red
+                self.accentColorGreen = green
+                self.accentColorBlue = blue
             }
         )
     }
@@ -448,10 +448,10 @@ final class CordlessHandset {
     var chargeLightColorChargingBinding: Binding<Color> {
         rgbBinding(
             get: { (self.chargeLightColorChargingRed, self.chargeLightColorChargingGreen, self.chargeLightColorChargingBlue) },
-            set: { r, g, b in
-                self.chargeLightColorChargingRed = r
-                self.chargeLightColorChargingGreen = g
-                self.chargeLightColorChargingBlue = b
+            set: { red, green, blue in
+                self.chargeLightColorChargingRed = red
+                self.chargeLightColorChargingGreen = green
+                self.chargeLightColorChargingBlue = blue
             }
         )
     }
@@ -460,11 +460,11 @@ final class CordlessHandset {
     var chargeLightColorChargedBinding: Binding<Color> {
         rgbaBinding(
             get: { (self.chargeLightColorChargedRed, self.chargeLightColorChargedGreen, self.chargeLightColorChargedBlue, Double(Int(self.chargeLightColorChargedAlpha.rounded(.toNearestOrEven)))) },
-            set: { r, g, b, a in
-                self.chargeLightColorChargedRed = r
-                self.chargeLightColorChargedGreen = g
-                self.chargeLightColorChargedBlue = b
-                self.chargeLightColorChargedAlpha = Double(Int(a.rounded(.toNearestOrEven)))
+            set: { red, green, blue, alpha in
+                self.chargeLightColorChargedRed = red
+                self.chargeLightColorChargedGreen = green
+                self.chargeLightColorChargedBlue = blue
+                self.chargeLightColorChargedAlpha = Double(Int(alpha.rounded(.toNearestOrEven)))
             }
         )
     }
@@ -473,11 +473,11 @@ final class CordlessHandset {
     var cordedReceiverMainColorBinding: Binding<Color> {
         rgbaBinding(
             get: { (self.cordedReceiverMainColorRed, self.cordedReceiverMainColorGreen, self.cordedReceiverMainColorBlue, Double(Int(self.cordedReceiverMainColorAlpha.rounded(.toNearestOrEven)))) },
-            set: { r, g, b, a in
-                self.cordedReceiverMainColorRed = r
-                self.cordedReceiverMainColorGreen = g
-                self.cordedReceiverMainColorBlue = b
-                self.cordedReceiverMainColorAlpha = Double(Int(a.rounded(.toNearestOrEven)))
+            set: { red, green, blue, alpha in
+                self.cordedReceiverMainColorRed = red
+                self.cordedReceiverMainColorGreen = green
+                self.cordedReceiverMainColorBlue = blue
+                self.cordedReceiverMainColorAlpha = Double(Int(alpha.rounded(.toNearestOrEven)))
             }
         )
     }
@@ -486,10 +486,10 @@ final class CordlessHandset {
     var cordedReceiverSecondaryColorBinding: Binding<Color> {
         rgbBinding(
             get: { (self.cordedReceiverSecondaryColorRed, self.cordedReceiverSecondaryColorGreen, self.cordedReceiverSecondaryColorBlue) },
-            set: { r, g, b in
-                self.cordedReceiverSecondaryColorRed = r
-                self.cordedReceiverSecondaryColorGreen = g
-                self.cordedReceiverSecondaryColorBlue = b
+            set: { red, green, blue in
+                self.cordedReceiverSecondaryColorRed = red
+                self.cordedReceiverSecondaryColorGreen = green
+                self.cordedReceiverSecondaryColorBlue = blue
             }
         )
     }
@@ -498,10 +498,10 @@ final class CordlessHandset {
     var cordedReceiverAccentColorBinding: Binding<Color> {
         rgbBinding(
             get: { (self.cordedReceiverAccentColorRed, self.cordedReceiverAccentColorGreen, self.cordedReceiverAccentColorBlue) },
-            set: { r, g, b in
-                self.cordedReceiverAccentColorRed = r
-                self.cordedReceiverAccentColorGreen = g
-                self.cordedReceiverAccentColorBlue = b
+            set: { red, green, blue in
+                self.cordedReceiverAccentColorRed = red
+                self.cordedReceiverAccentColorGreen = green
+                self.cordedReceiverAccentColorBlue = blue
             }
         )
     }
@@ -510,10 +510,10 @@ final class CordlessHandset {
     var displayBacklightColorBinding: Binding<Color> {
         rgbBinding(
             get: { (self.displayBacklightColorRed, self.displayBacklightColorGreen, self.displayBacklightColorBlue) },
-            set: { r, g, b in
-                self.displayBacklightColorRed = r
-                self.displayBacklightColorGreen = g
-                self.displayBacklightColorBlue = b
+            set: { red, green, blue in
+                self.displayBacklightColorRed = red
+                self.displayBacklightColorGreen = green
+                self.displayBacklightColorBlue = blue
             }
         )
     }
@@ -522,10 +522,10 @@ final class CordlessHandset {
     var keyBacklightColorBinding: Binding<Color> {
         rgbBinding(
             get: { (self.keyBacklightColorRed, self.keyBacklightColorGreen, self.keyBacklightColorBlue) },
-            set: { r, g, b in
-                self.keyBacklightColorRed = r
-                self.keyBacklightColorGreen = g
-                self.keyBacklightColorBlue = b
+            set: { red, green, blue in
+                self.keyBacklightColorRed = red
+                self.keyBacklightColorGreen = green
+                self.keyBacklightColorBlue = blue
             }
         )
     }
@@ -534,10 +534,10 @@ final class CordlessHandset {
     var keyForegroundColorBinding: Binding<Color> {
         rgbBinding(
             get: { (self.keyForegroundColorRed, self.keyForegroundColorGreen, self.keyForegroundColorBlue) },
-            set: { r, g, b in
-                self.keyForegroundColorRed = r
-                self.keyForegroundColorGreen = g
-                self.keyForegroundColorBlue = b
+            set: { red, green, blue in
+                self.keyForegroundColorRed = red
+                self.keyForegroundColorGreen = green
+                self.keyForegroundColorBlue = blue
             }
         )
     }
@@ -546,10 +546,10 @@ final class CordlessHandset {
     var keyBackgroundColorBinding: Binding<Color> {
         rgbBinding(
             get: { (self.keyBackgroundColorRed, self.keyBackgroundColorGreen, self.keyBackgroundColorBlue) },
-            set: { r, g, b in
-                self.keyBackgroundColorRed = r
-                self.keyBackgroundColorGreen = g
-                self.keyBackgroundColorBlue = b
+            set: { red, green, blue in
+                self.keyBackgroundColorRed = red
+                self.keyBackgroundColorGreen = green
+                self.keyBackgroundColorBlue = blue
             }
         )
     }

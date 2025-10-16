@@ -13,7 +13,11 @@ extension Color {
         #else
         let nsColor = NSColor(self)
         let calibratedColor = nsColor.usingColorSpace(.sRGB) ?? nsColor
-        return (Double(calibratedColor.redComponent), Double(calibratedColor.greenComponent), Double(calibratedColor.blueComponent), Double(calibratedColor.alphaComponent))
+        let redComponent = Double(calibratedColor.redComponent)
+        let greenComponent = Double(calibratedColor.greenComponent)
+        let blueComponent = Double(calibratedColor.blueComponent)
+        let alphaComponent = Double(calibratedColor.alphaComponent)
+        return (redComponent, greenComponent, blueComponent, alphaComponent)
         #endif
     }
 }
@@ -24,8 +28,8 @@ func rgbBinding(
 ) -> Binding<Color> {
     Binding<Color>(
         get: {
-            let (r, g, b) = get()
-            return Color(red: r, green: g, blue: b)
+            let (red, green, blue) = get()
+            return Color(red: red, green: green, blue: blue)
         },
         set: { color in
             let components = color.components
@@ -40,8 +44,8 @@ func rgbaBinding(
 ) -> Binding<Color> {
     Binding<Color>(
         get: {
-            let (r, g, b, a) = get()
-            return Color(red: r, green: g, blue: b, opacity: a)
+            let (red, green, blue, alpha) = get()
+            return Color(red: red, green: green, blue: blue, opacity: alpha)
         },
         set: { color in
             let components = color.components

@@ -754,10 +754,10 @@ final class Phone {
     var baseMainColorBinding: Binding<Color> {
         rgbBinding(
             get: { (self.baseMainColorRed, self.baseMainColorGreen, self.baseMainColorBlue) },
-            set: { r, g, b in
-                self.baseMainColorRed = r
-                self.baseMainColorGreen = g
-                self.baseMainColorBlue = b
+            set: { red, green, blue in
+                self.baseMainColorRed = red
+                self.baseMainColorGreen = green
+                self.baseMainColorBlue = blue
             }
         )
     }
@@ -766,10 +766,10 @@ final class Phone {
     var baseSecondaryColorBinding: Binding<Color> {
         rgbBinding(
             get: { (self.baseSecondaryColorRed, self.baseSecondaryColorGreen, self.baseSecondaryColorBlue) },
-            set: { r, g, b in
-                self.baseSecondaryColorRed = r
-                self.baseSecondaryColorGreen = g
-                self.baseSecondaryColorBlue = b
+            set: { red, green, blue in
+                self.baseSecondaryColorRed = red
+                self.baseSecondaryColorGreen = green
+                self.baseSecondaryColorBlue = blue
             }
         )
     }
@@ -778,10 +778,10 @@ final class Phone {
     var baseAccentColorBinding: Binding<Color> {
         rgbBinding(
             get: { (self.baseAccentColorRed, self.baseAccentColorGreen, self.baseAccentColorBlue) },
-            set: { r, g, b in
-                self.baseAccentColorRed = r
-                self.baseAccentColorGreen = g
-                self.baseAccentColorBlue = b
+            set: { red, green, blue in
+                self.baseAccentColorRed = red
+                self.baseAccentColorGreen = green
+                self.baseAccentColorBlue = blue
             }
         )
     }
@@ -790,11 +790,11 @@ final class Phone {
     var cordedReceiverMainColorBinding: Binding<Color> {
         rgbaBinding(
             get: { (self.cordedReceiverMainColorRed, self.cordedReceiverMainColorGreen, self.cordedReceiverMainColorBlue, Double(Int(self.cordedReceiverMainColorAlpha.rounded(.toNearestOrEven)))) },
-            set: { r, g, b, a in
-                self.cordedReceiverMainColorRed = r
-                self.cordedReceiverMainColorGreen = g
-                self.cordedReceiverMainColorBlue = b
-                self.cordedReceiverMainColorAlpha = Double(Int(a.rounded(.toNearestOrEven)))
+            set: { red, green, blue, alpha in
+                self.cordedReceiverMainColorRed = red
+                self.cordedReceiverMainColorGreen = green
+                self.cordedReceiverMainColorBlue = blue
+                self.cordedReceiverMainColorAlpha = Double(Int(alpha.rounded(.toNearestOrEven)))
             }
         )
     }
@@ -803,10 +803,10 @@ final class Phone {
     var cordedReceiverSecondaryColorBinding: Binding<Color> {
         rgbBinding(
             get: { (self.cordedReceiverSecondaryColorRed, self.cordedReceiverSecondaryColorGreen, self.cordedReceiverSecondaryColorBlue) },
-            set: { r, g, b in
-                self.cordedReceiverSecondaryColorRed = r
-                self.cordedReceiverSecondaryColorGreen = g
-                self.cordedReceiverSecondaryColorBlue = b
+            set: { red, green, blue in
+                self.cordedReceiverSecondaryColorRed = red
+                self.cordedReceiverSecondaryColorGreen = green
+                self.cordedReceiverSecondaryColorBlue = blue
             }
         )
     }
@@ -815,10 +815,10 @@ final class Phone {
     var cordedReceiverAccentColorBinding: Binding<Color> {
         rgbBinding(
             get: { (self.cordedReceiverAccentColorRed, self.cordedReceiverAccentColorGreen, self.cordedReceiverAccentColorBlue) },
-            set: { r, g, b in
-                self.cordedReceiverAccentColorRed = r
-                self.cordedReceiverAccentColorGreen = g
-                self.cordedReceiverAccentColorBlue = b
+            set: { red, green, blue in
+                self.cordedReceiverAccentColorRed = red
+                self.cordedReceiverAccentColorGreen = green
+                self.cordedReceiverAccentColorBlue = blue
             }
         )
     }
@@ -827,11 +827,11 @@ final class Phone {
     var baseDisplayBacklightColorBinding: Binding<Color> {
         rgbaBinding(
             get: { (self.baseDisplayBacklightColorRed, self.baseDisplayBacklightColorGreen, self.baseDisplayBacklightColorBlue, self.baseDisplayBacklightColorAlpha) },
-            set: { r, g, b, a in
-                self.baseDisplayBacklightColorRed = r
-                self.baseDisplayBacklightColorGreen = g
-                self.baseDisplayBacklightColorBlue = b
-                self.baseDisplayBacklightColorAlpha = a
+            set: { red, green, blue, alpha in
+                self.baseDisplayBacklightColorRed = red
+                self.baseDisplayBacklightColorGreen = green
+                self.baseDisplayBacklightColorBlue = blue
+                self.baseDisplayBacklightColorAlpha = alpha
             }
         )
     }
@@ -840,10 +840,10 @@ final class Phone {
     var baseKeyBacklightColorBinding: Binding<Color> {
         rgbBinding(
             get: { (self.baseKeyBacklightColorRed, self.baseKeyBacklightColorGreen, self.baseKeyBacklightColorBlue) },
-            set: { r, g, b in
-                self.baseKeyBacklightColorRed = r
-                self.baseKeyBacklightColorGreen = g
-                self.baseKeyBacklightColorBlue = b
+            set: { red, green, blue in
+                self.baseKeyBacklightColorRed = red
+                self.baseKeyBacklightColorGreen = green
+                self.baseKeyBacklightColorBlue = blue
             }
         )
     }
@@ -852,10 +852,10 @@ final class Phone {
     var baseKeyForegroundColorBinding: Binding<Color> {
         rgbBinding(
             get: { (self.baseKeyForegroundColorRed, self.baseKeyForegroundColorGreen, self.baseKeyForegroundColorBlue) },
-            set: { r, g, b in
-                self.baseKeyForegroundColorRed = r
-                self.baseKeyForegroundColorGreen = g
-                self.baseKeyForegroundColorBlue = b
+            set: { red, green, blue in
+                self.baseKeyForegroundColorRed = red
+                self.baseKeyForegroundColorGreen = green
+                self.baseKeyForegroundColorBlue = blue
             }
         )
     }
@@ -864,10 +864,10 @@ final class Phone {
     var chargeLightColorChargingBinding: Binding<Color> {
         rgbBinding(
             get: { (self.chargeLightColorChargingRed, self.chargeLightColorChargingGreen, self.chargeLightColorChargingBlue) },
-            set: { r, g, b in
-                self.chargeLightColorChargingRed = r
-                self.chargeLightColorChargingGreen = g
-                self.chargeLightColorChargingBlue = b
+            set: { red, green, blue in
+                self.chargeLightColorChargingRed = red
+                self.chargeLightColorChargingGreen = green
+                self.chargeLightColorChargingBlue = blue
             }
         )
     }
@@ -876,11 +876,11 @@ final class Phone {
     var chargeLightColorChargedBinding: Binding<Color> {
         rgbaBinding(
             get: { (self.chargeLightColorChargedRed, self.chargeLightColorChargedGreen, self.chargeLightColorChargedBlue, Double(Int(self.chargeLightColorChargedAlpha.rounded(.toNearestOrEven)))) },
-            set: { r, g, b, a in
-                self.chargeLightColorChargedRed = r
-                self.chargeLightColorChargedGreen = g
-                self.chargeLightColorChargedBlue = b
-                self.chargeLightColorChargedAlpha = Double(Int(a.rounded(.toNearestOrEven)))
+            set: { red, green, blue, alpha in
+                self.chargeLightColorChargedRed = red
+                self.chargeLightColorChargedGreen = green
+                self.chargeLightColorChargedBlue = blue
+                self.chargeLightColorChargedAlpha = Double(Int(alpha.rounded(.toNearestOrEven)))
             }
         )
     }
@@ -889,10 +889,10 @@ final class Phone {
     var baseKeyBackgroundColorBinding: Binding<Color> {
         rgbBinding(
             get: { (self.baseKeyBackgroundColorRed, self.baseKeyBackgroundColorGreen, self.baseKeyBackgroundColorBlue) },
-            set: { r, g, b in
-                self.baseKeyBackgroundColorRed = r
-                self.baseKeyBackgroundColorGreen = g
-                self.baseKeyBackgroundColorBlue = b
+            set: { red, green, blue in
+                self.baseKeyBackgroundColorRed = red
+                self.baseKeyBackgroundColorGreen = green
+                self.baseKeyBackgroundColorBlue = blue
             }
         )
     }
@@ -901,10 +901,10 @@ final class Phone {
     var baseLEDMessageCounterColorBinding: Binding<Color> {
         rgbBinding(
             get: { (self.baseLEDMessageCounterColorRed, self.baseLEDMessageCounterColorGreen, self.baseLEDMessageCounterColorBlue) },
-            set: { r, g, b in
-                self.baseLEDMessageCounterColorRed = r
-                self.baseLEDMessageCounterColorGreen = g
-                self.baseLEDMessageCounterColorBlue = b
+            set: { red, green, blue in
+                self.baseLEDMessageCounterColorRed = red
+                self.baseLEDMessageCounterColorGreen = green
+                self.baseLEDMessageCounterColorBlue = blue
             }
         )
     }
