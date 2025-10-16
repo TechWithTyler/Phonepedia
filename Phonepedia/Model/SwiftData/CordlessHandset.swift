@@ -410,148 +410,148 @@ final class CordlessHandset {
     
     @Transient
     var mainColorBinding: Binding<Color> {
-        Binding<Color> { [self] in
-            Color(red: mainColorRed, green: mainColorGreen, blue: mainColorBlue)
-        } set: { [self] newColor in
-            let components = newColor.components
-            mainColorRed = components.red
-            mainColorGreen = components.green
-            mainColorBlue = components.blue
-        }
+        rgbBinding(
+            get: { (self.mainColorRed, self.mainColorGreen, self.mainColorBlue) },
+            set: { r, g, b in
+                self.mainColorRed = r
+                self.mainColorGreen = g
+                self.mainColorBlue = b
+            }
+        )
     }
     
     @Transient
     var secondaryColorBinding: Binding<Color> {
-        Binding<Color> { [self] in
-            Color(red: secondaryColorRed, green: secondaryColorGreen, blue: secondaryColorBlue)
-        } set: { [self] newColor in
-            let components = newColor.components
-            secondaryColorRed = components.red
-            secondaryColorGreen = components.green
-            secondaryColorBlue = components.blue
-        }
+        rgbBinding(
+            get: { (self.secondaryColorRed, self.secondaryColorGreen, self.secondaryColorBlue) },
+            set: { r, g, b in
+                self.secondaryColorRed = r
+                self.secondaryColorGreen = g
+                self.secondaryColorBlue = b
+            }
+        )
     }
 
     @Transient
     var accentColorBinding: Binding<Color> {
-        Binding<Color> { [self] in
-            Color(red: accentColorRed, green: accentColorGreen, blue: accentColorBlue)
-        } set: { [self] newColor in
-            let components = newColor.components
-            accentColorRed = components.red
-            accentColorGreen = components.green
-            accentColorBlue = components.blue
-        }
+        rgbBinding(
+            get: { (self.accentColorRed, self.accentColorGreen, self.accentColorBlue) },
+            set: { r, g, b in
+                self.accentColorRed = r
+                self.accentColorGreen = g
+                self.accentColorBlue = b
+            }
+        )
     }
 
     @Transient
     var chargeLightColorChargingBinding: Binding<Color> {
-        Binding<Color> { [self] in
-            Color(red: chargeLightColorChargingRed, green: chargeLightColorChargingGreen, blue: chargeLightColorChargingBlue)
-        } set: { [self] newValue in
-            let components = newValue.components
-            chargeLightColorChargingRed = components.red
-            chargeLightColorChargingGreen = components.green
-            chargeLightColorChargingBlue = components.blue
-        }
+        rgbBinding(
+            get: { (self.chargeLightColorChargingRed, self.chargeLightColorChargingGreen, self.chargeLightColorChargingBlue) },
+            set: { r, g, b in
+                self.chargeLightColorChargingRed = r
+                self.chargeLightColorChargingGreen = g
+                self.chargeLightColorChargingBlue = b
+            }
+        )
     }
 
     @Transient
     var chargeLightColorChargedBinding: Binding<Color> {
-        Binding<Color> { [self] in
-            Color(red: chargeLightColorChargedRed, green: chargeLightColorChargedGreen, blue: chargeLightColorChargedBlue, opacity: Double(Int(chargeLightColorChargedAlpha.rounded(.toNearestOrEven))))
-        } set: { [self] newValue in
-            let components = newValue.components
-            chargeLightColorChargedRed = components.red
-            chargeLightColorChargedGreen = components.green
-            chargeLightColorChargedBlue = components.blue
-            chargeLightColorChargedAlpha = Double(Int(components.opacity.rounded(.toNearestOrEven)))
-        }
+        rgbaBinding(
+            get: { (self.chargeLightColorChargedRed, self.chargeLightColorChargedGreen, self.chargeLightColorChargedBlue, Double(Int(self.chargeLightColorChargedAlpha.rounded(.toNearestOrEven)))) },
+            set: { r, g, b, a in
+                self.chargeLightColorChargedRed = r
+                self.chargeLightColorChargedGreen = g
+                self.chargeLightColorChargedBlue = b
+                self.chargeLightColorChargedAlpha = Double(Int(a.rounded(.toNearestOrEven)))
+            }
+        )
     }
 
     @Transient
     var cordedReceiverMainColorBinding: Binding<Color> {
-        Binding<Color> { [self] in
-            Color(red: cordedReceiverMainColorRed, green: cordedReceiverMainColorGreen, blue: cordedReceiverMainColorBlue, opacity: Double(Int(cordedReceiverMainColorAlpha.rounded(.toNearestOrEven))))
-        } set: { [self] newColor in
-            let components = newColor.components
-            cordedReceiverMainColorRed = components.red
-            cordedReceiverMainColorGreen = components.green
-            cordedReceiverMainColorBlue = components.blue
-            cordedReceiverMainColorAlpha = Double(Int(components.opacity.rounded(.toNearestOrEven)))
-        }
+        rgbaBinding(
+            get: { (self.cordedReceiverMainColorRed, self.cordedReceiverMainColorGreen, self.cordedReceiverMainColorBlue, Double(Int(self.cordedReceiverMainColorAlpha.rounded(.toNearestOrEven)))) },
+            set: { r, g, b, a in
+                self.cordedReceiverMainColorRed = r
+                self.cordedReceiverMainColorGreen = g
+                self.cordedReceiverMainColorBlue = b
+                self.cordedReceiverMainColorAlpha = Double(Int(a.rounded(.toNearestOrEven)))
+            }
+        )
     }
     
     @Transient
     var cordedReceiverSecondaryColorBinding: Binding<Color> {
-        Binding<Color> { [self] in
-            Color(red: cordedReceiverSecondaryColorRed, green: cordedReceiverSecondaryColorGreen, blue: cordedReceiverSecondaryColorBlue)
-        } set: { [self] newColor in
-            let components = newColor.components
-            cordedReceiverSecondaryColorRed = components.red
-            cordedReceiverSecondaryColorGreen = components.green
-            cordedReceiverSecondaryColorBlue = components.blue
-        }
+        rgbBinding(
+            get: { (self.cordedReceiverSecondaryColorRed, self.cordedReceiverSecondaryColorGreen, self.cordedReceiverSecondaryColorBlue) },
+            set: { r, g, b in
+                self.cordedReceiverSecondaryColorRed = r
+                self.cordedReceiverSecondaryColorGreen = g
+                self.cordedReceiverSecondaryColorBlue = b
+            }
+        )
     }
 
     @Transient
     var cordedReceiverAccentColorBinding: Binding<Color> {
-        Binding<Color> { [self] in
-            Color(red: cordedReceiverAccentColorRed, green: cordedReceiverAccentColorGreen, blue: cordedReceiverAccentColorBlue)
-        } set: { [self] newColor in
-            let components = newColor.components
-            cordedReceiverAccentColorRed = components.red
-            cordedReceiverAccentColorGreen = components.green
-            cordedReceiverAccentColorBlue = components.blue
-        }
+        rgbBinding(
+            get: { (self.cordedReceiverAccentColorRed, self.cordedReceiverAccentColorGreen, self.cordedReceiverAccentColorBlue) },
+            set: { r, g, b in
+                self.cordedReceiverAccentColorRed = r
+                self.cordedReceiverAccentColorGreen = g
+                self.cordedReceiverAccentColorBlue = b
+            }
+        )
     }
 
     @Transient
     var displayBacklightColorBinding: Binding<Color> {
-        Binding<Color> { [self] in
-            Color(red: displayBacklightColorRed, green: displayBacklightColorGreen, blue: displayBacklightColorBlue)
-        } set: { [self] newColor in
-            let components = newColor.components
-            displayBacklightColorRed = components.red
-            displayBacklightColorGreen = components.green
-            displayBacklightColorBlue = components.blue
-        }
+        rgbBinding(
+            get: { (self.displayBacklightColorRed, self.displayBacklightColorGreen, self.displayBacklightColorBlue) },
+            set: { r, g, b in
+                self.displayBacklightColorRed = r
+                self.displayBacklightColorGreen = g
+                self.displayBacklightColorBlue = b
+            }
+        )
     }
     
     @Transient
     var keyBacklightColorBinding: Binding<Color> {
-        Binding<Color> { [self] in
-            Color(red: keyBacklightColorRed, green: keyBacklightColorGreen, blue: keyBacklightColorBlue)
-        } set: { [self] newColor in
-            let components = newColor.components
-            keyBacklightColorRed = components.red
-            keyBacklightColorGreen = components.green
-            keyBacklightColorBlue = components.blue
-        }
+        rgbBinding(
+            get: { (self.keyBacklightColorRed, self.keyBacklightColorGreen, self.keyBacklightColorBlue) },
+            set: { r, g, b in
+                self.keyBacklightColorRed = r
+                self.keyBacklightColorGreen = g
+                self.keyBacklightColorBlue = b
+            }
+        )
     }
     
     @Transient
     var keyForegroundColorBinding: Binding<Color> {
-        Binding<Color> { [self] in
-            Color(red: keyForegroundColorRed, green: keyForegroundColorGreen, blue: keyForegroundColorBlue)
-        } set: { [self] newColor in
-            let components = newColor.components
-            keyForegroundColorRed = components.red
-            keyForegroundColorGreen = components.green
-            keyForegroundColorBlue = components.blue
-        }
+        rgbBinding(
+            get: { (self.keyForegroundColorRed, self.keyForegroundColorGreen, self.keyForegroundColorBlue) },
+            set: { r, g, b in
+                self.keyForegroundColorRed = r
+                self.keyForegroundColorGreen = g
+                self.keyForegroundColorBlue = b
+            }
+        )
     }
     
     @Transient
     var keyBackgroundColorBinding: Binding<Color> {
-        Binding<Color> { [self] in
-            Color(red: keyBackgroundColorRed, green: keyBackgroundColorGreen, blue: keyBackgroundColorBlue)
-        } set: { [self] newColor in
-            let components = newColor.components
-            keyBackgroundColorRed = components.red
-            keyBackgroundColorGreen = components.green
-            keyBackgroundColorBlue = components.blue
-        }
+        rgbBinding(
+            get: { (self.keyBackgroundColorRed, self.keyBackgroundColorGreen, self.keyBackgroundColorBlue) },
+            set: { r, g, b in
+                self.keyBackgroundColorRed = r
+                self.keyBackgroundColorGreen = g
+                self.keyBackgroundColorBlue = b
+            }
+        )
     }
     
     // MARK: - Initialization
