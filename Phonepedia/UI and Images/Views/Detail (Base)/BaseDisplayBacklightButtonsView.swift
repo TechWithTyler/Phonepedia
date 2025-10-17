@@ -135,23 +135,23 @@ struct BaseDisplayBacklightButtonsView: View {
                         Toggle("Allows Display of Multiple Entries", isOn: $phone.baseDisplayMultiEntries)
                         MultiEntryDisplayInfoView()
                     }
-                    if phone.isCordless && phone.hasListsOfEntries {
+                    if phone.isCordless && phone.hasListsOfEntries && phone.baseDisplayType > 2 {
                         Picker("Base Menu Type", selection: $phone.cordlessBaseMenuType) {
                             Text("None").tag(0)
                             Text("Partial").tag(1)
                             Text("Full").tag(2)
                         }
                         InfoText("None: The base doesn't have a menu. The display is only used for lists and other information.\nPartial: The base has a menu, but it doesn't contain many of the options found in the handset menu, requiring use of the handset to change certain settings.\nFull: The base has a menu that contains most of the options found in the handset menu.")
-                    }
-                    if phone.cordlessBaseMenuType > 0 {
-                        Toggle("Menu Shows Multiple Items", isOn: $phone.baseMenuMultiItems)
-                        if phone.baseDisplayType >= 5 {
-                            if phone.baseMenuMultiItems {
-                                Picker("Main Menu Layout", selection: $phone.baseMainMenuLayout) {
-                                    Text("Single Item").tag(0)
-                                    Text("List").tag(1)
-                                    Text("Carousel").tag(2)
-                                    Text("Grid").tag(3)
+                        if phone.cordlessBaseMenuType > 0 {
+                            Toggle("Menu Shows Multiple Items", isOn: $phone.baseMenuMultiItems)
+                            if phone.baseDisplayType >= 5 {
+                                if phone.baseMenuMultiItems {
+                                    Picker("Main Menu Layout", selection: $phone.baseMainMenuLayout) {
+                                        Text("Single Item").tag(0)
+                                        Text("List").tag(1)
+                                        Text("Carousel").tag(2)
+                                        Text("Grid").tag(3)
+                                    }
                                 }
                             }
                         }

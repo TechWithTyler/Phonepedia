@@ -26,7 +26,7 @@ class LandlineOrNotPredictor {
         
     }
 
-    // MARK: - Typealiases
+    // MARK: - Type Aliases
 
 #if os(macOS)
     typealias CrossPlatformImage = NSImage

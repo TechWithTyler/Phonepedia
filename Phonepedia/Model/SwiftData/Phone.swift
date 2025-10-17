@@ -135,6 +135,8 @@ final class Phone {
 
     var locatorButtons: Int = 0
 
+    var locatorButtonLocation: Int = 0
+
     var handsetLocatorUsesIntercom: Bool = false
 
     var deregistration: Int = 2

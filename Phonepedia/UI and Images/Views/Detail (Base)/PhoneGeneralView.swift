@@ -250,6 +250,15 @@ In most cases, if the base has a charge light/display message, the completion of
                             }
                             InfoText("Some phones use intercom as the means of locating handsets, even if the base doesn't have intercom. This means that the handset locator and intercom from the base are the same feature, and therefore, the handset may indicate \"call from base\" instead of \"paging\".")
                         }
+                        if phone.baseChargesHandset {
+                            Picker("Handset Locator Button Location", selection: $phone.locatorButtonLocation) {
+                                Text(phone.cordlessBaseMenuType > 0 ? "Standard/In Menu" : "Standard").tag(0)
+                                Text("Behind Handset").tag(1)
+                                Text("Side of Base").tag(2)
+                                Text("Bottom of Base").tag(3)
+                            }
+                            InfoText("• Standard/In Menu: The handset locator button is with the rest of the base controls, if any. If the base has a menu, it may instead be located there.\n• Behind Handset: The handset locator button is in the handset charging area. You need to remove the handset to access it.\n• Side/Bottom of Base: The handset locator button is on the side of the base.\n• Bottom of Base: The handset locator button is on the bottom of the base. You'll need to flip the base over to access it.")
+                        }
                         if !phone.isCordedCordless && !phone.hasTransmitOnlyBase && phone.deregistration > 0 && phone.locatorButtons == 0 {
                             Toggle("Place-On-Base Auto-Register", isOn: $phone.placeOnBaseAutoRegister)
                             InfoText("The base can detect an unregistered handset being placed on it, which will put it into registration mode. Aside from putting the base into registration mode, data isn't exchanged through the contacts like it is on phones using the \"place handset on base to set digital security code\" method. Manually putting the base in registration mode is still available for re-registering handsets or for registering handsets which don't fit on the base.")
