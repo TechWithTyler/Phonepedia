@@ -199,6 +199,8 @@ final class Phone {
 
     var frequency: Double = CordlessFrequency.northAmericaDECT6.rawValue
 
+    var baseTransmitThroughPowerLine: Bool = false
+
     var hasNoLineAlert: Bool = false
 
     // Use @Relationship(deleteRule:inverse:) to define a relationship between a property and its type. The type of an @Relationship property must contain an Optional property of this object's type. In this case, a relationship is established between a CordlessHandset and its corresponding Phone.

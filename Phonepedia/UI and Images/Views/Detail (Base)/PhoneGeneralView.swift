@@ -148,6 +148,10 @@ struct PhoneGeneralView: View {
                         if phone.frequency == 0 {
                             WarningText("You may not be able to specify certain features/aspects of this phone without knowing its frequency! Try looking up the wireless frequency and communication technology (whether it's analog or digital) of the \(phone.brand) \(phone.model) and select the correct option above.")
                         }
+                        if phone.frequency == Phone.CordlessFrequency.analog1_7MHz.rawValue || phone.frequency == Phone.CordlessFrequency.analog1_7MHzOver46MHz.rawValue {
+                            Toggle("Base-To-Handset Uses Power Line", isOn: $phone.baseTransmitThroughPowerLine)
+                            InfoText("Some early cordless phones used the building's electrical wiring as the base's transmit antenna, with the actual antenna only used for receive. This design might cause issues on modern electrical systems.")
+                        }
                         InfoButton(title: "Frequencies/Communication Technologies Explanation…") {
                             dialogManager.showingFrequenciesExplanation = true
                         }
