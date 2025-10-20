@@ -332,12 +332,41 @@ struct PhoneListView: View {
             newPhone.landlineConnectedTo = defaultAnalogPhoneConnectedToSelection
             newPhone.whereAcquired = defaultAcquisitionMethod
             newPhone.frequency = Phone.CordlessFrequency.defaultForCurrentRegion.rawValue
-            // A phone's phoneNumberInCoollection property is the index of the phone in the list, and as with any index, it starts at 0. The number of phones in the list before the new phone is added can be used as the phone's index without adding/subtracting 1.
+            // A phone's phoneNumberInCollection property is the index of the phone in the list, and as with any index, it starts at 0. The number of phones in the list before the new phone is added can be used as the phone's index without adding/subtracting 1.
             newPhone.phoneNumberInCollection = phones.count
-            // 3. Insert the new phone into the model context.
+            // 3. Set defaults based on filters.
+            if phoneFilterActive == 2 {
+                newPhone.storageOrSetup = 2
+            }
+            switch phoneFilterType {
+            case Phone.PhoneType.corded.rawValue.lowercased():
+                newPhone.handsetNumberDigitIndex = nil
+                newPhone.handsetNumberDigit = nil
+                newPhone.numberOfIncludedCordlessHandsets = 0
+                newPhone.cordedReceiverMainColorBinding.wrappedValue = .black
+            case Phone.PhoneType.wiFiHandset.rawValue.lowercased():
+                newPhone.handsetNumberDigitIndex = nil
+                newPhone.handsetNumberDigit = nil
+                newPhone.numberOfIncludedCordlessHandsets = 0
+                newPhone.basePhoneType = 1
+            case Phone.PhoneType.cellularHandset.rawValue.lowercased():
+                newPhone.handsetNumberDigitIndex = nil
+                newPhone.handsetNumberDigit = nil
+                newPhone.numberOfIncludedCordlessHandsets = 0
+                newPhone.basePhoneType = 2
+            default:
+                break
+            }
+            if phoneFilterBrand != "all" {
+                newPhone.brand = phoneFilterBrand
+            }
+            if phoneFilterAnsweringSystem == 1 && phoneFilterTypeNotStandaloneWirelessHandsets {
+                newPhone.hasAnsweringSystem = newPhone.isCordless ? 3 : 1
+            } else if phoneFilterAnsweringSystem == 2 {
+                newPhone.hasAnsweringSystem = 0
+            }
+            // 4. Insert the new phone into the model context.
             modelContext.insert(newPhone)
-            // 4. Disable the phone filter.
-            resetPhoneFilter()
             // 5. Select the new phone.
             selectedPhone = newPhone
         }
