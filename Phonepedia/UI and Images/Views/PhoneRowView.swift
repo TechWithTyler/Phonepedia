@@ -114,11 +114,11 @@ struct PhoneRowView: View {
                         .multilineTextAlignment(.center)
                         .lineLimit(nil)
             } else {
-                Text("Released \(String(phone.releaseYear))")
+                Text(phone.releaseYear == -1 ? "Unknown release year" : "Released \(String(phone.releaseYear))")
                     .font(.callout)
                     .multilineTextAlignment(.center)
                     .lineLimit(nil)
-                Text("Acquired \(String(phone.acquisitionYear))")
+                Text(phone.acquisitionYear == -1 ? "Unknown acquisition year" : "Acquired \(String(phone.acquisitionYear))")
                     .font(.callout)
                     .multilineTextAlignment(.center)
                     .lineLimit(nil)

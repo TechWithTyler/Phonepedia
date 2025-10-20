@@ -27,6 +27,11 @@ let cordedPhoneStyleSectionName: String = "Corded Phone Styles"
 // The current year to use as the default value of a phone or cordless device's release year/acquisition year.
 var currentYear = Calendar.current.component(.year, from: Date())
 
+// The earliest year of a phone.
+let oldestPhoneYear: Int = 1876
+
+let oldestHandsetYear: Int = 1965
+
 // The least maximum phonebook entries required to support Bluetooth phonebook transfers.
 var phonebookTransferRequiredMaxCapacity = 150
 

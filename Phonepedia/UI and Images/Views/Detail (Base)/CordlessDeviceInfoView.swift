@@ -305,7 +305,9 @@ struct CordlessDeviceInfoView: View {
         }
         // A cordless device's handsetNumber property is the index of the cordless device in the list, and as with any index, it starts at 0. The number of cordless devices in the list before the new one is added can be used as its index without adding/subtracting 1.
         newCordlessDevice.handsetNumber = phone.cordlessHandsetsIHave.count
-        // 3. Add the cordless device to the phone's list of cordless devices.
+        // 3. Set the new cordless device's release year to the phone's release year.
+        newCordlessDevice.releaseYear = phone.releaseYear
+        // 4. Add the cordless device to the phone's list of cordless devices.
         phone.cordlessHandsetsIHave.append(newCordlessDevice)
     }
 

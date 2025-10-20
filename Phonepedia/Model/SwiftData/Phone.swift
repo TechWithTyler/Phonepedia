@@ -1086,20 +1086,20 @@ final class Phone {
     }
 
     func releaseYearChanged(oldValue: Int, newValue: Int) {
-        if acquisitionYear < newValue {
+        if acquisitionYear < newValue && acquisitionYear != -1 {
             acquisitionYear = releaseYear
         }
         if newValue == 0 && oldValue == -1 {
-            releaseYear = 1892
-        } else if newValue < 1892 {
+            releaseYear = oldestPhoneYear
+        } else if newValue < oldestPhoneYear {
             releaseYear = -1
         }
     }
 
     func acquisitionYearChanged(oldValue: Int, newValue: Int) {
         if newValue == 0 && oldValue == -1 {
-            acquisitionYear = releaseYear
-        } else if newValue < releaseYear {
+            acquisitionYear = releaseYear == -1 ? oldestPhoneYear : releaseYear
+        } else if newValue < releaseYear || newValue < oldestPhoneYear {
             acquisitionYear = -1
         }
     }

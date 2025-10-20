@@ -695,20 +695,20 @@ final class CordlessHandset {
 	}
     
     func releaseYearChanged(oldValue: Int, newValue: Int) {
-        if acquisitionYear < newValue {
+        if acquisitionYear < newValue && acquisitionYear != -1 {
             acquisitionYear = releaseYear
         }
         if newValue == 0 && oldValue == -1 {
-            releaseYear = 1965
-        } else if newValue < 1965 {
+            releaseYear = oldestHandsetYear
+        } else if newValue < oldestHandsetYear {
             releaseYear = -1
         }
     }
 
     func acquisitionYearChanged(oldValue: Int, newValue: Int) {
         if newValue == 0 && oldValue == -1 {
-            acquisitionYear = releaseYear
-        } else if newValue < releaseYear {
+            acquisitionYear = releaseYear == -1 ? oldestHandsetYear : releaseYear
+        } else if newValue < releaseYear || newValue < oldestHandsetYear {
             acquisitionYear = -1
         }
     }
