@@ -22,6 +22,9 @@ let cordlessBaseTypeSectionName: String = "Cordless Phone Base Types"
 // The name of the PhoneTypeDefinitionsView section explaining the various corded phone styles.
 let cordedPhoneStyleSectionName: String = "Corded Phone Styles"
 
+// The title of the "All" option in the phone/cordless device filter options.
+let allItemsFilterOptionTitle: String = "all"
+
 // MARK: - Properties - Integers
 
 // The current year to use as the default value of a phone or cordless device's release year/acquisition year.

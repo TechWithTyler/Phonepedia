@@ -22,13 +22,13 @@ struct PhoneListView: View {
 
     // MARK: - Properties - Strings
 
-    @State var phoneFilterType: String = "all"
+    @State var phoneFilterType: String = allItemsFilterOptionTitle
 
     var wiFiHandsetTypeString: String = Phone.PhoneType.wiFiHandset.rawValue.lowercased()
 
     var cellularHandsetTypeString: String = Phone.PhoneType.cellularHandset.rawValue.lowercased()
 
-    @State var phoneFilterBrand: String = "all"
+    @State var phoneFilterBrand: String = allItemsFilterOptionTitle
 
     var allBrands: [String] {
         // 1. Create a set to hold the brands. A Set is similar to an Array but can only hold one instance of an item. For example, the word "cat" can only appear once in a String Set.
@@ -54,7 +54,7 @@ struct PhoneListView: View {
     // MARK: - Properties - Booleans
 
     var phoneFilterEnabled: Bool {
-        return phoneFilterType != "all" || phoneFilterActive != 0 || phoneFilterBrand != "all" || phoneFilterAnsweringSystem != 0
+        return phoneFilterType != allItemsFilterOptionTitle || phoneFilterActive != 0 || phoneFilterBrand != allItemsFilterOptionTitle || phoneFilterAnsweringSystem != 0
     }
 
     var phoneFilterTypeNotStandaloneWirelessHandsets: Bool {
@@ -101,7 +101,7 @@ struct PhoneListView: View {
 
     var brandFilteredPhones: [Phone] {
         switch phoneFilterBrand {
-        case "all": return activeFilteredPhones
+        case allItemsFilterOptionTitle: return activeFilteredPhones
         default: return activeFilteredPhones.filter { $0.brand == phoneFilterBrand }
         }
     }
@@ -269,8 +269,8 @@ struct PhoneListView: View {
     @ViewBuilder
     var filterToolbarItem: some View {
         Menu("Filter", systemImage: phoneFilterEnabled ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle") {
-            Picker("Phone Type (\(phoneFilterType == "all" ? "Off" : "On"))", selection: $phoneFilterType) {
-                Text("All").tag("all")
+            Picker("Phone Type (\(phoneFilterType == allItemsFilterOptionTitle ? "Off" : "On"))", selection: $phoneFilterType) {
+                Text("All").tag(allItemsFilterOptionTitle)
                 Divider()
                 Text("Cordless (Incl. Corded/Cordless) Phones").tag(Phone.PhoneType.cordless.rawValue.lowercased())
                 Text("Corded Phones").tag(Phone.PhoneType.corded.rawValue.lowercased())
@@ -287,8 +287,8 @@ struct PhoneListView: View {
             }
             .pickerStyle(.menu)
             .toggleStyle(.automatic)
-            Picker("Brand (\(phoneFilterBrand == "all" ? "Off" : "On"))", selection: $phoneFilterBrand) {
-                Text("All").tag("all")
+            Picker("Brand (\(phoneFilterBrand == allItemsFilterOptionTitle ? "Off" : "On"))", selection: $phoneFilterBrand) {
+                Text("All").tag(allItemsFilterOptionTitle)
                 Divider()
                 ForEach(allBrands.sorted(by: <), id: \.self) { brand in
                     Text(brand).tag(brand)
@@ -316,8 +316,8 @@ struct PhoneListView: View {
     // MARK: - Reset Phone Filter
 
     func resetPhoneFilter() {
-        phoneFilterType = "all"
-        phoneFilterBrand = "all"
+        phoneFilterType = allItemsFilterOptionTitle
+        phoneFilterBrand = allItemsFilterOptionTitle
         phoneFilterActive = 0
         phoneFilterAnsweringSystem = 0
     }
@@ -357,7 +357,7 @@ struct PhoneListView: View {
             default:
                 break
             }
-            if phoneFilterBrand != "all" {
+            if phoneFilterBrand != allItemsFilterOptionTitle {
                 newPhone.brand = phoneFilterBrand
             }
             if phoneFilterAnsweringSystem == 1 && phoneFilterTypeNotStandaloneWirelessHandsets {
