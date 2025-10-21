@@ -26,7 +26,7 @@ struct CordlessDeviceInfoView: View {
         if cordlessDeviceFilter == "all" {
             return sortedCordlessDevices
         } else {
-            return sortedCordlessDevices.filter { $0.cordlessDeviceTypeText == cordlessDeviceFilter }
+            return sortedCordlessDevices.filter { $0.cordlessDeviceTypeText.lowercased() == cordlessDeviceFilter }
         }
     }
 
@@ -63,17 +63,17 @@ struct CordlessDeviceInfoView: View {
             Section("Cordless Devices") {
                 HStack {
                     Picker("Filter", selection: $cordlessDeviceFilter) {
-                        Text("All Cordless Devices").tag("all")
+                        Text("All").tag("all")
                         Divider()
-                        Text(CordlessHandset.CordlessDeviceType.handset.rawValue + "s").tag(CordlessHandset.CordlessDeviceType.handset.rawValue)
-                        Text(CordlessHandset.CordlessDeviceType.deskset.rawValue + "s").tag(CordlessHandset.CordlessDeviceType.deskset.rawValue)
-                        Text(CordlessHandset.CordlessDeviceType.headset.rawValue + "s").tag(CordlessHandset.CordlessDeviceType.headset.rawValue)
+                        Text(CordlessHandset.CordlessDeviceType.handset.rawValue + "s").tag(CordlessHandset.CordlessDeviceType.handset.rawValue.lowercased())
+                        Text(CordlessHandset.CordlessDeviceType.deskset.rawValue + "s").tag(CordlessHandset.CordlessDeviceType.deskset.rawValue.lowercased())
+                        Text(CordlessHandset.CordlessDeviceType.headset.rawValue + "s").tag(CordlessHandset.CordlessDeviceType.headset.rawValue.lowercased())
                     }
                     .labelsHidden()
                     Text("(\(handsetCount))")
                 }
                 Menu {
-                    if !phone.cordlessHandsetsIHave.isEmpty {
+                    if !phone.cordlessHandsetsIHave.isEmpty && cordlessDeviceFilter == "all" {
                         Button(action: duplicateLastCordlessDevice) {
                             Text("Duplicate of Last Cordless Device")
                         }
@@ -307,6 +307,15 @@ struct CordlessDeviceInfoView: View {
         newCordlessDevice.handsetNumber = phone.cordlessHandsetsIHave.count
         // 3. Set the new cordless device's release year to the phone's release year.
         newCordlessDevice.releaseYear = phone.releaseYear
+        // 5. Set the cordless device type based on the cordless device type filter.
+        switch cordlessDeviceFilter {
+        case CordlessHandset.CordlessDeviceType.deskset.rawValue.lowercased():
+            newCordlessDevice.cordlessDeviceType = 1
+        case CordlessHandset.CordlessDeviceType.headset.rawValue.lowercased():
+            newCordlessDevice.cordlessDeviceType = 2
+        default:
+            newCordlessDevice.cordlessDeviceType = 0
+        }
         // 4. Add the cordless device to the phone's list of cordless devices.
         phone.cordlessHandsetsIHave.append(newCordlessDevice)
     }
