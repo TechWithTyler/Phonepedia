@@ -11,17 +11,15 @@ import SheftAppsStylishUI
 
 struct ChargerDetailView: View {
 
-    // MARK: - Properties - Charger
+    // MARK: - Properties - Objects
 
     @Bindable var charger: CordlessHandsetCharger
+    
+    @EnvironmentObject var dialogManager: DialogManager
 
     // MARK: - Properties - Dismiss Action
 
     @Environment(\.dismiss) var dismiss
-
-    // MARK: - Properties - Dialog Manager
-
-    @EnvironmentObject var dialogManager: DialogManager
 
     // MARK: - Properties - Integers
 

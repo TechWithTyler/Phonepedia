@@ -11,12 +11,10 @@ import SwiftData
 import SheftAppsStylishUI
 
 struct PhoneListView: View {
-    
-    // MARK: - Properties - Objects
-    
-    @Environment(\.modelContext) private var modelContext
 
-    // MARK: - Properties - Dialog Manager
+    // MARK: - Properties - Objects
+
+    @Environment(\.modelContext) private var modelContext
 
     @EnvironmentObject var dialogManager: DialogManager
 
@@ -124,7 +122,7 @@ struct PhoneListView: View {
     @Binding var selectedPhone: Phone?
 
     // MARK: - Body
-    
+
     var body: some View {
         ZStack {
             if !filteredPhones.isEmpty {
@@ -171,7 +169,7 @@ struct PhoneListView: View {
         }
         .onChange(of: filteredPhones, { oldValue, newValue in
             if let phone = selectedPhone, !newValue.contains(phone) {
-                    selectedPhone = nil
+                selectedPhone = nil
             }
         })
         .onChange(of: allBrands, { oldValue, newValue in
@@ -224,9 +222,9 @@ struct PhoneListView: View {
             toolbarContent
         }
     }
-    
+
     // MARK: - Toolbar
-    
+
     @ToolbarContentBuilder
     var toolbarContent: some ToolbarContent {
         ToolbarItem {
@@ -235,21 +233,21 @@ struct PhoneListView: View {
             }
             .accessibilityIdentifier("AddPhoneButton")
         }
-        #if os(macOS)
+#if os(macOS)
         ToolbarItem {
             filterToolbarItem
         }
-        #else
+#else
         ToolbarItem(placement: .bottomBar) {
             filterToolbarItem
         }
-        #endif
+#endif
         ToolbarItem {
             OptionsMenu(title: .menu) {
                 PhoneTypeDefinitionsButton()
                 Divider()
                 PhoneCountButton()
-                .badge(phones.count)
+                    .badge(phones.count)
                 Menu("Phone List Detail") {
                     PhoneListDetailOptions(menu: true)
                 }
@@ -261,12 +259,12 @@ struct PhoneListView: View {
                 } label: {
                     Label("Delete All…", systemImage: "trash.fill")
                 }
-                #if !os(macOS)
+#if !os(macOS)
                 Divider()
                 Button("Settings…", systemImage: "gear") {
                     dialogManager.showingSettings = true
                 }
-                #endif
+#endif
             }
         }
     }
@@ -379,16 +377,16 @@ struct PhoneListView: View {
 
     private func movePhones(source: IndexSet, destination: Int) {
         // 1. If the phone filter is enabled, show an alert and don't continue.
-            guard !phoneFilterEnabled else {
-                dialogManager.showingMoveFailed = true
-                return
-            }
+        guard !phoneFilterEnabled else {
+            dialogManager.showingMoveFailed = true
+            return
+        }
         withAnimation {
             // 2. Create a copy of the phones array pre-move.
             var phonesCopy = phones
             // 3. Perform the move operation on the copy.
             phonesCopy.move(fromOffsets: source, toOffset: destination)
-            // 4. Use the copy's items and their indicies to move the phones in the original array.
+            // 4. Use the copy's items and their indices to move the phones in the original array.
             for (index, phone) in phonesCopy.reversed().enumerated() {
                 if let originalPhone = phones.filter({ $0.id == phone.id}).first {
                     originalPhone.phoneNumberInCollection = index
@@ -436,8 +434,9 @@ struct PhoneListView: View {
     }
 
     func installDefaultsForNewData() {
-        // For updates from version 2024.11, set the numbers of each phone/cordless device/charger to the corresponding index.
-        if phones.allSatisfy({ $0.phoneNumberInCollection == 0 }) {
+        // For updates from version 2024.11, set the numbers of each phone/cordless device/charger to the corresponding index. This is done by checking to see if the phoneNumberInCollection property of all phones is 0 (auto-set default for updates from version 2024.11).
+        let allPhonesFirstInCollection = phones.allSatisfy({ $0.phoneNumberInCollection == 0 })
+        if allPhonesFirstInCollection {
             for phone in phones {
                 phone.phoneNumberInCollection = phones.firstIndex(of: phone)!
                 for handset in phone.cordlessHandsetsIHave {

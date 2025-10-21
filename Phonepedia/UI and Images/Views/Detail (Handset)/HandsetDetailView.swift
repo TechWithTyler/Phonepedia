@@ -11,11 +11,9 @@ import SheftAppsStylishUI
 
 struct HandsetDetailView: View {
 
-    // MARK: - Properties - Handset
+    // MARK: - Properties - Objects
 
     @Bindable var handset: CordlessHandset
-
-    // MARK: - Properties - Dialog Manager
 
     @EnvironmentObject var dialogManager: DialogManager
 

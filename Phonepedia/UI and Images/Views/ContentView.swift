@@ -15,13 +15,13 @@ struct ContentView: View {
 
     @Environment(\.modelContext) private var modelContext
 
-    // MARK: - Properties - Dialog Manager
-
     @ObservedObject var dialogManager = DialogManager()
 
     @ObservedObject var audioManager = AudioManager()
 
     @ObservedObject var photoViewModel = PhonePhotoViewModel()
+
+    // MARK: - Properties - Phones
 
     @Query(sort: \Phone.phoneNumberInCollection, order: .reverse) private var phones: [Phone]
 

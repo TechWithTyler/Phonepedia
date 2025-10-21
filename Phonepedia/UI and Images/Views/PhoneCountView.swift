@@ -104,6 +104,18 @@ struct PhoneCountView: View {
         return activeHeadsets
     }
 
+    // The total number of phones with answering systems.
+    var withAnsweringSystemsCount: Int {
+        let count = phones.filter({ $0.hasAnsweringSystem > 0 }).count
+        return count
+    }
+
+    // The total number of phones with Bluetooth cell phone linking.
+    var withBluetoothCellPhoneLinkingCount: Int {
+        let count = phones.filter({ $0.baseBluetoothCellPhonesSupported > 0 }).count
+        return count
+    }
+
     // MARK: - Properties - Strings
 
     // Brands of phones.
@@ -127,18 +139,6 @@ struct PhoneCountView: View {
                 return $0.value > $1.value // Sort numerically in descending order.
             }.map { $0.key } // Return only the brand names.
         }
-    }
-
-    // The total number of phones with answering systems.
-    var withAnsweringSystemsCount: Int {
-        let count = phones.filter({ $0.hasAnsweringSystem > 0 }).count
-        return count
-    }
-
-    // The total number of phones with answering systems.
-    var withBluetoothCellPhoneLinkingCount: Int {
-        let count = phones.filter({ $0.baseBluetoothCellPhonesSupported > 0 }).count
-        return count
     }
 
     var body: some View {
