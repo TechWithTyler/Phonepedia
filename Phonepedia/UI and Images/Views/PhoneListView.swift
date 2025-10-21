@@ -174,6 +174,11 @@ struct PhoneListView: View {
                     selectedPhone = nil
             }
         })
+        .onChange(of: allBrands, { oldValue, newValue in
+            if !newValue.contains(phoneFilterBrand) && phoneFilterBrand != allItemsFilterOptionTitle {
+                phoneFilterBrand = allItemsFilterOptionTitle
+            }
+        })
         .alert("Delete this phone?", isPresented: $dialogManager.showingDeletePhone, presenting: dialogManager.phoneToDelete) { phoneToDelete in
             Button(role: .destructive) {
                 dialogManager.showingDeletePhone = false
