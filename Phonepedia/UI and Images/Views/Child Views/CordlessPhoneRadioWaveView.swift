@@ -25,9 +25,13 @@ struct CordlessPhoneRadioWaveView: View {
 
     @Environment(\.accessibilityReduceMotion) var reduceMotion
 
+    @Environment(\.colorSchemeContrast) var colorSchemeContrast
+
     // MARK: - Properties - Floats
 
     @State var phase: CGFloat = 0
+
+    // MARK: - Properties - Timer
 
     @State private var timer: Timer? = nil
 
@@ -84,10 +88,11 @@ struct CordlessPhoneRadioWaveView: View {
     }
 
     // MARK: - Wave
+
     @ViewBuilder
     var wave: some View {
         CordlessPhoneRadioWave(frequency: selectedFrequency, phase: phase)
-            .stroke(Color.accentColor, lineWidth: 2)
+            .stroke(Color.accentColor, lineWidth: colorSchemeContrast == .increased ? 4 : 2)
             .frame(height: 100)
             .animation(isPlaying ? .linear(duration: 0.25) : nil, value: isPlaying ? phase : nil)
             .accessibilityLabel("\(selectedFrequency.waveName) Wave")
