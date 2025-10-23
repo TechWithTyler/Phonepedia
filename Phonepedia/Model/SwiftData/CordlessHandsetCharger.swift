@@ -6,7 +6,7 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
-import SwiftUI
+import SheftAppsStylishUI
 import SwiftData
 
 @Model
@@ -73,62 +73,47 @@ final class CordlessHandsetCharger {
     // MARK: - Properties - Color Bindings
 
     var mainColorBinding: Binding<Color> {
-        Binding<Color> { [self] in
-            Color(red: mainColorRed, green: mainColorGreen, blue: mainColorBlue)
-        } set: { [self] newColor in
-            let components = newColor.components
-            mainColorRed = components.red
-            mainColorGreen = components.green
-            mainColorBlue = components.blue
-        }
+        Color.rgbBinding(get: { [self] in (mainColorRed, mainColorGreen, mainColorBlue) }, set: { [self] r, g, b in
+            mainColorRed = r
+            mainColorGreen = g
+            mainColorBlue = b
+        })
     }
     
     var secondaryColorBinding: Binding<Color> {
-        Binding<Color> { [self] in
-            Color(red: secondaryColorRed, green: secondaryColorGreen, blue: secondaryColorBlue)
-        } set: { [self] newColor in
-            let components = newColor.components
-            secondaryColorRed = components.red
-            secondaryColorGreen = components.green
-            secondaryColorBlue = components.blue
-        }
+        Color.rgbBinding(get: { [self] in (secondaryColorRed, secondaryColorGreen, secondaryColorBlue) }, set: { [self] r, g, b in
+            secondaryColorRed = r
+            secondaryColorGreen = g
+            secondaryColorBlue = b
+        })
     }
 
     @Transient
     var accentColorBinding: Binding<Color> {
-        Binding<Color> { [self] in
-            Color(red: accentColorRed, green: accentColorGreen, blue: accentColorBlue)
-        } set: { [self] newColor in
-            let components = newColor.components
-            accentColorRed = components.red
-            accentColorGreen = components.green
-            accentColorBlue = components.blue
-        }
+        Color.rgbBinding(get: { [self] in (accentColorRed, accentColorGreen, accentColorBlue) }, set: { [self] r, g, b in
+            accentColorRed = r
+            accentColorGreen = g
+            accentColorBlue = b
+        })
     }
 
     @Transient
     var chargeLightColorChargingBinding: Binding<Color> {
-        Binding<Color> { [self] in
-            Color(red: chargeLightColorChargingRed, green: chargeLightColorChargingGreen, blue: chargeLightColorChargingBlue)
-        } set: { [self] newValue in
-            let components = newValue.components
-            chargeLightColorChargingRed = components.red
-            chargeLightColorChargingGreen = components.green
-            chargeLightColorChargingBlue = components.blue
-        }
+        Color.rgbBinding(get: { [self] in (chargeLightColorChargingRed, chargeLightColorChargingGreen, chargeLightColorChargingBlue) }, set: { [self] r, g, b in
+            chargeLightColorChargingRed = r
+            chargeLightColorChargingGreen = g
+            chargeLightColorChargingBlue = b
+        })
     }
 
     @Transient
     var chargeLightColorChargedBinding: Binding<Color> {
-        Binding<Color> { [self] in
-            Color(red: chargeLightColorChargedRed, green: chargeLightColorChargedGreen, blue: chargeLightColorChargedBlue, opacity: Double(Int(chargeLightColorChargedAlpha.rounded(.toNearestOrEven))))
-        } set: { [self] newValue in
-            let components = newValue.components
-            chargeLightColorChargedRed = components.red
-            chargeLightColorChargedGreen = components.green
-            chargeLightColorChargedBlue = components.blue
-            chargeLightColorChargedAlpha = Double(Int(components.opacity.rounded(.toNearestOrEven)))
-        }
+        Color.rgbaQuantizedAlphaBinding(get: { [self] in (chargeLightColorChargedRed, chargeLightColorChargedGreen, chargeLightColorChargedBlue, chargeLightColorChargedAlpha) }, set: { [self] r, g, b, a in
+            chargeLightColorChargedRed = r
+            chargeLightColorChargedGreen = g
+            chargeLightColorChargedBlue = b
+            chargeLightColorChargedAlpha = a
+        })
     }
 
     // MARK: - Initialization
