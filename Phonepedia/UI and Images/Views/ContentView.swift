@@ -48,6 +48,10 @@ struct ContentView: View {
                 EmptyView()
             }
         }
+        // Cordless device reassignment sheet
+        .sheet(isPresented: $dialogManager.showingReassignHandset) {
+            CordlessDeviceReassignmentView(phones: phones, selectedPhone: $selectedPhone)
+        }
         // Info views
         .sheet(isPresented: $dialogManager.showingPhoneTypeDefinitions) {
             PhoneTypeDefinitionsView()

@@ -220,6 +220,13 @@ struct CordlessDeviceInfoView: View {
                 }
                 .contextMenu {
                     Button {
+                        dialogManager.handsetToReassign = handset
+                        dialogManager.showingReassignHandset = true
+                    } label: {
+                        Label("Reassign…", systemImage: "phone.arrow.right.fill")
+                    }
+                    Divider()
+                    Button {
                         duplicateCordlessDevice(handset)
                     } label: {
                         Label("Duplicate", systemImage: "doc.on.doc")

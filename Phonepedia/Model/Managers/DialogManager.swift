@@ -26,11 +26,15 @@ class DialogManager: ObservableObject {
 
     @Published var chargerToDelete: CordlessHandsetCharger? = nil
 
+    @Published var handsetToReassign: CordlessHandset? = nil
+
     // MARK: - Properties - Booleans
 
     @Published var showingMoveFailed: Bool = false
 
     @Published var showingMoveFailedHandset: Bool = false
+
+    @Published var showingReassignHandset: Bool = false
 
     @Published var showingAboutPhoneGrades: Bool = false
 

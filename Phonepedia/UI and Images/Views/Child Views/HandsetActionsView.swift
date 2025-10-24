@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import SheftAppsStylishUI
 
 struct HandsetActionsView: View {
 
@@ -24,6 +25,19 @@ struct HandsetActionsView: View {
 
     var body: some View {
         if let phone = handset.phone {
+            VStack(alignment: .leading) {
+                Text("Assigned to phone \(phone.phoneNumberInCollection + 1) (\(phone.brand) \(phone.model))")
+                Button {
+                    dialogManager.handsetToReassign = handset
+                    dialogManager.showingReassignHandset = true
+                    dismiss()
+                } label: {
+                    Label("Reassign…", systemImage: "phone.arrow.right.fill")
+                }
+                if handset.maxBases > 1 {
+                    InfoText("This cordless device can be registered to up to \(handset.maxBases) bases. Choose the phone that's its primary base.")
+                }
+            }
             Button {
                 phone.cordlessHandsetsIHave.insert(handset.duplicate(), at: handset.handsetNumber)
                 dismiss()

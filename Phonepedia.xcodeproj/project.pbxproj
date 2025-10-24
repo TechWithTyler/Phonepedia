@@ -85,6 +85,7 @@
 		8D842D6E2D3F122200F50F32 /* talkingCallerIDPhonebook.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D842D662D3F122200F50F32 /* talkingCallerIDPhonebook.wav */; };
 		8D85550A2C8F9055006A14E3 /* HandsetActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8555092C8F9055006A14E3 /* HandsetActionsView.swift */; };
 		8D8555522C98D2C1006A14E3 /* AboutDisplayTypesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8555512C98D2C1006A14E3 /* AboutDisplayTypesView.swift */; };
+		8D8667252EAC143A002A0266 /* CordlessDeviceReassignmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8667242EAC143A002A0266 /* CordlessDeviceReassignmentView.swift */; };
 		8D8E75ED2CC84A2C0022DB85 /* AnsweringSystemMenuInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8E75EC2CC84A2C0022DB85 /* AnsweringSystemMenuInfoView.swift */; };
 		8D94EE0C2B912B9E00B04EBF /* CordlessPhoneRadioWaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D94EE0B2B912B9E00B04EBF /* CordlessPhoneRadioWaveView.swift */; };
 		8D94EE0E2B912FB900B04EBF /* CordlessPhoneRadioWave.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D94EE0D2B912FB900B04EBF /* CordlessPhoneRadioWave.swift */; };
@@ -266,6 +267,7 @@
 		8D842D662D3F122200F50F32 /* talkingCallerIDPhonebook.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = talkingCallerIDPhonebook.wav; sourceTree = "<group>"; };
 		8D8555092C8F9055006A14E3 /* HandsetActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandsetActionsView.swift; sourceTree = "<group>"; };
 		8D8555512C98D2C1006A14E3 /* AboutDisplayTypesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutDisplayTypesView.swift; sourceTree = "<group>"; };
+		8D8667242EAC143A002A0266 /* CordlessDeviceReassignmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordlessDeviceReassignmentView.swift; sourceTree = "<group>"; };
 		8D8E75EC2CC84A2C0022DB85 /* AnsweringSystemMenuInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnsweringSystemMenuInfoView.swift; sourceTree = "<group>"; };
 		8D94EE0B2B912B9E00B04EBF /* CordlessPhoneRadioWaveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordlessPhoneRadioWaveView.swift; sourceTree = "<group>"; };
 		8D94EE0D2B912FB900B04EBF /* CordlessPhoneRadioWave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordlessPhoneRadioWave.swift; sourceTree = "<group>"; };
@@ -552,6 +554,7 @@
 				8D4761752CEFDF0F008CF689 /* Menu Items */,
 				8DC725872D4D777500ED9D68 /* Document Launch Scene */,
 				8D19F0BB2D07961800C3B67C /* Settings */,
+				8D8667242EAC143A002A0266 /* CordlessDeviceReassignmentView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -947,6 +950,7 @@
 				8D2BAF552CD188740016C61E /* ChargeContactTypePickerItems.swift in Sources */,
 				8DBCB7E52D498D2200878A1F /* MessageListInfoView.swift in Sources */,
 				8D19F0BD2D07962A00C3B67C /* PhoneListDetailOptions.swift in Sources */,
+				8D8667252EAC143A002A0266 /* CordlessDeviceReassignmentView.swift in Sources */,
 				8DEC3A682C2CB9D200737094 /* HandsetPhonebookType.swift in Sources */,
 				8D38ED772CAF335000CCC422 /* BaseDisplayBacklightButtonsView.swift in Sources */,
 				8D38ED7F2CAF373000CCC422 /* CellPhoneLinkingView.swift in Sources */,
