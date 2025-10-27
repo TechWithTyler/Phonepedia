@@ -70,6 +70,14 @@ final class CordlessHandsetCharger {
 
     var hasHardWiredACAdaptor: Bool = false
 
+    // MARK: - Properties - Transient (Non-Persistent) Properties
+
+    // The actual number of this charger, which is handsetNumber (the index of the charger) + 1.
+    @Transient
+    var actualChargerNumber: Int {
+        return chargerNumber + 1
+    }
+
     // MARK: - Properties - Color Bindings
 
     var mainColorBinding: Binding<Color> {

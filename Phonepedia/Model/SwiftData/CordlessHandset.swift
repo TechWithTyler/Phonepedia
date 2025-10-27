@@ -330,6 +330,12 @@ final class CordlessHandset {
         }
     }
 
+    // The actual number of this cordless device, which is handsetNumber (the index of the cordless device) + 1.
+    @Transient
+    var actualHandsetNumber: Int {
+        return handsetNumber + 1
+    }
+
     // Whether the cordless device is a deskset with a corded receiver.
     @Transient
     var hasCordedReceiver: Bool {

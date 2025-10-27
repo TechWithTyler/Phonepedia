@@ -30,7 +30,7 @@ struct HandsetDetailView: View {
                             Spacer()
                         }
                     }
-                    Section("Cordless Device \(handset.handsetNumber + 1) Actions") {
+                    Section("Cordless Device \(handset.actualHandsetNumber) Actions") {
                         HandsetActionsView(handset: handset)
                     }
                     Section("Basics") {
@@ -41,7 +41,7 @@ struct HandsetDetailView: View {
                         FormTextField("Model", text: $handset.model)
                         FormNavigationLink(phone: phone) {
                             HandsetGeneralView(handset: handset)
-                                .navigationTitle("General (HS\(handset.handsetNumber + 1))")
+                                .navigationTitle("General (HS\(handset.actualHandsetNumber))")
 #if !os(macOS)
                                 .navigationBarTitleDisplayMode(.inline)
 #endif
@@ -50,13 +50,13 @@ struct HandsetDetailView: View {
                         }
                             FormNavigationLink(phone: phone) {
                                 HandsetPowerView(handset: handset)
-                                    .navigationTitle("Power (HS\(handset.handsetNumber + 1))")
+                                    .navigationTitle("Power (HS\(handset.actualHandsetNumber))")
                             } label: {
                                 Label("Power/Charging", systemImage: "battery.100percent")
                             }
                         FormNavigationLink(phone: phone) {
                             HandsetColorView(handset: handset)
-                                .navigationTitle("Colors (HS\(handset.handsetNumber + 1))")
+                                .navigationTitle("Colors (HS\(handset.actualHandsetNumber))")
                         } label: {
                             Label("Colors", systemImage: "paintpalette")
                         }
@@ -64,7 +64,7 @@ struct HandsetDetailView: View {
                             if handset.handsetStyle < 3 {
                                 FormNavigationLink(phone: phone) {
                                     HandsetDisplayBacklightButtonsView(handset: handset)
-                                        .navigationTitle("Disp/B.light/Buttons (HS\(handset.handsetNumber + 1))")
+                                        .navigationTitle("Disp/B.light/Buttons (HS\(handset.actualHandsetNumber))")
 #if !os(macOS)
                                         .navigationBarTitleDisplayMode(.inline)
 #endif
@@ -74,7 +74,7 @@ struct HandsetDetailView: View {
                             }
                             FormNavigationLink(phone: phone) {
                                 HandsetMessagingView(handset: handset)
-                                    .navigationTitle("Msg-ing (HS\(handset.handsetNumber + 1))")
+                                    .navigationTitle("Msg-ing (HS\(handset.actualHandsetNumber))")
 #if !os(macOS)
                                     .navigationBarTitleDisplayMode(.inline)
 #endif
@@ -86,7 +86,7 @@ struct HandsetDetailView: View {
                     Section("Audio") {
                         FormNavigationLink(phone: phone) {
                             HandsetRingersView(handset: handset)
-                                .navigationTitle("Ringers (HS\(handset.handsetNumber + 1))")
+                                .navigationTitle("Ringers (HS\(handset.actualHandsetNumber))")
 #if !os(macOS)
                                 .navigationBarTitleDisplayMode(.inline)
 #endif
@@ -95,7 +95,7 @@ struct HandsetDetailView: View {
                         }
                         FormNavigationLink(phone: phone) {
                             HandsetAudioView(handset: handset)
-                                .navigationTitle("Spkr/Headset/Int (HS\(handset.handsetNumber + 1))")
+                                .navigationTitle("Spkr/Headset/Int (HS\(handset.actualHandsetNumber))")
 #if !os(macOS)
                                 .navigationBarTitleDisplayMode(.inline)
 #endif
@@ -107,7 +107,7 @@ struct HandsetDetailView: View {
                         if handset.handsetStyle < 3 {
                             FormNavigationLink(phone: phone) {
                                 HandsetRedialView(handset: handset)
-                                    .navigationTitle("Redial (HS\(handset.handsetNumber + 1))")
+                                    .navigationTitle("Redial (HS\(handset.actualHandsetNumber))")
 #if !os(macOS)
                                     .navigationBarTitleDisplayMode(.inline)
 #endif
@@ -117,7 +117,7 @@ struct HandsetDetailView: View {
                         }
                         FormNavigationLink(phone: phone) {
                             HandsetPhonebookView(handset: handset)
-                                .navigationTitle("P.book (HS\(handset.handsetNumber + 1))")
+                                .navigationTitle("P.book (HS\(handset.actualHandsetNumber))")
 #if !os(macOS)
                                 .navigationBarTitleDisplayMode(.inline)
 #endif
@@ -126,7 +126,7 @@ struct HandsetDetailView: View {
                         }
                         FormNavigationLink(phone: phone) {
                             HandsetCallerIDView(handset: handset)
-                                .navigationTitle("CID (HS\(handset.handsetNumber + 1))")
+                                .navigationTitle("CID (HS\(handset.actualHandsetNumber))")
 #if !os(macOS)
                                 .navigationBarTitleDisplayMode(.inline)
 #endif
@@ -136,7 +136,7 @@ struct HandsetDetailView: View {
                         if handset.handsetStyle < 3 {
                             FormNavigationLink(phone: phone) {
                                 HandsetSpeedDialView(handset: handset)
-                                    .navigationTitle("Quick Dial (HS\(handset.handsetNumber + 1))")
+                                    .navigationTitle("Quick Dial (HS\(handset.actualHandsetNumber))")
 #if !os(macOS)
                                     .navigationBarTitleDisplayMode(.inline)
 #endif
@@ -148,7 +148,7 @@ struct HandsetDetailView: View {
                     Section {
                         FormNavigationLink(phone: phone) {
                             HandsetSpecialFeaturesView(handset: handset)
-                                .navigationTitle("Special (HS\(handset.handsetNumber + 1))")
+                                .navigationTitle("Special (HS\(handset.actualHandsetNumber))")
 #if !os(macOS)
                                 .navigationBarTitleDisplayMode(.inline)
 #endif

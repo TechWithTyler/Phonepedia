@@ -199,7 +199,7 @@ struct CordlessDeviceInfoView: View {
             ForEach(filteredCordlessDevices) { handset in
                 NavigationLink {
                     HandsetDetailView(handset: handset)
-                        .navigationTitle("Device \(handset.handsetNumber + 1)")
+                        .navigationTitle("Device \(handset.actualHandsetNumber)")
                 } label: {
                     HStack {
                         VStack(alignment: .leading) {
@@ -209,7 +209,7 @@ struct CordlessDeviceInfoView: View {
                         }
                         Spacer()
                         VStack(alignment: .trailing) {
-                            Text("Device \(handset.handsetNumber + 1)")
+                            Text("Device \(handset.actualHandsetNumber)")
                             if cordlessDeviceFilter == allItemsFilterOptionTitle {
                                 Text(handset.cordlessDeviceTypeText)
                             }
@@ -262,11 +262,11 @@ struct CordlessDeviceInfoView: View {
         List {
             ForEach(sortedChargers) { charger in
                 NavigationLink {
-                    ChargerDetailView(charger: charger, chargerNumber: charger.chargerNumber)
-                        .navigationTitle("Charger \(charger.chargerNumber + 1)")
+                    ChargerDetailView(charger: charger)
+                        .navigationTitle("Charger \(charger.actualChargerNumber)")
                 } label: {
                     VStack(alignment: .leading) {
-                        Text("Charger \(charger.chargerNumber + 1)")
+                        Text("Charger \(charger.actualChargerNumber)")
                         Text("Cordless \(charger.type == 0 ? "handset" : "headset/speakerphone") charger")
                             .foregroundStyle(.secondary)
                     }
@@ -335,7 +335,7 @@ struct CordlessDeviceInfoView: View {
         // 2. Insert the duplicate handset at the end of the array.
         phone.cordlessHandsetsIHave.append(newCordlessDevice)
         // 3. Move the duplicate handset to after the original.
-        moveCordlessDevices(source: IndexSet(integer: newCordlessDeviceNumber), destination: cordlessDevice.handsetNumber + 1)
+        moveCordlessDevices(source: IndexSet(integer: newCordlessDeviceNumber), destination: cordlessDevice.actualHandsetNumber)
     }
 
     func duplicateLastCordlessDevice() {
@@ -395,7 +395,7 @@ struct CordlessDeviceInfoView: View {
         // 2. Insert the duplicate charger at the end of the array.
         phone.chargersIHave.append(newCharger)
         // 3. Move the duplicate charger to after the original.
-        moveChargers(source: IndexSet(integer: newChargerNumber), destination: charger.chargerNumber + 1)
+        moveChargers(source: IndexSet(integer: newChargerNumber), destination: charger.actualChargerNumber)
     }
 
     func duplicateLastCharger() {

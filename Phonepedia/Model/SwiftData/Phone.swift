@@ -550,6 +550,12 @@ final class Phone {
         }
     }
 
+    // The actual number of this phone in the collection, which is phoneNumberInCollection (the index of the phone) + 1.
+    @Transient
+    var actualPhoneNumberInCollection: Int {
+        return phoneNumberInCollection + 1
+    }
+
     // Whether the base charges a handset in a lay-down position.
     @Transient
     var hasLayDownCharging: Bool {
@@ -623,7 +629,7 @@ final class Phone {
         return cordlessHandsetsIHave.count >= maxCordlessHandsets && maxCordlessHandsets != -1
     }
 
-    // Whether the user has added too many cordless devices to the phone based on how many can be registered to its base.
+    // Whether the user has added too many cordless devices (at least 1 more than maxCordlessHandsets) to the phone based on how many can be registered to its base.
     @Transient
     var tooManyCordlessDevices: Bool {
         return cordlessHandsetsIHave.count > maxCordlessHandsets && maxCordlessHandsets != -1

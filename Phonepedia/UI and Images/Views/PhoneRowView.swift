@@ -57,7 +57,7 @@ struct PhoneRowView: View {
     var body: some View {
 		HStack {
             VStack {
-                Text("\(phone.phoneNumberInCollection + 1)")
+                Text("\(phone.actualPhoneNumberInCollection)")
                 if phone.acquiredInYearOfRelease {
                     Image(systemName: "sparkle")
                 }
