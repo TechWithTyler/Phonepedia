@@ -33,10 +33,11 @@ struct HandsetPowerView: View {
                     InfoText("Auto-answer, sometimes called auto talk, allows you to answer calls by simply picking up the handset from charge without having to press any buttons.")
                     Toggle("Has Charge Tone", isOn: $handset.hasChargeTone)
                     InfoText("A charge tone sounds when the handset is placed on charge.")
-                    if handset.hasSpeakerphone && handset.handsetStyle < 2 {
+                    if (handset.hasSpeakerphone || handset.talkOffButtonType == 0) && handset.handsetStyle < 2 {
                         Picker("Charge During Call", selection: $handset.chargeDuringCall) {
                             Text("Auto-Hangup").tag(0)
-                            Text("Switch to Speakerphone").tag(1)
+                            Text(handset.hasSpeakerphone ? "Switch to Speakerphone" : "Stay On Call")
+                            .tag(1)
                         }
                         if handset.bluetoothHeadphonesSupported > 0 {
                             InfoText("During a call with Bluetooth headphones, the call continues on the Bluetooth headphones when placed on charge.")
