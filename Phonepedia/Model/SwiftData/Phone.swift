@@ -9,15 +9,18 @@
 import SheftAppsStylishUI
 import SwiftData
 
-// The structure of a SwiftData model class is very simple--a Swift class with @Model before its declaration.
+// The structure of a SwiftData model class is very simple--a Swift class with @Model before its declaration. Any property not marked with @Transient is a persistent property which will be stored to the underlying Core Data persistent store SQLite file. @Model does 2 things: makes this class conform to PersistentModel and Observable, and internally adds @_PersistedProperty to the beginning of persistent properties.
+// A final class is a class that can't be subclassed.
 @Model
 final class Phone {
 
     // MARK: - Properties - Default Data
 
+    // Properties marked with the @Transient property wrapper won't persist their values to SwiftData.
     @Transient
     static let mockBrand: String = "Some Brand"
 
+    @Transient
     static let mockModel: String = "M123-2"
 
     // MARK: - Properties - Persistent Data
@@ -512,7 +515,6 @@ final class Phone {
     // MARK: - Properties - Transient (Non-Persistent) Properties
 
     // The text to display for the phone's type.
-    // Properties marked with the @Transient property wrapper won't persist their values to SwiftData.
     @Transient
     var phoneTypeText: String {
         if isCordedCordless {
