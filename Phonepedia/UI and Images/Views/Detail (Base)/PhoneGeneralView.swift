@@ -110,6 +110,7 @@ struct PhoneGeneralView: View {
                 } message: {
                     Text("This will delete all cordless devices (\(phone.cordlessHandsetsIHave.count)) and chargers \(phone.chargersIHave.count)!")
                 }
+            InfoText("\"Cordless device\" refers to a cordless handset, cordless deskset, cordless headset, or cordless speakerphone.")
             if !phone.isCordless {
                 Picker("Phone Type", selection: $phone.basePhoneType) {
                     Text(Phone.PhoneType.corded.rawValue).tag(0)
@@ -208,7 +209,7 @@ struct PhoneGeneralView: View {
                             Picker("Base Charging Direction", selection: $phone.baseChargingDirection) {
                                 ChargingDirectionPickerItems()
                             }
-                            InfoText("Variations in charging area designs are one of the many ways cordless phones look different from one another.\n\"Lean Back\" means the handset leans back in the charging area but isn't fully flat (\"Lay Down\").\nA reversible handset can charge with the keypad facing either up or down. While there's no benefit to this design if the handset doesn't have a display, the phone may still have this design if the base or handset casing is shared with a model that has a handset display.")
+                            InfoText("Variations in charging area designs are one of the many ways cordless phones look different from one another.\n\"Lean Back\" means the handset leans back in the charging area but isn't fully flat (\"Lay Down\").\nA reversible handset can charge with the keypad facing either up or down. While there's no benefit to this design if the handset doesn't have a display, the phone may still have this design if the base or handset casing is shared with a model that has a handset display.\n\"Corded Phone-Inspired\" means the handset charges face-down and can be placed in either direction (i.e. with the earpiece at the top or bottom for a slim corded-inspired cordless phone or at the left or right for a rotary-inspired cordless phone). The base either has a single set of charging contacts in the center of the charging area, or a set at the top and bottom of the charging area.")
                             if phone.baseChargingDirection == 6 {
                                 InfoText("This charging area design is often seen on phones where the base sits flush with the wall when wall-mounted. When wall-mounted, the face-down lay down position is the only way the handset can charge securely.")
                             }
@@ -221,8 +222,10 @@ struct PhoneGeneralView: View {
                                 }
                                 InfoText("• None: The handset doesn't need an extra hook to stay in place while the base is wall-mounted.\n• Fixed: The base has a hook that slots into a hole on the handset.\n• Flip/Rotate (Face/Back): The base has a hook that can be flipped or rotated so it sticks out when you want to mount the base on the wall, or so it doesn't stick out when you don't want to mount it on the wall.\n• Flip (Top): The hook is located at the top of the charging area and needs to be flipped down to hold the handset in place while the base is wall-mounted, and flipped back up to take the handset off the base.")
                             }
-                            Picker("Base Charge Contact Placement", selection: $phone.baseChargeContactPlacement) {
-                                ChargeContactPlacementPickerItems()
+                            if phone.baseChargeContactType > 8 {
+                                Picker("Base Charge Contact Placement", selection: $phone.baseChargeContactPlacement) {
+                                    ChargeContactPlacementPickerItems()
+                                }
                             }
                             Picker("Base Charge Contact Type", selection: $phone.baseChargeContactType) {
                                 ChargeContactTypePickerItems()
@@ -230,10 +233,10 @@ struct PhoneGeneralView: View {
                             ChargingContactInfoView()
                             Toggle("Base Has Separate Data Contact", isOn: $phone.baseHasSeparateDataContact)
                             InfoText("""
-Most modern cordless phones pass data through the 2 charging contacts for various features including the following. However, many older cordless phones, especially 46-49MHz and 900MHz models, used a separate, 3rd contact for data.
-• Detecting the handset being placed on the base for registration.
-• Detecting the handset being lifted off the base to switch from the base speakerphone to the handset.
-In most cases, if the base has a charge light/display message, the completion of the charge circuit turns it on, but sometimes that's handled by the separate data contact if the phone has one.
+Most modern cordless phones pass data through the 2 charging contacts for various features including the following. However, many older cordless phones, especially 46-49MHz and 900MHz models, used a separate, 3rd contact for these features.
+• Detecting the handset being placed on the base for registration (place-on-base auto-register).
+• Detecting the handset being lifted off the base to switch from the base speakerphone to the handset (pick up to switch).
+In most cases, if the base has a charge light/display message, the completion of the charge circuit turns it on. On many older single-handset cordless phones, this also disables the handset locator button as there's no need to locate a handset you know is right there. Sometimes these are handled by the separate data contact if the phone has one.
 """)
                         }
                     }
@@ -256,7 +259,7 @@ In most cases, if the base has a charge light/display message, the completion of
                         }
                         if phone.baseChargesHandset {
                             Picker("Handset Locator Button Location", selection: $phone.locatorButtonLocation) {
-                                Text(phone.cordlessBaseMenuType > 0 ? "Standard/In Menu" : "Standard").tag(0)
+                                Text(phone.cordlessBaseMenuType > 0 && phone.handsetLocatorUsesIntercom ? "Standard/In Menu" : "Standard").tag(0)
                                 Text("Behind Handset").tag(1)
                                 Text("Side of Base").tag(2)
                                 Text("Bottom of Base").tag(3)
@@ -314,7 +317,7 @@ In most cases, if the base has a charge light/display message, the completion of
                     .onChange(of: phone.cordedPhoneType) { oldValue, newValue in
                         phone.cordedPhoneTypeChanged(oldValue: oldValue, newValue: newValue)
                     }
-                    InfoText("Most push-button phones send tones made up of a low and high frequency, called Dual-Tone Multi-Frequency (DTMF) tones, when numbers are dialed. Most phone services today only support tone dialing, so a pulse-to-tone converter is required if you want to use a rotary phone or pulse-only push-button phone on your line. A pulse-to-tone converter detects the number of pulses and then sends out the corresponding DTMF tone through the line.\nRotary phones use a dial with numbers on it. You place your finger on the desired number and turn it until it stops, hence the phrase \"dialing a number\". When you release the dial, springs and gears return it to its resting position, causing the phone to go on and off-hook very quickly a certain number of times, corresponding to the number you put your finger on. This quick \"on and off-hook\" is called a pulse. Push-button phones can also send pulses instead of tones. For line-powered push-button phones with button lighting, the light will flash with each pulse.\nOn most corded phones, you can quickly press the hook switch/switch hook to simulate a pulse dial. This is called \"switch hook dialing\".")
+                    InfoText("Most push-button phones send tones made up of a low and high frequency, called Dual-Tone Multi-Frequency (DTMF) tones, when numbers are dialed. Most phone services today only support tone dialing, so a pulse-to-tone converter is required if you want to use a rotary phone or pulse-only push-button phone on your line. A pulse-to-tone converter detects the number of pulses and then sends out the corresponding DTMF tone through the line.\nRotary phones use a dial with numbers on it. You place your finger on the desired number and turn it until it stops, hence the phrase \"dialing a number\". When you release the dial, springs and gears return it to its resting position, causing the phone to go on and off-hook very quickly a certain number of times, corresponding to the number you put your finger on. This quick \"on and off-hook\" is called a pulse. Push-button phones can also send pulses instead of tones. For line-powered push-button phones with button lighting, the light will flash with each pulse.\nOn most corded phones, you can quickly press the switch hook to simulate a pulse dial. This is called \"switch hook dialing\".")
                     if phone.cordedPhoneType == 0 {
                         Toggle("Has Dual Receivers", isOn: $phone.hasDualReceivers)
                         InfoText("A corded phone with dual receivers allows 2 people to use the phone at the same time without having to connect 2 separate phones to the same line. These kinds of phones are often used by those requiring a language interpreter.")
@@ -336,7 +339,7 @@ In most cases, if the base has a charge light/display message, the completion of
                     Toggle("Has Hard-Wired Corded Receiver", isOn: $phone.hasHardWiredCordedReceiver)
                     InfoText("Some old phones have hard-wired corded receivers, which means you'll need to have the phone repaired if the cord breaks.")
                 }
-                if phone.isPushButtonCorded || phone.isCordedCordless {
+                if (phone.isPushButtonCorded && phone.cordedPhoneType != 4) || phone.isCordedCordless {
                     Picker("Switch Hook", selection: $phone.switchHookType) {
                         Text(phone.isSlimCorded ? "Press (On Base)" : "Press").tag(0)
                         if phone.isSlimCorded {
@@ -346,8 +349,6 @@ In most cases, if the base has a charge light/display message, the completion of
                         Text("Contacts").tag(3)
                     }
                     InfoText("Most corded phones have a switch hook which presses, located on either the base (pressed by the receiver) or the receiver (pressed by the base). More advanced corded phones might have magnetic switch hooks, where magnets in the base and receiver trigger a magnetically-activated switch, called a reed switch. Some corded phones might use contacts like those found on cordless phones, instead of a switch hook. This is mostly seen on corded phones which are extensions of a cordless system, where placing the corded receiver on the cordless base registers the corded extension phone to the base.")
-                }
-                if phone.isCordedCordless || phone.isPushButtonCorded {
                     Picker("Corded Receiver Hook Type", selection: $phone.cordedReceiverHookType) {
                         Text("Fixed").tag(0)
                         Text("Flip/Rotate").tag(1)

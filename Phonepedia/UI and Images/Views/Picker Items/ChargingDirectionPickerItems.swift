@@ -20,6 +20,8 @@ struct ChargingDirectionPickerItems: View {
         Divider()
         Text("Face-Forward Stand Up or Face-Down Lay Down").tag(6)
         Text("Reversible Handset").tag(7)
+        Text("Corded Phone-Inspired (Center Contacts)").tag(8)
+        Text("Corded Phone-Inspired (Top/Bottom Contacts)").tag(9)
     }
 }
 
