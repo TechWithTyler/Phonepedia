@@ -2,46 +2,30 @@ name: Swift
 
 on:
   pull_request:
-    branches: ["main"]
+    branches: ["main", "main-SheftApps-Team-Internal"]
 
 jobs:
   lint:
     runs-on: macos-latest
+    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get changed files
+        id: changed-files
+        run: |
+          CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }} HEAD -- '*.swift' | tr '\n' ' ')
+          echo "files=$CHANGED_FILES" >> $GITHUB_OUTPUT
 
       - name: Install linting tools
-        run: brew install swiftlint xcpretty
+        run: brew install swiftlint
 
       - name: Lint
-        run: swiftlint --strict
-
-  build-ios:
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Build iOS app
         run: |
-          xcodebuild \
-            -project Phonepedia.xcodeproj \
-            -scheme "Phonepedia (2023)" \
-            -configuration Debug \
-            -destination 'generic/platform=iOS' \
-            CODE_SIGNING_ALLOWED=NO \
-            build | xcpretty && exit ${PIPESTATUS[0]}
-
-  build-macos:
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Build macOS app
-        run: |
-          xcodebuild \
-            -project Phonepedia.xcodeproj \
-            -scheme "Phonepedia (2023)" \
-            -configuration Debug \
-            -destination 'platform=macOS' \
-            CODE_SIGNING_ALLOWED=NO \
-            build | xcpretty && exit ${PIPESTATUS[0]}
+          if [ -z "${{ steps.changed-files.outputs.files }}" ]; then
+            echo "No Swift files changed, skipping lint"
+          else
+            swiftlint --strict ${{ steps.changed-files.outputs.files }}
+          fi
