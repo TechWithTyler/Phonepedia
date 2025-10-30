@@ -47,7 +47,7 @@ struct PhoneColorView: View {
         InfoText("The accent color is seen in various places, such as around the edges. Sometimes the bottom/back color is used as an additional accent color on the top/front.")
         if phone.basePhoneType == 0 {
             ClearSupportedColorPicker("Corded Receiver Outer Color", selection: phone.cordedReceiverMainColorBinding) {
-                Text("Make Cordless-Only")
+                Text("Cordless-Only")
             }
             .onChange(of: phone.cordedReceiverMainColorBinding.wrappedValue) { oldValue, newValue in
                 phone.cordedReceiverColorChanged(oldValue: oldValue, newValue: newValue)
