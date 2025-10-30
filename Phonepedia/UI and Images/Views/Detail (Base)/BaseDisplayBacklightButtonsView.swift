@@ -230,7 +230,7 @@ struct BaseDisplayBacklightButtonsView: View {
                         }
                         Toggle("Base Navigation Button Standby Shortcuts", isOn: $phone.baseNavigatorKeyStandbyShortcuts)
                     }
-                    if phone.baseDisplayType > 3 {
+                if phone.baseDisplayType > 3 && phone.isCordlessOrPushButtonDesk {
                         Stepper("Base Soft Keys (Bottom): \(phone.baseSoftKeysBottom)", value: $phone.baseSoftKeysBottom, in: .zeroToMax(6))
                             .onChange(of: phone.baseSoftKeysBottom) { oldValue, newValue in
                                 phone.baseSoftKeysBottomChanged(oldValue: oldValue, newValue: newValue)
@@ -240,7 +240,7 @@ struct BaseDisplayBacklightButtonsView: View {
                                 phone.baseSoftKeysSideChanged(oldValue: oldValue, newValue: newValue)
                             }
                         SoftKeyExplanationView()
-                        InfoText("Side soft keys are often used for programmable functions or speed dials in standby or one-touch menu selections in menus. For example, in a menu with 5 options, instead of scrolling up or down through the menu and then pressing the select button, you can press the corresponding side soft key. Side soft keys are often seen on business-grade phones, especially those used on a system with multiple lines and/or extensions.")
+                        InfoText("Side soft keys are often used for programmable functions or speed dials in standby or one-touch menu selections in menus. For example, in a menu with 5 options, instead of scrolling up or down through the menu and then pressing the select button, you can press the corresponding side soft key. Side soft keys are often seen on business-grade phones, especially those used on a PBX system with multiple lines and/or extensions.")
                     }
                 }
             }
