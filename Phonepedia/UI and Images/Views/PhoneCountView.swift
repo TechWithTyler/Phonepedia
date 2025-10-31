@@ -284,14 +284,21 @@ struct PhoneCountView: View {
                             Text("\(brand) Phones")
                                 .foregroundStyle(.primary)
                                 .multilineTextAlignment(.leading)
+                                .onTapGesture {
+                                    brandSortMode = 0
+                                }
                             Spacer()
                             Text(phones.filter({$0.brand == brand}).count, format: .number)
                                 .foregroundStyle(.secondary)
                                 .multilineTextAlignment(.trailing)
+                                .onTapGesture {
+                                    brandSortMode = 1
+                                }
                         }
                     }
                 }
             }
+            .animation(.linear, value: brandSortMode)
             .navigationTitle("Phone Count")
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
