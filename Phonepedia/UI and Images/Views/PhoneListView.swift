@@ -310,7 +310,7 @@ struct PhoneListView: View {
                 .toggleStyle(.automatic)
             }
             Divider()
-            Button("Reset") {
+            Button("Reset", systemImage: "arrow.clockwise") {
                 resetPhoneFilter()
             }
         }
