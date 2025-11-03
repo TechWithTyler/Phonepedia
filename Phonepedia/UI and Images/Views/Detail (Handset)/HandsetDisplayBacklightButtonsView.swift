@@ -135,12 +135,24 @@ struct HandsetDisplayBacklightButtonsView: View {
                         InfoText("Answering system settings are typically changed from the handset by pressing the program button followed by the message playback button, then entering codes on the keypad. The current settings may be displayed on the base message counter or display (if it has one), in which case the handset will link to the base after entering answering system programming mode or the desired setting code is entered.\nFor example, the remote access code might be changed by pressing the program button > the message playback button > 2 for remote access code > the desired code > the program or message playback button again to save.")
                     }
                 } else {
+                    if handset.cordlessDeviceType == 1 && handset.handsetStyle < 2 {
+                        Picker("Display Location", selection: $handset.displayLocation) {
+                            Text("Front").tag(0)
+                            Text("Back").tag(1)
+                            Text("Front and Back").tag(2)
+                        }
+                        InfoText("Some handsets have the display and menu/navigation-related buttons on the back to resemble a slim corded phone with caller ID.\nSome handsets have a display on both the front and back, with the back one used for answering system controls or an extra set of caller ID navigation controls.")
+                        if phone.hasAnsweringSystem > 1 {
+                            Toggle("Has Answering System Controls", isOn: $handset.hasAnsweringSystemControls)
+                            InfoText("Dedicated answering system controls allow you to use the answering system from the handset in the same way you'd use it from a base. This is often seen on phones with an answering system but no base controls for it.")
+                        }
+                    }
                     Picker("Base-Specific Settings On Handset", selection: $handset.baseSettingsChangeMethod) {
                         Text("None").tag(0)
                         Text("Base Settings Menu").tag(1)
                         Text("Handset/Base Selection").tag(2)
                     }
-                    InfoText("Some phones allow you to change base-specific settings, such as the ringer volume, from the handset.\n•None: No base-specific settings can be changed from this handset/all base-specific settings can only be changed from the base.\n• Base Settings Menu: All base-specific settings are contained in a dedicated handset menu. This may be a top-level menu or found in the settings menu.\n• Handset/Base Selection: When selecting a setting in the menu and the base also has a corresponding setting, the handset can prompt you to select Handset or Base.\nSeparate handset/base settings menus example: HS Settings > Ringer Settings > Ringer Volume for the handset and Base Settings > Ringer Settings > Ringer Volume for the base.\nHandset/base selection example: Settings > Ringer Settings > Ringer Volume > Handset or Base.")
+                    InfoText("Some phones allow you to change base-specific settings, such as the ringer volume, from the handset.\n• None: No base-specific settings can be changed from this handset/all base-specific settings can only be changed from the base.\n• Base Settings Menu: All base-specific settings are contained in a dedicated handset menu. This may be a top-level menu or found in the settings menu.\n• Handset/Base Selection: When selecting a setting in the menu and the base also has a corresponding setting, the handset can prompt you to select Handset or Base.\nSeparate handset/base settings menus example: HS Settings > Ringer Settings > Ringer Volume for the handset and Base Settings > Ringer Settings > Ringer Volume for the base.\nHandset/base selection example: Settings > Ringer Settings > Ringer Volume > Handset or Base.")
                 }
                 if handset.isDesksetWithDisplay {
                     Toggle("Display Can Tilt", isOn: $handset.desksetDisplayCanTilt)

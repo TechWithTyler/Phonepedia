@@ -154,7 +154,11 @@ final class CordlessHandset {
 
 	var displayType: Int = 2
 
+    var displayLocation: Int = 0
+
     var baseSettingsChangeMethod: Int = 0
+
+    var hasAnsweringSystemControls: Bool = false
 
     var desksetDisplayCanTilt: Bool = false
 
@@ -653,6 +657,9 @@ final class CordlessHandset {
             batteryType = 0
             keyFindersSupported = 0
 		}
+        if newValue == 1 {
+            hasSpeakerphone = true
+        }
         if newValue != 1 {
             cordedReceiverMainColorBinding.wrappedValue = .clear
             cordedReceiverSecondaryColorBinding.wrappedValue = .black

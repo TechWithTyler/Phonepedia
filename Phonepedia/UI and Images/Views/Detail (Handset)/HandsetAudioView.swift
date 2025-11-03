@@ -23,7 +23,9 @@ struct HandsetAudioView: View {
                         Text("Volume Buttons").tag(1)
                     }
                 }
+                if handset.cordlessDeviceType == 0 {
                     Toggle("Has Speakerphone", isOn: $handset.hasSpeakerphone)
+                }
                     if handset.hasSpeakerphone {
                         Picker("Speakerphone Button Coloring", selection: $handset.speakerphoneColorLayer) {
                             Text("None").tag(0)
