@@ -1302,6 +1302,9 @@ final class Phone {
             baseCellRingtone = 1
         }
         if !newValue {
+            if voicemailQuickDial == 2 {
+                voicemailQuickDial = 0
+            }
             hasQZ = false
             hasKeypadLock = false
         }

@@ -168,7 +168,9 @@ A phone's voicemail indicator works in one of the following ways:
                 Picker("Voicemail Quick Dial", selection: $phone.voicemailQuickDial) {
                     Text("None").tag(0)
                     Text("Button").tag(1)
-                    Text("Speed Dial 1").tag(2)
+                    if phone.hasBaseKeypad {
+                        Text("Speed Dial 1").tag(2)
+                    }
                     if phone.baseDisplayType > 2 {
                         Text("Message Menu Item").tag(3)
                         Text("Main Menu Item").tag(4)
