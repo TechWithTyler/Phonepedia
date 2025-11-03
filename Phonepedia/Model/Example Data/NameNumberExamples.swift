@@ -18,7 +18,7 @@ struct NameNumberExamples {
 
         case dashed      // Example: 201-555-1234
 
-        case plain        // Example: 2015551234
+        case plain       // Example: 2015551234
 
     }
 
@@ -30,6 +30,7 @@ struct NameNumberExamples {
         "John Smith",
         "Pat Fleet",
         "Allison Smith",
+        "John Doe",
         "Charlie Johnson"
     ]
 
@@ -64,10 +65,10 @@ struct NameNumberExamples {
             "5556789",  // Generic placeholder
             "5551122",  // Generic placeholder
             "5678901",  // Generic placeholder
-            "4567890"
+            "4567890"   // Generic placeholder
         ]
         // 2. Create an array of area codes commonly used in examples.
-        let areaCodes = ["555", "201", "800", "212"] // 201 (New Jersey), 212 (NYC), 800 (Toll-Free)
+        let areaCodes = ["555", "201", "800", "212"] // 555 (Fictional), 201 (New Jersey), 212 (NYC), 800 (Toll-Free)
         // 3. Pick a random area code and phone number.
         let randomAreaCode = areaCodes.randomElement()!
         let randomNumber = exampleNumbers.randomElement()!
