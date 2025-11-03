@@ -166,6 +166,8 @@ final class Phone {
 
     var clock: Int = 0
 
+    var callerIDTimeAdjust: Bool = true
+
     var cordedPhoneType: Int = 0
 
     var isPayphone: Bool = false
@@ -263,6 +265,8 @@ final class Phone {
     var remoteAccessCodeType: Int = 2
 
     var remoteAccessCodeCommonToAllLines: Bool = false
+
+    var answeringSystemMessageTimestamp: Int = 2
 
     var hasMessageList: Bool = false
 
@@ -697,6 +701,12 @@ final class Phone {
     @Transient
     var isBusinessCordedCordlessSystem: Bool {
         return isCordedCordless && maxCordlessHandsets >= 8 && numberOfLandlines == 4
+    }
+
+    // Whether the phone has a clock display or answering system message day/time stamp.
+    @Transient
+    var hasClock: Bool {
+        return clock > 0 || !cordlessHandsetsIHave.filter({$0.clock > 0}).isEmpty || (hasAnsweringSystem > 0 && answeringSystemMessageTimestamp > 0)
     }
 
     // Whether the phone has a display to show phone numbers.

@@ -128,7 +128,7 @@ struct BaseDisplayBacklightButtonsView: View {
                             Text("Date and Time (w/ Year)").tag(4)
                         }
                     }
-                    InfoButton(title: "About Display Types…") {
+                    InfoButton("About Display Types…") {
                         dialogManager.showingAboutDisplayTypes = true
                     }
                     if phone.baseDisplayType >= 5 && phone.hasListsOfEntries {

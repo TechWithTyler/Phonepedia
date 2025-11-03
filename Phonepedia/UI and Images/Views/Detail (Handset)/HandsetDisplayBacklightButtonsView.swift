@@ -158,7 +158,7 @@ struct HandsetDisplayBacklightButtonsView: View {
                         InfoText("On a handset/deskset which displays a clock, clock backup allows it to store the clock settings for as long as it has power. This allows it to restore them to the base when power returns, since most bases don't preserve them when they lose power.")
                     }
                 }
-                InfoButton(title: "About Display Types…") {
+                InfoButton("About Display Types…") {
                     dialogManager.showingAboutDisplayTypes = true
                 }
                 if handset.displayType >= 3 && handset.handsetStyle < 2 && handset.hasListsOfEntries {

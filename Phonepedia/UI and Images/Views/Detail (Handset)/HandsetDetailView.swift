@@ -64,12 +64,12 @@ struct HandsetDetailView: View {
                             if handset.handsetStyle < 3 {
                                 FormNavigationLink(phone: phone) {
                                     HandsetDisplayBacklightButtonsView(handset: handset)
-                                        .navigationTitle("Disp/B.light/Buttons (HS\(handset.actualHandsetNumber))")
+                                        .navigationTitle("Buttons/Disp/B.light (HS\(handset.actualHandsetNumber))")
 #if !os(macOS)
                                         .navigationBarTitleDisplayMode(.inline)
 #endif
                                 } label: {
-                                    Label("Display/Backlight/Buttons", systemImage: "5.square")
+                                    Label("Buttons/Display/Backlight", systemImage: "5.square")
                                 }
                             }
                             FormNavigationLink(phone: phone) {

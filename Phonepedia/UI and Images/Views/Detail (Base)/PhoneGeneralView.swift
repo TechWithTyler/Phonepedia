@@ -69,7 +69,7 @@ struct PhoneGeneralView: View {
                     Text("2 - Hotel").tag(2)
                     Text("3 - Large Business").tag(1)
                 }
-                InfoButton(title: "About Phone Grades…") {
+                InfoButton("About Phone Grades…") {
                     dialogManager.showingAboutPhoneGrades = true
                 }
             }
@@ -131,7 +131,7 @@ struct PhoneGeneralView: View {
                                 }
                             InfoText("If the phone uses the \"security codes must match\" method where the base doesn't know or care how many cordless handsets are being used with it, set this to -1. Press the button below to learn more about the differences between registration and \"security codes must match\".")
                         }
-                        InfoButton(title: "Registration/Security Code Explanation…") {
+                        InfoButton("Registration/Security Code Explanation…") {
                             dialogManager.showingRegistrationExplanation = true
                         }
                         Picker("Frequency", selection: $phone.frequency) {
@@ -153,7 +153,7 @@ struct PhoneGeneralView: View {
                             Toggle("Base-To-Handset Uses Power Line", isOn: $phone.baseTransmitThroughPowerLine)
                             InfoText("Some early cordless phones used the building's electrical wiring as the base's transmit antenna, with the actual antenna only used for receive. This design might cause issues on modern electrical systems.")
                         }
-                        InfoButton(title: "Frequencies/Communication Technologies Explanation…") {
+                        InfoButton("Frequencies/Communication Technologies Explanation…") {
                             dialogManager.showingFrequenciesExplanation = true
                         }
                     }

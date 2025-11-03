@@ -185,7 +185,7 @@ struct PhoneDetailView: View {
                 Text("Phone Type")
                 Spacer()
                 Text(phone.phoneTypeText)
-                InfoButton {
+                InfoButton("Phone Type Definitions…") {
                     dialogManager.showingPhoneTypeDefinitions = true
                 }
                 .labelStyle(.iconOnly)
@@ -222,12 +222,12 @@ struct PhoneDetailView: View {
             if phone.isCordless || phone.isPushButtonCorded || phone.basePhoneType > 0 {
                 FormNavigationLink(phone: phone) {
                     BaseDisplayBacklightButtonsView(phone: phone)
-                        .navigationTitle("Disp/B.light/Buttons")
+                        .navigationTitle("Buttons/Disp/B.light")
 #if !os(macOS)
                         .navigationBarTitleDisplayMode(.inline)
 #endif
                 } label: {
-                    Label("Display/Backlight/Buttons", systemImage: "5.square")
+                    Label("Buttons/Display/Backlight", systemImage: "5.square")
                 }
                 if phone.basePhoneType == 0 {
                     FormNavigationLink(phone: phone) {

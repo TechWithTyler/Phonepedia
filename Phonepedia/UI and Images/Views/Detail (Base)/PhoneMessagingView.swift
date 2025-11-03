@@ -16,7 +16,7 @@ struct PhoneMessagingView: View {
     @Bindable var phone: Phone
 
     var body: some View {
-        InfoButton(title: "Answering System vs Voicemail…") {
+        InfoButton("Answering System vs Voicemail…") {
             dialogManager.showingAnsweringSystemVsVoicemail = true
         }
         Section("Answering System") {
@@ -97,6 +97,11 @@ struct PhoneMessagingView: View {
                 if phone.isMultiline {
                     Toggle("Remote Access Code Common to All Lines", isOn: $phone.remoteAccessCodeCommonToAllLines)
                     InfoText("On multi-line phones, the answering system for each line either has a separate fixed remote access code or remote access code setting, or a single remote access code that applies to all lines.")
+                }
+                Picker("Message Day/Time Stamp", selection: $phone.answeringSystemMessageTimestamp) {
+                    Text("None").tag(0)
+                    Text("Before Message").tag(1)
+                    Text("After Message").tag(2)
                 }
                 if phone.baseDisplayType > 3 {
                     Toggle("Has Message List", isOn: $phone.hasMessageList)
