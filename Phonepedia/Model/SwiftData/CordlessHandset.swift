@@ -400,7 +400,7 @@ final class CordlessHandset {
     @Transient
     var hasPhonebook: Bool {
         guard let phone = phone else { return false }
-        return phonebookCapacity > 0 || (phone.basePhonebookCapacity > 0 && usesBasePhonebook)
+        return (phonebookCapacity > 0 && handsetStyle < 3) || (phone.basePhonebookCapacity > 0 && usesBasePhonebook)
     }
 
     // Whether the cordless device has both a phonebook and a redial list.

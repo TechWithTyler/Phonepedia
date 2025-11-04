@@ -27,7 +27,7 @@ struct HandsetPhonebookView: View {
         Toggle("Uses Base Phonebook", isOn: $handset.usesBasePhonebook)
         Text("Phonebook Type: \(handset.phonebookTypeText)")
         InfoText("\(CordlessHandset.HandsetPhonebookType.shared.rawValue): The phonebook is stored in the base and is shared by the base (if it has a display) and all registered handsets/desksets. Changes made to the phonebook on the base or any registered, shared phonebook-supported handset/deskset will apply to the base and all registered, shared phonebook-supported handsets/desksets, and only one can access the phonebook at a time.\n\(CordlessHandset.HandsetPhonebookType.individual.rawValue): The phonebook is stored in the base/each handset/deskset separately. On some phones, entries can be copied between the base and handsets/desksets.\n\(CordlessHandset.HandsetPhonebookType.sharedAndIndividual.rawValue): The handset/deskset has its own phonebook but can also access the shared phonebook. On some phones, entries can be copied between the shared phonebook and the individual phonebook of a handset/deskset. The phonebook on the base, if any, always uses the shared phonebook.")
-        if (handset.phonebookCapacity > 0 && handset.handsetStyle < 3) || handset.usesBasePhonebook {
+        if handset.hasPhonebook {
             FormNumericTextField("Favorite Entry Capacity", value: $handset.favoriteEntriesCapacity, valueRange: .zeroToMax(10), singularSuffix: "entry", pluralSuffix: "entries")
             FavoriteEntriesInfoView()
             Toggle("Supports Phonebook Groups", isOn: $handset.supportsPhonebookGroups)
