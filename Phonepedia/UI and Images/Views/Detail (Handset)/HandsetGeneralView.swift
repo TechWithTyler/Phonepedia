@@ -110,6 +110,13 @@ struct HandsetGeneralView: View {
                             Text("Removable").tag(2)
                         }
                     }
+                    if handset.isHandsetOrCordedDeskset {
+                        Picker(handset.hasCordedReceiver ? "Corded Receiver Earpiece Type" : "Earpiece Type", selection: $handset.earpieceType) {
+                            Text("Standard").tag(0)
+                            Text("Bone Conduction").tag(1)
+                        }
+                        BoneConductionEarpieceInfoView()
+                    }
                 }
             }
         } else {

@@ -134,6 +134,8 @@ final class Phone {
 
     var hasChargeLight: Bool = false
 
+    var cordedReceiverEarpieceType: Int = 0
+
     var baseBackupBatteryType: Int = 0
 
     var locatorButtons: Int = 0

@@ -344,6 +344,11 @@ In most cases, if the base has a charge light/display message, the completion of
                     InfoText("Some old phones have hard-wired corded receivers, which means you'll need to have the phone repaired if the cord breaks.")
                 }
                 if (phone.isPushButtonCorded && phone.cordedPhoneType != 4) || phone.isCordedCordless {
+                    Picker("Earpiece Type", selection: $phone.cordedReceiverEarpieceType) {
+                        Text("Standard").tag(0)
+                        Text("Bone Conduction").tag(1)
+                    }
+                    BoneConductionEarpieceInfoView()
                     Picker("Switch Hook", selection: $phone.switchHookType) {
                         Text(phone.isSlimCorded ? "Press (On Base)" : "Press").tag(0)
                         if phone.isSlimCorded {

@@ -132,6 +132,8 @@ final class CordlessHandset {
 
     var chargeLightColorChargedAlpha: Double = 1
 
+    var earpieceType: Int = 0
+
     var hasChargeLight: Bool = false
 
     var supportsPlaceOnBasePowerBackup: Bool = true
@@ -344,6 +346,12 @@ final class CordlessHandset {
     @Transient
     var hasCordedReceiver: Bool {
         return cordedReceiverMainColorBinding.wrappedValue != .clear
+    }
+
+    // Whether the cordless device is a handset or corded deskset.
+    @Transient
+    var isHandsetOrCordedDeskset: Bool {
+        return cordlessDeviceType == 0 || hasCordedReceiver
     }
 
     // Whether the cordless device is a deskset with a display.
