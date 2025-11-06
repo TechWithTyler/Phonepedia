@@ -6,6 +6,8 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 
 struct PhoneCountView: View {
@@ -26,6 +28,7 @@ struct PhoneCountView: View {
 
     // MARK: - Properties - Integers
 
+    // The selected sort order for the brand counts.
     @AppStorage(UserDefaults.KeyNames.brandSortMode) var brandSortMode: Int = 0
 
     // The total number of phones, not counting the individual cordless devices on each cordless phone system.
@@ -132,7 +135,7 @@ struct PhoneCountView: View {
 
     // MARK: - Properties - Strings
 
-    // Brands of phones. Unlike the allBrands property in PhoneListView, this property is an array so a brand can exist more than once.
+    // Brands of phones. Unlike the allBrands property in PhoneListView, this property is an array so a brand can exist more than once to count them.
     var brands: [String] {
         // 1. Create a dictionary to count the number of phones for each brand. This is only used for sorting--the counts themselves aren't returned here.
         var brandCounts: [String: Int] = [:]
@@ -154,6 +157,8 @@ struct PhoneCountView: View {
             }.map { $0.key } // Return only the brand names.
         }
     }
+
+    // MARK: - Body
 
     var body: some View {
         NavigationStack {
@@ -346,12 +351,16 @@ struct PhoneCountView: View {
 #endif
     }
 
+    // MARK: - "Excluding Handsets" Text
+
     @ViewBuilder
     var excludingHandsetsText: some View {
         Text("Excluding individual handsets")
             .foregroundStyle(.secondary)
             .font(.footnote)
     }
+
+    // MARK: - Number Of Phones Of Brand
 
     // This method returns the number of phones of brand. The brands array stores only the brand names--the number of phones of each brand is determined here based on how many instances of brand are in the array.
     func numberOfPhones(of brand: String) -> Int {
@@ -360,6 +369,8 @@ struct PhoneCountView: View {
     }
 
 }
+
+// MARK: - Preview
 
 #Preview {
     PhoneCountView(phones: [Phone(brand: "Panasonic", model: "KX-TG9582")])

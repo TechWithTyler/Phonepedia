@@ -6,12 +6,18 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import SheftAppsStylishUI
 
 struct PhoneMOHView: View {
 
+    // MARK: - Properties - Phone
+
     @Bindable var phone: Phone
+
+    // MARK: - Body
 
     var body: some View {
         Toggle("Preset Audio", isOn: $phone.musicOnHoldPreset)
@@ -21,7 +27,10 @@ struct PhoneMOHView: View {
         }
         InfoText("When a call is put on hold using the phone's hold option, the caller can hear music or a message, which can be audio built into the phone, recorded by the user, or a live feed of a connected audio device for phones that support wired headsets. For phones without MOH, the caller just hears silence.\nNote: When placing a call on hold on an analog phone, the provider isn't sent the \"hold\" signal. To place the call on hold at the provider level, press the flash button or switch hook. Depending on the provider, hanging up while on hold may cause the phone to \"ring back\" to let you know there's a call on hold.")
     }
+
 }
+
+// MARK: - Preview
 
 #Preview {
     Form {

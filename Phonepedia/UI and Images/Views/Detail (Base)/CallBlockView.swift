@@ -6,12 +6,18 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import SheftAppsStylishUI
 
 struct CallBlockView: View {
 
+    // MARK: - Properties - Phone
+
     @Bindable var phone: Phone
+
+    // MARK: - Body
 
     var body: some View {
         Section("Manual") {
@@ -119,7 +125,10 @@ When the first ring is suppressed, the number of rings you hear will be one less
             }
         }
     }
+
 }
+
+// MARK: - Preview
 
 #Preview {
     Form {

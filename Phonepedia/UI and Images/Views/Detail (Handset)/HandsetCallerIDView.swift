@@ -6,12 +6,18 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import SheftAppsStylishUI
 
 struct HandsetCallerIDView: View {
 
+    // MARK: - Properties - Handset
+
     @Bindable var handset: CordlessHandset
+
+    // MARK: - Body
 
     var body: some View {
             if handset.hasPhonebook && handset.handsetStyle < 3 {
@@ -44,6 +50,8 @@ struct HandsetCallerIDView: View {
             InfoText("When handsets use the base caller ID list instead of having their own, the caller ID list, and the indication/number of missed calls, is shared by the base and all handsets. Only one can access it at a time.")
     }
 }
+
+// MARK: - Preview
 
 #Preview {
     Form {

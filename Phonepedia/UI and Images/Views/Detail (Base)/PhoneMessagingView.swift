@@ -6,14 +6,20 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import SheftAppsStylishUI
 
 struct PhoneMessagingView: View {
 
+    // MARK: - Properties - Objects
+
     @EnvironmentObject var dialogManager: DialogManager
 
     @Bindable var phone: Phone
+
+    // MARK: - Body
 
     var body: some View {
         InfoButton("Answering System vs Voicemail…") {
@@ -44,7 +50,7 @@ struct PhoneMessagingView: View {
                         Text("Separate Buttons").tag(0)
                         Text("Line Selection Button").tag(1)
                     }
-                InfoText("Multi-line phones either have separate play and answer on/off buttons for each line, or one play and answer on/off button as well as a button which selects the line(s) those buttons will use.")
+                    InfoText("Multi-line phones either have separate play and answer on/off buttons for each line, or one play and answer on/off button as well as a button which selects the line(s) those buttons will use.")
                 }
             }
             if phone.hasAnsweringSystem > 0 && phone.baseBluetoothCellPhonesSupported > 0 && phone.answeringSystemType == 1 {
@@ -80,9 +86,9 @@ struct PhoneMessagingView: View {
                 }
             }
             if phone.hasAnsweringSystem > 0 {
-            let exampleName = NameNumberExamples.names.randomElement()!
-            InfoText("The greeting, sometimes called the announcement or outgoing message (OGM), is the message the answering system plays to callers when it answers, before optionally allowing the caller to leave a message.\nExample: \"Hello. You have reached \(exampleName). I'm not available to take your call, so please \(AnsweringSystemGreetingComponents.leaveOrRecord()) \(AnsweringSystemGreetingComponents.aOrYour()) message after the \(AnsweringSystemGreetingComponents.beepOrTone()).\"")
-            ExampleAudioView(audioFile: .answeringSystemGreetingRecordMessage)
+                let exampleName = NameNumberExamples.names.randomElement()!
+                InfoText("The greeting, sometimes called the announcement or outgoing message (OGM), is the message the answering system plays to callers when it answers, before optionally allowing the caller to leave a message.\nExample: \"Hello. You have reached \(exampleName). I'm not available to take your call, so please \(AnsweringSystemGreetingComponents.leaveOrRecord()) \(AnsweringSystemGreetingComponents.aOrYour()) message after the \(AnsweringSystemGreetingComponents.beepOrTone()).\"")
+                ExampleAudioView(audioFile: .answeringSystemGreetingRecordMessage)
                 Toggle("Has Greeting Slots/Scheduled Greetings", isOn: $phone.greetingSlotsAndSchedules)
                 InfoText("Greeting slots allow you to record multiple greetings and switch between them manually or on a schedule. For example, in a business setting, you might record a \"we're open\" greeting to play when the business is open, and a \"we're closed\" greeting to play when the business is closed.")
                 Toggle("Has Greeting Only Mode", isOn: $phone.hasGreetingOnlyMode)
@@ -189,7 +195,10 @@ A phone's voicemail indicator works in one of the following ways:
             }
         }
     }
+
 }
+
+// MARK: - Preview
 
 #Preview {
     Form {

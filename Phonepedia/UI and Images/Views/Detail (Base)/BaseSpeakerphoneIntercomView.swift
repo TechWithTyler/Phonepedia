@@ -6,12 +6,18 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import SheftAppsStylishUI
 
 struct BaseSpeakerphoneIntercomView: View {
 
+    // MARK: - Properties - Phone
+
     @Bindable var phone: Phone
+
+    // MARK: - Body
 
     var body: some View {
         Section("Speaker/Speakerphone") {
@@ -96,7 +102,10 @@ struct BaseSpeakerphoneIntercomView: View {
             }
         }
     }
+
 }
+
+// MARK: - Preview
 
 #Preview {
     Form {

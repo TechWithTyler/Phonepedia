@@ -6,6 +6,8 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftData
 import SwiftUI
 import SheftAppsStylishUI
@@ -18,10 +20,12 @@ struct CordlessDeviceInfoView: View {
 
     // MARK: - Properties - Cordless Devices
 
+    // All cordless devices, sorted by number.
     var sortedCordlessDevices: [CordlessHandset] {
         return phone.cordlessHandsetsIHave.sorted { $0.handsetNumber < $1.handsetNumber }
     }
 
+    // All cordless devices, filtered by type.
     var filteredCordlessDevices: [CordlessHandset] {
         if cordlessDeviceFilter == allItemsFilterOptionTitle {
             return sortedCordlessDevices
@@ -32,6 +36,7 @@ struct CordlessDeviceInfoView: View {
 
     // MARK: - Properties - Cordless Device Chargers
 
+    // All chargers, sorted by number.
     var sortedChargers: [CordlessHandsetCharger] {
         return phone.chargersIHave.sorted { $0.chargerNumber < $1.chargerNumber }
     }
@@ -42,16 +47,19 @@ struct CordlessDeviceInfoView: View {
 
     // MARK: - Properties - Strings
 
+    // The current setting of the cordless device type filter.
     @State var cordlessDeviceFilter: String = allItemsFilterOptionTitle
 
     // MARK: - Properties - Integers
 
     @AppStorage(UserDefaults.KeyNames.defaultAcquisitionMethod) var defaultAcquisitionMethod: Int = 0
 
+    // The number of cordless devices.
     var handsetCount: Int {
         return filteredCordlessDevices.count
     }
 
+    // The number of chargers.
     var chargerCount: Int {
         return phone.chargersIHave.count
     }
@@ -300,6 +308,7 @@ struct CordlessDeviceInfoView: View {
 
     // MARK: - Cordless Device Management
 
+    // This method creates a new CordlessHandset object, sets a few defaults, and adds it to the phone's cordlessHandsetsIHave array.
     func addCordlessDevice() {
         // 1. Create a new CordlessHandset object. Newly-added cordless devices default to the phone's brand, the phone's main cordless device model number, and the phone base's colors.
         let newCordlessDevice = CordlessHandset(brand: phone.brand, model: phone.mainHandsetModel, mainColorRed: phone.baseMainColorRed, mainColorGreen: phone.baseMainColorGreen, mainColorBlue: phone.baseMainColorBlue, secondaryColorRed: phone.baseSecondaryColorRed, secondaryColorGreen: phone.baseSecondaryColorGreen, secondaryColorBlue: phone.baseSecondaryColorBlue, accentColorRed: phone.baseAccentColorRed, accentColorGreen: phone.baseAccentColorGreen, accentColorBlue: phone.baseAccentColorBlue)
@@ -327,6 +336,7 @@ struct CordlessDeviceInfoView: View {
         phone.cordlessHandsetsIHave.append(newCordlessDevice)
     }
 
+    // This method creates a copy of cordlessDevice and adds it to the phone's cordlessHandsetsIHave array.
     func duplicateCordlessDevice(_ cordlessDevice: CordlessHandset) {
         // 1. Create a duplicate of handset and set its number.
         let newCordlessDeviceNumber = sortedCordlessDevices.endIndex
@@ -338,11 +348,13 @@ struct CordlessDeviceInfoView: View {
         moveCordlessDevices(source: IndexSet(integer: newCordlessDeviceNumber), destination: cordlessDevice.actualHandsetNumber)
     }
 
+    // This method duplicates the last cordless device in the list.
     func duplicateLastCordlessDevice() {
         guard let lastCordlessDevice = sortedCordlessDevices.last else { return }
         duplicateCordlessDevice(lastCordlessDevice)
     }
 
+    // This method moves the cordless device being dragged from the current (source) index set to the new (destination) index by creating a copy of the phone's cordlessHandsetsIHave array, performing the move on that copy, then setting the handsetNumber property of the original's cordless devices.
     private func moveCordlessDevices(source: IndexSet, destination: Int) {
         // 1. If the cordless device filter is enabled, show an alert and don't continue.
         guard cordlessDeviceFilter == allItemsFilterOptionTitle else {
@@ -363,6 +375,7 @@ struct CordlessDeviceInfoView: View {
         }
     }
 
+    // This method deletes cordlessDevice from the phone's cordlessHandsetsIHave array.
     func deleteCordlessDevice(_ cordlessDevice: CordlessHandset) {
         // 1. Create a snapshot of the index of the cordless device to be deleted so cordless devices after the deleted one can be shifted down after deletion.
         let deletedIndex = cordlessDevice.handsetNumber
@@ -378,6 +391,7 @@ struct CordlessDeviceInfoView: View {
 
     // MARK: - Charger Management
 
+    // This method creates a new CordlessHandsetCharger object, sets a few defaults, and adds it to the phone's chargersIHave array.
     func addCharger() {
         // 1. Create a new CordlessHandsetCharger object.
         let newCharger = CordlessHandsetCharger(mainColorRed: phone.baseMainColorRed, mainColorGreen: phone.baseMainColorGreen, mainColorBlue: phone.baseMainColorBlue, secondaryColorRed: phone.baseSecondaryColorRed, secondaryColorGreen: phone.baseSecondaryColorGreen, secondaryColorBlue: phone.baseSecondaryColorBlue, accentColorRed: phone.baseAccentColorRed, accentColorGreen: phone.baseAccentColorGreen, accentColorBlue: phone.baseAccentColorBlue)
@@ -387,6 +401,7 @@ struct CordlessDeviceInfoView: View {
         phone.chargersIHave.append(newCharger)
     }
 
+    // This method creates a copy of charger and adds it to the phone's chargersIHave array.
     func duplicateCharger(_ charger: CordlessHandsetCharger) {
         // 1. Create a duplicate of charger.
         let newChargerNumber = sortedChargers.endIndex
@@ -398,11 +413,13 @@ struct CordlessDeviceInfoView: View {
         moveChargers(source: IndexSet(integer: newChargerNumber), destination: charger.actualChargerNumber)
     }
 
+    // This method duplicates the last charger in the list.
     func duplicateLastCharger() {
         guard let lastCharger = sortedChargers.last else { return }
         duplicateCharger(lastCharger)
     }
 
+    // This method moves the charger being dragged from the current (source) index set to the new (destination) index by creating a copy of the phone's chargersIHave array, performing the move on that copy, then setting the chargerNumber property of the original's chargers.
     private func moveChargers(source: IndexSet, destination: Int) {
         withAnimation {
             // 1. Create a copy of the sortedChargers array pre-move.
@@ -418,6 +435,7 @@ struct CordlessDeviceInfoView: View {
         }
     }
 
+    // This method deletes charger from the phone's chargersIHave array.
     func deleteCharger(_ charger: CordlessHandsetCharger) {
         // 1. Create a snapshot of the index of the charger to be deleted so chargers after the deleted one can be shifted down after deletion.
         let deletedIndex = charger.chargerNumber
@@ -432,6 +450,8 @@ struct CordlessDeviceInfoView: View {
     }
 
 }
+
+// MARK: - Preview
 
 #Preview {
     Form {

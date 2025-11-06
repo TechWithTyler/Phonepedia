@@ -6,6 +6,8 @@
 //  Copyright © 2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import SheftAppsStylishUI
 
@@ -30,6 +32,8 @@ struct HandsetColorView: View {
         default: return "Back"
         }
     }
+
+    // MARK: - Body
 
     var body: some View {
             Section {
@@ -66,6 +70,8 @@ struct HandsetColorView: View {
     }
 
 }
+
+// MARK: - Preview
 
 #Preview {
     @Previewable @State var handset = CordlessHandset(brand: "Panasonic", model: "KX-TGA552", mainColorRed: 120, mainColorGreen: 120, mainColorBlue: 120, secondaryColorRed: 120, secondaryColorGreen: 120, secondaryColorBlue: 120, accentColorRed: 0, accentColorGreen: 0, accentColorBlue: 0)

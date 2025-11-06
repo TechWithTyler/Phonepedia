@@ -6,14 +6,20 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import SheftAppsStylishUI
 
 struct LandlineDetailView: View {
 
+    // MARK: - Properties - Objects
+
     @Bindable var phone: Phone
 
     @EnvironmentObject var dialogManager: DialogManager
+
+    // MARK: - Body
 
     var body: some View {
         Picker("Connection Type", selection: $phone.landlineConnectionType) {
@@ -99,7 +105,10 @@ struct LandlineDetailView: View {
             InfoText("When another phone on the same line is in use, the phone will indicate that the line is in use if it has line in use indication, by detecting a drop in line power. If it drops too much (the line isn't connected or too many phones are in use), the no line alert, if available, will be displayed.\nDetecting drops in line power is also what causes automated systems, phones on hold, and some speakerphones to hang up when another phone on the line is picked up.\nThe phone will first detect \"line in use\" before detecting \"no line\", so you may briefly see it indicating \"line in use\" after disconnecting the line (or powering up the phone without a line connected). The status won't change the moment the line power drops, as the phone needs to wait for the line power to stabilize before indicating the proper status.")
         }
     }
+
 }
+
+// MARK: - Preview
 
 #Preview {
     Form {

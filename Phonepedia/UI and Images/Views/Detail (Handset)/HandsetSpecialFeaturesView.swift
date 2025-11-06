@@ -6,12 +6,18 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import SheftAppsStylishUI
 
 struct HandsetSpecialFeaturesView: View {
 
+    // MARK: - Properties - Handset
+
     @Bindable var handset: CordlessHandset
+
+    // MARK: - Body
 
     var body: some View {
         if handset.handsetStyle < 3 {
@@ -33,6 +39,8 @@ struct HandsetSpecialFeaturesView: View {
         }
     }
 }
+
+// MARK: - Preview
 
 #Preview {
     Form {

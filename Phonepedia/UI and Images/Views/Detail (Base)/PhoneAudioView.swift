@@ -6,12 +6,18 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import SheftAppsStylishUI
 
 struct PhoneAudioView: View {
 
+    // MARK: - Properties - Phone
+
     @Bindable var phone: Phone
+
+    // MARK: - Body
 
     var body: some View {
         Section("Headsets") {
@@ -100,7 +106,10 @@ struct PhoneAudioView: View {
             InfoText("An audio codec determines the audio quality and bandwidth used for VoIP, cellular, and ISDN digital lines.\nYou may think that with the G.7XX codecs, the higher number means better quality, but the numbering order isn't tied to quality--it's just arbitrary.")
         }
     }
+
 }
+
+// MARK: - Preview
 
 #Preview {
     Form {

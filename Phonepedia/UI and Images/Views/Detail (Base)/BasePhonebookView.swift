@@ -6,12 +6,18 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import SheftAppsStylishUI
 
 struct BasePhonebookView: View {
 
+    // MARK: - Properties - Phone
+
     @Bindable var phone: Phone
+
+    // MARK: - Body
 
     var body: some View {
         FormNumericTextField(phone.isCordless ? "Phonebook Capacity (Base)" : "Phonebook Capacity", value: $phone.basePhonebookCapacity, valueRange: .allPositivesIncludingZero, singularSuffix: "entry", pluralSuffix: "entries")
@@ -62,7 +68,10 @@ struct BasePhonebookView: View {
             }
         }
     }
+
 }
+
+// MARK: - Preview
 
 #Preview {
     Form {

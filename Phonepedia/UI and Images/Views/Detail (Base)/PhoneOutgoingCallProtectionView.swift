@@ -6,12 +6,18 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import SheftAppsStylishUI
 
 struct PhoneOutgoingCallProtectionView: View {
 
+    // MARK: - Properties - Phone
+
     @Bindable var phone: Phone
+
+    // MARK: - Body
 
     var body: some View {
         if phone.hasBaseKeypad {
@@ -27,6 +33,8 @@ struct PhoneOutgoingCallProtectionView: View {
     }
 
 }
+
+// MARK: - Preview
 
 #Preview {
     PhoneOutgoingCallProtectionView(phone: Phone(brand: Phone.mockBrand, model: Phone.mockModel))

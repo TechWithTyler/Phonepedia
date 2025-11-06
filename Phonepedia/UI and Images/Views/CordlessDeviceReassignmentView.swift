@@ -6,6 +6,8 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 
 struct CordlessDeviceReassignmentView: View {
@@ -18,18 +20,27 @@ struct CordlessDeviceReassignmentView: View {
 
     @EnvironmentObject var dialogManager: DialogManager
 
+    var cordlessDevice: CordlessHandset? {
+        return dialogManager.handsetToReassign
+    }
+
+    // The phone which cordlessDevice is to be reassigned to.
     @State var selectedNewPhone: Phone? = nil
 
     var phones: [Phone]
 
     @Binding var selectedPhone: Phone?
 
+    // The phone cordlessDevice is currently assigned to.
     var currentPhone: Phone? {
-        return dialogManager.handsetToReassign?.phone
+        return cordlessDevice?.phone
     }
 
+    // The phones cordlessDevice can be assigned to, based on their wireless frequency and number of cordless devices.
     var compatiblePhones: [Phone] {
+        // 1. Make sure we can get the current phone.
         guard let phone = currentPhone else { return phones }
+        // 2. Return the phones array, filtered to include only cordless phones of the same frequency and that don't already have the maximum number of cordless devices, and sorted so the phone with the highest number is at the top of the list.
         return phones
             .filter(
                 { $0.isCordless && $0.frequency == phone.frequency && phone.frequency != Phone.CordlessFrequency.unknown.rawValue && (
@@ -57,6 +68,7 @@ struct CordlessDeviceReassignmentView: View {
                                     }
                                 }
                             }
+                            // Assigning a tag to a list row allows it to be selected.
                             .tag(phone)
                         }
                     }
@@ -91,9 +103,10 @@ struct CordlessDeviceReassignmentView: View {
 
     // MARK: - Actions
 
+    // This method assigns cordlessDevice to the selected phone.
     func reassignCordlessDevice() {
         // 1. Make sure we can get the selected phone, cordless device to reassign, and its old phone.
-        if let selectedNewPhone = selectedNewPhone, let cordlessDevice = dialogManager.handsetToReassign, let oldPhone = cordlessDevice.phone {
+        if let selectedNewPhone = selectedNewPhone, let cordlessDevice = cordlessDevice, let oldPhone = cordlessDevice.phone {
             // 2. Make sure the selected phone isn't the old phone.
             guard selectedNewPhone != oldPhone else {
                 dismissCordlessDeviceReassignment()

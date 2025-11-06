@@ -6,24 +6,30 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import SheftAppsStylishUI
 
 struct HandsetDisplayBacklightButtonsView: View {
 
+    // MARK: - Properties - Objects
+
     @Bindable var handset: CordlessHandset
 
     @EnvironmentObject var dialogManager: DialogManager
+
+    // MARK: - Body
 
     var body: some View {
         if let phone = handset.phone {
             Section("Buttons") {
                 if handset.cordlessDeviceType < 2 {
                     Picker("Button Behavior While Charging", selection: $handset.buttonPressOnChargeBehavior) {
-                            Text("Locked").tag(0)
-                            Text("Prompt to Pick Up").tag(1)
-                            Text("Normal").tag(2)
-                        }
+                        Text("Locked").tag(0)
+                        Text("Prompt to Pick Up").tag(1)
+                        Text("Normal").tag(2)
+                    }
                     InfoText("• Locked: Button presses are ignored while the handset is on charge.\n• Prompt to Pick Up: Pressing any button while the handset is on charge prompts you to pick it up.\n• Normal: You can use the handset as normal while it's on charge. This is useful if you're trying to configure it but the battery is too low to use off charge.")
                     Toggle("Has Keypad Lock", isOn: $handset.hasKeypadLock)
                     KeypadLockInfoView()
@@ -285,7 +291,10 @@ struct HandsetDisplayBacklightButtonsView: View {
             Text("Error")
         }
     }
+
 }
+
+// MARK: - Preview
 
 #Preview {
     Form {

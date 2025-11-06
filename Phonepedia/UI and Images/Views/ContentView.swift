@@ -6,6 +6,8 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import SwiftData
 
@@ -13,18 +15,24 @@ struct ContentView: View {
 
     // MARK: - Properties - Objects
 
+    // The model context, which stores data for Phonepedia documents.
     @Environment(\.modelContext) private var modelContext
 
+    // Handles the display of dialogs in the app.
     @ObservedObject var dialogManager = DialogManager()
 
+    // Handles playback of audio.
     @ObservedObject var audioManager = AudioManager()
 
+    // Handles the import and export of phone photos.
     @ObservedObject var photoViewModel = PhonePhotoViewModel()
 
     // MARK: - Properties - Phones
 
+    // The Phone objects loaded from the document's model container.
     @Query(sort: \Phone.phoneNumberInCollection, order: .reverse) private var phones: [Phone]
 
+    // The currently selected phone in the phone list.
     @State var selectedPhone: Phone?
 
     // MARK: - Body
@@ -98,6 +106,8 @@ struct ContentView: View {
     }
 
 }
+
+// MARK: - Preview
 
 #Preview {
     ContentView()

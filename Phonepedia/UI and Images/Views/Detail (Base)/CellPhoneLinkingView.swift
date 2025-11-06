@@ -6,12 +6,18 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import SheftAppsStylishUI
 
 struct CellPhoneLinkingView: View {
 
+    // MARK: - Properties - Phone
+
     @Bindable var phone: Phone
+
+    // MARK: - Body
 
     var body: some View {
         Section("Bluetooth Cell Phone Linking") {
@@ -60,7 +66,10 @@ struct CellPhoneLinkingView: View {
             InfoText("When a smartphone or tablet is registered to a Wi-Fi-compatible base and both devices are on the same network, the smartphone can be used as a handset, and you can transfer its data to the base or handsets.")
         }
     }
+
 }
+
+// MARK: - Preview
 
 #Preview {
     Form {

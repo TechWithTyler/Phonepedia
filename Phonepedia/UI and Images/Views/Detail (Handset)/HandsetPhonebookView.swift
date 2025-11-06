@@ -6,13 +6,19 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import SheftAppsStylishUI
 
 struct HandsetPhonebookView: View {
-    
+
+    // MARK: - Properties - Handset
+
     @Bindable var handset: CordlessHandset
-    
+
+    // MARK: - Body
+
     var body: some View {
         if handset.handsetStyle < 3 {
             FormNumericTextField("Phonebook Capacity", value: $handset.phonebookCapacity, valueRange: .allPositivesIncludingZero, singularSuffix: "entry", pluralSuffix: "entries")
@@ -48,6 +54,8 @@ struct HandsetPhonebookView: View {
         }
     }
 }
+
+// MARK: - Preview
 
 #Preview {
     Form {

@@ -6,14 +6,20 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import SheftAppsStylishUI
 
 struct DialingCodesView: View {
 
+    // MARK: - Properties - Objects
+
     @Bindable var phone: Phone
 
     @EnvironmentObject var dialogManager: DialogManager
+
+    // MARK: - Body
 
     var body: some View {
         if phone.hasCallerIDList {
@@ -42,7 +48,10 @@ struct DialingCodesView: View {
             dialogManager.showingAboutDialingCodes = true
         }
     }
+
 }
+
+// MARK: - Preview
 
 #Preview {
     Form {

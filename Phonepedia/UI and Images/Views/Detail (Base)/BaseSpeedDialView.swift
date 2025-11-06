@@ -6,12 +6,18 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import SheftAppsStylishUI
 
 struct BaseSpeedDialView: View {
 
+    // MARK: - Properties - Phone
+
     @Bindable var phone: Phone
+
+    // MARK: - Properties - Ranges
 
     var baseSpeedDialRange: ClosedRange<Int> {
         if phone.voicemailQuickDial == 2 {
@@ -22,6 +28,8 @@ struct BaseSpeedDialView: View {
             return .zeroToMax(50)
         }
     }
+
+    // MARK: - Body
 
     var body: some View {
         Toggle("Has One-Touch Emergency Calling", isOn: $phone.hasOneTouchEmergencyCalling)
@@ -56,7 +64,10 @@ struct BaseSpeedDialView: View {
             SpeedDialEntryModeInfoView()
         }
     }
+
 }
+
+// MARK: - Preview
 
 #Preview {
     Form {

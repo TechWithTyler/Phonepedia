@@ -6,14 +6,20 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import SheftAppsStylishUI
 
 struct BaseCallerIDView: View {
 
+    // MARK: - Properties - Objects
+
     @EnvironmentObject var dialogManager: DialogManager
 
     @Bindable var phone: Phone
+
+    // MARK: - Body
 
     var body: some View {
         let exampleName = NameNumberExamples.callerIDNames.randomElement()!
@@ -59,7 +65,10 @@ struct BaseCallerIDView: View {
         ExampleAudioView(audioFile: .dtmfToneD)
         ExampleAudioView(audioFile: .dtmfToneA)
     }
+
 }
+
+// MARK: - Preview
 
 #Preview {
     Form {

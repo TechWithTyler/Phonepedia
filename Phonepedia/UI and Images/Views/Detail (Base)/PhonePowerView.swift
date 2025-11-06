@@ -6,12 +6,18 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import SheftAppsStylishUI
 
 struct PhonePowerView: View {
 
+    // MARK: - Properties - Phone
+
     @Bindable var phone: Phone
+
+    // MARK: - Body
 
     var body: some View {
         Section("Main Power Source") {
@@ -41,7 +47,7 @@ struct PhonePowerView: View {
             if phone.landlineConnectionType < 2 && (phone.isCordless || phone.cordedPowerSource > 1) {
                 Toggle("Uses Single Line + Power Feed", isOn: $phone.usesSingleLinePowerFeed)
                 InfoText("A single line + power feed means the line and power connections are combined into a single cable which plugs into the phone. These kinds of phones often use an RJ45-style jack/cable.\nYou can tell if the phone is analog/digital or VoIP by unplugging it and plugging it back in. If it takes a minute or so to boot up, it's a VoIP phone with PoE. If it boots up immediately, it's an analog/digital phone.")
-                
+
             }
         }
         if phone.isCordless {
@@ -106,7 +112,10 @@ struct PhonePowerView: View {
             }
         }
     }
+
 }
+
+// MARK: - Preview
 
 #Preview {
     Form {

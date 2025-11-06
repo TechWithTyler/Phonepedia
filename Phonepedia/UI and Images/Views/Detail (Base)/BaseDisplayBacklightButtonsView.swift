@@ -5,14 +5,20 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import SheftAppsStylishUI
 
 struct BaseDisplayBacklightButtonsView: View {
 
+    // MARK: - Properties - Objects
+
     @Bindable var phone: Phone
 
     @EnvironmentObject var dialogManager: DialogManager
+
+    // MARK: - Body
 
     var body: some View {
         Section("Buttons") {
@@ -170,7 +176,7 @@ struct BaseDisplayBacklightButtonsView: View {
                 }
             }
             if phone.baseDisplayType > 2 {
-            Section("Navigation Button/Soft Keys") {
+                Section("Navigation Button/Soft Keys") {
                     Picker("Base Navigation Button Type", selection: $phone.baseNavigatorKeyType) {
                         Text("None").tag(0)
                         Text("Up/Down").tag(1)
@@ -230,7 +236,7 @@ struct BaseDisplayBacklightButtonsView: View {
                         }
                         Toggle("Base Navigation Button Standby Shortcuts", isOn: $phone.baseNavigatorKeyStandbyShortcuts)
                     }
-                if phone.baseDisplayType > 3 && phone.isCordlessOrPushButtonDesk {
+                    if phone.baseDisplayType > 3 && phone.isCordlessOrPushButtonDesk {
                         Stepper("Base Soft Keys (Bottom): \(phone.baseSoftKeysBottom)", value: $phone.baseSoftKeysBottom, in: .zeroToMax(6))
                             .onChange(of: phone.baseSoftKeysBottom) { oldValue, newValue in
                                 phone.baseSoftKeysBottomChanged(oldValue: oldValue, newValue: newValue)
@@ -246,7 +252,10 @@ struct BaseDisplayBacklightButtonsView: View {
             }
         }
     }
+
 }
+
+// MARK: - Preview
 
 #Preview {
     Form {

@@ -6,12 +6,18 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import SheftAppsStylishUI
 
 struct HandsetPowerView: View {
 
+    // MARK: - Properties - Handset
+
     @Bindable var handset: CordlessHandset
+
+    // MARK: - Body
 
     var body: some View {
         if let phone = handset.phone {
@@ -88,6 +94,8 @@ struct HandsetPowerView: View {
     }
 
 }
+
+// MARK: - Preview
 
 #Preview {
     HandsetPowerView(handset: CordlessHandset(brand: "Panasonic", model: "KX-TC1723", mainColorRed: 0, mainColorGreen: 0, mainColorBlue: 0, secondaryColorRed: 0, secondaryColorGreen: 0, secondaryColorBlue: 0, accentColorRed: 0, accentColorGreen: 0, accentColorBlue: 0))

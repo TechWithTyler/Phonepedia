@@ -6,12 +6,18 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import SheftAppsStylishUI
 
 struct HandsetAudioView: View {
 
+    // MARK: - Properties - Handset
+
     @Bindable var handset: CordlessHandset
+
+    // MARK: - Body
 
     var body: some View {
         if let phone = handset.phone {
@@ -75,6 +81,8 @@ struct HandsetAudioView: View {
         }
     }
 }
+
+// MARK: - Preview
 
 #Preview {
     Form {
