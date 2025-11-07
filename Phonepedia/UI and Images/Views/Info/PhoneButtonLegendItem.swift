@@ -17,9 +17,7 @@ struct PhoneButtonLegendItem: View {
 
     enum PhoneButtonDescription: String {
 
-        case talk
-
-        case home
+        case talk, home
 
         case cell
 
@@ -129,7 +127,7 @@ struct PhoneButtonLegendItem: View {
         }
     }
 
-    // MARK: - Talk Button
+    // MARK: - Talk/Home Button
 
     @ViewBuilder
     var talkButton: some View {

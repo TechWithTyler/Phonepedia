@@ -66,6 +66,8 @@ struct RegistrationExplanationView: View {
     
 }
 
+// MARK: - Preview
+
 #Preview {
     RegistrationExplanationView()
 }

@@ -11,6 +11,9 @@
 import SwiftUI
 
 struct ChargingDirectionPickerItems: View {
+
+    // MARK: - Body
+
     var body: some View {
         Text("Face-Forward Stand Up").tag(0)
         Text("Face-Up Lean Back").tag(1)
@@ -25,7 +28,10 @@ struct ChargingDirectionPickerItems: View {
         Text("Corded Phone-Inspired (Center Contacts)").tag(8)
         Text("Corded Phone-Inspired (Top/Bottom Contacts)").tag(9)
     }
+    
 }
+
+// MARK: - Preview
 
 #Preview {
     ChargingDirectionPickerItems()

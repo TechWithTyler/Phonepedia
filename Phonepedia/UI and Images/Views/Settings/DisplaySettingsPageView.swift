@@ -22,7 +22,7 @@ struct DisplaySettingsPageView: View {
         let handset = CordlessHandset(brand: Phone.mockBrand, model: CordlessHandset.mockModel, mainColorRed: 0, mainColorGreen: 0, mainColorBlue: 0, secondaryColorRed: 0, secondaryColorGreen: 0, secondaryColorBlue: 0, accentColorRed: 190, accentColorGreen: 190, accentColorBlue: 190)
         // 2. Duplicate the mock cordless handset so the mock phone has 2 mock cordless handsets.
         let secondHandset = handset.duplicate()
-        // 3. Set the mock phone's properties.
+        // 3. Set the mock phone's colors.
         phone.baseMainColorRed = 0
         phone.baseMainColorGreen = 0
         phone.baseMainColorBlue = 0

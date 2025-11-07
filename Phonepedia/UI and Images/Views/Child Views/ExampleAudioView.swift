@@ -13,9 +13,13 @@ import SheftAppsStylishUI
 
 struct ExampleAudioView: View {
 
+    // MARK: - Properties - Objects
+
     @EnvironmentObject var audioManager: AudioManager
 
     var audioFile: AudioManager.AudioFile
+
+    // MARK: - Properties - Strings
 
     var title: String {
         switch audioFile {
@@ -45,9 +49,13 @@ struct ExampleAudioView: View {
         }
     }
 
+    // MARK: - Properties - Booleans
+
     var isPlayingAudioFile: Bool {
         return audioManager.isPlaying && audioManager.audioFile == audioFile
     }
+
+    // MARK: - Body
 
     var body: some View {
         HStack {
@@ -70,6 +78,8 @@ struct ExampleAudioView: View {
     }
 
 }
+
+// MARK: - Preview
 
 #Preview {
     ExampleAudioView(audioFile: .dtmfTones)

@@ -69,7 +69,10 @@ struct AboutPhoneGradesView: View {
         .frame(minWidth: 550, maxWidth: 550, minHeight: 350, maxHeight: 350)
 #endif
     }
+
 }
+
+// MARK: - Preview
 
 #Preview {
     AboutPhoneGradesView()

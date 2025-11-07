@@ -92,6 +92,8 @@ struct FrequenciesExplanationView: View {
     
 }
 
+// MARK: - Preview
+
 #Preview {
     FrequenciesExplanationView()
 }

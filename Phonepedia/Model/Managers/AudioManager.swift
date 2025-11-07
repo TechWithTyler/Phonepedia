@@ -86,9 +86,11 @@ class AudioManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
 
     @Published var audioPlayer: AVAudioPlayer?
 
+    // MARK: - Properties - Audio File
+
     @Published var audioFile: AudioFile? = nil
 
-    // MARK: - Playing
+    // MARK: - Play/Stop
 
     func toggleAudio(audioFile: AudioFile) {
         if isPlaying && self.audioFile == audioFile {

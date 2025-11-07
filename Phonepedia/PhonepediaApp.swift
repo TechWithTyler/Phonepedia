@@ -15,6 +15,8 @@ import SwiftData
 @main
 struct PhonepediaApp: App {
 
+    // MARK: - Body
+
     var body: some Scene {
 #if os(iOS) || os(visionOS)
         DocumentGroupLaunchScene {
@@ -40,4 +42,5 @@ struct PhonepediaApp: App {
         }
         #endif
     }
+    
 }

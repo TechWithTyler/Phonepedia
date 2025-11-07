@@ -7,9 +7,14 @@
 //
 
 #if os(iOS)
+
+// MARK: - Imports
+
 import SwiftUI
 
 struct CameraViewController: UIViewControllerRepresentable {
+
+    // MARK: - Properties - Objects
 
 	@ObservedObject var viewModel: PhonePhotoViewModel
 

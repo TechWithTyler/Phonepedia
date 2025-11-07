@@ -13,6 +13,8 @@ import Foundation
 // A page in Settings.
 enum SettingsPage : String {
 
+    // MARK: - Settings Page Icons Enum
+
     enum Icons: String {
 
         case display = "textformat.size"
@@ -20,6 +22,8 @@ enum SettingsPage : String {
         case newPhones = "phone.badge.plus"
 
     }
+
+    // MARK: - Settings Page Name Cases
 
     case display
 

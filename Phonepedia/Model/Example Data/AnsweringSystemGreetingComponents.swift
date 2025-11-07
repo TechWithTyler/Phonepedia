@@ -12,6 +12,8 @@ import Foundation
 
 struct AnsweringSystemGreetingComponents {
 
+    // MARK: - Answering System Greeting Components
+
     // This method returns either "leave" or "record" for use in the example answering system "record message" greeting.
     static func leaveOrRecord() -> String {
         let words = ["leave", "record"]

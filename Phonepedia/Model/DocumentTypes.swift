@@ -13,6 +13,8 @@ import UniformTypeIdentifiers
 
 extension UTType {
 
+    // MARK: - Properties - Uniform Types
+
     static var phonepediaCatalog: UTType {
         UTType(importedAs: "com.tylersheft.PhonepediaDatabase")
     }

@@ -17,13 +17,13 @@ struct HandsetActionsView: View {
 
     @Environment(\.dismiss) var dismiss
 
-    // MARK: - Properties - Handset
+    // MARK: - Properties - Objects
 
     @Bindable var handset: CordlessHandset
 
-    // MARK: - Properties - Dialog Manager
-
     @EnvironmentObject var dialogManager: DialogManager
+
+    // MARK: - Body
 
     var body: some View {
         if let phone = handset.phone {
@@ -59,6 +59,8 @@ struct HandsetActionsView: View {
         }
     }
 }
+
+// MARK: - Preview
 
 #Preview {
     HandsetActionsView( handset: CordlessHandset(brand: "Panasonic", model: "KX-TGUA40", mainColorRed: 200, mainColorGreen: 200, mainColorBlue: 200, secondaryColorRed: 0, secondaryColorGreen: 0, secondaryColorBlue: 0, accentColorRed: 0, accentColorGreen: 0, accentColorBlue: 0))

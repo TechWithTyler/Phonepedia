@@ -469,6 +469,8 @@ extension Phone {
             }
         }
 
+        // MARK: - Properties - Booleans
+
         var isDigital: Bool {
             return (name.contains("Digital") || name.contains("DSS") /*Digital Spread Spectrum*/ || name.contains("FHSS") /*Frequency-Hopping Spread Spectrum, doesn't include digital in the name but is digital*/ || name.contains("DECT") /*Digital Enhanced Cordless Telecommunications*/) && !name.contains("Analog")
         }

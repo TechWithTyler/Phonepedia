@@ -23,8 +23,6 @@ struct PhoneListDetailOptions: View {
 
     @AppStorage(UserDefaults.KeyNames.showAnsweringSystemInList) var showAnsweringSystemInList: Bool = true
 
-    @AppStorage(UserDefaults.KeyNames.highlightHandsetNumberDigitInList) var highlightHandsetNumberDigitInList: Int = 2
-
     @AppStorage(UserDefaults.KeyNames.showNumberOfCordlessHandsetsInList) var showNumberOfCordlessHandsetsInList: Bool = true
 
     @AppStorage(UserDefaults.KeyNames.showPhoneColorsInList) var showPhoneColorsInList: Bool = true
@@ -32,6 +30,10 @@ struct PhoneListDetailOptions: View {
     @AppStorage(UserDefaults.KeyNames.showYearsInList) var showYearsInList: Bool = true
 
     @AppStorage(UserDefaults.KeyNames.showFrequencyInList) var showFrequencyInList: Bool = true
+
+    // MARK: - Properties - Integers
+
+    @AppStorage(UserDefaults.KeyNames.highlightHandsetNumberDigitInList) var highlightHandsetNumberDigitInList: Int = 2
 
     // MARK: - Body
 

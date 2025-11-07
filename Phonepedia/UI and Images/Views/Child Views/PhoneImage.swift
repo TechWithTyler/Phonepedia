@@ -55,7 +55,7 @@ struct PhoneImage: View {
         }
 	}
     
-    // MARK: - View
+    // MARK: - Body
 
     var body: some View {
         if mode == .backdrop {
@@ -93,6 +93,8 @@ struct PhoneImage: View {
         }
     }
 
+    // MARK: - Image
+
     var image: Image {
         if let photoData = phone.photoData {
             #if os(macOS)
@@ -110,6 +112,8 @@ struct PhoneImage: View {
     }
 
 }
+
+// MARK: - Preview
 
 #Preview("Full") {
     PhoneImage(phone: Phone(brand: "Panasonic", model: "KX-TGU432"), mode: .full)

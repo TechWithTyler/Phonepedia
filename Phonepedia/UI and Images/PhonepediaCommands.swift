@@ -13,6 +13,8 @@ import SheftAppsStylishUI
 
 struct PhonepediaCommands: Commands {
 
+    // MARK: - Properties - Dialog Manager
+
     @FocusedObject private var dialogManager: DialogManager?
 
     // MARK: - Menu Commands

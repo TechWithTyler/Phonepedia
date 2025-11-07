@@ -124,6 +124,8 @@ struct AboutConnectionTypesView: View {
     }
 }
 
+// MARK: - Preview
+
 #Preview {
     AboutConnectionTypesView()
 }

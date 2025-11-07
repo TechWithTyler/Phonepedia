@@ -11,13 +11,19 @@
 import SwiftUI
 
 struct ChargeContactPlacementPickerItems: View {
+
+    // MARK: - Body
+
     var body: some View {
         Text("Bottom").tag(0)
         Text("Back").tag(1)
         Text("One On Each Side").tag(2)
         Text("Hook").tag(3)
     }
+    
 }
+
+// MARK: - Preview
 
 #Preview {
     ChargeContactPlacementPickerItems()

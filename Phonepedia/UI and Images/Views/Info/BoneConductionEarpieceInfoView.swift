@@ -13,11 +13,15 @@ import SheftAppsStylishUI
 
 struct BoneConductionEarpieceInfoView: View {
 
+    // MARK: - Body
+
     var body: some View {
         InfoText("A bone conduction earpiece creates vibrations your cheekbones or jawbones can feel. This allows those with certain types of hearing loss to still hear the phone.")
     }
 
 }
+
+// MARK: - Preview
 
 #Preview {
     BoneConductionEarpieceInfoView()

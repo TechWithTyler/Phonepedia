@@ -27,6 +27,8 @@ struct CordlessPhoneRadioWaveView: View {
 
     @Environment(\.accessibilityReduceMotion) var reduceMotion
 
+    // MARK: - Properties - Color Scheme Contrast
+
     @Environment(\.colorSchemeContrast) var colorSchemeContrast
 
     // MARK: - Properties - Floats
@@ -48,6 +50,7 @@ struct CordlessPhoneRadioWaveView: View {
     }
 
     // MARK: - Body
+
     var body: some View {
         VStack {
             Text("Select different frequencies and see how the wavelength changes.")
@@ -116,6 +119,8 @@ struct CordlessPhoneRadioWaveView: View {
     }
 
 }
+
+// MARK: - Preview
 
 #Preview {
     CordlessPhoneRadioWaveView()

@@ -13,11 +13,15 @@ import SheftAppsStylishUI
 
 struct KeypadLockInfoView: View {
 
+    // MARK: - Body
+
     var body: some View {
         InfoText("The keypad can be locked so all functionality except answering calls is disabled.")
     }
 
 }
+
+// MARK: - Preview
 
 #Preview {
     KeypadLockInfoView()

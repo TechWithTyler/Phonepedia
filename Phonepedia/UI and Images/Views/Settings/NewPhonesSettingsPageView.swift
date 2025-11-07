@@ -18,6 +18,8 @@ struct NewPhonesSettingsPageView: View {
 
     @AppStorage(UserDefaults.KeyNames.defaultAcquisitionMethod) var defaultAcquisitionMethod: Int = 0
 
+    // MARK: - Body
+
     var body: some View {
         Form {
             Section {
@@ -33,7 +35,10 @@ struct NewPhonesSettingsPageView: View {
         }
         .formStyle(.grouped)
     }
+
 }
+
+// MARK: - Preview
 
 #Preview {
     NewPhonesSettingsPageView()

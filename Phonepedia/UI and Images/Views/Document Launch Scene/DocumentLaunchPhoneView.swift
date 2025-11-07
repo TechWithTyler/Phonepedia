@@ -7,16 +7,25 @@
 //
 
 #if os(iOS) || os(visionOS)
+
+// MARK: - Imports
+
 import SwiftUI
 import SheftAppsStylishUI
 
 struct DocumentLaunchPhoneView: View {
 
+    // MARK: - Properties - Floats
+
     var xOffset: CGFloat
 
     var yOffset: CGFloat
 
+    // MARK: - Properties - System Theme
+
     @Environment(\.colorScheme) var systemTheme
+
+    // MARK: - Body
 
     var body: some View {
         Image(.phoneDetailed)
@@ -33,6 +42,8 @@ struct DocumentLaunchPhoneView: View {
             .offset(x: xOffset, y: yOffset)
     }
 }
+
+// MARK: - Preview
 
 #Preview {
     DocumentLaunchPhoneView(xOffset: 0, yOffset: 0)

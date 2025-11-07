@@ -92,6 +92,8 @@ Example scenario: You live in the US and store the international code 011, count
     }
 }
 
+// MARK: - Preview
+
 #Preview {
     AboutDialingCodesView()
 }

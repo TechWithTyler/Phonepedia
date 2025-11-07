@@ -28,7 +28,9 @@ struct NameNumberExamples {
 
     // Names to use for the answering system greeting/talking caller ID examples
     static var names: [String] = [
+        // Answering system greeting examples only
         "TechWithTyler",
+        // Answering system greeting and caller ID name examples
         "John Smith",
         "Pat Fleet",
         "Allison Smith",
@@ -45,7 +47,7 @@ struct NameNumberExamples {
 
     // Takes the given name and converts it from "First Last" to "LAST, FIRST".
     static func cnamForName(_ name: String) -> String {
-        // 1. Split name into separate components.
+        // 1. Split name into separate components. There should be 2 of them.
         let splitName = name.components(separatedBy: .whitespaces)
         // 2. Get the first and last names and convert them to uppercase.
         let firstName = splitName.first?.uppercased()
@@ -58,6 +60,7 @@ struct NameNumberExamples {
 
     // MARK: - Random Phone Number
 
+    // Returns an example area code, central exchange (middle 3 digits), and local phone number (last 4 digits).
     static func examplePhoneNumber() -> (areaCode: String, centralExchange: String.SubSequence, number: String.SubSequence) {
         // 1. Create an array of example phone numbers.
         let exampleNumbers = [
@@ -74,9 +77,13 @@ struct NameNumberExamples {
         // 3. Pick a random area code and phone number.
         let randomAreaCode = areaCodes.randomElement()!
         let randomNumber = exampleNumbers.randomElement()!
+        // 4. Return the full example phone number.
         return (areaCode: randomAreaCode, centralExchange: randomNumber.prefix(3), number: randomNumber.suffix(4))
     }
 
+    // MARK: - Format Phone Number
+
+    // Formats the phone number into one of 3 patterns: with parentheses, with dashes, or as a plain number string.
     static func formatPhoneNumber(areaCode: String, centralExchange: String.SubSequence, localNumber: String.SubSequence, withFormat format: NANPPhoneNumberFormat) -> String {
         // Format the number based on the requested format.
         switch format {

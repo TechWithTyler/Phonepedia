@@ -12,6 +12,8 @@ import SwiftUI
 
 struct PhoneInCollectionStatusPickerItems: View {
 
+    // MARK: - Body
+
     var body: some View {
         Text("Active (Working)").tag(0)
         Text("Active (Broken)").tag(1)
@@ -23,6 +25,8 @@ struct PhoneInCollectionStatusPickerItems: View {
     }
 
 }
+
+// MARK: - Preview
 
 #Preview {
     PhoneInCollectionStatusPickerItems()

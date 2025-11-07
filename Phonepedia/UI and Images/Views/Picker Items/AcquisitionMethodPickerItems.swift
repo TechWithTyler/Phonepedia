@@ -12,7 +12,11 @@ import SwiftUI
 
 struct AcquisitionMethodPickerItems: View {
 
+    // MARK: - Properties - Booleans
+
     var handset: Bool = false
+
+    // MARK: - Body
 
     var body: some View {
         if handset {
@@ -25,7 +29,10 @@ struct AcquisitionMethodPickerItems: View {
         Text("Online (New)").tag(handset ? 4 : 3)
         Text("Gift").tag(handset ? 5 : 4)
     }
+
 }
+
+// MARK: - Preview
 
 #Preview {
     AcquisitionMethodPickerItems()

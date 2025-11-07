@@ -35,9 +35,10 @@ var currentYear = Calendar.current.component(.year, from: Date())
 // The earliest year of a phone.
 let oldestPhoneYear: Int = 1876
 
+// The earliest year of a cordless device.
 let oldestHandsetYear: Int = 1965
 
-// The least maximum phonebook entries required to support Bluetooth phonebook transfers.
+// The lowest number a phone or cordless device's phonebook capacity must be to support Bluetooth phonebook transfers.
 var phonebookTransferRequiredMaxCapacity = 150
 
 // MARK: - Functions

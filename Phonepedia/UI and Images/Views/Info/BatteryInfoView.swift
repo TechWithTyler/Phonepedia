@@ -13,6 +13,8 @@ import SheftAppsStylishUI
 
 struct BatteryInfoView: View {
 
+    // MARK: - Body
+
     var body: some View {
         InfoText("""
 • Battery packs with plugs are the most common for cordless phones, but the plugs have the tendency to break off of the wires that connect to the batteries in the pack. "AA" or "AAA" refer to the type of batteries used in the pack, and are rarely seen in the phone's documentation. It's mainly used for 3rd-parties that make replacement battery packs.
@@ -22,6 +24,8 @@ struct BatteryInfoView: View {
     }
     
 }
+
+// MARK: - Preview
 
 #Preview {
     BatteryInfoView()

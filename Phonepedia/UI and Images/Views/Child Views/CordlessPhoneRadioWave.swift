@@ -12,8 +12,12 @@ import SwiftUI
 
 struct CordlessPhoneRadioWave: Shape {
 
+    // MARK: - Properties - Cordless Phone Frequency
+
     // The frequency of the wave.
     var frequency: Phone.CordlessFrequency
+
+    // MARK: - Properties - Floats
 
     // The wave animation phase.
     var phase: CGFloat
@@ -24,7 +28,9 @@ struct CordlessPhoneRadioWave: Shape {
         set { phase = newValue }
     }
 
-    // Draws a wave path in the given rectangle.
+    // MARK: - Path
+
+    // This method draws a wave path in the given rectangle.
     func path(in rect: CGRect) -> Path {
         // 1. Define the wave amplitude (peak deviation from the center).
         let strength: CGFloat = 50
@@ -37,13 +43,12 @@ struct CordlessPhoneRadioWave: Shape {
         let frequencyHz: CGFloat = frequency.waveFrequency * 1_000_000
         // 3. Define the lowest frequency in Hz using scientific notation.
         // This number is written using the pow(_:_:) method, where the first number is the base and the second number is the exponent.
-        let lowestFrequencyHz: CGFloat = 1.7 * Double(pow(10, 6))  // 1.7 × 10^6 Hz (1.7MHz)
+        let lowestFrequencyHz: CGFloat = 1.7 * Double(pow(10, 6))  // 1.7 × 10^6 Hz = 1,700,000Hz (1.7MHz)
         // 4. Define the highest frequency in Hz using scientific notation.
         // This number is written using XeY notation, where X is the number and Y is the power of 10.
-        let highestFrequencyHz: CGFloat = 5800e6  // 5.8 × 10⁹ Hz (5.8 GHz)
+        let highestFrequencyHz: CGFloat = 5800e6  // 5.8 × 10^9 Hz = 5,800,000,000Hz (5.8 GHz)
         // 5. Calculate the wavelength dynamically based on frequency.
-        // Lower frequencies have longer wavelengths, making the wave appear stretched.
-        // Higher frequencies have shorter wavelengths, making the wave more compressed.
+        // Lower frequencies have longer wavelengths, making the wave appear stretched. Higher frequencies have shorter wavelengths, making the wave more compressed.
         // Shortest wavelength (for highest frequency).
         let minWavelength: CGFloat = width / 5
         // Longest wavelength (for lowest frequency).
@@ -83,11 +88,10 @@ struct CordlessPhoneRadioWave: Shape {
         // 14. Return the completed wave path.
         return path
     }
-
-
     
 }
 
+// MARK: - Preview
 
 #Preview {
     CordlessPhoneRadioWave(frequency: .analog1_7MHz, phase: 0)

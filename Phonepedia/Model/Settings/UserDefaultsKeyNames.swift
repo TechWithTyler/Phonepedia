@@ -14,6 +14,8 @@ extension UserDefaults {
 
     struct KeyNames {
 
+        // MARK: - UserDefaults Key Names
+
         static let useDetailedPhoneImage: String = "useDetailedPhoneImage"
 
         static let phoneDescriptionTextSize: String = "phoneDescriptionTextSize"

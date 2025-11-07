@@ -49,6 +49,8 @@ extension Phone {
 
     enum CordlessBaseType : String {
 
+        // MARK: - Cordless Phone Base Types
+
         case locatorBase = "Locator Base"
 
         case hiddenBase = "Hidden Base"
@@ -62,6 +64,8 @@ extension Phone {
     }
 
     enum CordedPhoneStyle : String {
+
+        // MARK: - Corded Phone Styles
 
         case desk = "Desk"
 

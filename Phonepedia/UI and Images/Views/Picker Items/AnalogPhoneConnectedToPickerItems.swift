@@ -11,6 +11,9 @@
 import SwiftUI
 
 struct AnalogPhoneConnectedToPickerItems: View {
+
+    // MARK: - Body
+
     var body: some View {
         Text("No Line (Not Recommended)").tag(0)
         Divider()
@@ -23,7 +26,10 @@ struct AnalogPhoneConnectedToPickerItems: View {
         Divider()
         Text("Multiple").tag(7)
     }
+
 }
+
+// MARK: - Preview
 
 #Preview {
     AnalogPhoneConnectedToPickerItems()
