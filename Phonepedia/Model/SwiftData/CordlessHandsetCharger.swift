@@ -12,7 +12,7 @@ import SheftAppsStylishUI
 import SwiftData
 
 @Model
-final class CordlessHandsetCharger {
+final class CordlessHandsetCharger: BaseColorManipulatable, ChargeLightColorManipulatable {
     
     // MARK: - Properties - Persistent Data
 
@@ -140,38 +140,13 @@ final class CordlessHandsetCharger {
         self.accentColorBlue = accentColorBlue
     }
 
-    // MARK: - Set Secondary Color to Main
+    // MARK: - Color Methods
     
-    func setSecondaryColorToMain() {
-        let components = mainColorBinding.wrappedValue.components
-        secondaryColorRed = components.red
-        secondaryColorGreen = components.green
-        secondaryColorBlue = components.blue
-    }
-
-    // MARK: - Set Accent Color
-
-    func setAccentColorToMain() {
-        let components = mainColorBinding.wrappedValue.components
-        accentColorRed = components.red
-        accentColorGreen = components.green
-        accentColorBlue = components.blue
-    }
-
-    func setAccentColorToSecondary() {
-        let components = secondaryColorBinding.wrappedValue.components
-        accentColorRed = components.red
-        accentColorGreen = components.green
-        accentColorBlue = components.blue
-    }
-
-    func setChargeLightChargedColorToCharging() {
-        let components = chargeLightColorChargingBinding.wrappedValue.components
-        chargeLightColorChargedRed = components.red
-        chargeLightColorChargedGreen = components.green
-        chargeLightColorChargedBlue = components.blue
-        chargeLightColorChargedAlpha = 1
-    }
+    // Note: Color manipulation methods are provided by protocol default implementations from SheftAppsStylishUI:
+    // - setSecondaryColorToMain() via BaseColorManipulatable
+    // - setAccentColorToMain() via BaseColorManipulatable
+    // - setAccentColorToSecondary() via BaseColorManipulatable
+    // - setChargeLightChargedColorToCharging() via ChargeLightColorManipulatable
 
     // MARK: - Duplicate
 

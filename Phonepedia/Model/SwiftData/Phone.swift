@@ -14,7 +14,7 @@ import SwiftData
 // The structure of a SwiftData model class is very simple--a Swift class with @Model before its declaration. Any property not marked with @Transient is a persistent property which will be stored to the underlying Core Data persistent store SQLite file. @Model does 2 things: makes this class conform to PersistentModel and Observable, and internally adds @_PersistedProperty to the beginning of persistent properties.
 // A final class is a class that can't be subclassed.
 @Model
-final class Phone {
+final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, CordedReceiverColorManipulatable, KeyColorManipulatable {
 
     // MARK: - Properties - Default Data
 
@@ -904,6 +904,55 @@ final class Phone {
         })
     }
 
+    // MARK: - Protocol Conformance Adapters
+
+    // BaseColorManipulatable protocol requires generic property names, but Phone uses "base" prefix
+    @Transient
+    var mainColorBinding: Binding<Color> { baseMainColorBinding }
+    
+    @Transient
+    var secondaryColorBinding: Binding<Color> { baseSecondaryColorBinding }
+    
+    @Transient
+    var accentColorBinding: Binding<Color> { baseAccentColorBinding }
+
+    // KeyColorManipulatable protocol requires generic property names, but Phone uses "base" prefix
+    @Transient
+    var keyBackgroundColorRed: Double {
+        get { baseKeyBackgroundColorRed }
+        set { baseKeyBackgroundColorRed = newValue }
+    }
+    
+    @Transient
+    var keyBackgroundColorGreen: Double {
+        get { baseKeyBackgroundColorGreen }
+        set { baseKeyBackgroundColorGreen = newValue }
+    }
+    
+    @Transient
+    var keyBackgroundColorBlue: Double {
+        get { baseKeyBackgroundColorBlue }
+        set { baseKeyBackgroundColorBlue = newValue }
+    }
+    
+    @Transient
+    var keyForegroundColorRed: Double {
+        get { baseKeyForegroundColorRed }
+        set { baseKeyForegroundColorRed = newValue }
+    }
+    
+    @Transient
+    var keyForegroundColorGreen: Double {
+        get { baseKeyForegroundColorGreen }
+        set { baseKeyForegroundColorGreen = newValue }
+    }
+    
+    @Transient
+    var keyForegroundColorBlue: Double {
+        get { baseKeyForegroundColorBlue }
+        set { baseKeyForegroundColorBlue = newValue }
+    }
+
     // MARK: - Initialization
 
     init(brand: String, model: String) {
@@ -912,68 +961,31 @@ final class Phone {
     }
 
     // MARK: - Color Methods
-
+    
+    // Public wrappers that maintain existing method names for UI compatibility
+    // These delegate to protocol default implementations from SheftAppsStylishUI
+    
     func setBaseSecondaryColorToMain() {
-        let components = baseMainColorBinding.wrappedValue.components
-        baseSecondaryColorRed = components.red
-        baseSecondaryColorGreen = components.green
-        baseSecondaryColorBlue = components.blue
+        setSecondaryColorToMain()
     }
-
+    
     func setBaseAccentColorToMain() {
-        let components = baseMainColorBinding.wrappedValue.components
-        baseAccentColorRed = components.red
-        baseAccentColorGreen = components.green
-        baseAccentColorBlue = components.blue
+        setAccentColorToMain()
     }
-
+    
     func setBaseAccentColorToSecondary() {
-        let components = baseSecondaryColorBinding.wrappedValue.components
-        baseAccentColorRed = components.red
-        baseAccentColorGreen = components.green
-        baseAccentColorBlue = components.blue
+        setAccentColorToSecondary()
     }
-
-    func setChargeLightChargedColorToCharging() {
-        let components = chargeLightColorChargingBinding.wrappedValue.components
-        chargeLightColorChargedRed = components.red
-        chargeLightColorChargedGreen = components.green
-        chargeLightColorChargedBlue = components.blue
-        chargeLightColorChargedAlpha = 1
-    }
-
-    func setCordedReceiverSecondaryColorToMain() {
-        let components = cordedReceiverMainColorBinding.wrappedValue.components
-        cordedReceiverSecondaryColorRed = components.red
-        cordedReceiverSecondaryColorGreen = components.green
-        cordedReceiverSecondaryColorBlue = components.blue
-    }
-
-    func setCordedReceiverAccentColorToMain() {
-        let components = cordedReceiverMainColorBinding.wrappedValue.components
-        cordedReceiverAccentColorRed = components.red
-        cordedReceiverAccentColorGreen = components.green
-        cordedReceiverAccentColorBlue = components.blue
-    }
-
-    func setCordedReceiverAccentColorToSecondary() {
-        let components = cordedReceiverSecondaryColorBinding.wrappedValue.components
-        cordedReceiverAccentColorRed = components.red
-        cordedReceiverAccentColorGreen = components.green
-        cordedReceiverAccentColorBlue = components.blue
-    }
-
-    func swapKeyBackgroundAndForegroundColors() {
-        let previousBackgroundRed = baseKeyBackgroundColorRed
-        let previousBackgroundGreen = baseKeyBackgroundColorGreen
-        let previousBackgroundBlue = baseKeyBackgroundColorBlue
-        baseKeyBackgroundColorRed = baseKeyForegroundColorRed
-        baseKeyBackgroundColorGreen = baseKeyForegroundColorGreen
-        baseKeyBackgroundColorBlue = baseKeyForegroundColorBlue
-        baseKeyForegroundColorRed = previousBackgroundRed
-        baseKeyForegroundColorGreen = previousBackgroundGreen
-        baseKeyForegroundColorBlue = previousBackgroundBlue
-    }
+    
+    // Note: The following methods are provided by protocol default implementations:
+    // - setSecondaryColorToMain() via BaseColorManipulatable
+    // - setAccentColorToMain() via BaseColorManipulatable
+    // - setAccentColorToSecondary() via BaseColorManipulatable
+    // - setChargeLightChargedColorToCharging() via ChargeLightColorManipulatable
+    // - setCordedReceiverSecondaryColorToMain() via CordedReceiverColorManipulatable
+    // - setCordedReceiverAccentColorToMain() via CordedReceiverColorManipulatable
+    // - setCordedReceiverAccentColorToSecondary() via CordedReceiverColorManipulatable
+    // - swapKeyBackgroundAndForegroundColors() via KeyColorManipulatable
 
     // MARK: - Property Change Handlers
 

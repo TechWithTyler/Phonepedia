@@ -12,7 +12,7 @@ import SheftAppsStylishUI
 import SwiftData
 
 @Model
-final class CordlessHandset {
+final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatable, CordedReceiverColorManipulatable, KeyColorManipulatable {
 
     // MARK: - Cordless Device Type Enum
 
@@ -555,70 +555,16 @@ final class CordlessHandset {
 	}
     
     // MARK: - Color Methods
-
-    func setSecondaryColorToMain() {
-        let components = mainColorBinding.wrappedValue.components
-        secondaryColorRed = components.red
-        secondaryColorGreen = components.green
-        secondaryColorBlue = components.blue
-    }
-
-    func setCordedReceiverSecondaryColorToMain() {
-        let components = cordedReceiverMainColorBinding.wrappedValue.components
-        cordedReceiverSecondaryColorRed = components.red
-        cordedReceiverSecondaryColorGreen = components.green
-        cordedReceiverSecondaryColorBlue = components.blue
-    }
-
-    // MARK: - Set Accent Color
-
-    func setAccentColorToMain() {
-        let components = mainColorBinding.wrappedValue.components
-        accentColorRed = components.red
-        accentColorGreen = components.green
-        accentColorBlue = components.blue
-    }
-
-    func setAccentColorToSecondary() {
-        let components = secondaryColorBinding.wrappedValue.components
-        accentColorRed = components.red
-        accentColorGreen = components.green
-        accentColorBlue = components.blue
-    }
-
-    func setChargeLightChargedColorToCharging() {
-        let components = chargeLightColorChargingBinding.wrappedValue.components
-        chargeLightColorChargedRed = components.red
-        chargeLightColorChargedGreen = components.green
-        chargeLightColorChargedBlue = components.blue
-        chargeLightColorChargedAlpha = 1
-    }
-
-    func setCordedReceiverAccentColorToMain() {
-        let components = cordedReceiverMainColorBinding.wrappedValue.components
-        cordedReceiverAccentColorRed = components.red
-        cordedReceiverAccentColorGreen = components.green
-        cordedReceiverAccentColorBlue = components.blue
-    }
-
-    func setCordedReceiverAccentColorToSecondary() {
-        let components = cordedReceiverSecondaryColorBinding.wrappedValue.components
-        cordedReceiverAccentColorRed = components.red
-        cordedReceiverAccentColorGreen = components.green
-        cordedReceiverAccentColorBlue = components.blue
-    }
-
-    func swapKeyBackgroundAndForegroundColors() {
-        let previousBackgroundRed = keyBackgroundColorRed
-        let previousBackgroundGreen = keyBackgroundColorGreen
-        let previousBackgroundBlue = keyBackgroundColorBlue
-        keyBackgroundColorRed = keyForegroundColorRed
-        keyBackgroundColorGreen = keyForegroundColorGreen
-        keyBackgroundColorBlue = keyForegroundColorBlue
-        keyForegroundColorRed = previousBackgroundRed
-        keyForegroundColorGreen = previousBackgroundGreen
-        keyForegroundColorBlue = previousBackgroundBlue
-    }
+    
+    // Note: Color manipulation methods are provided by protocol default implementations from SheftAppsStylishUI:
+    // - setSecondaryColorToMain() via BaseColorManipulatable
+    // - setAccentColorToMain() via BaseColorManipulatable
+    // - setAccentColorToSecondary() via BaseColorManipulatable
+    // - setChargeLightChargedColorToCharging() via ChargeLightColorManipulatable
+    // - setCordedReceiverSecondaryColorToMain() via CordedReceiverColorManipulatable
+    // - setCordedReceiverAccentColorToMain() via CordedReceiverColorManipulatable
+    // - setCordedReceiverAccentColorToSecondary() via CordedReceiverColorManipulatable
+    // - swapKeyBackgroundAndForegroundColors() via KeyColorManipulatable
 
     // MARK: - Property Change Handlers
 
