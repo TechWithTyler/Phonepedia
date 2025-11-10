@@ -15,7 +15,7 @@ import SwiftData
 @main
 struct PhonepediaApp: App {
 
-    // MARK: - Body
+    // MARK: - Windows and Views
 
     var body: some Scene {
 #if os(iOS) || os(visionOS)

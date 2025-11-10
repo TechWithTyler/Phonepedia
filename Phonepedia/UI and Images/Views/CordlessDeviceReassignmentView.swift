@@ -12,7 +12,7 @@ import SwiftUI
 
 struct CordlessDeviceReassignmentView: View {
 
-    // MARK: - Dismiss Action
+    // MARK: - Properties - Dismiss Action
 
     @Environment(\.dismiss) var dismiss
 
