@@ -524,6 +524,42 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
 
     // MARK: - Properties - Transient (Non-Persistent) Properties
 
+    @Transient
+    var mainColorRed: Double { baseMainColorRed }
+
+    @Transient
+    var mainColorGreen: Double { baseMainColorGreen }
+
+    @Transient
+    var mainColorBlue: Double { baseMainColorBlue }
+
+    @Transient
+    var keyBacklightColorRed: Double { baseKeyBacklightColorRed }
+
+    @Transient
+    var keyBacklightColorGreen: Double { baseKeyBacklightColorGreen }
+
+    @Transient
+    var keyBacklightColorBlue: Double { baseKeyBacklightColorBlue }
+
+    @Transient
+    var keyBackgroundColorRed: Double { baseKeyBackgroundColorRed }
+
+    @Transient
+    var keyBackgroundColorGreen: Double { baseKeyBackgroundColorGreen }
+
+    @Transient
+    var keyBackgroundColorBlue: Double { baseKeyBackgroundColorBlue }
+
+    @Transient
+    var keyForegroundColorRed: Double { baseKeyForegroundColorRed }
+
+    @Transient
+    var keyForegroundColorGreen: Double { baseKeyForegroundColorGreen }
+
+    @Transient
+    var keyForegroundColorBlue: Double { baseKeyForegroundColorBlue }
+
     // The text to display for the phone's type.
     @Transient
     var phoneTypeText: String {
