@@ -227,6 +227,10 @@ struct CordlessDeviceInfoView: View {
                     .padding(.vertical, 5)
                 }
                 .contextMenu {
+                    HandsetPlaceInCollectionPicker(handset: handset)
+                        .pickerStyle(.menu)
+                        .toggleStyle(.automatic)
+                    Divider()
                     Button {
                         dialogManager.handsetToReassign = handset
                         dialogManager.showingReassignHandset = true

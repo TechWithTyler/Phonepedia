@@ -62,9 +62,7 @@ struct PhoneGeneralView: View {
             Picker("How I Got This Phone", selection: $phone.whereAcquired) {
                 AcquisitionMethodPickerItems()
             }
-            Picker("Place In My Collection", selection: $phone.storageOrSetup) {
-                PhoneInCollectionStatusPickerItems()
-            }
+            PhonePlaceInCollectionPicker(phone: phone)
             if phone.landlineConnectionType != 4 && phone.basePhoneType == 0 && !phone.isBusinessCordedCordlessSystem {
                 Picker("Grade", selection: $phone.grade) {
                     Text("1 - Residential/Small Business").tag(0)

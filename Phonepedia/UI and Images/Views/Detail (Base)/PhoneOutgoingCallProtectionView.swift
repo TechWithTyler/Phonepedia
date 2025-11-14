@@ -37,5 +37,5 @@ struct PhoneOutgoingCallProtectionView: View {
 // MARK: - Preview
 
 #Preview {
-    PhoneOutgoingCallProtectionView(phone: Phone(brand: Phone.mockBrand, model: Phone.mockModel))
+    PhoneOutgoingCallProtectionView(phone: Phone.mockPhone)
 }

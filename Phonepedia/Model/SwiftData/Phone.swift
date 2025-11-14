@@ -16,6 +16,11 @@ import SwiftData
 @Model
 final class Phone {
 
+    // MARK: - Properties - Mock Phone
+
+    @Transient
+    static let mockPhone: Phone = Phone(brand: Phone.mockBrand, model: Phone.mockModel)
+
     // MARK: - Properties - Default Data
 
     // Properties marked with the @Transient property wrapper won't persist their values to SwiftData.

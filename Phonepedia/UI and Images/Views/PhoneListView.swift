@@ -155,6 +155,10 @@ struct PhoneListView: View {
                             PhoneRowView(phone: phone)
                         }
                         .contextMenu {
+                            PhonePlaceInCollectionPicker(phone: phone)
+                                .pickerStyle(.menu)
+                                .toggleStyle(.automatic)
+                            Divider()
                             Button(role: .destructive) {
                                 dialogManager.phoneToDelete = phone
                                 dialogManager.showingDeletePhone = true
@@ -355,7 +359,7 @@ struct PhoneListView: View {
     private func addPhone() {
         withAnimation {
             // 1. Create a new Phone object with a mock brand and model number.
-            let newPhone = Phone(brand: Phone.mockBrand, model: Phone.mockModel)
+            let newPhone = Phone.mockPhone
             // 2. Set the default selections.
             newPhone.landlineConnectedTo = defaultAnalogPhoneConnectedToSelection
             newPhone.whereAcquired = defaultAcquisitionMethod
