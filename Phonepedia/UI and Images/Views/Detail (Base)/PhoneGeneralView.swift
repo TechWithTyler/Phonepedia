@@ -52,6 +52,9 @@ struct PhoneGeneralView: View {
                 .onChange(of: phone.acquisitionYear) { oldValue, newValue in
                     phone.acquisitionYearChanged(oldValue: oldValue, newValue: newValue)
                 }
+            Button("Set to Release Year") {
+                phone.setAcquisitionYearToReleaseYear()
+            }
             if phone.acquiredInYearOfRelease {
                 HStack {
                     Image(systemName: "sparkle")
@@ -150,7 +153,7 @@ struct PhoneGeneralView: View {
                             WarningText("You may not be able to specify certain features/aspects of this phone without knowing its frequency! Try looking up the wireless frequency and communication technology (whether it's analog or digital) of the \(phone.brand) \(phone.model) and select the correct option above.")
                         }
                         if phone.frequency == Phone.CordlessFrequency.analog1_7MHz.rawValue || phone.frequency == Phone.CordlessFrequency.analog1_7MHzOver46MHz.rawValue {
-                            Toggle("Base-To-Handset Uses Power Line", isOn: $phone.baseTransmitThroughPowerLine)
+                            Toggle("Base-to-Handset Uses Power Line", isOn: $phone.baseTransmitThroughPowerLine)
                             InfoText("Some early cordless phones used the building's electrical wiring as the base's transmit antenna, with the actual antenna only used for receive. This design might cause issues on modern electrical systems.")
                         }
                         InfoButton("Frequencies/Communication Technologies Explanation…") {
@@ -340,8 +343,10 @@ In most cases, if the base has a charge light/display message, the completion of
                     if phone.cordedReceiverVolumeAdjustmentType == 0 {
                         WarningText("If the corded receiver volume isn't adjustable and you find it too loud, you'll need to adjust your line's incoming volume. If you can't adjust it, adding a series of resistors between the phone and jack is recommended (consult a professional to build this for you if necessary). If the corded receiver's cord is removable, you can replace it with one that has a volume control.")
                     }
-                    Toggle("Has Hard-Wired Corded Receiver", isOn: $phone.hasHardWiredCordedReceiver)
-                    InfoText("Some old phones have hard-wired corded receivers, which means you'll need to have the phone repaired if the cord breaks.")
+                    if phone.cordedPhoneType != 4 {
+                        Toggle("Has Hard-Wired Corded Receiver", isOn: $phone.hasHardWiredCordedReceiver)
+                        InfoText("Some old phones have hard-wired corded receivers, which means you'll need to have the phone repaired if the cord breaks.")
+                    }
                 }
                 if (phone.isPushButtonCorded && phone.cordedPhoneType != 4) || phone.isCordedCordless {
                     Picker("Earpiece Type", selection: $phone.cordedReceiverEarpieceType) {

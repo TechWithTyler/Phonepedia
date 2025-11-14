@@ -30,6 +30,9 @@ struct HandsetGeneralView: View {
                     .onChange(of: handset.acquisitionYear) { oldValue, newValue in
                         handset.acquisitionYearChanged(oldValue: oldValue, newValue: newValue)
                     }
+                Button("Set to Release Year") {
+                    phone.setAcquisitionYearToReleaseYear()
+                }
                 if handset.acquiredInYearOfRelease {
                     HStack {
                         Image(systemName: "sparkle")

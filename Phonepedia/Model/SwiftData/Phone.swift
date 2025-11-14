@@ -916,6 +916,12 @@ final class Phone {
         self.model = model
     }
 
+    // MARK: - Set Acquisition Year to Release Year
+
+    func setAcquisitionYearToReleaseYear() {
+        acquisitionYear = releaseYear
+    }
+
     // MARK: - Color Methods
 
     func setBaseSecondaryColorToMain() {

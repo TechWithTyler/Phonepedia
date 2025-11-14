@@ -563,7 +563,13 @@ final class CordlessHandset {
         self.accentColorGreen = accentColorGreen
         self.accentColorBlue = accentColorBlue
 	}
-    
+
+    // MARK: - Set Acquisition Year to Release Year
+
+    func setAcquisitionYearToReleaseYear() {
+        acquisitionYear = releaseYear
+    }
+
     // MARK: - Color Methods
 
     func setSecondaryColorToMain() {
