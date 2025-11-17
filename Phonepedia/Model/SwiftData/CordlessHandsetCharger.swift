@@ -177,16 +177,22 @@ final class CordlessHandsetCharger {
 
     func duplicate() -> CordlessHandsetCharger {
         // 1. Initialize a new CordlessHandsetCharger, passing the original's properties to the initializer.
-        let newCharger = CordlessHandsetCharger(mainColorRed: mainColorRed, mainColorGreen: mainColorGreen, mainColorBlue: mainColorBlue, secondaryColorRed: secondaryColorRed, secondaryColorGreen: secondaryColorGreen, secondaryColorBlue: secondaryColorBlue, accentColorRed: accentColorRed, accentColorGreen: accentColorGreen, accentColorBlue: accentColorBlue)
+        let newCharger = CordlessHandsetCharger(
+            mainColorRed: mainColorRed,
+            mainColorGreen: mainColorGreen,
+            mainColorBlue: mainColorBlue,
+            secondaryColorRed: secondaryColorRed,
+            secondaryColorGreen: secondaryColorGreen,
+            secondaryColorBlue: secondaryColorBlue,
+            accentColorRed: accentColorRed,
+            accentColorGreen: accentColorGreen,
+            accentColorBlue: accentColorBlue
+        )
         // 2. Give the duplicated charger a new UUID.
         newCharger.id = UUID()
-        // 3. Copy all other properties.
-        newCharger.phone = phone
-        newCharger.hasRangeExtender = hasRangeExtender
-        newCharger.wallMountability = wallMountability
-        newCharger.chargeContactType = chargeContactType
-        newCharger.chargeContactPlacement = chargeContactPlacement
-        newCharger.chargingDirection = chargingDirection
+        // 3. Copy all other persistent properties (those not marked @Transient).
+        newCharger.phone = self.phone
+        newCharger.chargerNumber = self.chargerNumber
         newCharger.chargeLightColorChargingRed = self.chargeLightColorChargingRed
         newCharger.chargeLightColorChargingGreen = self.chargeLightColorChargingGreen
         newCharger.chargeLightColorChargingBlue = self.chargeLightColorChargingBlue
@@ -195,9 +201,15 @@ final class CordlessHandsetCharger {
         newCharger.chargeLightColorChargedBlue = self.chargeLightColorChargedBlue
         newCharger.chargeLightColorChargedAlpha = self.chargeLightColorChargedAlpha
         newCharger.hasChargeLight = self.hasChargeLight
-        newCharger.hasHardWiredACAdaptor = self.hasHardWiredACAdaptor
-        newCharger.type = self.type
+        newCharger.chargingDirection = self.chargingDirection
+        newCharger.chargeContactPlacement = self.chargeContactPlacement
+        newCharger.chargeContactType = self.chargeContactType
+        newCharger.hasRangeExtender = self.hasRangeExtender
         newCharger.hasClockRadioAlarm = self.hasClockRadioAlarm
+        newCharger.wallMountability = self.wallMountability
+        newCharger.type = self.type
+        newCharger.hasHardWiredACAdaptor = self.hasHardWiredACAdaptor
+        // 4. Return the duplicated charger.
         return newCharger
     }
 
