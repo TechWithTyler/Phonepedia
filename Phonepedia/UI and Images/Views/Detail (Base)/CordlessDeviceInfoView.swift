@@ -54,12 +54,12 @@ struct CordlessDeviceInfoView: View {
 
     @AppStorage(UserDefaults.KeyNames.defaultAcquisitionMethod) var defaultAcquisitionMethod: Int = 0
 
-    // The number of cordless devices.
+    // The number of cordless devices for this phone.
     var handsetCount: Int {
         return filteredCordlessDevices.count
     }
 
-    // The number of chargers.
+    // The number of chargers for this phone.
     var chargerCount: Int {
         return phone.chargersIHave.count
     }
@@ -73,9 +73,9 @@ struct CordlessDeviceInfoView: View {
                     Picker("Filter", selection: $cordlessDeviceFilter) {
                         Text("All").tag(allItemsFilterOptionTitle)
                         Divider()
-                        Text(CordlessHandset.CordlessDeviceType.handset.rawValue + "s").tag(CordlessHandset.CordlessDeviceType.handset.rawValue.lowercased())
-                        Text(CordlessHandset.CordlessDeviceType.deskset.rawValue + "s").tag(CordlessHandset.CordlessDeviceType.deskset.rawValue.lowercased())
-                        Text(CordlessHandset.CordlessDeviceType.headset.rawValue + "s").tag(CordlessHandset.CordlessDeviceType.headset.rawValue.lowercased())
+                        Text(CordlessHandset.CordlessDeviceType.handset.plural).tag(CordlessHandset.CordlessDeviceType.handset.rawValue.lowercased())
+                        Text(CordlessHandset.CordlessDeviceType.deskset.plural).tag(CordlessHandset.CordlessDeviceType.deskset.rawValue.lowercased())
+                        Text(CordlessHandset.CordlessDeviceType.headset.plural).tag(CordlessHandset.CordlessDeviceType.headset.rawValue.lowercased())
                     }
                     .labelsHidden()
                     Text("(\(handsetCount))")
@@ -280,8 +280,10 @@ struct CordlessDeviceInfoView: View {
                 } label: {
                     VStack(alignment: .leading) {
                         Text("Charger \(charger.actualChargerNumber)")
-                        Text("Cordless \(charger.type == 0 ? "handset" : "headset/speakerphone") charger")
-                            .foregroundStyle(.secondary)
+                        if phone.basePhoneType == 0 {
+                            Text("Cordless \(charger.type == 0 ? "handset" : "headset/speakerphone") charger")
+                                .foregroundStyle(.secondary)
+                        }
                     }
                 }
                 .contextMenu {
