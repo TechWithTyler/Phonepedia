@@ -65,6 +65,7 @@ struct FrequenciesExplanationView: View {
                     Text("DECT 6.0 (1.92–1.93GHz or 1920–1930MHz) is used in the US, Canada, and Mexico.")
                 }
                 DisclosureGroup("Marketing vs Actual Frequency Range") {
+                    Text("Some cordless phones only use a subset of their actual frequency band.")
                     Text("Some 1.7MHz cordless phones used 46MHz for handset-to-base.")
                     Text("46-49MHz cordless phones are often referred to as such because that's the frequency range they typically operate in, and is shown as such throughout \(appName!), although the actual frequency range is 43-46MHz base-to-handset and 48-49MHz handset-to-base.")
                     Text("The actual frequency range for 900MHz cordless phones is 902-928MHz. Rounding down for marketing/documentation makes it simpler to understand.")
