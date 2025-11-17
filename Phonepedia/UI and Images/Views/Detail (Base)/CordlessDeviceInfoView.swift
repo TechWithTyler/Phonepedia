@@ -110,7 +110,7 @@ struct CordlessDeviceInfoView: View {
                     cordlessDeviceList
                 }
                 FormTextField("Main Cordless Device Model", text: $phone.mainHandsetModel)
-                InfoText("Enter the model number of the main cordless device included with the \(phone.brand) \(phone.model) so newly-added cordless devices will default to that model number.\nA cordless phone's main handset/deskset is registered to the base as number 1, and may have some special features, like backing up the time in case of power outage, not available to other devices on the system.\nSome non-expandable cordless phones won't have a handset model number or it will be the same as that of the set it came with--leave this field blank in this case.")
+                InfoText("Enter the model number of the main cordless device included with the \(phone.brand) \(phone.model) so newly-added cordless devices will default to that model number.\nA cordless phone's main handset/deskset is registered to the base as number 1, and may have some special features, like backing up the time in case of power outage, not available to other devices on the system.\nSome non-expandable cordless phones won't have a handset model number or it will be the same as that of the set it came with--leave this field blank in this case.\nCordless devices with model numbers matching the main cordless device model number will appear bolded.")
             }
             .alert("Delete this cordless device?", isPresented: $dialogManager.showingDeleteHandset, presenting: $dialogManager.handsetToDelete) { handset in
                 Button("Delete", role: .destructive) {
@@ -212,6 +212,7 @@ struct CordlessDeviceInfoView: View {
                     HStack {
                         VStack(alignment: .leading) {
                             Text("\(handset.brand) \(handset.model.isEmpty ? "<No Model Number>" : handset.model)")
+                                .bold(handset.model == phone.mainHandsetModel)
                             Text(handset.storageOrSetup > 1 ? "In Storage" : "Active")
                                 .foregroundStyle(.secondary)
                         }
