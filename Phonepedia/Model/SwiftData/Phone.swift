@@ -1117,6 +1117,9 @@ final class Phone {
             hasCellPhoneVoiceControl = false
             supportsAddingOfCellAreaCode = false
             cellCallRejection = 0
+            if bluetoothPhonebookTransfers == 2 {
+                bluetoothPhonebookTransfers = 1
+            }
         }
     }
 
