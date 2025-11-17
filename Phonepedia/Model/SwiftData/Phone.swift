@@ -922,6 +922,14 @@ final class Phone {
         acquisitionYear = releaseYear
     }
 
+    // MARK: - Update All Cordless Devices' Place In Collection
+
+    func updateAllCordlessDevicePlaceInCollection() {
+        for handset in cordlessHandsetsIHave {
+            handset.storageOrSetup = storageOrSetup
+        }
+    }
+
     // MARK: - Color Methods
 
     func setBaseSecondaryColorToMain() {

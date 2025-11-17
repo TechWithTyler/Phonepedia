@@ -166,6 +166,10 @@ struct PhoneListView: View {
                                 Label("Delete…", systemImage: "trash")
                             }
                         }
+                        .onChange(of: phone.storageOrSetup, { oldValue, newValue in
+                            dialogManager.showingUpdateCordlessDevicePlaceInCollection = true
+                            dialogManager.phoneToUpdateCordlessDevicePlaceInCollection = phone
+                        })
                     }
                     .onDelete(perform: deletePhones)
                     .onMove(perform: movePhones)
@@ -244,6 +248,21 @@ struct PhoneListView: View {
             }
         } message: {
             Text("Please disable all filters and try again.")
+        }
+        .alert("Update the place in the collection for all cordless devices as well?", isPresented: $dialogManager.showingUpdateCordlessDevicePlaceInCollection, presenting: dialogManager.phoneToUpdateCordlessDevicePlaceInCollection) { phone in
+            Button {
+                dialogManager.showingUpdateCordlessDevicePlaceInCollection = false
+                phone.updateAllCordlessDevicePlaceInCollection()
+                dialogManager.phoneToUpdateCordlessDevicePlaceInCollection = nil
+            } label: {
+                Text("Update")
+            }
+            Button(role: .cancel) {
+                dialogManager.showingUpdateCordlessDevicePlaceInCollection = false
+                dialogManager.phoneToUpdateCordlessDevicePlaceInCollection = nil
+            } label: {
+                Text("Cancel")
+            }
         }
         .toolbar {
             toolbarContent
