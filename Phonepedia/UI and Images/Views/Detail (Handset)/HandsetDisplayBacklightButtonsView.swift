@@ -81,6 +81,7 @@ struct HandsetDisplayBacklightButtonsView: View {
                     Text("Some Spaced, Some Diamond-Cut").tag(2)
                     Text("Some Spaced with Click Feel, Some Diamond-Cut").tag(3)
                     Text("Diamond-Cut (No Space Between Buttons, Click Feel)").tag(4)
+                    Text("Touch Button Panel").tag(5)
                 }
                 Toggle(isOn: $handset.hasTalkingKeypad) {
                     Text("Talking Keypad")
@@ -125,12 +126,13 @@ struct HandsetDisplayBacklightButtonsView: View {
                 Picker("Display Type", selection: $handset.displayType) {
                     if handset.handsetStyle < 2 {
                         Text("None").tag(0)
-                        Text("Monochrome (Segmented)").tag(1)
-                        Text("Monochrome (Traditional)").tag(2)
-                        Text("Monochrome (Full-Dot w/ Status Items)").tag(3)
+                        Text("Monochrome Display (Segmented)").tag(1)
+                        Text("Monochrome Display (Traditional)").tag(2)
+                        Text("Monochrome Display (Full-Dot w/ Status Items)").tag(3)
                     }
-                    Text("Monochrome (Full-Dot)").tag(4)
-                    Text("Color").tag(5)
+                    Text("Monochrome Display (Full-Dot)").tag(4)
+                    Text("Color Display").tag(5)
+                    Text("Color Touchscreen").tag(6)
                 }
                 .onChange(of: handset.displayType) { oldValue, newValue in
                     handset.displayTypeChanged(oldValue: oldValue, newValue: newValue)
@@ -147,7 +149,7 @@ struct HandsetDisplayBacklightButtonsView: View {
                             Text("Back").tag(1)
                             Text("Front and Back").tag(2)
                         }
-                        InfoText("Some handsets have the display and menu/navigation-related buttons on the back to resemble a slim corded phone with caller ID.\nSome handsets have a display on both the front and back, with the back one used for answering system controls or an extra set of caller ID navigation controls.")
+                        InfoText("Some handsets have the display and menu/navigation-related buttons on the back to resemble a slim corded phone with caller ID.\nSome handsets have a display on both the front and back, with the back one used for answering system controls and/or an extra set of caller ID navigation controls.")
                         if phone.hasAnsweringSystem > 1 {
                             Toggle("Has Answering System Controls", isOn: $handset.hasAnsweringSystemControls)
                             InfoText("Dedicated answering system controls allow you to use the answering system from the handset in the same way you'd use it from a base. This is often seen on phones with an answering system but no base controls for it.")
