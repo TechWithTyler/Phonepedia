@@ -32,7 +32,7 @@ struct BasePhonebookView: View {
                 oldValue, newValue in
                 phone.basePhonebookCapacityChanged(oldValue: oldValue, newValue: newValue)
             }
-        InfoText("Depending on the phone, each number assigned to a phonebook entry may count as an individual phonebook entry. For example, for a 150-entry phonebook where 3 phone numbers can be assigned per entry, if you assigned 3 phone numbers for all of your 150 entries, you can only save 50 individual entries, each with 3 numbers. Doing it this way allows compatibility with handsets which can only display a single number per entry at a time.")
+        MultiPhoneNumberInfoView()
         if phone.callBlockPreScreening > 0 {
             InfoText("Numbers saved to the base's home phonebook will always ring through. Save frequently-dialed numbers you want to always ring through to the phonebook instead of the allowed numbers list.")
         }
@@ -63,7 +63,7 @@ struct BasePhonebookView: View {
                 InfoText("Storing transferred cell phonebook entries in the home phonebook allows those entries to work with features such as home line caller ID phonebook match and call block pre-screening. It also allows you to view all your phonebook entries in one place. If transferred cell phonebooks are stored separately from the home phonebook, caller ID phonebook match usually only works with the corresponding cell line.\nSome phones support Bluetooth cell phone phonebook transfers even if they don't support cell phone linking.")
                 if phone.bluetoothPhonebookTransfers > 0 && phone.isCordless {
                     Toggle("Can Transfer Using Base/In Background", isOn: $phone.baseOrInBackgroundPhonebookTransfer)
-                    InfoText("Depending on the phone, the phonebook transfer can be initiated using just the base, just the handset, or both. In-background transfer allows you to leave the phonebook transfer screen once started, so you can do other things on that handset or put it back to charge. For phones where phonebook transfers can only be initiated from the handset and that don't support in-background transfer, the handset may not be able to be put back on charge without cancelling the transfer.")
+                    InfoText("Depending on the phone, the phonebook transfer can be initiated using just the base, just the handset, or both. In-background transfer allows you to leave the phonebook transfer screen once started, so you can do other things on that handset/deskset/base or put the handset back to charge. For phones where phonebook transfers can only be initiated from the handset and that don't support in-background transfer, the handset may not be able to be put back on charge without cancelling the transfer.")
                 }
             }
         }
