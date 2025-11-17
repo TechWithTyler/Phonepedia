@@ -25,6 +25,10 @@ final class CordlessHandset {
 
         case headset = "Headset/Speakerphone"
 
+        var plural: String {
+            return "\(rawValue)s"
+        }
+
     }
 
     // MARK: - Properties - Mock Handset
