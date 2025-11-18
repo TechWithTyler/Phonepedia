@@ -382,9 +382,9 @@ struct CordlessDeviceInfoView: View {
         }
     }
 
-    // This method deletes cordlessDevice from the phone's cordlessHandsetsIHave array.
+    // This method deletes cordlessDevice from the phone's cordlessHandsetsIHave array. A temporary snapshot of the cordless device to be deleted is created to assist with correcting the handsetNumber property of cordless devices placed above the deleted one.
     func deleteCordlessDevice(_ cordlessDevice: CordlessHandset) {
-        // 1. Create a snapshot of the index of the cordless device to be deleted so cordless devices after the deleted one can be shifted down after deletion.
+        // 1. Create a temporary snapshot of the index of the cordless device to be deleted so cordless devices after the deleted one can be shifted down after deletion.
         let deletedIndex = cordlessDevice.handsetNumber
         // 2. Delete the cordless device.
         phone.cordlessHandsetsIHave.removeAll { $0.id == cordlessDevice.id }
@@ -442,9 +442,9 @@ struct CordlessDeviceInfoView: View {
         }
     }
 
-    // This method deletes charger from the phone's chargersIHave array.
+    // This method deletes charger from the phone's chargersIHave array. A temporary snapshot of the charger to be deleted is created to assist with correcting the chargerNumber property of chargers placed above the deleted one.
     func deleteCharger(_ charger: CordlessHandsetCharger) {
-        // 1. Create a snapshot of the index of the charger to be deleted so chargers after the deleted one can be shifted down after deletion.
+        // 1. Create a temporary snapshot of the index of the charger to be deleted so chargers after the deleted one can be shifted down after deletion.
         let deletedIndex = charger.chargerNumber
         // 2. Delete the charger.
         phone.chargersIHave.removeAll { $0.id == charger.id }

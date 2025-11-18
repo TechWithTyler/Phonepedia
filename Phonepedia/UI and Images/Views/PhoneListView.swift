@@ -453,9 +453,9 @@ struct PhoneListView: View {
         }
     }
 
-    // This method deletes phone from the model context. A snapshot of the phone to be deleted is created to assist with correcting the phoneNumberInCollection property of phones placed above the deleted one.
+    // This method deletes phone from the model context. A temporary snapshot of the phone to be deleted is created to assist with correcting the phoneNumberInCollection property of phones placed above the deleted one.
     func deletePhone(_ phone: Phone) {
-        // 1. Create a snapshot of the index of the phone to be deleted so phones after the deleted one can be shifted down after deletion.
+        // 1. Create a temporary snapshot of the index of the phone to be deleted so phones after the deleted one can be shifted down after deletion.
         let deletedIndex = phone.phoneNumberInCollection
         // 2. Delete the phone.
         dialogManager.phoneToDelete = nil
