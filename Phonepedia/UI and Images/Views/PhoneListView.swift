@@ -77,7 +77,7 @@ struct PhoneListView: View {
 
     var phones: [Phone]
 
-    // All cordless phones.
+    // All cordless and corded/cordless phones.
     var cordlessPhones: [Phone] {
         return phones.filter { $0.isCordless || $0.isCordedCordless }
     }
