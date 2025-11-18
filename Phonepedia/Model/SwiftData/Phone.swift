@@ -203,7 +203,7 @@ final class Phone {
 
     var handsetNumberDigitIndex: Int? = 5
 
-    var maxCordlessHandsets: Int = 5
+    var maxCordlessHandsets: Int = defaultMaxCordlessDevices
 
     var supportsRangeExtenders: Bool = false
 

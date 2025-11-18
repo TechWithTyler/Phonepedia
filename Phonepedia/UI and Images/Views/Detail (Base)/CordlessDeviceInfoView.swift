@@ -27,7 +27,7 @@ struct CordlessDeviceInfoView: View {
 
     // All cordless devices, filtered by type.
     var filteredCordlessDevices: [CordlessHandset] {
-        if cordlessDeviceFilter == allItemsFilterOptionTitle {
+        if cordlessDeviceFilter == allItemsFilterOptionTag {
             return sortedCordlessDevices
         } else {
             return sortedCordlessDevices.filter { $0.cordlessDeviceTypeText.lowercased() == cordlessDeviceFilter }
@@ -48,7 +48,7 @@ struct CordlessDeviceInfoView: View {
     // MARK: - Properties - Strings
 
     // The current setting of the cordless device type filter.
-    @State var cordlessDeviceFilter: String = allItemsFilterOptionTitle
+    @State var cordlessDeviceFilter: String = allItemsFilterOptionTag
 
     // MARK: - Properties - Integers
 
@@ -71,7 +71,7 @@ struct CordlessDeviceInfoView: View {
             Section("Cordless Devices") {
                 HStack {
                     Picker("Filter", selection: $cordlessDeviceFilter) {
-                        Text("All").tag(allItemsFilterOptionTitle)
+                        Text("All").tag(allItemsFilterOptionTag)
                         Divider()
                         Text(CordlessHandset.CordlessDeviceType.handset.plural).tag(CordlessHandset.CordlessDeviceType.handset.rawValue.lowercased())
                         Text(CordlessHandset.CordlessDeviceType.deskset.plural).tag(CordlessHandset.CordlessDeviceType.deskset.rawValue.lowercased())
@@ -81,7 +81,7 @@ struct CordlessDeviceInfoView: View {
                     Text("(\(handsetCount))")
                 }
                 Menu {
-                    if !phone.cordlessHandsetsIHave.isEmpty && cordlessDeviceFilter == allItemsFilterOptionTitle {
+                    if !phone.cordlessHandsetsIHave.isEmpty && cordlessDeviceFilter == allItemsFilterOptionTag {
                         Button(action: duplicateLastCordlessDevice) {
                             Text("Duplicate of Last Cordless Device")
                         }
@@ -219,7 +219,7 @@ struct CordlessDeviceInfoView: View {
                         Spacer()
                         VStack(alignment: .trailing) {
                             Text("Device \(handset.actualHandsetNumber)")
-                            if cordlessDeviceFilter == allItemsFilterOptionTitle {
+                            if cordlessDeviceFilter == allItemsFilterOptionTag {
                                 Text(handset.cordlessDeviceTypeText)
                             }
                         }
@@ -364,7 +364,7 @@ struct CordlessDeviceInfoView: View {
     // This method moves the cordless device being dragged from the current (source) index set to the new (destination) index by creating a copy of the phone's cordlessHandsetsIHave array, performing the move on that copy, then setting the handsetNumber property of the original's cordless devices.
     private func moveCordlessDevices(source: IndexSet, destination: Int) {
         // 1. If the cordless device filter is enabled, show an alert and don't continue.
-        guard cordlessDeviceFilter == allItemsFilterOptionTitle else {
+        guard cordlessDeviceFilter == allItemsFilterOptionTag else {
             dialogManager.showingMoveFailedHandset = true
             return
         }

@@ -51,7 +51,7 @@ struct HandsetAudioView: View {
             Section("Headsets") {
                 Toggle("Supports Wired Headsets", isOn: $handset.supportsWiredHeadsets)
                 if handset.handsetStyle < 3 {
-                    Picker("Maximum Number Of Bluetooth Headphones", selection: $handset.bluetoothHeadphonesSupported) {
+                    Picker("Maximum Number of Bluetooth Headphones", selection: $handset.bluetoothHeadphonesSupported) {
                         Text("None").tag(0)
                         Text("1").tag(1)
                         Text("2").tag(2)

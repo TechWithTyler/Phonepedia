@@ -24,8 +24,8 @@ let cordlessBaseTypeSectionName: String = "Cordless Phone Base Types"
 // The name of the PhoneTypeDefinitionsView section explaining the various corded phone styles.
 let cordedPhoneStyleSectionName: String = "Corded Phone Styles"
 
-// The title of the "All" option in the phone/cordless device filter options.
-let allItemsFilterOptionTitle: String = "all"
+// The tag of the "All" option in the phone/cordless device filter options.
+let allItemsFilterOptionTag: String = "all"
 
 // MARK: - Properties - Integers
 
@@ -37,6 +37,9 @@ let oldestPhoneYear: Int = 1876
 
 // The earliest year of a cordless device.
 let oldestHandsetYear: Int = 1965
+
+// The default maximum number of cordless devices.
+let defaultMaxCordlessDevices: Int = 5
 
 // The lowest number a phone or cordless device's phonebook capacity must be to support Bluetooth phonebook transfers.
 var phonebookTransferRequiredMaxCapacity = 150

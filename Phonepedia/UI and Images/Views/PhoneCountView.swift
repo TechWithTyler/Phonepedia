@@ -360,7 +360,7 @@ struct PhoneCountView: View {
             .font(.footnote)
     }
 
-    // MARK: - Number Of Phones Of Brand
+    // MARK: - Number of Phones Of Brand
 
     // This method returns the number of phones of brand. The brands array stores only the brand names--the number of phones of each brand is determined here based on how many instances of brand are in the array.
     func numberOfPhones(of brand: String) -> Int {

@@ -24,7 +24,7 @@ struct PhoneAudioView: View {
             if phone.canTalkOnBase {
                 Toggle(phone.isCordless ? "Base Supports Wired Headsets" : "Supports Wired Headsets", isOn: $phone.baseSupportsWiredHeadsets)
             }
-            Picker(phone.isCordless ? "Maximum Number Of Bluetooth Headphones (base)" : "Maximum Number Of Bluetooth Headphones", selection: $phone.baseBluetoothHeadphonesSupported) {
+            Picker(phone.isCordless ? "Maximum Number of Bluetooth Headphones (base)" : "Maximum Number of Bluetooth Headphones", selection: $phone.baseBluetoothHeadphonesSupported) {
                 Text("None").tag(0)
                 Divider()
                 Text("1").tag(1)
