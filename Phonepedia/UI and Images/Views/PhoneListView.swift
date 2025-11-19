@@ -74,6 +74,7 @@ struct PhoneListView: View {
         return phoneFilterType != allItemsFilterOptionTag || phoneFilterActive != 0 || phoneFilterBrand != allItemsFilterOptionTag || phoneFilterNumberCordlessDevices != 0 || phoneFilterAnsweringSystem != 0
     }
 
+    // Whether the selected type phone filter isn't a cordless phone.
     var phoneFilterTypeNotCordless: Bool {
         return phoneFilterType != cordlessPhoneTypeString && phoneFilterType != allItemsFilterOptionTag
     }
@@ -365,7 +366,7 @@ struct PhoneListView: View {
             .pickerStyle(.menu)
             .toggleStyle(.automatic)
             if phoneFilterType == allItemsFilterOptionTag || phoneFilterType == Phone.PhoneType.cordless.rawValue.lowercased() {
-                Picker("Number of Cordless Devices (\(phoneFilterNumberCordlessDevices == 0 ? "Off" : "On"))", selection: $phoneFilterNumberCordlessDevices) {
+                Picker("No. of Incl Cordless Devices (\(phoneFilterNumberCordlessDevices == 0 ? "Off" : "On"))", selection: $phoneFilterNumberCordlessDevices) {
                     Text("Any").tag(0)
                     Divider()
                     ForEach(1..<16) { number in
