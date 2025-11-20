@@ -289,14 +289,14 @@ In most cases, if the base has a charge light/display message, the completion of
                             phone.deregistrationChanged(oldValue: oldValue, newValue: newValue)
                         }
                         InfoText("Deregistration allows the base and handset to delete their registration information, allowing you to make room for new handsets and/or to use a handset on a different base.\n• Not Supported: Handsets can't be deregistered. Depending on the phone, you may be able to register a handset over an unwanted slot, then back to the desired slot, to \"deregister\" the unwanted one.\n• From This Handset: Deregistration can only be done from the handset you want to deregister. The base may have the ability to \"forget\" a handset if it's not available.\n• One From Any Handset/Base: Deregistration can be done from any handset or the base, by selecting the desired one from a list of all registered handsets or by pressing the handset number.\n• Multiple From Any Handset/Base: Deregistration can be done from any handset or the base, and multiple handsets can be deregistered at once. If using a handset and you choose to deregister that one, it will be deregistered after the other handset(s) if any others were selected.\n• All From Base: You can deregister all handsets at once using the base. On most phones with this deregistration method, handsets are removed from the base memory, and handsets will see that they've been deregistered the next time they try to come in range of the base.")
-                        Picker("Handset/Base Renaming", selection: $phone.handsetRenaming) {
+                        Picker("Cordless Device/Base Renaming", selection: $phone.handsetRenaming) {
                             Text("Not Supported").tag(0)
-                            Text("Handset").tag(1)
+                            Text("Cordless Devices Only").tag(1)
                             if phone.baseDisplayType > 2 {
-                                Text("Handset/Base").tag(2)
+                                Text("Base and Cordless Devices").tag(2)
                             }
                         }
-                        InfoText("Renaming the handset/base makes it easier to find the desired one in a list (e.g., when making intercom calls) and/or so you know where to put it. For example, if you have a handset in your kitchen, living room, and master bedroom, you might give each handset the names \"Kitchen\", \"Living RM\", and \"Bedroom\", respectively.\nIf the handset name shows in handset lists, the name is stored in the base, and the handset either links to the base when showing handset lists or syncs the list from the base.")
+                        InfoText("Renaming a cordless device/base makes it easier to find the desired one in a list (e.g., when making intercom calls) and/or so you know where to put it. For example, if you have a handset in your kitchen, living room, and master bedroom, you might give each handset the names \"Kitchen\", \"Living RM\", and \"Bedroom\", respectively.\nIf the handset name shows in handset lists, the name is stored in the base, and the handset either links to the base when showing handset lists or syncs the list from the base.")
                     }
                 } else {
                     Picker("Style", selection: $phone.cordedPhoneType) {
