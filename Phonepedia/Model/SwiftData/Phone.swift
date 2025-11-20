@@ -524,41 +524,97 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
 
     // MARK: - Properties - Transient (Non-Persistent) Properties
 
+    // Protocol conformance adapters - BaseColorManipulatable requires generic property names
     @Transient
-    var mainColorRed: Double { baseMainColorRed }
+    var mainColorRed: Double {
+        get { baseMainColorRed }
+        set { baseMainColorRed = newValue }
+    }
 
     @Transient
-    var mainColorGreen: Double { baseMainColorGreen }
+    var mainColorGreen: Double {
+        get { baseMainColorGreen }
+        set { baseMainColorGreen = newValue }
+    }
 
     @Transient
-    var mainColorBlue: Double { baseMainColorBlue }
+    var mainColorBlue: Double {
+        get { baseMainColorBlue }
+        set { baseMainColorBlue = newValue }
+    }
 
     @Transient
-    var keyBacklightColorRed: Double { baseKeyBacklightColorRed }
+    var secondaryColorRed: Double {
+        get { baseSecondaryColorRed }
+        set { baseSecondaryColorRed = newValue }
+    }
 
     @Transient
-    var keyBacklightColorGreen: Double { baseKeyBacklightColorGreen }
+    var secondaryColorGreen: Double {
+        get { baseSecondaryColorGreen }
+        set { baseSecondaryColorGreen = newValue }
+    }
 
     @Transient
-    var keyBacklightColorBlue: Double { baseKeyBacklightColorBlue }
+    var secondaryColorBlue: Double {
+        get { baseSecondaryColorBlue }
+        set { baseSecondaryColorBlue = newValue }
+    }
 
     @Transient
-    var keyBackgroundColorRed: Double { baseKeyBackgroundColorRed }
+    var accentColorRed: Double {
+        get { baseAccentColorRed }
+        set { baseAccentColorRed = newValue }
+    }
 
     @Transient
-    var keyBackgroundColorGreen: Double { baseKeyBackgroundColorGreen }
+    var accentColorGreen: Double {
+        get { baseAccentColorGreen }
+        set { baseAccentColorGreen = newValue }
+    }
 
     @Transient
-    var keyBackgroundColorBlue: Double { baseKeyBackgroundColorBlue }
+    var accentColorBlue: Double {
+        get { baseAccentColorBlue }
+        set { baseAccentColorBlue = newValue }
+    }
+
+    // Protocol conformance adapters - KeyColorManipulatable requires generic property names
+    @Transient
+    var keyBackgroundColorRed: Double {
+        get { baseKeyBackgroundColorRed }
+        set { baseKeyBackgroundColorRed = newValue }
+    }
 
     @Transient
-    var keyForegroundColorRed: Double { baseKeyForegroundColorRed }
+    var keyBackgroundColorGreen: Double {
+        get { baseKeyBackgroundColorGreen }
+        set { baseKeyBackgroundColorGreen = newValue }
+    }
 
     @Transient
-    var keyForegroundColorGreen: Double { baseKeyForegroundColorGreen }
+    var keyBackgroundColorBlue: Double {
+        get { baseKeyBackgroundColorBlue }
+        set { baseKeyBackgroundColorBlue = newValue }
+    }
 
     @Transient
-    var keyForegroundColorBlue: Double { baseKeyForegroundColorBlue }
+    var keyForegroundColorRed: Double {
+        get { baseKeyForegroundColorRed }
+        set { baseKeyForegroundColorRed = newValue }
+    }
+
+    @Transient
+    var keyForegroundColorGreen: Double {
+        get { baseKeyForegroundColorGreen }
+        set { baseKeyForegroundColorGreen = newValue }
+    }
+
+    @Transient
+    var keyForegroundColorBlue: Double {
+        get { baseKeyForegroundColorBlue }
+        set { baseKeyForegroundColorBlue = newValue }
+    }
 
     // The text to display for the phone's type.
     @Transient

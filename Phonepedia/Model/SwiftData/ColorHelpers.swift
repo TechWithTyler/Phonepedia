@@ -44,7 +44,7 @@ protocol BaseColorManipulatable {
 extension BaseColorManipulatable {
 
     // Copies the main color components to the secondary color.
-    mutating func setSecondaryColorToMain() {
+    func setSecondaryColorToMain() {
         let components = mainColorBinding.wrappedValue.components
         secondaryColorRed = components.red
         secondaryColorGreen = components.green
@@ -52,7 +52,7 @@ extension BaseColorManipulatable {
     }
 
     // Copies the main color components to the accent color.
-    mutating func setAccentColorToMain() {
+    func setAccentColorToMain() {
         let components = mainColorBinding.wrappedValue.components
         accentColorRed = components.red
         accentColorGreen = components.green
@@ -60,7 +60,7 @@ extension BaseColorManipulatable {
     }
 
     // Copies the secondary color components to the accent color.
-    mutating func setAccentColorToSecondary() {
+    func setAccentColorToSecondary() {
         let components = secondaryColorBinding.wrappedValue.components
         accentColorRed = components.red
         accentColorGreen = components.green
@@ -95,7 +95,7 @@ protocol ChargeLightColorManipulatable {
 extension ChargeLightColorManipulatable {
 
     // Copies the charging color components to the charged color and sets alpha to 1.
-    mutating func setChargeLightChargedColorToCharging() {
+    func setChargeLightChargedColorToCharging() {
         let components = chargeLightColorChargingBinding.wrappedValue.components
         chargeLightColorChargedRed = components.red
         chargeLightColorChargedGreen = components.green
@@ -137,7 +137,7 @@ protocol CordedReceiverColorManipulatable {
 extension CordedReceiverColorManipulatable {
 
     // Copies the corded receiver main color components to the secondary color.
-    mutating func setCordedReceiverSecondaryColorToMain() {
+    func setCordedReceiverSecondaryColorToMain() {
         let components = cordedReceiverMainColorBinding.wrappedValue.components
         cordedReceiverSecondaryColorRed = components.red
         cordedReceiverSecondaryColorGreen = components.green
@@ -145,7 +145,7 @@ extension CordedReceiverColorManipulatable {
     }
 
     // Copies the corded receiver main color components to the accent color.
-    mutating func setCordedReceiverAccentColorToMain() {
+    func setCordedReceiverAccentColorToMain() {
         let components = cordedReceiverMainColorBinding.wrappedValue.components
         cordedReceiverAccentColorRed = components.red
         cordedReceiverAccentColorGreen = components.green
@@ -153,7 +153,7 @@ extension CordedReceiverColorManipulatable {
     }
 
     // Copies the corded receiver secondary color components to the accent color.
-    mutating func setCordedReceiverAccentColorToSecondary() {
+    func setCordedReceiverAccentColorToSecondary() {
         let components = cordedReceiverSecondaryColorBinding.wrappedValue.components
         cordedReceiverAccentColorRed = components.red
         cordedReceiverAccentColorGreen = components.green
@@ -183,7 +183,7 @@ protocol KeyColorManipulatable {
 extension KeyColorManipulatable {
 
     // Swaps the key background and foreground color components.
-    mutating func swapKeyBackgroundAndForegroundColors() {
+    func swapKeyBackgroundAndForegroundColors() {
         let previousBackgroundRed = keyBackgroundColorRed
         let previousBackgroundGreen = keyBackgroundColorGreen
         let previousBackgroundBlue = keyBackgroundColorBlue
