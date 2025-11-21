@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 8/22/25.
-//  Copyright © 2025 SheftApps. All rights reserved.
+//  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
 // MARK: - Imports
