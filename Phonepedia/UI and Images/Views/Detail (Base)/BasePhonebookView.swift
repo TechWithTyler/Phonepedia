@@ -37,6 +37,8 @@ struct BasePhonebookView: View {
             InfoText("Numbers saved to the base's home phonebook will always ring through. Save frequently-dialed numbers you want to always ring through to the phonebook instead of the allowed numbers list.")
         }
         if phone.basePhonebookCapacity > 0 {
+            Toggle("Supports Audio Tags", isOn: $phone.phonebookAudioTags)
+            InfoText("A phonebook entry's audio tag is announced when that entry calls.")
             Toggle("Supports Phonebook Groups", isOn: $phone.baseSupportsPhonebookGroups)
             PhonebookGroupInfoView()
             FormNumericTextField(phone.isCordless ? "Favorite Entry Capacity (Base)" : "Favorite Entry Capacity", value: $phone.baseFavoriteEntriesCapacity, valueRange: .allPositivesIncludingZero, singularSuffix: "entry", pluralSuffix: "entries")
