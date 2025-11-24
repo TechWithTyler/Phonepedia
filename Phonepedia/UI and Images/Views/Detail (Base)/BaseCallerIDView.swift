@@ -28,12 +28,15 @@ struct BaseCallerIDView: View {
         let exampleCentralExchange = exampleFullNumber.centralExchange
         let exampleLocalNumber = exampleFullNumber.number
         InfoText("""
-        Caller ID shows the name and/or number of a caller. Depending on your provider, you may need to subscribe to use this service. If caller information isn't available for a call, one of the following may be displayed.
-        • Private: The caller has intentionally blocked their number using a blocking feature, such as by dialing *67 before the number.
+        Caller ID shows the name and/or number of a caller. Depending on your provider, you may need to subscribe to use this service.
+        If caller information isn't available for a call, one of the following may be displayed:
+        • Private: The caller has intentionally blocked their number using a blocking feature, such as by dialing *67 before the number. In some cases, it may appear as Restricted instead of Private.
         • Out of area: The call is coming from a region or service that doesn't send Caller ID information to your provider, so your phone can't display the name or number.
         • Long distance: Your provider has identified the call as originating from outside your local calling area. Caller ID may still display the number or name if available.
+        • Anonymous/Unavailable/Unknown: Caller ID information isn't available for this call. Sometimes, data isn't transmitted at all in this case. This is not to be confused with Private, which is when caller ID information is available but blocked.
+        • Wireless: Your provider has identified the call as originating from a cell phone/network and the name and/or number aren't available.
+        • Toll-Free: The call is coming from a toll-free number (area code 800, 833, 844, 855, 866, 877, or 888), and a name isn't available.
         """)
-
         if phone.basePhonebookCapacity > 0 {
             Toggle(isOn: $phone.callerIDPhonebookMatch) {
                 Text("Caller ID Name Uses Matching Phonebook Entry Name")

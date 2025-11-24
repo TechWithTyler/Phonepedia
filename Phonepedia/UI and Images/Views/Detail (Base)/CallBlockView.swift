@@ -31,7 +31,7 @@ struct CallBlockView: View {
             InfoText("When a call from a blocked number is received, the phone answers the call after the caller ID is received. The caller will hear silence, a busy tone, or a voice message.")
             if phone.callBlockCapacity > 0 {
                 Toggle("Can Block Numberless Calls", isOn: $phone.canBlockNumberlessCalls)
-                InfoText("Numberless calls are those from private or unknown callers. Since you won't know who these callers are until you answer, you may wish to block them.\nPrivate callers are calls where the caller has chosen to block their caller ID. Outgoing caller ID blocking can be enabled for all calls from the caller's number by changing a setting at the provider level, or per-call by the caller prefixing a code (e.g. *67) to the number they're calling.\nUnknown callers are calls where the caller ID cannot be determined. This can happen if you have caller ID but the caller doesn't.\nOut of area calls are calls from an area that doesn't provide caller ID.")
+                InfoText("Numberless calls are those from private or unknown callers. Since you won't know who these callers are until you answer, you may wish to block them.")
                 Toggle(isOn: $phone.callBlockSupportsPrefixes) {
                     Text("Can Block Number Prefixes")
                 }

@@ -401,6 +401,8 @@ final class Phone {
 
     var baseFavoriteEntriesCapacity: Int = 0
 
+    var phonebookAudioTags: Bool = false
+
     var baseSupportsPhonebookRingtones: Bool = false
 
     var baseSupportsPhonebookGroups: Bool = false
