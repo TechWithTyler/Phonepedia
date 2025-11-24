@@ -271,6 +271,8 @@ final class Phone {
 
     var answeringSystemType: Int = 1
 
+    var allMessageDeletion: Int = 0
+
     var remoteAccessCodeType: Int = 2
 
     var remoteAccessCodeCommonToAllLines: Bool = false
@@ -1029,6 +1031,9 @@ final class Phone {
             hasMessageList = false
         }
         if newValue < 2 {
+            if allMessageDeletion == 0 {
+                allMessageDeletion = 1
+            }
             for handset in cordlessHandsetsIHave {
                 handset.hasMessageList = false
             }

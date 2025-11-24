@@ -45,6 +45,17 @@ struct PhoneMessagingView: View {
                     Text("Tape Cassette(s)").tag(0)
                 }
                 InfoText("Early answering systems stored messages on a tape cassette. The greeting is stored either on the same cassette as the messages (single-cassette systems), on a separate cassette (dual-cassette systems), or digitally. Storing the greeting on the same cassette as the messages results in a delay between the greeting and the beep, as the system needs to move the tape forward to the end where the message is to be recorded, then back to the beginning so it's ready to answer another call. Some models can count the number of messages on the tape by detecting the beeps on the tape. Beep detection may not work properly if the beeps on the tape were recorded by a different answering system.\nModern answering systems are fully digital, meaning messages are stored on a memory chip. This allows for quicker operation.")
+                if phone.answeringSystemType == 1 {
+                    Picker("All Message Deletion", selection: $phone.allMessageDeletion) {
+                        if phone.hasAnsweringSystem == 2 {
+                            Text("Not Supported").tag(0)
+                        }
+                        Text("All Messages").tag(1)
+                        Text("All Old Messages").tag(2)
+                        Text("When No New").tag(3)
+                    }
+                    InfoText("• All Messages: All messages are deleted.\n• All Old Messages: New messages aren't deleted.\n• When No New: Deleting all old messages is only possible when there are no new messages.")
+                }
                 if phone.isMultiline {
                     Picker("Multi-Line Button Layout", selection: $phone.answeringSystemMultilineButtonLayout) {
                         Text("Separate Buttons").tag(0)
