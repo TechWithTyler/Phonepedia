@@ -11,7 +11,7 @@ import SheftAppsStylishUI
 // MARK: - Color Manipulation Protocols
 
 // Protocol for types that store colors as separate RGB component properties and need basic color manipulation helpers.
-protocol BaseColorManipulatable {
+protocol BaseColorManipulatable: AnyObject {
 
     // Required: The color component storage properties
     var mainColorRed: Double { get set }
@@ -70,7 +70,7 @@ extension BaseColorManipulatable {
 }
 
 // Protocol for types that have charge light colors and need manipulation helpers.
-protocol ChargeLightColorManipulatable {
+protocol ChargeLightColorManipulatable: AnyObject {
 
     // Required: Charge light color component storage properties
     var chargeLightColorChargingRed: Double { get set }
@@ -106,7 +106,7 @@ extension ChargeLightColorManipulatable {
 }
 
 // Protocol for types that have corded receiver colors and need manipulation helpers.
-protocol CordedReceiverColorManipulatable {
+protocol CordedReceiverColorManipulatable: AnyObject {
 
     // Required: Corded receiver color component storage properties
     var cordedReceiverMainColorRed: Double { get set }
@@ -163,7 +163,7 @@ extension CordedReceiverColorManipulatable {
 }
 
 // Protocol for types that have key foreground/background colors and need to swap them.
-protocol KeyColorManipulatable {
+protocol KeyColorManipulatable: AnyObject {
 
     // Required: Key color component storage properties
     var keyBackgroundColorRed: Double { get set }
