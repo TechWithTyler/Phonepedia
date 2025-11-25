@@ -16,7 +16,8 @@ extension UTType {
     // MARK: - Properties - Uniform Types
 
     static var phonepediaCatalog: UTType {
-        UTType(importedAs: "com.tylersheft.PhonepediaDatabase")
+        let typeName = "com.tylersheft.PhonepediaDatabase"
+        return UTType(importedAs: typeName)
     }
 
 }

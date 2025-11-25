@@ -188,7 +188,7 @@ struct PhoneRowView: View {
                    .frame(width: 10, height: 10)
     }
 
-    // MARK: - Model Number "Number Of Included Cordless Devices" Digit Highlight
+    // MARK: - Model Number "Number of Included Cordless Devices" Digit Highlight
 
     // This method highlights or underlines digit at index based on a phone's selected handset model number digit. For example, if the last 2 in the model number M123-2 is selected, it's highlighted or underlined.
     func modelNumberWithIndicatedHandsetNumberDigit(_ modelNumber: String, digit: Int?, at index: Int?) -> AttributedString {

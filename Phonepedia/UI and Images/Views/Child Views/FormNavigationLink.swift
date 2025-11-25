@@ -68,7 +68,7 @@ struct FormNavigationLink<Destination: View, Label: View>: View {
 // MARK: - Preview
 
 #Preview {
-    FormNavigationLink("Navigation Link", phone: Phone(brand: Phone.mockBrand, model: Phone.mockModel)) {
+    FormNavigationLink("Navigation Link", phone: Phone.mockPhone) {
         Text("I'm some text.")
     }
 }

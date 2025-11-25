@@ -30,6 +30,9 @@ struct HandsetGeneralView: View {
                     .onChange(of: handset.acquisitionYear) { oldValue, newValue in
                         handset.acquisitionYearChanged(oldValue: oldValue, newValue: newValue)
                     }
+                Button("Set to Release Year") {
+                    phone.setAcquisitionYearToReleaseYear()
+                }
                 if handset.acquiredInYearOfRelease {
                     HStack {
                         Image(systemName: "sparkle")
@@ -40,11 +43,9 @@ struct HandsetGeneralView: View {
                 Picker("How I Got This Cordless Device", selection: $handset.whereAcquired) {
                     AcquisitionMethodPickerItems(handset: true)
                 }
-                Picker("Place In My Collection", selection: $handset.storageOrSetup) {
-                    PhoneInCollectionStatusPickerItems()
-                }
+                HandsetPlaceInCollectionPicker(handset: handset)
                 if phone.isDigitalCordless {
-                    Stepper("Maximum Number Of Bases: \(handset.maxBases)", value: $handset.maxBases, in: .oneToMax(4))
+                    Stepper("Maximum Number of Bases: \(handset.maxBases)", value: $handset.maxBases, in: .oneToMax(4))
                     InfoText("Registering a cordless device to more than one base allows you to extend the coverage area and access the answering system, shared lists, etc. of multiple bases without having to register the device to one of those bases at a time. You can select a specific base for the handset to always connect to, or have it automatically choose the base with the strongest signal. In \(appName!), the base of the phone this cordless device is assigned to is considered its primary base.\nIf you want extended range but the same lines/shared lists/base features, and/or you don't want calls to disconnect when the device decides to communicate with a different base, use range extenders instead of multiple bases.\nTo use intercom, room monitor, and other multi-handset features, you must select the same base on both handsets or make sure they're connecting to the same base in auto mode.")
                 }
                 Picker("Cordless Device Type", selection: $handset.cordlessDeviceType) {

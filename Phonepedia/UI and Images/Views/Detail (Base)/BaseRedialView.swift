@@ -26,17 +26,13 @@ struct BaseRedialView: View {
 #endif
         if phone.baseRedialCapacity > 0 && (phone.isCordless || !phone.isLinePoweredCorded) {
             Picker("Redial When Busy", selection: $phone.busyRedialMode) {
-                Text("Not Supported").tag(0)
-                Text("Press Redial Button").tag(1)
-                Text("Auto-Redial").tag(2)
+                RedialWhenBusyPickerItems()
             }
             RedialWhenBusyInfoView()
         }
         if phone.baseRedialCapacity > 1 && phone.basePhonebookCapacity > 0 {
             Picker("Redial Name Display", selection: $phone.redialNameDisplay) {
-                Text("None").tag(0)
-                Text("Phonebook Match").tag(1)
-                Text("From Dialed Entry").tag(2)
+                RedialNameDisplayPickerItems()
             }
             RedialNameDisplayInfoView()
         }

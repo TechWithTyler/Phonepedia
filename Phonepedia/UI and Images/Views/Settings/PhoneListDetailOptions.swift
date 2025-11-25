@@ -44,7 +44,7 @@ struct PhoneListDetailOptions: View {
         }
         Toggle("Show Answering System Type", isOn: $showAnsweringSystemInList)
         Toggle("Show Phone Active Status", isOn: $showPhoneActiveStatusInList)
-        Toggle("Show Number Of Cordless Handsets", isOn: $showNumberOfCordlessHandsetsInList)
+        Toggle("Show Number of Cordless Handsets", isOn: $showNumberOfCordlessHandsetsInList)
         if !menu {
             InfoText("If the number of included cordless handsets for a phone is the same as how many you have for that phone, a single cordless handset count is displayed. If you don't have the same number of cordless handsets as the phone comes with, both the included handset count and the \"how many I have\" count will be displayed.")
         }

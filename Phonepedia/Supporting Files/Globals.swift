@@ -16,7 +16,7 @@ import SwiftUI
 let appName: String? = (Bundle.main.infoDictionary?[String(kCFBundleNameKey)] as? String)!
 
 // The sample text to display above the phone description text view and when previewing the current font size in Settings.
-var phoneDescriptionSampleText: String = "I bought this phone at a thrift store in June 2023. I've always been wanting this model because of its stylish design."
+let phoneDescriptionSampleText: String = "I bought this phone at a thrift store in June 2023. I've always been wanting this model because of its stylish design."
 
 // The name of the PhoneTypeDefinitionsView section explaining the various cordless phone base types.
 let cordlessBaseTypeSectionName: String = "Cordless Phone Base Types"
@@ -24,13 +24,13 @@ let cordlessBaseTypeSectionName: String = "Cordless Phone Base Types"
 // The name of the PhoneTypeDefinitionsView section explaining the various corded phone styles.
 let cordedPhoneStyleSectionName: String = "Corded Phone Styles"
 
-// The title of the "All" option in the phone/cordless device filter options.
-let allItemsFilterOptionTitle: String = "all"
+// The tag of the "All" option in the phone/cordless device filter options.
+let allItemsFilterOptionTag: String = "all"
 
 // MARK: - Properties - Integers
 
 // The current year to use as the default value of a phone or cordless device's release year/acquisition year.
-var currentYear = Calendar.current.component(.year, from: Date())
+let currentYear = Calendar.current.component(.year, from: Date())
 
 // The earliest year of a phone.
 let oldestPhoneYear: Int = 1876
@@ -38,8 +38,11 @@ let oldestPhoneYear: Int = 1876
 // The earliest year of a cordless device.
 let oldestHandsetYear: Int = 1965
 
+// The default maximum number of cordless devices.
+let defaultMaxCordlessDevices: Int = 5
+
 // The lowest number a phone or cordless device's phonebook capacity must be to support Bluetooth phonebook transfers.
-var phonebookTransferRequiredMaxCapacity = 150
+let phonebookTransferRequiredMaxCapacity = 150
 
 // MARK: - Functions
 

@@ -27,7 +27,7 @@ struct HandsetNumberDigitView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Digit Representing Number Of Included Cordless Handsets")
+            Text("Digit Representing Number of Included Cordless Handsets")
                 .lineLimit(nil)
             ScrollView(.horizontal) {
                 HStack {

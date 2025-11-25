@@ -25,6 +25,20 @@ final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatab
 
         case headset = "Headset/Speakerphone"
 
+        var plural: String {
+            return "\(rawValue)s"
+        }
+
+    }
+
+    // MARK: - Properties - Mock Handset
+
+    @Transient
+    static var mockHandset: CordlessHandset {
+        let phone = Phone.mockPhone
+        let cordlessHandset = CordlessHandset(brand: Phone.mockBrand, model: CordlessHandset.mockModel, mainColorRed: 0, mainColorGreen: 0, mainColorBlue: 0, secondaryColorRed: 0, secondaryColorGreen: 0, secondaryColorBlue: 0, accentColorRed: 0, accentColorGreen: 0, accentColorBlue: 0)
+        phone.cordlessHandsetsIHave.append(cordlessHandset)
+        return cordlessHandset
     }
 
     // MARK: - Properties - Default Data
@@ -553,7 +567,13 @@ final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatab
         self.accentColorGreen = accentColorGreen
         self.accentColorBlue = accentColorBlue
 	}
-    
+
+    // MARK: - Set Acquisition Year to Release Year
+
+    func setAcquisitionYearToReleaseYear() {
+        acquisitionYear = releaseYear
+    }
+
     // MARK: - Color Methods
     
     // Note: Color manipulation methods are provided by protocol default implementations from SheftAppsStylishUI:
@@ -741,14 +761,16 @@ final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatab
         )
         // 2. Give the duplicated handset a new UUID.
         newHandset.id = UUID()
-        // 3. Copy all other properties.
+        // 3. Copy all other persistent properties (those not marked @Transient).
         newHandset.phone = self.phone
+        newHandset.handsetNumber = self.handsetNumber
         newHandset.releaseYear = self.releaseYear
         newHandset.acquisitionYear = self.acquisitionYear
         newHandset.whereAcquired = self.whereAcquired
         newHandset.fitsOnBase = self.fitsOnBase
         newHandset.maxBases = self.maxBases
         newHandset.cordlessDeviceType = self.cordlessDeviceType
+        newHandset.handsetStyle = self.handsetStyle
         newHandset.displayBacklightColorRed = self.displayBacklightColorRed
         newHandset.displayBacklightColorGreen = self.displayBacklightColorGreen
         newHandset.displayBacklightColorBlue = self.displayBacklightColorBlue
@@ -761,27 +783,69 @@ final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatab
         newHandset.cordedReceiverMainColorRed = self.cordedReceiverMainColorRed
         newHandset.cordedReceiverMainColorGreen = self.cordedReceiverMainColorGreen
         newHandset.cordedReceiverMainColorBlue = self.cordedReceiverMainColorBlue
+        newHandset.cordedReceiverMainColorAlpha = self.cordedReceiverMainColorAlpha
         newHandset.cordedReceiverSecondaryColorRed = self.cordedReceiverSecondaryColorRed
         newHandset.cordedReceiverSecondaryColorGreen = self.cordedReceiverSecondaryColorGreen
         newHandset.cordedReceiverSecondaryColorBlue = self.cordedReceiverSecondaryColorBlue
+        newHandset.cordedReceiverAccentColorRed = self.cordedReceiverAccentColorRed
+        newHandset.cordedReceiverAccentColorGreen = self.cordedReceiverAccentColorGreen
+        newHandset.cordedReceiverAccentColorBlue = self.cordedReceiverAccentColorBlue
         newHandset.keyBacklightColorRed = self.keyBacklightColorRed
         newHandset.keyBacklightColorGreen = self.keyBacklightColorGreen
         newHandset.keyBacklightColorBlue = self.keyBacklightColorBlue
+        newHandset.chargeLightColorChargingRed = self.chargeLightColorChargingRed
+        newHandset.chargeLightColorChargingGreen = self.chargeLightColorChargingGreen
+        newHandset.chargeLightColorChargingBlue = self.chargeLightColorChargingBlue
+        newHandset.chargeLightColorChargedRed = self.chargeLightColorChargedRed
+        newHandset.chargeLightColorChargedGreen = self.chargeLightColorChargedGreen
+        newHandset.chargeLightColorChargedBlue = self.chargeLightColorChargedBlue
+        newHandset.chargeLightColorChargedAlpha = self.chargeLightColorChargedAlpha
+        newHandset.earpieceType = self.earpieceType
+        newHandset.hasChargeLight = self.hasChargeLight
+        newHandset.supportsPlaceOnBasePowerBackup = self.supportsPlaceOnBasePowerBackup
+        newHandset.canDialThenPlaceOnBase = self.canDialThenPlaceOnBase
+        newHandset.keyLockWhenPowerReturns = self.keyLockWhenPowerReturns
         newHandset.buttonType = self.buttonType
+        newHandset.ringerVolumeAdjustmentType = self.ringerVolumeAdjustmentType
+        newHandset.supportsRingerOff = self.supportsRingerOff
+        newHandset.clock = self.clock
+        newHandset.supportsTimeBackup = self.supportsTimeBackup
+        newHandset.volumeAdjustmentType = self.volumeAdjustmentType
         newHandset.displayType = self.displayType
+        newHandset.displayLocation = self.displayLocation
+        newHandset.baseSettingsChangeMethod = self.baseSettingsChangeMethod
+        newHandset.hasAnsweringSystemControls = self.hasAnsweringSystemControls
+        newHandset.desksetDisplayCanTilt = self.desksetDisplayCanTilt
+        newHandset.displayMultiEntries = self.displayMultiEntries
+        newHandset.menuMultiItems = self.menuMultiItems
+        newHandset.mainMenuLayout = self.mainMenuLayout
         newHandset.batteryType = self.batteryType
         newHandset.desksetSupportsBackupBatteries = self.desksetSupportsBackupBatteries
+        newHandset.isSlimCordedDeskset = self.isSlimCordedDeskset
+        newHandset.switchHookType = self.switchHookType
+        newHandset.cordedReceiverHookType = self.cordedReceiverHookType
         newHandset.menuUpdateMode = self.menuUpdateMode
         newHandset.hasSpeakerphone = self.hasSpeakerphone
+        newHandset.intercomAutoAnswer = self.intercomAutoAnswer
+        newHandset.hasDirectCommunication = self.hasDirectCommunication
+        newHandset.hasAutoAnswer = self.hasAutoAnswer
+        newHandset.chargeDuringCall = self.chargeDuringCall
+        newHandset.hasChargeTone = self.hasChargeTone
+        newHandset.canPowerOff = self.canPowerOff
         newHandset.lineButtons = self.lineButtons
         newHandset.visualRinger = self.visualRinger
         newHandset.ringtones = self.ringtones
         newHandset.musicRingtones = self.musicRingtones
+        newHandset.hasVibratorMotor = self.hasVibratorMotor
         newHandset.customRingtonesSource = self.customRingtonesSource
         newHandset.intercomRingtone = self.intercomRingtone
+        newHandset.silentMode = self.silentMode
+        newHandset.supportsSilentModeBypass = self.supportsSilentModeBypass
         newHandset.oneTouchDialCapacity = self.oneTouchDialCapacity
+        newHandset.hasOneTouchEmergencyCalling = self.hasOneTouchEmergencyCalling
         newHandset.speedDialCapacity = self.speedDialCapacity
         newHandset.redialCapacity = self.redialCapacity
+        newHandset.busyRedialMode = self.busyRedialMode
         newHandset.softKeys = self.softKeys
         newHandset.standbySoftKeysCustomizable = self.standbySoftKeysCustomizable
         newHandset.navigatorKeyType = self.navigatorKeyType
@@ -789,10 +853,18 @@ final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatab
         newHandset.navigatorKeyStandbyShortcuts = self.navigatorKeyStandbyShortcuts
         newHandset.navigatorKeyCenterButton = self.navigatorKeyCenterButton
         newHandset.sideVolumeButtons = self.sideVolumeButtons
+        newHandset.buttonPressOnChargeBehavior = self.buttonPressOnChargeBehavior
         newHandset.keyBacklightAmount = self.keyBacklightAmount
+        newHandset.keyBacklightLayer = self.keyBacklightLayer
         newHandset.supportsWiredHeadsets = self.supportsWiredHeadsets
         newHandset.answeringSystemMenu = self.answeringSystemMenu
+        newHandset.hasMessageList = self.hasMessageList
+        newHandset.voicemailQuickDial = self.voicemailQuickDial
         newHandset.phonebookCapacity = self.phonebookCapacity
+        newHandset.numbersPerPhonebookEntry = self.numbersPerPhonebookEntry
+        newHandset.supportsPhonebookRingtones = self.supportsPhonebookRingtones
+        newHandset.supportsPhonebookGroups = self.supportsPhonebookGroups
+        newHandset.favoriteEntriesCapacity = self.favoriteEntriesCapacity
         newHandset.callerIDPhonebookMatch = self.callerIDPhonebookMatch
         newHandset.usesBasePhonebook = self.usesBasePhonebook
         newHandset.usesBaseCallerID = self.usesBaseCallerID
@@ -805,7 +877,9 @@ final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatab
         newHandset.callerIDCapacity = self.callerIDCapacity
         newHandset.keyFindersSupported = self.keyFindersSupported
         newHandset.antenna = self.antenna
+        newHandset.alarm = self.alarm
         newHandset.hasTalkingCallerID = self.hasTalkingCallerID
+        newHandset.hasKeypadLock = self.hasKeypadLock
         newHandset.hasTalkingKeypad = self.hasTalkingKeypad
         newHandset.hasTalkingPhonebook = self.hasTalkingPhonebook
         newHandset.audibleLowBatteryAlert = self.audibleLowBatteryAlert
@@ -815,39 +889,6 @@ final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatab
         newHandset.hasSpeakerphoneButtonLight = self.hasSpeakerphoneButtonLight
         newHandset.storageOrSetup = self.storageOrSetup
         newHandset.hasQZ = self.hasQZ
-        newHandset.alarm = self.alarm
-        newHandset.handsetStyle = self.handsetStyle
-        newHandset.keyBacklightLayer = self.keyBacklightLayer
-        newHandset.volumeAdjustmentType = self.volumeAdjustmentType
-        newHandset.ringerVolumeAdjustmentType = self.ringerVolumeAdjustmentType
-        newHandset.supportsRingerOff = self.supportsRingerOff
-        newHandset.hasAutoAnswer = self.hasAutoAnswer
-        newHandset.intercomAutoAnswer = self.intercomAutoAnswer
-        newHandset.chargeDuringCall = self.chargeDuringCall
-        newHandset.hasChargeTone = self.hasChargeTone
-        newHandset.hasDirectCommunication = self.hasDirectCommunication
-        newHandset.displayMultiEntries = self.displayMultiEntries
-        newHandset.menuMultiItems = self.menuMultiItems
-        newHandset.hasMessageList = self.hasMessageList
-        newHandset.favoriteEntriesCapacity = self.favoriteEntriesCapacity
-        newHandset.supportsPhonebookRingtones = self.supportsPhonebookRingtones
-        newHandset.supportsPhonebookGroups = self.supportsPhonebookGroups
-        newHandset.clock = self.clock
-        newHandset.supportsTimeBackup = self.supportsTimeBackup
-        newHandset.chargeLightColorChargingRed = self.chargeLightColorChargingRed
-        newHandset.chargeLightColorChargingGreen = self.chargeLightColorChargingGreen
-        newHandset.chargeLightColorChargingBlue = self.chargeLightColorChargingBlue
-        newHandset.chargeLightColorChargedRed = self.chargeLightColorChargedRed
-        newHandset.chargeLightColorChargedGreen = self.chargeLightColorChargedGreen
-        newHandset.chargeLightColorChargedBlue = self.chargeLightColorChargedBlue
-        newHandset.chargeLightColorChargedAlpha = self.chargeLightColorChargedAlpha
-        newHandset.hasChargeLight = self.hasChargeLight
-        newHandset.supportsPlaceOnBasePowerBackup = self.supportsPlaceOnBasePowerBackup
-        newHandset.keyLockWhenPowerReturns = self.keyLockWhenPowerReturns
-        newHandset.canDialThenPlaceOnBase = self.canDialThenPlaceOnBase
-        newHandset.buttonPressOnChargeBehavior = self.buttonPressOnChargeBehavior
-        newHandset.hasKeypadLock = self.hasKeypadLock
-        newHandset.busyRedialMode = self.busyRedialMode
         // 4. Return the duplicated handset.
         return newHandset
     }

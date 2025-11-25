@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 8/22/25.
-//  Copyright © 2025 SheftApps. All rights reserved.
+//  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
 // MARK: - Imports
@@ -49,22 +49,23 @@ struct HandsetColorView: View {
                 Button("Use \(secondaryColorLocation) Color") {
                     handset.setAccentColorToSecondary()
                 }
+                if handset.cordlessDeviceType == 1 {
                 ClearSupportedColorPicker("Corded Receiver Outer Color", selection: handset.cordedReceiverMainColorBinding) {
                     Text("No Corded Receiver")
                 }
-                if handset.hasCordedReceiver {
-                    ColorPicker("Corded Receiver Inner Color", selection: handset.cordedReceiverSecondaryColorBinding, supportsOpacity: false)
-                    Button("Use Outer Color") {
-                        handset.setCordedReceiverSecondaryColorToMain()
+                    if handset.hasCordedReceiver {
+                        ColorPicker("Corded Receiver Inner Color", selection: handset.cordedReceiverSecondaryColorBinding, supportsOpacity: false)
+                        Button("Use Outer Color") {
+                            handset.setCordedReceiverSecondaryColorToMain()
+                        }
+                        ColorPicker("Corded Receiver Accent Color", selection: handset.cordedReceiverAccentColorBinding, supportsOpacity: false)
+                        Button("Use Outer Color") {
+                            handset.setCordedReceiverAccentColorToMain()
+                        }
+                        Button("Use Inner Color") {
+                            handset.setCordedReceiverAccentColorToSecondary()
+                        }
                     }
-                    ColorPicker("Corded Receiver Accent Color", selection: handset.cordedReceiverAccentColorBinding, supportsOpacity: false)
-                    Button("Use Outer Color") {
-                        handset.setCordedReceiverAccentColorToMain()
-                    }
-                    Button("Use Inner Color") {
-                        handset.setCordedReceiverAccentColorToSecondary()
-                    }
-
                 }
             }
     }

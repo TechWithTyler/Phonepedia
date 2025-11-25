@@ -18,7 +18,7 @@ struct DisplaySettingsPageView: View {
     // The phone to use for previewing the phone list detail settings.
     var samplePhone: Phone {
         // 1. Create a mock phone and cordless handset.
-        let phone = Phone(brand: Phone.mockBrand, model: Phone.mockModel)
+        let phone = Phone.mockPhone
         let handset = CordlessHandset(brand: Phone.mockBrand, model: CordlessHandset.mockModel, mainColorRed: 0, mainColorGreen: 0, mainColorBlue: 0, secondaryColorRed: 0, secondaryColorGreen: 0, secondaryColorBlue: 0, accentColorRed: 190, accentColorGreen: 190, accentColorBlue: 190)
         // 2. Duplicate the mock cordless handset so the mock phone has 2 mock cordless handsets.
         let secondHandset = handset.duplicate()

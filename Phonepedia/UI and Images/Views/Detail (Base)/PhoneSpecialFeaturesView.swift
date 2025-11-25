@@ -30,6 +30,7 @@ struct PhoneSpecialFeaturesView: View {
             if phone.hasIntercom {
                 Picker("Room/Baby Monitor", selection: $phone.roomMonitor) {
                     Text("Not Supported").tag(0)
+                    Divider()
                     Text("Call From Handset/Base").tag(1)
                     Text("Call To Handset/Base").tag(2)
                     Text("Sound-Activated Call").tag(3)

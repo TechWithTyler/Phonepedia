@@ -92,15 +92,20 @@ class AudioManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
 
     // MARK: - Play/Stop
 
+    // This method starts or stops playing the audio file with the given name.
     func toggleAudio(audioFile: AudioFile) {
+        // 1. If the audio file to be played is already playing, stop it and return.
         if isPlaying && self.audioFile == audioFile {
             stopAudio()
             return
         }
+        // 2. Set the audio file to be played to the given audio file.
         self.audioFile = audioFile
+        // 3. Make sure the audio file is present in the app bundle.
         guard let url = Bundle.main.url(forResource: audioFile.rawValue, withExtension: "wav") else {
             fatalError("Failed to find \(audioFile.rawValue).wav in bundle")
         }
+        // 4. Try to load the file into the player and play it.
         do {
             audioPlayer = try AVAudioPlayer(contentsOf: url)
             audioPlayer?.delegate = self

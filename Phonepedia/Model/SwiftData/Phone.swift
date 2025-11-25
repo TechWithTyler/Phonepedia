@@ -16,6 +16,11 @@ import SwiftData
 @Model
 final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, CordedReceiverColorManipulatable, KeyColorManipulatable {
 
+    // MARK: - Properties - Mock Phone
+
+    @Transient
+    static let mockPhone: Phone = Phone(brand: Phone.mockBrand, model: Phone.mockModel)
+
     // MARK: - Properties - Default Data
 
     // Properties marked with the @Transient property wrapper won't persist their values to SwiftData.
@@ -198,7 +203,7 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
 
     var handsetNumberDigitIndex: Int? = 5
 
-    var maxCordlessHandsets: Int = 5
+    var maxCordlessHandsets: Int = defaultMaxCordlessDevices
 
     var supportsRangeExtenders: Bool = false
 
@@ -265,6 +270,8 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
     var hasAnsweringSystem: Int = 3
 
     var answeringSystemType: Int = 1
+
+    var allMessageDeletion: Int = 0
 
     var remoteAccessCodeType: Int = 2
 
@@ -395,6 +402,8 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
     var numbersPerPhonebookEntry: Int = 1
 
     var baseFavoriteEntriesCapacity: Int = 0
+
+    var phonebookAudioTags: Bool = false
 
     var baseSupportsPhonebookRingtones: Bool = false
 
@@ -1052,6 +1061,20 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
         self.model = model
     }
 
+    // MARK: - Set Acquisition Year to Release Year
+
+    func setAcquisitionYearToReleaseYear() {
+        acquisitionYear = releaseYear
+    }
+
+    // MARK: - Update All Cordless Devices' Place In Collection
+
+    func updateAllCordlessDevicePlaceInCollection() {
+        for handset in cordlessHandsetsIHave {
+            handset.storageOrSetup = storageOrSetup
+        }
+    }
+
     // MARK: - Color Methods
     
     // Public wrappers that maintain existing method names for UI compatibility
@@ -1112,6 +1135,9 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
             hasMessageList = false
         }
         if newValue < 2 {
+            if allMessageDeletion == 0 {
+                allMessageDeletion = 1
+            }
             for handset in cordlessHandsetsIHave {
                 handset.hasMessageList = false
             }
@@ -1210,6 +1236,9 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
             hasCellPhoneVoiceControl = false
             supportsAddingOfCellAreaCode = false
             cellCallRejection = 0
+            if bluetoothPhonebookTransfers == 2 {
+                bluetoothPhonebookTransfers = 1
+            }
         }
     }
 

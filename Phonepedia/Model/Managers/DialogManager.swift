@@ -24,6 +24,8 @@ class DialogManager: ObservableObject {
 
     @Published var phoneToDelete: Phone? = nil
 
+    @Published var phoneToUpdateCordlessDevicePlaceInCollection: Phone? = nil
+
     @Published var handsetToDelete: CordlessHandset? = nil
 
     @Published var chargerToDelete: CordlessHandsetCharger? = nil
@@ -33,6 +35,8 @@ class DialogManager: ObservableObject {
     // MARK: - Properties - Booleans
 
     @Published var showingMoveFailed: Bool = false
+
+    @Published var showingUpdateCordlessDevicePlaceInCollection: Bool = false
 
     @Published var showingMoveFailedHandset: Bool = false
 
