@@ -81,7 +81,7 @@ struct BaseSpeakerphoneIntercomView: View {
                 }
                 if phone.hasBaseIntercom {
                     Picker("Intercom Auto-Answer", selection: $phone.intercomAutoAnswer) {
-                        IntercomAutoANswerPickerItems()
+                        IntercomAutoAnswerPickerItems()
                     }
                     IntercomAutoAnswerInfoView()
                 }

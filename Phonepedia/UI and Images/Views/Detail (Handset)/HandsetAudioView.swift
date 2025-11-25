@@ -51,12 +51,7 @@ struct HandsetAudioView: View {
             Section("Headsets") {
                 Toggle("Supports Wired Headsets", isOn: $handset.supportsWiredHeadsets)
                 if handset.handsetStyle < 3 {
-                    Picker("Maximum Number of Bluetooth Headphones", selection: $handset.bluetoothHeadphonesSupported) {
-                        Text("None").tag(0)
-                        Text("1").tag(1)
-                        Text("2").tag(2)
-                        Text("4").tag(4)
-                    }
+                    CountPicker("Maximum Number of Bluetooth Headphones", selection: $handset.bluetoothHeadphonesSupported, numbers: [1, 2, 4], noneTitle: "None", unlimitedTitle: "Unlimited")
                 }
             }
             if phone.hasIntercom {
