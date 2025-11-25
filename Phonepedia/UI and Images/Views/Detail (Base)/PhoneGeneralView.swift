@@ -187,6 +187,7 @@ struct PhoneGeneralView: View {
                             }
                         Picker("Wall Mounting", selection: $phone.wallMountability) {
                             Text("Not Supported").tag(0)
+                            Divider()
                             Text("Holes on Back").tag(1)
                             Text("Optional Bracket").tag(2)
                             Text("Built-In Bracket").tag(3)
@@ -279,6 +280,7 @@ In most cases, if the base has a charge light/display message, the completion of
                         Picker("Deregistration", selection: $phone.deregistration) {
                             if phone.locatorButtons > 0 {
                                 Text("Not Supported").tag(0)
+                                Divider()
                             }
                             Text("From This Handset").tag(1)
                             Text("One From Any Handset/Base").tag(2)

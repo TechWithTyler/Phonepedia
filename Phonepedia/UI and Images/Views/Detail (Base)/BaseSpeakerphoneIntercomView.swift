@@ -81,10 +81,7 @@ struct BaseSpeakerphoneIntercomView: View {
                 }
                 if phone.hasBaseIntercom {
                     Picker("Intercom Auto-Answer", selection: $phone.intercomAutoAnswer) {
-                        Text("Not Supported").tag(0)
-                        Text("With Ring").tag(1)
-                        Text("Without Ring").tag(2)
-                        Text("Optional Ring").tag(3)
+                        IntercomAutoANswerPickerItems()
                     }
                     IntercomAutoAnswerInfoView()
                 }

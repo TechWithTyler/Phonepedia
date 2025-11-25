@@ -49,6 +49,7 @@ struct PhoneMessagingView: View {
                     Picker("All Message Deletion", selection: $phone.allMessageDeletion) {
                         if phone.hasAnsweringSystem == 2 {
                             Text("Not Supported").tag(0)
+                            Divider()
                         }
                         Text("All Messages").tag(1)
                         Text("All Old Messages").tag(2)
@@ -101,7 +102,7 @@ struct PhoneMessagingView: View {
                 InfoText("The greeting, sometimes called the announcement or outgoing message (OGM), is the message the answering system plays to callers when it answers, before optionally allowing the caller to leave a message.\nExample: \"Hello. You have reached \(exampleName). I'm not available to take your call, so please \(AnsweringSystemGreetingComponents.leaveOrRecord()) \(AnsweringSystemGreetingComponents.aOrYour()) message after the \(AnsweringSystemGreetingComponents.beepOrTone()).\"")
                 ExampleAudioView(audioFile: .answeringSystemGreetingRecordMessage)
                 Toggle("Has Greeting Slots/Scheduled Greetings", isOn: $phone.greetingSlotsAndSchedules)
-                InfoText("Greeting slots allow you to record multiple greetings and switch between them manually or on a schedule. For example, in a business setting, you might record a \"we're open\" greeting to play when the business is open, and a \"we're closed\" greeting to play when the business is closed.")
+                InfoText("Greeting slots allow you to record multiple greetings and switch between them manually or on a schedule. For example, in a business setting, you might record a \"we're open\" greeting to play when the business is open, and a \"we're closed\" greeting to play when the business is closed. If you're away for an extended period (e.g. on vacation), you might record a \"we're away\" greeting in another \"record message\" greeting slot if available.")
                 Toggle("Has Greeting Only Mode", isOn: $phone.hasGreetingOnlyMode)
                 InfoText("Greeting Only, sometimes called Announce Only or Answer Only, answers calls but doesn't accept incoming messages. Some phones allow you to record a separate greeting for both modes, allowing you to easily switch between modes without having to re-record your greeting each time. If the phone has greeting slots, greeting only is one of those slots rather than a dedicated mode.\nExample: \"Hello. You have reached \(exampleName). I'm not available to take your call, so please call \(AnsweringSystemGreetingComponents.againOrBack()) later.\"")
                 ExampleAudioView(audioFile: .answeringSystemGreetingAnswerOnly)
@@ -145,6 +146,7 @@ struct PhoneMessagingView: View {
                 }
                 Picker("Call Recording", selection: $phone.hasCallRecording) {
                     Text("Not Supported").tag(0)
+                    Divider()
                     Text("Without Notification").tag(1)
                     Text("Intermittent Beeps").tag(2)
                     Text("Spoken Notification").tag(3)

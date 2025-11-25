@@ -26,17 +26,13 @@ struct HandsetRedialView: View {
 #endif
         if handset.redialCapacity > 0 {
             Picker("Redial When Busy", selection: $handset.busyRedialMode) {
-                Text("Not Supported").tag(0)
-                Text("Press Redial Button").tag(1)
-                Text("Auto-Redial").tag(2)
+                RedialWhenBusyPickerItems()
             }
             RedialWhenBusyInfoView()
         }
             if handset.hasPhonebookAndRedialList {
                 Picker("Redial Name Display", selection: $handset.redialNameDisplay) {
-                    Text("None").tag(0)
-                    Text("Phonebook Match").tag(1)
-                    Text("From Dialed Entry").tag(2)
+                    RedialNameDisplayPickerItems()
                 }
                 RedialNameDisplayInfoView()
             }

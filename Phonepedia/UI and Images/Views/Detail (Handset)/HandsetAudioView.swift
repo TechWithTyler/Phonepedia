@@ -63,10 +63,7 @@ struct HandsetAudioView: View {
                 Section("Intercom") {
                     if handset.hasSpeakerphone || handset.handsetStyle > 2 {
                         Picker("Intercom Auto-Answer", selection: $handset.intercomAutoAnswer) {
-                            Text("Not Supported").tag(0)
-                            Text("With Ring").tag(1)
-                            Text("Without Ring").tag(2)
-                            Text("With or Without Ring").tag(3)
+                            IntercomAutoAnswerPickerItems()
                         }
                         IntercomAutoAnswerInfoView()
                     }

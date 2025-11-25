@@ -30,6 +30,9 @@
 		8D32A5162D4560DC00F606FC /* IntercomAutoAnswerInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D32A5152D4560DC00F606FC /* IntercomAutoAnswerInfoView.swift */; };
 		8D32A5182D4562C500F606FC /* HandsetPowerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D32A5172D4562C500F606FC /* HandsetPowerView.swift */; };
 		8D3625A32D9346D300CA3D93 /* AboutPhoneGradesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3625A22D9346D300CA3D93 /* AboutPhoneGradesView.swift */; };
+		8D379CCF2ED651F200F79D1C /* IntercomAutoAnswerPickerItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D379CCE2ED651F200F79D1C /* IntercomAutoAnswerPickerItems.swift */; };
+		8D379CD12ED6524400F79D1C /* RedialWhenBusyPickerItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D379CD02ED6524400F79D1C /* RedialWhenBusyPickerItems.swift */; };
+		8D379CD32ED6527200F79D1C /* RedialNameDisplayPickerItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D379CD22ED6527200F79D1C /* RedialNameDisplayPickerItems.swift */; };
 		8D380B252C3DD35D00505B89 /* PhoneCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D380B242C3DD35D00505B89 /* PhoneCountView.swift */; };
 		8D38ED662CAF2DC500CCC422 /* BaseSpeakerphoneIntercomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38ED652CAF2DC500CCC422 /* BaseSpeakerphoneIntercomView.swift */; };
 		8D38ED682CAF2E9600CCC422 /* PhoneSpecialFeaturesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38ED672CAF2E9600CCC422 /* PhoneSpecialFeaturesView.swift */; };
@@ -215,6 +218,9 @@
 		8D32A5152D4560DC00F606FC /* IntercomAutoAnswerInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntercomAutoAnswerInfoView.swift; sourceTree = "<group>"; };
 		8D32A5172D4562C500F606FC /* HandsetPowerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandsetPowerView.swift; sourceTree = "<group>"; };
 		8D3625A22D9346D300CA3D93 /* AboutPhoneGradesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutPhoneGradesView.swift; sourceTree = "<group>"; };
+		8D379CCE2ED651F200F79D1C /* IntercomAutoAnswerPickerItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntercomAutoAnswerPickerItems.swift; sourceTree = "<group>"; };
+		8D379CD02ED6524400F79D1C /* RedialWhenBusyPickerItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedialWhenBusyPickerItems.swift; sourceTree = "<group>"; };
+		8D379CD22ED6527200F79D1C /* RedialNameDisplayPickerItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedialNameDisplayPickerItems.swift; sourceTree = "<group>"; };
 		8D380B242C3DD35D00505B89 /* PhoneCountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneCountView.swift; sourceTree = "<group>"; };
 		8D38ED652CAF2DC500CCC422 /* BaseSpeakerphoneIntercomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSpeakerphoneIntercomView.swift; sourceTree = "<group>"; };
 		8D38ED672CAF2E9600CCC422 /* PhoneSpecialFeaturesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneSpecialFeaturesView.swift; sourceTree = "<group>"; };
@@ -474,6 +480,9 @@
 				8DC964E12D0B716800984466 /* AcquisitionMethodPickerItems.swift */,
 				8DC69A662EC7CD8C00BFCA58 /* PhonePlaceInCollectionPicker.swift */,
 				8DC69A682EC7CE5900BFCA58 /* HandsetPlaceInCollectionPicker.swift */,
+				8D379CCE2ED651F200F79D1C /* IntercomAutoAnswerPickerItems.swift */,
+				8D379CD02ED6524400F79D1C /* RedialWhenBusyPickerItems.swift */,
+				8D379CD22ED6527200F79D1C /* RedialNameDisplayPickerItems.swift */,
 			);
 			path = "Pickers and Picker Items";
 			sourceTree = "<group>";
@@ -961,6 +970,7 @@
 				8DDE4E4B2CFFAA4D000C3D46 /* HandsetNumberDigitView.swift in Sources */,
 				8D3625A32D9346D300CA3D93 /* AboutPhoneGradesView.swift in Sources */,
 				8D2BAF552CD188740016C61E /* ChargeContactTypePickerItems.swift in Sources */,
+				8D379CD32ED6527200F79D1C /* RedialNameDisplayPickerItems.swift in Sources */,
 				8DBCB7E52D498D2200878A1F /* MessageListInfoView.swift in Sources */,
 				8D19F0BD2D07962A00C3B67C /* PhoneListDetailOptions.swift in Sources */,
 				8D8667252EAC143A002A0266 /* CordlessDeviceReassignmentView.swift in Sources */,
@@ -974,6 +984,7 @@
 				8DA844DB2B72E1D7006CBCA7 /* BatteryInfoView.swift in Sources */,
 				8DB9A30E2CEBEDFB005BC70B /* PhoneCountButton.swift in Sources */,
 				8D38ED9D2CAF3F6400CCC422 /* HandsetCallerIDView.swift in Sources */,
+				8D379CCF2ED651F200F79D1C /* IntercomAutoAnswerPickerItems.swift in Sources */,
 				8D38ED9B2CAF3EF500CCC422 /* HandsetPhonebookView.swift in Sources */,
 				8D7A74A42C26203E00C5329E /* DocumentLaunchPhonesAccessoryView.swift in Sources */,
 				8D20E37B2C45B9740016800C /* PhoneInCollectionStatusPickerItems.swift in Sources */,
@@ -1010,6 +1021,7 @@
 				8DA844EF2B72E1D7006CBCA7 /* LandlineOrNotPredictor.swift in Sources */,
 				8D38ED992CAF3EA500CCC422 /* HandsetRedialView.swift in Sources */,
 				8D32A5002D419FF100F606FC /* ProgrammingWithoutDisplayInfoView.swift in Sources */,
+				8D379CD12ED6524400F79D1C /* RedialWhenBusyPickerItems.swift in Sources */,
 				8DA844D12B72E1D7006CBCA7 /* CameraViewController.swift in Sources */,
 				8D38ED972CAF3E4C00CCC422 /* HandsetMessagingView.swift in Sources */,
 				8D38ED712CAF325200CCC422 /* PhonePowerView.swift in Sources */,

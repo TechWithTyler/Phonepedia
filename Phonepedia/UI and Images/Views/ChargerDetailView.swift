@@ -96,6 +96,7 @@ struct ChargerDetailView: View {
                             ChargingContactInfoView()
                             Picker("Wall Mounting", selection: $charger.wallMountability) {
                                 Text("Not Supported").tag(0)
+                                Divider()
                                 Text("Holes On Back").tag(1)
                                 Text("Bracket").tag(2)
                             }
