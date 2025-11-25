@@ -1017,43 +1017,6 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
     @Transient
     var accentColorBinding: Binding<Color> { baseAccentColorBinding }
 
-    // KeyColorManipulatable protocol requires generic property names, but Phone uses "base" prefix
-    @Transient
-    var keyBackgroundColorRed: Double {
-        get { baseKeyBackgroundColorRed }
-        set { baseKeyBackgroundColorRed = newValue }
-    }
-    
-    @Transient
-    var keyBackgroundColorGreen: Double {
-        get { baseKeyBackgroundColorGreen }
-        set { baseKeyBackgroundColorGreen = newValue }
-    }
-    
-    @Transient
-    var keyBackgroundColorBlue: Double {
-        get { baseKeyBackgroundColorBlue }
-        set { baseKeyBackgroundColorBlue = newValue }
-    }
-    
-    @Transient
-    var keyForegroundColorRed: Double {
-        get { baseKeyForegroundColorRed }
-        set { baseKeyForegroundColorRed = newValue }
-    }
-    
-    @Transient
-    var keyForegroundColorGreen: Double {
-        get { baseKeyForegroundColorGreen }
-        set { baseKeyForegroundColorGreen = newValue }
-    }
-    
-    @Transient
-    var keyForegroundColorBlue: Double {
-        get { baseKeyForegroundColorBlue }
-        set { baseKeyForegroundColorBlue = newValue }
-    }
-
     // MARK: - Initialization
 
     init(brand: String, model: String) {
