@@ -6,6 +6,8 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import Foundation
 
 extension Phone {
@@ -44,5 +46,40 @@ extension Phone {
         }
         
     }
-    
+
+    enum CordlessBaseType : String {
+
+        // MARK: - Cordless Phone Base Types
+
+        case locatorBase = "Locator Base"
+
+        case hiddenBase = "Hidden Base"
+
+        case messagingBase = "Messaging Base"
+
+        case speakerphoneBase = "Speakerphone Base"
+
+        case dialingBase = "Dialing Base"
+
+    }
+
+    enum CordedPhoneStyle : String {
+
+        // MARK: - Corded Phone Styles
+
+        case desk = "Desk"
+
+        case slim = "Slim/Wall"
+
+        case candlestick = "Candlestick"
+
+        case woodenBox = "Wooden Box"
+
+        case baseless = "Baseless"
+
+        case novelty = "Novelty"
+
+
+    }
+
 }

@@ -6,6 +6,8 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import Foundation
 
 struct NameNumberExamples {
@@ -18,7 +20,7 @@ struct NameNumberExamples {
 
         case dashed      // Example: 201-555-1234
 
-        case plain        // Example: 2015551234
+        case plain       // Example: 2015551234
 
     }
 
@@ -26,10 +28,13 @@ struct NameNumberExamples {
 
     // Names to use for the answering system greeting/talking caller ID examples
     static var names: [String] = [
+        // Answering system greeting examples only
         "TechWithTyler",
+        // Answering system greeting and caller ID name examples
         "John Smith",
         "Pat Fleet",
         "Allison Smith",
+        "John Doe",
         "Charlie Johnson"
     ]
 
@@ -42,7 +47,7 @@ struct NameNumberExamples {
 
     // Takes the given name and converts it from "First Last" to "LAST, FIRST".
     static func cnamForName(_ name: String) -> String {
-        // 1. Split name into separate components.
+        // 1. Split name into separate components. There should be 2 of them.
         let splitName = name.components(separatedBy: .whitespaces)
         // 2. Get the first and last names and convert them to uppercase.
         let firstName = splitName.first?.uppercased()
@@ -55,6 +60,7 @@ struct NameNumberExamples {
 
     // MARK: - Random Phone Number
 
+    // Returns an example area code, central exchange (middle 3 digits), and local phone number (last 4 digits).
     static func examplePhoneNumber() -> (areaCode: String, centralExchange: String.SubSequence, number: String.SubSequence) {
         // 1. Create an array of example phone numbers.
         let exampleNumbers = [
@@ -64,16 +70,20 @@ struct NameNumberExamples {
             "5556789",  // Generic placeholder
             "5551122",  // Generic placeholder
             "5678901",  // Generic placeholder
-            "4567890"
+            "4567890"   // Generic placeholder
         ]
         // 2. Create an array of area codes commonly used in examples.
-        let areaCodes = ["555", "201", "800", "212"] // 201 (New Jersey), 212 (NYC), 800 (Toll-Free)
+        let areaCodes = ["555", "201", "800", "212"] // 555 (Fictional), 201 (New Jersey), 212 (NYC), 800 (Toll-Free)
         // 3. Pick a random area code and phone number.
         let randomAreaCode = areaCodes.randomElement()!
         let randomNumber = exampleNumbers.randomElement()!
+        // 4. Return the full example phone number.
         return (areaCode: randomAreaCode, centralExchange: randomNumber.prefix(3), number: randomNumber.suffix(4))
     }
 
+    // MARK: - Format Phone Number
+
+    // Formats the phone number into one of 3 patterns: with parentheses, with dashes, or as a plain number string.
     static func formatPhoneNumber(areaCode: String, centralExchange: String.SubSequence, localNumber: String.SubSequence, withFormat format: NANPPhoneNumberFormat) -> String {
         // Format the number based on the requested format.
         switch format {

@@ -6,9 +6,14 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 
 struct ChargingDirectionPickerItems: View {
+
+    // MARK: - Body
+
     var body: some View {
         Text("Face-Forward Stand Up").tag(0)
         Text("Face-Up Lean Back").tag(1)
@@ -20,8 +25,13 @@ struct ChargingDirectionPickerItems: View {
         Divider()
         Text("Face-Forward Stand Up or Face-Down Lay Down").tag(6)
         Text("Reversible Handset").tag(7)
+        Text("Corded Phone-Inspired (Center Contacts)").tag(8)
+        Text("Corded Phone-Inspired (Top/Bottom Contacts)").tag(9)
     }
+    
 }
+
+// MARK: - Preview
 
 #Preview {
     ChargingDirectionPickerItems()

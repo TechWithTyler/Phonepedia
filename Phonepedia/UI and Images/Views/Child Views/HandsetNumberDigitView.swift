@@ -6,6 +6,8 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import SheftAppsStylishUI
 
@@ -25,7 +27,7 @@ struct HandsetNumberDigitView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Digit Representing Number Of Included Cordless Handsets")
+            Text("Digit Representing Number of Included Cordless Handsets")
                 .lineLimit(nil)
             ScrollView(.horizontal) {
                 HStack {
@@ -74,7 +76,7 @@ struct HandsetNumberDigitView: View {
     // MARK: - Set Handset Number Digit
 
     func setHandsetNumberDigit(to newDigit: Int, at index: Int) {
-        // 1. Set the number of included cordless handsets to the value corresponding to the new digit. For example, if the 2 after the dash in M123-2 is selected, the number of included cordless handsets will be set to 2.
+        // 1. Set the number of included cordless handsets to the value corresponding to the new digit. For example, if the 2 after the dash in M123-2 is selected, the number of included cordless handsets will be set to 2. If the selected digit is 0, set it to 1.
         phone.numberOfIncludedCordlessHandsets = newDigit == 0 ? 1 : newDigit
         // 2. Set the handset number digit and index to the new digit and index.
         phone.handsetNumberDigit = newDigit

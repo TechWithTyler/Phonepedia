@@ -6,6 +6,8 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import SheftAppsStylishUI
 
@@ -66,7 +68,7 @@ struct FormNavigationLink<Destination: View, Label: View>: View {
 // MARK: - Preview
 
 #Preview {
-    FormNavigationLink("Navigation Link", phone: Phone(brand: Phone.mockBrand, model: Phone.mockModel)) {
+    FormNavigationLink("Navigation Link", phone: Phone.mockPhone) {
         Text("I'm some text.")
     }
 }

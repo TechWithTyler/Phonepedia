@@ -6,7 +6,10 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
+import SheftAppsStylishUI
 
 struct HandsetActionsView: View {
 
@@ -14,16 +17,27 @@ struct HandsetActionsView: View {
 
     @Environment(\.dismiss) var dismiss
 
-    // MARK: - Properties - Handset
+    // MARK: - Properties - Objects
 
     @Bindable var handset: CordlessHandset
 
-    // MARK: - Properties - Dialog Manager
-
     @EnvironmentObject var dialogManager: DialogManager
+
+    // MARK: - Body
 
     var body: some View {
         if let phone = handset.phone {
+                Text("Assigned to phone \(phone.actualPhoneNumberInCollection) (\(phone.brand) \(phone.model))")
+                Button {
+                    dialogManager.handsetToReassign = handset
+                    dialogManager.showingReassignHandset = true
+                    dismiss()
+                } label: {
+                    Label("Reassign…", systemImage: "phone.arrow.right.fill")
+                }
+                if handset.maxBases > 1 {
+                    InfoText("This cordless device can be registered to up to \(handset.maxBases) bases. Choose the phone that's its primary base.")
+                }
             Button {
                 phone.cordlessHandsetsIHave.insert(handset.duplicate(), at: handset.handsetNumber)
                 dismiss()
@@ -45,6 +59,8 @@ struct HandsetActionsView: View {
         }
     }
 }
+
+// MARK: - Preview
 
 #Preview {
     HandsetActionsView( handset: CordlessHandset(brand: "Panasonic", model: "KX-TGUA40", mainColorRed: 200, mainColorGreen: 200, mainColorBlue: 200, secondaryColorRed: 0, secondaryColorGreen: 0, secondaryColorBlue: 0, accentColorRed: 0, accentColorGreen: 0, accentColorBlue: 0))

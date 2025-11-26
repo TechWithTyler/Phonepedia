@@ -6,6 +6,8 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import SheftAppsStylishUI
 
@@ -49,7 +51,7 @@ struct FrequenciesExplanationView: View {
                     Text("Digital Sequence Spread Spectrum (DSSS) phones spread the signal across multiple channels. This is  most commonly referred to as simply Digital Spread Spectrum (DSS). Frequency-Hopping Spread Spectrum (FHSS) phones constantly switch between several different channels. Using one of these technologies, if someone were to pick up the signal with a digital radio scanner, they would only hear a very tiny bit of the audio if it were to be decoded.")
                 }
                 DisclosureGroup("Dual-Band/Frequency Ranges") {
-                    Text("\"Frequency 1/Frequency 2\" (Frequency 1 over Frequency 2, e.g., 5.8GHz/900MHz) means that the base transmits to the handset using frequency 1 (e.g., 5.8GHz) and the handset transmits to the base using frequency 2 (e.g., 900MHz). As a result, the phone may lose connection on the transmit side before losing connection on the receiving side, or vice versa, but on most phones, the handset will be considered \"out of range\" when either side drops out. On some phones, one side is digital and the other side is analog. Using a different frequency/communication technology for handset-to-base helped to reduce the cost of handsets.")
+                    Text("\"Frequency 1/Frequency 2\" (Frequency 1 over Frequency 2, e.g., 5.8GHz/900MHz) means that the base transmits to the handset using frequency 1 (e.g., 5.8GHz) and the handset transmits to the base using frequency 2 (e.g., 900MHz). Frequency 2 is usually lower than frequency 1. As a result, the phone may lose connection on the transmit side before losing connection on the receiving side, or vice versa, but on most phones, the handset will be considered \"out of range\" when either side drops out. On some phones, one side is digital and the other side is analog. Using a different frequency/communication technology for handset-to-base helped to reduce the cost of handsets.")
                     Text("\"Frequency 1-Frequency 2\" (Frequency 1 to Frequency 2, e.g., 1.92GHz-1.93GHz) means that the phone operates in a range of frequencies, not just one specific frequency. A specific frequency within a range is called a channel. The frequencies are within several kHz or MHz of each other (e.g., 25kHz for a 25-channel 46-49MHz phone or 1.728MHz for a DECT 6.0 cordless phone).")
                 }
                 DisclosureGroup("DECT (Digital Enhanced Cordless Telecommunications)") {
@@ -63,6 +65,8 @@ struct FrequenciesExplanationView: View {
                     Text("DECT 6.0 (1.92–1.93GHz or 1920–1930MHz) is used in the US, Canada, and Mexico.")
                 }
                 DisclosureGroup("Marketing vs Actual Frequency Range") {
+                    Text("Some cordless phones only use a subset of their actual frequency band.")
+                    Text("Some 1.7MHz cordless phones used 46MHz for handset-to-base.")
                     Text("46-49MHz cordless phones are often referred to as such because that's the frequency range they typically operate in, and is shown as such throughout \(appName!), although the actual frequency range is 43-46MHz base-to-handset and 48-49MHz handset-to-base.")
                     Text("The actual frequency range for 900MHz cordless phones is 902-928MHz. Rounding down for marketing/documentation makes it simpler to understand.")
                     Text("The actual frequency range for 2.4GHz cordless phones is 2.400–2.4835GHz (2400-2483.5MHz). Rounding down for marketing/documentation makes it simpler to understand.")
@@ -88,6 +92,8 @@ struct FrequenciesExplanationView: View {
     }
     
 }
+
+// MARK: - Preview
 
 #Preview {
     FrequenciesExplanationView()

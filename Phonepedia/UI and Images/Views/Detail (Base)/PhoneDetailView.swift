@@ -6,6 +6,8 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import SwiftData
 import PhotosUI
@@ -42,15 +44,7 @@ struct PhoneDetailView: View {
                 audioGroup
                 entriesGroup
                 if phone.isCordless || phone.isPushButtonCorded {
-                    FormNavigationLink(phone: phone) {
-                        PhoneSpecialFeaturesView(phone: phone)
-                            .navigationTitle("Special Features")
-#if !os(macOS)
-                            .navigationBarTitleDisplayMode(.inline)
-#endif
-                    } label: {
-                        Label("Special Features", systemImage: "sparkle")
-                    }
+                    specialsGroup
                 }
             }
             .formStyle(.grouped)
@@ -185,7 +179,7 @@ struct PhoneDetailView: View {
                 Text("Phone Type")
                 Spacer()
                 Text(phone.phoneTypeText)
-                InfoButton {
+                InfoButton("Phone Type Definitions…") {
                     dialogManager.showingPhoneTypeDefinitions = true
                 }
                 .labelStyle(.iconOnly)
@@ -222,12 +216,12 @@ struct PhoneDetailView: View {
             if phone.isCordless || phone.isPushButtonCorded || phone.basePhoneType > 0 {
                 FormNavigationLink(phone: phone) {
                     BaseDisplayBacklightButtonsView(phone: phone)
-                        .navigationTitle("Disp/B.light/Buttons")
+                        .navigationTitle("Buttons/Disp/B.light")
 #if !os(macOS)
                         .navigationBarTitleDisplayMode(.inline)
 #endif
                 } label: {
-                    Label("Display/Backlight/Buttons", systemImage: "5.square")
+                    Label("Buttons/Display/Backlight", systemImage: "5.square")
                 }
                 if phone.basePhoneType == 0 {
                     FormNavigationLink(phone: phone) {
@@ -251,7 +245,6 @@ struct PhoneDetailView: View {
             }
             }
         }
-        .formStyle(.grouped)
     }
     
     @ViewBuilder
@@ -390,7 +383,22 @@ struct PhoneDetailView: View {
         }
     }
 
+    @ViewBuilder
+    var specialsGroup: some View {
+        FormNavigationLink(phone: phone) {
+            PhoneSpecialFeaturesView(phone: phone)
+                .navigationTitle("Special Features")
+#if !os(macOS)
+                .navigationBarTitleDisplayMode(.inline)
+#endif
+        } label: {
+            Label("Special Features", systemImage: "sparkle")
+        }
+    }
+
 }
+
+// MARK: - Preview
 
 #Preview {
     PhoneDetailView(phone: Phone(brand: "AT&T", model: "CL83207"))

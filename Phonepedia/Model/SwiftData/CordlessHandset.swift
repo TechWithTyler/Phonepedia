@@ -6,11 +6,13 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
-import SwiftUI
+// MARK: - Imports
+
+import SheftAppsStylishUI
 import SwiftData
 
 @Model
-final class CordlessHandset {
+final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatable, CordedReceiverColorManipulatable, KeyColorManipulatable {
 
     // MARK: - Cordless Device Type Enum
 
@@ -23,6 +25,20 @@ final class CordlessHandset {
 
         case headset = "Headset/Speakerphone"
 
+        var plural: String {
+            return "\(rawValue)s"
+        }
+
+    }
+
+    // MARK: - Properties - Mock Handset
+
+    @Transient
+    static var mockHandset: CordlessHandset {
+        let phone = Phone.mockPhone
+        let cordlessHandset = CordlessHandset(brand: Phone.mockBrand, model: CordlessHandset.mockModel, mainColorRed: 0, mainColorGreen: 0, mainColorBlue: 0, secondaryColorRed: 0, secondaryColorGreen: 0, secondaryColorBlue: 0, accentColorRed: 0, accentColorGreen: 0, accentColorBlue: 0)
+        phone.cordlessHandsetsIHave.append(cordlessHandset)
+        return cordlessHandset
     }
 
     // MARK: - Properties - Default Data
@@ -132,6 +148,8 @@ final class CordlessHandset {
 
     var chargeLightColorChargedAlpha: Double = 1
 
+    var earpieceType: Int = 0
+
     var hasChargeLight: Bool = false
 
     var supportsPlaceOnBasePowerBackup: Bool = true
@@ -154,7 +172,11 @@ final class CordlessHandset {
 
 	var displayType: Int = 2
 
+    var displayLocation: Int = 0
+
     var baseSettingsChangeMethod: Int = 0
+
+    var hasAnsweringSystemControls: Bool = false
 
     var desksetDisplayCanTilt: Bool = false
 
@@ -187,6 +209,8 @@ final class CordlessHandset {
     var chargeDuringCall: Int = 0
 
     var hasChargeTone: Bool = false
+
+    var canPowerOff: Bool = false
 
 	var lineButtons: Int = 0
 	
@@ -328,10 +352,22 @@ final class CordlessHandset {
         }
     }
 
+    // The actual number of this cordless device, which is handsetNumber (the index of the cordless device) + 1.
+    @Transient
+    var actualHandsetNumber: Int {
+        return handsetNumber + 1
+    }
+
     // Whether the cordless device is a deskset with a corded receiver.
     @Transient
     var hasCordedReceiver: Bool {
         return cordedReceiverMainColorBinding.wrappedValue != .clear
+    }
+
+    // Whether the cordless device is a handset or corded deskset.
+    @Transient
+    var isHandsetOrCordedDeskset: Bool {
+        return cordlessDeviceType == 0 || hasCordedReceiver
     }
 
     // Whether the cordless device is a deskset with a display.
@@ -388,7 +424,7 @@ final class CordlessHandset {
     @Transient
     var hasPhonebook: Bool {
         guard let phone = phone else { return false }
-        return phonebookCapacity > 0 || (phone.basePhonebookCapacity > 0 && usesBasePhonebook)
+        return (phonebookCapacity > 0 && handsetStyle < 3) || (phone.basePhonebookCapacity > 0 && usesBasePhonebook)
     }
 
     // Whether the cordless device has both a phonebook and a redial list.
@@ -408,148 +444,112 @@ final class CordlessHandset {
     
     @Transient
     var mainColorBinding: Binding<Color> {
-        Binding<Color> { [self] in
-            Color(red: mainColorRed, green: mainColorGreen, blue: mainColorBlue)
-        } set: { [self] newColor in
-            let components = newColor.components
-            mainColorRed = components.red
-            mainColorGreen = components.green
-            mainColorBlue = components.blue
-        }
+        Color.rgbBinding(get: { [self] in (mainColorRed, mainColorGreen, mainColorBlue) }, set: { [self] r, g, b in
+            mainColorRed = r
+            mainColorGreen = g
+            mainColorBlue = b
+        })
     }
     
     @Transient
     var secondaryColorBinding: Binding<Color> {
-        Binding<Color> { [self] in
-            Color(red: secondaryColorRed, green: secondaryColorGreen, blue: secondaryColorBlue)
-        } set: { [self] newColor in
-            let components = newColor.components
-            secondaryColorRed = components.red
-            secondaryColorGreen = components.green
-            secondaryColorBlue = components.blue
-        }
+        Color.rgbBinding(get: { [self] in (secondaryColorRed, secondaryColorGreen, secondaryColorBlue) }, set: { [self] r, g, b in
+            secondaryColorRed = r
+            secondaryColorGreen = g
+            secondaryColorBlue = b
+        })
     }
 
     @Transient
     var accentColorBinding: Binding<Color> {
-        Binding<Color> { [self] in
-            Color(red: accentColorRed, green: accentColorGreen, blue: accentColorBlue)
-        } set: { [self] newColor in
-            let components = newColor.components
-            accentColorRed = components.red
-            accentColorGreen = components.green
-            accentColorBlue = components.blue
-        }
+        Color.rgbBinding(get: { [self] in (accentColorRed, accentColorGreen, accentColorBlue) }, set: { [self] r, g, b in
+            accentColorRed = r
+            accentColorGreen = g
+            accentColorBlue = b
+        })
     }
 
     @Transient
     var chargeLightColorChargingBinding: Binding<Color> {
-        Binding<Color> { [self] in
-            Color(red: chargeLightColorChargingRed, green: chargeLightColorChargingGreen, blue: chargeLightColorChargingBlue)
-        } set: { [self] newValue in
-            let components = newValue.components
-            chargeLightColorChargingRed = components.red
-            chargeLightColorChargingGreen = components.green
-            chargeLightColorChargingBlue = components.blue
-        }
+        Color.rgbBinding(get: { [self] in (chargeLightColorChargingRed, chargeLightColorChargingGreen, chargeLightColorChargingBlue) }, set: { [self] r, g, b in
+            chargeLightColorChargingRed = r
+            chargeLightColorChargingGreen = g
+            chargeLightColorChargingBlue = b
+        })
     }
 
     @Transient
     var chargeLightColorChargedBinding: Binding<Color> {
-        Binding<Color> { [self] in
-            Color(red: chargeLightColorChargedRed, green: chargeLightColorChargedGreen, blue: chargeLightColorChargedBlue, opacity: Double(Int(chargeLightColorChargedAlpha.rounded(.toNearestOrEven))))
-        } set: { [self] newValue in
-            let components = newValue.components
-            chargeLightColorChargedRed = components.red
-            chargeLightColorChargedGreen = components.green
-            chargeLightColorChargedBlue = components.blue
-            chargeLightColorChargedAlpha = Double(Int(components.opacity.rounded(.toNearestOrEven)))
-        }
+        Color.rgbaQuantizedAlphaBinding(get: { [self] in (chargeLightColorChargedRed, chargeLightColorChargedGreen, chargeLightColorChargedBlue, chargeLightColorChargedAlpha) }, set: { [self] r, g, b, a in
+            chargeLightColorChargedRed = r
+            chargeLightColorChargedGreen = g
+            chargeLightColorChargedBlue = b
+            chargeLightColorChargedAlpha = a
+        })
     }
 
     @Transient
     var cordedReceiverMainColorBinding: Binding<Color> {
-        Binding<Color> { [self] in
-            Color(red: cordedReceiverMainColorRed, green: cordedReceiverMainColorGreen, blue: cordedReceiverMainColorBlue, opacity: Double(Int(cordedReceiverMainColorAlpha.rounded(.toNearestOrEven))))
-        } set: { [self] newColor in
-            let components = newColor.components
-            cordedReceiverMainColorRed = components.red
-            cordedReceiverMainColorGreen = components.green
-            cordedReceiverMainColorBlue = components.blue
-            cordedReceiverMainColorAlpha = Double(Int(components.opacity.rounded(.toNearestOrEven)))
-        }
+        Color.rgbaQuantizedAlphaBinding(get: { [self] in (cordedReceiverMainColorRed, cordedReceiverMainColorGreen, cordedReceiverMainColorBlue, cordedReceiverMainColorAlpha) }, set: { [self] r, g, b, a in
+            cordedReceiverMainColorRed = r
+            cordedReceiverMainColorGreen = g
+            cordedReceiverMainColorBlue = b
+            cordedReceiverMainColorAlpha = a
+        })
     }
     
     @Transient
     var cordedReceiverSecondaryColorBinding: Binding<Color> {
-        Binding<Color> { [self] in
-            Color(red: cordedReceiverSecondaryColorRed, green: cordedReceiverSecondaryColorGreen, blue: cordedReceiverSecondaryColorBlue)
-        } set: { [self] newColor in
-            let components = newColor.components
-            cordedReceiverSecondaryColorRed = components.red
-            cordedReceiverSecondaryColorGreen = components.green
-            cordedReceiverSecondaryColorBlue = components.blue
-        }
+        Color.rgbBinding(get: { [self] in (cordedReceiverSecondaryColorRed, cordedReceiverSecondaryColorGreen, cordedReceiverSecondaryColorBlue) }, set: { [self] r, g, b in
+            cordedReceiverSecondaryColorRed = r
+            cordedReceiverSecondaryColorGreen = g
+            cordedReceiverSecondaryColorBlue = b
+        })
     }
 
     @Transient
     var cordedReceiverAccentColorBinding: Binding<Color> {
-        Binding<Color> { [self] in
-            Color(red: cordedReceiverAccentColorRed, green: cordedReceiverAccentColorGreen, blue: cordedReceiverAccentColorBlue)
-        } set: { [self] newColor in
-            let components = newColor.components
-            cordedReceiverAccentColorRed = components.red
-            cordedReceiverAccentColorGreen = components.green
-            cordedReceiverAccentColorBlue = components.blue
-        }
+        Color.rgbBinding(get: { [self] in (cordedReceiverAccentColorRed, cordedReceiverAccentColorGreen, cordedReceiverAccentColorBlue) }, set: { [self] r, g, b in
+            cordedReceiverAccentColorRed = r
+            cordedReceiverAccentColorGreen = g
+            cordedReceiverAccentColorBlue = b
+        })
     }
 
     @Transient
     var displayBacklightColorBinding: Binding<Color> {
-        Binding<Color> { [self] in
-            Color(red: displayBacklightColorRed, green: displayBacklightColorGreen, blue: displayBacklightColorBlue)
-        } set: { [self] newColor in
-            let components = newColor.components
-            displayBacklightColorRed = components.red
-            displayBacklightColorGreen = components.green
-            displayBacklightColorBlue = components.blue
-        }
+        Color.rgbBinding(get: { [self] in (displayBacklightColorRed, displayBacklightColorGreen, displayBacklightColorBlue) }, set: { [self] r, g, b in
+            displayBacklightColorRed = r
+            displayBacklightColorGreen = g
+            displayBacklightColorBlue = b
+        })
     }
     
     @Transient
     var keyBacklightColorBinding: Binding<Color> {
-        Binding<Color> { [self] in
-            Color(red: keyBacklightColorRed, green: keyBacklightColorGreen, blue: keyBacklightColorBlue)
-        } set: { [self] newColor in
-            let components = newColor.components
-            keyBacklightColorRed = components.red
-            keyBacklightColorGreen = components.green
-            keyBacklightColorBlue = components.blue
-        }
+        Color.rgbBinding(get: { [self] in (keyBacklightColorRed, keyBacklightColorGreen, keyBacklightColorBlue) }, set: { [self] r, g, b in
+            keyBacklightColorRed = r
+            keyBacklightColorGreen = g
+            keyBacklightColorBlue = b
+        })
     }
     
     @Transient
     var keyForegroundColorBinding: Binding<Color> {
-        Binding<Color> { [self] in
-            Color(red: keyForegroundColorRed, green: keyForegroundColorGreen, blue: keyForegroundColorBlue)
-        } set: { [self] newColor in
-            let components = newColor.components
-            keyForegroundColorRed = components.red
-            keyForegroundColorGreen = components.green
-            keyForegroundColorBlue = components.blue
-        }
+        Color.rgbBinding(get: { [self] in (keyForegroundColorRed, keyForegroundColorGreen, keyForegroundColorBlue) }, set: { [self] r, g, b in
+            keyForegroundColorRed = r
+            keyForegroundColorGreen = g
+            keyForegroundColorBlue = b
+        })
     }
     
     @Transient
     var keyBackgroundColorBinding: Binding<Color> {
-        Binding<Color> { [self] in
-            Color(red: keyBackgroundColorRed, green: keyBackgroundColorGreen, blue: keyBackgroundColorBlue)
-        } set: { [self] newColor in
-            let components = newColor.components
-            keyBackgroundColorRed = components.red
-            keyBackgroundColorGreen = components.green
-            keyBackgroundColorBlue = components.blue
-        }
+        Color.rgbBinding(get: { [self] in (keyBackgroundColorRed, keyBackgroundColorGreen, keyBackgroundColorBlue) }, set: { [self] r, g, b in
+            keyBackgroundColorRed = r
+            keyBackgroundColorGreen = g
+            keyBackgroundColorBlue = b
+        })
     }
     
     // MARK: - Initialization
@@ -567,72 +567,24 @@ final class CordlessHandset {
         self.accentColorGreen = accentColorGreen
         self.accentColorBlue = accentColorBlue
 	}
-    
+
+    // MARK: - Set Acquisition Year to Release Year
+
+    func setAcquisitionYearToReleaseYear() {
+        acquisitionYear = releaseYear
+    }
+
     // MARK: - Color Methods
-
-    func setSecondaryColorToMain() {
-        let components = mainColorBinding.wrappedValue.components
-        secondaryColorRed = components.red
-        secondaryColorGreen = components.green
-        secondaryColorBlue = components.blue
-    }
-
-    func setCordedReceiverSecondaryColorToMain() {
-        let components = cordedReceiverMainColorBinding.wrappedValue.components
-        cordedReceiverSecondaryColorRed = components.red
-        cordedReceiverSecondaryColorGreen = components.green
-        cordedReceiverSecondaryColorBlue = components.blue
-    }
-
-    // MARK: - Set Accent Color
-
-    func setAccentColorToMain() {
-        let components = mainColorBinding.wrappedValue.components
-        accentColorRed = components.red
-        accentColorGreen = components.green
-        accentColorBlue = components.blue
-    }
-
-    func setAccentColorToSecondary() {
-        let components = secondaryColorBinding.wrappedValue.components
-        accentColorRed = components.red
-        accentColorGreen = components.green
-        accentColorBlue = components.blue
-    }
-
-    func setChargeLightChargedColorToCharging() {
-        let components = chargeLightColorChargingBinding.wrappedValue.components
-        chargeLightColorChargedRed = components.red
-        chargeLightColorChargedGreen = components.green
-        chargeLightColorChargedBlue = components.blue
-        chargeLightColorChargedAlpha = 1
-    }
-
-    func setCordedReceiverAccentColorToMain() {
-        let components = cordedReceiverMainColorBinding.wrappedValue.components
-        cordedReceiverAccentColorRed = components.red
-        cordedReceiverAccentColorGreen = components.green
-        cordedReceiverAccentColorBlue = components.blue
-    }
-
-    func setCordedReceiverAccentColorToSecondary() {
-        let components = cordedReceiverSecondaryColorBinding.wrappedValue.components
-        cordedReceiverAccentColorRed = components.red
-        cordedReceiverAccentColorGreen = components.green
-        cordedReceiverAccentColorBlue = components.blue
-    }
-
-    func swapKeyBackgroundAndForegroundColors() {
-        let previousBackgroundRed = keyBackgroundColorRed
-        let previousBackgroundGreen = keyBackgroundColorGreen
-        let previousBackgroundBlue = keyBackgroundColorBlue
-        keyBackgroundColorRed = keyForegroundColorRed
-        keyBackgroundColorGreen = keyForegroundColorGreen
-        keyBackgroundColorBlue = keyForegroundColorBlue
-        keyForegroundColorRed = previousBackgroundRed
-        keyForegroundColorGreen = previousBackgroundGreen
-        keyForegroundColorBlue = previousBackgroundBlue
-    }
+    
+    // Note: Color manipulation methods are provided by protocol default implementations from SheftAppsStylishUI:
+    // - setSecondaryColorToMain() via BaseColorManipulatable
+    // - setAccentColorToMain() via BaseColorManipulatable
+    // - setAccentColorToSecondary() via BaseColorManipulatable
+    // - setChargeLightChargedColorToCharging() via ChargeLightColorManipulatable
+    // - setCordedReceiverSecondaryColorToMain() via CordedReceiverColorManipulatable
+    // - setCordedReceiverAccentColorToMain() via CordedReceiverColorManipulatable
+    // - setCordedReceiverAccentColorToSecondary() via CordedReceiverColorManipulatable
+    // - swapKeyBackgroundAndForegroundColors() via KeyColorManipulatable
 
     // MARK: - Property Change Handlers
 
@@ -681,6 +633,9 @@ final class CordlessHandset {
             batteryType = 0
             keyFindersSupported = 0
 		}
+        if newValue == 1 {
+            hasSpeakerphone = true
+        }
         if newValue != 1 {
             cordedReceiverMainColorBinding.wrappedValue = .clear
             cordedReceiverSecondaryColorBinding.wrappedValue = .black
@@ -693,20 +648,20 @@ final class CordlessHandset {
 	}
     
     func releaseYearChanged(oldValue: Int, newValue: Int) {
-        if acquisitionYear < newValue {
+        if acquisitionYear < newValue && acquisitionYear != -1 {
             acquisitionYear = releaseYear
         }
         if newValue == 0 && oldValue == -1 {
-            releaseYear = 1965
-        } else if newValue < 1965 {
+            releaseYear = oldestHandsetYear
+        } else if newValue < oldestHandsetYear {
             releaseYear = -1
         }
     }
 
     func acquisitionYearChanged(oldValue: Int, newValue: Int) {
         if newValue == 0 && oldValue == -1 {
-            acquisitionYear = releaseYear
-        } else if newValue < releaseYear {
+            acquisitionYear = releaseYear == -1 ? oldestHandsetYear : releaseYear
+        } else if newValue < releaseYear || newValue < oldestHandsetYear {
             acquisitionYear = -1
         }
     }
@@ -806,14 +761,16 @@ final class CordlessHandset {
         )
         // 2. Give the duplicated handset a new UUID.
         newHandset.id = UUID()
-        // 3. Copy all other properties.
+        // 3. Copy all other persistent properties (those not marked @Transient).
         newHandset.phone = self.phone
+        newHandset.handsetNumber = self.handsetNumber
         newHandset.releaseYear = self.releaseYear
         newHandset.acquisitionYear = self.acquisitionYear
         newHandset.whereAcquired = self.whereAcquired
         newHandset.fitsOnBase = self.fitsOnBase
         newHandset.maxBases = self.maxBases
         newHandset.cordlessDeviceType = self.cordlessDeviceType
+        newHandset.handsetStyle = self.handsetStyle
         newHandset.displayBacklightColorRed = self.displayBacklightColorRed
         newHandset.displayBacklightColorGreen = self.displayBacklightColorGreen
         newHandset.displayBacklightColorBlue = self.displayBacklightColorBlue
@@ -826,27 +783,69 @@ final class CordlessHandset {
         newHandset.cordedReceiverMainColorRed = self.cordedReceiverMainColorRed
         newHandset.cordedReceiverMainColorGreen = self.cordedReceiverMainColorGreen
         newHandset.cordedReceiverMainColorBlue = self.cordedReceiverMainColorBlue
+        newHandset.cordedReceiverMainColorAlpha = self.cordedReceiverMainColorAlpha
         newHandset.cordedReceiverSecondaryColorRed = self.cordedReceiverSecondaryColorRed
         newHandset.cordedReceiverSecondaryColorGreen = self.cordedReceiverSecondaryColorGreen
         newHandset.cordedReceiverSecondaryColorBlue = self.cordedReceiverSecondaryColorBlue
+        newHandset.cordedReceiverAccentColorRed = self.cordedReceiverAccentColorRed
+        newHandset.cordedReceiverAccentColorGreen = self.cordedReceiverAccentColorGreen
+        newHandset.cordedReceiverAccentColorBlue = self.cordedReceiverAccentColorBlue
         newHandset.keyBacklightColorRed = self.keyBacklightColorRed
         newHandset.keyBacklightColorGreen = self.keyBacklightColorGreen
         newHandset.keyBacklightColorBlue = self.keyBacklightColorBlue
+        newHandset.chargeLightColorChargingRed = self.chargeLightColorChargingRed
+        newHandset.chargeLightColorChargingGreen = self.chargeLightColorChargingGreen
+        newHandset.chargeLightColorChargingBlue = self.chargeLightColorChargingBlue
+        newHandset.chargeLightColorChargedRed = self.chargeLightColorChargedRed
+        newHandset.chargeLightColorChargedGreen = self.chargeLightColorChargedGreen
+        newHandset.chargeLightColorChargedBlue = self.chargeLightColorChargedBlue
+        newHandset.chargeLightColorChargedAlpha = self.chargeLightColorChargedAlpha
+        newHandset.earpieceType = self.earpieceType
+        newHandset.hasChargeLight = self.hasChargeLight
+        newHandset.supportsPlaceOnBasePowerBackup = self.supportsPlaceOnBasePowerBackup
+        newHandset.canDialThenPlaceOnBase = self.canDialThenPlaceOnBase
+        newHandset.keyLockWhenPowerReturns = self.keyLockWhenPowerReturns
         newHandset.buttonType = self.buttonType
+        newHandset.ringerVolumeAdjustmentType = self.ringerVolumeAdjustmentType
+        newHandset.supportsRingerOff = self.supportsRingerOff
+        newHandset.clock = self.clock
+        newHandset.supportsTimeBackup = self.supportsTimeBackup
+        newHandset.volumeAdjustmentType = self.volumeAdjustmentType
         newHandset.displayType = self.displayType
+        newHandset.displayLocation = self.displayLocation
+        newHandset.baseSettingsChangeMethod = self.baseSettingsChangeMethod
+        newHandset.hasAnsweringSystemControls = self.hasAnsweringSystemControls
+        newHandset.desksetDisplayCanTilt = self.desksetDisplayCanTilt
+        newHandset.displayMultiEntries = self.displayMultiEntries
+        newHandset.menuMultiItems = self.menuMultiItems
+        newHandset.mainMenuLayout = self.mainMenuLayout
         newHandset.batteryType = self.batteryType
         newHandset.desksetSupportsBackupBatteries = self.desksetSupportsBackupBatteries
+        newHandset.isSlimCordedDeskset = self.isSlimCordedDeskset
+        newHandset.switchHookType = self.switchHookType
+        newHandset.cordedReceiverHookType = self.cordedReceiverHookType
         newHandset.menuUpdateMode = self.menuUpdateMode
         newHandset.hasSpeakerphone = self.hasSpeakerphone
+        newHandset.intercomAutoAnswer = self.intercomAutoAnswer
+        newHandset.hasDirectCommunication = self.hasDirectCommunication
+        newHandset.hasAutoAnswer = self.hasAutoAnswer
+        newHandset.chargeDuringCall = self.chargeDuringCall
+        newHandset.hasChargeTone = self.hasChargeTone
+        newHandset.canPowerOff = self.canPowerOff
         newHandset.lineButtons = self.lineButtons
         newHandset.visualRinger = self.visualRinger
         newHandset.ringtones = self.ringtones
         newHandset.musicRingtones = self.musicRingtones
+        newHandset.hasVibratorMotor = self.hasVibratorMotor
         newHandset.customRingtonesSource = self.customRingtonesSource
         newHandset.intercomRingtone = self.intercomRingtone
+        newHandset.silentMode = self.silentMode
+        newHandset.supportsSilentModeBypass = self.supportsSilentModeBypass
         newHandset.oneTouchDialCapacity = self.oneTouchDialCapacity
+        newHandset.hasOneTouchEmergencyCalling = self.hasOneTouchEmergencyCalling
         newHandset.speedDialCapacity = self.speedDialCapacity
         newHandset.redialCapacity = self.redialCapacity
+        newHandset.busyRedialMode = self.busyRedialMode
         newHandset.softKeys = self.softKeys
         newHandset.standbySoftKeysCustomizable = self.standbySoftKeysCustomizable
         newHandset.navigatorKeyType = self.navigatorKeyType
@@ -854,10 +853,18 @@ final class CordlessHandset {
         newHandset.navigatorKeyStandbyShortcuts = self.navigatorKeyStandbyShortcuts
         newHandset.navigatorKeyCenterButton = self.navigatorKeyCenterButton
         newHandset.sideVolumeButtons = self.sideVolumeButtons
+        newHandset.buttonPressOnChargeBehavior = self.buttonPressOnChargeBehavior
         newHandset.keyBacklightAmount = self.keyBacklightAmount
+        newHandset.keyBacklightLayer = self.keyBacklightLayer
         newHandset.supportsWiredHeadsets = self.supportsWiredHeadsets
         newHandset.answeringSystemMenu = self.answeringSystemMenu
+        newHandset.hasMessageList = self.hasMessageList
+        newHandset.voicemailQuickDial = self.voicemailQuickDial
         newHandset.phonebookCapacity = self.phonebookCapacity
+        newHandset.numbersPerPhonebookEntry = self.numbersPerPhonebookEntry
+        newHandset.supportsPhonebookRingtones = self.supportsPhonebookRingtones
+        newHandset.supportsPhonebookGroups = self.supportsPhonebookGroups
+        newHandset.favoriteEntriesCapacity = self.favoriteEntriesCapacity
         newHandset.callerIDPhonebookMatch = self.callerIDPhonebookMatch
         newHandset.usesBasePhonebook = self.usesBasePhonebook
         newHandset.usesBaseCallerID = self.usesBaseCallerID
@@ -870,7 +877,9 @@ final class CordlessHandset {
         newHandset.callerIDCapacity = self.callerIDCapacity
         newHandset.keyFindersSupported = self.keyFindersSupported
         newHandset.antenna = self.antenna
+        newHandset.alarm = self.alarm
         newHandset.hasTalkingCallerID = self.hasTalkingCallerID
+        newHandset.hasKeypadLock = self.hasKeypadLock
         newHandset.hasTalkingKeypad = self.hasTalkingKeypad
         newHandset.hasTalkingPhonebook = self.hasTalkingPhonebook
         newHandset.audibleLowBatteryAlert = self.audibleLowBatteryAlert
@@ -880,39 +889,6 @@ final class CordlessHandset {
         newHandset.hasSpeakerphoneButtonLight = self.hasSpeakerphoneButtonLight
         newHandset.storageOrSetup = self.storageOrSetup
         newHandset.hasQZ = self.hasQZ
-        newHandset.alarm = self.alarm
-        newHandset.handsetStyle = self.handsetStyle
-        newHandset.keyBacklightLayer = self.keyBacklightLayer
-        newHandset.volumeAdjustmentType = self.volumeAdjustmentType
-        newHandset.ringerVolumeAdjustmentType = self.ringerVolumeAdjustmentType
-        newHandset.supportsRingerOff = self.supportsRingerOff
-        newHandset.hasAutoAnswer = self.hasAutoAnswer
-        newHandset.intercomAutoAnswer = self.intercomAutoAnswer
-        newHandset.chargeDuringCall = self.chargeDuringCall
-        newHandset.hasChargeTone = self.hasChargeTone
-        newHandset.hasDirectCommunication = self.hasDirectCommunication
-        newHandset.displayMultiEntries = self.displayMultiEntries
-        newHandset.menuMultiItems = self.menuMultiItems
-        newHandset.hasMessageList = self.hasMessageList
-        newHandset.favoriteEntriesCapacity = self.favoriteEntriesCapacity
-        newHandset.supportsPhonebookRingtones = self.supportsPhonebookRingtones
-        newHandset.supportsPhonebookGroups = self.supportsPhonebookGroups
-        newHandset.clock = self.clock
-        newHandset.supportsTimeBackup = self.supportsTimeBackup
-        newHandset.chargeLightColorChargingRed = self.chargeLightColorChargingRed
-        newHandset.chargeLightColorChargingGreen = self.chargeLightColorChargingGreen
-        newHandset.chargeLightColorChargingBlue = self.chargeLightColorChargingBlue
-        newHandset.chargeLightColorChargedRed = self.chargeLightColorChargedRed
-        newHandset.chargeLightColorChargedGreen = self.chargeLightColorChargedGreen
-        newHandset.chargeLightColorChargedBlue = self.chargeLightColorChargedBlue
-        newHandset.chargeLightColorChargedAlpha = self.chargeLightColorChargedAlpha
-        newHandset.hasChargeLight = self.hasChargeLight
-        newHandset.supportsPlaceOnBasePowerBackup = self.supportsPlaceOnBasePowerBackup
-        newHandset.keyLockWhenPowerReturns = self.keyLockWhenPowerReturns
-        newHandset.canDialThenPlaceOnBase = self.canDialThenPlaceOnBase
-        newHandset.buttonPressOnChargeBehavior = self.buttonPressOnChargeBehavior
-        newHandset.hasKeypadLock = self.hasKeypadLock
-        newHandset.busyRedialMode = self.busyRedialMode
         // 4. Return the duplicated handset.
         return newHandset
     }

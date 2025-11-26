@@ -6,10 +6,15 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import SheftAppsStylishUI
 
 struct AnsweringSystemMenuInfoView: View {
+
+    // MARK: - Body
+
     var body: some View {
         InfoText("""
 The answering system menu allows you to change settings such as:
@@ -21,7 +26,10 @@ The answering system menu allows you to change settings such as:
 • Message alert: Whether to sound a tone every so often when there are new messages. Handsets may have an option for the indicator light (if it has one) to flash when there are new messages in either the answering system or phone company voicemail.
 """)
     }
+
 }
+
+// MARK: - Preview
 
 #Preview {
     AnsweringSystemMenuInfoView()

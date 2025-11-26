@@ -6,14 +6,20 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import SheftAppsStylishUI
 
 struct DialingCodesView: View {
 
+    // MARK: - Properties - Objects
+
     @Bindable var phone: Phone
 
     @EnvironmentObject var dialogManager: DialogManager
+
+    // MARK: - Body
 
     var body: some View {
         if phone.hasCallerIDList {
@@ -38,11 +44,14 @@ struct DialingCodesView: View {
         }
         Toggle("Can Add PBX Line Access Number", isOn: $phone.supportsAddingOfPBXLineAccessNumber)
         InfoText("If you're using the phone on a PBX (private branch exchange) system which requires dialing one or more digits to access an outside line (called the PBX line access number), storing the line access number allows the phone to automatically dial it before the outside number you dialed. Depending on the PBX, it may be necessary to add one or more pauses after the line access number. On software-based VoIP PBX systems, a line access number typically isn't needed--the system uses the length of the dialed number to determine whether it's an internal call or an outside call.")
-        InfoButton(title: "About Dialing Codes…") {
+        InfoButton("About Dialing Codes…") {
             dialogManager.showingAboutDialingCodes = true
         }
     }
+
 }
+
+// MARK: - Preview
 
 #Preview {
     Form {

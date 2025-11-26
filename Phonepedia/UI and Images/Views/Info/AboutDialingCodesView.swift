@@ -6,6 +6,8 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 
 struct AboutDialingCodesView: View {
@@ -89,6 +91,8 @@ Example scenario: You live in the US and store the international code 011, count
 #endif
     }
 }
+
+// MARK: - Preview
 
 #Preview {
     AboutDialingCodesView()

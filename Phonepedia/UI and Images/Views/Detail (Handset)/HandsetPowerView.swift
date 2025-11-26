@@ -6,17 +6,25 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import SheftAppsStylishUI
 
 struct HandsetPowerView: View {
 
+    // MARK: - Properties - Handset
+
     @Bindable var handset: CordlessHandset
+
+    // MARK: - Body
 
     var body: some View {
         if let phone = handset.phone {
             if handset.cordlessDeviceType == 0 {
-                Section("Charging/Picking Up") {
+                Section("On/Off/Charging/Picking Up") {
+                    Toggle("Can Power Off", isOn: $handset.canPowerOff)
+                    InfoText("Some handsets allow you to turn them off, just like a cell phone. This allows you to save battery or transport the handset powered off without removing the battery/ies. If the handset doesn't turn on when inserting charged batteries and it doesn't have the ability to turn on/off, it can be placed on charge to turn on.")
                     Toggle("Has Charge Light", isOn: $handset.hasChargeLight)
                     if handset.hasChargeLight {
                         ColorPicker("Charge Light Color (Charging)", selection: handset.chargeLightColorChargingBinding, supportsOpacity: false)
@@ -28,13 +36,14 @@ struct HandsetPowerView: View {
                         }
                     }
                     Toggle("Has Auto-Answer", isOn: $handset.hasAutoAnswer)
-                    InfoText("Auto-answer, sometimes called auto talk, allows you to answer calls by simply picking up the handset from charge.")
+                    InfoText("Auto-answer, sometimes called auto talk, allows you to answer calls by simply picking up the handset from charge without having to press any buttons.")
                     Toggle("Has Charge Tone", isOn: $handset.hasChargeTone)
                     InfoText("A charge tone sounds when the handset is placed on charge.")
-                    if handset.hasSpeakerphone && handset.handsetStyle < 2 {
+                    if (handset.hasSpeakerphone || handset.talkOffButtonType == 0) && handset.handsetStyle < 2 {
                         Picker("Charge During Call", selection: $handset.chargeDuringCall) {
                             Text("Auto-Hangup").tag(0)
-                            Text("Switch to Speakerphone").tag(1)
+                            Text(handset.hasSpeakerphone ? "Switch to Speakerphone" : "Stay On Call")
+                            .tag(1)
                         }
                         if handset.bluetoothHeadphonesSupported > 0 {
                             InfoText("During a call with Bluetooth headphones, the call continues on the Bluetooth headphones when placed on charge.")
@@ -85,6 +94,8 @@ struct HandsetPowerView: View {
     }
 
 }
+
+// MARK: - Preview
 
 #Preview {
     HandsetPowerView(handset: CordlessHandset(brand: "Panasonic", model: "KX-TC1723", mainColorRed: 0, mainColorGreen: 0, mainColorBlue: 0, secondaryColorRed: 0, secondaryColorGreen: 0, secondaryColorBlue: 0, accentColorRed: 0, accentColorGreen: 0, accentColorBlue: 0))

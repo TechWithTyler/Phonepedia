@@ -6,11 +6,15 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 
 #if !os(macOS)
 extension CGImagePropertyOrientation {
-    
+
+    // MARK: - Initialization
+
     // Converts a UIImage orientation to a Core Graphics image property orientation. The two orientation types use different raw values.
     init(_ orientation: UIImage.Orientation) {
         switch orientation {
@@ -25,5 +29,6 @@ extension CGImagePropertyOrientation {
             @unknown default: self = .up
         }
     }
+    
 }
 #endif

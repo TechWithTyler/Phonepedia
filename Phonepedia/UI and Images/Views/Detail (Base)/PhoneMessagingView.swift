@@ -6,17 +6,23 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import SheftAppsStylishUI
 
 struct PhoneMessagingView: View {
 
+    // MARK: - Properties - Objects
+
     @EnvironmentObject var dialogManager: DialogManager
 
     @Bindable var phone: Phone
 
+    // MARK: - Body
+
     var body: some View {
-        InfoButton(title: "Answering System vs Voicemail…") {
+        InfoButton("Answering System vs Voicemail…") {
             dialogManager.showingAnsweringSystemVsVoicemail = true
         }
         Section("Answering System") {
@@ -38,13 +44,25 @@ struct PhoneMessagingView: View {
                     Text("Digital").tag(1)
                     Text("Tape Cassette(s)").tag(0)
                 }
-                InfoText("Early answering systems stored messages on a tape cassette. The greeting is stored either on the same cassette as the messages (single-cassette systems), on a separate cassette (dual-cassette systems), or digitally. Storing the greeting on the same cassette as the messages results in a delay between the greeting and the beep, as the system needs to move the tape forward to the end where the message is to be recorded. Some models can count the number of messages on the tape by detecting the beeps on the tape.\nModern answering systems are fully digital, meaning messages are stored on a memory chip. This allows for quicker operation.")
+                InfoText("Early answering systems stored messages on a tape cassette. The greeting is stored either on the same cassette as the messages (single-cassette systems), on a separate cassette (dual-cassette systems), or digitally. Storing the greeting on the same cassette as the messages results in a delay between the greeting and the beep, as the system needs to move the tape forward to the end where the message is to be recorded, then back to the beginning so it's ready to answer another call. Some models can count the number of messages on the tape by detecting the beeps on the tape. Beep detection may not work properly if the beeps on the tape were recorded by a different answering system.\nModern answering systems are fully digital, meaning messages are stored on a memory chip. This allows for quicker operation.")
+                if phone.answeringSystemType == 1 {
+                    Picker("All Message Deletion", selection: $phone.allMessageDeletion) {
+                        if phone.hasAnsweringSystem == 2 {
+                            Text("Not Supported").tag(0)
+                            Divider()
+                        }
+                        Text("All Messages").tag(1)
+                        Text("All Old Messages").tag(2)
+                        Text("When No New").tag(3)
+                    }
+                    InfoText("• All Messages: All messages are deleted.\n• All Old Messages: New messages aren't deleted.\n• When No New: Deleting all old messages is only possible when there are no new messages.")
+                }
                 if phone.isMultiline {
                     Picker("Multi-Line Button Layout", selection: $phone.answeringSystemMultilineButtonLayout) {
                         Text("Separate Buttons").tag(0)
                         Text("Line Selection Button").tag(1)
                     }
-                InfoText("Multi-line phones either have separate play and answer on/off buttons for each line, or one play and answer on/off button as well as a button which selects the line(s) those buttons will use.")
+                    InfoText("Multi-line phones either have separate play and answer on/off buttons for each line, or one play and answer on/off button as well as a button which selects the line(s) those buttons will use.")
                 }
             }
             if phone.hasAnsweringSystem > 0 && phone.baseBluetoothCellPhonesSupported > 0 && phone.answeringSystemType == 1 {
@@ -80,13 +98,13 @@ struct PhoneMessagingView: View {
                 }
             }
             if phone.hasAnsweringSystem > 0 {
-            let exampleName = NameNumberExamples.names.randomElement()!
-            InfoText("The greeting, sometimes called the announcement or outgoing message (OGM), is the message the answering system plays to callers when it answers, before optionally allowing the caller to leave a message.\nExample: \"Hello. You have reached \(exampleName). I'm not available to take your call, so please \(AnsweringSystemGreetingComponents.leaveOrRecord()) \(AnsweringSystemGreetingComponents.aOrYour()) message after the \(AnsweringSystemGreetingComponents.beepOrTone()).\"")
-            ExampleAudioView(audioFile: .answeringSystemGreetingRecordMessage)
+                let exampleName = NameNumberExamples.names.randomElement()!
+                InfoText("The greeting, sometimes called the announcement or outgoing message (OGM), is the message the answering system plays to callers when it answers, before optionally allowing the caller to leave a message.\nExample: \"Hello. You have reached \(exampleName). I'm not available to take your call, so please \(AnsweringSystemGreetingComponents.leaveOrRecord()) \(AnsweringSystemGreetingComponents.aOrYour()) message after the \(AnsweringSystemGreetingComponents.beepOrTone()).\"")
+                ExampleAudioView(audioFile: .answeringSystemGreetingRecordMessage)
                 Toggle("Has Greeting Slots/Scheduled Greetings", isOn: $phone.greetingSlotsAndSchedules)
-                InfoText("Greeting slots allow you to record multiple greetings and switch between them manually or on a schedule. For example, in a business setting, you can record a \"we're open\" greeting to play when the business is open, and a \"we're closed\" greeting to play when the business is closed.")
+                InfoText("Greeting slots allow you to record multiple greetings and switch between them manually or on a schedule. For example, in a business setting, you might record a \"we're open\" greeting to play when the business is open, and a \"we're closed\" greeting to play when the business is closed. If you're away for an extended period (e.g. on vacation), you might record a \"we're away\" greeting in another \"record message\" greeting slot if available.")
                 Toggle("Has Greeting Only Mode", isOn: $phone.hasGreetingOnlyMode)
-                InfoText("Greeting Only, sometimes called Announce Only or Answer Only, answers calls but doesn't accept incoming messages. Some phones allow you to record a separate greeting for both modes, allowing you to easily switch between modes without having to re-record your greeting each time. If the phone has greeting slots, greeting only is one of those slots rather than a dedicated mode.\nExample: \"Hello. You have reached \(exampleName). I'm not available to take your call, so please call again later.\"")
+                InfoText("Greeting Only, sometimes called Announce Only or Answer Only, answers calls but doesn't accept incoming messages. Some phones allow you to record a separate greeting for both modes, allowing you to easily switch between modes without having to re-record your greeting each time. If the phone has greeting slots, greeting only is one of those slots rather than a dedicated mode.\nExample: \"Hello. You have reached \(exampleName). I'm not available to take your call, so please call \(AnsweringSystemGreetingComponents.againOrBack()) later.\"")
                 ExampleAudioView(audioFile: .answeringSystemGreetingAnswerOnly)
                 Picker("Remote Access Code Type", selection: $phone.remoteAccessCodeType) {
                     Text("Fixed (Factory-Selected)").tag(0)
@@ -98,7 +116,13 @@ struct PhoneMessagingView: View {
                     Toggle("Remote Access Code Common to All Lines", isOn: $phone.remoteAccessCodeCommonToAllLines)
                     InfoText("On multi-line phones, the answering system for each line either has a separate fixed remote access code or remote access code setting, or a single remote access code that applies to all lines.")
                 }
-                if phone.baseDisplayType > 3 {
+                Picker("Message Day/Time Stamp", selection: $phone.answeringSystemMessageTimestamp) {
+                    Text("None").tag(0)
+                    Text("Before Message").tag(1)
+                    Text("After Message").tag(2)
+                }
+                InfoText("Messages are \"stamped\" with the day/time (or date/time) they're recorded, which is announced before or after each message. On tape answering systems, the day/time stamp is recorded onto the tape. Example: \"Wednesday, 12:30AM\"")
+                if phone.baseDisplayType > 3 && phone.answeringSystemType == 1 {
                     Toggle("Has Message List", isOn: $phone.hasMessageList)
                     MessageListInfoView()
                 }
@@ -122,11 +146,12 @@ struct PhoneMessagingView: View {
                 }
                 Picker("Call Recording", selection: $phone.hasCallRecording) {
                     Text("Not Supported").tag(0)
+                    Divider()
                     Text("Without Notification").tag(1)
                     Text("Intermittent Beeps").tag(2)
                     Text("Spoken Notification").tag(3)
                 }
-                InfoText("Call recording allows you to record both sides of a phone call as an answering system message. In some areas, it's illegal to record calls without the other party's consent.\n• Without Notification: The caller isn't notified when call recording starts. It is your responsibility to tell the caller that you're recording the call.\n• Intermittent beeps: Both you and the caller hear a beep every 15 seconds or so, indicating call recording is in progress. It is your responsibility to tell the caller that you're recording the call.\n• Spoken Notification: A spoken notification is played to you and the caller (e.g., \"This call is being recorded.\") before recording starts. This takes care of the legal requirement to tell the caller that you're recording the call.")
+                InfoText("Call recording allows you to record both sides of a phone call as an answering system message. Some phones won't record the DTMF tones of numbers you dial during a call (e.g., your voicemail password). In some areas, it's illegal to record calls without the other party's consent.\n• Without Notification: The caller isn't notified when call recording starts. It is your responsibility to tell the caller that you're recording the call.\n• Intermittent beeps: Both you and the caller hear a beep every 15 seconds or so, indicating call recording is in progress. It is your responsibility to tell the caller that you're recording the call.\n• Spoken Notification: A spoken notification is played to you and the caller (e.g., \"This call is being recorded.\") before recording starts. This takes care of the legal requirement to tell the caller that you're recording the call.")
             }
         }
         Section("Voicemail") {
@@ -163,7 +188,9 @@ A phone's voicemail indicator works in one of the following ways:
                 Picker("Voicemail Quick Dial", selection: $phone.voicemailQuickDial) {
                     Text("None").tag(0)
                     Text("Button").tag(1)
-                    Text("Speed Dial 1").tag(2)
+                    if phone.hasBaseKeypad {
+                        Text("Speed Dial 1").tag(2)
+                    }
                     if phone.baseDisplayType > 2 {
                         Text("Message Menu Item").tag(3)
                         Text("Main Menu Item").tag(4)
@@ -181,7 +208,10 @@ A phone's voicemail indicator works in one of the following ways:
             }
         }
     }
+
 }
+
+// MARK: - Preview
 
 #Preview {
     Form {

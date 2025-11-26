@@ -3,8 +3,10 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 3/25/25.
-//  Copyright © 2025 SheftApps. All rights reserved.
+//  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
+
+// MARK: - Imports
 
 import SwiftUI
 
@@ -67,7 +69,10 @@ struct AboutPhoneGradesView: View {
         .frame(minWidth: 550, maxWidth: 550, minHeight: 350, maxHeight: 350)
 #endif
     }
+
 }
+
+// MARK: - Preview
 
 #Preview {
     AboutPhoneGradesView()

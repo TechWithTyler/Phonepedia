@@ -6,6 +6,8 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 
 struct NewPhonesSettingsPageView: View {
@@ -15,6 +17,8 @@ struct NewPhonesSettingsPageView: View {
     @AppStorage(UserDefaults.KeyNames.defaultAnalogPhoneConnectedToSelection) var defaultAnalogPhoneConnectedToSelection: Int = 2
 
     @AppStorage(UserDefaults.KeyNames.defaultAcquisitionMethod) var defaultAcquisitionMethod: Int = 0
+
+    // MARK: - Body
 
     var body: some View {
         Form {
@@ -31,7 +35,10 @@ struct NewPhonesSettingsPageView: View {
         }
         .formStyle(.grouped)
     }
+
 }
+
+// MARK: - Preview
 
 #Preview {
     NewPhonesSettingsPageView()

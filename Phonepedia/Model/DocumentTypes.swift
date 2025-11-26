@@ -6,13 +6,18 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import Foundation
 import UniformTypeIdentifiers
 
 extension UTType {
 
+    // MARK: - Properties - Uniform Types
+
     static var phonepediaCatalog: UTType {
-        UTType(importedAs: "com.tylersheft.PhonepediaDatabase")
+        let typeName = "com.tylersheft.PhonepediaDatabase"
+        return UTType(importedAs: typeName)
     }
 
 }

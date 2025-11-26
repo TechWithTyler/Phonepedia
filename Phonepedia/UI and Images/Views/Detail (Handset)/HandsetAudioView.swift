@@ -6,12 +6,18 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import SheftAppsStylishUI
 
 struct HandsetAudioView: View {
 
+    // MARK: - Properties - Handset
+
     @Bindable var handset: CordlessHandset
+
+    // MARK: - Body
 
     var body: some View {
         if let phone = handset.phone {
@@ -23,7 +29,9 @@ struct HandsetAudioView: View {
                         Text("Volume Buttons").tag(1)
                     }
                 }
+                if handset.cordlessDeviceType == 0 {
                     Toggle("Has Speakerphone", isOn: $handset.hasSpeakerphone)
+                }
                     if handset.hasSpeakerphone {
                         Picker("Speakerphone Button Coloring", selection: $handset.speakerphoneColorLayer) {
                             Text("None").tag(0)
@@ -43,22 +51,14 @@ struct HandsetAudioView: View {
             Section("Headsets") {
                 Toggle("Supports Wired Headsets", isOn: $handset.supportsWiredHeadsets)
                 if handset.handsetStyle < 3 {
-                    Picker("Maximum Number Of Bluetooth Headphones", selection: $handset.bluetoothHeadphonesSupported) {
-                        Text("None").tag(0)
-                        Text("1").tag(1)
-                        Text("2").tag(2)
-                        Text("4").tag(4)
-                    }
+                    CountPicker("Maximum Number of Bluetooth Headphones", selection: $handset.bluetoothHeadphonesSupported, numbers: [1, 2, 4], noneTitle: "None", unlimitedTitle: "Unlimited")
                 }
             }
             if phone.hasIntercom {
                 Section("Intercom") {
                     if handset.hasSpeakerphone || handset.handsetStyle > 2 {
                         Picker("Intercom Auto-Answer", selection: $handset.intercomAutoAnswer) {
-                            Text("Not Supported").tag(0)
-                            Text("With Ring").tag(1)
-                            Text("Without Ring").tag(2)
-                            Text("With or Without Ring").tag(3)
+                            IntercomAutoAnswerPickerItems()
                         }
                         IntercomAutoAnswerInfoView()
                     }
@@ -73,6 +73,8 @@ struct HandsetAudioView: View {
         }
     }
 }
+
+// MARK: - Preview
 
 #Preview {
     Form {

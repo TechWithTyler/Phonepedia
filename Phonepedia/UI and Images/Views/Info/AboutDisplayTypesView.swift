@@ -6,6 +6,8 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 
 struct AboutDisplayTypesView: View {
@@ -66,8 +68,10 @@ struct AboutDisplayTypesView: View {
         .frame(minWidth: 550, maxWidth: 550, minHeight: 350, maxHeight: 350)
 #endif
     }
+
 }
 
+// MARK: - Preview
 
 #Preview {
     AboutDisplayTypesView()

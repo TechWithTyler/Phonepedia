@@ -6,18 +6,28 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
-import SwiftUI
+// MARK: - Imports
+
+import SheftAppsStylishUI
 import SwiftData
 
-// The structure of a SwiftData model class is very simple--a Swift class with @Model before its declaration.
+// The structure of a SwiftData model class is very simple--a Swift class with @Model before its declaration. Any property not marked with @Transient is a persistent property which will be stored to the underlying Core Data persistent store SQLite file. @Model does 2 things: makes this class conform to PersistentModel and Observable, and internally adds @_PersistedProperty to the beginning of persistent properties.
+// A final class is a class that can't be subclassed.
 @Model
-final class Phone {
+final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, CordedReceiverColorManipulatable, KeyColorManipulatable {
+
+    // MARK: - Properties - Mock Phone
+
+    @Transient
+    static let mockPhone: Phone = Phone(brand: Phone.mockBrand, model: Phone.mockModel)
 
     // MARK: - Properties - Default Data
 
+    // Properties marked with the @Transient property wrapper won't persist their values to SwiftData.
     @Transient
     static let mockBrand: String = "Some Brand"
 
+    @Transient
     static let mockModel: String = "M123-2"
 
     // MARK: - Properties - Persistent Data
@@ -131,9 +141,13 @@ final class Phone {
 
     var hasChargeLight: Bool = false
 
+    var cordedReceiverEarpieceType: Int = 0
+
     var baseBackupBatteryType: Int = 0
 
     var locatorButtons: Int = 0
+
+    var locatorButtonLocation: Int = 0
 
     var handsetLocatorUsesIntercom: Bool = false
 
@@ -161,7 +175,11 @@ final class Phone {
 
     var clock: Int = 0
 
+    var callerIDTimeAdjust: Bool = true
+
     var cordedPhoneType: Int = 0
+
+    var isPayphone: Bool = false
 
     var cordedPhoneHasClockRadioAlarm: Bool = false
 
@@ -185,7 +203,7 @@ final class Phone {
 
     var handsetNumberDigitIndex: Int? = 5
 
-    var maxCordlessHandsets: Int = 5
+    var maxCordlessHandsets: Int = defaultMaxCordlessDevices
 
     var supportsRangeExtenders: Bool = false
 
@@ -196,6 +214,8 @@ final class Phone {
     var ecoMode: Int = 0
 
     var frequency: Double = CordlessFrequency.northAmericaDECT6.rawValue
+
+    var baseTransmitThroughPowerLine: Bool = false
 
     var hasNoLineAlert: Bool = false
 
@@ -251,9 +271,13 @@ final class Phone {
 
     var answeringSystemType: Int = 1
 
+    var allMessageDeletion: Int = 0
+
     var remoteAccessCodeType: Int = 2
 
     var remoteAccessCodeCommonToAllLines: Bool = false
+
+    var answeringSystemMessageTimestamp: Int = 2
 
     var hasMessageList: Bool = false
 
@@ -378,6 +402,8 @@ final class Phone {
     var numbersPerPhonebookEntry: Int = 1
 
     var baseFavoriteEntriesCapacity: Int = 0
+
+    var phonebookAudioTags: Bool = false
 
     var baseSupportsPhonebookRingtones: Bool = false
 
@@ -507,17 +533,111 @@ final class Phone {
 
     // MARK: - Properties - Transient (Non-Persistent) Properties
 
+    // Protocol conformance adapters - BaseColorManipulatable requires generic property names
+    @Transient
+    var mainColorRed: Double {
+        get { baseMainColorRed }
+        set { baseMainColorRed = newValue }
+    }
+
+    @Transient
+    var mainColorGreen: Double {
+        get { baseMainColorGreen }
+        set { baseMainColorGreen = newValue }
+    }
+
+    @Transient
+    var mainColorBlue: Double {
+        get { baseMainColorBlue }
+        set { baseMainColorBlue = newValue }
+    }
+
+    @Transient
+    var secondaryColorRed: Double {
+        get { baseSecondaryColorRed }
+        set { baseSecondaryColorRed = newValue }
+    }
+
+    @Transient
+    var secondaryColorGreen: Double {
+        get { baseSecondaryColorGreen }
+        set { baseSecondaryColorGreen = newValue }
+    }
+
+    @Transient
+    var secondaryColorBlue: Double {
+        get { baseSecondaryColorBlue }
+        set { baseSecondaryColorBlue = newValue }
+    }
+
+    @Transient
+    var accentColorRed: Double {
+        get { baseAccentColorRed }
+        set { baseAccentColorRed = newValue }
+    }
+
+    @Transient
+    var accentColorGreen: Double {
+        get { baseAccentColorGreen }
+        set { baseAccentColorGreen = newValue }
+    }
+
+    @Transient
+    var accentColorBlue: Double {
+        get { baseAccentColorBlue }
+        set { baseAccentColorBlue = newValue }
+    }
+
+    // Protocol conformance adapters - KeyColorManipulatable requires generic property names
+    @Transient
+    var keyBackgroundColorRed: Double {
+        get { baseKeyBackgroundColorRed }
+        set { baseKeyBackgroundColorRed = newValue }
+    }
+
+    @Transient
+    var keyBackgroundColorGreen: Double {
+        get { baseKeyBackgroundColorGreen }
+        set { baseKeyBackgroundColorGreen = newValue }
+    }
+
+    @Transient
+    var keyBackgroundColorBlue: Double {
+        get { baseKeyBackgroundColorBlue }
+        set { baseKeyBackgroundColorBlue = newValue }
+    }
+
+    @Transient
+    var keyForegroundColorRed: Double {
+        get { baseKeyForegroundColorRed }
+        set { baseKeyForegroundColorRed = newValue }
+    }
+
+    @Transient
+    var keyForegroundColorGreen: Double {
+        get { baseKeyForegroundColorGreen }
+        set { baseKeyForegroundColorGreen = newValue }
+    }
+
+    @Transient
+    var keyForegroundColorBlue: Double {
+        get { baseKeyForegroundColorBlue }
+        set { baseKeyForegroundColorBlue = newValue }
+    }
+
     // The text to display for the phone's type.
-    // Properties marked with the @Transient property wrapper won't persist their values to SwiftData.
     @Transient
     var phoneTypeText: String {
         if isCordedCordless {
             return PhoneType.cordedCordless.rawValue
         } else if isCordless {
+            let type: String
             if hasTransmitOnlyBase {
-                return PhoneType.cordlessWithTransmitOnlyBase.rawValue
+                type = PhoneType.cordlessWithTransmitOnlyBase.rawValue
+            } else {
+                type = PhoneType.cordless.rawValue
             }
-            return PhoneType.cordless.rawValue
+            return "\(type) (\(cordlessBaseTypeText))"
         } else if basePhoneType == 1 {
             return PhoneType.wiFiHandset.rawValue
         } else if basePhoneType == 2 {
@@ -525,6 +645,28 @@ final class Phone {
         } else {
             return PhoneType.corded.rawValue
         }
+    }
+
+    // The text to display for a cordless phone's base type.
+    @Transient
+    var cordlessBaseTypeText: String {
+        if hasCordedReceiver {
+            return String()
+        } else if hasBaseKeypad {
+            return CordlessBaseType.dialingBase.rawValue
+        } else if hasBaseSpeakerphone {
+            return CordlessBaseType.speakerphoneBase.rawValue
+        } else if hasBaseAccessibleAnsweringSystem {
+            return CordlessBaseType.messagingBase.rawValue
+        } else {
+            return hasTransmitOnlyBase ? CordlessBaseType.hiddenBase.rawValue : CordlessBaseType.locatorBase.rawValue
+        }
+    }
+
+    // The actual number of this phone in the collection, which is phoneNumberInCollection (the index of the phone) + 1.
+    @Transient
+    var actualPhoneNumberInCollection: Int {
+        return phoneNumberInCollection + 1
     }
 
     // Whether the base charges a handset in a lay-down position.
@@ -557,10 +699,16 @@ final class Phone {
         return cordedReceiverMainColorBinding.wrappedValue != .clear
     }
 
-    // Wss a push-button corded phone.
+    // Whether the phone is a push-button corded phone.
     @Transient
     var isPushButtonCorded: Bool {
         return !isCordless && (cordedPhoneType == 0 || cordedPhoneType == 2)
+    }
+
+    // Whether the phone is a corded wall phone.
+    @Transient
+    var isCordedWallPhone: Bool {
+        return !isCordless && hasCordedReceiver && (cordedPhoneType == 2 || cordedPhoneType == 3 || cordedPhoneType == 6 || cordedPhoneType == 7)
     }
 
     // Whether the phone is a slim corded phone.
@@ -600,7 +748,7 @@ final class Phone {
         return cordlessHandsetsIHave.count >= maxCordlessHandsets && maxCordlessHandsets != -1
     }
 
-    // Whether the user has added too many cordless devices to the phone based on how many can be registered to its base.
+    // Whether the user has added too many cordless devices (at least 1 more than maxCordlessHandsets) to the phone based on how many can be registered to its base.
     @Transient
     var tooManyCordlessDevices: Bool {
         return cordlessHandsetsIHave.count > maxCordlessHandsets && maxCordlessHandsets != -1
@@ -658,6 +806,12 @@ final class Phone {
     @Transient
     var isBusinessCordedCordlessSystem: Bool {
         return isCordedCordless && maxCordlessHandsets >= 8 && numberOfLandlines == 4
+    }
+
+    // Whether the phone has a clock display or answering system message day/time stamp.
+    @Transient
+    var hasClock: Bool {
+        return clock > 0 || !cordlessHandsetsIHave.filter({$0.clock > 0}).isEmpty || (hasAnsweringSystem > 0 && answeringSystemMessageTimestamp > 0)
     }
 
     // Whether the phone has a display to show phone numbers.
@@ -733,162 +887,135 @@ final class Phone {
 
     @Transient
     var baseMainColorBinding: Binding<Color> {
-        Binding<Color> { [self] in
-            Color(red: baseMainColorRed, green: baseMainColorGreen, blue: baseMainColorBlue)
-        } set: { [self] newColor in
-            let components = newColor.components
-            baseMainColorRed = components.red
-            baseMainColorGreen = components.green
-            baseMainColorBlue = components.blue
-        }
+        Color.rgbBinding(get: { [self] in (baseMainColorRed, baseMainColorGreen, baseMainColorBlue) }, set: { [self] r, g, b in
+            baseMainColorRed = r
+            baseMainColorGreen = g
+            baseMainColorBlue = b
+        })
     }
 
     @Transient
     var baseSecondaryColorBinding: Binding<Color> {
-        Binding<Color> { [self] in
-            Color(red: baseSecondaryColorRed, green: baseSecondaryColorGreen, blue: baseSecondaryColorBlue)
-        } set: { [self] newColor in
-            let components = newColor.components
-            baseSecondaryColorRed = components.red
-            baseSecondaryColorGreen = components.green
-            baseSecondaryColorBlue = components.blue
-        }
+        Color.rgbBinding(get: { [self] in (baseSecondaryColorRed, baseSecondaryColorGreen, baseSecondaryColorBlue) }, set: { [self] r, g, b in
+            baseSecondaryColorRed = r
+            baseSecondaryColorGreen = g
+            baseSecondaryColorBlue = b
+        })
     }
 
     @Transient
     var baseAccentColorBinding: Binding<Color> {
-        Binding<Color> { [self] in
-            Color(red: baseAccentColorRed, green: baseAccentColorGreen, blue: baseAccentColorBlue)
-        } set: { [self] newColor in
-            let components = newColor.components
-            baseAccentColorRed = components.red
-            baseAccentColorGreen = components.green
-            baseAccentColorBlue = components.blue
-        }
+        Color.rgbBinding(get: { [self] in (baseAccentColorRed, baseAccentColorGreen, baseAccentColorBlue) }, set: { [self] r, g, b in
+            baseAccentColorRed = r
+            baseAccentColorGreen = g
+            baseAccentColorBlue = b
+        })
     }
 
     @Transient
     var cordedReceiverMainColorBinding: Binding<Color> {
-        Binding<Color> { [self] in
-            Color(red: cordedReceiverMainColorRed, green: cordedReceiverMainColorGreen, blue: cordedReceiverMainColorBlue, opacity: Double(Int(cordedReceiverMainColorAlpha.rounded(.toNearestOrEven))))
-        } set: { [self] newColor in
-            let components = newColor.components
-            cordedReceiverMainColorRed = components.red
-            cordedReceiverMainColorGreen = components.green
-            cordedReceiverMainColorBlue = components.blue
-            cordedReceiverMainColorAlpha = Double(Int(components.opacity.rounded(.toNearestOrEven)))
-        }
+        Color.rgbaQuantizedAlphaBinding(get: { [self] in (cordedReceiverMainColorRed, cordedReceiverMainColorGreen, cordedReceiverMainColorBlue, cordedReceiverMainColorAlpha) }, set: { [self] r, g, b, a in
+            cordedReceiverMainColorRed = r
+            cordedReceiverMainColorGreen = g
+            cordedReceiverMainColorBlue = b
+            cordedReceiverMainColorAlpha = a
+        })
     }
 
     @Transient
     var cordedReceiverSecondaryColorBinding: Binding<Color> {
-        Binding<Color> { [self] in
-            Color(red: cordedReceiverSecondaryColorRed, green: cordedReceiverSecondaryColorGreen, blue: cordedReceiverSecondaryColorBlue)
-        } set: { [self] newColor in
-            let components = newColor.components
-            cordedReceiverSecondaryColorRed = components.red
-            cordedReceiverSecondaryColorGreen = components.green
-            cordedReceiverSecondaryColorBlue = components.blue
-        }
+        Color.rgbBinding(get: { [self] in (cordedReceiverSecondaryColorRed, cordedReceiverSecondaryColorGreen, cordedReceiverSecondaryColorBlue) }, set: { [self] r, g, b in
+            cordedReceiverSecondaryColorRed = r
+            cordedReceiverSecondaryColorGreen = g
+            cordedReceiverSecondaryColorBlue = b
+        })
     }
 
     @Transient
     var cordedReceiverAccentColorBinding: Binding<Color> {
-        Binding<Color> { [self] in
-            Color(red: cordedReceiverAccentColorRed, green: cordedReceiverAccentColorGreen, blue: cordedReceiverAccentColorBlue)
-        } set: { [self] newColor in
-            let components = newColor.components
-            cordedReceiverAccentColorRed = components.red
-            cordedReceiverAccentColorGreen = components.green
-            cordedReceiverAccentColorBlue = components.blue
-        }
+        Color.rgbBinding(get: { [self] in (cordedReceiverAccentColorRed, cordedReceiverAccentColorGreen, cordedReceiverAccentColorBlue) }, set: { [self] r, g, b in
+            cordedReceiverAccentColorRed = r
+            cordedReceiverAccentColorGreen = g
+            cordedReceiverAccentColorBlue = b
+        })
     }
 
     @Transient
     var baseDisplayBacklightColorBinding: Binding<Color> {
-        Binding<Color> { [self] in
-            Color(red: baseDisplayBacklightColorRed, green: baseDisplayBacklightColorGreen, blue: baseDisplayBacklightColorBlue, opacity: baseDisplayBacklightColorAlpha)
-        } set: { [self] newColor in
-            let components = newColor.components
-            baseDisplayBacklightColorRed = components.red
-            baseDisplayBacklightColorGreen = components.green
-            baseDisplayBacklightColorBlue = components.blue
-            baseDisplayBacklightColorAlpha = components.opacity
-        }
+        Color.rgbaBinding(get: { [self] in (baseDisplayBacklightColorRed, baseDisplayBacklightColorGreen, baseDisplayBacklightColorBlue, baseDisplayBacklightColorAlpha) }, set: { [self] r, g, b, a in
+            baseDisplayBacklightColorRed = r
+            baseDisplayBacklightColorGreen = g
+            baseDisplayBacklightColorBlue = b
+            baseDisplayBacklightColorAlpha = a
+        })
     }
 
     @Transient
     var baseKeyBacklightColorBinding: Binding<Color> {
-        Binding<Color> { [self] in
-            Color(red: baseKeyBacklightColorRed, green: baseKeyBacklightColorGreen, blue: baseKeyBacklightColorBlue)
-        } set: { [self] newColor in
-            let components = newColor.components
-            baseKeyBacklightColorRed = components.red
-            baseKeyBacklightColorGreen = components.green
-            baseKeyBacklightColorBlue = components.blue
-        }
+        Color.rgbBinding(get: { [self] in (baseKeyBacklightColorRed, baseKeyBacklightColorGreen, baseKeyBacklightColorBlue) }, set: { [self] r, g, b in
+            baseKeyBacklightColorRed = r
+            baseKeyBacklightColorGreen = g
+            baseKeyBacklightColorBlue = b
+        })
     }
 
     @Transient
     var baseKeyForegroundColorBinding: Binding<Color> {
-        Binding<Color> { [self] in
-            Color(red: baseKeyForegroundColorRed, green: baseKeyForegroundColorGreen, blue: baseKeyForegroundColorBlue)
-        } set: { [self] newColor in
-            let components = newColor.components
-            baseKeyForegroundColorRed = components.red
-            baseKeyForegroundColorGreen = components.green
-            baseKeyForegroundColorBlue = components.blue
-        }
+        Color.rgbBinding(get: { [self] in (baseKeyForegroundColorRed, baseKeyForegroundColorGreen, baseKeyForegroundColorBlue) }, set: { [self] r, g, b in
+            baseKeyForegroundColorRed = r
+            baseKeyForegroundColorGreen = g
+            baseKeyForegroundColorBlue = b
+        })
     }
 
     @Transient
     var chargeLightColorChargingBinding: Binding<Color> {
-        Binding<Color> { [self] in
-            Color(red: chargeLightColorChargingRed, green: chargeLightColorChargingGreen, blue: chargeLightColorChargingBlue)
-        } set: { [self] newValue in
-            let components = newValue.components
-            chargeLightColorChargingRed = components.red
-            chargeLightColorChargingGreen = components.green
-            chargeLightColorChargingBlue = components.blue
-        }
+        Color.rgbBinding(get: { [self] in (chargeLightColorChargingRed, chargeLightColorChargingGreen, chargeLightColorChargingBlue) }, set: { [self] r, g, b in
+            chargeLightColorChargingRed = r
+            chargeLightColorChargingGreen = g
+            chargeLightColorChargingBlue = b
+        })
     }
 
     @Transient
     var chargeLightColorChargedBinding: Binding<Color> {
-        Binding<Color> { [self] in
-            Color(red: chargeLightColorChargedRed, green: chargeLightColorChargedGreen, blue: chargeLightColorChargedBlue, opacity: Double(Int(chargeLightColorChargedAlpha.rounded(.toNearestOrEven))))
-        } set: { [self] newValue in
-            let components = newValue.components
-            chargeLightColorChargedRed = components.red
-            chargeLightColorChargedGreen = components.green
-            chargeLightColorChargedBlue = components.blue
-            chargeLightColorChargedAlpha = Double(Int(components.opacity.rounded(.toNearestOrEven)))
-        }
+        Color.rgbaQuantizedAlphaBinding(get: { [self] in (chargeLightColorChargedRed, chargeLightColorChargedGreen, chargeLightColorChargedBlue, chargeLightColorChargedAlpha) }, set: { [self] r, g, b, a in
+            chargeLightColorChargedRed = r
+            chargeLightColorChargedGreen = g
+            chargeLightColorChargedBlue = b
+            chargeLightColorChargedAlpha = a
+        })
     }
 
     @Transient
     var baseKeyBackgroundColorBinding: Binding<Color> {
-        Binding<Color> { [self] in
-            Color(red: baseKeyBackgroundColorRed, green: baseKeyBackgroundColorGreen, blue: baseKeyBackgroundColorBlue)
-        } set: { [self] newColor in
-            let components = newColor.components
-            baseKeyBackgroundColorRed = components.red
-            baseKeyBackgroundColorGreen = components.green
-            baseKeyBackgroundColorBlue = components.blue
-        }
+        Color.rgbBinding(get: { [self] in (baseKeyBackgroundColorRed, baseKeyBackgroundColorGreen, baseKeyBackgroundColorBlue) }, set: { [self] r, g, b in
+            baseKeyBackgroundColorRed = r
+            baseKeyBackgroundColorGreen = g
+            baseKeyBackgroundColorBlue = b
+        })
     }
 
     @Transient
     var baseLEDMessageCounterColorBinding: Binding<Color> {
-        Binding<Color> { [self] in
-            Color(red: baseLEDMessageCounterColorRed, green: baseLEDMessageCounterColorGreen, blue: baseLEDMessageCounterColorBlue)
-        } set: { [self] newColor in
-            let components = newColor.components
-            baseLEDMessageCounterColorRed = components.red
-            baseLEDMessageCounterColorGreen = components.green
-            baseLEDMessageCounterColorBlue = components.blue
-        }
+        Color.rgbBinding(get: { [self] in (baseLEDMessageCounterColorRed, baseLEDMessageCounterColorGreen, baseLEDMessageCounterColorBlue) }, set: { [self] r, g, b in
+            baseLEDMessageCounterColorRed = r
+            baseLEDMessageCounterColorGreen = g
+            baseLEDMessageCounterColorBlue = b
+        })
     }
+
+    // MARK: - Protocol Conformance Adapters
+
+    // BaseColorManipulatable protocol requires generic property names, but Phone uses "base" prefix
+    @Transient
+    var mainColorBinding: Binding<Color> { baseMainColorBinding }
+    
+    @Transient
+    var secondaryColorBinding: Binding<Color> { baseSecondaryColorBinding }
+    
+    @Transient
+    var accentColorBinding: Binding<Color> { baseAccentColorBinding }
 
     // MARK: - Initialization
 
@@ -897,69 +1024,46 @@ final class Phone {
         self.model = model
     }
 
+    // MARK: - Set Acquisition Year to Release Year
+
+    func setAcquisitionYearToReleaseYear() {
+        acquisitionYear = releaseYear
+    }
+
+    // MARK: - Update All Cordless Devices' Place In Collection
+
+    func updateAllCordlessDevicePlaceInCollection() {
+        for handset in cordlessHandsetsIHave {
+            handset.storageOrSetup = storageOrSetup
+        }
+    }
+
     // MARK: - Color Methods
-
+    
+    // Public wrappers that maintain existing method names for UI compatibility
+    // These delegate to protocol default implementations from SheftAppsStylishUI
+    
     func setBaseSecondaryColorToMain() {
-        let components = baseMainColorBinding.wrappedValue.components
-        baseSecondaryColorRed = components.red
-        baseSecondaryColorGreen = components.green
-        baseSecondaryColorBlue = components.blue
+        setSecondaryColorToMain()
     }
-
+    
     func setBaseAccentColorToMain() {
-        let components = baseMainColorBinding.wrappedValue.components
-        baseAccentColorRed = components.red
-        baseAccentColorGreen = components.green
-        baseAccentColorBlue = components.blue
+        setAccentColorToMain()
     }
-
+    
     func setBaseAccentColorToSecondary() {
-        let components = baseSecondaryColorBinding.wrappedValue.components
-        baseAccentColorRed = components.red
-        baseAccentColorGreen = components.green
-        baseAccentColorBlue = components.blue
+        setAccentColorToSecondary()
     }
-
-    func setChargeLightChargedColorToCharging() {
-        let components = chargeLightColorChargingBinding.wrappedValue.components
-        chargeLightColorChargedRed = components.red
-        chargeLightColorChargedGreen = components.green
-        chargeLightColorChargedBlue = components.blue
-        chargeLightColorChargedAlpha = 1
-    }
-
-    func setCordedReceiverSecondaryColorToMain() {
-        let components = cordedReceiverMainColorBinding.wrappedValue.components
-        cordedReceiverSecondaryColorRed = components.red
-        cordedReceiverSecondaryColorGreen = components.green
-        cordedReceiverSecondaryColorBlue = components.blue
-    }
-
-    func setCordedReceiverAccentColorToMain() {
-        let components = cordedReceiverMainColorBinding.wrappedValue.components
-        cordedReceiverAccentColorRed = components.red
-        cordedReceiverAccentColorGreen = components.green
-        cordedReceiverAccentColorBlue = components.blue
-    }
-
-    func setCordedReceiverAccentColorToSecondary() {
-        let components = cordedReceiverSecondaryColorBinding.wrappedValue.components
-        cordedReceiverAccentColorRed = components.red
-        cordedReceiverAccentColorGreen = components.green
-        cordedReceiverAccentColorBlue = components.blue
-    }
-
-    func swapKeyBackgroundAndForegroundColors() {
-        let previousBackgroundRed = baseKeyBackgroundColorRed
-        let previousBackgroundGreen = baseKeyBackgroundColorGreen
-        let previousBackgroundBlue = baseKeyBackgroundColorBlue
-        baseKeyBackgroundColorRed = baseKeyForegroundColorRed
-        baseKeyBackgroundColorGreen = baseKeyForegroundColorGreen
-        baseKeyBackgroundColorBlue = baseKeyForegroundColorBlue
-        baseKeyForegroundColorRed = previousBackgroundRed
-        baseKeyForegroundColorGreen = previousBackgroundGreen
-        baseKeyForegroundColorBlue = previousBackgroundBlue
-    }
+    
+    // Note: The following methods are provided by protocol default implementations:
+    // - setSecondaryColorToMain() via BaseColorManipulatable
+    // - setAccentColorToMain() via BaseColorManipulatable
+    // - setAccentColorToSecondary() via BaseColorManipulatable
+    // - setChargeLightChargedColorToCharging() via ChargeLightColorManipulatable
+    // - setCordedReceiverSecondaryColorToMain() via CordedReceiverColorManipulatable
+    // - setCordedReceiverAccentColorToMain() via CordedReceiverColorManipulatable
+    // - setCordedReceiverAccentColorToSecondary() via CordedReceiverColorManipulatable
+    // - swapKeyBackgroundAndForegroundColors() via KeyColorManipulatable
 
     // MARK: - Property Change Handlers
 
@@ -994,6 +1098,9 @@ final class Phone {
             hasMessageList = false
         }
         if newValue < 2 {
+            if allMessageDeletion == 0 {
+                allMessageDeletion = 1
+            }
             for handset in cordlessHandsetsIHave {
                 handset.hasMessageList = false
             }
@@ -1063,20 +1170,20 @@ final class Phone {
     }
 
     func releaseYearChanged(oldValue: Int, newValue: Int) {
-        if acquisitionYear < newValue {
+        if acquisitionYear < newValue && acquisitionYear != -1 {
             acquisitionYear = releaseYear
         }
         if newValue == 0 && oldValue == -1 {
-            releaseYear = 1892
-        } else if newValue < 1892 {
+            releaseYear = oldestPhoneYear
+        } else if newValue < oldestPhoneYear {
             releaseYear = -1
         }
     }
 
     func acquisitionYearChanged(oldValue: Int, newValue: Int) {
         if newValue == 0 && oldValue == -1 {
-            acquisitionYear = releaseYear
-        } else if newValue < releaseYear {
+            acquisitionYear = releaseYear == -1 ? oldestPhoneYear : releaseYear
+        } else if newValue < releaseYear || newValue < oldestPhoneYear {
             acquisitionYear = -1
         }
     }
@@ -1092,6 +1199,9 @@ final class Phone {
             hasCellPhoneVoiceControl = false
             supportsAddingOfCellAreaCode = false
             cellCallRejection = 0
+            if bluetoothPhonebookTransfers == 2 {
+                bluetoothPhonebookTransfers = 1
+            }
         }
     }
 
@@ -1292,6 +1402,9 @@ final class Phone {
             baseCellRingtone = 1
         }
         if !newValue {
+            if voicemailQuickDial == 2 {
+                voicemailQuickDial = 0
+            }
             hasQZ = false
             hasKeypadLock = false
         }

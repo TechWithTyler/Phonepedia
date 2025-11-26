@@ -6,6 +6,8 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import Vision
 
@@ -26,7 +28,7 @@ class LandlineOrNotPredictor {
         
     }
 
-    // MARK: - Typealiases
+    // MARK: - Type Aliases
 
 #if os(macOS)
     typealias CrossPlatformImage = NSImage

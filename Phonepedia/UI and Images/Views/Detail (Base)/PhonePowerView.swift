@@ -6,12 +6,18 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import SheftAppsStylishUI
 
 struct PhonePowerView: View {
 
+    // MARK: - Properties - Phone
+
     @Bindable var phone: Phone
+
+    // MARK: - Body
 
     var body: some View {
         Section("Main Power Source") {
@@ -41,7 +47,7 @@ struct PhonePowerView: View {
             if phone.landlineConnectionType < 2 && (phone.isCordless || phone.cordedPowerSource > 1) {
                 Toggle("Uses Single Line + Power Feed", isOn: $phone.usesSingleLinePowerFeed)
                 InfoText("A single line + power feed means the line and power connections are combined into a single cable which plugs into the phone. These kinds of phones often use an RJ45-style jack/cable.\nYou can tell if the phone is analog/digital or VoIP by unplugging it and plugging it back in. If it takes a minute or so to boot up, it's a VoIP phone with PoE. If it boots up immediately, it's an analog/digital phone.")
-                
+
             }
         }
         if phone.isCordless {
@@ -66,7 +72,6 @@ struct PhonePowerView: View {
                 }
                 if phone.cordlessPowerBackupMode == 1 {
                     if phone.baseChargesHandset {
-                        VStack(alignment: .leading) {
                             InfoText("When the power goes out, placing a charged handset on the base can give it power. The base buttons might not work, and features like the answering system and base Bluetooth might not be available while the handset is powering the base, to help conserve handset battery power.\nRemember that when the handset is powering the base, the battery will drain faster than usual, because some of the battery power is being used to power the base. This is especially true if you're using the handset that's powering the base--you may find that the handset powering the base runs out of charge before the other handset(s), or that you can be on a call on the other handset(s) longer than you can on the one powering the base. For this reason, the manuals of such phones often advise you to leave a handset on the base specifically for power, and use the other handset(s), if you have more than one.\nIf using the handset placed on the base, only the speakerphone is available for calls, since holding the phone up to your ear would not only feel uncomfortable (since you'd have to hold it with the handset placed on the base), but the handset could lose connection with the base charging contacts too easily.")
                             Picker("When Power Returns", selection: $phone.cordlessPowerBackupReturnBehavior) {
                                 Text("Reboot/Refresh Handset Menus").tag(0)
@@ -75,7 +80,6 @@ struct PhonePowerView: View {
                             if phone.noHandsetsForPlaceOnBasePowerBackup {
                                 WarningText("To use place-on-base power backup, you must have at least one handset which:\n• Has speakerphone.\n• Fits on the base.\n• Supports place-on-base power backup.")
                             }
-                        }
                     } else {
                         InfoText("When the power goes out, the corded base will work as a line-powered corded phone with basic features, and will often use a piezo speaker for the ringer since it's easier for the ring voltage to power a piezo speaker than the main speaker.")
                     }
@@ -106,7 +110,10 @@ struct PhonePowerView: View {
             }
         }
     }
+
 }
+
+// MARK: - Preview
 
 #Preview {
     Form {

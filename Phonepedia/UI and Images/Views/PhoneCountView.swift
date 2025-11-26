@@ -6,14 +6,18 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 
 struct PhoneCountView: View {
 
     // MARK: - Properties - Phones
 
+    // All phones in the catalog.
     var phones: [Phone]
 
+    // All cordless phones in the catalog.
     var cordlessPhones: [Phone] {
         return phones.filter({ $0.isCordless })
     }
@@ -24,6 +28,7 @@ struct PhoneCountView: View {
 
     // MARK: - Properties - Integers
 
+    // The selected sort order for the brand counts.
     @AppStorage(UserDefaults.KeyNames.brandSortMode) var brandSortMode: Int = 0
 
     // The total number of phones, not counting the individual cordless devices on each cordless phone system.
@@ -46,11 +51,23 @@ struct PhoneCountView: View {
 
     // The total number of corded phones.
     var cordedPhoneCount: Int {
-        let count = phones.filter({ !$0.isCordless }).count
+        let count = phones.filter({ !$0.isCordless && $0.basePhoneType == 0 }).count
         return count
     }
 
-    // The total number of cordless handsets.
+    // The total number of Wi-Fi handsets. Though these look and feel like cordless phones, they're not counted as cordless phones since they're standalone wireless handsets.
+    var wiFiHandsetCount: Int {
+        let count = phones.filter({ !$0.isCordless && $0.basePhoneType == 1 }).count
+        return count
+    }
+
+    // The total number of cellular handsets. Though these look and feel like cordless phones, they're not counted as cordless phones since they're standalone wireless handsets.
+    var cellularHandsetCount: Int {
+        let count = phones.filter({ !$0.isCordless && $0.basePhoneType == 2 }).count
+        return count
+    }
+
+    // The total number of cordless handsets across all phones.
     var handsetCount: Int {
         var totalHandsets = 0
         for phone in cordlessPhones {
@@ -59,7 +76,7 @@ struct PhoneCountView: View {
         return totalHandsets
     }
 
-    // The number of active cordless handsets.
+    // The number of active cordless handsets across all phones.
     var activeCordlessHandsetCount: Int {
         var activeHandsets = 0
         for phone in cordlessPhones {
@@ -68,7 +85,7 @@ struct PhoneCountView: View {
         return activeHandsets
     }
 
-    // The total number of cordless desksets.
+    // The total number of cordless desksets across all phones.
     var desksetCount: Int {
         var totalDesksets = 0
         for phone in cordlessPhones {
@@ -77,7 +94,7 @@ struct PhoneCountView: View {
         return totalDesksets
     }
 
-    // The number of active cordless desksets.
+    // The number of active cordless desksets across all phones.
     var activeCordlessDesksetCount: Int {
         var activeDesksets = 0
         for phone in cordlessPhones {
@@ -86,7 +103,7 @@ struct PhoneCountView: View {
         return activeDesksets
     }
 
-    // The total number of cordless headsets/speakerphones.
+    // The total number of cordless headsets/speakerphones across all phones.
     var headsetCount: Int {
         var totalHeadsets = 0
         for phone in cordlessPhones {
@@ -95,7 +112,7 @@ struct PhoneCountView: View {
         return totalHeadsets
     }
 
-    // The number of active cordless headsets/speakerphones.
+    // The number of active cordless headsets/speakerphones across all phones.
     var activeCordlessHeadsetCount: Int {
         var activeHeadsets = 0
         for phone in cordlessPhones {
@@ -104,17 +121,29 @@ struct PhoneCountView: View {
         return activeHeadsets
     }
 
+    // The total number of phones with answering systems.
+    var withAnsweringSystemsCount: Int {
+        let count = phones.filter({ $0.hasAnsweringSystem > 0 }).count
+        return count
+    }
+
+    // The total number of phones with Bluetooth cell phone linking.
+    var withBluetoothCellPhoneLinkingCount: Int {
+        let count = phones.filter({ $0.baseBluetoothCellPhonesSupported > 0 }).count
+        return count
+    }
+
     // MARK: - Properties - Strings
 
-    // Brands of phones.
+    // Brands of phones. Unlike the allBrands property in PhoneListView, this property is an array so a brand can exist more than once to count them.
     var brands: [String] {
-        // 1. Create a dictionary to count the number of phones for each brand.
+        // 1. Create a dictionary to count the number of phones for each brand. This is only used for sorting--the counts themselves aren't returned here.
         var brandCounts: [String: Int] = [:]
         // 2. Loop through each phone in the phones array and count the occurrences of each brand.
         for phone in phones {
             brandCounts[phone.brand, default: 0] += 1
         }
-        // 3. Sort based on the selected sort mode. Brands will be sorted alphabetically if sorting by name (brandSortMode is 0), or numerically in descending order if sorting by count (brandSortMode is 1). For any counts that are tied, sort those brands alphabetically.
+        // 3. Sort based on the selected sort mode. Brands will be sorted alphabetically if sorting by name (brandSortMode is 0), or numerically in descending order if sorting by count (brandSortMode is 1). For any counts that are tied (i.e. 2 or more brands with the same count), sort those brands alphabetically. In the brandCounts dictionary, the key is the brand and the value is the number of phones of that brand.
         if brandSortMode == 0 {
             // Sort alphabetically by brand name.
             return brandCounts.keys.sorted(by: <)
@@ -129,17 +158,7 @@ struct PhoneCountView: View {
         }
     }
 
-    // The total number of phones with answering systems.
-    var withAnsweringSystemsCount: Int {
-        let count = phones.filter({ $0.hasAnsweringSystem > 0 }).count
-        return count
-    }
-
-    // The total number of phones with answering systems.
-    var withBluetoothCellPhoneLinkingCount: Int {
-        let count = phones.filter({ $0.baseBluetoothCellPhonesSupported > 0 }).count
-        return count
-    }
+    // MARK: - Body
 
     var body: some View {
         NavigationStack {
@@ -175,6 +194,24 @@ struct PhoneCountView: View {
                             .multilineTextAlignment(.leading)
                         Spacer()
                         Text(cordedPhoneCount, format: .number)
+                            .foregroundStyle(.secondary)
+                            .multilineTextAlignment(.trailing)
+                    }
+                    HStack {
+                        Text("Wi-Fi Handsets")
+                            .foregroundStyle(.primary)
+                            .multilineTextAlignment(.leading)
+                        Spacer()
+                        Text(wiFiHandsetCount, format: .number)
+                            .foregroundStyle(.secondary)
+                            .multilineTextAlignment(.trailing)
+                    }
+                    HStack {
+                        Text("Cellular Handsets")
+                            .foregroundStyle(.primary)
+                            .multilineTextAlignment(.leading)
+                        Spacer()
+                        Text(cellularHandsetCount, format: .number)
                             .foregroundStyle(.secondary)
                             .multilineTextAlignment(.trailing)
                     }
@@ -284,14 +321,21 @@ struct PhoneCountView: View {
                             Text("\(brand) Phones")
                                 .foregroundStyle(.primary)
                                 .multilineTextAlignment(.leading)
+                                .onTapGesture {
+                                    brandSortMode = 0
+                                }
                             Spacer()
-                            Text(phones.filter({$0.brand == brand}).count, format: .number)
+                            Text(numberOfPhones(of: brand), format: .number)
                                 .foregroundStyle(.secondary)
                                 .multilineTextAlignment(.trailing)
+                                .onTapGesture {
+                                    brandSortMode = 1
+                                }
                         }
                     }
                 }
             }
+            .animation(.linear, value: brandSortMode)
             .navigationTitle("Phone Count")
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
@@ -307,6 +351,8 @@ struct PhoneCountView: View {
 #endif
     }
 
+    // MARK: - "Excluding Handsets" Text
+
     @ViewBuilder
     var excludingHandsetsText: some View {
         Text("Excluding individual handsets")
@@ -314,7 +360,17 @@ struct PhoneCountView: View {
             .font(.footnote)
     }
 
+    // MARK: - Number of Phones Of Brand
+
+    // This method returns the number of phones of brand. The brands array stores only the brand names--the number of phones of each brand is determined here based on how many instances of brand are in the array.
+    func numberOfPhones(of brand: String) -> Int {
+        let allPhonesOfBrand = phones.filter({$0.brand == brand})
+        return allPhonesOfBrand.count
+    }
+
 }
+
+// MARK: - Preview
 
 #Preview {
     PhoneCountView(phones: [Phone(brand: "Panasonic", model: "KX-TG9582")])

@@ -6,26 +6,22 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import SheftAppsStylishUI
 
 struct ChargerDetailView: View {
 
-    // MARK: - Properties - Charger
+    // MARK: - Properties - Objects
 
     @Bindable var charger: CordlessHandsetCharger
+    
+    @EnvironmentObject var dialogManager: DialogManager
 
     // MARK: - Properties - Dismiss Action
 
     @Environment(\.dismiss) var dismiss
-
-    // MARK: - Properties - Dialog Manager
-
-    @EnvironmentObject var dialogManager: DialogManager
-
-    // MARK: - Properties - Integers
-
-    let chargerNumber: Int
 
     // MARK: - Body
 
@@ -40,9 +36,9 @@ struct ChargerDetailView: View {
                             Spacer()
                         }
                     }
-                    Section("Charger \(chargerNumber + 1) Actions") {
+                    Section("Charger \(charger.actualChargerNumber) Actions") {
                         Button {
-                            phone.chargersIHave.insert(charger.duplicate(), at: chargerNumber)
+                            phone.chargersIHave.insert(charger.duplicate(), at: charger.chargerNumber)
                             dismiss()
                         } label: {
                             Label("Duplicate", systemImage: "doc.on.doc")
@@ -100,6 +96,7 @@ struct ChargerDetailView: View {
                             ChargingContactInfoView()
                             Picker("Wall Mounting", selection: $charger.wallMountability) {
                                 Text("Not Supported").tag(0)
+                                Divider()
                                 Text("Holes On Back").tag(1)
                                 Text("Bracket").tag(2)
                             }
@@ -129,8 +126,10 @@ struct ChargerDetailView: View {
 
 }
 
+// MARK: - Preview
+
 #Preview {
     @Previewable @State var charger = CordlessHandsetCharger(mainColorRed: 0, mainColorGreen: 0, mainColorBlue: 0, secondaryColorRed: 0, secondaryColorGreen: 0, secondaryColorBlue: 0, accentColorRed: 0, accentColorGreen: 0, accentColorBlue: 0)
     charger.phone = Phone(brand: "Panasonic", model: "KX-TGF675")
-    return ChargerDetailView(charger: charger, chargerNumber: 1)
+    return ChargerDetailView(charger: charger)
 }

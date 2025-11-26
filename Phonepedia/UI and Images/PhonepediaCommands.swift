@@ -6,10 +6,14 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import SheftAppsStylishUI
 
 struct PhonepediaCommands: Commands {
+
+    // MARK: - Properties - Dialog Manager
 
     @FocusedObject private var dialogManager: DialogManager?
 

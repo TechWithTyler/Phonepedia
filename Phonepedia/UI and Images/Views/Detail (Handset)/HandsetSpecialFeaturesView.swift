@@ -6,12 +6,18 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import SheftAppsStylishUI
 
 struct HandsetSpecialFeaturesView: View {
 
+    // MARK: - Properties - Handset
+
     @Bindable var handset: CordlessHandset
+
+    // MARK: - Body
 
     var body: some View {
         if handset.handsetStyle < 3 {
@@ -23,16 +29,13 @@ struct HandsetSpecialFeaturesView: View {
             InfoText("The handset can be used as an alarm clock by playing a ringtone or voice announcement at the set time(s).")
         }
         if handset.cordlessDeviceType == 0 {
-            Picker("Key Finders Supported", selection: $handset.keyFindersSupported) {
-                Text("None").tag(0)
-                Text("1").tag(1)
-                Text("2").tag(2)
-                Text("4").tag(4)
-            }
+            CountPicker("Key Finders Supported", selection: $handset.keyFindersSupported, numbers: [1, 2, 4], noneTitle: "None")
             InfoText("By registering a key finder to a handset, you can use the handset to find lost items easily. If the handset is registered to a compatible base, key finder registrations can be used by any handset. Handsets in range will access the base's registration information and store it in the handset, while handsets out of range will access the registration information stored in them.")
         }
     }
 }
+
+// MARK: - Preview
 
 #Preview {
     Form {

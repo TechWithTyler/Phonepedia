@@ -6,6 +6,8 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import Foundation
 
 extension Phone {
@@ -20,6 +22,7 @@ extension Phone {
 
         // Older
         case analog1_7MHz = 1.0
+        case analog1_7MHzOver46MHz = 1.46
         case analog30_39MHz = 30.0
         case analog46_49MHz = 46.0
         case analog46_49MHzVoiceScramble = 46.1
@@ -81,6 +84,7 @@ extension Phone {
             case .unknown: return "Unknown"
                 // Older Frequencies
             case .analog1_7MHz: return "1.7MHz Analog"
+            case .analog1_7MHzOver46MHz: return "1.7MHz/46MHz Analog"
             case .analog30_39MHz: return "30-39MHz Analog"
             case .analog46_49MHz: return "46-49MHz Analog"
             case .analog46_49MHzVoiceScramble: return "46-49MHz Voice Scramble"
@@ -464,6 +468,8 @@ extension Phone {
                 return .unknown // Unknown region/unknown default cordless phone frequency for current region
             }
         }
+
+        // MARK: - Properties - Booleans
 
         var isDigital: Bool {
             return (name.contains("Digital") || name.contains("DSS") /*Digital Spread Spectrum*/ || name.contains("FHSS") /*Frequency-Hopping Spread Spectrum, doesn't include digital in the name but is digital*/ || name.contains("DECT") /*Digital Enhanced Cordless Telecommunications*/) && !name.contains("Analog")

@@ -6,24 +6,22 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import SheftAppsStylishUI
 
 struct CellPhoneLinkingView: View {
 
+    // MARK: - Properties - Phone
+
     @Bindable var phone: Phone
+
+    // MARK: - Body
 
     var body: some View {
         Section("Bluetooth Cell Phone Linking") {
-            Picker("Maximum Supported", selection: $phone.baseBluetoothCellPhonesSupported) {
-                Text(phone.basePhonebookCapacity >= phonebookTransferRequiredMaxCapacity ? "Phonebook Transfers Only" : "None").tag(0)
-                Text("1").tag(1)
-                Text("2").tag(2)
-                Text("4").tag(4)
-                Text("5").tag(5)
-                Text("10").tag(10)
-                Text("15").tag(15)
-            }
+            CountPicker("Maximum Supported", selection: $phone.baseBluetoothCellPhonesSupported, numbers: [1, 2, 4, 5, 10, 15], noneTitle: phone.basePhonebookCapacity >= phonebookTransferRequiredMaxCapacity ? "Phonebook Transfers Only" : "None")
             .onChange(of: phone.baseBluetoothCellPhonesSupported) { oldValue, newValue in
                 phone.baseBluetoothCellPhonesSupportedChanged(oldValue: oldValue, newValue: newValue)
             }
@@ -51,16 +49,14 @@ struct CellPhoneLinkingView: View {
             }
         }
         Section("Smartphones/Tablets As Handsets") {
-            Picker("Maximum Supported", selection: $phone.smartphonesAsHandsetsOverWiFi) {
-                Text("None").tag(0)
-                Text("1").tag(1)
-                Text("2").tag(2)
-                Text("4").tag(4)
-            }
+            CountPicker("Maximum Supported", selection: $phone.smartphonesAsHandsetsOverWiFi, numbers: [1, 2, 4], noneTitle: "None")
             InfoText("When a smartphone or tablet is registered to a Wi-Fi-compatible base and both devices are on the same network, the smartphone can be used as a handset, and you can transfer its data to the base or handsets.")
         }
     }
+
 }
+
+// MARK: - Preview
 
 #Preview {
     Form {

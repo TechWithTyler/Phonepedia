@@ -6,9 +6,13 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 
 struct PhoneInCollectionStatusPickerItems: View {
+
+    // MARK: - Body
 
     var body: some View {
         Text("Active (Working)").tag(0)
@@ -21,6 +25,8 @@ struct PhoneInCollectionStatusPickerItems: View {
     }
 
 }
+
+// MARK: - Preview
 
 #Preview {
     PhoneInCollectionStatusPickerItems()

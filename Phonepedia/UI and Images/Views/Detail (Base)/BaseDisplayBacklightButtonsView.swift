@@ -5,14 +5,20 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import SheftAppsStylishUI
 
 struct BaseDisplayBacklightButtonsView: View {
 
+    // MARK: - Properties - Objects
+
     @Bindable var phone: Phone
 
     @EnvironmentObject var dialogManager: DialogManager
+
+    // MARK: - Body
 
     var body: some View {
         Section("Buttons") {
@@ -128,30 +134,30 @@ struct BaseDisplayBacklightButtonsView: View {
                             Text("Date and Time (w/ Year)").tag(4)
                         }
                     }
-                    InfoButton(title: "About Display Types…") {
+                    InfoButton("About Display Types…") {
                         dialogManager.showingAboutDisplayTypes = true
                     }
                     if phone.baseDisplayType >= 5 && phone.hasListsOfEntries {
                         Toggle("Allows Display of Multiple Entries", isOn: $phone.baseDisplayMultiEntries)
                         MultiEntryDisplayInfoView()
                     }
-                    if phone.isCordless && phone.hasListsOfEntries {
+                    if phone.isCordless && phone.hasListsOfEntries && phone.baseDisplayType > 2 {
                         Picker("Base Menu Type", selection: $phone.cordlessBaseMenuType) {
                             Text("None").tag(0)
                             Text("Partial").tag(1)
                             Text("Full").tag(2)
                         }
                         InfoText("None: The base doesn't have a menu. The display is only used for lists and other information.\nPartial: The base has a menu, but it doesn't contain many of the options found in the handset menu, requiring use of the handset to change certain settings.\nFull: The base has a menu that contains most of the options found in the handset menu.")
-                    }
-                    if phone.cordlessBaseMenuType > 0 {
-                        Toggle("Menu Shows Multiple Items", isOn: $phone.baseMenuMultiItems)
-                        if phone.baseDisplayType >= 5 {
-                            if phone.baseMenuMultiItems {
-                                Picker("Main Menu Layout", selection: $phone.baseMainMenuLayout) {
-                                    Text("Single Item").tag(0)
-                                    Text("List").tag(1)
-                                    Text("Carousel").tag(2)
-                                    Text("Grid").tag(3)
+                        if phone.cordlessBaseMenuType > 0 {
+                            Toggle("Menu Shows Multiple Items", isOn: $phone.baseMenuMultiItems)
+                            if phone.baseDisplayType >= 5 {
+                                if phone.baseMenuMultiItems {
+                                    Picker("Main Menu Layout", selection: $phone.baseMainMenuLayout) {
+                                        Text("Single Item").tag(0)
+                                        Text("List").tag(1)
+                                        Text("Carousel").tag(2)
+                                        Text("Grid").tag(3)
+                                    }
                                 }
                             }
                         }
@@ -170,7 +176,7 @@ struct BaseDisplayBacklightButtonsView: View {
                 }
             }
             if phone.baseDisplayType > 2 {
-            Section("Navigation Button/Soft Keys") {
+                Section("Navigation Button/Soft Keys") {
                     Picker("Base Navigation Button Type", selection: $phone.baseNavigatorKeyType) {
                         Text("None").tag(0)
                         Text("Up/Down").tag(1)
@@ -230,7 +236,7 @@ struct BaseDisplayBacklightButtonsView: View {
                         }
                         Toggle("Base Navigation Button Standby Shortcuts", isOn: $phone.baseNavigatorKeyStandbyShortcuts)
                     }
-                    if phone.baseDisplayType > 3 {
+                    if phone.baseDisplayType > 3 && phone.isCordlessOrPushButtonDesk {
                         Stepper("Base Soft Keys (Bottom): \(phone.baseSoftKeysBottom)", value: $phone.baseSoftKeysBottom, in: .zeroToMax(6))
                             .onChange(of: phone.baseSoftKeysBottom) { oldValue, newValue in
                                 phone.baseSoftKeysBottomChanged(oldValue: oldValue, newValue: newValue)
@@ -240,13 +246,16 @@ struct BaseDisplayBacklightButtonsView: View {
                                 phone.baseSoftKeysSideChanged(oldValue: oldValue, newValue: newValue)
                             }
                         SoftKeyExplanationView()
-                        InfoText("Side soft keys are often used for programmable functions or speed dials in standby or one-touch menu selections in menus. For example, in a menu with 5 options, instead of scrolling up or down through the menu and then pressing the select button, you can press the corresponding side soft key. Side soft keys are often seen on business-grade phones, especially those used on a system with multiple lines and/or extensions.")
+                        InfoText("Side soft keys are often used for programmable functions or speed dials in standby or one-touch menu selections in menus. For example, in a menu with 5 options, instead of scrolling up or down through the menu and then pressing the select button, you can press the corresponding side soft key. Side soft keys are often seen on business-grade phones, especially those used on a PBX system with multiple lines and/or extensions.")
                     }
                 }
             }
         }
     }
+
 }
+
+// MARK: - Preview
 
 #Preview {
     Form {

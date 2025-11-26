@@ -6,6 +6,8 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import SheftAppsStylishUI
 
@@ -15,9 +17,7 @@ struct PhoneButtonLegendItem: View {
 
     enum PhoneButtonDescription: String {
 
-        case talk
-
-        case home
+        case talk, home
 
         case cell
 
@@ -127,7 +127,7 @@ struct PhoneButtonLegendItem: View {
         }
     }
 
-    // MARK: - Talk Button
+    // MARK: - Talk/Home Button
 
     @ViewBuilder
     var talkButton: some View {

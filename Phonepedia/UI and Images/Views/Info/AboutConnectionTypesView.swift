@@ -6,6 +6,8 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 
 struct AboutConnectionTypesView: View {
@@ -121,6 +123,8 @@ struct AboutConnectionTypesView: View {
 #endif
     }
 }
+
+// MARK: - Preview
 
 #Preview {
     AboutConnectionTypesView()

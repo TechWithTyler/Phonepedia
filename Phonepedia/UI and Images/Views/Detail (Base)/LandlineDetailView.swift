@@ -6,14 +6,20 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import SheftAppsStylishUI
 
 struct LandlineDetailView: View {
 
+    // MARK: - Properties - Objects
+
     @Bindable var phone: Phone
 
     @EnvironmentObject var dialogManager: DialogManager
+
+    // MARK: - Body
 
     var body: some View {
         Picker("Connection Type", selection: $phone.landlineConnectionType) {
@@ -40,7 +46,7 @@ struct LandlineDetailView: View {
             }
         }
         InfoText("Select \"Multiple\" if you alternate between connection types (e.g. a phone line simulator for internal test calls and a VoIP modem for real calls) or each analog line on a multi-line phone is connected to a different one. You can use a phone line switcher for this.")
-        InfoButton(title: "About Connection Types/Devices…") {
+        InfoButton("About Connection Types/Devices…") {
             dialogManager.showingAboutConnectionTypes = true
         }
         if phone.landlineConnectionType < 2 {
@@ -49,7 +55,7 @@ struct LandlineDetailView: View {
         }
         if phone.isCordless || phone.cordedPhoneType == 0 || phone.cordedPhoneType == 1 {
             if phone.landlineConnectionType < 2 {
-                Picker("Number Of Lines", selection: $phone.numberOfLandlines) {
+                Picker("Number of Lines", selection: $phone.numberOfLandlines) {
                     Text("Single-Line").tag(1)
                     Text("2-Line").tag(2)
                     Text("4-Line").tag(4)
@@ -59,7 +65,7 @@ struct LandlineDetailView: View {
                 }
                 InfoText("On a 2- or 4-line phone, you can either plug each line into a separate jack, or use a single jack for 2 lines. For example, to plug a 2-line phone into a single 2-line jack, you would plug into the line 1/2 jack, or to plug into 2 single-line jacks, you would plug into both the line 1 and line 2 jacks. To use the one-jack-for-both-lines method, you need to make sure the phone cord has 4 copper contacts instead of just 2. With some phones, the included line cords are color-coded so you can easily tell which line they're for (e.g. black for line 1 and green for line 2). At least one of the included line cords will have 4 copper contacts--use this one for the one-jack-for-both-lines method.\nMulti-line phones have buttons/soft keys to choose the desired line. Some phones have the ability to select the primary line, which will be used when picking up the phone/going off-hook. This option usually defaults to auto, which means the first line that's not in use (free line) will be selected.")
             } else {
-                FormNumericTextField("Number Of Lines", value: $phone.numberOfLandlines, valueRange: .oneToMax(100), singularSuffix: "line", pluralSuffix: "lines")
+                FormNumericTextField("Number of Lines", value: $phone.numberOfLandlines, valueRange: .oneToMax(100), singularSuffix: "line", pluralSuffix: "lines")
                 InfoText("Business-grade VoIP phones often have support for more than 4 lines. Lines can be registered as extensions on the same VoIP system, or as separate lines/extensions on different VoIP systems.\nOn Ethernet VoIP phones, the number of lines DOES NOT determine how many Ethernet jacks the phone has. A single Ethernet cable connects the phone to the network, and the phone's software determines how many lines it can support. Additional Ethernet jacks, if any, are used to connect additional devices to the same network as the phone.")
             }
         }
@@ -99,7 +105,10 @@ struct LandlineDetailView: View {
             InfoText("When another phone on the same line is in use, the phone will indicate that the line is in use if it has line in use indication, by detecting a drop in line power. If it drops too much (the line isn't connected or too many phones are in use), the no line alert, if available, will be displayed.\nDetecting drops in line power is also what causes automated systems, phones on hold, and some speakerphones to hang up when another phone on the line is picked up.\nThe phone will first detect \"line in use\" before detecting \"no line\", so you may briefly see it indicating \"line in use\" after disconnecting the line (or powering up the phone without a line connected). The status won't change the moment the line power drops, as the phone needs to wait for the line power to stabilize before indicating the proper status.")
         }
     }
+
 }
+
+// MARK: - Preview
 
 #Preview {
     Form {

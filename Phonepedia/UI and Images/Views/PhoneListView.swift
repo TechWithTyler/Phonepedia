@@ -6,30 +6,39 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import SwiftData
 import SheftAppsStylishUI
 
 struct PhoneListView: View {
-    
-    // MARK: - Properties - Objects
-    
-    @Environment(\.modelContext) private var modelContext
 
-    // MARK: - Properties - Dialog Manager
+    // MARK: - Properties - Objects
+
+    // The model context.
+    @Environment(\.modelContext) private var modelContext
 
     @EnvironmentObject var dialogManager: DialogManager
 
     // MARK: - Properties - Strings
 
-    @State var phoneFilterType: String = "all"
+    // The current setting for the type phone filter.
+    @State var phoneFilterType: String = allItemsFilterOptionTag
 
+    // The title of the option which filters the phone list to show only cordless phones.
+    var cordlessPhoneTypeString: String = "Cordless (Incl. Corded/Cordless) Phones"
+
+    // The title of the option which filters the phone list to show only Wi-Fi handsets.
     var wiFiHandsetTypeString: String = Phone.PhoneType.wiFiHandset.rawValue.lowercased()
 
+    // The title of the option which filters the phone list to show only cellular handsets.
     var cellularHandsetTypeString: String = Phone.PhoneType.cellularHandset.rawValue.lowercased()
 
-    @State var phoneFilterBrand: String = "all"
+    // The current setting of the brand phone filter.
+    @State var phoneFilterBrand: String = allItemsFilterOptionTag
 
+    // Brands of phones.
     var allBrands: [String] {
         // 1. Create a set to hold the brands. A Set is similar to an Array but can only hold one instance of an item. For example, the word "cat" can only appear once in a String Set.
         var brands: Set<String> = []
@@ -43,20 +52,34 @@ struct PhoneListView: View {
 
     // MARK: - Properties - Integers
 
+    // The default selection to use for a new phone's "Analog Line Connected To" option.
     @AppStorage(UserDefaults.KeyNames.defaultAnalogPhoneConnectedToSelection) var defaultAnalogPhoneConnectedToSelection: Int = 2
 
+    // The default selection to use for a new phone's "How I Got This" option.
     @AppStorage(UserDefaults.KeyNames.defaultAcquisitionMethod) var defaultAcquisitionMethod: Int = 2
 
+    // The current setting for the active status phone filter.
     @State var phoneFilterActive: Int = 0
 
+    // The current setting for the answering system phone filter.
     @State var phoneFilterAnsweringSystem: Int = 0
+
+    // The current setting for the cordless device number phone filter.
+    @State var phoneFilterNumberCordlessDevices: Int = 0
 
     // MARK: - Properties - Booleans
 
+    // Whether one or more phone filters are enabled.
     var phoneFilterEnabled: Bool {
-        return phoneFilterType != "all" || phoneFilterActive != 0 || phoneFilterBrand != "all" || phoneFilterAnsweringSystem != 0
+        return phoneFilterType != allItemsFilterOptionTag || phoneFilterActive != 0 || phoneFilterBrand != allItemsFilterOptionTag || phoneFilterNumberCordlessDevices != 0 || phoneFilterAnsweringSystem != 0
     }
 
+    // Whether the selected type phone filter isn't a cordless phone.
+    var phoneFilterTypeNotCordless: Bool {
+        return phoneFilterType != cordlessPhoneTypeString && phoneFilterType != allItemsFilterOptionTag
+    }
+
+    // Whether the selected type phone filter isn't a Wi-Fi or cellular handset.
     var phoneFilterTypeNotStandaloneWirelessHandsets: Bool {
         return phoneFilterType != wiFiHandsetTypeString && phoneFilterType != cellularHandsetTypeString
     }
@@ -65,22 +88,27 @@ struct PhoneListView: View {
 
     var phones: [Phone]
 
+    // All cordless and corded/cordless phones.
     var cordlessPhones: [Phone] {
         return phones.filter { $0.isCordless || $0.isCordedCordless }
     }
 
+    // All corded phones.
     var cordedPhones: [Phone] {
         return phones.filter { $0.numberOfIncludedCordlessHandsets == 0 && $0.basePhoneType == 0 }
     }
 
+    // All Wi-Fi handsets.
     var wiFiHandsets: [Phone] {
         return phones.filter { $0.basePhoneType == 1 }
     }
 
+    // All cellular handsets.
     var cellularHandsets: [Phone] {
         return phones.filter { $0.basePhoneType == 2 }
     }
 
+    // All phones filtered by type.
     var typeFilteredPhones: [Phone] {
         switch phoneFilterType {
         case Phone.PhoneType.cordless.rawValue.lowercased(): return cordlessPhones
@@ -91,6 +119,7 @@ struct PhoneListView: View {
         }
     }
 
+    // All phones filtered by type, then active status.
     var activeFilteredPhones: [Phone] {
         switch phoneFilterActive {
         case 1: return typeFilteredPhones.filter { $0.storageOrSetup <= 1 }
@@ -99,24 +128,36 @@ struct PhoneListView: View {
         }
     }
 
+    // All phones filtered by type, active status, then brand.
     var brandFilteredPhones: [Phone] {
         switch phoneFilterBrand {
-        case "all": return activeFilteredPhones
+        case allItemsFilterOptionTag: return activeFilteredPhones
         default: return activeFilteredPhones.filter { $0.brand == phoneFilterBrand }
         }
     }
 
-    var answeringSystemFilteredPhones: [Phone] {
-        guard phoneFilterTypeNotStandaloneWirelessHandsets else {
+    // All phones filtered by type, active status, brand, then number of included cordless devices.
+    var cordlessDeviceNumberFilteredPhones: [Phone] {
+        if phoneFilterNumberCordlessDevices == 0 || phoneFilterTypeNotCordless {
             return brandFilteredPhones
-        }
-        switch phoneFilterAnsweringSystem {
-        case 1: return brandFilteredPhones.filter { $0.hasAnsweringSystem > 0 }
-        case 2: return brandFilteredPhones.filter { $0.hasAnsweringSystem == 0 }
-        default: return brandFilteredPhones
+        } else {
+            return brandFilteredPhones.filter({$0.numberOfIncludedCordlessHandsets == phoneFilterNumberCordlessDevices})
         }
     }
 
+    // All phones filtered by type, active status, brand, number of included cordless devices, then whether they have answering systems.
+    var answeringSystemFilteredPhones: [Phone] {
+        guard phoneFilterTypeNotStandaloneWirelessHandsets else {
+            return cordlessDeviceNumberFilteredPhones
+        }
+        switch phoneFilterAnsweringSystem {
+        case 1: return cordlessDeviceNumberFilteredPhones.filter { $0.hasAnsweringSystem > 0 }
+        case 2: return cordlessDeviceNumberFilteredPhones.filter { $0.hasAnsweringSystem == 0 }
+        default: return cordlessDeviceNumberFilteredPhones
+        }
+    }
+
+    // All phones matching the selected filters.
     var filteredPhones: [Phone] {
         return answeringSystemFilteredPhones
     }
@@ -124,7 +165,7 @@ struct PhoneListView: View {
     @Binding var selectedPhone: Phone?
 
     // MARK: - Body
-    
+
     var body: some View {
         ZStack {
             if !filteredPhones.isEmpty {
@@ -134,6 +175,10 @@ struct PhoneListView: View {
                             PhoneRowView(phone: phone)
                         }
                         .contextMenu {
+                            PhonePlaceInCollectionPicker(phone: phone)
+                                .pickerStyle(.menu)
+                                .toggleStyle(.automatic)
+                            Divider()
                             Button(role: .destructive) {
                                 dialogManager.phoneToDelete = phone
                                 dialogManager.showingDeletePhone = true
@@ -141,6 +186,10 @@ struct PhoneListView: View {
                                 Label("Delete…", systemImage: "trash")
                             }
                         }
+                        .onChange(of: phone.storageOrSetup, { oldValue, newValue in
+                            dialogManager.showingUpdateCordlessDevicePlaceInCollection = true
+                            dialogManager.phoneToUpdateCordlessDevicePlaceInCollection = phone
+                        })
                     }
                     .onDelete(perform: deletePhones)
                     .onMove(perform: movePhones)
@@ -171,7 +220,12 @@ struct PhoneListView: View {
         }
         .onChange(of: filteredPhones, { oldValue, newValue in
             if let phone = selectedPhone, !newValue.contains(phone) {
-                    selectedPhone = nil
+                selectedPhone = nil
+            }
+        })
+        .onChange(of: allBrands, { oldValue, newValue in
+            if !newValue.contains(phoneFilterBrand) && phoneFilterBrand != allItemsFilterOptionTag {
+                phoneFilterBrand = allItemsFilterOptionTag
             }
         })
         .alert("Delete this phone?", isPresented: $dialogManager.showingDeletePhone, presenting: dialogManager.phoneToDelete) { phoneToDelete in
@@ -215,13 +269,28 @@ struct PhoneListView: View {
         } message: {
             Text("Please disable all filters and try again.")
         }
+        .alert("Update the place in the collection for all cordless devices as well?", isPresented: $dialogManager.showingUpdateCordlessDevicePlaceInCollection, presenting: dialogManager.phoneToUpdateCordlessDevicePlaceInCollection) { phone in
+            Button {
+                dialogManager.showingUpdateCordlessDevicePlaceInCollection = false
+                phone.updateAllCordlessDevicePlaceInCollection()
+                dialogManager.phoneToUpdateCordlessDevicePlaceInCollection = nil
+            } label: {
+                Text("Update")
+            }
+            Button(role: .cancel) {
+                dialogManager.showingUpdateCordlessDevicePlaceInCollection = false
+                dialogManager.phoneToUpdateCordlessDevicePlaceInCollection = nil
+            } label: {
+                Text("Cancel")
+            }
+        }
         .toolbar {
             toolbarContent
         }
     }
-    
+
     // MARK: - Toolbar
-    
+
     @ToolbarContentBuilder
     var toolbarContent: some ToolbarContent {
         ToolbarItem {
@@ -230,21 +299,21 @@ struct PhoneListView: View {
             }
             .accessibilityIdentifier("AddPhoneButton")
         }
-        #if os(macOS)
+#if os(macOS)
         ToolbarItem {
             filterToolbarItem
         }
-        #else
+#else
         ToolbarItem(placement: .bottomBar) {
             filterToolbarItem
         }
-        #endif
+#endif
         ToolbarItem {
             OptionsMenu(title: .menu) {
                 PhoneTypeDefinitionsButton()
                 Divider()
                 PhoneCountButton()
-                .badge(phones.count)
+                    .badge(phones.count)
                 Menu("Phone List Detail") {
                     PhoneListDetailOptions(menu: true)
                 }
@@ -256,12 +325,12 @@ struct PhoneListView: View {
                 } label: {
                     Label("Delete All…", systemImage: "trash.fill")
                 }
-                #if !os(macOS)
+#if !os(macOS)
                 Divider()
                 Button("Settings…", systemImage: "gear") {
                     dialogManager.showingSettings = true
                 }
-                #endif
+#endif
             }
         }
     }
@@ -269,10 +338,10 @@ struct PhoneListView: View {
     @ViewBuilder
     var filterToolbarItem: some View {
         Menu("Filter", systemImage: phoneFilterEnabled ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle") {
-            Picker("Phone Type (\(phoneFilterType == "all" ? "Off" : "On"))", selection: $phoneFilterType) {
-                Text("All").tag("all")
+            Picker("Phone Type (\(phoneFilterType == allItemsFilterOptionTag ? "Off" : "On"))", selection: $phoneFilterType) {
+                Text("All").tag(allItemsFilterOptionTag)
                 Divider()
-                Text("Cordless (Incl. Corded/Cordless) Phones").tag(Phone.PhoneType.cordless.rawValue.lowercased())
+                Text(cordlessPhoneTypeString).tag(Phone.PhoneType.cordless.rawValue.lowercased())
                 Text("Corded Phones").tag(Phone.PhoneType.corded.rawValue.lowercased())
                 Text("Wi-Fi Handsets").tag(Phone.PhoneType.wiFiHandset.rawValue.lowercased())
                 Text("Cellular Handsets").tag(Phone.PhoneType.cellularHandset.rawValue.lowercased())
@@ -287,8 +356,8 @@ struct PhoneListView: View {
             }
             .pickerStyle(.menu)
             .toggleStyle(.automatic)
-            Picker("Brand (\(phoneFilterBrand == "all" ? "Off" : "On"))", selection: $phoneFilterBrand) {
-                Text("All").tag("all")
+            Picker("Brand (\(phoneFilterBrand == allItemsFilterOptionTag ? "Off" : "On"))", selection: $phoneFilterBrand) {
+                Text("All").tag(allItemsFilterOptionTag)
                 Divider()
                 ForEach(allBrands.sorted(by: <), id: \.self) { brand in
                     Text(brand).tag(brand)
@@ -296,6 +365,17 @@ struct PhoneListView: View {
             }
             .pickerStyle(.menu)
             .toggleStyle(.automatic)
+            if phoneFilterType == allItemsFilterOptionTag || phoneFilterType == Phone.PhoneType.cordless.rawValue.lowercased() {
+                Picker("No. of Incl Cordless Devices (\(phoneFilterNumberCordlessDevices == 0 ? "Off" : "On"))", selection: $phoneFilterNumberCordlessDevices) {
+                    Text("Any").tag(0)
+                    Divider()
+                    ForEach(1..<16) { number in
+                        Text("\(number) \(number == 1 ? "Cordless Device" : "Cordless Devices")").tag(number)
+                    }
+                }
+                .pickerStyle(.menu)
+                .toggleStyle(.automatic)
+            }
             if phoneFilterTypeNotStandaloneWirelessHandsets {
                 Picker("Answering Systems (\(phoneFilterAnsweringSystem == 0 ? "Off" : "On"))", selection: $phoneFilterAnsweringSystem) {
                     Text("Off").tag(0)
@@ -307,7 +387,7 @@ struct PhoneListView: View {
                 .toggleStyle(.automatic)
             }
             Divider()
-            Button("Reset") {
+            Button("Reset", systemImage: "arrow.clockwise") {
                 resetPhoneFilter()
             }
         }
@@ -315,46 +395,87 @@ struct PhoneListView: View {
 
     // MARK: - Reset Phone Filter
 
+    // This method resets the phone filter.
     func resetPhoneFilter() {
-        phoneFilterType = "all"
-        phoneFilterBrand = "all"
+        phoneFilterType = allItemsFilterOptionTag
+        phoneFilterBrand = allItemsFilterOptionTag
         phoneFilterActive = 0
+        phoneFilterNumberCordlessDevices = 0
         phoneFilterAnsweringSystem = 0
     }
 
     // MARK: - Data Management
 
+    // This method creates a new Phone object, sets a few defaults, and inserts it into the model context.
     private func addPhone() {
         withAnimation {
             // 1. Create a new Phone object with a mock brand and model number.
-            let newPhone = Phone(brand: Phone.mockBrand, model: Phone.mockModel)
+            let newPhone = Phone.mockPhone
             // 2. Set the default selections.
             newPhone.landlineConnectedTo = defaultAnalogPhoneConnectedToSelection
             newPhone.whereAcquired = defaultAcquisitionMethod
             newPhone.frequency = Phone.CordlessFrequency.defaultForCurrentRegion.rawValue
-            // A phone's phoneNumberInCoollection property is the index of the phone in the list, and as with any index, it starts at 0. The number of phones in the list before the new phone is added can be used as the phone's index without adding/subtracting 1.
+            // A phone's phoneNumberInCollection property is the index of the phone in the list, and as with any index, it starts at 0. The number of phones in the list before the new phone is added can be used as the phone's index without adding/subtracting 1.
             newPhone.phoneNumberInCollection = phones.count
-            // 3. Insert the new phone into the model context.
+            // 3. Set defaults based on filters.
+            if phoneFilterActive == 2 {
+                newPhone.storageOrSetup = 2
+            }
+            switch phoneFilterType {
+            case Phone.PhoneType.corded.rawValue.lowercased():
+                newPhone.handsetNumberDigitIndex = nil
+                newPhone.handsetNumberDigit = nil
+                newPhone.numberOfIncludedCordlessHandsets = 0
+                newPhone.cordedReceiverMainColorBinding.wrappedValue = .black
+            case Phone.PhoneType.wiFiHandset.rawValue.lowercased():
+                newPhone.handsetNumberDigitIndex = nil
+                newPhone.handsetNumberDigit = nil
+                newPhone.numberOfIncludedCordlessHandsets = 0
+                newPhone.basePhoneType = 1
+            case Phone.PhoneType.cellularHandset.rawValue.lowercased():
+                newPhone.handsetNumberDigitIndex = nil
+                newPhone.handsetNumberDigit = nil
+                newPhone.numberOfIncludedCordlessHandsets = 0
+                newPhone.basePhoneType = 2
+            default:
+                switch phoneFilterNumberCordlessDevices {
+                case 0: newPhone.numberOfIncludedCordlessHandsets = 2
+                default: newPhone.numberOfIncludedCordlessHandsets = phoneFilterNumberCordlessDevices
+                    newPhone.handsetNumberDigitIndex = nil
+                    newPhone.handsetNumberDigit = nil
+                    if newPhone.numberOfIncludedCordlessHandsets > defaultMaxCordlessDevices {
+                        newPhone.maxCordlessHandsets = phoneFilterNumberCordlessDevices
+                    }
+                }
+            }
+            if phoneFilterBrand != allItemsFilterOptionTag {
+                newPhone.brand = phoneFilterBrand
+            }
+            if phoneFilterAnsweringSystem == 1 && phoneFilterTypeNotStandaloneWirelessHandsets {
+                newPhone.hasAnsweringSystem = newPhone.isCordless ? 3 : 1
+            } else if phoneFilterAnsweringSystem == 2 {
+                newPhone.hasAnsweringSystem = 0
+            }
+            // 4. Insert the new phone into the model context.
             modelContext.insert(newPhone)
-            // 4. Disable the phone filter.
-            resetPhoneFilter()
             // 5. Select the new phone.
             selectedPhone = newPhone
         }
     }
 
+    // This method moves the phone being dragged from the current (source) index set to the new (destination) index by creating a copy of the phones array, performing the move on that copy, then setting the phoneNumberInCollection property of the original's phones.
     private func movePhones(source: IndexSet, destination: Int) {
         // 1. If the phone filter is enabled, show an alert and don't continue.
-            guard !phoneFilterEnabled else {
-                dialogManager.showingMoveFailed = true
-                return
-            }
+        guard !phoneFilterEnabled else {
+            dialogManager.showingMoveFailed = true
+            return
+        }
         withAnimation {
             // 2. Create a copy of the phones array pre-move.
             var phonesCopy = phones
             // 3. Perform the move operation on the copy.
             phonesCopy.move(fromOffsets: source, toOffset: destination)
-            // 4. Use the copy's items and their indicies to move the phones in the original array.
+            // 4. Use the copy's items and their indices to move the phones in the original array.
             for (index, phone) in phonesCopy.reversed().enumerated() {
                 if let originalPhone = phones.filter({ $0.id == phone.id}).first {
                     originalPhone.phoneNumberInCollection = index
@@ -363,6 +484,7 @@ struct PhoneListView: View {
         }
     }
 
+    // This method deletes the phone at the given index set.
     private func deletePhones(at offsets: IndexSet) {
         guard let index = offsets.first else { return }
         withAnimation {
@@ -371,8 +493,9 @@ struct PhoneListView: View {
         }
     }
 
+    // This method deletes phone from the model context. A temporary snapshot of the phone to be deleted is created to assist with correcting the phoneNumberInCollection property of phones placed above the deleted one.
     func deletePhone(_ phone: Phone) {
-        // 1. Create a snapshot of the index of the phone to be deleted so phones after the deleted one can be shifted down after deletion.
+        // 1. Create a temporary snapshot of the index of the phone to be deleted so phones after the deleted one can be shifted down after deletion.
         let deletedIndex = phone.phoneNumberInCollection
         // 2. Delete the phone.
         dialogManager.phoneToDelete = nil
@@ -389,6 +512,7 @@ struct PhoneListView: View {
         }
     }
 
+    // This method deletes all phones from the model context.
     func deleteAllPhones() {
         // 1. Clear the phone selection.
         selectedPhone = nil
@@ -401,9 +525,11 @@ struct PhoneListView: View {
         }
     }
 
+    // This method installs the default values for any new data added in app updates. For example, phone numbering was introduced in version 2025.5.
     func installDefaultsForNewData() {
-        // For updates from version 2024.11, set the numbers of each phone/cordless device/charger to the corresponding index.
-        if phones.allSatisfy({ $0.phoneNumberInCollection == 0 }) {
+        // For updates from version 2024.11, set the numbers of each phone/cordless device/charger to the corresponding index. This is done by checking to see if the phoneNumberInCollection property of all phones is 0 (auto-set default for updates from version 2024.11).
+        let allPhonesFirstInCollection = phones.allSatisfy({ $0.phoneNumberInCollection == 0 })
+        if allPhonesFirstInCollection {
             for phone in phones {
                 phone.phoneNumberInCollection = phones.firstIndex(of: phone)!
                 for handset in phone.cordlessHandsetsIHave {
@@ -417,6 +543,8 @@ struct PhoneListView: View {
     }
 
 }
+
+// MARK: - Preview
 
 #Preview {
     @State @Previewable var selectedPhone: Phone?

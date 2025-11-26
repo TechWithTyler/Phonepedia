@@ -6,6 +6,8 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import SheftAppsStylishUI
 
@@ -50,6 +52,9 @@ struct PhoneGeneralView: View {
                 .onChange(of: phone.acquisitionYear) { oldValue, newValue in
                     phone.acquisitionYearChanged(oldValue: oldValue, newValue: newValue)
                 }
+            Button("Set to Release Year") {
+                phone.setAcquisitionYearToReleaseYear()
+            }
             if phone.acquiredInYearOfRelease {
                 HStack {
                     Image(systemName: "sparkle")
@@ -60,16 +65,14 @@ struct PhoneGeneralView: View {
             Picker("How I Got This Phone", selection: $phone.whereAcquired) {
                 AcquisitionMethodPickerItems()
             }
-            Picker("Place In My Collection", selection: $phone.storageOrSetup) {
-                PhoneInCollectionStatusPickerItems()
-            }
+            PhonePlaceInCollectionPicker(phone: phone)
             if phone.landlineConnectionType != 4 && phone.basePhoneType == 0 && !phone.isBusinessCordedCordlessSystem {
                 Picker("Grade", selection: $phone.grade) {
                     Text("1 - Residential/Small Business").tag(0)
                     Text("2 - Hotel").tag(2)
                     Text("3 - Large Business").tag(1)
                 }
-                InfoButton(title: "About Phone Grades…") {
+                InfoButton("About Phone Grades…") {
                     dialogManager.showingAboutPhoneGrades = true
                 }
             }
@@ -110,6 +113,7 @@ struct PhoneGeneralView: View {
                 } message: {
                     Text("This will delete all cordless devices (\(phone.cordlessHandsetsIHave.count)) and chargers \(phone.chargersIHave.count)!")
                 }
+            InfoText("\"Cordless device\" refers to a cordless handset, cordless deskset, cordless headset, or cordless speakerphone.")
             if !phone.isCordless {
                 Picker("Phone Type", selection: $phone.basePhoneType) {
                     Text(Phone.PhoneType.corded.rawValue).tag(0)
@@ -130,7 +134,7 @@ struct PhoneGeneralView: View {
                                 }
                             InfoText("If the phone uses the \"security codes must match\" method where the base doesn't know or care how many cordless handsets are being used with it, set this to -1. Press the button below to learn more about the differences between registration and \"security codes must match\".")
                         }
-                        InfoButton(title: "Registration/Security Code Explanation…") {
+                        InfoButton("Registration/Security Code Explanation…") {
                             dialogManager.showingRegistrationExplanation = true
                         }
                         Picker("Frequency", selection: $phone.frequency) {
@@ -148,7 +152,11 @@ struct PhoneGeneralView: View {
                         if phone.frequency == 0 {
                             WarningText("You may not be able to specify certain features/aspects of this phone without knowing its frequency! Try looking up the wireless frequency and communication technology (whether it's analog or digital) of the \(phone.brand) \(phone.model) and select the correct option above.")
                         }
-                        InfoButton(title: "Frequencies/Communication Technologies Explanation…") {
+                        if phone.frequency == Phone.CordlessFrequency.analog1_7MHz.rawValue || phone.frequency == Phone.CordlessFrequency.analog1_7MHzOver46MHz.rawValue {
+                            Toggle("Base-to-Handset Uses Power Line", isOn: $phone.baseTransmitThroughPowerLine)
+                            InfoText("Some early cordless phones used the building's electrical wiring as the base's transmit antenna, with the actual antenna only used for receive. This design might cause issues on modern electrical systems.")
+                        }
+                        InfoButton("Frequencies/Communication Technologies Explanation…") {
                             dialogManager.showingFrequenciesExplanation = true
                         }
                     }
@@ -162,7 +170,7 @@ struct PhoneGeneralView: View {
                             Text("Reduced Power Only").tag(1)
                             Text("Reduced Power or No Transmit").tag(2)
                         }
-                        InfoText("ECO mode allows transmission power to be reduced to save energy, either for cordless devices that are close to or placed on the base, or for the entire system by manual activation.\nSome phones can stop all transmission when in standby mode. The handset distinguishes between \"base not transmitting\" and \"out of range\" by occasionally sending a signal to the base to wake it up. A wake-up signal is also sent when the handset is picked up from charge or when any button is pressed. If the handset fails to receive an acknowledgment from the base, the handset is considered out of range. Since the handset needs to check for the base more frequently in \"no transmit\" mode, the phone will still occasionally transmit in standby mode and the handset battery life may be reduced.")
+                        InfoText("ECO mode allows transmission power to be reduced to save energy, either for cordless devices that are close to or placed on the base, or for the entire system by manual activation.\nSome phones can stop all transmission when in standby mode. \"No transmit\" mode works in one of the following ways:\n• The handset distinguishes between \"base not transmitting\" and \"out of range\" by occasionally sending a signal to the base to wake it up, and whenever it needs to link to the base. A wake-up signal might also be sent when the handset is picked up from charge or when any button is pressed. If the handset fails to receive an acknowledgment from the base, the handset is considered out of range. Since the handset needs to check for the base more frequently in \"no transmit\" mode, the phone will still occasionally transmit in standby mode and the handset battery life may be reduced.\n• The base stops transmitting and also tells all compatible handsets to stop transmitting. Whenever the base and handsets need to communicate, transmission starts again and the system wakes up. The handset won't be able to detect when it goes out of range until it tries to link to the base, which wakes up its transmitter.")
                     }
                     Picker("Antenna(s)", selection: $phone.antennas) {
                         Text("Hidden").tag(0)
@@ -179,6 +187,7 @@ struct PhoneGeneralView: View {
                             }
                         Picker("Wall Mounting", selection: $phone.wallMountability) {
                             Text("Not Supported").tag(0)
+                            Divider()
                             Text("Holes on Back").tag(1)
                             Text("Optional Bracket").tag(2)
                             Text("Built-In Bracket").tag(3)
@@ -204,7 +213,7 @@ struct PhoneGeneralView: View {
                             Picker("Base Charging Direction", selection: $phone.baseChargingDirection) {
                                 ChargingDirectionPickerItems()
                             }
-                            InfoText("Variations in charging area designs are one of the many ways cordless phones look different from one another.\n\"Lean Back\" means the handset leans back in the charging area but isn't fully flat (\"Lay Down\").\nA reversible handset can charge with the keypad facing either up or down. While there's no benefit to this design with phones without handset displays, the phone may still have this design if the base or handset casing is shared with a model that has a handset display.")
+                            InfoText("Variations in charging area designs are one of the many ways cordless phones look different from one another.\n\"Lean Back\" means the handset leans back in the charging area but isn't fully flat (\"Lay Down\").\nA reversible handset can charge with the keypad facing either up or down. While there's no benefit to this design if the handset doesn't have a display, the phone may still have this design if the base or handset casing is shared with a model that has a handset display.\n\"Corded Phone-Inspired\" means the handset charges face-down and can be placed in either direction (i.e. with the earpiece at the top or bottom for a slim corded-inspired cordless phone or at the left or right for a rotary-inspired cordless phone). The base either has a single set of charging contacts in the center of the charging area, or a set at the top and bottom of the charging area.")
                             if phone.baseChargingDirection == 6 {
                                 InfoText("This charging area design is often seen on phones where the base sits flush with the wall when wall-mounted. When wall-mounted, the face-down lay down position is the only way the handset can charge securely.")
                             }
@@ -217,8 +226,10 @@ struct PhoneGeneralView: View {
                                 }
                                 InfoText("• None: The handset doesn't need an extra hook to stay in place while the base is wall-mounted.\n• Fixed: The base has a hook that slots into a hole on the handset.\n• Flip/Rotate (Face/Back): The base has a hook that can be flipped or rotated so it sticks out when you want to mount the base on the wall, or so it doesn't stick out when you don't want to mount it on the wall.\n• Flip (Top): The hook is located at the top of the charging area and needs to be flipped down to hold the handset in place while the base is wall-mounted, and flipped back up to take the handset off the base.")
                             }
-                            Picker("Base Charge Contact Placement", selection: $phone.baseChargeContactPlacement) {
-                                ChargeContactPlacementPickerItems()
+                            if phone.baseChargeContactType > 8 {
+                                Picker("Base Charge Contact Placement", selection: $phone.baseChargeContactPlacement) {
+                                    ChargeContactPlacementPickerItems()
+                                }
                             }
                             Picker("Base Charge Contact Type", selection: $phone.baseChargeContactType) {
                                 ChargeContactTypePickerItems()
@@ -226,10 +237,10 @@ struct PhoneGeneralView: View {
                             ChargingContactInfoView()
                             Toggle("Base Has Separate Data Contact", isOn: $phone.baseHasSeparateDataContact)
                             InfoText("""
-Most modern cordless phones pass data through the 2 charging contacts for various features including the following. However, many older cordless phones, especially 46-49MHz and 900MHz models, used a separate, 3rd contact for data.
-• Detecting the handset being placed on the base for registration.
-• Detecting the handset being lifted off the base to switch from the base speakerphone to the handset.
-In most cases, if the base has a charge light/display message, the completion of the charge circuit turns it on, but sometimes that's handled by the separate data contact if the phone has one.
+Most modern cordless phones pass data through the 2 charging contacts for various features including the following. However, many older cordless phones, especially 46-49MHz and 900MHz models, used a separate, 3rd contact for these features.
+• Detecting the handset being placed on the base for registration (place-on-base auto-register).
+• Detecting the handset being lifted off the base to switch from the base speakerphone to the handset (pick up to switch).
+In most cases, if the base has a charge light/display message, the completion of the charge circuit turns it on. On many older single-handset cordless phones, this also disables the handset locator button as there's no need to locate a handset you know is right there. Sometimes these are handled by the separate data contact if the phone has one.
 """)
                         }
                     }
@@ -244,11 +255,20 @@ In most cases, if the base has a charge light/display message, the completion of
                             .onChange(of: phone.locatorButtons) { oldValue, newValue in
                                 phone.locatorButtonsChanged(oldValue: oldValue, newValue: newValue)
                             }
-                            InfoText("Handset locator allows you to locate (page) the handset(s) so you can find them. The term \"page\" comes from the fact that this makes the handset beep or ring, just like how pagers beep when they're called.\n• One for All: A single locator button pages or makes an intercom call to all handsets. If the base has a keypad, you can call all handsets or a specific one.\n• One for Each: The base has one locator button for each handset slot. For example, a phone that only expands up to 3 handsets would have 3 handset locator buttons, one for each of the 3 handsets.\nEach HS + All: The base has one locator button for each handset slot, as well as a button to page all handsets.\nSelect + Call Buttons: Press the select button to select the desired handset, then press the call button to call it. This is often seen on phones where the base's physical design is shared between a 2-handset model and a 3-or-more-handset model.")
+                            InfoText("Handset locator allows you to locate (page) the handset(s) so you can find them. The term \"page\" comes from the fact that this makes the handset beep or ring, just like how pagers beep when they're called.\n• One for All: A single locator button pages, or makes an intercom call to, all handsets. If the base has a keypad, you can call all handsets or a specific one.\n• One for Each: The base has one locator button for each handset slot. For example, a phone that only expands up to 3 handsets would have 3 handset locator buttons, one for each of the 3 handsets.\nEach HS + All: The base has one locator button for each handset slot, as well as a button to page all handsets.\nSelect + Call Buttons: Press the select button to select the desired handset, then press the call button to call it. This is often seen on phones where the base's physical design is shared between a 2-handset model and a 3-or-more-handset model.")
                             if phone.locatorButtons == 0 {
                                 Toggle("Handset Locator Uses Intercom", isOn: $phone.handsetLocatorUsesIntercom)
                             }
                             InfoText("Some phones use intercom as the means of locating handsets, even if the base doesn't have intercom. This means that the handset locator and intercom from the base are the same feature, and therefore, the handset may indicate \"call from base\" instead of \"paging\".")
+                        }
+                        if phone.baseChargesHandset {
+                            Picker("Handset Locator Button Location", selection: $phone.locatorButtonLocation) {
+                                Text(phone.cordlessBaseMenuType > 0 && phone.handsetLocatorUsesIntercom ? "Standard/In Menu" : "Standard").tag(0)
+                                Text("Behind Handset").tag(1)
+                                Text("Side of Base").tag(2)
+                                Text("Bottom of Base").tag(3)
+                            }
+                            InfoText("• Standard/In Menu: The handset locator button is with the rest of the base controls, if any. If the base has a menu, it may instead be located there.\n• Behind Handset: The handset locator button is in the handset charging area. You need to remove the handset to access it.\n• Side/Bottom of Base: The handset locator button is on the side of the base.\n• Bottom of Base: The handset locator button is on the bottom of the base. You'll need to flip the base over to access it.")
                         }
                         if !phone.isCordedCordless && !phone.hasTransmitOnlyBase && phone.deregistration > 0 && phone.locatorButtons == 0 {
                             Toggle("Place-On-Base Auto-Register", isOn: $phone.placeOnBaseAutoRegister)
@@ -260,6 +280,7 @@ In most cases, if the base has a charge light/display message, the completion of
                         Picker("Deregistration", selection: $phone.deregistration) {
                             if phone.locatorButtons > 0 {
                                 Text("Not Supported").tag(0)
+                                Divider()
                             }
                             Text("From This Handset").tag(1)
                             Text("One From Any Handset/Base").tag(2)
@@ -269,15 +290,15 @@ In most cases, if the base has a charge light/display message, the completion of
                         .onChange(of: phone.deregistration) { oldValue, newValue in
                             phone.deregistrationChanged(oldValue: oldValue, newValue: newValue)
                         }
-                        InfoText("Deregistration allows the base and handset to delete their registration information, allowing you to make room for new handsets and/or to use a handset on a different base.\n• Not Supported: Handsets can't be deregistered. Depending on the phone, you may be able to register a handset over an unwanted slot, then back to the desired slot, to \"deregister\" the unwanted one.\n • From This Handset: Deregistration can only be done from the handset you want to deregister. The base may have the ability to \"forget\" a handset if it's not available.\n• One From Any Handset/Base: Deregistration can be done from any handset or the base, by selecting the desired one from a list of all registered handsets or by pressing the handset number.\n• Multiple From Any Handset/Base: Deregistration can be done from any handset or the base, and multiple handsets can be deregistered at once. If using a handset and you choose to deregister that one, it will be deregistered after the other handset(s) if any others were selected.\n• All From Base: You can deregister all handsets at once using the base. On most phones with this deregistration method, handsets are removed from the base memory, and handsets will see that they've been deregistered the next time they try to come in range of the base.")
-                        Picker("Handset/Base Renaming", selection: $phone.handsetRenaming) {
+                        InfoText("Deregistration allows the base and handset to delete their registration information, allowing you to make room for new handsets and/or to use a handset on a different base.\n• Not Supported: Handsets can't be deregistered. Depending on the phone, you may be able to register a handset over an unwanted slot, then back to the desired slot, to \"deregister\" the unwanted one.\n• From This Handset: Deregistration can only be done from the handset you want to deregister. The base may have the ability to \"forget\" a handset if it's not available.\n• One From Any Handset/Base: Deregistration can be done from any handset or the base, by selecting the desired one from a list of all registered handsets or by pressing the handset number.\n• Multiple From Any Handset/Base: Deregistration can be done from any handset or the base, and multiple handsets can be deregistered at once. If using a handset and you choose to deregister that one, it will be deregistered after the other handset(s) if any others were selected.\n• All From Base: You can deregister all handsets at once using the base. On most phones with this deregistration method, handsets are removed from the base memory, and handsets will see that they've been deregistered the next time they try to come in range of the base.")
+                        Picker("Cordless Device/Base Renaming", selection: $phone.handsetRenaming) {
                             Text("Not Supported").tag(0)
-                            Text("Handset").tag(1)
+                            Text("Cordless Devices Only").tag(1)
                             if phone.baseDisplayType > 2 {
-                                Text("Handset/Base").tag(2)
+                                Text("Base and Cordless Devices").tag(2)
                             }
                         }
-                        InfoText("Renaming the handset/base makes it easier to find the desired one in a list (e.g., when making intercom calls) and/or so you know where to put it. For example, if you have a handset in your kitchen, living room, and master bedroom, you might give each handset the names \"Kitchen\", \"Living RM\", and \"Bedroom\", respectively.\nIf the handset name shows in handset lists, the name is stored in the base, and the handset either links to the base when showing handset lists or syncs the list from the base.")
+                        InfoText("Renaming a cordless device/base makes it easier to find the desired one in a list (e.g., when making intercom calls) and/or so you know where to put it. For example, if you have a handset in your kitchen, living room, and master bedroom, you might give each handset the names \"Kitchen\", \"Living RM\", and \"Bedroom\", respectively.\nIf the handset name shows in handset lists, the name is stored in the base, and the handset either links to the base when showing handset lists or syncs the list from the base.")
                     }
                 } else {
                     Picker("Style", selection: $phone.cordedPhoneType) {
@@ -301,8 +322,10 @@ In most cases, if the base has a charge light/display message, the completion of
                     .onChange(of: phone.cordedPhoneType) { oldValue, newValue in
                         phone.cordedPhoneTypeChanged(oldValue: oldValue, newValue: newValue)
                     }
-                    InfoButton(title: "About Corded Phone Styles…") {
-                        dialogManager.showingAboutCordedPhoneStyles = true
+                    InfoText("Most push-button phones send tones made up of a low and high frequency, called Dual-Tone Multi-Frequency (DTMF) tones, when numbers are dialed. Most phone services today only support tone dialing, so a pulse-to-tone converter is required if you want to use a rotary phone or pulse-only push-button phone on your line. A pulse-to-tone converter detects the number of pulses and then sends out the corresponding DTMF tone through the line.\nRotary phones use a dial with numbers on it. You place your finger on the desired number and turn it until it stops, hence the phrase \"dialing a number\". When you release the dial, springs and gears return it to its resting position, causing the phone to go on and off-hook very quickly a certain number of times, corresponding to the number you put your finger on. This quick \"on and off-hook\" is called a pulse. Push-button phones can also send pulses instead of tones. For line-powered push-button phones with button lighting, the light will flash with each pulse.\nOn most corded phones, you can quickly press the switch hook to simulate a pulse dial. This is called \"switch hook dialing\".")
+                    if phone.isCordedWallPhone {
+                        Toggle("Is Payphone", isOn: $phone.isPayphone)
+                        InfoText("A payphone is a phone where the caller needs to insert coins for the call to be completed. In the beginning, coins were handled mechanically by the operator. Later payphones would play tones through the line when inserting coins, which tells the provider what kind of coin was inserted. This method wasn't foolproof--you could play the tones through the microphone to trick the provider into thinking you inserted a coin. Today's payphones perform coin detection locally, with prompts like \"Please deposit 5 cents for the next 3 minutes\" stored in the phone itself rather than being played by the provider. Tone detection told the payphone whether to keep or return the coins.\nIf you connect an older payphone to a regular line, the phone works as a regular phone. However, modern payphones which handle coins locally will still work like a payphone.")
                     }
                     if phone.cordedPhoneType == 0 {
                         Toggle("Has Dual Receivers", isOn: $phone.hasDualReceivers)
@@ -322,10 +345,17 @@ In most cases, if the base has a charge light/display message, the completion of
                     if phone.cordedReceiverVolumeAdjustmentType == 0 {
                         WarningText("If the corded receiver volume isn't adjustable and you find it too loud, you'll need to adjust your line's incoming volume. If you can't adjust it, adding a series of resistors between the phone and jack is recommended (consult a professional to build this for you if necessary). If the corded receiver's cord is removable, you can replace it with one that has a volume control.")
                     }
-                    Toggle("Has Hard-Wired Corded Receiver", isOn: $phone.hasHardWiredCordedReceiver)
-                    InfoText("Some old phones have hard-wired corded receivers, which means you'll need to have the phone repaired if the cord breaks.")
+                    if phone.cordedPhoneType != 4 {
+                        Toggle("Has Hard-Wired Corded Receiver", isOn: $phone.hasHardWiredCordedReceiver)
+                        InfoText("Some old phones have hard-wired corded receivers, which means you'll need to have the phone repaired if the cord breaks.")
+                    }
                 }
-                if phone.isPushButtonCorded || phone.isCordedCordless {
+                if (phone.isPushButtonCorded && phone.cordedPhoneType != 4) || phone.isCordedCordless {
+                    Picker("Earpiece Type", selection: $phone.cordedReceiverEarpieceType) {
+                        Text("Standard").tag(0)
+                        Text("Bone Conduction").tag(1)
+                    }
+                    BoneConductionEarpieceInfoView()
                     Picker("Switch Hook", selection: $phone.switchHookType) {
                         Text(phone.isSlimCorded ? "Press (On Base)" : "Press").tag(0)
                         if phone.isSlimCorded {
@@ -335,8 +365,6 @@ In most cases, if the base has a charge light/display message, the completion of
                         Text("Contacts").tag(3)
                     }
                     InfoText("Most corded phones have a switch hook which presses, located on either the base (pressed by the receiver) or the receiver (pressed by the base). More advanced corded phones might have magnetic switch hooks, where magnets in the base and receiver trigger a magnetically-activated switch, called a reed switch. Some corded phones might use contacts like those found on cordless phones, instead of a switch hook. This is mostly seen on corded phones which are extensions of a cordless system, where placing the corded receiver on the cordless base registers the corded extension phone to the base.")
-                }
-                if phone.isCordedCordless || phone.isPushButtonCorded {
                     Picker("Corded Receiver Hook Type", selection: $phone.cordedReceiverHookType) {
                         Text("Fixed").tag(0)
                         Text("Flip/Rotate").tag(1)

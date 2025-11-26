@@ -6,12 +6,18 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import SheftAppsStylishUI
 
 struct PhoneSpecialFeaturesView: View {
 
+    // MARK: - Properties - Phone
+
     @Bindable var phone: Phone
+
+    // MARK: - Body
 
     var body: some View {
         Toggle("Plays Out-Of-Service Tone Upon Answering", isOn: $phone.outOfServiceToneOnAnswer)
@@ -24,6 +30,7 @@ struct PhoneSpecialFeaturesView: View {
             if phone.hasIntercom {
                 Picker("Room/Baby Monitor", selection: $phone.roomMonitor) {
                     Text("Not Supported").tag(0)
+                    Divider()
                     Text("Call From Handset/Base").tag(1)
                     Text("Call To Handset/Base").tag(2)
                     Text("Sound-Activated Call").tag(3)
@@ -47,7 +54,10 @@ struct PhoneSpecialFeaturesView: View {
             InfoText("Some corded phones have a clock/radio/alarm, which combines several nightstand devices (phone, clock, radio, and alarm) into one. With some clock/radio/alarm phones, the receiver connects directly to the line, with the base not involved with the phone part at all.")
         }
     }
+
 }
+
+// MARK: - Preview
 
 #Preview {
     Form {

@@ -7,11 +7,18 @@
 //
 
 #if os(iOS) || os(visionOS)
+
+// MARK: - Imports
+
 import SwiftUI
 
 struct DocumentLaunchBackgroundView: View {
 
+    // MARK: - Properties - System Theme
+
     @Environment(\.colorScheme) var systemTheme
+
+    // MARK: - Properties - Gradient
 
     var gradient: Gradient {
         let color = Color.accentColor
@@ -19,10 +26,14 @@ struct DocumentLaunchBackgroundView: View {
         return Gradient(colors: [secondaryColor.mix(with: color, by: 0.5), color])
     }
 
+    // MARK: - Body
+
     var body: some View {
         LinearGradient(gradient: gradient, startPoint: .top, endPoint: .bottom)
     }
 }
+
+// MARK: - Preview
 
 #Preview {
     DocumentLaunchBackgroundView()

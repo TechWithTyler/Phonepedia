@@ -6,11 +6,17 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 
 struct PhoneTypeDefinitionsButton: View {
 
+    // MARK: - Properties - Dialog Manager
+
     @EnvironmentObject var dialogManager: DialogManager
+
+    // MARK: - Body
 
     var body: some View {
         Button("Phone Type Definitions…") {
@@ -18,6 +24,8 @@ struct PhoneTypeDefinitionsButton: View {
         }
     }
 }
+
+// MARK: - Preview
 
 #Preview {
     PhoneTypeDefinitionsButton()

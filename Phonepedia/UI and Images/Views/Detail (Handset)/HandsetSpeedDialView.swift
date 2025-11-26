@@ -6,12 +6,18 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import SheftAppsStylishUI
 
 struct HandsetSpeedDialView: View {
 
+    // MARK: - Properties - Handset
+
     @Bindable var handset: CordlessHandset
+
+    // MARK: - Body
 
     var body: some View {
         Toggle("Has One-Touch Emergency Calling", isOn: $handset.hasOneTouchEmergencyCalling)
@@ -33,6 +39,8 @@ struct HandsetSpeedDialView: View {
         }
     }
 }
+
+// MARK: - Preview
 
 #Preview {
     Form {

@@ -6,10 +6,14 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import SheftAppsStylishUI
 
 struct BatteryInfoView: View {
+
+    // MARK: - Body
 
     var body: some View {
         InfoText("""
@@ -20,6 +24,8 @@ struct BatteryInfoView: View {
     }
     
 }
+
+// MARK: - Preview
 
 #Preview {
     BatteryInfoView()

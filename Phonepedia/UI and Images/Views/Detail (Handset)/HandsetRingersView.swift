@@ -6,12 +6,18 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import SheftAppsStylishUI
 
 struct HandsetRingersView: View {
 
+    // MARK: - Properties - Handset
+
     @Bindable var handset: CordlessHandset
+
+    // MARK: - Body
 
     var body: some View {
         if let phone = handset.phone {
@@ -64,7 +70,10 @@ struct HandsetRingersView: View {
             Text("Error")
         }
     }
+
 }
+
+// MARK: - Preview
 
 #Preview {
     Form {

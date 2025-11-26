@@ -6,11 +6,15 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import SheftAppsStylishUI
 
 struct SoftKeyExplanationView: View {
-    
+
+    // MARK: - Properties - Strings
+
     enum SoftKeyPlacement: String {
         
         case bottom = "bottom"
@@ -36,7 +40,9 @@ struct SoftKeyExplanationView: View {
         case capitalized, uppercase
         
     }
-    
+
+    // MARK: - Body
+
     var body: some View {
         InfoText("Soft keys are unlabeled buttons which have different functions displayed next to or above them on the display depending on what menu or screen is displayed. This helps to reduce the number of labeled buttons. The term \"soft key\" is used since the labels for these buttons depend on the current state of the phone's software. When nothing is displayed next to or above a soft key, it has no function at this time.")
         HStack {
@@ -108,12 +114,17 @@ struct SoftKeyExplanationView: View {
             Spacer()
         }
     }
-    
+
+    // MARK: - Soft Key Accessibility Description
+
+    // This method returns an accessibility description based on the given soft key placement, marking, text case, and background descriptions.
     func softKeyAccessibilityDescription(placement: SoftKeyPlacement, marking: SoftKeyMarking, textCase: SoftKeyTextCase, hasTextBackground: Bool) -> String {
         return "Example of a \(placement.rawValue) soft key with \(marking.rawValue) on it and \(textCase) text \(hasTextBackground ? "on a filled background" : "on no background") \(placement == .bottom ? "above" : "next to") it on the display"
     }
     
 }
+
+// MARK: - Preview
 
 #Preview {
     SoftKeyExplanationView()

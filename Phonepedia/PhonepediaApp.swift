@@ -6,12 +6,16 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import SheftAppsStylishUI
 import SwiftData
 
 @main
 struct PhonepediaApp: App {
+
+    // MARK: - Windows and Views
 
     var body: some Scene {
 #if os(iOS) || os(visionOS)
@@ -38,4 +42,5 @@ struct PhonepediaApp: App {
         }
         #endif
     }
+    
 }

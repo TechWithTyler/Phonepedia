@@ -6,12 +6,18 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import SheftAppsStylishUI
 
 struct HandsetRedialView: View {
 
+    // MARK: - Properties - Handset
+
     @Bindable var handset: CordlessHandset
+
+    // MARK: - Body
 
     var body: some View {
         FormNumericTextField("Redial Capacity", value: $handset.redialCapacity, valueRange: .zeroToMax(handset.displayType > 0 ? 20 : 1), singularSuffix: "entry", pluralSuffix: "entries")
@@ -20,17 +26,13 @@ struct HandsetRedialView: View {
 #endif
         if handset.redialCapacity > 0 {
             Picker("Redial When Busy", selection: $handset.busyRedialMode) {
-                Text("Not Supported").tag(0)
-                Text("Press Redial Button").tag(1)
-                Text("Auto-Redial").tag(2)
+                RedialWhenBusyPickerItems()
             }
             RedialWhenBusyInfoView()
         }
             if handset.hasPhonebookAndRedialList {
                 Picker("Redial Name Display", selection: $handset.redialNameDisplay) {
-                    Text("None").tag(0)
-                    Text("Phonebook Match").tag(1)
-                    Text("From Dialed Entry").tag(2)
+                    RedialNameDisplayPickerItems()
                 }
                 RedialNameDisplayInfoView()
             }
@@ -39,6 +41,8 @@ struct HandsetRedialView: View {
             }
     }
 }
+
+// MARK: - Preview
 
 #Preview {
     Form {

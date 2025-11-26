@@ -6,9 +6,12 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+#if os(iOS) || os(visionOS)
+
+// MARK: - Imports
+
 import SwiftUI
 
-#if os(iOS) || os(visionOS)
 struct DocumentLaunchPhonesAccessoryView: View {
 
     // MARK: - Properties - Horizontal Size Class
@@ -35,6 +38,8 @@ struct DocumentLaunchPhonesAccessoryView: View {
         }
     }
 }
+
+// MARK: - Preview
 
 #Preview {
     DocumentLaunchPhonesAccessoryView()

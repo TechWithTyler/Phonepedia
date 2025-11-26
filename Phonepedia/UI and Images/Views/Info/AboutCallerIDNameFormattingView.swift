@@ -6,6 +6,8 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 
 struct AboutCallerIDNameFormattingView: View {
@@ -50,22 +52,25 @@ struct AboutCallerIDNameFormattingView: View {
                     Text("STIR/SHAKEN")
                 }
             }
-                .navigationTitle("About Caller ID Name Formatting")
-                .toolbar {
-                    ToolbarItem(placement: .confirmationAction) {
-                        Button {
-                            dismiss()
-                        } label: {
-                            Text("Done")
-                        }
+            .navigationTitle("About Caller ID Name Formatting")
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("Done")
                     }
                 }
             }
-#if os(macOS)
-            .frame(minWidth: 550, maxWidth: 550, minHeight: 350, maxHeight: 350)
-#endif
         }
+#if os(macOS)
+        .frame(minWidth: 550, maxWidth: 550, minHeight: 350, maxHeight: 350)
+#endif
+    }
+
 }
+
+// MARK: - Preview
 
 #Preview {
     AboutCallerIDNameFormattingView()

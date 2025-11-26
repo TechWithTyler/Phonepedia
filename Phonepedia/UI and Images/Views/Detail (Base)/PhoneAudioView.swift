@@ -6,27 +6,25 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 import SheftAppsStylishUI
 
 struct PhoneAudioView: View {
 
+    // MARK: - Properties - Phone
+
     @Bindable var phone: Phone
+
+    // MARK: - Body
 
     var body: some View {
         Section("Headsets") {
             if phone.canTalkOnBase {
                 Toggle(phone.isCordless ? "Base Supports Wired Headsets" : "Supports Wired Headsets", isOn: $phone.baseSupportsWiredHeadsets)
             }
-            Picker(phone.isCordless ? "Maximum Number Of Bluetooth Headphones (base)" : "Maximum Number Of Bluetooth Headphones", selection: $phone.baseBluetoothHeadphonesSupported) {
-                Text("None").tag(0)
-                Divider()
-                Text("1").tag(1)
-                Text("2").tag(2)
-                Text("4").tag(4)
-                Divider()
-                Text("Unlimited").tag(Int.max)
-            }
+            CountPicker(phone.isCordless ? "Maximum Number of Bluetooth Headphones (Base)" : "Maximum Number of Bluetooth Headphones", selection: $phone.baseBluetoothHeadphonesSupported, numbers: [1, 2, 4], noneTitle: "None", unlimitedTitle: "Unlimited")
         }
         if phone.landlineConnectionType > 0 {
         Section("Supported Audio Codecs") {
@@ -100,7 +98,10 @@ struct PhoneAudioView: View {
             InfoText("An audio codec determines the audio quality and bandwidth used for VoIP, cellular, and ISDN digital lines.\nYou may think that with the G.7XX codecs, the higher number means better quality, but the numbering order isn't tied to quality--it's just arbitrary.")
         }
     }
+
 }
+
+// MARK: - Preview
 
 #Preview {
     Form {

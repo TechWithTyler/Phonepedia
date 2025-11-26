@@ -6,6 +6,8 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import SwiftUI
 
 // Manages the display of dialogs in the app.
@@ -22,15 +24,23 @@ class DialogManager: ObservableObject {
 
     @Published var phoneToDelete: Phone? = nil
 
+    @Published var phoneToUpdateCordlessDevicePlaceInCollection: Phone? = nil
+
     @Published var handsetToDelete: CordlessHandset? = nil
 
     @Published var chargerToDelete: CordlessHandsetCharger? = nil
+
+    @Published var handsetToReassign: CordlessHandset? = nil
 
     // MARK: - Properties - Booleans
 
     @Published var showingMoveFailed: Bool = false
 
+    @Published var showingUpdateCordlessDevicePlaceInCollection: Bool = false
+
     @Published var showingMoveFailedHandset: Bool = false
+
+    @Published var showingReassignHandset: Bool = false
 
     @Published var showingAboutPhoneGrades: Bool = false
 

@@ -5,10 +5,14 @@
 //  Created by Tyler Sheft on 12/11/23.
 //
 
+// MARK: - Imports
+
 import Foundation
 
 enum PhonePhotoError: LocalizedError {
-    
+
+    // MARK: - Error Cases
+
     case loadFailed(error: Error)
 
     case predictionFailed(reason: String)
@@ -16,6 +20,8 @@ enum PhonePhotoError: LocalizedError {
     case exportFailed(reason: String)
 
     case droppedNonImage
+
+    // MARK: - Error Description
 
     var errorDescription: String? {
         switch self {

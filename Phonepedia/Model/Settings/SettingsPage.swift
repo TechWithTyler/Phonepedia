@@ -6,10 +6,14 @@
 //  Copyright © 2023-2025 SheftApps. All rights reserved.
 //
 
+// MARK: - Imports
+
 import Foundation
 
 // A page in Settings.
 enum SettingsPage : String {
+
+    // MARK: - Settings Page Icons Enum
 
     enum Icons: String {
 
@@ -18,6 +22,8 @@ enum SettingsPage : String {
         case newPhones = "phone.badge.plus"
 
     }
+
+    // MARK: - Settings Page Name Cases
 
     case display
 
