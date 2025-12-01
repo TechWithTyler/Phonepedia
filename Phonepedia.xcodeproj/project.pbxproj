@@ -141,10 +141,10 @@
 		8DBCB7E92D4AC95100878A1F /* PhonebookRingtoneInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBCB7E82D4AC95100878A1F /* PhonebookRingtoneInfoView.swift */; };
 		8DBCB7EB2D4ACD2F00878A1F /* PhonebookGroupInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBCB7EA2D4ACD2F00878A1F /* PhonebookGroupInfoView.swift */; };
 		8DBCB7ED2D4AD04000878A1F /* SilentModeInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBCB7EC2D4AD04000878A1F /* SilentModeInfoView.swift */; };
-		8DC6D6142EC681F2007F8794 /* ColorHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC6D6132EC681F2007F8794 /* ColorHelpers.swift */; };
 		8DC69A672EC7CD8C00BFCA58 /* PhonePlaceInCollectionPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC69A662EC7CD8C00BFCA58 /* PhonePlaceInCollectionPicker.swift */; };
 		8DC69A692EC7CE5900BFCA58 /* HandsetPlaceInCollectionPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC69A682EC7CE5900BFCA58 /* HandsetPlaceInCollectionPicker.swift */; };
 		8DC69A6B2EC7DB7600BFCA58 /* MultiPhoneNumberInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC69A6A2EC7DB7600BFCA58 /* MultiPhoneNumberInfoView.swift */; };
+		8DC6D6142EC681F2007F8794 /* ColorHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC6D6132EC681F2007F8794 /* ColorHelpers.swift */; };
 		8DC725892D4D778800ED9D68 /* DocumentLaunchBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC725882D4D778800ED9D68 /* DocumentLaunchBackgroundView.swift */; };
 		8DC7258B2D4D7B6100ED9D68 /* DocumentLaunchPhoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC7258A2D4D7B6100ED9D68 /* DocumentLaunchPhoneView.swift */; };
 		8DC9620C2D9C8A2D006A3BF6 /* dtmfCallerID.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8DC9620B2D9C8A2D006A3BF6 /* dtmfCallerID.wav */; };
@@ -334,10 +334,10 @@
 		8DBCB7E82D4AC95100878A1F /* PhonebookRingtoneInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhonebookRingtoneInfoView.swift; sourceTree = "<group>"; };
 		8DBCB7EA2D4ACD2F00878A1F /* PhonebookGroupInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhonebookGroupInfoView.swift; sourceTree = "<group>"; };
 		8DBCB7EC2D4AD04000878A1F /* SilentModeInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SilentModeInfoView.swift; sourceTree = "<group>"; };
-		8DC6D6132EC681F2007F8794 /* ColorHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorHelpers.swift; sourceTree = "<group>"; };
 		8DC69A662EC7CD8C00BFCA58 /* PhonePlaceInCollectionPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhonePlaceInCollectionPicker.swift; sourceTree = "<group>"; };
 		8DC69A682EC7CE5900BFCA58 /* HandsetPlaceInCollectionPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandsetPlaceInCollectionPicker.swift; sourceTree = "<group>"; };
 		8DC69A6A2EC7DB7600BFCA58 /* MultiPhoneNumberInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiPhoneNumberInfoView.swift; sourceTree = "<group>"; };
+		8DC6D6132EC681F2007F8794 /* ColorHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorHelpers.swift; sourceTree = "<group>"; };
 		8DC725882D4D778800ED9D68 /* DocumentLaunchBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentLaunchBackgroundView.swift; sourceTree = "<group>"; };
 		8DC7258A2D4D7B6100ED9D68 /* DocumentLaunchPhoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentLaunchPhoneView.swift; sourceTree = "<group>"; };
 		8DC9620B2D9C8A2D006A3BF6 /* dtmfCallerID.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dtmfCallerID.wav; sourceTree = "<group>"; };
@@ -1317,7 +1317,7 @@
 				AUTOMATION_APPLE_EVENTS = NO;
 				CODE_SIGN_ENTITLEMENTS = "Phonepedia/Supporting Files/Phonepedia.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1360;
+				CURRENT_PROJECT_VERSION = 1402;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Phonepedia/UI and Images/Preview Content\"";
 				ENABLE_APP_SANDBOX = YES;
@@ -1354,7 +1354,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 2025.11;
+				MARKETING_VERSION = 2026.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tylersheft.Phonepedia;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				RUNTIME_EXCEPTION_ALLOW_DYLD_ENVIRONMENT_VARIABLES = NO;
@@ -1382,7 +1382,7 @@
 				AUTOMATION_APPLE_EVENTS = NO;
 				CODE_SIGN_ENTITLEMENTS = "Phonepedia/Supporting Files/Phonepedia.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1360;
+				CURRENT_PROJECT_VERSION = 1402;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Phonepedia/UI and Images/Preview Content\"";
 				ENABLE_APP_SANDBOX = YES;
@@ -1419,7 +1419,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 2025.11;
+				MARKETING_VERSION = 2026.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tylersheft.Phonepedia;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				RUNTIME_EXCEPTION_ALLOW_DYLD_ENVIRONMENT_VARIABLES = NO;
