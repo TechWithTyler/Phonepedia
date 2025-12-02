@@ -95,14 +95,24 @@ struct LandlineDetailView: View {
                     Text("Display and Light").tag(3)
                 }
             }
+            InfoText("When another phone on the same line is in use, the phone will indicate that the line is in use if it has line in use indication, by detecting a drop in line power. Some cordless phones indicate line in use only when that cordless phone is in use.")
             if phone.hasLandlineInUseLight {
                 Toggle("Landline In Use Light Follows Ring Signal", isOn: $phone.landlineInUseVisualRingerFollowsRingSignal)
                 InfoText("An in use light that follows the ring signal starts flashing when the ring signal starts and stops flashing when the ring signal stops. An in use light that ignores the ring signal flashes for as long as the \(phone.isCordless ? "base" : "phone") is indicating an incoming call.")
             }
         }
+        if phone.isCordless {
+            Picker("Line In Use Parallel Phone Indication", selection: $phone.landlineInUseParallelPhoneIndication) {
+                Text("Not Supported").tag(0)
+                Divider()
+                Text("Same As This Cordless").tag(1)
+                Text("Distinct").tag(2)
+            }
+            InfoText("• Not Supported: Line in use is indicated only for this cordless phone being in use.\n• Same As This Cordless: Line in use status is indicated in the same way regardless of whether it's this cordless phone or another phone on the line that's in use.\n• Distinct: Line in use status is indicated differently when another phone on the line is in use. For example, a solid in use light might indicate this cordless phone being in use, while a flashing one might indicate another phone on the line being in use.")
+        }
         if phone.isCordless || phone.cordedPowerSource > 0 {
             Toggle("Has \"No Line\" Alert", isOn: $phone.hasNoLineAlert)
-            InfoText("When another phone on the same line is in use, the phone will indicate that the line is in use if it has line in use indication, by detecting a drop in line power. If it drops too much (the line isn't connected or too many phones are in use), the no line alert, if available, will be displayed.\nDetecting drops in line power is also what causes automated systems, phones on hold, and some speakerphones to hang up when another phone on the line is picked up.\nThe phone will first detect \"line in use\" before detecting \"no line\", so you may briefly see it indicating \"line in use\" after disconnecting the line (or powering up the phone without a line connected). The status won't change the moment the line power drops, as the phone needs to wait for the line power to stabilize before indicating the proper status.")
+            InfoText("If the line isn't connected, the no line alert, if available, will be displayed. This is done by detecting the line power dropping too much (or being nonexistent due to there being no line connection). As a result, this message may be displayed if too many phones are off-hook.\nThe phone will first detect \"line in use\" before detecting \"no line\", so you may briefly see it indicating \"line in use\" after disconnecting the line (or powering up the phone without a line connected). Some phones have a delay before the line in use indication to prevent such indication briefly appearing before the no line alert. The status won't change the moment the line power drops, as the phone needs to wait for the line power to stabilize before indicating the proper status.")
         }
     }
 

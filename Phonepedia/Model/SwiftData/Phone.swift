@@ -253,6 +253,8 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
 
     var landlineInUseStatusOnBase: Int = 0
 
+    var landlineInUseParallelPhoneIndication: Int = 1
+
     var landlineInUseVisualRingerFollowsRingSignal: Bool = true
 
     var cellLineInUseStatusOnBase: Int = 0
