@@ -74,6 +74,13 @@ struct HandsetGeneralView: View {
                     Text("Follow Ring Signal").tag(2)
                 }
                 InfoText("A visual ringer that follows the ring signal starts flashing when the ring signal starts and stops flashing when the ring signal stops. A visual ringer that ignores the ring signal flashes for as long as the cordless device is indicating an incoming call.")
+                if phone.baseBluetoothCellPhonesSupported > 0 {
+                    Picker("Standby Cell Call Dialing", selection: $handset.standbyCellCallDialing) {
+                        Text("Dial Number").tag(0)
+                        Text("Redial List").tag(1)
+                    }
+                    InfoText("When pressing the cell button in standby (and selecting the cell phone if necessary):\n• Dial Number: You can dial the number just as if you picked up the landline.\n• Redial List: The handset's redial list is displayed, matching the behavior on many traditional cell phones.")
+                }
             }
             if handset.cordlessDeviceType < 2 {
                 Section(handset.cordlessDeviceTypeText) {

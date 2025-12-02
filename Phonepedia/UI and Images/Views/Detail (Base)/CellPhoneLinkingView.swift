@@ -25,7 +25,7 @@ struct CellPhoneLinkingView: View {
             .onChange(of: phone.baseBluetoothCellPhonesSupported) { oldValue, newValue in
                 phone.baseBluetoothCellPhonesSupportedChanged(oldValue: oldValue, newValue: newValue)
             }
-            InfoText("Pairing a cell phone to the base via Bluetooth allows you to make and receive cell calls on the base or handsets and transfer your cell phone contacts to the phonebook.")
+            InfoText("Pairing a cell phone to the base via Bluetooth allows you to make and receive cell calls on the base or handsets and transfer your cell phone contacts to the phonebook. Some phones support cell phonebook transfers but not full-on cell phone linking for calls.")
             if phone.baseBluetoothCellPhonesSupported > 0 {
                 Picker("Cell Line In Use Status On Base", selection: $phone.cellLineInUseStatusOnBase) {
                     Text("None").tag(0)
@@ -36,6 +36,13 @@ struct CellPhoneLinkingView: View {
                     }
                 }
                 InfoText("Cell line in use status indicates when the cell line on this phone is in use, not when the paired cell phone is in use.")
+                Picker("Call Transfer From Cell To Phone", selection: $phone.cellCallTransferToPhone) {
+                    Text("By Cell").tag(0)
+                    Text("By This Phone").tag(1)
+                }
+                InfoText("• By Cell: Cell calls are transferred to the phone by selecting it in the audio device list. Upon doing this, the phone shows that the cell call is on hold and can be picked up. Attempting to pick up the call from the phone first may disconnect the current call.\n• By This Phone: The phone detects that the cell phone is on a call, and will pick it up when it tries to make a call from standby.")
+                Toggle("Allows Transferring Calls To Cell", isOn: $phone.supportsTransferToCell)
+                InfoText("Some phones allow you to transfer a cell call to the cell phone from the phone. This will cause the cell phone to switch the audio to it or another connected Bluetooth device.")
                 Picker("Cell Line Only Behavior", selection: $phone.cellLineOnlyBehavior) {
                     Text("Optional \"No Line\" Alert").tag(0)
                     Text("Auto-Suppressed \"No Line\" Alert").tag(1)
@@ -50,7 +57,7 @@ struct CellPhoneLinkingView: View {
         }
         Section("Smartphones/Tablets As Handsets") {
             CountPicker("Maximum Supported", selection: $phone.smartphonesAsHandsetsOverWiFi, numbers: [1, 2, 4], noneTitle: "None")
-            InfoText("When a smartphone or tablet is registered to a Wi-Fi-compatible base and both devices are on the same network, the smartphone can be used as a handset, and you can transfer its data to the base or handsets.")
+            InfoText("When a smartphone or tablet is registered to a Wi-Fi-compatible base and both devices are on the same network, the smartphone can be used as a handset, and you can transfer its data to the base or handsets/desksets.")
         }
     }
 

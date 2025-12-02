@@ -259,6 +259,10 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
 
     var cellLineInUseStatusOnBase: Int = 0
 
+    var supportsTransferToCell: Bool = false
+
+    var cellCallTransferToPhone: Int = 0
+
     var cellLineOnlyBehavior: Int = 0
 
     var baseChargingDirection: Int = 0

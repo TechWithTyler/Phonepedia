@@ -291,7 +291,9 @@ final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatab
 	var speedDialPhonebookEntryMode: Int = 0
 	
 	var redialNameDisplay: Int = 0
-	
+
+    var standbyCellCallDialing: Int = 0
+
 	var bluetoothHeadphonesSupported: Int = 0
 	
 	var bluetoothPhonebookTransfers: Bool = false
