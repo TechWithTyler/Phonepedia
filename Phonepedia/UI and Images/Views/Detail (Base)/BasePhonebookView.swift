@@ -54,6 +54,7 @@ struct BasePhonebookView: View {
             if phone.basePhonebookCapacity >= phonebookTransferRequiredMaxCapacity {
                 Picker("Bluetooth Cell Phone Phonebook Transfers", selection: $phone.bluetoothPhonebookTransfers) {
                     Text("Not Supported").tag(0)
+                    Divider()
                     Text("To Home Phonebook").tag(1)
                     if phone.baseBluetoothCellPhonesSupported > 0 {
                         Text("To Separate Cell Phonebook").tag(2)
