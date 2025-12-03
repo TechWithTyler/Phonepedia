@@ -56,7 +56,7 @@ struct HandsetGeneralView: View {
                 .onChange(of: handset.cordlessDeviceType) { oldValue, newValue in
                     handset.cordlessDeviceTypeChanged(oldValue: oldValue, newValue: newValue)
                 }
-                InfoText("A deskset is a phone that connects wirelessly to a main base and is treated like a handset. Desksets can have a corded receiver or a charging area for a cordless handset.\nA cordless headset/speakerphone can pick up the line and answer/join calls, but can't dial or use other features.")
+                InfoText("A deskset is a phone that connects wirelessly to a main base and is treated like a handset. Desksets can have a corded receiver or a charging area for a cordless handset.\nA cordless headset/speakerphone can pick up the line and answer/join calls, but can't dial or use other features. If a cordless phone comes only with cordless headsets, it's often called a headset phone.")
                 if handset.cordlessDeviceType < 2 && handset.handsetStyle < 3 {
                     Picker("Antenna", selection: $handset.antenna) {
                         Text("Hidden").tag(0)
