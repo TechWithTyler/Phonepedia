@@ -16,6 +16,8 @@ extension UserDefaults {
 
         // MARK: - UserDefaults Key Names
 
+        static let selectedSettingsPage: String = "selectedSettingsPage"
+
         static let useDetailedPhoneImage: String = "useDetailedPhoneImage"
 
         static let phoneDescriptionTextSize: String = "phoneDescriptionTextSize"
