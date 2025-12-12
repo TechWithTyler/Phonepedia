@@ -10,7 +10,7 @@
 
 import SheftAppsStylishUI
 
-// MARK: - Color Manipulation Protocols
+// MARK: - Color Manipulation Protocols/Extensions
 
 // Protocol for types that store colors as separate RGB component properties and need basic color manipulation helpers.
 protocol BaseColorManipulatable: AnyObject {
@@ -43,6 +43,7 @@ protocol BaseColorManipulatable: AnyObject {
 
 }
 
+// To define a method that all conforming types have access to, without having to implement them, it must be declared in an extension to the protocol.
 extension BaseColorManipulatable {
 
     // Copies the main color components to the secondary color.
