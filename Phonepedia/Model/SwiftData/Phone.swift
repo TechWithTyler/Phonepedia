@@ -277,7 +277,7 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
 
     var answeringSystemType: Int = 1
 
-    var allMessageDeletion: Int = 0
+    var allMessageDeletion: Int = 1
 
     var remoteAccessCodeType: Int = 2
 
