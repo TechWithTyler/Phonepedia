@@ -25,6 +25,10 @@ struct PhoneButtonLegendItem: View {
 
         case speakerphone
 
+        var title: String {
+            return rawValue.capitalized
+        }
+
     }
 
     // MARK: - Properties - Phone Button Description
@@ -106,7 +110,7 @@ struct PhoneButtonLegendItem: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            Text("\(button.rawValue.capitalized) Button Label Example:")
+            Text("\(button.title) Button Label Example:")
             switch button {
             case .talk:
                 talkButton
@@ -131,7 +135,7 @@ struct PhoneButtonLegendItem: View {
 
     @ViewBuilder
     var talkButton: some View {
-        Label(PhoneButtonDescription.talk.rawValue.capitalized, systemImage: "phone.fill")
+        Label(PhoneButtonDescription.talk.title, systemImage: "phone.fill")
             .labelStyle(.topIconBottomTitle)
             .foregroundStyle(talkButtonForegroundColor)
             .padding(.horizontal)
@@ -143,7 +147,7 @@ struct PhoneButtonLegendItem: View {
     
     @ViewBuilder
     var homeButton: some View {
-        Label(PhoneButtonDescription.home.rawValue.capitalized, systemImage: "house.fill")
+        Label(PhoneButtonDescription.home.title, systemImage: "house.fill")
             .labelStyle(.topIconBottomTitle)
             .foregroundStyle(talkButtonForegroundColor)
             .padding(.horizontal)
@@ -157,7 +161,7 @@ struct PhoneButtonLegendItem: View {
 
     @ViewBuilder
     var cellButton: some View {
-        Label(PhoneButtonDescription.cell.rawValue.capitalized, systemImage: "antenna.radiowaves.left.and.right")
+        Label(PhoneButtonDescription.cell.title, systemImage: "antenna.radiowaves.left.and.right")
             .labelStyle(.topIconBottomTitle)
             .foregroundStyle(cellButtonForegroundColor)
             .padding(.horizontal)
@@ -167,7 +171,7 @@ struct PhoneButtonLegendItem: View {
 
     @ViewBuilder
     var offButton: some View {
-        Label(PhoneButtonDescription.off.rawValue.capitalized, systemImage: "phone.down.fill")
+        Label(PhoneButtonDescription.off.title, systemImage: "phone.down.fill")
             .labelStyle(.topIconBottomTitle)
             .foregroundStyle(offButtonForegroundColor)
             .padding(.horizontal)

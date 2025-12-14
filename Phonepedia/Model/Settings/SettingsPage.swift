@@ -23,10 +23,16 @@ enum SettingsPage : String {
 
     }
 
-    // MARK: - Settings Page Name Cases
+    // MARK: - Settings Page Enum Cases
 
     case display
 
     case newPhones = "New Phones"
+
+    // MARK: - Settings Page Title
+
+    var title: String {
+        return rawValue.capitalized
+    }
 
 }
