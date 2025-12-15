@@ -91,6 +91,10 @@
 		8D8555522C98D2C1006A14E3 /* AboutDisplayTypesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8555512C98D2C1006A14E3 /* AboutDisplayTypesView.swift */; };
 		8D8667252EAC143A002A0266 /* CordlessDeviceReassignmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8667242EAC143A002A0266 /* CordlessDeviceReassignmentView.swift */; };
 		8D8E75ED2CC84A2C0022DB85 /* AnsweringSystemMenuInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8E75EC2CC84A2C0022DB85 /* AnsweringSystemMenuInfoView.swift */; };
+		8D94AA942EF0B2E400F23F14 /* CellLineSelectionPickerItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D94AA932EF0B2E400F23F14 /* CellLineSelectionPickerItems.swift */; };
+		8D94AA962EF0B33C00F23F14 /* CellLineSelectionInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D94AA952EF0B33C00F23F14 /* CellLineSelectionInfoView.swift */; };
+		8D94AA982EF0B60900F23F14 /* VisualRingerInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D94AA972EF0B60900F23F14 /* VisualRingerInfoView.swift */; };
+		8D94AA9A2EF0B71A00F23F14 /* RedialDuringCallPickerItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D94AA992EF0B71A00F23F14 /* RedialDuringCallPickerItems.swift */; };
 		8D94EE0C2B912B9E00B04EBF /* CordlessPhoneRadioWaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D94EE0B2B912B9E00B04EBF /* CordlessPhoneRadioWaveView.swift */; };
 		8D94EE0E2B912FB900B04EBF /* CordlessPhoneRadioWave.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D94EE0D2B912FB900B04EBF /* CordlessPhoneRadioWave.swift */; };
 		8D95997D2C22212400FEED40 /* SchemaVersioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D95997C2C22212400FEED40 /* SchemaVersioning.swift */; };
@@ -281,6 +285,10 @@
 		8D8555512C98D2C1006A14E3 /* AboutDisplayTypesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutDisplayTypesView.swift; sourceTree = "<group>"; };
 		8D8667242EAC143A002A0266 /* CordlessDeviceReassignmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordlessDeviceReassignmentView.swift; sourceTree = "<group>"; };
 		8D8E75EC2CC84A2C0022DB85 /* AnsweringSystemMenuInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnsweringSystemMenuInfoView.swift; sourceTree = "<group>"; };
+		8D94AA932EF0B2E400F23F14 /* CellLineSelectionPickerItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellLineSelectionPickerItems.swift; sourceTree = "<group>"; };
+		8D94AA952EF0B33C00F23F14 /* CellLineSelectionInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellLineSelectionInfoView.swift; sourceTree = "<group>"; };
+		8D94AA972EF0B60900F23F14 /* VisualRingerInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualRingerInfoView.swift; sourceTree = "<group>"; };
+		8D94AA992EF0B71A00F23F14 /* RedialDuringCallPickerItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedialDuringCallPickerItems.swift; sourceTree = "<group>"; };
 		8D94EE0B2B912B9E00B04EBF /* CordlessPhoneRadioWaveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordlessPhoneRadioWaveView.swift; sourceTree = "<group>"; };
 		8D94EE0D2B912FB900B04EBF /* CordlessPhoneRadioWave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordlessPhoneRadioWave.swift; sourceTree = "<group>"; };
 		8D95997C2C22212400FEED40 /* SchemaVersioning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaVersioning.swift; sourceTree = "<group>"; };
@@ -485,6 +493,8 @@
 				8D379CCE2ED651F200F79D1C /* IntercomAutoAnswerPickerItems.swift */,
 				8D379CD02ED6524400F79D1C /* RedialWhenBusyPickerItems.swift */,
 				8D379CD22ED6527200F79D1C /* RedialNameDisplayPickerItems.swift */,
+				8D94AA932EF0B2E400F23F14 /* CellLineSelectionPickerItems.swift */,
+				8D94AA992EF0B71A00F23F14 /* RedialDuringCallPickerItems.swift */,
 			);
 			path = "Pickers and Picker Items";
 			sourceTree = "<group>";
@@ -645,6 +655,8 @@
 				8D53EBAA2E7A026300B71D8C /* RedialWhenBusyInfoView.swift */,
 				8D7A097B2EBAA420008DB3F0 /* BoneConductionEarpieceInfoView.swift */,
 				8DC69A6A2EC7DB7600BFCA58 /* MultiPhoneNumberInfoView.swift */,
+				8D94AA952EF0B33C00F23F14 /* CellLineSelectionInfoView.swift */,
+				8D94AA972EF0B60900F23F14 /* VisualRingerInfoView.swift */,
 			);
 			path = Info;
 			sourceTree = "<group>";
@@ -989,6 +1001,7 @@
 				8D38ED9D2CAF3F6400CCC422 /* HandsetCallerIDView.swift in Sources */,
 				8D379CCF2ED651F200F79D1C /* IntercomAutoAnswerPickerItems.swift in Sources */,
 				8D38ED9B2CAF3EF500CCC422 /* HandsetPhonebookView.swift in Sources */,
+				8D94AA942EF0B2E400F23F14 /* CellLineSelectionPickerItems.swift in Sources */,
 				8D7A74A42C26203E00C5329E /* DocumentLaunchPhonesAccessoryView.swift in Sources */,
 				8D20E37B2C45B9740016800C /* PhoneInCollectionStatusPickerItems.swift in Sources */,
 				8D8555522C98D2C1006A14E3 /* AboutDisplayTypesView.swift in Sources */,
@@ -1014,6 +1027,7 @@
 				8DC725892D4D778800ED9D68 /* DocumentLaunchBackgroundView.swift in Sources */,
 				8DA844D42B72E1D7006CBCA7 /* NoPhoneSelectedView.swift in Sources */,
 				8D7A097C2EBAA420008DB3F0 /* BoneConductionEarpieceInfoView.swift in Sources */,
+				8D94AA9A2EF0B71A00F23F14 /* RedialDuringCallPickerItems.swift in Sources */,
 				8DBCB7E72D4AC17500878A1F /* FavoriteEntriesInfoView.swift in Sources */,
 				8D85550A2C8F9055006A14E3 /* HandsetActionsView.swift in Sources */,
 				8DBA56BD2D3081C3005DC013 /* AnsweringSystemVsVoicemailView.swift in Sources */,
@@ -1033,6 +1047,7 @@
 				8D38ED9F2CAF3FC900CCC422 /* HandsetSpeedDialView.swift in Sources */,
 				8D94EE0C2B912B9E00B04EBF /* CordlessPhoneRadioWaveView.swift in Sources */,
 				8DA844DC2B72E1D7006CBCA7 /* CordlessDeviceInfoView.swift in Sources */,
+				8D94AA962EF0B33C00F23F14 /* CellLineSelectionInfoView.swift in Sources */,
 				8D38ED852CAF382C00CCC422 /* BasePhonebookView.swift in Sources */,
 				8DA844F02B72E1D7006CBCA7 /* LandlineOrNotV1.mlmodel in Sources */,
 				8DD3A2962D2C7CB200595AB3 /* NewPhonesSettingsPageView.swift in Sources */,
@@ -1061,6 +1076,7 @@
 				8D27B1902D03AC3B004B75E4 /* UserDefaultsKeyNames.swift in Sources */,
 				8D38ED832CAF37D400CCC422 /* DialingCodesView.swift in Sources */,
 				8DA844D22B72E1D7006CBCA7 /* PhoneListView.swift in Sources */,
+				8D94AA982EF0B60900F23F14 /* VisualRingerInfoView.swift in Sources */,
 				8D27B18D2D03AABB004B75E4 /* SettingsView.swift in Sources */,
 				8D394FA22B87F4CE0047C2F8 /* RegistrationExplanationView.swift in Sources */,
 				8D38EDA12CAF404C00CCC422 /* HandsetSpecialFeaturesView.swift in Sources */,

@@ -84,19 +84,21 @@ When the first ring is suppressed, the number of rings you hear will be one less
             if phone.baseBluetoothCellPhonesSupported > 0 {
                 Picker("Cell Call Rejection", selection: $phone.cellCallRejection) {
                     Text("Not Supported").tag(0)
+                    Divider()
                     Text("Button").tag(1)
                     if phone.callBlockCapacity > 0 {
                         Text("When Blocking").tag(2)
                         Text("Button/When Blocking").tag(3)
                     }
                 }
-                InfoText("When a cell call is rejected, the phone will send the Bluetooth \"call reject\" command to the cell phone, which typically sends the call to voicemail.")
+                InfoText("When a cell call is rejected, the phone will send the Bluetooth \"call reject\" command to the cell phone, which typically sends the call to voicemail. The action performed depends on the app receiving the call.")
             }
         }
         if phone.callBlockCapacity > 0 {
             Section("Pre-Screening") {
                 Picker("Mode", selection: $phone.callBlockPreScreening) {
                     Text("Not Supported").tag(0)
+                    Divider()
                     Text("Ask for Caller Name").tag(1)
                     Text("Ask for Code Entry").tag(2)
                 }

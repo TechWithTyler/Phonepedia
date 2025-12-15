@@ -58,12 +58,6 @@ struct BaseCallerIDView: View {
                 ExampleAudioView(audioFile: .talkingCallerIDNumber)
             }
         }
-        if phone.isCordless || phone.baseDisplayType > 2 {
-            FormNumericTextField(phone.isCordless ? "Caller ID List Capacity (Base)" : "Caller ID List Capacity", value: $phone.baseCallerIDCapacity, valueRange: .allPositivesIncludingZero, singularSuffix: "entry", pluralSuffix: "entries")
-#if !os(visionOS)
-                .scrollDismissesKeyboard(.interactively)
-#endif
-        }
         if phone.hasAnalogLineConnection && phone.hasClock {
             Toggle("Caller ID Time Adjustment", isOn: $phone.callerIDTimeAdjust)
             InfoText("Caller ID data may include not only the name and/or phone number, but also the date and time of the call. This data can be used to automatically set the phone's clock.\nCaller ID data doesn't include the year or day of the week. You may need to manually set the year after a power outage. For this reason, if the year isn't correct and there's a leap day, the date might be incorrect. For phones that store a day of the week, it either has a manually-set year which tells it which day of the week to use, or you need to manually set the day of the week.")
@@ -73,6 +67,12 @@ struct BaseCallerIDView: View {
         ExampleAudioView(audioFile: .callWaitingTone)
         ExampleAudioView(audioFile: .dtmfToneD)
         ExampleAudioView(audioFile: .dtmfToneA)
+        if phone.isCordless || phone.baseDisplayType > 2 {
+            FormNumericTextField(phone.isCordless ? "Caller ID List Capacity (Base)" : "Caller ID List Capacity", value: $phone.baseCallerIDCapacity, valueRange: .allPositivesIncludingZero, singularSuffix: "entry", pluralSuffix: "entries")
+#if !os(visionOS)
+                .scrollDismissesKeyboard(.interactively)
+#endif
+        }
     }
 
 }

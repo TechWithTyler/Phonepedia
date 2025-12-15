@@ -421,6 +421,8 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
 
     var busyRedialMode: Int = 0
 
+    var redialDuringCall: Int = 1
+
     var redialNameDisplay: Int = 0
 
     var supportsCallWaiting: Bool = true
@@ -518,6 +520,8 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
     var neededReplacements: Bool = false
 
     var cellCallRejection: Int = 0
+
+    var cellLineSelection: Int = 0
 
     // MARK: - Properties - Supported VoIP Audio Codecs
 

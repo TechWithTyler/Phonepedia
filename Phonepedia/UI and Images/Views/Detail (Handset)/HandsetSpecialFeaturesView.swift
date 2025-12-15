@@ -23,6 +23,7 @@ struct HandsetSpecialFeaturesView: View {
         if handset.handsetStyle < 3 {
             Picker("Alarm", selection: $handset.alarm) {
                 Text("Not Supported").tag(0)
+                Divider()
                 Text("Ringtones").tag(1)
                 Text("Ringtones or Voice").tag(2)
             }

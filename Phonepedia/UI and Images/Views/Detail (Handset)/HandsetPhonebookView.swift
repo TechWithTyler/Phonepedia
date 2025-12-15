@@ -21,11 +21,11 @@ struct HandsetPhonebookView: View {
 
     var body: some View {
         if handset.handsetStyle < 3 {
-            FormNumericTextField("Phonebook Capacity", value: $handset.phonebookCapacity, valueRange: .allPositivesIncludingZero, singularSuffix: "entry", pluralSuffix: "entries")
+            FormNumericTextField("Capacity", value: $handset.phonebookCapacity, valueRange: .allPositivesIncludingZero, singularSuffix: "entry", pluralSuffix: "entries")
 #if !os(visionOS)
                 .scrollDismissesKeyboard(.interactively)
 #endif
-            FormNumericTextField("Numbers Per Phonebook Entry", value: $handset.numbersPerPhonebookEntry, valueRange: .oneToMax(5), singularSuffix: "number", pluralSuffix: "numbers")
+            FormNumericTextField("Numbers Per Entry", value: $handset.numbersPerPhonebookEntry, valueRange: .oneToMax(5), singularSuffix: "number", pluralSuffix: "numbers")
 #if !os(visionOS)
                 .scrollDismissesKeyboard(.interactively)
 #endif
@@ -39,7 +39,7 @@ struct HandsetPhonebookView: View {
             FavoriteEntriesInfoView()
         }
         if handset.hasPhonebook {
-            Toggle("Supports Phonebook Groups", isOn: $handset.supportsPhonebookGroups)
+            Toggle("Supports Groups", isOn: $handset.supportsPhonebookGroups)
             PhonebookGroupInfoView()
             Toggle("Supports Phonebook Ringtones", isOn: $handset.supportsPhonebookRingtones)
             if handset.silentMode > 0 {
