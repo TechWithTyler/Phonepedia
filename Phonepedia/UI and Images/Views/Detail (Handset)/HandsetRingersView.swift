@@ -28,6 +28,7 @@ struct HandsetRingersView: View {
             if handset.hasSpeakerphone {
                 Picker("Custom Ringtones Source", selection: $handset.customRingtonesSource) {
                     Text("None").tag(0)
+                    Divider()
                     Text("Recording Only").tag(1)
                     Text("Audio Files Only").tag(2)
                     Text("Recording/Audio Files").tag(3)
