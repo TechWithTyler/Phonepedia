@@ -419,6 +419,13 @@ final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatab
         return displayType > 0 && displayType < 5
     }
 
+    // Whether the cordless device supports answering system/voicemail features.
+    @Transient
+    var supportsMessaging: Bool {
+        guard let phone = phone else { return false }
+        return (phone.hasAnsweringSystem > 1 && displayType > 0) || phone.voicemailIndication > 0 || phone.landlineConnectionType > 0
+    }
+
     // Whether the cordless device has lists of entries (e.g. phonebook, caller ID list).
     @Transient
     var hasListsOfEntries: Bool {

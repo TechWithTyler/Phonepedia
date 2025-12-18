@@ -40,7 +40,7 @@ struct PhoneMessagingView: View {
                 phone.hasAnsweringSystemChanged(oldValue: oldValue, newValue: newValue)
             }
             if phone.hasBaseAccessibleAnsweringSystem {
-                Picker("Answering System Type", selection: $phone.answeringSystemType) {
+                Picker("Type", selection: $phone.answeringSystemType) {
                     Text("Digital").tag(1)
                     Text("Tape Cassette(s)").tag(0)
                 }
@@ -184,7 +184,7 @@ A phone's voicemail indicator works in one of the following ways:
                     ExampleAudioView(audioFile: .stutterDialTone)
                 }
             }
-            if !phone.isCordless || phone.hasBaseSpeakerphone {
+            if (!phone.isCordless || phone.hasBaseSpeakerphone) && (phone.voicemailIndication > 0 || phone.landlineConnectionType > 0) {
                 Picker("Voicemail Quick Dial", selection: $phone.voicemailQuickDial) {
                     Text("None").tag(0)
                     Text("Button").tag(1)
@@ -204,7 +204,7 @@ A phone's voicemail indicator works in one of the following ways:
             }
             if phone.voicemailQuickDial > 0 {
                 Toggle("Can Store Voicemail Feature Codes", isOn: $phone.voicemailFeatureCodes)
-                InfoText("Storing voicemail feature codes allows you to, for example, play and delete messages using a button or menu item once you've dialed into voicemail, just like with built-in answering systems. Example: If your voicemail system's main menu asks you to press 1 to play messages, you can store \"1\" to the Play code and then quickly dial it using a button/menu item.")
+                InfoText("Storing voicemail feature codes allows you to, for example, play and delete messages using a button or menu item once you've dialed into voicemail, just like with built-in answering systems. Example: If your voicemail system's main menu asks you to press 1 to play messages, you can store \"1\" as the Play code and then quickly dial it using a button/menu item.")
             }
         }
     }

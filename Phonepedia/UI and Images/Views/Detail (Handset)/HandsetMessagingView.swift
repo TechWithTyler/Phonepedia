@@ -37,21 +37,23 @@ struct HandsetMessagingView: View {
                     }
                 }
             }
-            Section("Voicemail") {
-                Picker("Voicemail Quick Dial", selection: $handset.voicemailQuickDial) {
-                    Text("None").tag(0)
-                    Text("Button").tag(1)
-                    Text("Speed Dial 1").tag(2)
-                    if handset.displayType > 0 {
-                        Text("Message Menu Item").tag(3)
-                        Text("Main Menu Item").tag(4)
-                        Text("Main Menu Item and Button").tag(5)
+            if phone.voicemailIndication > 0 {
+                Section("Voicemail") {
+                    Picker("Voicemail Quick Dial", selection: $handset.voicemailQuickDial) {
+                        Text("None").tag(0)
+                        Text("Button").tag(1)
+                        Text("Speed Dial 1").tag(2)
+                        if handset.displayType > 0 {
+                            Text("Message Menu Item").tag(3)
+                            Text("Main Menu Item").tag(4)
+                            Text("Main Menu Item and Button").tag(5)
+                        }
                     }
+                    .onChange(of: handset.voicemailQuickDial) { oldValue, newValue in
+                        handset.voicemailQuickDialChanged(oldValue: oldValue, newValue: newValue)
+                    }
+                    VoicemailQuickDialInfoView()
                 }
-                .onChange(of: handset.voicemailQuickDial) { oldValue, newValue in
-                    handset.voicemailQuickDialChanged(oldValue: oldValue, newValue: newValue)
-                }
-                VoicemailQuickDialInfoView()
             }
         } else {
             Text("Error")

@@ -92,14 +92,16 @@ struct HandsetDetailView: View {
                             Label("Buttons/Display/Backlight", systemImage: "5.square")
                         }
                     }
-                    FormNavigationLink(phone: phone) {
-                        HandsetMessagingView(handset: handset)
-                            .navigationTitle("Msg-ing (HS\(handset.actualHandsetNumber))")
+                    if handset.supportsMessaging {
+                        FormNavigationLink(phone: phone) {
+                            HandsetMessagingView(handset: handset)
+                                .navigationTitle("Msg-ing (HS\(handset.actualHandsetNumber))")
 #if !os(macOS)
-                            .navigationBarTitleDisplayMode(.inline)
+                                .navigationBarTitleDisplayMode(.inline)
 #endif
-                    } label: {
-                        Label("Messaging", systemImage: "recordingtape")
+                        } label: {
+                            Label("Messaging", systemImage: "recordingtape")
+                        }
                     }
                 }
             }
