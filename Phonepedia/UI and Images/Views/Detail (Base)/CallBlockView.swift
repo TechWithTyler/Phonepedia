@@ -80,6 +80,7 @@ When the first ring is suppressed, the number of rings you hear will be one less
             if phone.callBlockPreProgrammedDatabaseEntryCount > 0 {
                 InfoText("Some phones have an invisible database of pre-blocked phone numbers. These numbers might be excluded from the caller ID list. Numbers from this database can be saved to the phonebook if they happen to become safe in the future.")
             }
+                Text("Total Blocked Numbers Capacity: \(phone.totalCallBlockCapacity)")
             }
             if phone.baseBluetoothCellPhonesSupported > 0 {
                 Picker("Cell Call Rejection", selection: $phone.cellCallRejection) {

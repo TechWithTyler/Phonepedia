@@ -699,6 +699,12 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
         return baseRingtones + baseMusicRingtones
     }
 
+    // The total call block capacity (call block list + pre-blocked).
+    @Transient
+    var totalCallBlockCapacity: Int {
+        return callBlockCapacity + callBlockPreProgrammedDatabaseEntryCount
+    }
+
     // Whether the base can be used to talk on the phone.
     @Transient
     var canTalkOnBase: Bool {
