@@ -72,6 +72,10 @@ struct BaseCallerIDView: View {
 #if !os(visionOS)
                 .scrollDismissesKeyboard(.interactively)
 #endif
+            if phone.hasCallerIDList {
+                Toggle("One-Ring Scam Call Detection", isOn: $phone.scamCallDetection)
+                InfoText("If a caller hangs up within 1 or 2 rings and caller ID is received, the phone can mark the call as a one-ring scam call when viewed in the caller ID list, and warn the user when trying to call that caller. One-ring scams often come from international numbers, which cost money to call.")
+            }
         }
     }
 
