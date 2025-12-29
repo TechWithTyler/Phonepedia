@@ -195,6 +195,8 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
 
     var cordedRingerType: Int = 0
 
+    var ringerForOtherLines: Int = 0
+
     var cordedRingerLocation: Int = 0
 
     var numberOfIncludedCordlessHandsets: Int = 2

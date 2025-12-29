@@ -48,7 +48,15 @@ struct BaseRingersView: View {
             Other countries use different systems. In the UK, older phones were labeled with a Load Number (LN), where 4 LNs ≈ 1 REN. A UK POTS line typically supports up to 4 LNs. Australia and New Zealand also use REN, though with slightly different limits. Most of Europe, Asia, and South America follow ETSI (European Telecommunications Standards Institute)-style standards without REN labels, but the practical limit is usually 3–4 phones per line.
             If your line cannot provide enough power for mechanical ringers, you can connect a REN booster to increase ringing capacity and ensure bell/mechanical phones ring properly. Exceeding the REN (or equivalent) limit for your line or provider device can cause damage to it.
             """)
-
+        }
+        if phone.basePhoneType == 0 && phone.isMultiline && phone.cordedPhoneType == 0 && phone.cordedRingerType == 1 && phone.totalBaseRingtones == 1 {
+            Picker("Ringer for Other Lines", selection: $phone.ringerForOtherLines) {
+                Text("Same As Line 1").tag(0)
+                Text("Different Cadence/Speed").tag(1)
+                Text("Different Pitch").tag(2)
+                Text("Different Tone").tag(3)
+            }
+            InfoText("• Same As Line 1: The ringtone is the same for all lines.\n• Different Cadence/Speed: The ring cadence or speed of the tone is different for each line. For example, a 2-line phone might have a fast ring for line 1, and a slow ring or double-ring for line 2.\n• Different Pitch: The pitch of the tone is different for each line. For example, a 2-line phone might have a low-pitch ring for line 1 and a higher-pitch ring for line 2.\n• Different Tone: The ringers are completely different for each line.")
         }
         if phone.totalBaseRingtones > 0 {
             Picker("Silent Mode", selection: $phone.silentMode) {
