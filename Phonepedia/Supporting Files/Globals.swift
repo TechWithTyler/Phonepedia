@@ -36,7 +36,7 @@ let currentYear = Calendar.current.component(.year, from: Date())
 let oldestPhoneYear: Int = 1876
 
 // The earliest year of a cordless device.
-let oldestHandsetYear: Int = 1980
+let oldestHandsetYear: Int = 1978
 
 // The default maximum number of cordless devices.
 let defaultMaxCordlessDevices: Int = 5
