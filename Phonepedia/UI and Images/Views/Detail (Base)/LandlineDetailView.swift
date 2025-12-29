@@ -72,7 +72,7 @@ struct LandlineDetailView: View {
             }
             if phone.hasAnalogLineConnection {
                 Picker(phone.landlineConnectionType == 5 ? "Analog Line Dial Mode" : "Dial Mode", selection: $phone.dialMode) {
-                    if phone.landlineConnectionType == 0 && !phone.isCordless {
+                    if phone.landlineConnectionType == 0 {
                         Text("Pulse Only").tag(0)
                     }
                     Text("Tone Only").tag(1)
@@ -92,6 +92,7 @@ struct LandlineDetailView: View {
             if phone.isCordless || phone.cordedPhoneType == 0 {
                 Picker("On Base", selection: $phone.landlineInUseStatusOnBase) {
                     Text("None").tag(0)
+                    Divider()
                     Text("Light").tag(1)
                     if phone.baseDisplayType > 1 {
                         Text("Display").tag(2)

@@ -52,6 +52,7 @@ struct BaseRingersView: View {
         if phone.basePhoneType == 0 && phone.isMultiline && phone.cordedPhoneType == 0 && phone.cordedRingerType == 1 && phone.totalBaseRingtones == 1 {
             Picker("Ringer for Other Lines", selection: $phone.ringerForOtherLines) {
                 Text("Same As Line 1").tag(0)
+                Divider()
                 Text("Different Cadence/Speed").tag(1)
                 Text("Different Pitch").tag(2)
                 Text("Different Tone").tag(3)
