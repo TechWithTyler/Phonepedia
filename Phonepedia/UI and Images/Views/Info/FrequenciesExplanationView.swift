@@ -58,7 +58,7 @@ struct FrequenciesExplanationView: View {
                     Text("DECT uses encryption, making it the most secure cordless phone frequency. Since it's dedicated to cordless phones, baby monitors, and other telecommunications-related devices, interference from other wireless technologies is minimal, and DECT devices rarely interfere with each other. Different countries use different frequencies for DECT.")
                     Text("1.786–1.792GHz (1786–1792MHz) is used in South Korea.")
                     Text("1.88–1.895GHz (1880–1895MHz) is used in Taiwan.")
-                    Text("1.88–1.90GHz (1880–190MHz) is used for DECT in Europe, the UK, Ireland, Australia, New Zealand, and the Middle East. Throughout \(appName!), it's referred to as ETSI DECT (ETSI standing for European Telecommunications Standards Institute). DECT originated from Europe, originally standing for Digital European Cordless Telecommunications before DECT was adopted by other countries.")
+                    Text("1.88–1.90GHz (1880–190MHz) is used for DECT in Europe, the UK, Ireland, Australia, New Zealand, and the Middle East. Throughout \(SAAppName), it's referred to as ETSI DECT (ETSI standing for European Telecommunications Standards Institute). DECT originated from Europe, originally standing for Digital European Cordless Telecommunications before DECT was adopted by other countries.")
                     Text("J-DECT (1.893–1.906GHz or 1893–1906MHz) is used in Japan.")
                     Text("1.91–1.92GHz (1910–1920MHz) is used in Brazil.")
                     Text("1.91–1.93GHz (1910–1930MHz) is used in parts of Latin America.")
@@ -67,7 +67,7 @@ struct FrequenciesExplanationView: View {
                 DisclosureGroup("Marketing vs Actual Frequency Range") {
                     Text("Some cordless phones only use a subset of their actual frequency band.")
                     Text("Some 1.7MHz cordless phones used 46MHz for handset-to-base.")
-                    Text("46-49MHz cordless phones are often referred to as such because that's the frequency range they typically operate in, and is shown as such throughout \(appName!), although the actual frequency range is 43-46MHz base-to-handset and 48-49MHz handset-to-base.")
+                    Text("46-49MHz cordless phones are often referred to as such because that's the frequency range they typically operate in, and is shown as such throughout \(SAAppName), although the actual frequency range is 43-46MHz base-to-handset and 48-49MHz handset-to-base.")
                     Text("The actual frequency range for 900MHz cordless phones is 902-928MHz. Rounding down for marketing/documentation makes it simpler to understand.")
                     Text("The actual frequency range for 2.4GHz cordless phones is 2.400–2.4835GHz (2400-2483.5MHz). Rounding down for marketing/documentation makes it simpler to understand.")
                     Text("The actual frequency range for 5.8GHz cordless phones is 5.725-5.850GHz (5725-5850MHz). Rounding up for marketing/documentation makes it simpler to understand.")
