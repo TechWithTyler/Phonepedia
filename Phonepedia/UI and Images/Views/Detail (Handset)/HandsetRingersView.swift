@@ -68,7 +68,7 @@ struct HandsetRingersView: View {
                 InfoText("Some cordless handsets have vibrator motors like cell phones.")
             }
         } else {
-            Text("Error")
+            Text(cordlessDeviceMissingPhoneText)
         }
     }
 

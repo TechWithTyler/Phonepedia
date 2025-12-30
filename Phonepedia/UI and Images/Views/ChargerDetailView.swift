@@ -120,7 +120,7 @@ struct ChargerDetailView: View {
             .formStyle(.grouped)
             .scrollContentBackground(.hidden)
         } else {
-            Text("Error")
+            Text(chargerMissingPhoneText)
         }
     }
 

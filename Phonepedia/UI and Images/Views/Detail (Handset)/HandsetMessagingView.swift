@@ -56,7 +56,7 @@ struct HandsetMessagingView: View {
                 }
             }
         } else {
-            Text("Error")
+            Text(cordlessDeviceMissingPhoneText)
         }
     }
 }

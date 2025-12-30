@@ -127,16 +127,6 @@ struct PhoneGeneralView: View {
                 if phone.isCordless {
                     Group {
                         HandsetNumberDigitView(phone: phone)
-                        if phone.isDigitalCordless {
-                            Stepper("Maximum Number of Cordless Devices (-1 If No Limit): \(phone.maxCordlessHandsets)", value: $phone.maxCordlessHandsets, in: -1...15)
-                                .onChange(of: phone.maxCordlessHandsets) { oldValue, newValue in
-                                    phone.maxCordlessHandsetsChanged(oldValue: oldValue, newValue: newValue)
-                                }
-                            InfoText("If the phone uses the \"security codes must match\" method where the base doesn't know or care how many cordless handsets are being used with it, set this to -1. Press the button below to learn more about the differences between registration and \"security codes must match\".")
-                        }
-                        InfoButton("Registration/Security Code Explanation…") {
-                            dialogManager.showingRegistrationExplanation = true
-                        }
                         Picker("Frequency", selection: $phone.frequency) {
                             ForEach(Phone.CordlessFrequency.allCases) { frequency in
                                 if frequency.rawValue < 0 {
@@ -146,23 +136,56 @@ struct PhoneGeneralView: View {
                                 }
                             }
                         }
-                        .onChange(of: phone.isDigitalCordless) { oldValue, newValue in
-                            phone.isDigitalCordlessChanged(oldValue: oldValue, newValue: newValue)
+                        .onChange(of: phone.frequency) { oldValue, newValue in
+                            phone.frequencyChanged(oldValue: oldValue, newValue: newValue)
+                        }
+                        InfoButton("Frequencies/Communication Technologies Explanation…") {
+                            dialogManager.showingFrequenciesExplanation = true
                         }
                         if phone.frequency == 0 {
                             WarningText("You may not be able to specify certain features/aspects of this phone without knowing its frequency! Try looking up the wireless frequency and communication technology (whether it's analog or digital) of the \(phone.brand) \(phone.model) and select the correct option above.")
+                        }
+                        if !phone.isDECTCordless {
+                            Picker("Cordless Device Linking Method", selection: $phone.cordlessDeviceLinkingMethod) {
+                                if phone.frequency == Phone.CordlessFrequency.analog1_7MHz.rawValue || phone.frequency == Phone.CordlessFrequency.analog1_7MHzOver46MHz.rawValue {
+                                    Text("Not Required (Insecure)").tag(0)
+                                }
+                                if !phone.baseChargesHandset {
+                                    Text("Factory-Linked (Fixed)").tag(1)
+                                } else {
+                                    if phone.maxCordlessHandsets == -1 {
+                                        Text("Security Code (Switches)").tag(2)
+                                    }
+                                    Text("Security Code (Place Handset On Base)").tag(3)
+                                }
+                                if phone.isDigitalCordless {
+                                    Text("Registration").tag(4)
+                                }
+                            }
+                            if phone.cordlessDeviceLinkingMethod == 3 && phone.maxCordlessHandsets == 1 {
+                                InfoText("Placing a handset on the base changes the digital security code and \"invalidates\" the previous handset.")
+                            }
+                        }
+                        if phone.cordlessDeviceLinkingMethod > 2 {
+                            Stepper("Maximum Number of Cordless Devices (-1 If No Limit): \(phone.maxCordlessHandsets)", value: $phone.maxCordlessHandsets, in: phone.cordlessDeviceLinkingMethod == 4 ? -1...15 : -1...1)
+                                .onChange(of: phone.maxCordlessHandsets) { oldValue, newValue in
+                                    phone.maxCordlessHandsetsChanged(oldValue: oldValue, newValue: newValue)
+                                }
+                            InfoText("If the phone uses the \"security codes must match\" method and the base doesn't know or care how many cordless handsets are being used with it, set this to -1. Press the button below to learn more about the differences between registration and \"security codes must match\".")
+                        }
+                        InfoButton("Registration/Security Code Explanation…") {
+                            dialogManager.showingRegistrationExplanation = true
                         }
                         if phone.frequency == Phone.CordlessFrequency.analog1_7MHz.rawValue || phone.frequency == Phone.CordlessFrequency.analog1_7MHzOver46MHz.rawValue {
                             Toggle("Base-to-Handset Uses Power Line", isOn: $phone.baseTransmitThroughPowerLine)
                             InfoText("Some early cordless phones used the building's electrical wiring as the base's transmit antenna, with the actual antenna only used for receive. This design might cause issues on modern electrical systems.")
                         }
-                        InfoButton("Frequencies/Communication Technologies Explanation…") {
-                            dialogManager.showingFrequenciesExplanation = true
-                        }
                     }
                     if phone.isDigitalCordless {
-                        Toggle("Supports Range Extenders", isOn: $phone.supportsRangeExtenders)
-                        InfoText("A range extender, also known as a repeater, extends the range (or \"repeats the signal\") of the base it's registered to. Devices communicating with the base choose the base or a range extender based on which has the strongest signal, just like devices connected to a mesh Wi-Fi network.\nIf you register 2 or more range extenders, they can be \"daisy-chained\" (one can communicate with the base via another) to create a larger useable coverage area.\nWhen a cordless device moves between the base or range extender(s), your call may briefly cut out.\nIf a handset is communicating with a range extender and that range extender loses power or its link to the base, the handset will also lose its link to the base for a few seconds, which will cause the handset to either connect to the base or another range extender, or drop the call entirely.")
+                        if phone.cordlessDeviceLinkingMethod == 4 {
+                            Toggle("Supports Range Extenders", isOn: $phone.supportsRangeExtenders)
+                            InfoText("A range extender, also known as a repeater, extends the range (or \"repeats the signal\") of the base it's registered to. Devices communicating with the base choose the base or a range extender based on which has the strongest signal, just like devices connected to a mesh Wi-Fi network.\nIf you register 2 or more range extenders, they can be \"daisy-chained\" (one can communicate with the base via another) to create a larger useable coverage area.\nWhen a cordless device moves between the base or range extender(s), your call may briefly cut out.\nIf a handset is communicating with a range extender and that range extender loses power or its link to the base, the handset will also lose its link to the base for a few seconds, which will cause the handset to either connect to the base or another range extender, or drop the call entirely.")
+                        }
                         Toggle("Briefly Holds Ongoing Call When Out Of Range", isOn: $phone.holdForOutOfRange)
                         InfoText("Typically, with digital cordless phones, when a handset moves out of range from the base during a call, the call is dropped. With some cordless phones, the base can put the call on hold for a short time once it detects that the handset has gone out of range, to allow the call to continue if the handset moves back in range quickly enough. On analog cordless phones, the base can't know that the handset went out of range, so the phone will remain off-hook until the base is unplugged and plugged back in, or the handset goes back in range without having been hung up first (or for some single-handset models, placing a handset on the base).")
                         Picker("ECO Mode", selection: $phone.ecoMode) {
@@ -244,7 +267,20 @@ In most cases, if the base has a charge light/display message, the completion of
 """)
                         }
                     }
-                    if phone.isDigitalCordless && phone.maxCordlessHandsets > 1 {
+                    if phone.baseChargesHandset {
+                        Picker("Handset Locator Button Location", selection: $phone.locatorButtonLocation) {
+                            Text(phone.cordlessBaseMenuType > 0 && phone.handsetLocatorUsesIntercom ? "Standard/In Menu" : "Standard").tag(0)
+                            Text("Behind Handset").tag(1)
+                            Text("Side of Base").tag(2)
+                            Text("Bottom of Base").tag(3)
+                        }
+                        InfoText("• Standard/In Menu: The handset locator button is with the rest of the base controls, if any. If the base has a menu, it may instead be located there.\n• Behind Handset: The handset locator button is in the handset charging area. You need to remove the handset to access it.\n• Side/Bottom of Base: The handset locator button is on the side of the base.\n• Bottom of Base: The handset locator button is on the bottom of the base. You'll need to flip the base over to access it.")
+                    }
+                    if phone.locatorButtons == 0 || phone.cordlessDeviceLinkingMethod < 3 {
+                        Toggle("Handset Locator Uses Intercom", isOn: $phone.handsetLocatorUsesIntercom)
+                        InfoText("Some phones use intercom as the means of locating handsets, even if the base doesn't have intercom. This means that the handset locator and intercom from the base are the same feature, and therefore, the handset may indicate \"call from base\" instead of \"paging\".")
+                    }
+                    if phone.cordlessDeviceLinkingMethod == 3 {
                         if phone.hasBaseIntercom {
                             Picker("Handset Locator Button(s)", selection: $phone.locatorButtons) {
                                 Text(phone.hasBaseKeypad && phone.handsetLocatorUsesIntercom ? "One for All HS/Keypad Entry" : "One For All Handsets").tag(0)
@@ -256,19 +292,6 @@ In most cases, if the base has a charge light/display message, the completion of
                                 phone.locatorButtonsChanged(oldValue: oldValue, newValue: newValue)
                             }
                             InfoText("Handset locator allows you to locate (page) the handset(s) so you can find them. The term \"page\" comes from the fact that this makes the handset beep or ring, just like how pagers beep when they're called.\n• One for All: A single locator button pages, or makes an intercom call to, all handsets. If the base has a keypad, you can call all handsets or a specific one.\n• One for Each: The base has one locator button for each handset slot. For example, a phone that only expands up to 3 handsets would have 3 handset locator buttons, one for each of the 3 handsets.\nEach HS + All: The base has one locator button for each handset slot, as well as a button to page all handsets.\nSelect + Call Buttons: Press the select button to select the desired handset, then press the call button to call it. This is often seen on phones where the base's physical design is shared between a 2-handset model and a 3-or-more-handset model.")
-                            if phone.locatorButtons == 0 {
-                                Toggle("Handset Locator Uses Intercom", isOn: $phone.handsetLocatorUsesIntercom)
-                            }
-                            InfoText("Some phones use intercom as the means of locating handsets, even if the base doesn't have intercom. This means that the handset locator and intercom from the base are the same feature, and therefore, the handset may indicate \"call from base\" instead of \"paging\".")
-                        }
-                        if phone.baseChargesHandset {
-                            Picker("Handset Locator Button Location", selection: $phone.locatorButtonLocation) {
-                                Text(phone.cordlessBaseMenuType > 0 && phone.handsetLocatorUsesIntercom ? "Standard/In Menu" : "Standard").tag(0)
-                                Text("Behind Handset").tag(1)
-                                Text("Side of Base").tag(2)
-                                Text("Bottom of Base").tag(3)
-                            }
-                            InfoText("• Standard/In Menu: The handset locator button is with the rest of the base controls, if any. If the base has a menu, it may instead be located there.\n• Behind Handset: The handset locator button is in the handset charging area. You need to remove the handset to access it.\n• Side/Bottom of Base: The handset locator button is on the side of the base.\n• Bottom of Base: The handset locator button is on the bottom of the base. You'll need to flip the base over to access it.")
                         }
                         if !phone.isCordedCordless && !phone.hasTransmitOnlyBase && phone.deregistration > 0 && phone.locatorButtons == 0 {
                             Toggle("Place-On-Base Auto-Register", isOn: $phone.placeOnBaseAutoRegister)

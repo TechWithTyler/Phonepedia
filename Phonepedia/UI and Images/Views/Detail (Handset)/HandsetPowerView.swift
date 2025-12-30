@@ -89,7 +89,7 @@ struct HandsetPowerView: View {
                 }
             }
         } else {
-            Text("Error")
+            Text(cordlessDeviceMissingPhoneText)
         }
     }
 

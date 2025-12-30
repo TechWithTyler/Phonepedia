@@ -475,6 +475,10 @@ extension Phone {
             return (name.contains("Digital") || name.contains("DSS") /*Digital Spread Spectrum*/ || name.contains("FHSS") /*Frequency-Hopping Spread Spectrum, doesn't include digital in the name but is digital*/ || name.contains("DECT") /*Digital Enhanced Cordless Telecommunications*/) && !name.contains("Analog")
         }
 
+        var isDECT: Bool {
+            return name.contains("DECT")
+        }
+
         // MARK: - Frequency Name From Raw Value
 
         static func nameFromRawValue(_ rawValue: Double) -> String {

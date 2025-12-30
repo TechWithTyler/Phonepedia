@@ -27,6 +27,12 @@ let cordedPhoneStyleSectionName: String = "Corded Phone Styles"
 // The tag of the "All" option in the phone/cordless device filter options.
 let allItemsFilterOptionTag: String = "all"
 
+// The message shown if a cordless device detail page that relies on phone details is displayed but the cordless device's phone assignment appears to be missing.
+let cordlessDeviceMissingPhoneText: String = "This cordless device's phone assignment is missing!"
+
+// The message shown if a charger detail page that relies on phone details is displayed but the charger's phone assignment appears to be missing.
+let chargerMissingPhoneText: String = "This charger's phone assignment is missing!"
+
 // MARK: - Properties - Integers
 
 // The current year to use as the default value of a phone or cordless device's release year/acquisition year.

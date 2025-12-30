@@ -207,6 +207,8 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
 
     var maxCordlessHandsets: Int = defaultMaxCordlessDevices
 
+    var cordlessDeviceLinkingMethod: Int = 3
+
     var supportsRangeExtenders: Bool = false
 
     var holdForOutOfRange: Bool = false
@@ -746,6 +748,13 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
     var isDigitalCordless: Bool {
         guard let frequency = Phone.CordlessFrequency(rawValue: frequency) else { return false }
         return frequency.isDigital
+    }
+
+    // Whether the phone is a DECT cordless phone.
+    @Transient
+    var isDECTCordless: Bool {
+        guard let frequency = Phone.CordlessFrequency(rawValue: frequency) else { return false }
+        return frequency.isDECT
     }
 
     // Whether the phone is corded/cordless, meaning the base is a corded phone and acts as a main transmitting base for cordless devices.
@@ -1290,11 +1299,28 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
         }
     }
 
-    func isDigitalCordlessChanged(oldValue: Bool, newValue: Bool) {
-        if !newValue {
-            maxCordlessHandsets = -1
+    func frequencyChanged(oldValue: Double, newValue: Double) {
+        if newValue > Phone.CordlessFrequency.analog1_7MHzOver46MHz.rawValue && cordlessDeviceLinkingMethod == 0 {
+            cordlessDeviceLinkingMethod = baseChargesHandset ? 3 : 2
+        }
+        if !isDigitalCordless {
+            if cordlessDeviceLinkingMethod == 4 {
+                cordlessDeviceLinkingMethod = baseChargesHandset ? 3 : 2
+            }
+            if maxCordlessHandsets > 1 {
+                maxCordlessHandsets = -1
+            }
             locatorButtons = 0
             deregistration = 1
+        }
+        if isDECTCordless && cordlessDeviceLinkingMethod < 4 {
+            cordlessDeviceLinkingMethod = 4
+        }
+    }
+
+    func cordlessDeviceLinkingMethodChanged(oldValue: Int, newValue: Int) {
+        if newValue < 4 && maxCordlessHandsets > 1 {
+            maxCordlessHandsets = -1
         }
     }
 
@@ -1305,6 +1331,9 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
             }
             if maxCordlessHandsets == -1 {
                 maxCordlessHandsets = 1
+            }
+            if cordlessDeviceLinkingMethod > 1 && cordlessDeviceLinkingMethod != 4 {
+                cordlessDeviceLinkingMethod = 1
             }
             dialWithBaseDuringHandsetCall = false
             hasPickUpToSwitch = false
@@ -1492,6 +1521,9 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
             }
             if maxCordlessHandsets == -1 {
                 maxCordlessHandsets = 1
+            }
+            if cordlessDeviceLinkingMethod > 1 && cordlessDeviceLinkingMethod != 4 {
+                cordlessDeviceLinkingMethod = 1
             }
             dialWithBaseDuringHandsetCall = false
             hasPickUpToSwitch = false

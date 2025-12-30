@@ -290,7 +290,7 @@ struct HandsetDisplayBacklightButtonsView: View {
                 }
             }
         } else {
-            Text("Error")
+            Text(cordlessDeviceMissingPhoneText)
         }
     }
 

@@ -69,7 +69,7 @@ struct HandsetAudioView: View {
                 }
             }
         } else {
-            Text("Error")
+            Text(cordlessDeviceMissingPhoneText)
         }
     }
 }
