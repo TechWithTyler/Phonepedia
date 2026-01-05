@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		8D1299232CE3F4C4009240EC /* PhonepediaCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1299222CE3F4C4009240EC /* PhonepediaCommands.swift */; };
 		8D19F0BD2D07962A00C3B67C /* PhoneListDetailOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D19F0BC2D07962A00C3B67C /* PhoneListDetailOptions.swift */; };
+		8D1F3D952F0C402C00FA12FE /* SheftAppsInternals.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D1F3D942F0C402C00FA12FE /* SheftAppsInternals.framework */; };
+		8D1F3D962F0C402C00FA12FE /* SheftAppsInternals.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8D1F3D942F0C402C00FA12FE /* SheftAppsInternals.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8D20E37B2C45B9740016800C /* PhoneInCollectionStatusPickerItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D20E37A2C45B9740016800C /* PhoneInCollectionStatusPickerItems.swift */; };
 		8D20E37D2C45BB7C0016800C /* RingtoneInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D20E37C2C45BB7C0016800C /* RingtoneInfoView.swift */; };
 		8D239BC82DF8D1C80022F0A4 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 8D239BC72DF8D1C80022F0A4 /* AppIcon.icon */; };
@@ -192,6 +194,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				8D1F3D962F0C402C00FA12FE /* SheftAppsInternals.framework in Embed Frameworks */,
 				8DF1E93D2B06D45B00B6D978 /* SheftAppsStylishUI.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -202,6 +205,7 @@
 /* Begin PBXFileReference section */
 		8D1299222CE3F4C4009240EC /* PhonepediaCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhonepediaCommands.swift; sourceTree = "<group>"; };
 		8D19F0BC2D07962A00C3B67C /* PhoneListDetailOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneListDetailOptions.swift; sourceTree = "<group>"; };
+		8D1F3D942F0C402C00FA12FE /* SheftAppsInternals.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SheftAppsInternals.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D20E37A2C45B9740016800C /* PhoneInCollectionStatusPickerItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneInCollectionStatusPickerItems.swift; sourceTree = "<group>"; };
 		8D20E37C2C45BB7C0016800C /* RingtoneInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingtoneInfoView.swift; sourceTree = "<group>"; };
 		8D239BC72DF8D1C80022F0A4 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
@@ -384,6 +388,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D1F3D952F0C402C00FA12FE /* SheftAppsInternals.framework in Frameworks */,
 				8DF1E93C2B06D45B00B6D978 /* SheftAppsStylishUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -766,6 +771,7 @@
 		8DF1E93A2B06D45B00B6D978 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8D1F3D942F0C402C00FA12FE /* SheftAppsInternals.framework */,
 				8DF1E93B2B06D45B00B6D978 /* SheftAppsStylishUI.framework */,
 			);
 			name = Frameworks;
