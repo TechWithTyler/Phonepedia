@@ -511,6 +511,8 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
 
     var grade: Int = 0
 
+    var supportsPBXFeatures: Bool = false
+
     var landlineConnectedTo: Int = 2
 
     var storageOrSetup: Int = 0
