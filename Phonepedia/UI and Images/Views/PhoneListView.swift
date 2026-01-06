@@ -366,10 +366,10 @@ struct PhoneListView: View {
             .pickerStyle(.menu)
             .toggleStyle(.automatic)
             if phoneFilterType == allItemsFilterOptionTag || phoneFilterType == Phone.PhoneType.cordless.rawValue.lowercased() {
-                Picker("No. of Incl Cordless Devices (\(phoneFilterNumberCordlessDevices == 0 ? "Off" : "On"))", selection: $phoneFilterNumberCordlessDevices) {
+                Picker("No. of Incl. Cordless Devices (\(phoneFilterNumberCordlessDevices == 0 ? "Off" : "On"))", selection: $phoneFilterNumberCordlessDevices) {
                     Text("Any").tag(0)
                     Divider()
-                    ForEach(1..<16) { number in
+                    ForEach(1..<31) { number in
                         Text("\(number) \(number == 1 ? "Cordless Device" : "Cordless Devices")").tag(number)
                     }
                 }

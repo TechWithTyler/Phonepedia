@@ -167,7 +167,7 @@ struct PhoneGeneralView: View {
                             }
                         }
                         if phone.cordlessDeviceLinkingMethod > 2 {
-                            Stepper("Maximum Number of Cordless Devices (-1 If No Limit): \(phone.maxCordlessHandsets)", value: $phone.maxCordlessHandsets, in: phone.cordlessDeviceLinkingMethod == 4 ? -1...15 : -1...1)
+                            Stepper("Maximum Number of Cordless Devices (-1 If No Limit): \(phone.maxCordlessHandsets)", value: $phone.maxCordlessHandsets, in: phone.cordlessDeviceLinkingMethod == 4 ? -1...30 : -1...1)
                                 .onChange(of: phone.maxCordlessHandsets) { oldValue, newValue in
                                     phone.maxCordlessHandsetsChanged(oldValue: oldValue, newValue: newValue)
                                 }
