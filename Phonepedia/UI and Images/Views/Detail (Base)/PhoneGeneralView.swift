@@ -171,7 +171,7 @@ struct PhoneGeneralView: View {
                                 .onChange(of: phone.maxCordlessHandsets) { oldValue, newValue in
                                     phone.maxCordlessHandsetsChanged(oldValue: oldValue, newValue: newValue)
                                 }
-                            InfoText("If the phone uses the \"security codes must match\" method and the base doesn't know or care how many cordless handsets are being used with it, set this to -1. Press the button below to learn more about the differences between registration and \"security codes must match\".")
+                            InfoText("If the phone uses the \"security codes must match\" method and the base doesn't know or care how many cordless handsets are being used with it, set this to -1. Press the button below to learn more about the differences between registration and \"security codes must match\".\nLarger DECT business cordless phone systems are made up of multiple bases, called multi-cell bases. Unlike a regular cordless phone handset being able to register to multiple bases, these bases all work together and expands the maximum number of cordless devices that can be registered to the system. Each base is called a cell.")
                         }
                         InfoButton("Registration/Security Code Explanation…") {
                             dialogManager.showingRegistrationExplanation = true
