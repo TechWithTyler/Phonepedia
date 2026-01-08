@@ -31,6 +31,9 @@
 		8D32A5142D4449A200F606FC /* analogCordlessPhoneAudioSampleScrambled.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D32A5132D4449A200F606FC /* analogCordlessPhoneAudioSampleScrambled.wav */; };
 		8D32A5162D4560DC00F606FC /* IntercomAutoAnswerInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D32A5152D4560DC00F606FC /* IntercomAutoAnswerInfoView.swift */; };
 		8D32A5182D4562C500F606FC /* HandsetPowerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D32A5172D4562C500F606FC /* HandsetPowerView.swift */; };
+		8D35D98D2F10582500E49D8E /* PhoneCollectionAchievementsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D35D98C2F10582500E49D8E /* PhoneCollectionAchievementsView.swift */; };
+		8D35D98F2F10590A00E49D8E /* PhoneCollectionAchievementRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D35D98E2F10590A00E49D8E /* PhoneCollectionAchievementRow.swift */; };
+		8D35D9912F105BBF00E49D8E /* PhoneCollectionAchievementsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D35D9902F105BBF00E49D8E /* PhoneCollectionAchievementsButton.swift */; };
 		8D3625A32D9346D300CA3D93 /* AboutPhoneGradesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3625A22D9346D300CA3D93 /* AboutPhoneGradesView.swift */; };
 		8D379CCF2ED651F200F79D1C /* IntercomAutoAnswerPickerItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D379CCE2ED651F200F79D1C /* IntercomAutoAnswerPickerItems.swift */; };
 		8D379CD12ED6524400F79D1C /* RedialWhenBusyPickerItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D379CD02ED6524400F79D1C /* RedialWhenBusyPickerItems.swift */; };
@@ -226,6 +229,9 @@
 		8D32A5132D4449A200F606FC /* analogCordlessPhoneAudioSampleScrambled.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = analogCordlessPhoneAudioSampleScrambled.wav; sourceTree = "<group>"; };
 		8D32A5152D4560DC00F606FC /* IntercomAutoAnswerInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntercomAutoAnswerInfoView.swift; sourceTree = "<group>"; };
 		8D32A5172D4562C500F606FC /* HandsetPowerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandsetPowerView.swift; sourceTree = "<group>"; };
+		8D35D98C2F10582500E49D8E /* PhoneCollectionAchievementsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneCollectionAchievementsView.swift; sourceTree = "<group>"; };
+		8D35D98E2F10590A00E49D8E /* PhoneCollectionAchievementRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneCollectionAchievementRow.swift; sourceTree = "<group>"; };
+		8D35D9902F105BBF00E49D8E /* PhoneCollectionAchievementsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneCollectionAchievementsButton.swift; sourceTree = "<group>"; };
 		8D3625A22D9346D300CA3D93 /* AboutPhoneGradesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutPhoneGradesView.swift; sourceTree = "<group>"; };
 		8D379CCE2ED651F200F79D1C /* IntercomAutoAnswerPickerItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntercomAutoAnswerPickerItems.swift; sourceTree = "<group>"; };
 		8D379CD02ED6524400F79D1C /* RedialWhenBusyPickerItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedialWhenBusyPickerItems.swift; sourceTree = "<group>"; };
@@ -480,6 +486,7 @@
 			children = (
 				8DB9A30D2CEBEDFB005BC70B /* PhoneCountButton.swift */,
 				8DB9A30F2CEBEE37005BC70B /* PhoneTypeDefinitionsButton.swift */,
+				8D35D9902F105BBF00E49D8E /* PhoneCollectionAchievementsButton.swift */,
 			);
 			path = "Menu Items";
 			sourceTree = "<group>";
@@ -591,6 +598,7 @@
 				8DC725872D4D777500ED9D68 /* Document Launch Scene */,
 				8D19F0BB2D07961800C3B67C /* Settings */,
 				8D8667242EAC143A002A0266 /* CordlessDeviceReassignmentView.swift */,
+				8D35D98C2F10582500E49D8E /* PhoneCollectionAchievementsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -676,6 +684,7 @@
 				8D8555092C8F9055006A14E3 /* HandsetActionsView.swift */,
 				8DDE4E4A2CFFAA4D000C3D46 /* HandsetNumberDigitView.swift */,
 				8D842D5A2D3F060F00F50F32 /* ExampleAudioView.swift */,
+				8D35D98E2F10590A00E49D8E /* PhoneCollectionAchievementRow.swift */,
 			);
 			path = "Child Views";
 			sourceTree = "<group>";
@@ -1010,6 +1019,7 @@
 				8D94AA942EF0B2E400F23F14 /* CellLineSelectionPickerItems.swift in Sources */,
 				8D7A74A42C26203E00C5329E /* DocumentLaunchPhonesAccessoryView.swift in Sources */,
 				8D20E37B2C45B9740016800C /* PhoneInCollectionStatusPickerItems.swift in Sources */,
+				8D35D9912F105BBF00E49D8E /* PhoneCollectionAchievementsButton.swift in Sources */,
 				8D8555522C98D2C1006A14E3 /* AboutDisplayTypesView.swift in Sources */,
 				8DA844F12B72E1D7006CBCA7 /* PhonePhotoViewModel.swift in Sources */,
 				8DA844DE2B72E1D7006CBCA7 /* AntennaInfoView.swift in Sources */,
@@ -1032,6 +1042,7 @@
 				8DBCB7E32D49861C00878A1F /* MultiEntryDisplayInfoView.swift in Sources */,
 				8DC725892D4D778800ED9D68 /* DocumentLaunchBackgroundView.swift in Sources */,
 				8DA844D42B72E1D7006CBCA7 /* NoPhoneSelectedView.swift in Sources */,
+				8D35D98D2F10582500E49D8E /* PhoneCollectionAchievementsView.swift in Sources */,
 				8D7A097C2EBAA420008DB3F0 /* BoneConductionEarpieceInfoView.swift in Sources */,
 				8D94AA9A2EF0B71A00F23F14 /* RedialDuringCallPickerItems.swift in Sources */,
 				8DBCB7E72D4AC17500878A1F /* FavoriteEntriesInfoView.swift in Sources */,
@@ -1065,6 +1076,7 @@
 				8D523B002C4EF47000AC6862 /* VoicemailQuickDialInfoView.swift in Sources */,
 				8DBCB7ED2D4AD04000878A1F /* SilentModeInfoView.swift in Sources */,
 				8D71C8172CDD651D00072E50 /* RedialNameDisplayInfoView.swift in Sources */,
+				8D35D98F2F10590A00E49D8E /* PhoneCollectionAchievementRow.swift in Sources */,
 				8DA844D82B72E1D7006CBCA7 /* FrequenciesExplanationView.swift in Sources */,
 				8D95997D2C22212400FEED40 /* SchemaVersioning.swift in Sources */,
 				8DC7258B2D4D7B6100ED9D68 /* DocumentLaunchPhoneView.swift in Sources */,

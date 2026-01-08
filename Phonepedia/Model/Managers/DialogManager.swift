@@ -68,6 +68,8 @@ class DialogManager: ObservableObject {
 
     @Published var showingPhoneCount: Bool = false
 
+    @Published var showingPhoneCollectionAchievements: Bool = false
+
     @Published var showingFrequenciesExplanation: Bool = false
 
     @Published var showingRegistrationExplanation: Bool = false

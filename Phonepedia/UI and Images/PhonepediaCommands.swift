@@ -26,6 +26,9 @@ struct PhonepediaCommands: Commands {
                 Section {
                     PhoneCountButton()
                         .environmentObject(dialogManager)
+                    PhoneCollectionAchievementsButton()
+                        .environmentObject(dialogManager)
+                    Divider()
                     PhoneTypeDefinitionsButton()
                         .environmentObject(dialogManager)
                 }

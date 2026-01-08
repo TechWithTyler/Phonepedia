@@ -247,6 +247,9 @@ struct PhoneListView: View {
         .sheet(isPresented: $dialogManager.showingPhoneCount) {
             PhoneCountView(phones: phones)
         }
+        .sheet(isPresented: $dialogManager.showingPhoneCollectionAchievements) {
+            PhoneCollectionAchievementsView(phones: phones)
+        }
         .alert("Delete all phones from this catalog?", isPresented: $dialogManager.showingDeleteAllPhones) {
             Button(role: .destructive) {
                 dialogManager.showingDeleteAllPhones = false
@@ -312,6 +315,7 @@ struct PhoneListView: View {
             OptionsMenu(title: .menu) {
                 PhoneTypeDefinitionsButton()
                 Divider()
+                PhoneCollectionAchievementsButton()
                 PhoneCountButton()
                     .badge(phones.count)
                 Menu("Phone List Detail") {
