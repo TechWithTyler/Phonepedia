@@ -231,7 +231,7 @@ struct BaseDisplayBacklightButtonsView: View {
                             Text("Other Function").tag(6)
                         }
                         Toggle("Base Navigation Button Up/Down for Volume", isOn: $phone.baseNavigatorKeyUpDownVolume)
-                        if phone.hasBaseAccessibleAnsweringSystem {
+                        if phone.hasBaseAccessibleAnsweringSystem && phone.baseNavigatorKeyType > 1 {
                             Toggle("Base Navigation Button Left/Right for Repeat/Skip", isOn: $phone.baseNavigatorKeyLeftRightRepeatSkip)
                         }
                         Toggle("Base Navigation Button Standby Shortcuts", isOn: $phone.baseNavigatorKeyStandbyShortcuts)

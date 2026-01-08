@@ -207,7 +207,7 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
 
     var maxCordlessHandsets: Int = defaultMaxCordlessDevices
 
-    var cordlessDeviceLinkingMethod: Int = 3
+    var cordlessDeviceLinkingMethod: Int = 4
 
     var supportsRangeExtenders: Bool = false
 

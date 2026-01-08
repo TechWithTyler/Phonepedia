@@ -87,7 +87,7 @@ struct PhoneGeneralView: View {
                     .padding()
                     .font(.system(size: phoneDescriptionTextSize))
             }
-            Stepper("Number of Included Cordless Devices (0 If Not Cordless): \(phone.numberOfIncludedCordlessHandsets)", value: $phone.numberOfIncludedCordlessHandsets, in: .zeroToMax(15))
+            Stepper("Number of Included Cordless Devices (0 If Not Cordless): \(phone.numberOfIncludedCordlessHandsets)", value: $phone.numberOfIncludedCordlessHandsets, in: .zeroToMax(30))
                 .disabled(phone.handsetNumberDigit != nil)
                 .onChange(of: phone.numberOfIncludedCordlessHandsets) { oldValue, newValue in
                     phone.numberOfIncludedCordlessHandsetsChanged(oldValue: oldValue, newValue: newValue)
