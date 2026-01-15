@@ -35,7 +35,7 @@ class PhoneCollectionAchievementTrackerViewModel: ObservableObject {
     // This method checks the given array of phones to check if any achievements have been unlocked.
     func evaluate(phones: [Phone]) {
         // 1. Create an instance of PhoneCollectionAchievements with the current phones array.
-        let model = PhoneCollectionAchievements(phones: phones)
+        let model = PhoneCollectionAchievementTracker(phones: phones)
         var achievementTitles: Set<String> = []
         DispatchQueue.main.async { [self] in
         // 2. Loop through each achievement.

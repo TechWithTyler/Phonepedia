@@ -23,7 +23,7 @@ struct PhoneCollectionAchievementsView: View {
 
     // MARK: - Properties - Achievements
 
-    var achievements: PhoneCollectionAchievements { PhoneCollectionAchievements(phones: phones) }
+    var achievements: PhoneCollectionAchievementTracker { PhoneCollectionAchievementTracker(phones: phones) }
 
     // MARK: - Body
 

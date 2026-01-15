@@ -308,7 +308,13 @@ struct PhoneListView: View {
             }
         }
         .alert(achievementsViewModel.alertTitle, isPresented: $achievementsViewModel.showingAlert) {
-            Button("OK") { achievementsViewModel.showingAlert = false }
+            Button("OK") {
+                achievementsViewModel.showingAlert = false
+            }
+            Button("Show All…") {
+                achievementsViewModel.showingAlert = false
+                dialogManager.showingPhoneCollectionAchievements = true
+            }
         }
         .toolbar {
             toolbarContent
