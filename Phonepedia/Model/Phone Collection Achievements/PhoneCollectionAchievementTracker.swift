@@ -1,5 +1,5 @@
 //
-//  PhoneCollectionAchievements.swift
+//  PhoneCollectionAchievementTracker.swift
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 1/9/26.
@@ -14,15 +14,18 @@ import Foundation
 
 struct PhoneCollectionAchievement: Identifiable, Equatable {
 
+    // The ID of the achievement.
     let id: String
 
+    // The title of the achievement.
     let title: String
 
+    // Whether the achievement is unlocked.
     let isUnlocked: Bool
 
 }
 
-struct PhoneCollectionAchievements {
+struct PhoneCollectionAchievementTracker {
 
     // MARK: - Properties - Phones
 
@@ -30,27 +33,33 @@ struct PhoneCollectionAchievements {
 
     // MARK: - Properties - Booleans
 
+    // Whether the phones array contains at least 1 corded and at least 1 cordless phone.
     var hasCordedAndCordless: Bool {
         let hasCordless = phones.contains { $0.isCordless }
         let hasCorded = phones.contains { !$0.isCordless }
         return hasCordless && hasCorded
     }
 
+    // Whether the phones array contains at least 1 brand-new phone.
     var hasBrandNew: Bool {
         return phones.contains { $0.whereAcquired == 1 || $0.whereAcquired == 3 }
     }
 
+    // Whether the phones array contains at least 1 phone that was acquired in its release year.
     var gotInReleaseYear: Bool {
         return phones.contains { $0.acquiredInYearOfRelease }
     }
 
     // MARK: - Properties - All Achievements
 
+    // All possible achievements.
     var all: [PhoneCollectionAchievement] {
         return [
+            // Events
             PhoneCollectionAchievement(id: "cordedAndCordless", title: "Get A Corded And A Cordless Phone", isUnlocked: hasCordedAndCordless),
             PhoneCollectionAchievement(id: "brandNew", title: "Get A Brand-New Phone", isUnlocked: hasBrandNew),
             PhoneCollectionAchievement(id: "releaseYear", title: "Get A Phone In Its Release Year", isUnlocked: gotInReleaseYear),
+            // Counts
             PhoneCollectionAchievement(id: "count10", title: "Get 10 Phones", isUnlocked: reachedCount(10)),
             PhoneCollectionAchievement(id: "count20", title: "Get 20 Phones", isUnlocked: reachedCount(20)),
             PhoneCollectionAchievement(id: "count50", title: "Get 50 Phones", isUnlocked: reachedCount(50)),
@@ -62,7 +71,9 @@ struct PhoneCollectionAchievements {
 
     // MARK: - Reached Count
 
-    // Count milestones
-    func reachedCount(_ n: Int) -> Bool { phones.count >= n }
+    // Returns whether the phones array contains at least n phones.
+    func reachedCount(_ n: Int) -> Bool {
+        return phones.count >= n
+    }
 
 }

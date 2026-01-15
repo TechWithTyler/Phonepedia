@@ -27,7 +27,7 @@ struct ContentView: View {
     // Handles the import and export of phone photos.
     @ObservedObject var photoViewModel = PhonePhotoViewModel()
 
-    @ObservedObject var achievementsViewModel = PhoneCollectionAchievementsViewModel()
+    @ObservedObject var achievementsViewModel = PhoneCollectionAchievementTrackerViewModel()
 
     // MARK: - Properties - Phones
 

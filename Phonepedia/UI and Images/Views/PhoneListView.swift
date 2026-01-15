@@ -21,7 +21,7 @@ struct PhoneListView: View {
 
     @EnvironmentObject var dialogManager: DialogManager
 
-    @EnvironmentObject var achievementsViewModel: PhoneCollectionAchievementsViewModel
+    @EnvironmentObject var achievementsViewModel: PhoneCollectionAchievementTrackerViewModel
 
     // MARK: - Properties - Strings
 
@@ -231,6 +231,7 @@ struct PhoneListView: View {
             achievementsViewModel.shouldPerformInitialLoad = true
         }
         .onChange(of: phones) { oldValue, newValue in
+            // The first trigger is the phone catalog's initial load of the phones array. This triggers the initial loading of any achievements that have already been displayed.
             achievementsViewModel.evaluate(phones: newValue)
         }
         .contextMenu {

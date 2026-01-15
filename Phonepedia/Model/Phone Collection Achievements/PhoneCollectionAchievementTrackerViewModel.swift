@@ -1,5 +1,5 @@
 //
-//  PhoneCollectionAchievementsViewModel.swift
+//  PhoneCollectionAchievementTrackerViewModel.swift
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 1/9/26.
@@ -10,25 +10,29 @@
 
 import SwiftUI
 
-class PhoneCollectionAchievementsViewModel: ObservableObject {
+class PhoneCollectionAchievementTrackerViewModel: ObservableObject {
 
     // MARK: - Properties - Booleans
 
+    // Whether the achievement alert should be/is being displayed.
     @Published var showingAlert: Bool = false
 
+    // Whether an evaluation is for the initial load of a phone catalog, where unlocked achievements are collected but not displayed until a new one is unlocked.
     @Published var shouldPerformInitialLoad: Bool = true
 
     // MARK: - Properties - Strings
 
+    // The title of the achievement alert.
     var alertTitle: String = String()
 
     // MARK: - Shown Achievement IDs
 
-    // Per-document session tracking of which achievements have been shown
+    // Tracks which achievements have been shown. This prevents them from being displayed each time the alert is displayed.
     @Published var shownAchievementIDs: Set<String> = []
 
     // MARK: - Evaluation
 
+    // This method checks the given array of phones to check if any achievements have been unlocked.
     func evaluate(phones: [Phone]) {
         // 1. Create an instance of PhoneCollectionAchievements with the current phones array.
         let model = PhoneCollectionAchievements(phones: phones)
