@@ -21,6 +21,8 @@ struct PhoneListView: View {
 
     @EnvironmentObject var dialogManager: DialogManager
 
+    @EnvironmentObject var achievementsViewModel: PhoneCollectionAchievementsViewModel
+
     // MARK: - Properties - Strings
 
     // The current setting for the type phone filter.
@@ -186,6 +188,19 @@ struct PhoneListView: View {
                                 Label("Delete…", systemImage: "trash")
                             }
                         }
+                        // Track changes to the phone to determine whether to show an achievement alert.
+                        .onChange(of: phone.acquisitionYear, { oldValue, newValue in
+                            achievementsViewModel.evaluate(phones: phones)
+                        })
+                        .onChange(of: phone.releaseYear, { oldValue, newValue in
+                            achievementsViewModel.evaluate(phones: phones)
+                        })
+                        .onChange(of: phone.isCordless, { oldValue, newValue in
+                            achievementsViewModel.evaluate(phones: phones)
+                        })
+                        .onChange(of: phone.whereAcquired, { oldValue, newValue in
+                            achievementsViewModel.evaluate(phones: phones)
+                        })
                         .onChange(of: phone.storageOrSetup, { oldValue, newValue in
                             dialogManager.showingUpdateCordlessDevicePlaceInCollection = true
                             dialogManager.phoneToUpdateCordlessDevicePlaceInCollection = phone
@@ -213,6 +228,10 @@ struct PhoneListView: View {
         }
         .onAppear {
             installDefaultsForNewData()
+            achievementsViewModel.shouldPerformInitialLoad = true
+        }
+        .onChange(of: phones) { oldValue, newValue in
+            achievementsViewModel.evaluate(phones: newValue)
         }
         .contextMenu {
             PhoneListDetailOptions(menu: true)
@@ -286,6 +305,9 @@ struct PhoneListView: View {
             } label: {
                 Text("Cancel")
             }
+        }
+        .alert(achievementsViewModel.alertTitle, isPresented: $achievementsViewModel.showingAlert) {
+            Button("OK") { achievementsViewModel.showingAlert = false }
         }
         .toolbar {
             toolbarContent
@@ -561,3 +583,4 @@ struct PhoneListView: View {
     .padding()
     .frame(minWidth: 400, minHeight: 400)
 }
+

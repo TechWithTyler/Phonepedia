@@ -27,6 +27,8 @@ struct ContentView: View {
     // Handles the import and export of phone photos.
     @ObservedObject var photoViewModel = PhonePhotoViewModel()
 
+    @ObservedObject var achievementsViewModel = PhoneCollectionAchievementsViewModel()
+
     // MARK: - Properties - Phones
 
     // The Phone objects loaded from the document's model container.
@@ -103,6 +105,8 @@ struct ContentView: View {
         .focusedSceneObject(audioManager)
         .environmentObject(photoViewModel)
         .focusedSceneObject(photoViewModel)
+        .environmentObject(achievementsViewModel)
+        .focusedSceneObject(achievementsViewModel)
     }
 
 }

@@ -21,41 +21,18 @@ struct PhoneCollectionAchievementsView: View {
     // All phones in the catalog.
     var phones: [Phone]
 
-    // MARK: - Properties - Booleans
+    // MARK: - Properties - Achievements
 
-    // Whether the phones array contains at least one corded phone and at least one cordless phone.
-    var getCordedAndCordlessPhones: Bool {
-        return !phones.filter({$0.isCordless}).isEmpty && !phones.filter({!$0.isCordless}).isEmpty
-    }
-
-    // Whether the phones array contains at least one phone purchased brand-new.
-    var getABrandNewPhone: Bool {
-        return phones.contains { phone in
-            return phone.whereAcquired == 1 || phone.whereAcquired == 3
-        }
-    }
-
-    // Whether the phones array contains at least one phone acquired in its release year.
-    var gotAPhoneInYearOfRelease: Bool {
-        return phones.contains { phone in
-            return phone.acquiredInYearOfRelease
-        }
-    }
+    var achievements: PhoneCollectionAchievements { PhoneCollectionAchievements(phones: phones) }
 
     // MARK: - Body
 
     var body: some View {
         NavigationStack {
             List {
-                PhoneCollectionAchievementRow(title: "Get A Corded And A Cordless Phone", condition: getCordedAndCordlessPhones)
-                PhoneCollectionAchievementRow(title: "Get A Brand-New Phone", condition: getABrandNewPhone)
-                PhoneCollectionAchievementRow(title: "Get A Phone In Its Release Year", condition: gotAPhoneInYearOfRelease)
-                PhoneCollectionAchievementRow(title: "Get 10 Phones", condition: phones.count >= 10)
-                PhoneCollectionAchievementRow(title: "Get 20 Phones", condition: phones.count >= 20)
-                PhoneCollectionAchievementRow(title: "Get 50 Phones", condition: phones.count >= 50)
-                PhoneCollectionAchievementRow(title: "Get 100 Phones", condition: phones.count >= 100)
-                PhoneCollectionAchievementRow(title: "Get 150 Phones", condition: phones.count >= 150)
-                PhoneCollectionAchievementRow(title: "Get 200 Phones", condition: phones.count >= 200)
+                ForEach(achievements.all) { item in
+                    PhoneCollectionAchievementRow(title: item.title, condition: item.isUnlocked)
+                }
             }
             .navigationTitle("Achievements")
             .toolbar {
