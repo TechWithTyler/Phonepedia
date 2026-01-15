@@ -18,8 +18,11 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
 
     // MARK: - Properties - Mock Phone
 
+    // The mock phone, which is the default for new phones. It needs to be a computed property so it gets a new ID each time.
     @Transient
-    static let mockPhone: Phone = Phone(brand: Phone.mockBrand, model: Phone.mockModel)
+    static var mockPhone: Phone {
+        return Phone(brand: Phone.mockBrand, model: Phone.mockModel)
+    }
 
     // MARK: - Properties - Default Data
 
@@ -45,7 +48,7 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
     // Use @Attribute(_:) to specify an attribute for a SwiftData property.
     @Attribute(.externalStorage) var photoData: Data? = nil
 
-    var releaseYear: Int = currentYear
+    var releaseYear: Int = currentYear - 1
 
     var acquisitionYear: Int = currentYear
 

@@ -33,6 +33,7 @@ final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatab
 
     // MARK: - Properties - Mock Handset
 
+    // The mock handset, which is used in Xcode previews and in the phone row preview in Settings. New cordless devices added to a phone use the phone's brand, the phone's main cordless device model number, and the phone's base colors.
     @Transient
     static var mockHandset: CordlessHandset {
         let phone = Phone.mockPhone
@@ -58,7 +59,7 @@ final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatab
 
     var handsetNumber: Int = 0
 
-	var releaseYear: Int = currentYear
+	var releaseYear: Int = currentYear - 1
 
     var acquisitionYear: Int = currentYear
 
