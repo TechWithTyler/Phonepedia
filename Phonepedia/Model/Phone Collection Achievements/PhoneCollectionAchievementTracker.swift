@@ -57,7 +57,7 @@ struct PhoneCollectionAchievementTracker {
 
     // Whether the phones array contains at least 1 phone with call block pre-screening.
     var hasCallBlockPreScreening: Bool {
-        return phones.contains { $0.callBlockPreScreening > 0 }
+        return phones.contains { $0.callBlockPreScreening >= 0 }
     }
 
     // Whether the phones array contains at least 1 phone with Bluetooth cell phone linking.

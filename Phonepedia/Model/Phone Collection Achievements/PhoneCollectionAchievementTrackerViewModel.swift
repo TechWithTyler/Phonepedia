@@ -37,6 +37,7 @@ class PhoneCollectionAchievementTrackerViewModel: ObservableObject {
         // 1. Create an instance of PhoneCollectionAchievements with the current phones array.
         let model = PhoneCollectionAchievementTracker(phones: phones)
         var achievementTitles: Set<String> = []
+        DispatchQueue.main.async { [self] in
         // 2. Loop through each achievement.
         for item in model.all {
             // 3. If the achievement is unlocked and hasn't been shown, add it to the set of titles and shown IDs. If it becomes locked again, remove it from the shown IDs.
@@ -46,20 +47,21 @@ class PhoneCollectionAchievementTrackerViewModel: ObservableObject {
                     achievementTitles.insert(item.title)
                 }
             } else if !item.isUnlocked && shownAchievementIDs.contains(item.id) {
-                shownAchievementIDs.remove(item.id)
+                    shownAchievementIDs.remove(item.id)
                 achievementTitles.remove(item.title)
+                }
             }
-        }
-        // 4. If achievementTitles isn't empty and this isn't the initial load, show the achievement alert.
-        if !achievementTitles.isEmpty && !shouldPerformInitialLoad {
-            let achievementsAnd = achievementTitles.formatted(.list(type: .and))
-            let achievementsSingularOrPlural = achievementTitles.count == 1 ? "Achievement" : "Achievements"
-            alertTitle = "\(achievementsSingularOrPlural) Unlocked! \(achievementsAnd)"
-            showingAlert = true
-        }
-        // 5. If this was the initial load, set shouldPerformInitialLoad to false so the next check shows the alert. The initial load state is so that the achievements view model can get the "on load" states of any achievements that may have been shown previously.
-        if shouldPerformInitialLoad {
-            shouldPerformInitialLoad = false
+            // 4. If achievementTitles isn't empty and this isn't the initial load, show the achievement alert.
+            if !achievementTitles.isEmpty && !shouldPerformInitialLoad {
+                let achievementsAnd = achievementTitles.formatted(.list(type: .and))
+                let achievementsSingularOrPlural = achievementTitles.count == 1 ? "Achievement" : "Achievements"
+                alertTitle = "\(achievementsSingularOrPlural) Unlocked! \(achievementsAnd)"
+                        showingAlert = true
+            }
+            // 5. If this was the initial load, set shouldPerformInitialLoad to false so the next check shows the alert. The initial load state is so that the achievements view model can get the "on load" states of any achievements that may have been shown previously.
+            if shouldPerformInitialLoad {
+                shouldPerformInitialLoad = false
+            }
         }
     }
 
