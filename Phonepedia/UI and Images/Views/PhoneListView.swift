@@ -201,6 +201,15 @@ struct PhoneListView: View {
                         .onChange(of: phone.whereAcquired, { oldValue, newValue in
                             achievementsViewModel.evaluate(phones: phones)
                         })
+                        .onChange(of: phone.baseBluetoothCellPhonesSupported, { oldValue, newValue in
+                            achievementsViewModel.evaluate(phones: phones)
+                        })
+                        .onChange(of: phone.callBlockPreScreening, { oldValue, newValue in
+                            achievementsViewModel.evaluate(phones: phones)
+                        })
+                        .onChange(of: phone.cordlessPowerBackupMode, { oldValue, newValue in
+                            achievementsViewModel.evaluate(phones: phones)
+                        })
                         .onChange(of: phone.storageOrSetup, { oldValue, newValue in
                             dialogManager.showingUpdateCordlessDevicePlaceInCollection = true
                             dialogManager.phoneToUpdateCordlessDevicePlaceInCollection = phone
