@@ -50,6 +50,26 @@ struct PhoneCollectionAchievementTracker {
         return phones.contains { $0.acquiredInYearOfRelease }
     }
 
+    // Whether the phones array contains at least 1 phone with 2 or more cordless devices.
+    var got2OrMoreCordlessDevices: Bool {
+        return phones.contains { $0.cordlessHandsetsIHave.count >= 2 }
+    }
+
+    // Whether the phones array contains at least 1 phone with call block pre-screening.
+    var hasCallBlockPreScreening: Bool {
+        return phones.contains { $0.callBlockPreScreening >= 0 }
+    }
+
+    // Whether the phones array contains at least 1 phone with Bluetooth cell phone linking.
+    var hasBluetoothCellLinking: Bool {
+        return phones.contains { $0.baseBluetoothCellPhonesSupported >= 1 }
+    }
+
+    // Whether the phones array contains at least 1 cordless phone with place-on-base power backup.
+    var hasPlaceOnBasePowerBackup: Bool {
+        return phones.contains { $0.isCordless && !$0.hasCordedReceiver && $0.cordlessPowerBackupMode == 1 }
+    }
+
     // MARK: - Properties - All Achievements
 
     // All possible achievements.
@@ -59,6 +79,10 @@ struct PhoneCollectionAchievementTracker {
             PhoneCollectionAchievement(id: "cordedAndCordless", title: "Get A Corded And A Cordless Phone", isUnlocked: hasCordedAndCordless),
             PhoneCollectionAchievement(id: "brandNew", title: "Get A Brand-New Phone", isUnlocked: hasBrandNew),
             PhoneCollectionAchievement(id: "releaseYear", title: "Get A Phone In Its Release Year", isUnlocked: gotInReleaseYear),
+            PhoneCollectionAchievement(id: "multiHandset", title: "Get 2 Or More Cordless Devices For A Phone", isUnlocked: got2OrMoreCordlessDevices),
+            PhoneCollectionAchievement(id: "callBlockPreScreening", title: "Get A Phone With Call Block Pre-Screening", isUnlocked: hasCallBlockPreScreening),
+            PhoneCollectionAchievement(id: "BTCellLinking", title: "Get A Phone With Bluetooth Cell Phone Linking", isUnlocked: hasBluetoothCellLinking),
+            PhoneCollectionAchievement(id: "placeOnBasePowerBackup", title: "Get A Cordless Phone With Place-On-Base Power Backup", isUnlocked: hasPlaceOnBasePowerBackup),
             // Counts
             PhoneCollectionAchievement(id: "count10", title: "Get 10 Phones", isUnlocked: reachedCount(10)),
             PhoneCollectionAchievement(id: "count20", title: "Get 20 Phones", isUnlocked: reachedCount(20)),
