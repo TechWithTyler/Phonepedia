@@ -27,7 +27,7 @@ struct ContentView: View {
     // Handles the import and export of phone photos.
     @ObservedObject var photoViewModel = PhonePhotoViewModel()
 
-    @ObservedObject var achievementsViewModel = PhoneCollectionAchievementTrackerViewModel()
+    @ObservedObject var achievementTrackerViewModel = PhoneCollectionAchievementTrackerViewModel()
 
     // MARK: - Properties - Phones
 
@@ -105,8 +105,8 @@ struct ContentView: View {
         .focusedSceneObject(audioManager)
         .environmentObject(photoViewModel)
         .focusedSceneObject(photoViewModel)
-        .environmentObject(achievementsViewModel)
-        .focusedSceneObject(achievementsViewModel)
+        .environmentObject(achievementTrackerViewModel)
+        .focusedSceneObject(achievementTrackerViewModel)
     }
 
 }
