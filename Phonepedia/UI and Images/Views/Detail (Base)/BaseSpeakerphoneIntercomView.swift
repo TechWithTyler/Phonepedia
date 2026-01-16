@@ -56,7 +56,7 @@ struct BaseSpeakerphoneIntercomView: View {
                 Toggle(isOn: $phone.hasIntercom) {
                     Text("Has Intercom")
                 }
-                InfoText("Intercom allows you to have a conversation between 2 cordless devices/the base and a cordless device. It can also be used to transfer calls between cordless devices/the base and a cordless device, by allowing you to tell another person that you're transferring the call to them.")
+                InfoText("Intercom allows you to have a conversation between 2 cordless devices/the base and a cordless device. It can also be used to transfer calls between cordless devices/the base and a cordless device, by allowing you to tell another person that you're transferring the call to them.\nManuals for cordless phones with intercom often use the term \"outside call\". This refers to regular calls made over the phone line/network or a paired Bluetooth cell phone.")
                 if phone.hasIntercom {
                     Picker("Call Transfer Type", selection: $phone.callTransferType) {
                         Text("Blind Only").tag(0)

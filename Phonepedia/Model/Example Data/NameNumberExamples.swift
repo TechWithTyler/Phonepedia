@@ -48,6 +48,8 @@ struct NameNumberExamples {
 
     static let exampleUKNumber = "2079460018"
 
+    static let exampleHotelRoomNumber = "925"
+
     // MARK: - CNAM for Name
 
     // Takes the given name and converts it from "First Last" to "LAST, FIRST".
