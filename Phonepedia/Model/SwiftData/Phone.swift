@@ -264,6 +264,14 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
 
     var landlineInUseVisualRingerFollowsRingSignal: Bool = true
 
+    var baseSupportsWiredHeadsets: Bool = false
+
+    var baseBluetoothHeadphonesSupported: Int = 0
+
+    var baseBluetoothCellPhonesSupported: Int = 0
+
+    var hasUSBCharging: Bool = false
+
     var cellLineInUseStatusOnBase: Int = 0
 
     var supportsTransferToCell: Bool = false
@@ -381,12 +389,6 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
     var cordedFunctionalityOnBackupBatteries: Int = 1
 
     var cordlessPowerBackupReturnBehavior: Int = 0
-
-    var baseSupportsWiredHeadsets: Bool = false
-
-    var baseBluetoothHeadphonesSupported: Int = 0
-
-    var baseBluetoothCellPhonesSupported: Int = 0
 
     var supportsPhonebookTransferDialingCodes: Bool = false
 
@@ -784,6 +786,11 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
     @Transient
     var tooManyCordlessDevices: Bool {
         return cordlessHandsetsIHave.count > maxCordlessHandsets && maxCordlessHandsets != -1
+    }
+
+    @Transient
+    var takesACPower: Bool {
+        return isCordless || cordedPowerSource > 1
     }
 
     // Whether the phone has a charging area for a cordless handset.
