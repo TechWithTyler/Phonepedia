@@ -198,6 +198,15 @@ struct PhoneListView: View {
                         .onChange(of: phone.isCordless, { oldValue, newValue in
                             achievementsViewModel.evaluate(phones: phones)
                         })
+                        .onChange(of: phone.callBlockPreScreening, { oldValue, newValue in
+                            achievementsViewModel.evaluate(phones: phones)
+                        })
+                        .onChange(of: phone.cordlessPowerBackupMode, { oldValue, newValue in
+                            achievementsViewModel.evaluate(phones: phones)
+                        })
+//                        .onChange(of: phone.cordlessHandsetsIHave, { oldValue, newValue in
+//                            achievementsViewModel.evaluate(phones: phones)
+//                        })
                         .onChange(of: phone.whereAcquired, { oldValue, newValue in
                             achievementsViewModel.evaluate(phones: phones)
                         })
