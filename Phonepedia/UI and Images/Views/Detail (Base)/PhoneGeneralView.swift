@@ -350,6 +350,13 @@ In most cases, if the base has a charge light/display message, the completion of
                         Toggle("Is Payphone", isOn: $phone.isPayphone)
                         InfoText("A payphone is a phone where the caller needs to insert coins for the call to be completed. In the beginning, coins were handled mechanically by the operator. Later payphones would play tones through the line when inserting coins, which tells the provider what kind of coin was inserted. This method wasn't foolproof--you could play the tones through the microphone to trick the provider into thinking you inserted a coin. Today's payphones perform coin detection locally, with prompts like \"Please deposit 5 cents for the next 3 minutes\" stored in the phone itself rather than being played by the provider. Tone detection told the payphone whether to keep or return the coins.\nIf you connect an older payphone to a regular line, the phone works as a regular phone. However, modern payphones which handle coins locally will still work like a payphone.")
                     }
+                    if (phone.cordedRingerType == 1 || phone.totalBaseRingtones > 1) && phone.cordedPhoneType == 2 {
+                        Picker("Ringer/Electronics Location", selection: $phone.cordedRingerLocation) {
+                            Text("Base").tag(0)
+                            Text("Receiver").tag(1)
+                        }
+                        InfoText("Slim/wall phones with the ringer/electronics in the receiver use the base only for hanging up the phone and plugging in cords.")
+                    }
                     if phone.grade == 0 && phone.cordedPhoneType == 0 {
                         Toggle("Supports PBX-Style Features Without PBX", isOn: $phone.supportsPBXFeatures)
                         InfoText("Some small-business phones can communicate with other compatible phones on the same line without a PBX. Each phone sends and receives audio signals on specific frequency bands over the analog line, allowing them to detect calls or intercom requests from each other. This provides PBX-like features such as intercom, even without a PBX. Extension numbers are set manually on each phone.\nThe more distance between phones, the weaker the signal can get, which can prevent these features from working.\nThis isn't necessary for cordless phones, as most multi-handset systems already have these features. In both cases, going off-hook picks up an outside line, not an internal line.")

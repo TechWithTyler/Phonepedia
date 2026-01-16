@@ -34,12 +34,6 @@ struct BaseRingersView: View {
             .onChange(of: phone.cordedRingerType) { oldValue, newValue in
                 phone.cordedRingerTypeChanged(oldValue: oldValue, newValue: newValue)
             }
-            if (phone.cordedRingerType == 1 || phone.totalBaseRingtones > 1) && phone.cordedPhoneType == 2 {
-                Picker("Ringer Location", selection: $phone.cordedRingerLocation) {
-                    Text("Base").tag(0)
-                    Text("Receiver").tag(1)
-                }
-            }
             InfoText("""
             Bell phones contain one or more bells and an electromagnet. The electromagnet causes a striker to move and strike the bell(s) when the phone rings.
             Some bell phones have two ringtone options. These models include an additional bell and a switch that turns its electromagnet on or off.
