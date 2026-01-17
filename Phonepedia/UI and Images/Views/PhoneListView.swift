@@ -178,6 +178,13 @@ struct PhoneListView: View {
                     .onDelete(perform: deletePhones)
                     .onMove(perform: movePhones)
                 }
+                .onAppear {
+                    achievementTrackerViewModel.evaluate(phones: phones, initialLoad: true)
+                }
+                .onChange(of: phones) { oldValue, newValue in
+                    guard !oldValue.isEmpty else { return }
+                    achievementTrackerViewModel.evaluate(phones: newValue)
+                }
                 .accessibilityIdentifier("PhonesList")
             } else if phoneFilterEnabled {
                 VStack {
@@ -197,11 +204,6 @@ struct PhoneListView: View {
         }
         .onAppear {
             installDefaultsForNewData()
-            achievementTrackerViewModel.shouldPerformInitialLoad = true
-        }
-        .onChange(of: phones) { oldValue, newValue in
-            // The first trigger is the phone catalog's initial load of the phones array. This triggers the initial loading of any achievements that have already been displayed.
-            achievementTrackerViewModel.evaluate(phones: newValue)
         }
         .contextMenu {
             PhoneListDetailOptions(menu: true)
