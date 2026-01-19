@@ -588,17 +588,13 @@ final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatab
         acquisitionYear = releaseYear
     }
 
-    // MARK: - Color Methods
-    
-    // Note: Color manipulation methods are provided by protocol default implementations from SheftAppsStylishUI:
-    // - setSecondaryColorToMain() via BaseColorManipulatable
-    // - setAccentColorToMain() via BaseColorManipulatable
-    // - setAccentColorToSecondary() via BaseColorManipulatable
-    // - setChargeLightChargedColorToCharging() via ChargeLightColorManipulatable
-    // - setCordedReceiverSecondaryColorToMain() via CordedReceiverColorManipulatable
-    // - setCordedReceiverAccentColorToMain() via CordedReceiverColorManipulatable
-    // - setCordedReceiverAccentColorToSecondary() via CordedReceiverColorManipulatable
-    // - swapKeyBackgroundAndForegroundColors() via KeyColorManipulatable
+    // MARK: - Set Key Background Color To Main
+
+    func setKeyBackgroundColorToMain() {
+        keyBackgroundColorRed = mainColorRed
+        keyBackgroundColorGreen = mainColorGreen
+        keyBackgroundColorBlue = mainColorBlue
+    }
 
     // MARK: - Property Change Handlers
 

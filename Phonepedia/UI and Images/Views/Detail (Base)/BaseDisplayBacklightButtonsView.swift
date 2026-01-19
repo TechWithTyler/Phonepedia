@@ -85,6 +85,9 @@ struct BaseDisplayBacklightButtonsView: View {
                 }
                 if phone.baseKeyBacklightAmount == 0 || phone.baseKeyBacklightAmount == 6 || phone.baseKeyBacklightLayer == 1 {
                     ColorPicker("Button Background Color", selection: phone.baseKeyBackgroundColorBinding, supportsOpacity: false)
+                    Button("Set To Main Color") {
+                        phone.setKeyBackgroundColorToMain()
+                    }
                 }
                 if phone.baseKeyBacklightAmount == 0 || phone.baseKeyBacklightAmount == 6 {
                     Button("Swap Foreground/Background Colors", systemImage: "arrow.swap") {

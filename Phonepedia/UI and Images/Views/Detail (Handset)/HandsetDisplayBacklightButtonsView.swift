@@ -115,6 +115,9 @@ struct HandsetDisplayBacklightButtonsView: View {
                 }
                 if handset.keyBacklightAmount == 0 || handset.keyBacklightLayer == 1 {
                     ColorPicker("Button Background Color", selection: handset.keyBackgroundColorBinding, supportsOpacity: false)
+                    Button("Set To Main Color") {
+                        phone.setKeyBackgroundColorToMain()
+                    }
                 }
                 if handset.keyBacklightAmount == 0 {
                     Button("Swap Foreground/Background Colors", systemImage: "arrow.swap") {

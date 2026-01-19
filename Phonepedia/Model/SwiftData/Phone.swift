@@ -1093,16 +1093,13 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
     func setBaseAccentColorToSecondary() {
         setAccentColorToSecondary()
     }
-    
-    // Note: The following methods are provided by protocol default implementations:
-    // - setSecondaryColorToMain() via BaseColorManipulatable
-    // - setAccentColorToMain() via BaseColorManipulatable
-    // - setAccentColorToSecondary() via BaseColorManipulatable
-    // - setChargeLightChargedColorToCharging() via ChargeLightColorManipulatable
-    // - setCordedReceiverSecondaryColorToMain() via CordedReceiverColorManipulatable
-    // - setCordedReceiverAccentColorToMain() via CordedReceiverColorManipulatable
-    // - setCordedReceiverAccentColorToSecondary() via CordedReceiverColorManipulatable
-    // - swapKeyBackgroundAndForegroundColors() via KeyColorManipulatable
+
+    func setKeyBackgroundColorToMain() {
+        baseKeyBackgroundColorRed = baseMainColorRed
+        baseKeyBackgroundColorGreen = baseMainColorGreen
+        baseKeyBackgroundColorBlue = baseMainColorBlue
+    }
+
 
     // MARK: - Property Change Handlers
 
