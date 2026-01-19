@@ -10,6 +10,7 @@
 
 import SwiftUI
 import SheftAppsStylishUI
+import SheftAppsInternals
 
 struct PhoneGeneralView: View {
 
@@ -77,7 +78,7 @@ struct PhoneGeneralView: View {
                 }
             }
             Toggle("Needed One or More Non-Accessory Replacements", isOn: $phone.neededReplacements)
-            InfoText("Sometimes, one or more parts of your phones may break or come broken and can't be fixed easily (e.g. broken base/handset speaker or display, corrupt memory on a base or handset that a factory reset can't fix, handsets unable to register/link to the base).\nYou can replace handsets easily just as you would purchase additional handsets, but you might end up with more parts than what you needed (e.g. you needed just a handset but also got a charger). To replace just a base or charger, you'll need to look on the used market or purchase an entire new phone set.\nIf you don't want to replace broken parts, you can try to send them to someone who can repair them, or if you know how to, repair it yourself.")
+            InfoText("Sometimes, one or more parts of your phones may break or come broken and can't be fixed easily (e.g. broken base/handset speaker or display, corrupt memory on a base or handset that a factory reset can't fix, handsets unable to register/link to the base).\nYou can replace handsets easily just as you would purchase additional handsets, but you might end up with more parts than what you needed (e.g. you needed just a handset but also got a charger). To replace just a base or charger, you'll need to look on the used market or purchase an entire new phone set.\nIf you don't want to replace broken parts, you can try to send them to someone who can repair them, or if you know how to, repair it yourself.\nIn \(SAAppName), a \"non-accessory\" replacement refers to replacing a base, cordless device, or charger, not accessories like power cords, batteries/battery covers, and belt clips.")
             VStack {
                 Text("Write more about your phone (e.g., the story behind why you got it, when/where you got it, whether you had to replace broken parts) in the text area below.\nExample: \"\(phoneDescriptionSampleText)\"")
                     .lineLimit(nil)
@@ -280,7 +281,7 @@ In most cases, if the base has a charge light/display message, the completion of
                         Toggle("Handset Locator Uses Intercom", isOn: $phone.handsetLocatorUsesIntercom)
                         InfoText("Some phones use intercom as the means of locating handsets, even if the base doesn't have intercom. This means that the handset locator and intercom from the base are the same feature, and therefore, the handset may indicate \"call from base\" instead of \"paging\".")
                     }
-                    if phone.cordlessDeviceLinkingMethod == 3 {
+                    if phone.cordlessDeviceLinkingMethod == 4 {
                         if phone.hasBaseIntercom {
                             Picker("Handset Locator Button(s)", selection: $phone.locatorButtons) {
                                 Text(phone.hasBaseKeypad && phone.handsetLocatorUsesIntercom ? "One for All HS/Keypad Entry" : "One For All Handsets").tag(0)
