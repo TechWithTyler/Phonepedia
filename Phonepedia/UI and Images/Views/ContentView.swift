@@ -19,15 +19,15 @@ struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
 
     // Handles the display of dialogs in the app.
-    @ObservedObject var dialogManager = DialogManager()
+    @StateObject var dialogManager = DialogManager()
 
     // Handles playback of audio.
-    @ObservedObject var audioManager = AudioManager()
+    @StateObject var audioManager = AudioManager()
 
     // Handles the import and export of phone photos.
-    @ObservedObject var photoViewModel = PhonePhotoViewModel()
+    @StateObject var photoViewModel = PhonePhotoViewModel()
 
-    @ObservedObject var achievementTrackerViewModel = PhoneCollectionAchievementTrackerViewModel()
+    @StateObject var achievementTrackerViewModel = PhoneCollectionAchievementTrackerViewModel()
 
     // MARK: - Properties - Phones
 

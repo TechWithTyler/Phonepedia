@@ -44,7 +44,7 @@ class LandlineOrNotPredictor {
 
     // MARK: - Properties - Photo View Model
 
-    @ObservedObject var photoViewModel: PhonePhotoViewModel
+    var photoViewModel: PhonePhotoViewModel
 
     // MARK: - Properties - Image Classifier
 

@@ -178,8 +178,12 @@ struct PhoneListView: View {
                     .onDelete(perform: deletePhones)
                     .onMove(perform: movePhones)
                 }
+                .onAppear {
+                    NSSound.beep()
+                    achievementTrackerViewModel.evaluate(phones: phones, initialLoad: true)
+                }
                 .onChange(of: phones) { oldValue, newValue in
-                    achievementTrackerViewModel.evaluate(phones: newValue, initialLoad: oldValue.isEmpty)
+                    achievementTrackerViewModel.evaluate(phones: newValue)
                 }
                 .accessibilityIdentifier("PhonesList")
             } else if phoneFilterEnabled {
