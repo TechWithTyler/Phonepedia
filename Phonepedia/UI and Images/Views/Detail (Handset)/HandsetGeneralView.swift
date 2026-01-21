@@ -21,28 +21,24 @@ struct HandsetGeneralView: View {
     // MARK: - Body
 
     var body: some View {
-        if let phone = handset.phone {
-            Section("Basic Info") {
-                basicsGroup
-            }
-            if handset.cordlessDeviceType < 2 {
-                Section(handset.cordlessDeviceTypeText) {
-                    if handset.cordlessDeviceType == 0 {
-                        handsetGroup
-                    } else if handset.cordlessDeviceType == 1 {
-                        desksetGroup
+        Section("Basic Info") {
+            basicsGroup
+        }
+        if handset.cordlessDeviceType < 2 {
+            Section(handset.cordlessDeviceTypeText) {
+                if handset.cordlessDeviceType == 0 {
+                    handsetGroup
+                } else if handset.cordlessDeviceType == 1 {
+                    desksetGroup
+                }
+                if handset.isHandsetOrCordedDeskset {
+                    Picker(handset.hasCordedReceiver ? "Corded Receiver Earpiece Type" : "Earpiece Type", selection: $handset.earpieceType) {
+                        Text("Standard").tag(0)
+                        Text("Bone Conduction").tag(1)
                     }
-                    if handset.isHandsetOrCordedDeskset {
-                        Picker(handset.hasCordedReceiver ? "Corded Receiver Earpiece Type" : "Earpiece Type", selection: $handset.earpieceType) {
-                            Text("Standard").tag(0)
-                            Text("Bone Conduction").tag(1)
-                        }
-                        BoneConductionEarpieceInfoView()
-                    }
+                    BoneConductionEarpieceInfoView()
                 }
             }
-        } else {
-            Text(cordlessDeviceMissingPhoneText)
         }
     }
 
@@ -143,28 +139,24 @@ struct HandsetGeneralView: View {
 
     @ViewBuilder
     var desksetGroup: some View {
-        if let phone = handset.phone {
-            HStack {
-                Text("Deskset Type")
-                Spacer()
-                Text(handset.hasCordedReceiver ? "Corded Phone" : "Speakerphone")
+        HStack {
+            Text("Deskset Type")
+            Spacer()
+            Text(handset.hasCordedReceiver ? "Corded Phone" : "Speakerphone")
+        }
+        if handset.hasCordedReceiver {
+            Toggle("Is Slim Corded Deskset", isOn: $handset.isSlimCordedDeskset)
+            Picker("Switch Hook", selection: $handset.switchHookType) {
+                Text(handset.isSlimCordedDeskset ? "Press (On Base)" : "Press").tag(0)
+                Text("Press (On Receiver)").tag(1)
             }
-            if handset.hasCordedReceiver {
-                Toggle("Is Slim Corded Deskset", isOn: $handset.isSlimCordedDeskset)
-                Picker("Switch Hook", selection: $handset.switchHookType) {
-                    Text(handset.isSlimCordedDeskset ? "Press (On Base)" : "Press").tag(0)
-                    Text("Press (On Receiver)").tag(1)
-                }
-                Text("Magnetic").tag(2)
-                Text("Contacts").tag(3)
-            }
-            Picker("Corded Receiver Hook Type", selection: $handset.cordedReceiverHookType) {
-                Text("Fixed").tag(0)
-                Text("Flip/Rotate").tag(1)
-                Text("Removable").tag(2)
-            }
-        } else {
-            Text(cordlessDeviceMissingPhoneText)
+            Text("Magnetic").tag(2)
+            Text("Contacts").tag(3)
+        }
+        Picker("Corded Receiver Hook Type", selection: $handset.cordedReceiverHookType) {
+            Text("Fixed").tag(0)
+            Text("Flip/Rotate").tag(1)
+            Text("Removable").tag(2)
         }
     }
 
