@@ -24,6 +24,8 @@ class PhoneCollectionAchievementTrackerViewModel: ObservableObject {
 
     var shownAchievementIDs: Set<String> = []
 
+    var achievementTitles: Set<String> = []
+
     // MARK: - Evaluation
 
     // This method checks the given array of phones to check if any achievements have been unlocked.
@@ -31,7 +33,7 @@ class PhoneCollectionAchievementTrackerViewModel: ObservableObject {
         DispatchQueue.main.async { [self] in
             // 1. Create an instance of PhoneCollectionAchievements with the current phones array.
             let model = PhoneCollectionAchievementTracker(phones: phones)
-            var achievementTitles: Set<String> = []
+            achievementTitles.removeAll()
             // 2. Loop through each achievement.
             for item in model.all {
                 // 3. If the achievement is unlocked and hasn't been shown, add it to the set of titles and shown IDs. If it becomes locked again, remove it from the shown IDs.
@@ -40,13 +42,14 @@ class PhoneCollectionAchievementTrackerViewModel: ObservableObject {
                     if !shouldPerformInitialLoad {
                         achievementTitles.insert(item.title)
                     }
-                } else if !item.isUnlocked && shownAchievementIDs.contains(item.id) {
+                }
+                if !item.isUnlocked && shownAchievementIDs.contains(item.id) {
                     shownAchievementIDs.remove(item.id)
                     achievementTitles.remove(item.title)
                 }
             }
             // 4. If achievementTitles isn't empty (and not initial load), show the achievement alert.
-            if !achievementTitles.isEmpty {
+            if !achievementTitles.isEmpty && !shouldPerformInitialLoad {
                 let achievementsAnd = achievementTitles.formatted(.list(type: .and))
                 let achievementsSingularOrPlural = achievementTitles.count == 1 ? "Achievement" : "Achievements"
                 alertTitle = "\(achievementsSingularOrPlural) Unlocked! \(achievementsAnd)"

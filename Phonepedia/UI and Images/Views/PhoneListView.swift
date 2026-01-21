@@ -178,12 +178,8 @@ struct PhoneListView: View {
                     .onDelete(perform: deletePhones)
                     .onMove(perform: movePhones)
                 }
-                .onAppear {
-                    achievementTrackerViewModel.evaluate(phones: phones, initialLoad: true)
-                }
                 .onChange(of: phones) { oldValue, newValue in
-                    guard !oldValue.isEmpty else { return }
-                    achievementTrackerViewModel.evaluate(phones: newValue)
+                    achievementTrackerViewModel.evaluate(phones: newValue, initialLoad: oldValue.isEmpty)
                 }
                 .accessibilityIdentifier("PhonesList")
             } else if phoneFilterEnabled {
