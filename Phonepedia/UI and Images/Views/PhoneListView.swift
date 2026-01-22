@@ -179,7 +179,6 @@ struct PhoneListView: View {
                     .onMove(perform: movePhones)
                 }
                 .onAppear {
-                    NSSound.beep()
                     achievementTrackerViewModel.evaluate(phones: phones, initialLoad: true)
                 }
                 .onChange(of: phones) { oldValue, newValue in
