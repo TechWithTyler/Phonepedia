@@ -80,6 +80,18 @@ final class CordlessHandsetCharger: BaseColorManipulatable, ChargeLightColorMani
         return chargerNumber + 1
     }
 
+    // Whether the charger has a secondary color (the main and secondary colors aren't the same).
+    @Transient
+    var hasSecondaryColor: Bool {
+        return secondaryColorBinding.wrappedValue != mainColorBinding.wrappedValue
+    }
+
+    // Whether the charger has an accent color (the accent color is different from both the main and secondary colors).
+    @Transient
+    var hasAccentColor: Bool {
+        return accentColorBinding.wrappedValue != mainColorBinding.wrappedValue && accentColorBinding.wrappedValue != secondaryColorBinding.wrappedValue
+    }
+
     // MARK: - Properties - Color Bindings
 
     var mainColorBinding: Binding<Color> {

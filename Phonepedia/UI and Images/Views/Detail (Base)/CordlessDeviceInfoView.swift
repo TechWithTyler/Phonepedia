@@ -54,6 +54,10 @@ struct CordlessDeviceInfoView: View {
 
     @AppStorage(UserDefaults.KeyNames.defaultAcquisitionMethod) var defaultAcquisitionMethod: Int = 0
 
+    // MARK: - Properties - Booleans
+
+    @AppStorage(UserDefaults.KeyNames.showPhoneColorsInList) var showPhoneColorsInList: Bool = false
+
     // The number of cordless devices for this phone.
     var handsetCount: Int {
         return filteredCordlessDevices.count
@@ -210,6 +214,10 @@ struct CordlessDeviceInfoView: View {
                         .navigationTitle("Device \(handset.actualHandsetNumber)")
                 } label: {
                     HStack {
+                        if showPhoneColorsInList {
+                            ColorStack(mainColor: handset.mainColorBinding.wrappedValue, secondaryColor: handset.hasSecondaryColor ? handset.secondaryColorBinding.wrappedValue : nil, accentColor: handset.hasAccentColor ? handset.accentColorBinding.wrappedValue : nil)
+                                .padding(.horizontal)
+                        }
                         VStack(alignment: .leading) {
                             Text("\(handset.brand) \(handset.model.isEmpty ? "<No Model Number>" : handset.model)")
                                 .bold(handset.model == phone.mainHandsetModel)
@@ -278,11 +286,17 @@ struct CordlessDeviceInfoView: View {
                     ChargerDetailView(charger: charger)
                         .navigationTitle("Charger \(charger.actualChargerNumber)")
                 } label: {
-                    VStack(alignment: .leading) {
-                        Text("Charger \(charger.actualChargerNumber)")
-                        if phone.basePhoneType == 0 {
-                            Text("Cordless \(charger.type == 0 ? "handset" : "headset/speakerphone") charger")
-                                .foregroundStyle(.secondary)
+                    HStack {
+                        if showPhoneColorsInList {
+                            ColorStack(mainColor: charger.mainColorBinding.wrappedValue, secondaryColor: charger.hasSecondaryColor ? charger.secondaryColorBinding.wrappedValue : nil, accentColor: charger.hasAccentColor ? charger.accentColorBinding.wrappedValue : nil)
+                                .padding(.horizontal)
+                        }
+                        VStack(alignment: .leading) {
+                            Text("Charger \(charger.actualChargerNumber)")
+                            if phone.basePhoneType == 0 {
+                                Text("Cordless \(charger.type == 0 ? "handset" : "headset/speakerphone") charger")
+                                    .foregroundStyle(.secondary)
+                            }
                         }
                     }
                 }

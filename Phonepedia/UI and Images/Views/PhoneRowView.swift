@@ -69,7 +69,7 @@ struct PhoneRowView: View {
             PhoneImage(phone: phone, mode: .thumbnail)
             Spacer()
             if showPhoneColorsInList {
-                phoneColorStack
+                ColorStack(mainColor: phone.baseMainColorBinding.wrappedValue, secondaryColor: phone.hasSecondaryColor ? phone.baseSecondaryColorBinding.wrappedValue : nil, accentColor: phone.hasAccentColor ? phone.baseAccentColorBinding.wrappedValue : nil)
             }
             Spacer()
 			VStack {
@@ -94,20 +94,7 @@ struct PhoneRowView: View {
 		}
     }
 
-    // MARK: - Stacks
-
-    @ViewBuilder
-    var phoneColorStack: some View {
-        VStack {
-            colorCircle(for: phone.baseMainColorBinding.wrappedValue)
-            if phone.hasSecondaryColor {
-                colorCircle(for: phone.baseSecondaryColorBinding.wrappedValue)
-            }
-            if phone.hasAccentColor {
-                colorCircle(for: phone.baseAccentColorBinding.wrappedValue)
-            }
-        }
-    }
+    // MARK: - Detail Stack
 
     @ViewBuilder
     var phoneDetailStack: some View {
@@ -173,19 +160,6 @@ struct PhoneRowView: View {
                 .multilineTextAlignment(.center)
                 .lineLimit(nil)
         }
-    }
-
-    // MARK: - Phone Color Circle
-
-    @ViewBuilder
-    func colorCircle(for color: Color) -> some View {
-        Circle()
-            .fill(color)
-                   .overlay(
-                       Circle()
-                        .stroke(.primary, lineWidth: 1)
-                   )
-                   .frame(width: 10, height: 10)
     }
 
     // MARK: - Model Number "Number of Included Cordless Devices" Digit Highlight

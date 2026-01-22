@@ -365,6 +365,18 @@ final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatab
         return handsetNumber + 1
     }
 
+    // Whether the cordless device has a secondary color (the main and secondary colors aren't the same).
+    @Transient
+    var hasSecondaryColor: Bool {
+        return secondaryColorBinding.wrappedValue != mainColorBinding.wrappedValue
+    }
+
+    // Whether the cordless device has an accent color (the accent color is different from both the main and secondary colors).
+    @Transient
+    var hasAccentColor: Bool {
+        return accentColorBinding.wrappedValue != mainColorBinding.wrappedValue && accentColorBinding.wrappedValue != secondaryColorBinding.wrappedValue
+    }
+
     // Whether the cordless device is a deskset with a corded receiver.
     @Transient
     var hasCordedReceiver: Bool {
