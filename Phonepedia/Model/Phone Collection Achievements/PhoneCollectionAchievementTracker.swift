@@ -83,21 +83,36 @@ struct PhoneCollectionAchievementTracker {
             PhoneCollectionAchievement(id: "callBlockPreScreening", title: "Get A Phone With Call Block Pre-Screening", isUnlocked: hasCallBlockPreScreening),
             PhoneCollectionAchievement(id: "BTCellLinking", title: "Get A Phone With Bluetooth Cell Phone Linking", isUnlocked: hasBluetoothCellLinking),
             PhoneCollectionAchievement(id: "placeOnBasePowerBackup", title: "Get A Cordless Phone With Place-On-Base Power Backup", isUnlocked: hasPlaceOnBasePowerBackup),
-            // Counts
-            PhoneCollectionAchievement(id: "count10", title: "Get 10 Phones", isUnlocked: reachedCount(10)),
-            PhoneCollectionAchievement(id: "count20", title: "Get 20 Phones", isUnlocked: reachedCount(20)),
-            PhoneCollectionAchievement(id: "count50", title: "Get 50 Phones", isUnlocked: reachedCount(50)),
-            PhoneCollectionAchievement(id: "count100", title: "Get 100 Phones", isUnlocked: reachedCount(100)),
-            PhoneCollectionAchievement(id: "count150", title: "Get 150 Phones", isUnlocked: reachedCount(150)),
-            PhoneCollectionAchievement(id: "count200", title: "Get 200 Phones", isUnlocked: reachedCount(200))
+            // Phone Counts
+            PhoneCollectionAchievement(id: "count10Phones", title: "Get 10 Phones", isUnlocked: reachedPhoneCount(10)),
+            PhoneCollectionAchievement(id: "count20Phones", title: "Get 20 Phones", isUnlocked: reachedPhoneCount(20)),
+            PhoneCollectionAchievement(id: "count50Phones", title: "Get 50 Phones", isUnlocked: reachedPhoneCount(50)),
+            PhoneCollectionAchievement(id: "count100Phones", title: "Get 100 Phones", isUnlocked: reachedPhoneCount(100)),
+            PhoneCollectionAchievement(id: "count150Phones", title: "Get 150 Phones", isUnlocked: reachedPhoneCount(150)),
+            PhoneCollectionAchievement(id: "count200Phones", title: "Get 200 Phones", isUnlocked: reachedPhoneCount(200)),
+            // Cordless Device Counts
+            PhoneCollectionAchievement(id: "count10Handsets", title: "Get 10 Cordless Devices Across All Phones", isUnlocked: reachedCordlessDeviceCount(10)),
+            PhoneCollectionAchievement(id: "count20Handsets", title: "Get 20 Cordless Devices Across All Phones", isUnlocked: reachedCordlessDeviceCount(20)),
+            PhoneCollectionAchievement(id: "count50Handsets", title: "Get 50 Cordless Devices Across All Phones", isUnlocked: reachedCordlessDeviceCount(50)),
+            PhoneCollectionAchievement(id: "count100Handsets", title: "Get 100 Cordless Devices Across All Phones", isUnlocked: reachedCordlessDeviceCount(100)),
+            PhoneCollectionAchievement(id: "count150Handsets", title: "Get 150 Cordless Devices Across All Phones", isUnlocked: reachedCordlessDeviceCount(150)),
+            PhoneCollectionAchievement(id: "count200Handsets", title: "Get 200 Cordless Devices Across All Phones", isUnlocked: reachedCordlessDeviceCount(200))
         ]
     }
 
     // MARK: - Reached Count
 
     // Returns whether the phones array contains at least n phones.
-    func reachedCount(_ n: Int) -> Bool {
+    func reachedPhoneCount(_ n: Int) -> Bool {
         return phones.count >= n
+    }
+
+    func reachedCordlessDeviceCount(_ n: Int) -> Bool {
+        var totalCordlessDevices: Int = 0
+        for phone in phones {
+            totalCordlessDevices += phone.cordlessHandsetsIHave.count
+        }
+        return totalCordlessDevices >= n
     }
 
 }
