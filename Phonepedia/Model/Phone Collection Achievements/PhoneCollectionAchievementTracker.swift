@@ -29,6 +29,7 @@ struct PhoneCollectionAchievementTracker {
 
     // MARK: - Properties - Phones
 
+    // The array of phones to check.
     let phones: [Phone]
 
     // MARK: - Properties - Booleans
@@ -107,11 +108,16 @@ struct PhoneCollectionAchievementTracker {
         return phones.count >= n
     }
 
+    // Returns whether the total number of cordless devices across all phones in the phones array is at least n.
     func reachedCordlessDeviceCount(_ n: Int) -> Bool {
+        // 1. Create a variable to keep track of the total number of cordless devices.
         var totalCordlessDevices: Int = 0
+        // 2. Loop through each phone in the phones array.
         for phone in phones {
+            // 3. Add the phone's number of cordless devices to the total.
             totalCordlessDevices += phone.cordlessHandsetsIHave.count
         }
+        // 4. Compare the total to n.
         return totalCordlessDevices >= n
     }
 

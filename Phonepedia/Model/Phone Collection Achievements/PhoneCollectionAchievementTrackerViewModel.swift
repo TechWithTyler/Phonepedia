@@ -25,8 +25,10 @@ class PhoneCollectionAchievementTrackerViewModel: ObservableObject {
     // The title of the achievement alert.
     var alertTitle: String = String()
 
+    // The set of IDs of achievements that have already been shown.
     var shownAchievementIDs: Set<String> = []
 
+    // The set of titles of achievements to include in the alert.
     var achievementTitles: Set<String> = []
 
     // MARK: - Evaluation
@@ -36,10 +38,11 @@ class PhoneCollectionAchievementTrackerViewModel: ObservableObject {
         DispatchQueue.main.async { [self] in
             // 1. Create an instance of PhoneCollectionAchievements with the current phones array.
             let model = PhoneCollectionAchievementTracker(phones: phones)
+            // 2. Clear the achievementTitles set.
             achievementTitles.removeAll()
-            // 2. Loop through each achievement.
+            // 3. Loop through each achievement.
             for item in model.all {
-                // 3. If the achievement is unlocked and hasn't been shown, add it to the set of titles and shown IDs. If it becomes locked again, remove it from the shown IDs.
+                // 4. If the achievement is unlocked and hasn't been shown, add it to the set of titles and shown IDs. If it becomes locked again, remove it from the shown IDs.
                 if item.isUnlocked && !shownAchievementIDs.contains(item.id) {
                     shownAchievementIDs.insert(item.id)
                     if !shouldPerformInitialLoad {
@@ -51,7 +54,7 @@ class PhoneCollectionAchievementTrackerViewModel: ObservableObject {
                     achievementTitles.remove(item.title)
                 }
             }
-            // 4. If achievementTitles isn't empty (and not initial load), show the achievement alert.
+            // 5. If achievementTitles isn't empty, this isn't the initial load, and the setting to show achievement alerts is enabled, combine all achievements into an and list and show the achievement alert.
             if !achievementTitles.isEmpty && !shouldPerformInitialLoad && showAchievementAlerts {
                 let achievementsAnd = achievementTitles.formatted(.list(type: .and))
                 let achievementsSingularOrPlural = achievementTitles.count == 1 ? "Achievement" : "Achievements"
