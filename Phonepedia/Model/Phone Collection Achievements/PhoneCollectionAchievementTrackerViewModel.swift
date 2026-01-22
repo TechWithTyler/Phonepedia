@@ -17,6 +17,9 @@ class PhoneCollectionAchievementTrackerViewModel: ObservableObject {
     // Whether the achievement alert should be/is being displayed.
     @Published var showingAlert: Bool = false
 
+    // Whether achievement alerts should show when unlocked.
+    @AppStorage(UserDefaults.KeyNames.showAchievementAlerts) var showAchievementAlerts: Bool = true
+
     // MARK: - Properties - Strings
 
     // The title of the achievement alert.
@@ -49,7 +52,7 @@ class PhoneCollectionAchievementTrackerViewModel: ObservableObject {
                 }
             }
             // 4. If achievementTitles isn't empty (and not initial load), show the achievement alert.
-            if !achievementTitles.isEmpty && !shouldPerformInitialLoad {
+            if !achievementTitles.isEmpty && !shouldPerformInitialLoad && showAchievementAlerts {
                 let achievementsAnd = achievementTitles.formatted(.list(type: .and))
                 let achievementsSingularOrPlural = achievementTitles.count == 1 ? "Achievement" : "Achievements"
                 alertTitle = "\(achievementsSingularOrPlural) Unlocked! \(achievementsAnd)"

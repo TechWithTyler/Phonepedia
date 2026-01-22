@@ -22,6 +22,8 @@ extension UserDefaults {
 
         static let phoneDescriptionTextSize: String = "phoneDescriptionTextSize"
 
+        static let showAchievementAlerts: String = "showAchievementAlerts"
+
         static let showPhoneTypeInList: String = "showPhoneTypeInList"
 
         static let showPhoneActiveStatusInList: String = "showPhoneActiveStatusInList"

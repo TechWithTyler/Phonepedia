@@ -19,7 +19,11 @@ struct DisplaySettingsPageView: View {
     var samplePhone: Phone {
         // 1. Create a mock phone and cordless handset.
         let phone = Phone.mockPhone
-        let handset = CordlessHandset(brand: Phone.mockBrand, model: CordlessHandset.mockModel, mainColorRed: 0, mainColorGreen: 0, mainColorBlue: 0, secondaryColorRed: 0, secondaryColorGreen: 0, secondaryColorBlue: 0, accentColorRed: 190, accentColorGreen: 190, accentColorBlue: 190)
+        let handset = CordlessHandset.mockHandset
+        phone.releaseYear = 2014
+        phone.acquisitionYear = 2023
+        handset.releaseYear = 2014
+        handset.acquisitionYear = 2023
         // 2. Duplicate the mock cordless handset so the mock phone has 2 mock cordless handsets.
         let secondHandset = handset.duplicate()
         // 3. Set the mock phone's colors.
@@ -44,6 +48,8 @@ struct DisplaySettingsPageView: View {
     @AppStorage(UserDefaults.KeyNames.phoneDescriptionTextSize) var phoneDescriptionTextSize: Double = SATextViewMinFontSize
 
     // MARK: - Properties - Booleans
+
+    @AppStorage(UserDefaults.KeyNames.showAchievementAlerts) var showAchievementAlerts: Bool = true
 
     @AppStorage(UserDefaults.KeyNames.useDetailedPhoneImage) var useDetailedPhoneImage: Bool = false
 
@@ -85,6 +91,8 @@ struct DisplaySettingsPageView: View {
                 }
                 .buttonStyle(.borderless)
                 .foregroundStyle(.primary)
+                Toggle("Show Achievement Alerts" , isOn: $showAchievementAlerts)
+                InfoText("Turn this on to show alerts when unlocking achievements (e.g. getting 10 phones, getting a phone in its release year).")
             }
             Section("Phone List Detail") {
                 PhoneListDetailOptions()
