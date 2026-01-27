@@ -710,8 +710,8 @@
 		8DA844BE2B72E1D7006CBCA7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				8DBFBB8E2F11ADD000EC4BB7 /* Phone Collection Achievements */,
 				8DA844BF2B72E1D7006CBCA7 /* SwiftData */,
+				8DBFBB8E2F11ADD000EC4BB7 /* Phone Collection Achievements */,
 				8DA844C42B72E1D7006CBCA7 /* DocumentTypes.swift */,
 				8DA844C52B72E1D7006CBCA7 /* Core ML */,
 				8DA844CA2B72E1D7006CBCA7 /* Photos */,
@@ -742,8 +742,8 @@
 			isa = PBXGroup;
 			children = (
 				8DA844C62B72E1D7006CBCA7 /* Landline Or Not.mlproj */,
-				8DA844C72B72E1D7006CBCA7 /* CGImagePropertyOrientationExtension.swift */,
 				8DA844C82B72E1D7006CBCA7 /* LandlineOrNotPredictor.swift */,
+				8DA844C72B72E1D7006CBCA7 /* CGImagePropertyOrientationExtension.swift */,
 				8DA844C92B72E1D7006CBCA7 /* LandlineOrNotV1.mlmodel */,
 			);
 			path = "Core ML";

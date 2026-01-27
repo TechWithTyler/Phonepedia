@@ -29,13 +29,18 @@ struct CameraViewController: UIViewControllerRepresentable {
 	// MARK: - UIViewControllerRepresentable
 
 	func makeUIViewController(context: Context) -> UIImagePickerController {
+        // 1. Create a UIImagePickerController.
 		let camera = UIImagePickerController()
+        // 2. Set the delegate.
 		camera.delegate = context.coordinator
+        // 3. Set the source type to camera, which is now the only supported type.
 		camera.sourceType = .camera
+        // 4. Set the other properties.
 		camera.cameraCaptureMode = .photo
 		camera.allowsEditing = true
 		camera.cameraFlashMode = .off
 		camera.showsCameraControls = true
+        // 5. Return the UIImagePickerController.
 		return camera
 	}
 

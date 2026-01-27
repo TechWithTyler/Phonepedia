@@ -34,7 +34,7 @@ struct AnsweringSystemGreetingComponents {
 
     // This method returns either "again" or "back" for use in the example answering system "answer only" greeting.
     static func againOrBack() -> String {
-        let words = ["back", "again"]
+        let words = ["again", "back"]
         return words.randomElement()!
     }
 

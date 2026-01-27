@@ -59,7 +59,7 @@ struct PhoneDetailView: View {
         .scrollContentBackground(.hidden)
         .photosPicker(isPresented: $photoViewModel.showingPhotoPicker, selection: $photoViewModel.selectedPhoto, matching: .images, preferredItemEncoding: .automatic)
         .onChange(of: photoViewModel.selectedPhoto, { oldValue, newValue in
-            photoViewModel.updatePhonePhotoToPickerSelection(for: phone, to: newValue)
+            photoViewModel.handlePhotoPickerSelection(for: phone, newValue: newValue)
         })
         // Photo dialogs
 #if os(iOS)

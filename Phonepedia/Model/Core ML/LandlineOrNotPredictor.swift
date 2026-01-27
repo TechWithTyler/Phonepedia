@@ -56,10 +56,6 @@ class LandlineOrNotPredictor {
     // A dictionary of prediction handler functions, each keyed by its Vision request.
     private var predictionHandlers = [VNRequest : ImagePredictionHandler]()
 
-    // MARK: - Properties - Errors
-
-    let noUnderlyingCGImageError = NSError(domain: "No underlying CGImage", code: 423, userInfo: nil)
-
     // MARK: - Initialization
 
     init(photoViewModel: PhonePhotoViewModel) {
@@ -69,20 +65,21 @@ class LandlineOrNotPredictor {
     // MARK: - Create Image Classifier
 
     static func createImageClassifier() -> VNCoreMLModel {
-        // Use a default model configuration.
+        // 1. Create a default model configuration.
         let defaultConfig = MLModelConfiguration()
-        // Create an instance of the image classifier's wrapper class.
+        // 2. Create an instance of the image classifier's wrapper class.
         // Throwing functions don't have to be called within the do block of a do-catch statement--the result of calling the function can be an Optional value which returns nil if it throws an error.
         let imageClassifierWrapper = try? CurrentLandlineOrNot(configuration: defaultConfig)
         guard let imageClassifier = imageClassifierWrapper else {
             fatalError("App failed to create an image classifier model instance.")
         }
-        // Get the underlying model instance.
+        // 3. Get the underlying model instance.
         let imageClassifierModel = imageClassifier.model
-        // Create a Vision instance using the image classifier's model instance.
+        // 4. Create a Vision instance using the image classifier's model instance.
         guard let imageClassifierVisionModel = try? VNCoreMLModel(for: imageClassifierModel) else {
             fatalError("App failed to create a VNCoreMLModel instance.")
         }
+        // 5. Return the model.
         return imageClassifierVisionModel
     }
 
@@ -90,12 +87,14 @@ class LandlineOrNotPredictor {
 
     // Generates a new request instance that uses the Image Predictor's image classifier model.
     private func createImageClassificationRequest(photoData: Data, phone: Phone) -> VNImageBasedRequest {
-        // Create an image classification request with an image classifier model.
+        // 1. Create an image classification request with an image classifier model.
         let imageClassificationRequest = VNCoreMLRequest(model: LandlineOrNotPredictor.imageClassifier) {
             request, error in
             self.visionRequestHandler(request, error: error, photoData: photoData, phone: phone)
         }
+        // 2. Set the crop and scale option.
         imageClassificationRequest.imageCropAndScaleOption = .centerCrop
+        // 3. Return the request.
         return imageClassificationRequest
     }
 
@@ -108,6 +107,7 @@ class LandlineOrNotPredictor {
             fatalError("Failed to create image from data.")
         }
         // 2. Convert the NSImage/UIImage to CGImage.
+        let noUnderlyingCGImageError = NSError(domain: "No underlying CGImage", code: 423, userInfo: nil)
         #if os(macOS)
         let orientation = CGImagePropertyOrientation.up
         var imageRect = CGRect(origin: .zero, size: photo.size)
@@ -136,7 +136,7 @@ class LandlineOrNotPredictor {
 
     // The completion handler method that Vision calls when it completes a request. The method checks for errors and validates the request's results.
     private func visionRequestHandler(_ request: VNRequest, error: Error?, photoData: Data, phone: Phone) {
-        // 1. Remove the caller's handler from the dictionary and keep a reference to it.
+        // 1. Remove the caller's handler from the dictionary and keep a reference to it. If removing the handler fails, there is no handler, so throw a fatal error.
         guard let predictionHandler = predictionHandlers.removeValue(forKey: request) else {
             fatalError("Every request must have a prediction handler.")
         }
