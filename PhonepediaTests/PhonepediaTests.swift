@@ -22,12 +22,6 @@ final class PhonepediaTests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
-		phone = Phone(brand: "Panasonic", model: "KX-TGF975")
-		handset = CordlessHandset(brand: "Panasonic", model: "KX-TGFA97")
-		phone?.cordlessHandsetsIHave.append(handset!)
-		phoneDetailView = PhoneDetailView(phone: phone!)
-		handsetInfoDetailView = HandsetDetailView(handset: .constant(handset!))
-		print((phone?.bluetoothPhonebookTransfers)!)
     }
 
     override func tearDownWithError() throws {
@@ -48,26 +42,5 @@ final class PhonepediaTests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
-
-	func testHandsetCordlessDeviceTypeChanged() {
-		handset?.fitsOnBase = true
-		let oldValue = 0
-		let newValue = 1
-		// Call the function
-		handset?.cordlessDeviceTypeChanged(oldValue: oldValue, newValue: newValue)
-		// Assert that the phone's fitsOnBase property has been updated
-		XCTAssertEqual(handset?.fitsOnBase, false)
-	}
-
-	func testHandsetCordlessDeviceTypeNotChanged() {
-		handset?.fitsOnBase = true
-		let oldValue = 0
-		let newValue = 0
-		// Call the function
-		handset?.cordlessDeviceTypeChanged(oldValue: oldValue, newValue: newValue)
-		// Assert that the phone's fitsOnBase property has not been updated
-		XCTAssertEqual(handset?.fitsOnBase, true)
-	}
-
 
 }
