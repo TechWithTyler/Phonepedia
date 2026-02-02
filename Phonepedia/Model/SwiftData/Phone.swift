@@ -250,6 +250,8 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
 
     var callPrivacyMode: Int = 0
 
+    var joinLeaveTone: Int = 0
+
     var hasBaseIntercom: Bool = false
 
     var intercomAutoAnswer: Int = 0
@@ -1330,6 +1332,11 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
     func cordlessDeviceLinkingMethodChanged(oldValue: Int, newValue: Int) {
         if newValue < 4 && maxCordlessHandsets > 1 {
             maxCordlessHandsets = -1
+        }
+        if newValue == 4 {
+            for handset in cordlessHandsetsIHave {
+                handset.ringsOnBase = true
+            }
         }
     }
 

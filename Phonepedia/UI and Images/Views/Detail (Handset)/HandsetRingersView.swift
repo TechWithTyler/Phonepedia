@@ -35,6 +35,10 @@ struct HandsetRingersView: View {
                 }
                 InfoText("Some handsets allow you to record audio to use as ringtones, transfer audio files from a device to use as ringtones, or both.")
             }
+            if phone.cordlessDeviceLinkingMethod <= 3 && phone.baseChargesHandset && handset.fitsOnBase && phone.totalBaseRingtones > 0 {
+                Toggle("Rings On Base", isOn: $handset.ringsOnBase)
+                InfoText("On many single-handset phones without registration, if the base has a ringer and it's turned on, the handset won't ring since its ringer is redundant.")
+            }
             Picker("Silent Mode", selection: $handset.silentMode) {
                 Text("None").tag(0)
                 Text("Number of Hours").tag(1)

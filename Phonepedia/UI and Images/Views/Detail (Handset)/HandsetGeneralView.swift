@@ -97,6 +97,12 @@ struct HandsetGeneralView: View {
                 Text("Follow Ring Signal").tag(2)
             }
             VisualRingerInfoView()
+            if phone.hasIntercom {
+                Picker("Call Join/Leave Tone", selection: $handset.joinLeaveTone) {
+                    JoinLeaveTonePickerItems()
+                }
+                JoinLeaveToneInfoView()
+            }
             if phone.baseBluetoothCellPhonesSupported > 0 {
                 Picker("Standby Cell Call Dialing", selection: $handset.standbyCellCallDialing) {
                     Text("Dial Number").tag(0)

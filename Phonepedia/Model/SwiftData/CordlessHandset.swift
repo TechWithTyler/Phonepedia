@@ -227,7 +227,11 @@ final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatab
 
     var intercomRingtone: Int = 0
 
+    var ringsOnBase: Bool = true
+
     var silentMode: Int = 0
+
+    var joinLeaveTone: Int = 0
 
     var supportsSilentModeBypass: Bool = false
 
