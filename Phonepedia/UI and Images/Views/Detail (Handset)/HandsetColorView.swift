@@ -37,12 +37,12 @@ struct HandsetColorView: View {
 
     var body: some View {
             Section {
-                ColorPicker("\(mainColorLocation) Color", selection: handset.mainColorBinding, supportsOpacity: false)
-                ColorPicker("\(secondaryColorLocation) Color", selection: handset.secondaryColorBinding, supportsOpacity: false)
+                ColorPicker("\(mainColorLocation) Color", selection: handset.mainColorBinding)
+                ColorPicker("\(secondaryColorLocation) Color", selection: handset.secondaryColorBinding)
                 Button("Use \(mainColorLocation) Color") {
                     handset.setSecondaryColorToMain()
                 }
-                ColorPicker("Accent Color", selection: handset.accentColorBinding, supportsOpacity: false)
+                ColorPicker("Accent Color", selection: handset.accentColorBinding)
                 Button("Use \(mainColorLocation) Color") {
                     handset.setAccentColorToMain()
                 }
@@ -54,11 +54,11 @@ struct HandsetColorView: View {
                     Text("No Corded Receiver")
                 }
                     if handset.hasCordedReceiver {
-                        ColorPicker("Corded Receiver Inner Color", selection: handset.cordedReceiverSecondaryColorBinding, supportsOpacity: false)
+                        ColorPicker("Corded Receiver Inner Color", selection: handset.cordedReceiverSecondaryColorBinding)
                         Button("Use Outer Color") {
                             handset.setCordedReceiverSecondaryColorToMain()
                         }
-                        ColorPicker("Corded Receiver Accent Color", selection: handset.cordedReceiverAccentColorBinding, supportsOpacity: false)
+                        ColorPicker("Corded Receiver Accent Color", selection: handset.cordedReceiverAccentColorBinding)
                         Button("Use Outer Color") {
                             handset.setCordedReceiverAccentColorToMain()
                         }

@@ -34,12 +34,12 @@ struct PhoneColorView: View {
     }
 
     var body: some View {
-        ColorPicker(phone.basePhoneType > 0 ? "Top Color" : "Base Top Color", selection: phone.baseMainColorBinding, supportsOpacity: false)
-        ColorPicker(phone.basePhoneType > 0 ? "Bottom Color" : "Base Bottom Color", selection: phone.baseSecondaryColorBinding, supportsOpacity: false)
+        ColorPicker(phone.basePhoneType > 0 ? "Top Color" : "Base Top Color", selection: phone.baseMainColorBinding)
+        ColorPicker(phone.basePhoneType > 0 ? "Bottom Color" : "Base Bottom Color", selection: phone.baseSecondaryColorBinding)
         Button("Use Top Color") {
             phone.setBaseSecondaryColorToMain()
         }
-        ColorPicker(phone.basePhoneType > 0 ? "Accent Color" : "Base Accent Color", selection: phone.baseAccentColorBinding, supportsOpacity: false)
+        ColorPicker(phone.basePhoneType > 0 ? "Accent Color" : "Base Accent Color", selection: phone.baseAccentColorBinding)
         Button("Use \(mainColorLocation) Color") {
             phone.setBaseAccentColorToMain()
         }
@@ -55,11 +55,11 @@ struct PhoneColorView: View {
                 phone.cordedReceiverColorChanged(oldValue: oldValue, newValue: newValue)
             }
             if phone.hasCordedReceiver {
-                ColorPicker("Corded Receiver Inner Color", selection: phone.cordedReceiverSecondaryColorBinding, supportsOpacity: false)
+                ColorPicker("Corded Receiver Inner Color", selection: phone.cordedReceiverSecondaryColorBinding)
                 Button("Use Outer Color") {
                     phone.setCordedReceiverSecondaryColorToMain()
                 }
-                ColorPicker("Corded Receiver Accent Color", selection: phone.cordedReceiverAccentColorBinding, supportsOpacity: false)
+                ColorPicker("Corded Receiver Accent Color", selection: phone.cordedReceiverAccentColorBinding)
                 Button("Use Outer Color") {
                     phone.setCordedReceiverAccentColorToMain()
                 }

@@ -236,7 +236,7 @@ struct PhoneGeneralView: View {
             if phone.baseChargesHandset {
                 Toggle("Has Charge Light", isOn: $phone.hasChargeLight)
                 if phone.hasChargeLight {
-                    ColorPicker("Charge Light Color (Charging)", selection: phone.chargeLightColorChargingBinding, supportsOpacity: false)
+                    ColorPicker("Charge Light Color (Charging)", selection: phone.chargeLightColorChargingBinding)
                     ClearSupportedColorPicker("Charge Light Color (Charged)", selection: phone.chargeLightColorChargedBinding) {
                         Text("Off When Charged")
                     }
@@ -247,7 +247,7 @@ struct PhoneGeneralView: View {
                 Picker("Base Charging Direction", selection: $phone.baseChargingDirection) {
                     ChargingDirectionPickerItems()
                 }
-                InfoText("Variations in charging area designs are one of the many ways cordless phones look different from one another.\n\"Lean Back\" means the handset leans back in the charging area but isn't fully flat (\"Lay Down\").\nA reversible handset can charge with the keypad facing either up or down. While there's no benefit to this design if the handset doesn't have a display, the phone may still have this design if the base or handset casing is shared with a model that has a handset display.\n\"Corded Phone-Inspired\" means the handset charges face-down and can be placed in either direction (i.e. with the earpiece at the top or bottom for a slim corded-inspired cordless phone or at the left or right for a rotary-inspired cordless phone). The base either has a single set of charging contacts in the center of the charging area, or a set at the top and bottom of the charging area.")
+                InfoText("Variations in charging area designs are one of the many ways cordless phones look different from one another.\n\"Lean Back\" means the handset leans back in the charging area but isn't fully flat (\"Lay Down\").\nA reversible handset can charge with the keypad facing either up or down. While there's no benefit to this design if the handset doesn't have a display, the phone may still have this design if the base or handset casing is shared with a model that has a handset display, or if the model with a handset display uses a base that's physically and electronically identical (they might still be different model numbers) as the model without.\n\"Corded Phone-Inspired\" means the handset charges face-down and can be placed in either direction (i.e. with the earpiece at the top or bottom for a slim corded-inspired cordless phone or at the left or right for a rotary-inspired cordless phone). The base either has a single set of charging contacts in the center of the charging area/face of the handset, or a set at the top and bottom of the charging area/face of the handset.")
                 if phone.baseChargingDirection == 6 {
                     InfoText("This charging area design is often seen on phones where the base sits flush with the wall when wall-mounted. When wall-mounted, the face-down lay down position is the only way the handset can charge securely.")
                 }
@@ -258,7 +258,7 @@ struct PhoneGeneralView: View {
                         Text("Flip/Rotate (Face/Back)").tag(2)
                         Text("Flip (Top)").tag(3)
                     }
-                    InfoText("• None: The handset doesn't need an extra hook to stay in place while the base is wall-mounted.\n• Fixed: The base has a hook that slots into a hole on the handset.\n• Flip/Rotate (Face/Back): The base has a hook that can be flipped or rotated so it sticks out when you want to mount the base on the wall, or so it doesn't stick out when you don't want to mount it on the wall.\n• Flip (Top): The hook is located at the top of the charging area and needs to be flipped down to hold the handset in place while the base is wall-mounted, and flipped back up to take the handset off the base.")
+                    InfoText("• None: The handset doesn't need an extra hook to stay in place while the base is wall-mounted (e.g. if the base isn't flush with the wall).\n• Fixed: The base has a hook that slots into a hole on the handset.\n• Flip/Rotate (Face/Back): The base has a hook that can be flipped or rotated so it sticks out when you want to mount the base on the wall, or so it doesn't stick out when you don't want to mount it on the wall.\n• Flip (Top): The hook is located at the top of the charging area and needs to be flipped down to hold the handset in place while the base is wall-mounted, and flipped back up to take the handset off the base.")
                 }
                 if phone.baseChargeContactType > 8 {
                     Picker("Base Charge Contact Placement", selection: $phone.baseChargeContactPlacement) {

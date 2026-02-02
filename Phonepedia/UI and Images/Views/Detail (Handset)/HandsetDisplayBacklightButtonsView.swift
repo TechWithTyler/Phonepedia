@@ -95,7 +95,7 @@ struct HandsetDisplayBacklightButtonsView: View {
                     Text("All Buttons").tag(5)
                 }
                 if handset.keyBacklightAmount > 0 {
-                    ColorPicker("Button Backlight Color", selection: handset.keyBacklightColorBinding, supportsOpacity: false)
+                    ColorPicker("Button Backlight Color", selection: handset.keyBacklightColorBinding)
                     Picker("Button Backlight Layer", selection: $handset.keyBacklightLayer) {
                         Text("Background").tag(0)
                         Text("Foreground").tag(1)
@@ -111,10 +111,10 @@ struct HandsetDisplayBacklightButtonsView: View {
                     }
                 }
                 if handset.keyBacklightAmount == 0 || handset.keyBacklightLayer == 0 {
-                    ColorPicker("Button Foreground Color", selection: handset.keyForegroundColorBinding, supportsOpacity: false)
+                    ColorPicker("Button Foreground Color", selection: handset.keyForegroundColorBinding)
                 }
                 if handset.keyBacklightAmount == 0 || handset.keyBacklightLayer == 1 {
-                    ColorPicker("Button Background Color", selection: handset.keyBackgroundColorBinding, supportsOpacity: false)
+                    ColorPicker("Button Background Color", selection: handset.keyBackgroundColorBinding)
                     Button("Set To Main Color") {
                         phone.setKeyBackgroundColorToMain()
                     }
@@ -202,7 +202,7 @@ struct HandsetDisplayBacklightButtonsView: View {
                     }
                 }
                 if handset.hasMonochromeDisplay {
-                    ColorPicker("Display Backlight Color", selection: handset.displayBacklightColorBinding, supportsOpacity: false)
+                    ColorPicker("Display Backlight Color", selection: handset.displayBacklightColorBinding)
                 }
                 if handset.displayType > 0 {
                     Picker("Update Available Handset Menus", selection: $handset.menuUpdateMode) {

@@ -16,7 +16,7 @@ struct ChargeContactPlacementPickerItems: View {
 
     var body: some View {
         Text("Bottom of Handset").tag(0)
-        Text("Back of Handset").tag(1)
+        Text("Front/Back of Handset").tag(1)
         Text("One On Each Side").tag(2)
         Text("Hook").tag(3)
     }

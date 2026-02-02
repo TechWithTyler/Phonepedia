@@ -27,7 +27,7 @@ struct HandsetPowerView: View {
                     InfoText("Some handsets allow you to turn them off, just like a cell phone. This allows you to save battery or transport the handset powered off without removing the battery/ies. If the handset doesn't turn on when inserting charged batteries and it doesn't have the ability to turn on/off, it can be placed on charge to turn on.")
                     Toggle("Has Charge Light", isOn: $handset.hasChargeLight)
                     if handset.hasChargeLight {
-                        ColorPicker("Charge Light Color (Charging)", selection: handset.chargeLightColorChargingBinding, supportsOpacity: false)
+                        ColorPicker("Charge Light Color (Charging)", selection: handset.chargeLightColorChargingBinding)
                         ClearSupportedColorPicker("Charge Light Color (Charged)", selection: handset.chargeLightColorChargedBinding) {
                             Text("Off When Charged")
                         }

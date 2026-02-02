@@ -66,7 +66,7 @@ struct BaseDisplayBacklightButtonsView: View {
                     InfoText("The brightness of a line-powered phone's button lighting depends on the line's off-hook power. If it's low, the backlight will be dim.")
                 }
                 if phone.baseKeyBacklightAmount > 0 {
-                    ColorPicker("Button Lighting Color", selection: phone.baseKeyBacklightColorBinding, supportsOpacity: false)
+                    ColorPicker("Button Lighting Color", selection: phone.baseKeyBacklightColorBinding)
                     if phone.baseKeyBacklightAmount < 6 {
                         Picker("Button Backlight Layer", selection: $phone.baseKeyBacklightLayer) {
                             Text("Background").tag(0)
@@ -81,10 +81,10 @@ struct BaseDisplayBacklightButtonsView: View {
                     }
                 }
                 if phone.baseKeyBacklightAmount == 0 || phone.baseKeyBacklightAmount == 6 || phone.baseKeyBacklightLayer == 0 {
-                    ColorPicker("Button Foreground Color", selection: phone.baseKeyForegroundColorBinding, supportsOpacity: false)
+                    ColorPicker("Button Foreground Color", selection: phone.baseKeyForegroundColorBinding)
                 }
                 if phone.baseKeyBacklightAmount == 0 || phone.baseKeyBacklightAmount == 6 || phone.baseKeyBacklightLayer == 1 {
-                    ColorPicker("Button Background Color", selection: phone.baseKeyBackgroundColorBinding, supportsOpacity: false)
+                    ColorPicker("Button Background Color", selection: phone.baseKeyBackgroundColorBinding)
                     Button("Set To Main Color") {
                         phone.setKeyBackgroundColorToMain()
                     }
@@ -175,7 +175,7 @@ struct BaseDisplayBacklightButtonsView: View {
                     Toggle("Base Has LED Message Counter In Addition To Display", isOn: $phone.baseHasDisplayAndMessageCounter)
                 }
                 if phone.baseDisplayType == 1 || phone.baseHasDisplayAndMessageCounter {
-                    ColorPicker("LED Message Counter Color", selection: phone.baseLEDMessageCounterColorBinding, supportsOpacity: false)
+                    ColorPicker("LED Message Counter Color", selection: phone.baseLEDMessageCounterColorBinding)
                 }
             }
             if phone.baseDisplayType > 2 {

@@ -55,12 +55,12 @@ struct ChargerDetailView: View {
                         }
                     }
                     Section("Basic Info") {
-                        ColorPicker("Main Color", selection: charger.mainColorBinding, supportsOpacity: false)
-                        ColorPicker("Secondary/Accent Color", selection: charger.secondaryColorBinding, supportsOpacity: false)
+                        ColorPicker("Main Color", selection: charger.mainColorBinding)
+                        ColorPicker("Secondary/Accent Color", selection: charger.secondaryColorBinding)
                         Button("Use Main Color") {
                             charger.setSecondaryColorToMain()
                         }
-                        ColorPicker("Accent Color", selection: charger.accentColorBinding, supportsOpacity: false)
+                        ColorPicker("Accent Color", selection: charger.accentColorBinding)
                         Button("Use Top Color") {
                             charger.setAccentColorToMain()
                         }
@@ -75,7 +75,7 @@ struct ChargerDetailView: View {
                         }
                         Toggle("Has Charge Light", isOn: $charger.hasChargeLight)
                         if charger.hasChargeLight {
-                            ColorPicker("Charge Light Color (Charging)", selection: charger.chargeLightColorChargingBinding, supportsOpacity: false)
+                            ColorPicker("Charge Light Color (Charging)", selection: charger.chargeLightColorChargingBinding)
                             ClearSupportedColorPicker("Charge Light Color (Charged)", selection: charger.chargeLightColorChargedBinding) {
                                 Text("Off When Charged")
                             }
