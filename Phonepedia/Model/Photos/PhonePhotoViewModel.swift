@@ -36,7 +36,7 @@ class PhonePhotoViewModel: ObservableObject {
     @Published var takingPhoto: Bool = false
 #endif
 
-    // Whether a draggable item (e.g. a file) is being hovered over the photo.
+    // Whether a draggable item (e.g. an image file) is being hovered over the photo.
     @Published var hoveringItemOverPhoto: Bool = false
 
     // Whether the photo picker should be/is being displayed.
@@ -79,15 +79,15 @@ class PhonePhotoViewModel: ObservableObject {
                 selectedPhoto = nil
                 switch result {
                 case .success(let data):
-                    // 2. If we get the data from the photo picker result, check the photo for landline/VoIP phones. Ask the user for confirmation if no landline/VoIP phones could be detected. If we can't get data, show an error.
+                    // 2. If we get the data from the photo picker result, run the photo through the image predictor to check it for landline/VoIP phones. Ask the user for confirmation if no landline/VoIP phones could be detected. If we can't get data, show an error.
                     if let data = data {
-                        checkImageForLandlinesAndSave(photoData: data, phone: phone)
+                        checkPhotoForLandlinesAndSave(photoData: data, phone: phone)
                     } else {
-                        phonePhotoError = .noPhotoData
+                        phonePhotoError = .noPhotoDataPhotoPicker
                         showingPhonePhotoErrorAlert = true
                         showingLoadingPhoto = false
                     }
-                case .failure(let error as NSError):
+                case .failure(let error):
                     // 3. If photo loading fails, show an error.
 #if(DEBUG)
                     print("Error: \(error)")
@@ -105,19 +105,29 @@ class PhonePhotoViewModel: ObservableObject {
 
     // MARK: - Phone Photo Update - Drag and Drop
 
-    // This method handles dropping of a photo on the phone image.
+    // This method handles dropping of a photo on the phone photo.
     func handleDroppedPhoto(phone: Phone, with providers: [NSItemProvider]) -> Bool {
-        // 1. Make sure we can get the first item provider. If we can't, return false.
+        // 1. Make sure only one item is being dropped. If 2 or more items are being dropped, show an error.
+        let itemCount = providers.count
+        guard itemCount == 1 else {
+            phonePhotoError = .tooManyPhotos(count: itemCount)
+            showingPhonePhotoErrorAlert = true
+            return false
+        }
+        // 2. Make sure we can get the first item provider. If we can't, return false.
         guard let provider = providers.first else {
             return false
         }
-        // 2. Try to have the provider load image data. If successful, check the photo for landline/VoIP phones. Ask the user for confirmation if no landline/VoIP phones could be detected. If unsuccessful (e.g. the file isn't an image), show an error.
+        // 3. Try to have the provider load image data. If successful, check the photo for landline/VoIP phones. Ask the user for confirmation if no landline/VoIP phones could be detected. If unsuccessful, show an error.
         let progress = provider.loadDataRepresentation(forTypeIdentifier: UTType.image.identifier) { [self] data, error in
             if let data = data {
-                checkImageForLandlinesAndSave(photoData: data, phone: phone)
-            }
-            if let error = error {
+                checkPhotoForLandlinesAndSave(photoData: data, phone: phone)
+            } else if let error = error {
                 phonePhotoError = .loadFailed(error: error)
+                showingPhonePhotoErrorAlert = true
+                showingLoadingPhoto = false
+            } else {
+                phonePhotoError = .noPhotoDataDrop
                 showingPhonePhotoErrorAlert = true
                 showingLoadingPhoto = false
             }
@@ -132,15 +142,9 @@ class PhonePhotoViewModel: ObservableObject {
     // MARK: - Phone Photo Update - Image Classification/Saving
 
     // This method runs photoData through the image predictor and checks it for landline/VoIP phones.
-    func checkImageForLandlinesAndSave(photoData: Data, phone: Phone) {
-        do {
-            // 1. Run the photo data through the LandlineOrNot image classification model to check it for landline/VoIP phones.
-            try imagePredictor.makePredictions(for: photoData, phone: phone, completionHandler: imagePredictionHandler)
-        } catch {
-            // 2. If prediction fails, show an error.
-            showingLoadingPhoto = false
-            phonePhotoError = .predictionFailed(reason: error.localizedDescription)
-        }
+    func checkPhotoForLandlinesAndSave(photoData: Data, phone: Phone) {
+        // Run the photo data through the LandlineOrNot image classification model to check it for landline/VoIP phones.
+        imagePredictor.makePredictions(for: photoData, phone: phone, completionHandler: imagePredictionHandler)
     }
 
     // This method is called as the completion handler after image prediction, and gives back the photo data and the phone whose photo data is to be set to that data.
@@ -224,12 +228,23 @@ class PhonePhotoViewModel: ObservableObject {
                         phonePhotoError = .exportFailed(reason: error.localizedDescription)
                         showingPhonePhotoErrorAlert = true
                     }
-                    if success {
+                    if !success && error == nil {
+                        phonePhotoError = .exportFailed(reason: "Unknown error")
+                        showingPhonePhotoErrorAlert = true
+                    } else {
                         showingPhonePhotoExportSuccessfulAlert = true
                     }
                 }
             }
         }
+    }
+
+    // MARK: - Dismiss Error Alert
+
+    // This method dismisses the error alert.
+    func dismissErrorAlert() {
+        showingPhonePhotoErrorAlert = false
+        phonePhotoError = nil
     }
 
 }

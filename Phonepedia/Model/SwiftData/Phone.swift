@@ -1079,6 +1079,14 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
         }
     }
 
+    // MARK: - Make Corded-Only
+
+    func makeCordedOnly() {
+        cordlessHandsetsIHave.removeAll()
+        chargersIHave.removeAll()
+        numberOfIncludedCordlessHandsets = 0
+    }
+
     // MARK: - Color Methods
     
     // Public wrappers that maintain existing method names for UI compatibility

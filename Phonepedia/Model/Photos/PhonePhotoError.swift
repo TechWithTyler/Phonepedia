@@ -16,8 +16,14 @@ enum PhonePhotoError: LocalizedError {
     // Photo loading failed.
     case loadFailed(error: Error)
 
+    // Too many photos were dropped on a phone's photo.
+    case tooManyPhotos(count: Int)
+
     // No photo data from PhotosPickerItem.
-    case noPhotoData
+    case noPhotoDataPhotoPicker
+
+    // No photo data from dropped item.
+    case noPhotoDataDrop
 
     // Image prediction failed.
     case predictionFailed(reason: String)
@@ -25,23 +31,22 @@ enum PhonePhotoError: LocalizedError {
     // Photo export failed.
     case exportFailed(reason: String)
 
-    // A file that isn't an image was dropped on a phone's photo for import.
-    case droppedNonImage
-
     // MARK: - Error Description
 
     var errorDescription: String? {
         switch self {
         case .loadFailed(let error):
             return "(Bee-bee-beep) We're sorry, your photo can't be loaded. Please try again later. \(error.localizedDescription)"
-        case .noPhotoData:
+        case .tooManyPhotos(let count):
+            return "Only 1 photo can be imported. You attempted to import \(count) photos."
+        case .noPhotoDataPhotoPicker:
             return "Photo picker selection contained no photo data."
+        case .noPhotoDataDrop:
+            return "Dropped item contained no photo data."
         case .predictionFailed(let reason):
             return "Image prediction failed: \(reason)"
         case .exportFailed(let reason):
             return "Photo export failed: \(reason)"
-        case .droppedNonImage:
-            return "(Bee-bee-beep) This file isn't an image. Please try again with an image file."
         }
     }
     

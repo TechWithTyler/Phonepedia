@@ -69,8 +69,7 @@ struct PhoneDetailView: View {
 #endif
         .alert(isPresented: $photoViewModel.showingPhonePhotoErrorAlert, error: photoViewModel.phonePhotoError) {
             Button("OK") {
-                photoViewModel.showingPhonePhotoErrorAlert = false
-                photoViewModel.phonePhotoError = nil
+                photoViewModel.dismissErrorAlert()
             }
             .keyboardShortcut(.defaultAction)
         }
@@ -130,7 +129,7 @@ struct PhoneDetailView: View {
                         photoViewModel.exportPhonePhoto(phone: phone)
                     }
                     .sensoryFeedback(.alignment, trigger: photoViewModel.hoveringItemOverPhoto)
-                    .sensoryFeedback(.error, trigger: photoViewModel.showingPhonePhotoErrorAlert == true)
+                    .sensoryFeedback(.error, trigger: photoViewModel.showingPhonePhotoErrorAlert)
                 Spacer()
             }
             if photoViewModel.hoveringItemOverPhoto {

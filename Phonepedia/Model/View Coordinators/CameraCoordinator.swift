@@ -39,7 +39,7 @@ class CameraCoordinator: NSObject, UIImagePickerControllerDelegate, UINavigation
         // 2. If we can get the data from that result, run it through the image predictor/set it as a photo.
 		if let cameraResultData = cameraResult.jpegData(compressionQuality: 1.0) {
             parent.viewModel.showingLoadingPhoto = true
-            parent.viewModel.checkImageForLandlinesAndSave(photoData: cameraResultData, phone: parent.phone)
+            parent.viewModel.checkPhotoForLandlinesAndSave(photoData: cameraResultData, phone: parent.phone)
 		}
         // 3. Dismiss the camera.
         picker.dismiss(animated: true) {

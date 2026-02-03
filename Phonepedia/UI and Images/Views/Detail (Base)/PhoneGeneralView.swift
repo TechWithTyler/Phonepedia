@@ -129,9 +129,7 @@ struct PhoneGeneralView: View {
             }
             .alert("Specifying that this phone comes with 0 cordless devices makes it a non-cordless phone. Continue?", isPresented: $dialogManager.showingMakeCordedOnly) {
                 Button("OK") {
-                    phone.cordlessHandsetsIHave.removeAll()
-                    phone.chargersIHave.removeAll()
-                    phone.numberOfIncludedCordlessHandsets = 0
+                    phone.makeCordedOnly()
                     dialogManager.showingMakeCordedOnly = false
                 }
                 Button("Cancel", role: .cancel) {
