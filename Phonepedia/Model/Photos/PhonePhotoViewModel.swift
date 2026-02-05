@@ -72,14 +72,17 @@ class PhonePhotoViewModel: ObservableObject {
 
     // This method handles selecting a photo in the photo picker.
     func handlePhotoPickerSelection(for phone: Phone, newValue: PhotosPickerItem?) {
+        // 1. Nil-out the photo picker selection after the photo is loaded into the app.
+        selectedPhoto = nil
+        // 2. Make sure the new selection isn't nil. Otherwise, return.
         guard let newValue = newValue else { return }
-        let progress = newValue.loadTransferable(type: Data.self) { [self] result in
-            // 1. Nil-out the photo picker selection after the photo is loaded into the app.
+        // 3. Define the result type for the loaded photo. In this case, we want to load the photo to a Data object since we're saving it to the phone's photoData property.
+        let resultType = Data.self
+        let progress = newValue.loadTransferable(type: resultType) { [self] result in
             DispatchQueue.main.async { [self] in
-                selectedPhoto = nil
                 switch result {
                 case .success(let data):
-                    // 2. If we get the data from the photo picker result, run the photo through the image predictor to check it for landline/VoIP phones. Ask the user for confirmation if no landline/VoIP phones could be detected. If we can't get data, show an error.
+                    // 4. If we get the data from the photo picker result, run the photo through the image predictor to check it for landline/VoIP phones. Ask the user for confirmation if no landline/VoIP phones could be detected. If we can't get data, show an error.
                     if let data = data {
                         checkPhotoForLandlinesAndSave(photoData: data, phone: phone)
                     } else {
@@ -88,7 +91,7 @@ class PhonePhotoViewModel: ObservableObject {
                         showingLoadingPhoto = false
                     }
                 case .failure(let error):
-                    // 3. If photo loading fails, show an error.
+                    // 5. If photo loading fails, show an error.
 #if(DEBUG)
                     print("Error: \(error)")
 #endif
@@ -98,7 +101,7 @@ class PhonePhotoViewModel: ObservableObject {
                 }
             }
         }
-        // 4. Start loading.
+        // 6. Start loading.
         progress.resume()
         showingLoadingPhoto = true
     }
@@ -148,20 +151,20 @@ class PhonePhotoViewModel: ObservableObject {
     }
 
     // This method is called as the completion handler after image prediction, and gives back the photo data and the phone whose photo data is to be set to that data.
-    private func imagePredictionHandler(_ predictions: [LandlineOrNotPredictor.Prediction]?, photoData: Data, phone: Phone) {
+    private func imagePredictionHandler(_ prediction: LandlineOrNotPredictor.Prediction?, photoData: Data, phone: Phone) {
         // 1. Make sure we can get the first prediction. If we can't, show an error.
         DispatchQueue.main.async { [self] in
             showingLoadingPhoto = false
         }
-        guard let predictions = predictions, let firstPrediction = predictions.first else {
-            phonePhotoError = .predictionFailed(reason: "No predictions available.")
+        guard let prediction = prediction else {
+            phonePhotoError = .predictionFailed(reason: "No prediction available.")
             DispatchQueue.main.async { [self] in
                 showingPhonePhotoErrorAlert = true
             }
             return
         }
         // 2. If the photo contains landline/VoIP phones, set the photo without asking. If not, ask the user whether they want to use this photo anyways.
-        if firstPrediction.isLandline {
+        if prediction.isLandline {
             phone.photoData = photoData
         } else {
             DispatchQueue.main.async { [self] in
@@ -173,7 +176,7 @@ class PhonePhotoViewModel: ObservableObject {
 
     // MARK: - Export Photo - Item Provider
 
-    // This method creates an NSItemProvider when exporting a phone's photo.
+    // This method creates an NSItemProvider when exporting a phone's photo to the user's Photos library or by drag-and-drop.
     func exportPhonePhoto(phone: Phone) -> NSItemProvider {
         // 1. Define the filename for the exported photo. The filename is the phone's brand and model number (e.g. "Some Brand M123-2").
         let filename = "\(phone.brand) \(phone.model)"
@@ -195,7 +198,7 @@ class PhonePhotoViewModel: ObservableObject {
 
     // This method saves phone's photo to the user's Photos library.
     func savePhonePhotoToLibrary(phone: Phone) {
-        // 1. Export the phone photo to an NSItemProvider.
+        // 1. Export the phone photo to an NSItemProvider. This step is all we need for drag-and-drop since the destination app handles the rest, but for saving to the Photos library, we need to do more.
         let itemProvider = exportPhonePhoto(phone: phone)
         // 2. Ensure that item provider contains PNG data. If so, try to load it. If successful, the data is passed to the completion handler and used there.
         let containsPNGData = itemProvider.hasItemConformingToTypeIdentifier(pngTypeIdentifier)
@@ -237,14 +240,6 @@ class PhonePhotoViewModel: ObservableObject {
                 }
             }
         }
-    }
-
-    // MARK: - Dismiss Error Alert
-
-    // This method dismisses the error alert.
-    func dismissErrorAlert() {
-        showingPhonePhotoErrorAlert = false
-        phonePhotoError = nil
     }
 
 }

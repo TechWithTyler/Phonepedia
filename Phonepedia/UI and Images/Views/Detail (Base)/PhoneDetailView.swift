@@ -69,7 +69,7 @@ struct PhoneDetailView: View {
 #endif
         .alert(isPresented: $photoViewModel.showingPhonePhotoErrorAlert, error: photoViewModel.phonePhotoError) {
             Button("OK") {
-                photoViewModel.dismissErrorAlert()
+                photoViewModel.phonePhotoError = nil
             }
             .keyboardShortcut(.defaultAction)
         }
@@ -84,22 +84,25 @@ struct PhoneDetailView: View {
         .alert("Reset to the placeholder photo?", isPresented: $photoViewModel.showingResetAlert) {
             Button(role: .destructive) {
                 phone.photoData = nil
-                photoViewModel.showingResetAlert = false
             } label: {
                 Text("Delete")
+            }
+            Button(role: .cancel) {
+                photoViewModel.showingResetAlert = false
+            } label: {
+                Text("Cancel")
             }
         }
         .alert("This photo doesn't appear to contain landline or VoIP phones. Save anyway?", isPresented: $photoViewModel.showingUnsurePhotoDataAlert) {
             Button {
                 phone.photoData = photoViewModel.unsurePhotoDataToUse
                 photoViewModel.unsurePhotoDataToUse = nil
-                photoViewModel.showingUnsurePhotoDataAlert = false
             } label: {
                 Text("Save")
             }
             .keyboardShortcut(.defaultAction)
             Button(role: .cancel) {
-                photoViewModel.showingUnsurePhotoDataAlert = false
+                photoViewModel.unsurePhotoDataToUse = nil
             } label: {
                 Text("Cancel")
             }

@@ -40,16 +40,11 @@ class LandlineOrNotPredictor {
     typealias CurrentLandlineOrNot = LandlineOrNotV1
 
     // The function signature the caller must provide as a completion handler.
-    typealias ImagePredictionHandler = (_ predictions: [Prediction]?, _ photoData: Data, _ phone: Phone) -> Void
+    typealias ImagePredictionHandler = (_ prediction: Prediction?, _ photoData: Data, _ phone: Phone) -> Void
 
     // MARK: - Properties - Photo View Model
 
     var photoViewModel: PhonePhotoViewModel
-
-    // MARK: - Properties - Image Classifier
-
-    // A common image classifier instance that all Image Predictor instances use to generate predictions.
-    private static let imageClassifier = createImageClassifier()
 
     // MARK: - Properties - Dictionaries
 
@@ -64,20 +59,21 @@ class LandlineOrNotPredictor {
 
     // MARK: - Create Image Classifier
 
-    static func createImageClassifier() -> VNCoreMLModel {
+    // This method creates an image classifier.
+    func createImageClassifier() -> VNCoreMLModel? {
         // 1. Create a default model configuration.
         let defaultConfig = MLModelConfiguration()
-        // 2. Create an instance of the image classifier's wrapper class.
+        // 2. Try to create an instance of the image classifier's wrapper class. If that fails, return nil.
         // Throwing functions don't have to be called within the do block of a do-catch statement--the result of calling the function can be an Optional value which returns nil if it throws an error.
         let imageClassifierWrapper = try? CurrentLandlineOrNot(configuration: defaultConfig)
         guard let imageClassifier = imageClassifierWrapper else {
-            fatalError("App failed to create an image classifier model instance.")
+            return nil
         }
         // 3. Get the underlying model instance.
         let imageClassifierModel = imageClassifier.model
         // 4. Create a Vision instance using the image classifier's model instance.
         guard let imageClassifierVisionModel = try? VNCoreMLModel(for: imageClassifierModel) else {
-            fatalError("App failed to create a VNCoreMLModel instance.")
+            return nil
         }
         // 5. Return the model.
         return imageClassifierVisionModel
@@ -86,9 +82,12 @@ class LandlineOrNotPredictor {
     // MARK: - Image Classification - Request
 
     // Generates a new request instance that uses the Image Predictor's image classifier model.
-    private func createImageClassificationRequest(photoData: Data, phone: Phone) -> VNImageBasedRequest {
+    private func createImageClassificationRequest(photoData: Data, phone: Phone) -> VNImageBasedRequest? {
         // 1. Create an image classification request with an image classifier model.
-        let imageClassificationRequest = VNCoreMLRequest(model: LandlineOrNotPredictor.imageClassifier) {
+        guard let imageClassifier = createImageClassifier() else {
+            return nil
+        }
+        let imageClassificationRequest = VNCoreMLRequest(model: imageClassifier) {
             request, error in
             self.visionRequestHandler(request, error: error, photoData: photoData, phone: phone)
         }
@@ -104,8 +103,10 @@ class LandlineOrNotPredictor {
     func makePredictions(for photoData: Data, phone: Phone, completionHandler: @escaping ImagePredictionHandler) {
         // 1. Make sure we can decode the photo data to an NSImage or UIImage.
         guard let photo = CrossPlatformImage(data: photoData) else {
-            photoViewModel.phonePhotoError = .predictionFailed(reason: "Failed to create image from data.")
-            photoViewModel.showingPhonePhotoErrorAlert = true
+            DispatchQueue.main.async { [self] in
+                photoViewModel.phonePhotoError = .predictionFailed(reason: "Failed to create image from data.")
+                photoViewModel.showingPhonePhotoErrorAlert = true
+            }
             return
         }
         // 2. Convert the NSImage/UIImage to CGImage.
@@ -114,20 +115,30 @@ class LandlineOrNotPredictor {
         var imageRect = CGRect(origin: .zero, size: photo.size)
         let noUnderlyingCGImageError = "No underlying CGImage."
         guard let photoImage = photo.cgImage(forProposedRect: &imageRect, context: nil, hints: nil) else {
-            photoViewModel.phonePhotoError = .predictionFailed(reason: noUnderlyingCGImageError)
-            photoViewModel.showingPhonePhotoErrorAlert = true
+            DispatchQueue.main.async { [self] in
+                photoViewModel.phonePhotoError = .predictionFailed(reason: noUnderlyingCGImageError)
+                photoViewModel.showingPhonePhotoErrorAlert = true
+            }
             return
         }
         #else
         let orientation = CGImagePropertyOrientation(photo.imageOrientation)
         guard let photoImage = photo.cgImage else {
-            photoViewModel.phonePhotoError = .predictionFailed(reason: noUnderlyingCGImageError)
-            photoViewModel.showingPhonePhotoErrorAlert = true
+            DispatchQueue.main.async { [self] in
+                photoViewModel.phonePhotoError = .predictionFailed(reason: noUnderlyingCGImageError)
+                photoViewModel.showingPhonePhotoErrorAlert = true
+            }
             return
         }
         #endif
         // 3. Create an image classification request.
-        let imageClassificationRequest = createImageClassificationRequest(photoData: photoData, phone: phone)
+        guard let imageClassificationRequest = createImageClassificationRequest(photoData: photoData, phone: phone) else {
+            DispatchQueue.main.async { [self] in
+                photoViewModel.phonePhotoError = .predictionFailed(reason: "Failed to create an image classification request.")
+                photoViewModel.showingPhonePhotoErrorAlert = true
+            }
+            return
+        }
         // 4. Set the completion handler of the image classification request.
         predictionHandlers[imageClassificationRequest] = completionHandler
         // 5. Create a VNImageRequestHandler.
@@ -138,8 +149,10 @@ class LandlineOrNotPredictor {
         do {
             try imageClassificationRequestHandler.perform(requests)
         } catch {
-            photoViewModel.phonePhotoError = .predictionFailed(reason: error.localizedDescription)
-            photoViewModel.showingPhonePhotoErrorAlert = true
+            DispatchQueue.main.async { [self] in
+                photoViewModel.phonePhotoError = .predictionFailed(reason: error.localizedDescription)
+                photoViewModel.showingPhonePhotoErrorAlert = true
+            }
         }
     }
 
@@ -151,12 +164,12 @@ class LandlineOrNotPredictor {
         guard let predictionHandler = predictionHandlers.removeValue(forKey: request) else {
             fatalError("Every request must have a prediction handler.")
         }
-        // 2. Create an array of Predictions. Start with a nil value in case there's a problem.
-        var predictions: [Prediction]? = nil
+        // 2. Create a Prediction. Start with a nil value in case there's a problem.
+        var prediction: Prediction? = nil
         // 3. Call the client's completion handler after the method returns.
         defer {
             // Send the predictions back to the client.
-            predictionHandler(predictions, photoData, phone)
+            predictionHandler(prediction, photoData, phone)
         }
         // 4. Check for an error.
         if let error = error {
@@ -183,10 +196,12 @@ class LandlineOrNotPredictor {
             return
         }
         // 7. Create a prediction array from the observations.
-        predictions = observations.map { observation in
+        let predictions = observations.map { observation in
             // Convert each observation into a LandlineOrNotPredictor.Prediction instance.
             Prediction(classification: observation.identifier)
         }
+        // 8. Get the first prediction from the array.
+        prediction = predictions.first
     }
     
 }

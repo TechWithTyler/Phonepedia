@@ -220,13 +220,11 @@ struct PhoneListView: View {
         })
         .alert("Delete this phone?", isPresented: $dialogManager.showingDeletePhone, presenting: dialogManager.phoneToDelete) { phoneToDelete in
             Button(role: .destructive) {
-                dialogManager.showingDeletePhone = false
                 deletePhone(phoneToDelete)
             } label: {
                 Text("Delete")
             }
             Button(role: .cancel) {
-                dialogManager.showingDeletePhone = false
                 dialogManager.phoneToDelete = nil
             } label: {
                 Text("Cancel")
@@ -242,7 +240,6 @@ struct PhoneListView: View {
         }
         .alert("Delete all phones from this catalog?", isPresented: $dialogManager.showingDeleteAllPhones) {
             Button(role: .destructive) {
-                dialogManager.showingDeleteAllPhones = false
                 deleteAllPhones()
             } label: {
                 Text("Delete")
@@ -264,14 +261,11 @@ struct PhoneListView: View {
         }
         .alert("Update the place in the collection for all cordless devices as well?", isPresented: $dialogManager.showingUpdateCordlessDevicePlaceInCollection, presenting: dialogManager.phoneToUpdateCordlessDevicePlaceInCollection) { phone in
             Button {
-                dialogManager.showingUpdateCordlessDevicePlaceInCollection = false
-                phone.updateAllCordlessDevicePlaceInCollection()
-                dialogManager.phoneToUpdateCordlessDevicePlaceInCollection = nil
+                updateAllCordlessDevicePlaceInCollection(phone: phone)
             } label: {
                 Text("Update")
             }
             Button(role: .cancel) {
-                dialogManager.showingUpdateCordlessDevicePlaceInCollection = false
                 dialogManager.phoneToUpdateCordlessDevicePlaceInCollection = nil
             } label: {
                 Text("Cancel")
@@ -282,7 +276,6 @@ struct PhoneListView: View {
                 achievementTrackerViewModel.showingAlert = false
             }
             Button("Show All…") {
-                achievementTrackerViewModel.showingAlert = false
                 dialogManager.showingPhoneCollectionAchievements = true
             }
         }
@@ -533,6 +526,12 @@ struct PhoneListView: View {
                 }
             }
         }
+    }
+
+    // This method updates the storageOrSetup property of all of phone's cordless devices.
+    func updateAllCordlessDevicePlaceInCollection(phone: Phone) {
+        phone.updateAllCordlessDevicePlaceInCollection()
+        dialogManager.phoneToUpdateCordlessDevicePlaceInCollection = nil
     }
 
     // This method deletes the phone at the given index set.
