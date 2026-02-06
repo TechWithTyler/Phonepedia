@@ -102,6 +102,7 @@ struct BaseRingersView: View {
                 Text("Volume Buttons").tag(1)
             }
             Toggle("Supports Ringer Off", isOn: $phone.baseSupportsRingerOff)
+            InfoText("For phones which don't allow turning the ringer off, you can replace the line cord with one that has a ringer on/off switch if the cord is removable. This switch causes the ring signal to be filtered out by capacitors and resistors in the cord instead of being sent to the phone. This will prevent the phone from receiving incoming calls at all unless it has caller ID and it can detect caller ID before ringing, and answering systems can't answer calls.")
         }
     }
 
