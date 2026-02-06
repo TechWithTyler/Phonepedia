@@ -746,6 +746,12 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
         return !isCordless && (cordedPhoneType == 2 || cordedPhoneType == 3)
     }
 
+    // Whether the keypad is in the corded receiver or the phone is base-less.
+    @Transient
+    var keypadInReceiver: Bool {
+        return (cordedPhoneType == 2 && dialLocation == 1) || cordedPhoneType == 4
+    }
+
     // Whether the phone is cordless, which is true if it came with 1 or more cordless devices (handsets/headsets/speakerphones).
     @Transient
     var isCordless: Bool {
@@ -790,12 +796,13 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
         return cordlessHandsetsIHave.count > maxCordlessHandsets && maxCordlessHandsets != -1
     }
 
+    // Whether the phone takes AC power.
     @Transient
     var takesACPower: Bool {
         return isCordless || cordedPowerSource > 1
     }
 
-    // Whether the phone has a charging area for a cordless handset.
+    // Whether the base has a charging area for a cordless handset.
     @Transient
     var baseChargesHandset: Bool {
         return isCordless && !hasCordedReceiver && !hasTransmitOnlyBase
@@ -843,10 +850,10 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
         return landlineInUseStatusOnBase == 1 || landlineInUseStatusOnBase == 3
     }
 
-    // Whether the phone is a business corded/cordless system (i.e., a 4-line system with a corded base that can accept 8 or more cordless handsets/desksets).
+    // Whether the phone is a business corded/cordless system (i.e., a 4-or-more-line system with a corded base that can accept 8 or more cordless handsets/desksets).
     @Transient
     var isBusinessCordedCordlessSystem: Bool {
-        return isCordedCordless && maxCordlessHandsets >= 8 && numberOfLandlines == 4
+        return isCordedCordless && maxCordlessHandsets >= 8 && numberOfLandlines >= 4
     }
 
     // Whether the phone has a clock display or answering system message day/time stamp.

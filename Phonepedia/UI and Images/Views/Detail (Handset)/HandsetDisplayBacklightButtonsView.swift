@@ -86,34 +86,41 @@ struct HandsetDisplayBacklightButtonsView: View {
                 Toggle(isOn: $handset.hasTalkingKeypad) {
                     Text("Talking Keypad")
                 }
-                Picker("Button Backlight", selection: $handset.keyBacklightAmount) {
+                Picker("Button Lighting", selection: $handset.keyBacklightAmount) {
                     Text("None").tag(0)
+                    Divider()
                     Text("Numbers Only").tag(1)
                     Text("Numbers + Some Function Buttons").tag(2)
                     Text("Numbers + All Function Buttons").tag(3)
-                    Text("Numbers + Navigation Button").tag(4)
-                    Text("All Buttons").tag(5)
+                    if handset.navigatorKeyType > 0 {
+                        Text("Numbers + Navigation Button").tag(4)
+                        Text("All Buttons").tag(5)
+                    }
+                    Divider()
+                    Text("Front Light").tag(6)
                 }
                 if handset.keyBacklightAmount > 0 {
-                    ColorPicker("Button Backlight Color", selection: handset.keyBacklightColorBinding)
+                    ColorPicker("Button Lighting Color", selection: handset.keyBacklightColorBinding)
+                    if handset.keyBacklightAmount < 6 {
                     Picker("Button Backlight Layer", selection: $handset.keyBacklightLayer) {
                         Text("Background").tag(0)
                         Text("Foreground").tag(1)
                     }
-                    VStack {
-                        Text("Button Backlight Example")
-                        Image(systemName: "5.square.fill")
-                            .foregroundStyle(
-                                handset.keyBacklightLayer == 0 ? handset.keyForegroundColorBinding.wrappedValue : handset.keyBacklightColorBinding.wrappedValue,
-                                handset.keyBacklightLayer == 0 ? handset.keyBacklightColorBinding.wrappedValue : handset.keyBackgroundColorBinding.wrappedValue
-                            )
-                            .font(.system(size: 40))
+                        VStack {
+                            Text("Button Backlight Example")
+                            Image(systemName: "5.square.fill")
+                                .foregroundStyle(
+                                    handset.keyBacklightLayer == 0 ? handset.keyForegroundColorBinding.wrappedValue : handset.keyBacklightColorBinding.wrappedValue,
+                                    handset.keyBacklightLayer == 0 ? handset.keyBacklightColorBinding.wrappedValue : handset.keyBackgroundColorBinding.wrappedValue
+                                )
+                                .font(.system(size: 40))
+                        }
                     }
                 }
-                if handset.keyBacklightAmount == 0 || handset.keyBacklightLayer == 0 {
+                if handset.keyBacklightAmount == 0 || handset.keyBacklightAmount == 6 || handset.keyBacklightLayer == 0 {
                     ColorPicker("Button Foreground Color", selection: handset.keyForegroundColorBinding)
                 }
-                if handset.keyBacklightAmount == 0 || handset.keyBacklightLayer == 1 {
+                if handset.keyBacklightAmount == 0 || handset.keyBacklightAmount == 6 || handset.keyBacklightLayer == 1 {
                     ColorPicker("Button Background Color", selection: handset.keyBackgroundColorBinding)
                     Button("Set To Main Color") {
                         phone.setKeyBackgroundColorToMain()

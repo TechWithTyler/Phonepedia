@@ -35,7 +35,7 @@ struct BaseDisplayBacklightButtonsView: View {
                     Toggle(isOn: $phone.hasBaseKeypad) {
                         Text(phone.isCordless ? "Has Base Keypad" : "Has User-Accessible Keypad")
                     }
-                    InfoText("Some cordless phones have a base speakerphone and keypad, which allows you to make calls if the handset isn't nearby or if it needs to charge. Bases with keypads are a great option for office spaces as they combine a cordless-only phone with the design people expect from an office phone.\nSome corded phones, such as those found in hotel lobbies, don't have a user-accessible keypad and are used only for answering calls, checking voicemail, or calling a specific number when picking it up. The keypad and other programming controls are hidden behind a removable faceplate or within the phone's casing.")
+                    InfoText("Some cordless phones have a base speakerphone and keypad, which allows you to make calls if the handset isn't nearby or if it needs to charge. Bases with keypads are a great option for office spaces as they combine a cordless-only phone with the design people expect from an office phone.\nSome corded phones, such as those found in hotel lobbies, don't have a user-accessible keypad and are used only for answering calls, checking voicemail, or calling a specific number when picking it up. The keypad and other programming controls are hidden behind a removable faceplate or within the phone's casing. Some keypad-less phones have no programming at all and are designed only for lines which perform auto-dialing upon going off-hook.")
                     if phone.hasBaseKeypad {
                         Toggle(isOn: $phone.hasTalkingKeypad) {
                             Text("Talking Keypad")
@@ -51,6 +51,7 @@ struct BaseDisplayBacklightButtonsView: View {
             if phone.isCordless || phone.isPushButtonCorded || phone.basePhoneType > 0 {
                 Picker("Button Lighting", selection: $phone.baseKeyBacklightAmount) {
                     Text("None").tag(0)
+                    Divider()
                     Text("Numbers Only").tag(1)
                     Text("Numbers + Some Function Buttons").tag(2)
                     Text("Numbers + All Function Buttons").tag(3)
@@ -58,7 +59,8 @@ struct BaseDisplayBacklightButtonsView: View {
                         Text("Numbers + Navigation Button").tag(4)
                         Text("All Buttons").tag(5)
                     }
-                    if !phone.isCordless && phone.cordedPhoneType == 2 {
+                    if !phone.isCordless && phone.keypadInReceiver {
+                        Divider()
                         Text("Front Light").tag(6)
                     }
                 }
@@ -72,12 +74,12 @@ struct BaseDisplayBacklightButtonsView: View {
                             Text("Background").tag(0)
                             Text("Foreground").tag(1)
                         }
-                    }
-                    VStack {
-                        Text("Button Backlight Example")
-                        Image(systemName: "5.square.fill")
-                            .foregroundStyle(phone.baseKeyBacklightLayer == 0 ? phone.baseKeyForegroundColorBinding.wrappedValue : phone.baseKeyBacklightColorBinding.wrappedValue, phone.baseKeyBacklightLayer == 0 ? phone.baseKeyBacklightColorBinding.wrappedValue : phone.baseKeyBackgroundColorBinding.wrappedValue)
-                            .font(.system(size: 40))
+                        VStack {
+                            Text("Button Backlight Example")
+                            Image(systemName: "5.square.fill")
+                                .foregroundStyle(phone.baseKeyBacklightLayer == 0 ? phone.baseKeyForegroundColorBinding.wrappedValue : phone.baseKeyBacklightColorBinding.wrappedValue, phone.baseKeyBacklightLayer == 0 ? phone.baseKeyBacklightColorBinding.wrappedValue : phone.baseKeyBackgroundColorBinding.wrappedValue)
+                                .font(.system(size: 40))
+                        }
                     }
                 }
                 if phone.baseKeyBacklightAmount == 0 || phone.baseKeyBacklightAmount == 6 || phone.baseKeyBacklightLayer == 0 {

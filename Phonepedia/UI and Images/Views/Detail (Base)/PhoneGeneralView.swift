@@ -391,9 +391,9 @@ In most cases, if the base has a charge light/display message, the completion of
             }
             InfoText("Slim/wall phones with the ringer/electronics in the receiver use the base only for hanging up the phone and plugging in cords.")
         }
-        if phone.grade == 0 && phone.cordedPhoneType == 0 {
+        if phone.grade == 0 && phone.isCordlessOrPushButtonDesk {
             Toggle("Supports PBX-Style Features Without PBX", isOn: $phone.supportsPBXFeatures)
-            InfoText("Some small-business phones can communicate with other compatible phones on the same line without a PBX. Each phone sends and receives audio signals on specific frequency bands over the analog line, allowing them to detect calls or intercom requests from each other. This provides PBX-like features such as intercom, even without a PBX. Extension numbers are set manually on each phone.\nThe more distance between phones, the weaker the signal can get, which can prevent these features from working.\nThis isn't necessary for cordless phones, as most multi-handset systems already have these features. In both cases, going off-hook picks up an outside line, not an internal line.")
+            InfoText("Some small-business phones can communicate with other compatible phones on the same line without a PBX. Each phone sends and receives audio signals on specific frequency bands over the analog line (think wireless but wired), allowing them to detect calls or intercom requests from each other. This provides PBX-like features such as intercom, even without a PBX. Extension numbers are set manually on each phone.\nThe more distance between phones, the weaker the signal can get, which can prevent these features from working.\nThis isn't necessary for cordless phones, as most multi-handset systems already have these features. In both cases, going off-hook picks up an outside line, not an internal line.")
 
         }
         if phone.cordedPhoneType == 0 {
