@@ -24,7 +24,7 @@ struct PhoneAudioView: View {
             if phone.canTalkOnBase {
                 Toggle(phone.isCordless ? "Base Supports Wired Headsets" : "Supports Wired Headsets", isOn: $phone.baseSupportsWiredHeadsets)
             }
-            CountPicker(phone.isCordless ? "Maximum Number of Bluetooth Headphones (Base)" : "Maximum Number of Bluetooth Headphones", selection: $phone.baseBluetoothHeadphonesSupported, numbers: [1, 2, 4], noneTitle: "None", unlimitedTitle: "Unlimited")
+            CountPicker(phone.isCordless ? "Maximum Number of Bluetooth Headphones (Base)" : "Maximum Number of Bluetooth Headphones", selection: $phone.baseBluetoothHeadphonesSupported, startNumber: 1, multipliedBy: 2, endNumber: 4, noneTitle: "None", unlimitedTitle: "Unlimited")
         }
         if phone.landlineConnectionType > 0 {
         Section("Supported Audio Codecs") {

@@ -25,7 +25,7 @@ struct CellPhoneLinkingView: View {
             .onChange(of: phone.baseBluetoothCellPhonesSupported) { oldValue, newValue in
                 phone.baseBluetoothCellPhonesSupportedChanged(oldValue: oldValue, newValue: newValue)
             }
-            InfoText("Pairing a cell phone to the base via Bluetooth allows you to make and receive cell calls on the base or handsets and transfer your cell phone contacts to the phonebook. Some phones support cell phonebook transfers but not full-on cell phone linking for calls.")
+            InfoText("Pairing a cell phone to the base via Bluetooth allows you to make and receive cell calls on the base or cordless devices and transfer your cell phone contacts to the phonebook. Some phones support cell phonebook transfers but not full-on cell phone linking for calls.")
             if phone.baseBluetoothCellPhonesSupported > 0 {
                 Picker("Cell Line In Use Status On Base", selection: $phone.cellLineInUseStatusOnBase) {
                     Text("None").tag(0)
@@ -48,7 +48,7 @@ struct CellPhoneLinkingView: View {
                     Text("Auto-Suppressed \"No Line\" Alert").tag(1)
                     Text("Cell Line Only Mode").tag(2)
                 }
-                InfoText("If you use only cell lines, the \"no line\" alert will be suppressed automatically once at least 1 cell phone is paired, or can be suppressed manually, depending on the phone. A dedicated cell line only mode allows the phone to disable most landline-related features and allows you to make calls as if it were connected to a landline (e.g., by pressing the talk button on a handset instead of the cell button.")
+                InfoText("If you use only cell lines, the \"no line\" alert will be suppressed automatically once at least 1 cell phone is paired, or can be suppressed manually, depending on the phone. A dedicated cell line only mode allows the phone to disable most landline-related features and allows you to make calls as if it were connected to a landline (e.g., by pressing the talk button on a handset instead of the cell button.)")
                 Picker("Cell Line Selection", selection: $phone.cellLineSelection) {
                     CellLineSelectionPickerItems()
                 }
@@ -60,7 +60,7 @@ struct CellPhoneLinkingView: View {
             }
         }
         Section("Smartphones/Tablets As Handsets") {
-            CountPicker("Maximum Supported", selection: $phone.smartphonesAsHandsetsOverWiFi, numbers: [1, 2, 4], noneTitle: "None")
+            CountPicker("Maximum Supported", selection: $phone.smartphonesAsHandsetsOverWiFi, startNumber: 1, multipliedBy: 2, endNumber: 4, noneTitle: "None")
             InfoText("When a smartphone or tablet is registered to a Wi-Fi-compatible base and both devices are on the same network, the smartphone can be used as a handset, and you can transfer its data to the base or handsets/desksets.")
         }
     }
