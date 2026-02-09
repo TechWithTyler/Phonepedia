@@ -35,7 +35,7 @@ struct PhonepediaCommands: Commands {
             }
         }
         CommandGroup(replacing: .help) {
-            Button("\(SAAppName) Help") {
+            Button("\(SABundleName) Help") {
                 showHelp()
             }
                 .keyboardShortcut("?", modifiers: .command)
