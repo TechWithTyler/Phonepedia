@@ -152,16 +152,9 @@ final class CordlessHandsetCharger: BaseColorManipulatable, ChargeLightColorMani
         self.accentColorBlue = accentColorBlue
     }
 
-    // MARK: - Color Methods
-    
-    // Note: Color manipulation methods are provided by protocol default implementations from SheftAppsStylishUI:
-    // - setSecondaryColorToMain() via BaseColorManipulatable
-    // - setAccentColorToMain() via BaseColorManipulatable
-    // - setAccentColorToSecondary() via BaseColorManipulatable
-    // - setChargeLightChargedColorToCharging() via ChargeLightColorManipulatable
-
     // MARK: - Duplicate
 
+    // This method duplicates the charger.
     func duplicate() -> CordlessHandsetCharger {
         // 1. Initialize a new CordlessHandsetCharger, passing the original's properties to the initializer.
         let newCharger = CordlessHandsetCharger(

@@ -354,18 +354,15 @@ struct PhoneListView: View {
             }
             switch filterCriteria.type {
             case Phone.PhoneType.corded.rawValue.lowercased():
-                newPhone.handsetNumberDigitIndex = nil
-                newPhone.handsetNumberDigit = nil
+                newPhone.deselectHandsetNumberDigit()
                 newPhone.numberOfIncludedCordlessHandsets = 0
                 newPhone.cordedReceiverMainColorBinding.wrappedValue = .black
             case Phone.PhoneType.wiFiHandset.rawValue.lowercased():
-                newPhone.handsetNumberDigitIndex = nil
-                newPhone.handsetNumberDigit = nil
+                newPhone.deselectHandsetNumberDigit()
                 newPhone.numberOfIncludedCordlessHandsets = 0
                 newPhone.basePhoneType = 1
             case Phone.PhoneType.cellularHandset.rawValue.lowercased():
-                newPhone.handsetNumberDigitIndex = nil
-                newPhone.handsetNumberDigit = nil
+                newPhone.deselectHandsetNumberDigit()
                 newPhone.numberOfIncludedCordlessHandsets = 0
                 newPhone.basePhoneType = 2
             default:

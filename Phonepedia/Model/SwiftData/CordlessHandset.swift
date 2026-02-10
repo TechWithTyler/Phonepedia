@@ -600,12 +600,14 @@ final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatab
 
     // MARK: - Set Acquisition Year to Release Year
 
+    // This method sets the cordless device's acquisition year to its release year.
     func setAcquisitionYearToReleaseYear() {
         acquisitionYear = releaseYear
     }
 
     // MARK: - Set Key Background Color To Main
 
+    // This method sets the key background color to the main color.
     func setKeyBackgroundColorToMain() {
         keyBackgroundColorRed = mainColorRed
         keyBackgroundColorGreen = mainColorGreen
@@ -770,6 +772,7 @@ final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatab
 
     // MARK: - Duplicate
 
+    // This method duplicates the cordless device.
     func duplicate() -> CordlessHandset {
         // 1. Initialize a new CordlessHandset, passing the original's properties to the initializer.
         let newHandset = CordlessHandset(

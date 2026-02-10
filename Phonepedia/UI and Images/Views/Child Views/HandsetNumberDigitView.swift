@@ -54,8 +54,7 @@ struct HandsetNumberDigitView: View {
                     }
                     Divider()
                     Button("None") {
-                        phone.handsetNumberDigit = nil
-                        phone.handsetNumberDigitIndex = nil
+                        phone.deselectHandsetNumberDigit()
                     }
                     .tint(phone.handsetNumberDigitIndex == nil ? .accentColor.mix(with: .primary, by: 0.25) : .primary)
                     .bold(phone.handsetNumberDigitIndex == nil)

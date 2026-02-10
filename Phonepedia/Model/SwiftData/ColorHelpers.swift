@@ -15,7 +15,6 @@ import SheftAppsStylishUI
 // Protocol for types that store colors as separate RGB component properties and need basic color manipulation helpers.
 protocol BaseColorManipulatable: AnyObject {
 
-    // Required: The color component storage properties
     var mainColorRed: Double { get set }
 
     var mainColorGreen: Double { get set }
@@ -34,7 +33,6 @@ protocol BaseColorManipulatable: AnyObject {
 
     var accentColorBlue: Double { get set }
 
-    // Required: The color bindings (using Color.rgbBinding from SheftAppsStylishUI)
     var mainColorBinding: Binding<Color> { get }
 
     var secondaryColorBinding: Binding<Color> { get }
@@ -46,7 +44,7 @@ protocol BaseColorManipulatable: AnyObject {
 // To define a method that all conforming types have access to, without having to implement them, it must be declared in an extension to the protocol.
 extension BaseColorManipulatable {
 
-    // Copies the main color components to the secondary color.
+    // This method copies the main color components to the secondary color.
     func setSecondaryColorToMain() {
         let components = mainColorBinding.wrappedValue.components
         secondaryColorRed = components.red
@@ -54,7 +52,7 @@ extension BaseColorManipulatable {
         secondaryColorBlue = components.blue
     }
 
-    // Copies the main color components to the accent color.
+    // This method copies the main color components to the accent color.
     func setAccentColorToMain() {
         let components = mainColorBinding.wrappedValue.components
         accentColorRed = components.red
@@ -62,7 +60,7 @@ extension BaseColorManipulatable {
         accentColorBlue = components.blue
     }
 
-    // Copies the secondary color components to the accent color.
+    // This method copies the secondary color components to the accent color.
     func setAccentColorToSecondary() {
         let components = secondaryColorBinding.wrappedValue.components
         accentColorRed = components.red
@@ -75,7 +73,6 @@ extension BaseColorManipulatable {
 // Protocol for types that have charge light colors and need manipulation helpers.
 protocol ChargeLightColorManipulatable: AnyObject {
 
-    // Required: Charge light color component storage properties
     var chargeLightColorChargingRed: Double { get set }
 
     var chargeLightColorChargingGreen: Double { get set }
@@ -90,14 +87,15 @@ protocol ChargeLightColorManipulatable: AnyObject {
 
     var chargeLightColorChargedAlpha: Double { get set }
 
-    // Required: The charging color binding
     var chargeLightColorChargingBinding: Binding<Color> { get }
+
+    var chargeLightColorChargedBinding: Binding<Color> { get }
 
 }
 
 extension ChargeLightColorManipulatable {
 
-    // Copies the charging color components to the charged color and sets alpha to 1.
+    // This method copies the charging color components to the charged color and sets alpha to 1.
     func setChargeLightChargedColorToCharging() {
         let components = chargeLightColorChargingBinding.wrappedValue.components
         chargeLightColorChargedRed = components.red
@@ -111,7 +109,6 @@ extension ChargeLightColorManipulatable {
 // Protocol for types that have corded receiver colors and need manipulation helpers.
 protocol CordedReceiverColorManipulatable: AnyObject {
 
-    // Required: Corded receiver color component storage properties
     var cordedReceiverMainColorRed: Double { get set }
 
     var cordedReceiverMainColorGreen: Double { get set }
@@ -139,7 +136,7 @@ protocol CordedReceiverColorManipulatable: AnyObject {
 
 extension CordedReceiverColorManipulatable {
 
-    // Copies the corded receiver main color components to the secondary color.
+    // This method copies the corded receiver main color components to the secondary color.
     func setCordedReceiverSecondaryColorToMain() {
         let components = cordedReceiverMainColorBinding.wrappedValue.components
         cordedReceiverSecondaryColorRed = components.red
@@ -147,7 +144,7 @@ extension CordedReceiverColorManipulatable {
         cordedReceiverSecondaryColorBlue = components.blue
     }
 
-    // Copies the corded receiver main color components to the accent color.
+    // This method copies the corded receiver main color components to the accent color.
     func setCordedReceiverAccentColorToMain() {
         let components = cordedReceiverMainColorBinding.wrappedValue.components
         cordedReceiverAccentColorRed = components.red
@@ -155,7 +152,7 @@ extension CordedReceiverColorManipulatable {
         cordedReceiverAccentColorBlue = components.blue
     }
 
-    // Copies the corded receiver secondary color components to the accent color.
+    // This method copies the corded receiver secondary color components to the accent color.
     func setCordedReceiverAccentColorToSecondary() {
         let components = cordedReceiverSecondaryColorBinding.wrappedValue.components
         cordedReceiverAccentColorRed = components.red
@@ -168,7 +165,6 @@ extension CordedReceiverColorManipulatable {
 // Protocol for types that have key foreground/background colors and need to swap them.
 protocol KeyColorManipulatable: AnyObject {
 
-    // Required: Key color component storage properties
     var keyBackgroundColorRed: Double { get set }
 
     var keyBackgroundColorGreen: Double { get set }
@@ -185,7 +181,7 @@ protocol KeyColorManipulatable: AnyObject {
 
 extension KeyColorManipulatable {
 
-    // Swaps the key background and foreground color components.
+    // This method swaps the key background and foreground color components.
     func swapKeyBackgroundAndForegroundColors() {
         let previousBackgroundRed = keyBackgroundColorRed
         let previousBackgroundGreen = keyBackgroundColorGreen

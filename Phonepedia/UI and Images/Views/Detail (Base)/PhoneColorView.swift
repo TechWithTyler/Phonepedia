@@ -37,14 +37,14 @@ struct PhoneColorView: View {
         ColorPicker(phone.basePhoneType > 0 ? "Top Color" : "Base Top Color", selection: phone.baseMainColorBinding)
         ColorPicker(phone.basePhoneType > 0 ? "Bottom Color" : "Base Bottom Color", selection: phone.baseSecondaryColorBinding)
         Button("Use Top Color") {
-            phone.setBaseSecondaryColorToMain()
+            phone.setSecondaryColorToMain()
         }
         ColorPicker(phone.basePhoneType > 0 ? "Accent Color" : "Base Accent Color", selection: phone.baseAccentColorBinding)
         Button("Use \(mainColorLocation) Color") {
-            phone.setBaseAccentColorToMain()
+            phone.setAccentColorToMain()
         }
         Button("Use \(secondaryColorLocation) Color") {
-            phone.setBaseAccentColorToSecondary()
+            phone.setAccentColorToSecondary()
         }
         InfoText("The accent color is seen in various places, such as around the edges. Sometimes the bottom/back color is used as an additional accent color on the top/front.")
         if phone.basePhoneType == 0 {

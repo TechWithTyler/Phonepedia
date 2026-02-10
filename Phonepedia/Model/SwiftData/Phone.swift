@@ -1074,12 +1074,22 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
 
     // MARK: - Set Acquisition Year to Release Year
 
+    // This method sets the phone's acquisition year to its release year.
     func setAcquisitionYearToReleaseYear() {
         acquisitionYear = releaseYear
     }
 
+    // MARK: - Deselect Handset Number Digit
+
+    // This method clears the handset number digit selection.
+    func deselectHandsetNumberDigit() {
+        handsetNumberDigit = nil
+        handsetNumberDigitIndex = nil
+    }
+
     // MARK: - Update All Cordless Devices' Place In Collection
 
+    // This method updates the storageOrSetup property of all the phone's cordless devices.
     func updateAllCordlessDevicePlaceInCollection() {
         for handset in cordlessHandsetsIHave {
             handset.storageOrSetup = storageOrSetup
@@ -1088,35 +1098,21 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
 
     // MARK: - Make Corded-Only
 
+    // This method makes the phone corded-only.
     func makeCordedOnly() {
         cordlessHandsetsIHave.removeAll()
         chargersIHave.removeAll()
         numberOfIncludedCordlessHandsets = 0
     }
 
-    // MARK: - Color Methods
-    
-    // Public wrappers that maintain existing method names for UI compatibility
-    // These delegate to protocol default implementations from SheftAppsStylishUI
-    
-    func setBaseSecondaryColorToMain() {
-        setSecondaryColorToMain()
-    }
-    
-    func setBaseAccentColorToMain() {
-        setAccentColorToMain()
-    }
-    
-    func setBaseAccentColorToSecondary() {
-        setAccentColorToSecondary()
-    }
+    // MARK: - Set Key Color To Main
 
+    // This method sets the key background color to the main color.
     func setKeyBackgroundColorToMain() {
         baseKeyBackgroundColorRed = baseMainColorRed
         baseKeyBackgroundColorGreen = baseMainColorGreen
         baseKeyBackgroundColorBlue = baseMainColorBlue
     }
-
 
     // MARK: - Property Change Handlers
 
@@ -1133,11 +1129,9 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
         guard let digit = handsetNumberDigit, let digitIndex = handsetNumberDigitIndex else { return }
         let array = newValue.split(separator: String())
         if digitIndex > array.count - 1 {
-            handsetNumberDigit = nil
-            handsetNumberDigitIndex = nil
+            deselectHandsetNumberDigit()
         } else if array[digitIndex] != String(digit) {
-            handsetNumberDigit = nil
-            handsetNumberDigitIndex = nil
+            deselectHandsetNumberDigit()
         }
     }
 
