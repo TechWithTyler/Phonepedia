@@ -1,5 +1,5 @@
 //
-//  PhonePhotoViewModel.swift
+//  PhonePhotoManager.swift
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 12/19/23.
@@ -11,13 +11,18 @@
 import SwiftUI
 import PhotosUI
 
-class PhonePhotoViewModel: ObservableObject {
+class PhonePhotoManager: ObservableObject {
+
+    // MARK: - Result Type Aliases
+
+    // The type of phone photo picker selection results. Success is the data returned by the selection.
+    typealias PhonePhotoPickerSelectionResult = Result<Data?, Error>
 
     // MARK: - Properties - Image Predictor
 
     // The image predictor used to check images for landline/VoIP phones.
     var imagePredictor: LandlineOrNotPredictor {
-        return LandlineOrNotPredictor(photoViewModel: self)
+        return LandlineOrNotPredictor(photoManager: self)
     }
 
     // MARK: - Properties - Booleans
@@ -79,31 +84,37 @@ class PhonePhotoViewModel: ObservableObject {
         // 3. Define the result type for the loaded photo. In this case, we want to load the photo to a Data object since we're saving it to the phone's photoData property.
         let resultType = Data.self
         let progress = newValue.loadTransferable(type: resultType) { [self] result in
-            DispatchQueue.main.async { [self] in
-                switch result {
-                case .success(let data):
-                    // 4. If we get the data from the photo picker result, run the photo through the image predictor to check it for landline/VoIP phones. Ask the user for confirmation if no landline/VoIP phones could be detected. If we can't get data, show an error.
-                    if let data = data {
-                        checkPhotoForLandlinesAndSave(photoData: data, phone: phone)
-                    } else {
-                        phonePhotoError = .noPhotoDataPhotoPicker
-                        showingPhonePhotoErrorAlert = true
-                        showingLoadingPhoto = false
-                    }
-                case .failure(let error):
-                    // 5. If photo loading fails, show an error.
-#if(DEBUG)
-                    print("Error: \(error)")
-#endif
-                    phonePhotoError = .loadFailed(error: error)
+            // 4. Handle the result.
+            handlePhotoPickerSelectionResult(result, phone: phone)
+        }
+        // 5. Start loading.
+        progress.resume()
+        showingLoadingPhoto = true
+    }
+
+    // This method handles the result of a photo picker selection.
+    func handlePhotoPickerSelectionResult(_ result: PhonePhotoPickerSelectionResult, phone: Phone) {
+        DispatchQueue.main.async { [self] in
+            switch result {
+            case .success(let data):
+                // 1. If we get the data from the photo picker result, run the photo through the image predictor to check it for landline/VoIP phones. Ask the user for confirmation if no landline/VoIP phones could be detected. If we can't get data, show an error.
+                if let data = data {
+                    checkPhotoForLandlinesAndSave(photoData: data, phone: phone)
+                } else {
+                    phonePhotoError = .noPhotoDataPhotoPicker
                     showingPhonePhotoErrorAlert = true
                     showingLoadingPhoto = false
                 }
+            case .failure(let error):
+                // 2. If photo loading fails, show an error.
+#if(DEBUG)
+                print("Error: \(error)")
+#endif
+                phonePhotoError = .loadFailed(error: error)
+                showingPhonePhotoErrorAlert = true
+                showingLoadingPhoto = false
             }
         }
-        // 6. Start loading.
-        progress.resume()
-        showingLoadingPhoto = true
     }
 
     // MARK: - Phone Photo Update - Drag and Drop
@@ -123,23 +134,31 @@ class PhonePhotoViewModel: ObservableObject {
         }
         // 3. Try to have the provider load image data. If successful, check the photo for landline/VoIP phones. Ask the user for confirmation if no landline/VoIP phones could be detected. If unsuccessful, show an error.
         let progress = provider.loadDataRepresentation(forTypeIdentifier: UTType.image.identifier) { [self] data, error in
-            if let data = data {
-                checkPhotoForLandlinesAndSave(photoData: data, phone: phone)
-            } else if let error = error {
-                phonePhotoError = .loadFailed(error: error)
-                showingPhonePhotoErrorAlert = true
-                showingLoadingPhoto = false
-            } else {
-                phonePhotoError = .noPhotoDataDrop
-                showingPhonePhotoErrorAlert = true
-                showingLoadingPhoto = false
-            }
+            handlePhonePhotoDropImportResult(data: data, error: error, phone: phone)
         }
         // 4. Start loading.
         progress.resume()
         showingLoadingPhoto = true
         // 5. Return whether the drop was successful. This is determined by whether the phone photo error alert is being displayed.
         return !showingPhonePhotoErrorAlert
+    }
+
+    // This method handles the result of dropping a phone photo for import.
+    func handlePhonePhotoDropImportResult(data: Data?, error: Error?, phone: Phone) {
+        if let data = data {
+            // 1. If we can get the data from the dropped photo, run it through the image predictor to check it for landline/VoIP phones.
+            checkPhotoForLandlinesAndSave(photoData: data, phone: phone)
+        } else if let error = error {
+            // 2. If that fails, show an error.
+            phonePhotoError = .loadFailed(error: error)
+            showingPhonePhotoErrorAlert = true
+            showingLoadingPhoto = false
+        } else {
+            // 3. If there's no data or explicit error, show a generic "no photo data" error.
+            phonePhotoError = .noPhotoDataDrop
+            showingPhonePhotoErrorAlert = true
+            showingLoadingPhoto = false
+        }
     }
 
     // MARK: - Phone Photo Update - Image Classification/Saving
@@ -152,7 +171,7 @@ class PhonePhotoViewModel: ObservableObject {
 
     // This method is called as the completion handler after image prediction, and gives back the photo data and the phone whose photo data is to be set to that data.
     private func imagePredictionHandler(_ prediction: LandlineOrNotPredictor.Prediction?, photoData: Data, phone: Phone) {
-        // 1. Make sure we can get the first prediction. If we can't, show an error.
+        // 1. Make sure we can get the prediction. If we can't, show an error.
         DispatchQueue.main.async { [self] in
             showingLoadingPhoto = false
         }
@@ -203,42 +222,55 @@ class PhonePhotoViewModel: ObservableObject {
         // 2. Ensure that item provider contains PNG data. If so, try to load it. If successful, the data is passed to the completion handler and used there.
         let containsPNGData = itemProvider.hasItemConformingToTypeIdentifier(pngTypeIdentifier)
         if containsPNGData {
-            itemProvider.loadDataRepresentation(forTypeIdentifier: pngTypeIdentifier) { [self] data, error in
-                if let error = error {
-                    phonePhotoError = .exportFailed(reason: error.localizedDescription)
-                    showingPhonePhotoErrorAlert = true
-                }
-                guard let photoData = data else {
-                    phonePhotoError = .exportFailed(reason: "Couldn't load photo data.")
-                    showingPhonePhotoErrorAlert = true
-                    return
-                }
-                // 3. Try to create an image from that data. If it fails, show an error.
+            itemProvider.loadDataRepresentation(forTypeIdentifier: pngTypeIdentifier, completionHandler: handlePhonePhotoExportToLibraryItemProviderResult)
+        }
+    }
+
+    // This method handles the phone photo "export to library" item provider result when exporting a phone photo to the Photos library.
+    func handlePhonePhotoExportToLibraryItemProviderResult(data: Data?, error: Error?) {
+        // 1. If an error occurs, show it.
+        if let error = error {
+            phonePhotoError = .exportFailed(reason: error.localizedDescription)
+            showingPhonePhotoErrorAlert = true
+        }
+        // 2. Make sure there's photo data. If not, show an error.
+        guard let photoData = data else {
+            phonePhotoError = .exportFailed(reason: "Couldn't load photo data.")
+            showingPhonePhotoErrorAlert = true
+            return
+        }
+        // 3. Try to create an image from that data. If it fails, show an error.
 #if os(macOS)
-                let image = NSImage(data: photoData)
+        let image = NSImage(data: photoData)
 #else
-                let image = UIImage(data: photoData)
+        let image = UIImage(data: photoData)
 #endif
-                guard let image = image else {
-                    phonePhotoError = .exportFailed(reason: "Couldn't create image from photo data.")
-                    return
-                }
-                // 4. Try to save the image to the Photos library. If it fails, show an error.
-                PHPhotoLibrary.shared().performChanges {
-                    PHAssetChangeRequest.creationRequestForAsset(from: image)
-                } completionHandler: { [self] success, error in
-                    if let error = error {
-                        phonePhotoError = .exportFailed(reason: error.localizedDescription)
-                        showingPhonePhotoErrorAlert = true
-                    }
-                    if !success && error == nil {
-                        phonePhotoError = .exportFailed(reason: "Unknown error")
-                        showingPhonePhotoErrorAlert = true
-                    } else {
-                        showingPhonePhotoExportSuccessfulAlert = true
-                    }
-                }
-            }
+        guard let image = image else {
+            phonePhotoError = .exportFailed(reason: "Couldn't create image from photo data.")
+            return
+        }
+        // 4. Try to save the image to the Photos library. If it fails, show an error.
+        PHPhotoLibrary.shared().performChanges {
+            PHAssetChangeRequest.creationRequestForAsset(from: image)
+        } completionHandler: { [self] success, error in
+            handlePhonePhotoExportToLibrarySuccess(success: success, error: error)
+        }
+    }
+
+    // This method indicates success or failure when exporting a phone photo to the Photos library.
+    func handlePhonePhotoExportToLibrarySuccess(success: Bool, error: Error?) {
+        if let error = error {
+            // 1. If an error occurs, show it.
+            phonePhotoError = .exportFailed(reason: error.localizedDescription)
+            showingPhonePhotoErrorAlert = true
+        }
+        if !success && error == nil {
+            // 2. If unsuccessful and there's no error, show a generic "export failed" error.
+            phonePhotoError = .exportFailed(reason: "Unknown error")
+            showingPhonePhotoErrorAlert = true
+        } else {
+            // 3. If successful, show the export success alert.
+            showingPhonePhotoExportSuccessfulAlert = true
         }
     }
 

@@ -21,7 +21,7 @@ struct PhoneListView: View {
 
     @EnvironmentObject var dialogManager: DialogManager
 
-    @EnvironmentObject var achievementTrackerViewModel: PhoneCollectionAchievementTrackerViewModel
+    @EnvironmentObject var achievementTrackerManager: PhoneCollectionAchievementTrackerManager
 
     // MARK: - Properties - Integers
 
@@ -70,10 +70,10 @@ struct PhoneListView: View {
                     .onMove(perform: movePhones)
                 }
                 .onAppear {
-                    achievementTrackerViewModel.evaluate(phones: phones, initialLoad: true)
+                    achievementTrackerManager.evaluate(phones: phones, initialLoad: true)
                 }
                 .onChange(of: phones) { oldValue, newValue in
-                    achievementTrackerViewModel.evaluate(phones: newValue)
+                    achievementTrackerManager.evaluate(phones: newValue)
                 }
                 .accessibilityIdentifier("PhonesList")
             } else if phoneFilterEnabled {
@@ -162,9 +162,9 @@ struct PhoneListView: View {
                 Text("Cancel")
             }
         }
-        .alert(achievementTrackerViewModel.alertTitle, isPresented: $achievementTrackerViewModel.showingAlert) {
+        .alert(achievementTrackerManager.alertTitle, isPresented: $achievementTrackerManager.showingAlert) {
             Button("OK") {
-                achievementTrackerViewModel.showingAlert = false
+                achievementTrackerManager.showingAlert = false
             }
             Button("Show All…") {
                 dialogManager.showingPhoneCollectionAchievements = true
@@ -194,28 +194,28 @@ struct PhoneListView: View {
         }
         // Track changes to the phone to determine whether to show an achievement alert.
         .onChange(of: phone.acquisitionYear, { oldValue, newValue in
-            achievementTrackerViewModel.evaluate(phones: phones)
+            achievementTrackerManager.evaluate(phones: phones)
         })
         .onChange(of: phone.releaseYear, { oldValue, newValue in
-            achievementTrackerViewModel.evaluate(phones: phones)
+            achievementTrackerManager.evaluate(phones: phones)
         })
         .onChange(of: phone.isCordless, { oldValue, newValue in
-            achievementTrackerViewModel.evaluate(phones: phones)
+            achievementTrackerManager.evaluate(phones: phones)
         })
         .onChange(of: phone.callBlockPreScreening, { oldValue, newValue in
-            achievementTrackerViewModel.evaluate(phones: phones)
+            achievementTrackerManager.evaluate(phones: phones)
         })
         .onChange(of: phone.cordlessPowerBackupMode, { oldValue, newValue in
-            achievementTrackerViewModel.evaluate(phones: phones)
+            achievementTrackerManager.evaluate(phones: phones)
         })
         .onChange(of: phone.baseBluetoothCellPhonesSupported, { oldValue, newValue in
-            achievementTrackerViewModel.evaluate(phones: phones)
+            achievementTrackerManager.evaluate(phones: phones)
         })
         .onChange(of: phone.cordlessHandsetsIHave, { oldValue, newValue in
-            achievementTrackerViewModel.evaluate(phones: phones)
+            achievementTrackerManager.evaluate(phones: phones)
         })
         .onChange(of: phone.whereAcquired, { oldValue, newValue in
-            achievementTrackerViewModel.evaluate(phones: phones)
+            achievementTrackerManager.evaluate(phones: phones)
         })
         .onChange(of: phone.storageOrSetup, { oldValue, newValue in
             dialogManager.showingUpdateCordlessDevicePlaceInCollection = true

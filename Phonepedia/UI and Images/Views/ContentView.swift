@@ -25,9 +25,9 @@ struct ContentView: View {
     @StateObject var audioManager = AudioManager()
 
     // Handles the import and export of phone photos.
-    @StateObject var photoViewModel = PhonePhotoViewModel()
+    @StateObject var photoManager = PhonePhotoManager()
 
-    @StateObject var achievementTrackerViewModel = PhoneCollectionAchievementTrackerViewModel()
+    @StateObject var achievementTrackerManager = PhoneCollectionAchievementTrackerManager()
 
     // MARK: - Properties - Phones
 
@@ -103,10 +103,10 @@ struct ContentView: View {
         .focusedSceneObject(dialogManager)
         .environmentObject(audioManager)
         .focusedSceneObject(audioManager)
-        .environmentObject(photoViewModel)
-        .focusedSceneObject(photoViewModel)
-        .environmentObject(achievementTrackerViewModel)
-        .focusedSceneObject(achievementTrackerViewModel)
+        .environmentObject(photoManager)
+        .focusedSceneObject(photoManager)
+        .environmentObject(achievementTrackerManager)
+        .focusedSceneObject(achievementTrackerManager)
     }
 
 }
@@ -116,6 +116,6 @@ struct ContentView: View {
 #Preview {
     ContentView()
         .modelContainer(for: [Phone.self, CordlessHandset.self, CordlessHandsetCharger.self], inMemory: true)
-        .environmentObject(PhonePhotoViewModel())
+        .environmentObject(PhonePhotoManager())
         .environmentObject(DialogManager())
 }

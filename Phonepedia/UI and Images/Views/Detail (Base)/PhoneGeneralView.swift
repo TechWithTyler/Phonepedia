@@ -454,7 +454,7 @@ In most cases, if the base has a charge light/display message, the completion of
     Form {
         PhoneGeneralView(phone: Phone(brand: "Panasonic", model: "KX-TGE263"))
             .environmentObject(DialogManager())
-            .environmentObject(PhonePhotoViewModel())
+            .environmentObject(PhonePhotoManager())
     }
     .formStyle(.grouped)
 }

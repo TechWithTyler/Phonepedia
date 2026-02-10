@@ -44,7 +44,8 @@ class LandlineOrNotPredictor {
 
     // MARK: - Properties - Photo View Model
 
-    var photoViewModel: PhonePhotoViewModel
+    // The photo manager to pass predictions back to.
+    var photoManager: PhonePhotoManager
 
     // MARK: - Properties - Dictionaries
 
@@ -75,8 +76,8 @@ class LandlineOrNotPredictor {
 
     // MARK: - Initialization
 
-    init(photoViewModel: PhonePhotoViewModel) {
-        self.photoViewModel = photoViewModel
+    init(photoManager: PhonePhotoManager) {
+        self.photoManager = photoManager
     }
 
     // MARK: - Image Classification - Request
@@ -104,8 +105,8 @@ class LandlineOrNotPredictor {
         // 1. Make sure we can decode the photo data to an NSImage or UIImage.
         guard let photo = CrossPlatformImage(data: photoData) else {
             DispatchQueue.main.async { [self] in
-                photoViewModel.phonePhotoError = .predictionFailed(reason: "Failed to create image from data.")
-                photoViewModel.showingPhonePhotoErrorAlert = true
+                photoManager.phonePhotoError = .predictionFailed(reason: "Failed to create image from data.")
+                photoManager.showingPhonePhotoErrorAlert = true
             }
             return
         }
@@ -116,8 +117,8 @@ class LandlineOrNotPredictor {
         let noUnderlyingCGImageError = "No underlying CGImage."
         guard let photoImage = photo.cgImage(forProposedRect: &imageRect, context: nil, hints: nil) else {
             DispatchQueue.main.async { [self] in
-                photoViewModel.phonePhotoError = .predictionFailed(reason: noUnderlyingCGImageError)
-                photoViewModel.showingPhonePhotoErrorAlert = true
+                photoManager.phonePhotoError = .predictionFailed(reason: noUnderlyingCGImageError)
+                photoManager.showingPhonePhotoErrorAlert = true
             }
             return
         }
@@ -125,8 +126,8 @@ class LandlineOrNotPredictor {
         let orientation = CGImagePropertyOrientation(photo.imageOrientation)
         guard let photoImage = photo.cgImage else {
             DispatchQueue.main.async { [self] in
-                photoViewModel.phonePhotoError = .predictionFailed(reason: noUnderlyingCGImageError)
-                photoViewModel.showingPhonePhotoErrorAlert = true
+                photoManager.phonePhotoError = .predictionFailed(reason: noUnderlyingCGImageError)
+                photoManager.showingPhonePhotoErrorAlert = true
             }
             return
         }
@@ -134,8 +135,8 @@ class LandlineOrNotPredictor {
         // 3. Create an image classification request.
         guard let imageClassificationRequest = createImageClassificationRequest(photoData: photoData, phone: phone) else {
             DispatchQueue.main.async { [self] in
-                photoViewModel.phonePhotoError = .predictionFailed(reason: "Failed to create an image classification request.")
-                photoViewModel.showingPhonePhotoErrorAlert = true
+                photoManager.phonePhotoError = .predictionFailed(reason: "Failed to create an image classification request.")
+                photoManager.showingPhonePhotoErrorAlert = true
             }
             return
         }
@@ -150,8 +151,8 @@ class LandlineOrNotPredictor {
             try imageClassificationRequestHandler.perform(requests)
         } catch {
             DispatchQueue.main.async { [self] in
-                photoViewModel.phonePhotoError = .predictionFailed(reason: error.localizedDescription)
-                photoViewModel.showingPhonePhotoErrorAlert = true
+                photoManager.phonePhotoError = .predictionFailed(reason: error.localizedDescription)
+                photoManager.showingPhonePhotoErrorAlert = true
             }
         }
     }
@@ -170,24 +171,24 @@ class LandlineOrNotPredictor {
         // 3. Check for an error.
         if let error = error {
             DispatchQueue.main.async { [self] in
-                photoViewModel.phonePhotoError = .predictionFailed(reason: error.localizedDescription)
-                photoViewModel.showingPhonePhotoErrorAlert = true
+                photoManager.phonePhotoError = .predictionFailed(reason: error.localizedDescription)
+                photoManager.showingPhonePhotoErrorAlert = true
             }
             return
         }
         // 4. Check that the results aren't nil. If they're nil, show an error.
         if request.results == nil {
             DispatchQueue.main.async { [self] in
-                photoViewModel.phonePhotoError = .predictionFailed(reason: "Vision request had no results.")
-                photoViewModel.showingPhonePhotoErrorAlert = true
+                photoManager.phonePhotoError = .predictionFailed(reason: "Vision request had no results.")
+                photoManager.showingPhonePhotoErrorAlert = true
             }
             return
         }
         // 5. Try to cast the request's results as a VNClassificationObservation array. If that fails, show an error.
         guard let observations = request.results as? [VNClassificationObservation] else {
             DispatchQueue.main.async { [self] in
-                photoViewModel.phonePhotoError = .predictionFailed(reason: "VNRequest produced the wrong result type: \(type(of: request.results)).")
-                photoViewModel.showingPhonePhotoErrorAlert = true
+                photoManager.phonePhotoError = .predictionFailed(reason: "VNRequest produced the wrong result type: \(type(of: request.results)).")
+                photoManager.showingPhonePhotoErrorAlert = true
             }
             return
         }

@@ -34,7 +34,8 @@ class CameraCoordinator: NSObject, UIImagePickerControllerDelegate, UINavigation
 	func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         // 1. Make sure we can get the camera result.
 		guard let cameraResult: UIImage = info[.originalImage] as? UIImage else {
-			fatalError("Camera error!")
+            self.parent.viewModel.phonePhotoError = .cameraError
+            self.parent.viewModel.showingPhonePhotoErrorAlert = true
 		}
         // 2. If we can get the data from that result, run it through the image predictor/set it as a photo.
 		if let cameraResultData = cameraResult.jpegData(compressionQuality: 1.0) {

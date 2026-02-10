@@ -1,5 +1,5 @@
 //
-//  PhoneCollectionAchievementTrackerViewModel.swift
+//  PhoneCollectionAchievementTrackerManager.swift
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 1/9/26.
@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-class PhoneCollectionAchievementTrackerViewModel: ObservableObject {
+class PhoneCollectionAchievementTrackerManager: ObservableObject {
 
     // MARK: - Properties - Booleans
 

@@ -13,7 +13,7 @@
 		8D1F3D962F0C402C00FA12FE /* SheftAppsInternals.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8D1F3D942F0C402C00FA12FE /* SheftAppsInternals.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8D20E37B2C45B9740016800C /* PhoneInCollectionStatusPickerItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D20E37A2C45B9740016800C /* PhoneInCollectionStatusPickerItems.swift */; };
 		8D20E37D2C45BB7C0016800C /* RingtoneInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D20E37C2C45BB7C0016800C /* RingtoneInfoView.swift */; };
-		8D20EDD02F3A9CA50078F4FE /* PhoneFilterEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D20EDCF2F3A9CA50078F4FE /* PhoneFilterEngine.swift */; };
+		8D20EDD02F3A9CA50078F4FE /* PhoneFilterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D20EDCF2F3A9CA50078F4FE /* PhoneFilterManager.swift */; };
 		8D239BC82DF8D1C80022F0A4 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 8D239BC72DF8D1C80022F0A4 /* AppIcon.icon */; };
 		8D27B18D2D03AABB004B75E4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D27B18C2D03AABB004B75E4 /* SettingsView.swift */; };
 		8D27B1902D03AC3B004B75E4 /* UserDefaultsKeyNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D27B18F2D03AC3B004B75E4 /* UserDefaultsKeyNames.swift */; };
@@ -140,7 +140,7 @@
 		8DA844EE2B72E1D7006CBCA7 /* CGImagePropertyOrientationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844C72B72E1D7006CBCA7 /* CGImagePropertyOrientationExtension.swift */; };
 		8DA844EF2B72E1D7006CBCA7 /* LandlineOrNotPredictor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844C82B72E1D7006CBCA7 /* LandlineOrNotPredictor.swift */; };
 		8DA844F02B72E1D7006CBCA7 /* LandlineOrNotV1.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844C92B72E1D7006CBCA7 /* LandlineOrNotV1.mlmodel */; };
-		8DA844F12B72E1D7006CBCA7 /* PhonePhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844CB2B72E1D7006CBCA7 /* PhonePhotoViewModel.swift */; };
+		8DA844F12B72E1D7006CBCA7 /* PhonePhotoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844CB2B72E1D7006CBCA7 /* PhonePhotoManager.swift */; };
 		8DA844F22B72E1D7006CBCA7 /* PhonePhotoError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844CC2B72E1D7006CBCA7 /* PhonePhotoError.swift */; };
 		8DA844F32B72E1D7006CBCA7 /* PhonepediaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA844CD2B72E1D7006CBCA7 /* PhonepediaApp.swift */; };
 		8DB25E902C8BC4A9001617C2 /* FormNavigationLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB25E8F2C8BC4A9001617C2 /* FormNavigationLink.swift */; };
@@ -155,7 +155,7 @@
 		8DBCB7EB2D4ACD2F00878A1F /* PhonebookGroupInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBCB7EA2D4ACD2F00878A1F /* PhonebookGroupInfoView.swift */; };
 		8DBCB7ED2D4AD04000878A1F /* SilentModeInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBCB7EC2D4AD04000878A1F /* SilentModeInfoView.swift */; };
 		8DBFBB8B2F11A39E00EC4BB7 /* PhoneCollectionAchievementTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBFBB8A2F11A39E00EC4BB7 /* PhoneCollectionAchievementTracker.swift */; };
-		8DBFBB8D2F11AD1900EC4BB7 /* PhoneCollectionAchievementTrackerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBFBB8C2F11AD1900EC4BB7 /* PhoneCollectionAchievementTrackerViewModel.swift */; };
+		8DBFBB8D2F11AD1900EC4BB7 /* PhoneCollectionAchievementTrackerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBFBB8C2F11AD1900EC4BB7 /* PhoneCollectionAchievementTrackerManager.swift */; };
 		8DC69A672EC7CD8C00BFCA58 /* PhonePlaceInCollectionPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC69A662EC7CD8C00BFCA58 /* PhonePlaceInCollectionPicker.swift */; };
 		8DC69A692EC7CE5900BFCA58 /* HandsetPlaceInCollectionPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC69A682EC7CE5900BFCA58 /* HandsetPlaceInCollectionPicker.swift */; };
 		8DC69A6B2EC7DB7600BFCA58 /* MultiPhoneNumberInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC69A6A2EC7DB7600BFCA58 /* MultiPhoneNumberInfoView.swift */; };
@@ -217,7 +217,7 @@
 		8D1F3D942F0C402C00FA12FE /* SheftAppsInternals.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SheftAppsInternals.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D20E37A2C45B9740016800C /* PhoneInCollectionStatusPickerItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneInCollectionStatusPickerItems.swift; sourceTree = "<group>"; };
 		8D20E37C2C45BB7C0016800C /* RingtoneInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingtoneInfoView.swift; sourceTree = "<group>"; };
-		8D20EDCF2F3A9CA50078F4FE /* PhoneFilterEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneFilterEngine.swift; sourceTree = "<group>"; };
+		8D20EDCF2F3A9CA50078F4FE /* PhoneFilterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneFilterManager.swift; sourceTree = "<group>"; };
 		8D239BC72DF8D1C80022F0A4 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		8D27B18C2D03AABB004B75E4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		8D27B18F2D03AC3B004B75E4 /* UserDefaultsKeyNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeyNames.swift; sourceTree = "<group>"; };
@@ -348,7 +348,7 @@
 		8DA844C72B72E1D7006CBCA7 /* CGImagePropertyOrientationExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGImagePropertyOrientationExtension.swift; sourceTree = "<group>"; };
 		8DA844C82B72E1D7006CBCA7 /* LandlineOrNotPredictor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LandlineOrNotPredictor.swift; sourceTree = "<group>"; };
 		8DA844C92B72E1D7006CBCA7 /* LandlineOrNotV1.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = LandlineOrNotV1.mlmodel; sourceTree = "<group>"; };
-		8DA844CB2B72E1D7006CBCA7 /* PhonePhotoViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhonePhotoViewModel.swift; sourceTree = "<group>"; };
+		8DA844CB2B72E1D7006CBCA7 /* PhonePhotoManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhonePhotoManager.swift; sourceTree = "<group>"; };
 		8DA844CC2B72E1D7006CBCA7 /* PhonePhotoError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhonePhotoError.swift; sourceTree = "<group>"; };
 		8DA844CD2B72E1D7006CBCA7 /* PhonepediaApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhonepediaApp.swift; sourceTree = "<group>"; };
 		8DB25E8F2C8BC4A9001617C2 /* FormNavigationLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormNavigationLink.swift; sourceTree = "<group>"; };
@@ -363,7 +363,7 @@
 		8DBCB7EA2D4ACD2F00878A1F /* PhonebookGroupInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhonebookGroupInfoView.swift; sourceTree = "<group>"; };
 		8DBCB7EC2D4AD04000878A1F /* SilentModeInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SilentModeInfoView.swift; sourceTree = "<group>"; };
 		8DBFBB8A2F11A39E00EC4BB7 /* PhoneCollectionAchievementTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneCollectionAchievementTracker.swift; sourceTree = "<group>"; };
-		8DBFBB8C2F11AD1900EC4BB7 /* PhoneCollectionAchievementTrackerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneCollectionAchievementTrackerViewModel.swift; sourceTree = "<group>"; };
+		8DBFBB8C2F11AD1900EC4BB7 /* PhoneCollectionAchievementTrackerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneCollectionAchievementTrackerManager.swift; sourceTree = "<group>"; };
 		8DC69A662EC7CD8C00BFCA58 /* PhonePlaceInCollectionPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhonePlaceInCollectionPicker.swift; sourceTree = "<group>"; };
 		8DC69A682EC7CE5900BFCA58 /* HandsetPlaceInCollectionPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandsetPlaceInCollectionPicker.swift; sourceTree = "<group>"; };
 		8DC69A6A2EC7DB7600BFCA58 /* MultiPhoneNumberInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiPhoneNumberInfoView.swift; sourceTree = "<group>"; };
@@ -524,14 +524,14 @@
 			path = "Pickers and Picker Items";
 			sourceTree = "<group>";
 		};
-		8D842D572D3EFFB200F50F32 /* Managers */ = {
+		8D842D572D3EFFB200F50F32 /* Other Managers */ = {
 			isa = PBXGroup;
 			children = (
-				8D20EDCF2F3A9CA50078F4FE /* PhoneFilterEngine.swift */,
+				8D20EDCF2F3A9CA50078F4FE /* PhoneFilterManager.swift */,
 				8DBB95412CA48B84002E57EC /* DialogManager.swift */,
 				8D842D582D3EFFC400F50F32 /* AudioManager.swift */,
 			);
-			path = Managers;
+			path = "Other Managers";
 			sourceTree = "<group>";
 		};
 		8D842D5E2D3F0AF500F50F32 /* Audio */ = {
@@ -724,7 +724,7 @@
 				8DA844C42B72E1D7006CBCA7 /* DocumentTypes.swift */,
 				8DA844C52B72E1D7006CBCA7 /* Core ML */,
 				8DA844CA2B72E1D7006CBCA7 /* Photos */,
-				8D842D572D3EFFB200F50F32 /* Managers */,
+				8D842D572D3EFFB200F50F32 /* Other Managers */,
 				8DE9F4252D32340E002B4EB4 /* Example Data */,
 				8DA8449F2B72E1D7006CBCA7 /* View Coordinators */,
 				8D27B18E2D03AC2D004B75E4 /* Settings */,
@@ -761,7 +761,7 @@
 		8DA844CA2B72E1D7006CBCA7 /* Photos */ = {
 			isa = PBXGroup;
 			children = (
-				8DA844CB2B72E1D7006CBCA7 /* PhonePhotoViewModel.swift */,
+				8DA844CB2B72E1D7006CBCA7 /* PhonePhotoManager.swift */,
 				8DA844CC2B72E1D7006CBCA7 /* PhonePhotoError.swift */,
 			);
 			path = Photos;
@@ -771,7 +771,7 @@
 			isa = PBXGroup;
 			children = (
 				8DBFBB8A2F11A39E00EC4BB7 /* PhoneCollectionAchievementTracker.swift */,
-				8DBFBB8C2F11AD1900EC4BB7 /* PhoneCollectionAchievementTrackerViewModel.swift */,
+				8DBFBB8C2F11AD1900EC4BB7 /* PhoneCollectionAchievementTrackerManager.swift */,
 			);
 			path = "Phone Collection Achievements";
 			sourceTree = "<group>";
@@ -1048,7 +1048,7 @@
 				8D20E37B2C45B9740016800C /* PhoneInCollectionStatusPickerItems.swift in Sources */,
 				8D35D9912F105BBF00E49D8E /* PhoneCollectionAchievementsButton.swift in Sources */,
 				8D8555522C98D2C1006A14E3 /* AboutDisplayTypesView.swift in Sources */,
-				8DA844F12B72E1D7006CBCA7 /* PhonePhotoViewModel.swift in Sources */,
+				8DA844F12B72E1D7006CBCA7 /* PhonePhotoManager.swift in Sources */,
 				8DA844DE2B72E1D7006CBCA7 /* AntennaInfoView.swift in Sources */,
 				8D6861E22F314A1D00DDBC2C /* JoinLeaveTonePickerItems.swift in Sources */,
 				8DA844E92B72E1D7006CBCA7 /* Phone.swift in Sources */,
@@ -1103,7 +1103,7 @@
 				8DA72F082D79021100A957A4 /* KeypadLockInfoView.swift in Sources */,
 				8DA844EB2B72E1D7006CBCA7 /* PhoneType.swift in Sources */,
 				8D38ED912CAF3C8300CCC422 /* HandsetRingersView.swift in Sources */,
-				8DBFBB8D2F11AD1900EC4BB7 /* PhoneCollectionAchievementTrackerViewModel.swift in Sources */,
+				8DBFBB8D2F11AD1900EC4BB7 /* PhoneCollectionAchievementTrackerManager.swift in Sources */,
 				8D523B002C4EF47000AC6862 /* VoicemailQuickDialInfoView.swift in Sources */,
 				8DBCB7ED2D4AD04000878A1F /* SilentModeInfoView.swift in Sources */,
 				8D71C8172CDD651D00072E50 /* RedialNameDisplayInfoView.swift in Sources */,
@@ -1123,7 +1123,7 @@
 				8D38ED8B2CAF393D00CCC422 /* CallBlockView.swift in Sources */,
 				8D38ED6F2CAF31BA00CCC422 /* PhoneColorView.swift in Sources */,
 				8D27B1902D03AC3B004B75E4 /* UserDefaultsKeyNames.swift in Sources */,
-				8D20EDD02F3A9CA50078F4FE /* PhoneFilterEngine.swift in Sources */,
+				8D20EDD02F3A9CA50078F4FE /* PhoneFilterManager.swift in Sources */,
 				8D38ED832CAF37D400CCC422 /* DialingCodesView.swift in Sources */,
 				8DA844D22B72E1D7006CBCA7 /* PhoneListView.swift in Sources */,
 				8D94AA982EF0B60900F23F14 /* VisualRingerInfoView.swift in Sources */,
