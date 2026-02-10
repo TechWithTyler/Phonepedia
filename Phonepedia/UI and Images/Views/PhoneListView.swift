@@ -38,7 +38,7 @@ struct PhoneListView: View {
 
     // Whether one or more phone filters are enabled.
     var phoneFilterEnabled: Bool {
-        filterCriteria.isEnabled
+        return filterCriteria.isEnabled
     }
 
     // MARK: - Properties - Phones
@@ -47,12 +47,12 @@ struct PhoneListView: View {
 
     // All phones matching the selected filters.
     var filteredPhones: [Phone] {
-        PhoneFilterManager.filter(phones, with: filterCriteria)
+        return PhoneFilterManager.filter(phones, with: filterCriteria)
     }
 
     // Brands of phones.
     var allBrands: [String] {
-        PhoneFilterManager.allBrands(from: phones)
+        return PhoneFilterManager.allBrands(from: phones)
     }
 
     @Binding var selectedPhone: Phone?
@@ -330,7 +330,7 @@ struct PhoneListView: View {
 
     // MARK: - Reset Phone Filter
 
-    // This method resets the phone filter.
+    // This method resets the phone filter by setting filterCriteria to a new PhoneFilterManager.Criteria instance with the default settings.
     func resetPhoneFilter() {
         filterCriteria = PhoneFilterManager.Criteria()
     }

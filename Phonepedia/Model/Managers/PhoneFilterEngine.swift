@@ -15,72 +15,72 @@ class PhoneFilterManager {
 
     struct Criteria: Equatable {
 
+        // The current setting of the phone type filter.
         var type: String = allItemsFilterOptionTag
 
+        // The current setting of the brand filter.
         var brand: String = allItemsFilterOptionTag
 
+        // The current setting of the active status filter.
         var activeStatus: Int = 0
 
+        // The current setting of the included cordless device number filter.
         var numberOfCordlessDevices: Int = 0
 
+        // The current setting of the "has answering system" filter.
         var answeringSystem: Int = 0
 
         // Whether any filter is active.
         var isEnabled: Bool {
-            type != allItemsFilterOptionTag
-                || activeStatus != 0
-                || brand != allItemsFilterOptionTag
-                || numberOfCordlessDevices != 0
-                || answeringSystem != 0
+            return type != allItemsFilterOptionTag || activeStatus != 0 || brand != allItemsFilterOptionTag || numberOfCordlessDevices != 0 || answeringSystem != 0
         }
 
-        // Whether the selected type filter allows cordless device count filtering.
+        // Whether the selected type filter allows cordless device count filtering (i.e. type is all or cordless).
         var typeAllowsCordlessDeviceFilter: Bool {
-            type == Phone.PhoneType.cordless.rawValue.lowercased()
-                || type == allItemsFilterOptionTag
+            return type == Phone.PhoneType.cordless.rawValue.lowercased() || type == allItemsFilterOptionTag
         }
 
         // Whether the selected type filter isn't a Wi-Fi or cellular handset.
         var typeIsNotStandaloneWireless: Bool {
-            type != Phone.PhoneType.wiFiHandset.rawValue.lowercased()
-                && type != Phone.PhoneType.cellularHandset.rawValue.lowercased()
+            return type != Phone.PhoneType.wiFiHandset.rawValue.lowercased() && type != Phone.PhoneType.cellularHandset.rawValue.lowercased()
         }
 
     }
 
-    // MARK: - Filtering
-
-    // Applies all filters in sequence.
-    static func filter(_ phones: [Phone], with criteria: Criteria) -> [Phone] {
-        var result = phones
-        // 1. Filter by type.
-        result = filterByType(result, type: criteria.type)
-        // 2. Filter by active status.
-        result = filterByActiveStatus(result, status: criteria.activeStatus)
-        // 3. Filter by brand.
-        result = filterByBrand(result, brand: criteria.brand)
-        // 4. Filter by number of cordless devices.
-        if criteria.numberOfCordlessDevices != 0 && criteria.typeAllowsCordlessDeviceFilter {
-            result = result.filter {
-                $0.numberOfIncludedCordlessHandsets == criteria.numberOfCordlessDevices
-            }
-        }
-        // 5. Filter by whether it has an answering system.
-        if criteria.typeIsNotStandaloneWireless {
-            result = filterByAnsweringSystemPresence(result, answeringSystem: criteria.answeringSystem)
-        }
-        return result
-    }
-
-    // MARK: - Convenience
+    // MARK: - Brands
 
     // Returns all unique brands from the given phones, sorted alphabetically.
     static func allBrands(from phones: [Phone]) -> [String] {
         return Set(phones.map(\.brand)).sorted()
     }
 
-    // MARK: - Private Helpers
+    // MARK: - Filtering
 
+    // This method applies all filters in sequence.
+    static func filter(_ phones: [Phone], with criteria: Criteria) -> [Phone] {
+        // 1. Create a property for the filtered phones array, starting with all phones.
+        var filteredPhones = phones
+        // 2. Filter by type.
+        filteredPhones = filterByType(filteredPhones, type: criteria.type)
+        // 3. Filter by active status.
+        filteredPhones = filterByActiveStatus(filteredPhones, status: criteria.activeStatus)
+        // 4. Filter by brand.
+        filteredPhones = filterByBrand(filteredPhones, brand: criteria.brand)
+        // 5. Filter by number of included cordless devices.
+        if criteria.numberOfCordlessDevices != 0 && criteria.typeAllowsCordlessDeviceFilter {
+            filteredPhones = filteredPhones.filter {
+                $0.numberOfIncludedCordlessHandsets == criteria.numberOfCordlessDevices
+            }
+        }
+        // 6. Filter by whether it has an answering system.
+        if criteria.typeIsNotStandaloneWireless {
+            filteredPhones = filterByAnsweringSystemPresence(filteredPhones, answeringSystem: criteria.answeringSystem)
+        }
+        // 7. Return the filtered phones array.
+        return filteredPhones
+    }
+
+    // This method filters phones by type.
     private static func filterByType(_ phones: [Phone], type: String) -> [Phone] {
         switch type {
         case Phone.PhoneType.cordless.rawValue.lowercased():
@@ -101,6 +101,7 @@ class PhoneFilterManager {
         }
     }
 
+    // This method filters phones by active status.
     private static func filterByActiveStatus(_ phones: [Phone], status: Int) -> [Phone] {
         switch status {
             // Active
@@ -112,6 +113,7 @@ class PhoneFilterManager {
         }
     }
 
+    // This method filters phones by brand.
     private static func filterByBrand(_ phones: [Phone], brand: String) -> [Phone] {
         switch brand {
             // All
@@ -121,6 +123,7 @@ class PhoneFilterManager {
         }
     }
 
+    // This method filters phones by whether they have answering systems.
     private static func filterByAnsweringSystemPresence(_ phones: [Phone], answeringSystem: Int) -> [Phone] {
         switch answeringSystem {
             // With answering system
