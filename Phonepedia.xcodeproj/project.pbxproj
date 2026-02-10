@@ -13,6 +13,7 @@
 		8D1F3D962F0C402C00FA12FE /* SheftAppsInternals.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8D1F3D942F0C402C00FA12FE /* SheftAppsInternals.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8D20E37B2C45B9740016800C /* PhoneInCollectionStatusPickerItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D20E37A2C45B9740016800C /* PhoneInCollectionStatusPickerItems.swift */; };
 		8D20E37D2C45BB7C0016800C /* RingtoneInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D20E37C2C45BB7C0016800C /* RingtoneInfoView.swift */; };
+		8D20EDD02F3A9CA50078F4FE /* PhoneFilterEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D20EDCF2F3A9CA50078F4FE /* PhoneFilterEngine.swift */; };
 		8D239BC82DF8D1C80022F0A4 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 8D239BC72DF8D1C80022F0A4 /* AppIcon.icon */; };
 		8D27B18D2D03AABB004B75E4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D27B18C2D03AABB004B75E4 /* SettingsView.swift */; };
 		8D27B1902D03AC3B004B75E4 /* UserDefaultsKeyNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D27B18F2D03AC3B004B75E4 /* UserDefaultsKeyNames.swift */; };
@@ -216,6 +217,7 @@
 		8D1F3D942F0C402C00FA12FE /* SheftAppsInternals.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SheftAppsInternals.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D20E37A2C45B9740016800C /* PhoneInCollectionStatusPickerItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneInCollectionStatusPickerItems.swift; sourceTree = "<group>"; };
 		8D20E37C2C45BB7C0016800C /* RingtoneInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingtoneInfoView.swift; sourceTree = "<group>"; };
+		8D20EDCF2F3A9CA50078F4FE /* PhoneFilterEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneFilterEngine.swift; sourceTree = "<group>"; };
 		8D239BC72DF8D1C80022F0A4 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		8D27B18C2D03AABB004B75E4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		8D27B18F2D03AC3B004B75E4 /* UserDefaultsKeyNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeyNames.swift; sourceTree = "<group>"; };
@@ -525,6 +527,7 @@
 		8D842D572D3EFFB200F50F32 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				8D20EDCF2F3A9CA50078F4FE /* PhoneFilterEngine.swift */,
 				8DBB95412CA48B84002E57EC /* DialogManager.swift */,
 				8D842D582D3EFFC400F50F32 /* AudioManager.swift */,
 			);
@@ -1120,6 +1123,7 @@
 				8D38ED8B2CAF393D00CCC422 /* CallBlockView.swift in Sources */,
 				8D38ED6F2CAF31BA00CCC422 /* PhoneColorView.swift in Sources */,
 				8D27B1902D03AC3B004B75E4 /* UserDefaultsKeyNames.swift in Sources */,
+				8D20EDD02F3A9CA50078F4FE /* PhoneFilterEngine.swift in Sources */,
 				8D38ED832CAF37D400CCC422 /* DialingCodesView.swift in Sources */,
 				8DA844D22B72E1D7006CBCA7 /* PhoneListView.swift in Sources */,
 				8D94AA982EF0B60900F23F14 /* VisualRingerInfoView.swift in Sources */,
