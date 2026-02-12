@@ -64,7 +64,7 @@ struct PhoneDetailView: View {
         // Photo dialogs
 #if os(iOS)
         .sheet(isPresented: $photoManager.takingPhoto) {
-            CameraViewController(viewModel: photoManager, phone: phone)
+            CameraViewController(photoManager: photoManager, phone: phone)
         }
 #endif
         .alert(isPresented: $photoManager.showingPhonePhotoErrorAlert, error: photoManager.phonePhotoError) {

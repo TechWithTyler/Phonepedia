@@ -21,8 +21,8 @@ struct HandsetRingersView: View {
 
     var body: some View {
         if let phone = handset.phone {
-            Stepper("Standard Ringtones: \(handset.ringtones)", value: $handset.ringtones, in: .oneToMax(50))
-            Stepper("Music/Melody Ringtones: \(handset.musicRingtones)", value: $handset.musicRingtones, in: .zeroToMax(50))
+            Stepper("Standard Ringtones: \(handset.ringtones)", value: $handset.ringtones, in: 1...50)
+            Stepper("Music/Melody Ringtones: \(handset.musicRingtones)", value: $handset.musicRingtones, in: 0...50)
             Text("Total Ringtones: \(handset.totalRingtones)")
             RingtoneInfoView()
             if handset.hasSpeakerphone {

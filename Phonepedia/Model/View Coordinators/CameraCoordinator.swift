@@ -27,24 +27,24 @@ class CameraCoordinator: NSObject, UIImagePickerControllerDelegate, UINavigation
 
 	func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true) {
-            self.parent.viewModel.takingPhoto = false
+            self.parent.photoManager.takingPhoto = false
         }
 	}
 
 	func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         // 1. Make sure we can get the camera result.
 		guard let cameraResult: UIImage = info[.originalImage] as? UIImage else {
-            self.parent.viewModel.phonePhotoError = .cameraError
-            self.parent.viewModel.showingPhonePhotoErrorAlert = true
+            self.parent.photoManager.phonePhotoError = .cameraError
+            self.parent.photoManager.showingPhonePhotoErrorAlert = true
 		}
         // 2. If we can get the data from that result, run it through the image predictor/set it as a photo.
 		if let cameraResultData = cameraResult.jpegData(compressionQuality: 1.0) {
-            parent.viewModel.showingLoadingPhoto = true
-            parent.viewModel.checkPhotoForLandlinesAndSave(photoData: cameraResultData, phone: parent.phone)
+            parent.photoManager.showingLoadingPhoto = true
+            parent.photoManager.checkPhotoForLandlinesAndSave(photoData: cameraResultData, phone: parent.phone)
 		}
         // 3. Dismiss the camera.
         picker.dismiss(animated: true) {
-            self.parent.viewModel.takingPhoto = false
+            self.parent.photoManager.takingPhoto = false
         }
 	}
 }

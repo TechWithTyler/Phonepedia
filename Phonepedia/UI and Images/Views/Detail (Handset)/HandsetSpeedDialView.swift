@@ -22,10 +22,10 @@ struct HandsetSpeedDialView: View {
     var body: some View {
         Toggle("Has One-Touch Emergency Calling", isOn: $handset.hasOneTouchEmergencyCalling)
         OneTouchEmergencyCallingInfoView()
-        Stepper("Dial-Key Speed Dial Capacity: \(handset.speedDialCapacity)", value: $handset.speedDialCapacity, in: .zeroToMax(handset.voicemailQuickDial == 2 ? 9 : 10))
+        Stepper("Dial-Key Speed Dial Capacity: \(handset.speedDialCapacity)", value: $handset.speedDialCapacity, in: handset.voicemailQuickDial == 2 ? 0...9 : 0...10)
         if handset.handsetStyle < 3 {
             Toggle("Uses Base Speed Dial", isOn: $handset.usesBaseSpeedDial)
-            Stepper("One-Touch Dial Buttons: \(handset.oneTouchDialCapacity)", value: $handset.oneTouchDialCapacity, in: .zeroToMax(4))
+            Stepper("One-Touch Dial Buttons: \(handset.oneTouchDialCapacity)", value: $handset.oneTouchDialCapacity, in: 0...4)
         Toggle("Uses Base One-Touch Dials", isOn: $handset.usesBaseOneTouchDial)
             InfoText("The handset can use the speed dials/one-touch dials stored in the base, or its own entries if the base doesn't share the entries between the base/handsets.")
             if handset.speedDialCapacity > 0 && handset.hasPhonebook {

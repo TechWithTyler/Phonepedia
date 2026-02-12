@@ -45,7 +45,7 @@ struct DisplaySettingsPageView: View {
 
     // MARK: - Properties - Doubles
 
-    @AppStorage(UserDefaults.KeyNames.phoneDescriptionTextSize) var phoneDescriptionTextSize: Double = SATextViewMinFontSize
+    @AppStorage(UserDefaults.KeyNames.phoneDescriptionTextSize) var phoneDescriptionTextSize: Double = SATextViewIdealMinFontSize
 
     // MARK: - Properties - Booleans
 

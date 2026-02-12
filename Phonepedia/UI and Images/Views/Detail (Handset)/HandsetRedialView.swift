@@ -20,7 +20,7 @@ struct HandsetRedialView: View {
     // MARK: - Body
 
     var body: some View {
-        FormNumericTextField("Capacity", value: $handset.redialCapacity, valueRange: .zeroToMax(handset.displayType > 0 ? 20 : 1), singularSuffix: "entry", pluralSuffix: "entries")
+        FormNumericTextField("Capacity", value: $handset.redialCapacity, valueRange: handset.displayType > 0 ? 0...20 : 0...1, singularSuffix: "entry", pluralSuffix: "entries")
 #if !os(visionOS)
                 .scrollDismissesKeyboard(.interactively)
 #endif

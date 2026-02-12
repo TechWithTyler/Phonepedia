@@ -16,7 +16,7 @@ struct CameraViewController: UIViewControllerRepresentable {
 
     // MARK: - Properties - Objects
 
-	@StateObject var viewModel: PhonePhotoManager
+	@StateObject var photoManager: PhonePhotoManager
 
 	@Bindable var phone: Phone
 

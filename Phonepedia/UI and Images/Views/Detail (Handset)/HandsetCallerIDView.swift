@@ -39,7 +39,7 @@ struct HandsetCallerIDView: View {
         }
         Section("List") {
             if handset.handsetStyle < 3 {
-                FormNumericTextField("Capacity", value: $handset.callerIDCapacity, valueRange: .allPositivesIncludingZero, singularSuffix: "entry", pluralSuffix: "entries")
+                FormNumericTextField("Capacity", value: $handset.callerIDCapacity, valueRange: 0...Int.max, singularSuffix: "entry", pluralSuffix: "entries")
 #if !os(visionOS)
                     .scrollDismissesKeyboard(.interactively)
 #endif

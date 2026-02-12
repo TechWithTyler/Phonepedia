@@ -54,7 +54,7 @@ struct CordlessPhoneRadioWaveView: View {
     var body: some View {
         VStack {
             Text("Select different frequencies and see how the wavelength changes.")
-            Slider(value: $selectedFrequencySliderValue, in: .zeroToMax(Double(availableFrequencies.count-1)), step: 1) {
+            Slider(value: $selectedFrequencySliderValue, in: 0...Double(availableFrequencies.count-1), step: 1) {
                 Text("Frequency")
             } minimumValueLabel: {
                 Text("Low")

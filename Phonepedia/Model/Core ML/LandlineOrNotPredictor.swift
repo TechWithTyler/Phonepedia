@@ -42,7 +42,7 @@ class LandlineOrNotPredictor {
     // The function signature the caller must provide as a completion handler.
     typealias ImagePredictionHandler = (_ prediction: Prediction?, _ photoData: Data, _ phone: Phone) -> Void
 
-    // MARK: - Properties - Photo View Model
+    // MARK: - Properties - Photo Manager
 
     // The photo manager to pass predictions back to.
     var photoManager: PhonePhotoManager
@@ -89,8 +89,8 @@ class LandlineOrNotPredictor {
             return nil
         }
         let imageClassificationRequest = VNCoreMLRequest(model: imageClassifier) {
-            request, error in
-            self.visionRequestHandler(request, error: error, photoData: photoData, phone: phone)
+            [self] request, error in
+            visionRequestHandler(request, error: error, photoData: photoData, phone: phone)
         }
         // 2. Set the crop and scale option.
         imageClassificationRequest.imageCropAndScaleOption = .centerCrop

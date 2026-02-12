@@ -20,13 +20,15 @@ struct BaseSpeedDialView: View {
     // MARK: - Properties - Ranges
 
     var baseSpeedDialRange: ClosedRange<Int> {
+        let max: Int
         if phone.voicemailQuickDial == 2 {
-            return .zeroToMax(9)
+            max = 9
         } else if phone.baseDisplayType == 0 {
-            return .zeroToMax(10)
+            max = 10
         } else {
-            return .zeroToMax(50)
+            max = 50
         }
+        return 0...max
     }
 
     // MARK: - Body
@@ -39,7 +41,7 @@ struct BaseSpeedDialView: View {
         if phone.baseSpeedDialCapacity > 10 {
             InfoText("Speed dial \(phone.baseSpeedDialCapacity > 11 ? "slots 11-\(phone.baseSpeedDialCapacity) are" : "slot 11 is") accessed by pressing the speed dial button and then entering/scrolling to the desired location number.")
         }
-        Stepper(phone.isCordless ? "One-Touch Dial Buttons (Base): \(phone.baseOneTouchDialCapacity)" : "One-Touch Dial Buttons: \(phone.baseOneTouchDialCapacity)", value: $phone.baseOneTouchDialCapacity, in: .zeroToMax(20))
+        Stepper(phone.isCordless ? "One-Touch Dial Buttons (Base): \(phone.baseOneTouchDialCapacity)" : "One-Touch Dial Buttons: \(phone.baseOneTouchDialCapacity)", value: $phone.baseOneTouchDialCapacity, in: 0...20)
         InfoText("One-touch dial is used by pressing dedicated speed dial buttons. This either starts dialing immediately, or displays/announces the stored number which can be dialed by then going off-hook. Some phones tie the one-touch buttons to the first few speed dial locations (e.g. a phone with 10 speed dials (1-9 and 0) and one-touch dial A-C might use one-touch dial A-C as a quicker way to dial the number in speed dial 1-3.On many corded phones, each one-touch dial button can hold 2 numbers. The upper number is accessed by simply pressing the one-touch dial button, and the lower number is accessed by pressing a button, often called \"Lower\" followed by the one-touch dial button.")
         if phone.baseOneTouchDialCapacity > 0 {
             Picker("One-Touch Dial Card", selection: $phone.baseOneTouchDialCard) {

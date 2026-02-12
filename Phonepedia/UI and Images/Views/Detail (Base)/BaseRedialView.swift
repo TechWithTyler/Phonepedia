@@ -20,7 +20,7 @@ struct BaseRedialView: View {
     // MARK: - Body
 
     var body: some View {
-        FormNumericTextField(phone.isCordless ? "Capacity (Base)" : "Capacity", value: $phone.baseRedialCapacity, valueRange: .zeroToMax(phone.baseDisplayType > 2 ? 20 : 1), singularSuffix: "entry", pluralSuffix: "entries")
+        FormNumericTextField(phone.isCordless ? "Capacity (Base)" : "Capacity", value: $phone.baseRedialCapacity, valueRange: phone.baseDisplayType > 2 ? 0...20 : 0...1, singularSuffix: "entry", pluralSuffix: "entries")
 #if !os(visionOS)
             .scrollDismissesKeyboard(.interactively)
 #endif
