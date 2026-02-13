@@ -58,7 +58,7 @@ struct CordlessDeviceReassignmentView: View {
                         ForEach(compatiblePhones) { phone in
                             HStack {
                                 Text("\(phone.actualPhoneNumberInCollection)")
-                                PhoneImage(phone: phone, mode: .thumbnail)
+                                PhoneImage(phone: phone, displayMode: .thumbnail)
                                 VStack(alignment: .leading) {
                                     let phoneText = "\(phone.brand) \(phone.model)"
                                     Text(phone == currentPhone ? "\(phoneText) (Current)" : phoneText)

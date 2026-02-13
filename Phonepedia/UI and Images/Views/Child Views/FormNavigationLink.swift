@@ -48,7 +48,7 @@ struct FormNavigationLink<Destination: View, Label: View>: View {
                     Section {
                         HStack {
                             Spacer()
-                            PhoneImage(phone: phone, mode: .full)
+                            PhoneImage(phone: phone, displayMode: .full)
                             Spacer()
                         }
                     }
@@ -57,7 +57,7 @@ struct FormNavigationLink<Destination: View, Label: View>: View {
                 .formStyle(.grouped)
                 .scrollContentBackground(.hidden)
             } backdropContent: {
-                PhoneImage(phone: phone, mode: .backdrop)
+                PhoneImage(phone: phone, displayMode: .backdrop)
             }
         } label: {
             label

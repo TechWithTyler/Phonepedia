@@ -32,7 +32,7 @@ struct ChargerDetailView: View {
                     Section {
                         HStack {
                             Spacer()
-                            PhoneImage(phone: phone, mode: .full)
+                            PhoneImage(phone: phone, displayMode: .full)
                             Spacer()
                         }
                     }
@@ -115,7 +115,7 @@ struct ChargerDetailView: View {
                     }
                 }
             } backdropContent: {
-                PhoneImage(phone: phone, mode: .backdrop)
+                PhoneImage(phone: phone, displayMode: .backdrop)
             }
             .formStyle(.grouped)
             .scrollContentBackground(.hidden)

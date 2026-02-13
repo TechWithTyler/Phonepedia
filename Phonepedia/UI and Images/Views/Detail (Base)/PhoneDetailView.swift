@@ -54,7 +54,7 @@ struct PhoneDetailView: View {
 #endif
     }
         } backdropContent: {
-            PhoneImage(phone: phone, mode: .backdrop)
+            PhoneImage(phone: phone, displayMode: .backdrop)
         }
         .scrollContentBackground(.hidden)
         .photosPicker(isPresented: $photoManager.showingPhotoPicker, selection: $photoManager.selectedPhoto, matching: .images, preferredItemEncoding: .automatic)
@@ -118,7 +118,7 @@ struct PhoneDetailView: View {
         Group {
             HStack {
                 Spacer()
-                PhoneImage(phone: phone, mode: .full)
+                PhoneImage(phone: phone, displayMode: .full)
                     .contextMenu {
                         Button("Save to Photos Library…", systemImage: "square.and.arrow.down") {
                             photoManager.savePhonePhotoToLibrary(phone: phone)

@@ -66,7 +66,7 @@ struct PhoneRowView: View {
                     Image(systemName: "sparkle")
                 }
             }
-            PhoneImage(phone: phone, mode: .thumbnail)
+            PhoneImage(phone: phone, displayMode: .thumbnail)
             Spacer()
             if showPhoneColorsInList {
                 ColorStack(mainColor: phone.baseMainColorBinding.wrappedValue, secondaryColor: phone.hasSecondaryColor ? phone.baseSecondaryColorBinding.wrappedValue : nil, accentColor: phone.hasAccentColor ? phone.baseAccentColorBinding.wrappedValue : nil)

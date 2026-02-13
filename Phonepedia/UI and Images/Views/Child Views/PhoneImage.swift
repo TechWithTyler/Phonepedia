@@ -11,19 +11,7 @@
 import SwiftUI
 import SheftAppsStylishUI
 
-struct PhoneImage: View {
-
-    // MARK: - Image Mode Enum
-
-    enum Mode {
-
-        case thumbnail
-
-        case full
-
-        case backdrop
-
-    }
+struct PhoneImage: View, ImageMasterDetailable {
 
     // MARK: - Properties - Phone
 
@@ -31,7 +19,7 @@ struct PhoneImage: View {
 
     // MARK: - Properties - Image Mode
 
-    var mode: Mode
+    var displayMode: MasterDetailImageDisplayMode
 
     // MARK: - Properties - Booleans
 
@@ -48,17 +36,17 @@ struct PhoneImage: View {
     // MARK: - Properties - Floats
 
 	var size: CGFloat {
-        switch mode {
+        switch displayMode {
         case .thumbnail: return 100
         case .full: return 300
-        case .backdrop: return 300
+        case .backdrop: return 1000
         }
 	}
     
     // MARK: - Body
 
     var body: some View {
-        if mode == .backdrop {
+        if displayMode == .backdrop {
             image
                 .renderingMode(phone.photoData == nil && !useDetailedPhoneImage ? .template : .original)
                 .resizable()
@@ -104,7 +92,7 @@ struct PhoneImage: View {
             #endif
         } else {
             if useDetailedPhoneImage {
-                Image(mode == .thumbnail ? .phoneDetailedThumbnail : .phoneDetailed)
+                Image(displayMode == .thumbnail ? .phoneDetailedThumbnail : .phoneDetailed)
             } else {
                 Image(.phone)
             }
@@ -116,11 +104,11 @@ struct PhoneImage: View {
 // MARK: - Preview
 
 #Preview("Full") {
-    PhoneImage(phone: Phone(brand: "Panasonic", model: "KX-TGU432"), mode: .full)
+    PhoneImage(phone: Phone(brand: "Panasonic", model: "KX-TGU432"), displayMode: .full)
 }
 
 #Preview("Thumbnail") {
-    PhoneImage(phone: Phone(brand: "Panasonic", model: "KX-TGU432"), mode: .thumbnail)
+    PhoneImage(phone: Phone(brand: "Panasonic", model: "KX-TGU432"), displayMode: .thumbnail)
     // Make the thumbnail preview large enough to show its window title.
         .frame(width: 200, height: 200)
 }
