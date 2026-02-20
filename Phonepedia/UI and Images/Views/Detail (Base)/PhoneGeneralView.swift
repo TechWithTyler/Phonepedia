@@ -43,10 +43,10 @@ struct PhoneGeneralView: View {
     // MARK: - Properties - Integers
 
     // Range of "maximum number of cordless devices" values for cordless phones with registration. The base knows about the cordless devices being used.
-    var registrationMaxCordlessDevicesRange: ClosedRange<Int> = -1...30
+    var registrationMaxCordlessDevicesRange: ClosedRange<Int> = 1...30
 
     // Range of "maximum number of cordless devices" values for cordless phones with "place on base to set digital security code". The base doesn't know about the handsets being used, but placing a new one on the base may "invalidate" the previous one.
-    var securityCodeMaxCordlessDevicesRange: ClosedRange<Int> = -1...1
+    var securityCodeMaxCordlessDevicesRange: ClosedRange<Int> = 1...1
 
     // MARK: - Body
 
@@ -70,15 +70,12 @@ struct PhoneGeneralView: View {
 
     @ViewBuilder
     var basicsGroup: some View {
-        Stepper("Release Year (-1 If Unknown): \(String(phone.releaseYear))", value: $phone.releaseYear, in: -1...currentYear)
+        UnknowableStepper("Release Year: \(phone.releaseYear == -1 ? "Unknown" : String(phone.releaseYear))", value: $phone.releaseYear, in: -1...currentYear)
             .onChange(of: phone.releaseYear) { oldValue, newValue in
                 phone.releaseYearChanged(oldValue: oldValue, newValue: newValue)
             }
         FormTextField("Nickname", text: $phone.nickname)
-        Stepper("Acquisition/Purchase Year (-1 If Unknown): \(String(phone.acquisitionYear))", value: $phone.acquisitionYear, in: -1...currentYear)
-            .onChange(of: phone.acquisitionYear) { oldValue, newValue in
-                phone.acquisitionYearChanged(oldValue: oldValue, newValue: newValue)
-            }
+        UnknowableStepper("Acquisition/Purchase Year: \(phone.acquisitionYear == -1 ? "Unknown" : String(phone.acquisitionYear))", value: $phone.acquisitionYear, in: phone.releaseYear...currentYear)
         Button("Set to Release Year") {
             phone.setAcquisitionYearToReleaseYear()
         }
@@ -192,7 +189,7 @@ struct PhoneGeneralView: View {
                 }
             }
             if phone.cordlessDeviceLinkingMethod > 2 {
-                Stepper("Maximum Number of Cordless Devices (-1 If No Limit): \(phone.maxCordlessHandsets)", value: $phone.maxCordlessHandsets, in: phone.cordlessDeviceLinkingMethod == 4 ? registrationMaxCordlessDevicesRange : securityCodeMaxCordlessDevicesRange)
+                UnknowableStepper("Maximum Number of Cordless Devices: \(phone.maxCordlessHandsets == -1 ? "Unlimited" : String(phone.maxCordlessHandsets))", value: $phone.maxCordlessHandsets, in: phone.cordlessDeviceLinkingMethod == 4 ? registrationMaxCordlessDevicesRange : securityCodeMaxCordlessDevicesRange)
                     .onChange(of: phone.maxCordlessHandsets) { oldValue, newValue in
                         phone.maxCordlessHandsetsChanged(oldValue: oldValue, newValue: newValue)
                     }

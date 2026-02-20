@@ -45,14 +45,11 @@ struct HandsetGeneralView: View {
     @ViewBuilder
     var basicsGroup: some View {
         if let phone = handset.phone {
-            Stepper("Release Year (-1 If Unknown): \(String(handset.releaseYear))", value: $handset.releaseYear, in: -1...currentYear)
+            Stepper("Release Year \(handset.releaseYear == -1 ? "Unknown" : String(handset.releaseYear))", value: $handset.releaseYear, in: -1...currentYear)
                 .onChange(of: handset.releaseYear) { oldValue, newValue in
                     handset.releaseYearChanged(oldValue: oldValue, newValue: newValue)
                 }
-            Stepper("Acquisition/Purchase Year (-1 If Unknown): \(String(handset.acquisitionYear))", value: $handset.acquisitionYear, in: -1...currentYear)
-                .onChange(of: handset.acquisitionYear) { oldValue, newValue in
-                    handset.acquisitionYearChanged(oldValue: oldValue, newValue: newValue)
-                }
+            Stepper("Acquisition/Purchase Year: \(handset.acquisitionYear == -1 ? "Don't Remember" : String(handset.acquisitionYear))", value: $handset.acquisitionYear, in: handset.releaseYear...currentYear)
             Button("Set to Release Year") {
                 phone.setAcquisitionYearToReleaseYear()
             }

@@ -13,6 +13,10 @@ enum PhonePhotoError: LocalizedError {
 
     // MARK: - Error Cases
 
+    #if !os(macOS)
+    case cameraError
+    #endif
+
     // Photo loading failed.
     case loadFailed(error: Error)
 
@@ -35,6 +39,10 @@ enum PhonePhotoError: LocalizedError {
 
     var errorDescription: String? {
         switch self {
+            #if !os(macOS)
+        case .cameraError:
+            return "Camera error."
+            #endif
         case .loadFailed(let error):
             return "(Bee-bee-beep) We're sorry, your photo can't be loaded. Please try again later. \(error.localizedDescription)"
         case .tooManyPhotos(let count):

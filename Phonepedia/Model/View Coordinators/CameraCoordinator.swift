@@ -36,6 +36,7 @@ class CameraCoordinator: NSObject, UIImagePickerControllerDelegate, UINavigation
 		guard let cameraResult: UIImage = info[.originalImage] as? UIImage else {
             self.parent.photoManager.phonePhotoError = .cameraError
             self.parent.photoManager.showingPhonePhotoErrorAlert = true
+            return
 		}
         // 2. If we can get the data from that result, run it through the image predictor/set it as a photo.
 		if let cameraResultData = cameraResult.jpegData(compressionQuality: 1.0) {

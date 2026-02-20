@@ -1220,19 +1220,6 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
         if acquisitionYear < newValue && acquisitionYear != -1 {
             acquisitionYear = releaseYear
         }
-        if newValue == 0 && oldValue == -1 {
-            releaseYear = oldestPhoneYear
-        } else if newValue < oldestPhoneYear {
-            releaseYear = -1
-        }
-    }
-
-    func acquisitionYearChanged(oldValue: Int, newValue: Int) {
-        if newValue == 0 && oldValue == -1 {
-            acquisitionYear = releaseYear == -1 ? oldestPhoneYear : releaseYear
-        } else if newValue < releaseYear || newValue < oldestPhoneYear {
-            acquisitionYear = -1
-        }
     }
 
     func baseBluetoothCellPhonesSupportedChanged(oldValue: Int, newValue: Int) {
@@ -1308,11 +1295,6 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
         }
         if newValue < 8 {
             hasAutoAttendantAndPersonalMailboxes = false
-        }
-        if newValue == 0 && oldValue == -1 {
-            maxCordlessHandsets = 1
-        } else if newValue == 0 && oldValue == 1 {
-            maxCordlessHandsets = -1
         }
         if newValue < numberOfIncludedCordlessHandsets && newValue >= 1 {
             numberOfIncludedCordlessHandsets = newValue

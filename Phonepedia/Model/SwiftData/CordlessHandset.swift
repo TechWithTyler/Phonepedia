@@ -686,14 +686,6 @@ final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatab
         }
     }
 
-    func acquisitionYearChanged(oldValue: Int, newValue: Int) {
-        if newValue == 0 && oldValue == -1 {
-            acquisitionYear = releaseYear == -1 ? oldestHandsetYear : releaseYear
-        } else if newValue < releaseYear || newValue < oldestHandsetYear {
-            acquisitionYear = -1
-        }
-    }
-
     func totalRingtonesChanged(oldValue: Int, newValue: Int) {
         if newValue < oldValue && (intercomRingtone >= (totalRingtones + 1) || intercomRingtone == 1) {
             intercomRingtone -= 1

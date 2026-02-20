@@ -111,10 +111,10 @@ class LandlineOrNotPredictor {
             return
         }
         // 2. Convert the NSImage/UIImage to CGImage.
+        let noUnderlyingCGImageError = "No underlying CGImage."
         #if os(macOS)
         let orientation = CGImagePropertyOrientation.up
         var imageRect = CGRect(origin: .zero, size: photo.size)
-        let noUnderlyingCGImageError = "No underlying CGImage."
         guard let photoImage = photo.cgImage(forProposedRect: &imageRect, context: nil, hints: nil) else {
             DispatchQueue.main.async { [self] in
                 photoManager.phonePhotoError = .predictionFailed(reason: noUnderlyingCGImageError)
