@@ -62,30 +62,9 @@ struct PhoneListView: View {
     var body: some View {
         ZStack {
             if !filteredPhones.isEmpty {
-                List(selection: $selectedPhone) {
-                    ForEach(filteredPhones) { phone in
-                        phoneRow(for: phone)
-                    }
-                    .onDelete(perform: deletePhones)
-                    .onMove(perform: movePhones)
-                }
-                .onAppear {
-                    achievementTrackerManager.evaluate(phones: phones, initialLoad: true)
-                }
-                .onChange(of: phones) { oldValue, newValue in
-                    achievementTrackerManager.evaluate(phones: newValue)
-                }
-                .accessibilityIdentifier("PhonesList")
+                phoneList
             } else if phoneFilterEnabled {
-                VStack {
-                    Text("No phones matching the selected filters")
-                        .font(.largeTitle)
-                        .foregroundStyle(.secondary)
-                        .multilineTextAlignment(.center)
-                    Text("Adjust your filters or add a new phone.")
-                        .font(.callout)
-                        .foregroundStyle(.tertiary)
-                }
+                noPhonesText
             } else {
                 Text("No phones")
                     .font(.largeTitle)
@@ -173,6 +152,37 @@ struct PhoneListView: View {
         .toolbar {
             toolbarContent
         }
+    }
+
+    @ViewBuilder
+    var noPhonesText: some View {
+        VStack {
+            Text("No phones matching the selected filters")
+                .font(.largeTitle)
+                .foregroundStyle(.secondary)
+                .multilineTextAlignment(.center)
+            Text("Adjust your filters or add a new phone.")
+                .font(.callout)
+                .foregroundStyle(.tertiary)
+        }
+    }
+
+    @ViewBuilder
+    var phoneList: some View {
+        List(selection: $selectedPhone) {
+            ForEach(filteredPhones) { phone in
+                phoneRow(for: phone)
+            }
+            .onDelete(perform: deletePhones)
+            .onMove(perform: movePhones)
+        }
+        .onAppear {
+            achievementTrackerManager.evaluate(phones: phones, initialLoad: true)
+        }
+        .onChange(of: phones) { oldValue, newValue in
+            achievementTrackerManager.evaluate(phones: newValue)
+        }
+        .accessibilityIdentifier("PhonesList")
     }
 
     @ViewBuilder

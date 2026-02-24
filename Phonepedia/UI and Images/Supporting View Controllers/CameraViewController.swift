@@ -12,6 +12,7 @@
 
 import SwiftUI
 
+// UIViewControllerRepresentable allows a UIViewController's view to be placed (hosted) in a SwiftUI view. UIViewRepresentable hosts a UIView in a SwiftUI view.
 struct CameraViewController: UIViewControllerRepresentable {
 
     // MARK: - Properties - Objects
