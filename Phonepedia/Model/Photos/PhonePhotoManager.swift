@@ -117,7 +117,7 @@ class PhonePhotoManager: ObservableObject {
         }
     }
 
-    // MARK: - Phone Photo Update - Drag and Drop
+    // MARK: - Phone Photo Update - Drag-and-Drop
 
     // This method handles dropping of a photo on the phone photo.
     func handleDroppedPhoto(phone: Phone, with providers: [NSItemProvider]) -> Bool {

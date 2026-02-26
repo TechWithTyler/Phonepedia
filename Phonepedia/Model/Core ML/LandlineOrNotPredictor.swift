@@ -67,11 +67,12 @@ class LandlineOrNotPredictor {
         // 3. Get the underlying model instance.
         let imageClassifierModel = imageClassifier.model
         // 4. Create a Vision instance using the image classifier's model instance.
-        guard let imageClassifierVisionModel = try? VNCoreMLModel(for: imageClassifierModel) else {
+        let imageClassifierVisionModel = try? VNCoreMLModel(for: imageClassifierModel)
+        guard let visionModel = imageClassifierVisionModel else {
             return nil
         }
-        // 5. Return the model.
-        return imageClassifierVisionModel
+        // 5. Return the vision model.
+        return visionModel
     }
 
     // MARK: - Initialization
