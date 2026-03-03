@@ -134,7 +134,7 @@ class PhonePhotoManager: ObservableObject {
         }
         // 3. Try to have the provider load image data. If successful, check the photo for landline/VoIP phones. Ask the user for confirmation if no landline/VoIP phones could be detected. If unsuccessful, show an error.
         let progress = provider.loadDataRepresentation(forTypeIdentifier: UTType.image.identifier) { [self] data, error in
-            handlePhonePhotoDropImportResult(data: data, error: error, phone: phone)
+            handlePhonePhotoDropImportResult(from: data, error: error, phone: phone)
         }
         // 4. Start loading.
         progress.resume()
@@ -144,7 +144,7 @@ class PhonePhotoManager: ObservableObject {
     }
 
     // This method handles the result of dropping a phone photo for import.
-    func handlePhonePhotoDropImportResult(data: Data?, error: Error?, phone: Phone) {
+    func handlePhonePhotoDropImportResult(from data: Data?, error: Error?, phone: Phone) {
         if let data = data {
             // 1. If we can get the data from the dropped photo, run it through the image predictor to check it for landline/VoIP phones.
             checkPhotoForLandlinesAndSave(photoData: data, phone: phone)
@@ -227,7 +227,7 @@ class PhonePhotoManager: ObservableObject {
     }
 
     // This method handles the phone photo "export to library" item provider result when exporting a phone photo to the Photos library.
-    func handlePhonePhotoExportToLibraryItemProviderResult(data: Data?, error: Error?) {
+    func handlePhonePhotoExportToLibraryItemProviderResult(from data: Data?, error: Error?) {
         // 1. If an error occurs, show it.
         if let error = error {
             phonePhotoError = .exportFailed(reason: error.localizedDescription)
