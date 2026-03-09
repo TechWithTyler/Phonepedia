@@ -106,10 +106,12 @@ struct HandsetGeneralView: View {
                     Text("Redial List").tag(1)
                 }
                 InfoText("When pressing the cell button in standby (and selecting the cell phone if necessary):\n• Dial Number: You can dial the number just as if you picked up the landline.\n• Redial List: The handset's redial list is displayed, matching the behavior on many traditional cell phones.")
-                Picker("Cell Line Selection", selection: $handset.cellLineSelection) {
-                    CellLineSelectionPickerItems()
+                if phone.baseBluetoothCellPhonesSupported > 1 {
+                    Picker("Cell Line Selection", selection: $handset.cellLineSelection) {
+                        CellLineSelectionPickerItems()
+                    }
+                    CellLineSelectionInfoView()
                 }
-                CellLineSelectionInfoView()
             }
         } else {
             Text(cordlessDeviceMissingPhoneText)

@@ -37,8 +37,10 @@ struct CellPhoneLinkingView: View {
                 }
                 InfoText("Cell line in use status indicates when the cell line on this phone is in use, not when the paired cell phone is in use.")
                 Picker("Call Transfer From Cell To Phone", selection: $phone.cellCallTransferToPhone) {
-                    Text("By Cell").tag(0)
-                    Text("By This Phone").tag(1)
+                    Text("Not Supported").tag(0)
+                    Divider()
+                    Text("By Cell").tag(1)
+                    Text("By This Phone").tag(2)
                 }
                 InfoText("• By Cell: Cell calls are transferred to the phone by selecting it in the audio device list. Upon doing this, the phone shows that the cell call is on hold and can be picked up. Attempting to pick up the call from the phone first may disconnect the current call.\n• By This Phone: The phone detects that the cell phone is on a call, and will pick it up when it tries to make a call from standby.")
                 Toggle("Allows Transferring Calls To Cell", isOn: $phone.supportsTransferToCell)
@@ -49,10 +51,12 @@ struct CellPhoneLinkingView: View {
                     Text("Cell Line Only Mode").tag(2)
                 }
                 InfoText("If you use only cell lines, the \"no line\" alert will be suppressed automatically once at least 1 cell phone is paired, or can be suppressed manually, depending on the phone. A dedicated cell line only mode allows the phone to disable most landline-related features and allows you to make calls as if it were connected to a landline (e.g., by pressing the talk button on a handset instead of the cell button.)")
-                Picker("Cell Line Selection", selection: $phone.cellLineSelection) {
-                    CellLineSelectionPickerItems()
+                if phone.hasBaseKeypad && phone.baseBluetoothCellPhonesSupported > 1 {
+                    Picker("Cell Line Selection", selection: $phone.cellLineSelection) {
+                        CellLineSelectionPickerItems()
+                    }
+                    CellLineSelectionInfoView()
                 }
-                CellLineSelectionInfoView()
                 Toggle("Supports Cell Phone Alerts", isOn: $phone.supportsCellAlerts)
                 InfoText("The base and handsets can alert you when a paired cell phone receives a text message or other alerts by sounding a tone and/or displaying/announcing the alert.")
                 Toggle("Has Cell Phone Voice Control", isOn: $phone.hasCellPhoneVoiceControl)
