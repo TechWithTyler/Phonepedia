@@ -361,6 +361,7 @@ struct PhoneDetailView: View {
                 } label: {
                     Label("Caller ID", systemImage: "phone.bubble.left")
                 }
+            }
                 FormNavigationLink(phone: phone) {
                     BaseSpeedDialView(phone: phone)
                         .navigationTitle("Quick Dialing")
@@ -370,7 +371,7 @@ struct PhoneDetailView: View {
                 } label: {
                     Label("Quick Dialing", systemImage: "person.3")
                 }
-                if phone.isCordlessOrPushButtonDesk {
+            if phone.isCordlessOrPushButtonDesk && phone.canShowPhoneNumbers {
                     FormNavigationLink(phone: phone) {
                         CallBlockView(phone: phone)
                             .navigationTitle("Call Blocking")
@@ -381,7 +382,6 @@ struct PhoneDetailView: View {
                         Label("Call Blocking", systemImage: "shield")
                     }
                 }
-            }
         }
     }
 
