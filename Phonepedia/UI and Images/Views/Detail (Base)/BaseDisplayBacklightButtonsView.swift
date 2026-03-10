@@ -70,6 +70,11 @@ struct BaseDisplayBacklightButtonsView: View {
                 if phone.baseKeyBacklightAmount > 0 {
                     ColorPicker("Button Lighting Color", selection: phone.baseKeyBacklightColorBinding)
                     if phone.baseKeyBacklightAmount < 6 {
+                        if phone.baseDisplayIsMonochrome {
+                            Button("Set To Display Backlight Color") {
+                                phone.setKeyBacklightColorToDisplayBacklight()
+                            }
+                        }
                         Picker("Button Backlight Layer", selection: $phone.baseKeyBacklightLayer) {
                             Text("Background").tag(0)
                             Text("Foreground").tag(1)
@@ -175,6 +180,11 @@ struct BaseDisplayBacklightButtonsView: View {
                 if phone.basePhoneType > 0 || phone.baseDisplayIsMonochrome {
                     ClearSupportedColorPicker(phone.isCordless ? "Base Display Backlight Color" : "Display Backlight Color", selection: phone.baseDisplayBacklightColorBinding) {
                         Text("No Backlight")
+                    }
+                    if phone.baseKeyBacklightAmount > 0 && phone.baseKeyBacklightAmount < 6 {
+                        Button("Set To Button Backlight Color") {
+                            phone.setDisplayBacklightColorToKeyBacklight()
+                        }
                     }
                 }
                 if phone.baseDisplayType >= 3 && phone.isCordlessOrPushButtonDesk && phone.hasAnsweringSystem > 0 {

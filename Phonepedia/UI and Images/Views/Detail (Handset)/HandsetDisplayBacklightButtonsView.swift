@@ -102,6 +102,11 @@ struct HandsetDisplayBacklightButtonsView: View {
                 if handset.keyBacklightAmount > 0 {
                     ColorPicker("Button Lighting Color", selection: handset.keyBacklightColorBinding)
                     if handset.keyBacklightAmount < 6 {
+                        if handset.hasMonochromeDisplay {
+                            Button("Set To Display Backlight Color") {
+                                handset.setKeyBacklightColorToDisplayBacklight()
+                            }
+                        }
                     Picker("Button Backlight Layer", selection: $handset.keyBacklightLayer) {
                         Text("Background").tag(0)
                         Text("Foreground").tag(1)
@@ -214,6 +219,11 @@ struct HandsetDisplayBacklightButtonsView: View {
                 }
                 if handset.hasMonochromeDisplay {
                     ColorPicker("Display Backlight Color", selection: handset.displayBacklightColorBinding)
+                    if handset.keyBacklightAmount > 0 && handset.keyBacklightAmount < 6 {
+                        Button("Set To Button Backlight Color") {
+                            handset.setDisplayBacklightColorToKeyBacklight()
+                        }
+                    }
                 }
                 if handset.displayType > 0 {
                     Picker("Update Available Handset Menus", selection: $handset.menuUpdateMode) {

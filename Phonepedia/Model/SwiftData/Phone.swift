@@ -1120,6 +1120,22 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
         baseKeyBackgroundColorBlue = baseMainColorBlue
     }
 
+    // MARK: - Set Key Backlight Color To Display Backlight and Vice Versa
+
+    // This method sets the key backlight color to the display backlight color.
+    func setKeyBacklightColorToDisplayBacklight() {
+        baseKeyBacklightColorRed = baseDisplayBacklightColorRed
+        baseKeyBacklightColorGreen = baseDisplayBacklightColorGreen
+        baseKeyBacklightColorBlue = baseDisplayBacklightColorBlue
+    }
+
+    // This method sets the display backlight color to the key backlight color.
+    func setDisplayBacklightColorToKeyBacklight() {
+        baseDisplayBacklightColorRed = baseKeyBacklightColorRed
+        baseDisplayBacklightColorGreen = baseKeyBacklightColorGreen
+        baseDisplayBacklightColorBlue = baseKeyBacklightColorBlue
+    }
+
     // MARK: - Property Change Handlers
 
     func brandChanged(oldValue: String, newValue: String) {

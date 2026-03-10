@@ -618,6 +618,22 @@ final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatab
         keyBackgroundColorBlue = mainColorBlue
     }
 
+    // MARK: - Set Key Backlight Color To Display Backlight and Vice Versa
+
+    // This method sets the key backlight color to the display backlight color.
+    func setKeyBacklightColorToDisplayBacklight() {
+        keyBacklightColorRed = displayBacklightColorRed
+        keyBacklightColorGreen = displayBacklightColorGreen
+        keyBacklightColorBlue = displayBacklightColorBlue
+    }
+
+    // This method sets the display backlight color to the key backlight color.
+    func setDisplayBacklightColorToKeyBacklight() {
+        displayBacklightColorRed = keyBacklightColorRed
+        displayBacklightColorGreen = keyBacklightColorGreen
+        displayBacklightColorBlue = keyBacklightColorBlue
+    }
+
     // MARK: - Property Change Handlers
 
     func brandChanged(oldValue: String, newValue: String) {
