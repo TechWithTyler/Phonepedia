@@ -77,6 +77,8 @@ struct PhoneMessagingView: View {
                     }
                 }
                 AnsweringSystemMenuInfoView()
+                InfoText("An answering system voice menu might also display the current setting on the message counter if it has one.")
+                InfoText("Example answering system menu voice prompt: \"Number of rings: 4 rings. Press skip or repeat to change the setting. Press menu to go to the next option, or press stop to exit.\"")
             } else if phone.isCordless && phone.hasAnsweringSystem == 3 {
                 Picker("Answering System Menu (Base)", selection: $phone.answeringSystemMenuOnBase) {
                     Text("None").tag(0)

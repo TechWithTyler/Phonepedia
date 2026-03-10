@@ -52,6 +52,26 @@ struct AboutDisplayTypesView: View {
                 } label: {
                     Text("LCD Message Counter With Status Items")
                 }
+                DisclosureGroup {
+                    Text(
+                        """
+                        Any information displayed on a dual 7-segment display is abbreviated. Examples:
+                        • OF (looks like 0F): Off
+                        • Y: Yes
+                        • tS (looks like t5): Toll saver
+                        • E: English or Error
+                        • S (looks like 5): Spanish
+                        • F: French or Full
+                        • Lo: Low
+                        • HI (looks like H1): High
+                        • AO (looks like A0): Answer only
+                        • Go (looks like 9o): Greeting only
+                        • CL: Clock not set
+                        • Er: Error
+                        """)
+                } label: {
+                    Text("Dual 7-Segment Display Abbreviations")
+                }
             }
             .navigationTitle("About Display Types")
             .toolbar {
