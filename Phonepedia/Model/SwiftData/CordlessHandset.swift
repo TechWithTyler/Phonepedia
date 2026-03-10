@@ -173,6 +173,10 @@ final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatab
 
 	var displayType: Int = 2
 
+    var displayBrightnessContrastAdjustment: Int = 0
+
+    var displayColorThemes: Int = 0
+
     var displayLocation: Int = 0
 
     var baseSettingsChangeMethod: Int = 0
@@ -715,9 +719,12 @@ final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatab
         if newValue < 3 {
             mainMenuLayout = 0
         }
-		if newValue == 5 {
+        if newValue >= 5 {
             displayBacklightColorBinding.wrappedValue = .white
-		}
+        }
+        if newValue < 5 && displayBrightnessContrastAdjustment > 1 {
+            displayBrightnessContrastAdjustment = 1
+        }
 		if newValue == 0 {
             displayBacklightColorBinding.wrappedValue = .white
 			menuUpdateMode = 0
@@ -910,6 +917,8 @@ final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatab
         newHandset.hasSpeakerphoneButtonLight = self.hasSpeakerphoneButtonLight
         newHandset.storageOrSetup = self.storageOrSetup
         newHandset.hasQZ = self.hasQZ
+        newHandset.displayColorThemes = self.displayColorThemes
+        newHandset.displayBrightnessContrastAdjustment = self.displayBrightnessContrastAdjustment
         // 4. Return the duplicated handset.
         return newHandset
     }

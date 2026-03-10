@@ -153,13 +153,21 @@ struct HandsetDisplayBacklightButtonsView: View {
                         InfoText("Answering system settings are typically changed from the handset by pressing the program button followed by the message playback button, then entering codes on the keypad. The current settings may be displayed on the base message counter or display (if it has one), in which case the handset will link to the base after entering answering system programming mode or the desired setting code is entered.\nFor example, the remote access code might be changed by pressing the program button > the message playback button > 2 for remote access code > the desired code > the program or message playback button again to save.")
                     }
                 } else {
+                    if handset.displayType >= 5 {
+                        Picker("Display Background Color Themes", selection: $handset.displayColorThemes) {
+                            DisplayColorThemesPickerItems()
+                        }
+                    }
+                    Picker("Brightness/Contrast Adjustment", selection: $handset.displayBrightnessContrastAdjustment) {
+                        BrightnessContrastAdjustmentPickerItems(colorDisplay: handset.displayType >= 5)
+                    }
                     if handset.cordlessDeviceType == 1 && handset.handsetStyle < 2 {
                         Picker("Display Location", selection: $handset.displayLocation) {
                             Text("Front").tag(0)
                             Text("Back").tag(1)
                             Text("Front and Back").tag(2)
                         }
-                        InfoText("Some handsets have the display and menu/navigation-related buttons on the back to resemble a slim corded phone with caller ID.\nSome handsets have a display on both the front and back, with the back one used for answering system controls and/or an extra set of caller ID navigation controls.")
+                        InfoText("Some handsets have the display and menu/navigation-related buttons on the back to resemble a slim corded phone with caller ID.\nSome handsets have a display and buttons on both the front and back, with the back ones used for answering system controls and/or an extra set of caller ID navigation controls.")
                         if phone.hasAnsweringSystem > 1 {
                             Toggle("Has Answering System Controls", isOn: $handset.hasAnsweringSystemControls)
                             InfoText("Dedicated answering system controls allow you to use the answering system from the handset in the same way you'd use it from a base. This is often seen on phones with an answering system but no base controls for it.")
@@ -177,11 +185,7 @@ struct HandsetDisplayBacklightButtonsView: View {
                 }
                 if handset.displayType > 1 && (handset.handsetStyle < 2 || handset.cordlessDeviceType == 1) {
                     Picker("Clock Display", selection: $handset.clock) {
-                        Text("None").tag(0)
-                        Text("Time Only").tag(1)
-                        Text("Day and Time").tag(2)
-                        Text("Date and Time (w/o Year)").tag(3)
-                        Text("Date and Time (w/ Year)").tag(4)
+                        ClockDisplayPickerItems()
                     }
                     if handset.clock > 0 {
                         Toggle("Supports Clock Backup", isOn: $handset.supportsTimeBackup)

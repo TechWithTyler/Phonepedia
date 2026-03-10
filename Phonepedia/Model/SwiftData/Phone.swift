@@ -352,6 +352,10 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
 
     var baseDisplayType: Int = 0
 
+    var baseDisplayBrightnessContrastAdjustment: Int = 0
+
+    var baseDisplayColorThemes: Int = 0
+
     var cordlessBaseMenuType: Int = 0
 
     var baseDisplayCanTilt: Bool = false
@@ -1411,6 +1415,12 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
         }
         if newValue < 4 {
             baseMainMenuLayout = 0
+        }
+        if newValue == 7 || newValue == 9 {
+            baseDisplayBacklightColorBinding.wrappedValue = .white
+        }
+        if newValue == 8 || newValue < 7 && baseDisplayBrightnessContrastAdjustment > 1 {
+            baseDisplayBrightnessContrastAdjustment = 1
         }
         if newValue < 3 || newValue > 6 {
             let colorComponents = Color.Components(fromColor: .white)

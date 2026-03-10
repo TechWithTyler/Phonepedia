@@ -130,13 +130,17 @@ struct BaseDisplayBacklightButtonsView: View {
                         ProgrammingWithoutDisplayInfoView()
                     }
                     if phone.baseDisplayType >= 3 {
+                        if !phone.baseDisplayIsMonochrome {
+                            Picker("Base Display Background Color Themes", selection: $phone.baseDisplayColorThemes) {
+                                DisplayColorThemesPickerItems()
+                            }
+                        }
+                        Picker("Brightness/Contrast Adjustment", selection: $phone.baseDisplayBrightnessContrastAdjustment) {
+                            BrightnessContrastAdjustmentPickerItems(colorDisplay: !phone.baseDisplayIsMonochrome)
+                        }
                         Toggle("Base Display Can Tilt", isOn: $phone.baseDisplayCanTilt)
                         Picker("Clock Display", selection: $phone.clock) {
-                            Text("None").tag(0)
-                            Text("Time Only").tag(1)
-                            Text("Day and Time").tag(2)
-                            Text("Date and Time (w/o Year)").tag(3)
-                            Text("Date and Time (w/ Year)").tag(4)
+                            ClockDisplayPickerItems()
                         }
                     }
                     InfoButton("About Display Types…") {

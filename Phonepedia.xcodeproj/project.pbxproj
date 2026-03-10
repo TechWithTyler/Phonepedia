@@ -106,6 +106,9 @@
 		8D94AA9A2EF0B71A00F23F14 /* RedialDuringCallPickerItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D94AA992EF0B71A00F23F14 /* RedialDuringCallPickerItems.swift */; };
 		8D94EE0C2B912B9E00B04EBF /* CordlessPhoneRadioWaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D94EE0B2B912B9E00B04EBF /* CordlessPhoneRadioWaveView.swift */; };
 		8D94EE0E2B912FB900B04EBF /* CordlessPhoneRadioWave.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D94EE0D2B912FB900B04EBF /* CordlessPhoneRadioWave.swift */; };
+		8D9587822F5F633300A5D3D1 /* BrightnessContrastAdjustmentPickerItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9587812F5F633300A5D3D1 /* BrightnessContrastAdjustmentPickerItems.swift */; };
+		8D9587842F5F63AF00A5D3D1 /* DisplayColorThemesPickerItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9587832F5F63AF00A5D3D1 /* DisplayColorThemesPickerItems.swift */; };
+		8D9587862F5F66C300A5D3D1 /* ClockDisplayPickerItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9587852F5F66C300A5D3D1 /* ClockDisplayPickerItems.swift */; };
 		8D95997D2C22212400FEED40 /* SchemaVersioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D95997C2C22212400FEED40 /* SchemaVersioning.swift */; };
 		8DA72F062D78FEDA00A957A4 /* PhoneOutgoingCallProtectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA72F052D78FEDA00A957A4 /* PhoneOutgoingCallProtectionView.swift */; };
 		8DA72F082D79021100A957A4 /* KeypadLockInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA72F072D79021100A957A4 /* KeypadLockInfoView.swift */; };
@@ -311,6 +314,9 @@
 		8D94AA992EF0B71A00F23F14 /* RedialDuringCallPickerItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedialDuringCallPickerItems.swift; sourceTree = "<group>"; };
 		8D94EE0B2B912B9E00B04EBF /* CordlessPhoneRadioWaveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordlessPhoneRadioWaveView.swift; sourceTree = "<group>"; };
 		8D94EE0D2B912FB900B04EBF /* CordlessPhoneRadioWave.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordlessPhoneRadioWave.swift; sourceTree = "<group>"; };
+		8D9587812F5F633300A5D3D1 /* BrightnessContrastAdjustmentPickerItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrightnessContrastAdjustmentPickerItems.swift; sourceTree = "<group>"; };
+		8D9587832F5F63AF00A5D3D1 /* DisplayColorThemesPickerItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayColorThemesPickerItems.swift; sourceTree = "<group>"; };
+		8D9587852F5F66C300A5D3D1 /* ClockDisplayPickerItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockDisplayPickerItems.swift; sourceTree = "<group>"; };
 		8D95997C2C22212400FEED40 /* SchemaVersioning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaVersioning.swift; sourceTree = "<group>"; };
 		8DA72F052D78FEDA00A957A4 /* PhoneOutgoingCallProtectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneOutgoingCallProtectionView.swift; sourceTree = "<group>"; };
 		8DA72F072D79021100A957A4 /* KeypadLockInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeypadLockInfoView.swift; sourceTree = "<group>"; };
@@ -520,6 +526,9 @@
 				8D379CD22ED6527200F79D1C /* RedialNameDisplayPickerItems.swift */,
 				8D94AA932EF0B2E400F23F14 /* CellLineSelectionPickerItems.swift */,
 				8D94AA992EF0B71A00F23F14 /* RedialDuringCallPickerItems.swift */,
+				8D9587812F5F633300A5D3D1 /* BrightnessContrastAdjustmentPickerItems.swift */,
+				8D9587832F5F63AF00A5D3D1 /* DisplayColorThemesPickerItems.swift */,
+				8D9587852F5F66C300A5D3D1 /* ClockDisplayPickerItems.swift */,
 			);
 			path = "Pickers and Picker Items";
 			sourceTree = "<group>";
@@ -1014,6 +1023,7 @@
 				8D32A5102D44407D00F606FC /* CordlessFrequency.swift in Sources */,
 				8D38ED682CAF2E9600CCC422 /* PhoneSpecialFeaturesView.swift in Sources */,
 				8DA72F062D78FEDA00A957A4 /* PhoneOutgoingCallProtectionView.swift in Sources */,
+				8D9587822F5F633300A5D3D1 /* BrightnessContrastAdjustmentPickerItems.swift in Sources */,
 				8DA844D62B72E1D7006CBCA7 /* ChargerDetailView.swift in Sources */,
 				8DA844D02B72E1D7006CBCA7 /* CameraCoordinator.swift in Sources */,
 				8D38ED952CAF3DE900CCC422 /* HandsetAudioView.swift in Sources */,
@@ -1024,6 +1034,7 @@
 				8DC964E02D0B6C9E00984466 /* AnalogPhoneConnectedToPickerItems.swift in Sources */,
 				8D38ED752CAF32F700CCC422 /* PhoneMOHView.swift in Sources */,
 				8D38ED792CAF35FE00CCC422 /* PhoneMessagingView.swift in Sources */,
+				8D9587842F5F63AF00A5D3D1 /* DisplayColorThemesPickerItems.swift in Sources */,
 				8DDE4E4B2CFFAA4D000C3D46 /* HandsetNumberDigitView.swift in Sources */,
 				8D3625A32D9346D300CA3D93 /* AboutPhoneGradesView.swift in Sources */,
 				8D2BAF552CD188740016C61E /* ChargeContactTypePickerItems.swift in Sources */,
@@ -1050,6 +1061,7 @@
 				8D8555522C98D2C1006A14E3 /* AboutDisplayTypesView.swift in Sources */,
 				8DA844F12B72E1D7006CBCA7 /* PhonePhotoManager.swift in Sources */,
 				8DA844DE2B72E1D7006CBCA7 /* AntennaInfoView.swift in Sources */,
+				8D9587862F5F66C300A5D3D1 /* ClockDisplayPickerItems.swift in Sources */,
 				8D6861E22F314A1D00DDBC2C /* JoinLeaveTonePickerItems.swift in Sources */,
 				8DA844E92B72E1D7006CBCA7 /* Phone.swift in Sources */,
 				8D20E37D2C45BB7C0016800C /* RingtoneInfoView.swift in Sources */,
