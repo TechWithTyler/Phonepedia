@@ -11,15 +11,15 @@ import SwiftUI
 import SheftAppsStylishUI
 
 struct BaseDisplayBacklightButtonsView: View {
-
+    
     // MARK: - Properties - Objects
-
+    
     @Bindable var phone: Phone
-
+    
     @EnvironmentObject var dialogManager: DialogManager
-
+    
     // MARK: - Body
-
+    
     var body: some View {
         Section("Buttons") {
             if phone.isCordless || phone.cordedPhoneType == 0 || phone.basePhoneType > 0 {
@@ -271,7 +271,7 @@ struct BaseDisplayBacklightButtonsView: View {
             }
         }
     }
-
+    
 }
 
 // MARK: - Preview
