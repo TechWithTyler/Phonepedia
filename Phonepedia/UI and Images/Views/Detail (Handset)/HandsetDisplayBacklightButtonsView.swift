@@ -12,15 +12,15 @@ import SwiftUI
 import SheftAppsStylishUI
 
 struct HandsetDisplayBacklightButtonsView: View {
-
+    
     // MARK: - Properties - Objects
-
+    
     @Bindable var handset: CordlessHandset
-
+    
     @EnvironmentObject var dialogManager: DialogManager
-
+    
     // MARK: - Body
-
+    
     var body: some View {
         if let phone = handset.phone {
             Section("Buttons") {
@@ -64,7 +64,7 @@ struct HandsetDisplayBacklightButtonsView: View {
                         PhoneButtonLegendItem(button: .off, colorLayer: handset.talkOffColorLayer)
                     }
                 }
-
+                
                 if handset.softKeys > 0 && handset.talkOffButtonType != 4 && (phone.isMultiline || phone.baseBluetoothCellPhonesSupported > 0) {
                     Picker("Line Buttons", selection: $handset.lineButtons) {
                         Text("Physical").tag(0)
@@ -107,10 +107,10 @@ struct HandsetDisplayBacklightButtonsView: View {
                                 handset.setKeyBacklightColorToDisplayBacklight()
                             }
                         }
-                    Picker("Button Backlight Layer", selection: $handset.keyBacklightLayer) {
-                        Text("Background").tag(0)
-                        Text("Foreground").tag(1)
-                    }
+                        Picker("Button Backlight Layer", selection: $handset.keyBacklightLayer) {
+                            Text("Background").tag(0)
+                            Text("Foreground").tag(1)
+                        }
                         VStack {
                             Text("Button Backlight Example")
                             Image(systemName: "5.square.fill")
@@ -317,7 +317,7 @@ struct HandsetDisplayBacklightButtonsView: View {
             Text(cordlessDeviceMissingPhoneText)
         }
     }
-
+    
 }
 
 // MARK: - Preview
