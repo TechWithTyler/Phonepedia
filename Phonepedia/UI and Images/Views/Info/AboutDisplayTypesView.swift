@@ -23,7 +23,7 @@ struct AboutDisplayTypesView: View {
             List {
                 Text("A phone's display, if any, can be one of several types. Expand each section to learn about each one.")
                 DisclosureGroup {
-                    Text("A segmented monochrome display is a basic LCD display with a font reminiscent of a 7-segment display, although these kinds of displays often have more segments. These displays are often found on very low-end phones and rarely have soft keys.")
+                    Text("A segmented monochrome display is a basic LCD display with a font reminiscent of a 7-segment or 14-segment display. These displays are often found on very low-end phones and rarely have soft keys.")
                 } label: {
                     Text("Segmented Monochrome")
                 }
@@ -43,7 +43,7 @@ struct AboutDisplayTypesView: View {
                     Text("Color")
                 }
                 DisclosureGroup {
-                    Text("An LED message counter is made up of 1 or 2 7-segment LED displays and are used to display the number of answering system messages, the ringer/speaker volume level while adjusting, and other info. For example, it might display the letter A to indicate the answering system is answering a call, F to indicate the answering system memory is full, or CL to indicate the clock needs to be set. This type of display makes it easy to see how many messages you have at a glance.")
+                    Text("An LED message counter is made up of 1 or 2 7-segment LED displays and is used to display the number of answering system messages, the ringer/speaker volume level while adjusting, and other info. For example, it might display the letter A to indicate the answering system is answering a call, F to indicate the answering system memory is full, or CL to indicate the clock needs to be set. This type of display makes it easy to see how many messages you have at a glance.")
                 } label: {
                     Text("LED Message Counter")
                 }
