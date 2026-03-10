@@ -118,7 +118,7 @@ extension Phone {
 
         // MARK: - Properties - Strings
 
-        // The name of the frequency to display in the frequency list.
+        // The name of the frequency to display in the frequency list. "Separator" tells the picker to insert a separator instead of a menu item.
         var name: String {
             switch self {
             case .separator1, .separator2, .separator3, .separator4, .separator5:
@@ -257,7 +257,10 @@ extension Phone {
                 // Latin America (Argentina, Chile, Colombia, Peru, Ecuador, Uruguay, Paraguay, Bolivia, Venezuela, Costa Rica, Panama, El Salvador, Guatemala, Honduras)
                 return .latinAmericaDECT
             case /*Europe*/ "GB", "IE", "FR", "DE", "ES", "NL", "SE", "NO", "DK", "FI", "BE", "CH", "AT", "PT", "GR", "CZ", "PL", "HU", "RO", "SK", "SI", "EE", "LV", "LT", "BG", "HR", "CY", "MT", "IS", "LU", "LI", "RU", "UA", "BY", "KZ", "MD", "GE", "AM", "AZ", "ZA", /*Africa*/ "EG", "MA", "DZ", "TN", "LY", /*Asia*/ "IN", "SG", "MY", "CN", "HK", "MO", "AE", "QA", "KW", "BH", "OM", "JO", "LB", /*Oceania*/ "AU", "NZ":
-                // Europe (United Kingdom, Ireland, France, Germany, Spain, Netherlands, Sweden, Norway, Denmark, Finland, Belgium, Switzerland, Austria, Portugal, Greece, Czech Republic, Poland, Hungary, Romania, Slovakia, Slovenia, Estonia, Latvia, Lithuania, Bulgaria, Croatia, Cyprus, Malta, Iceland, Luxembourg, Liechtenstein, Russia, Ukraine, Belarus, Kazakhstan, Moldova, Georgia, Armenia, Azerbaijan), Africa (South Africa, Egypt, Morocco, Algeria, Tunisia, Libya), Asia (India, Singapore, Malaysia, China, Hong Kong, Macau, United Arab Emirates, Qatar, Kuwait, Bahrain, Oman, Jordan, Lebanon), Oceania (Australia, New Zealand)
+                // Europe (United Kingdom, Ireland, France, Germany, Spain, Netherlands, Sweden, Norway, Denmark, Finland, Belgium, Switzerland, Austria, Portugal, Greece, Czech Republic, Poland, Hungary, Romania, Slovakia, Slovenia, Estonia, Latvia, Lithuania, Bulgaria, Croatia, Cyprus, Malta, Iceland, Luxembourg, Liechtenstein, Russia, Ukraine, Belarus, Kazakhstan, Moldova, Georgia, Armenia, Azerbaijan)
+                // Africa (South Africa, Egypt, Morocco, Algeria, Tunisia, Libya)
+                // Asia (India, Singapore, Malaysia, China, Hong Kong, Macau, United Arab Emirates, Qatar, Kuwait, Bahrain, Oman, Jordan, Lebanon)
+                // Oceania (Australia, New Zealand)
                 return .etsiDECT
             default:
                 return .unknown // Unknown region/unknown default cordless phone frequency for current region
