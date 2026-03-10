@@ -143,6 +143,10 @@ struct PhoneGeneralView: View {
                 Text(Phone.PhoneType.cellularHandset.rawValue).tag(2)
             }
         }
+        if phone.hasBaseAccessibleAnsweringSystem {
+            Toggle("Has Voice-Guided Setup", isOn: $phone.voiceGuidedSetup)
+            InfoText("Voice-guided setup gives the user spoken instructions to help them set up the phone, either when first plugging in the base or later by selecting a menu option/pressing a sequence of buttons.")
+        }
     }
 
     @ViewBuilder

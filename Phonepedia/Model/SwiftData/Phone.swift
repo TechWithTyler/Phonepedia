@@ -292,6 +292,8 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
 
     var hasAnsweringSystem: Int = 3
 
+    var voiceGuidedSetup: Bool = false
+
     var answeringSystemType: Int = 1
 
     var allMessageDeletion: Int = 1
