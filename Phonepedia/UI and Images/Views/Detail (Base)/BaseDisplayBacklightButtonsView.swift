@@ -11,15 +11,15 @@ import SwiftUI
 import SheftAppsStylishUI
 
 struct BaseDisplayBacklightButtonsView: View {
-    
+
     // MARK: - Properties - Objects
-    
+
     @Bindable var phone: Phone
-    
+
     @EnvironmentObject var dialogManager: DialogManager
-    
+
     // MARK: - Body
-    
+
     var body: some View {
         Section("Buttons") {
             if phone.isCordless || phone.cordedPhoneType == 0 || phone.basePhoneType > 0 {
@@ -205,37 +205,7 @@ struct BaseDisplayBacklightButtonsView: View {
                         phone.baseNavigatorKeyTypeChanged(oldValue: oldValue, newValue: newValue)
                     }
                     if phone.baseNavigatorKeyType > 0 {
-                        VStack(alignment: .center) {
-                            Text("Navigation Button Example")
-                            ZStack {
-                                Circle()
-                                    .fill(Color.secondary.opacity(0.15))
-                                    .frame(width: 100, height: 100)
-                                VStack(spacing: 20) {
-                                    Image(systemName: "arrowtriangle.up.fill")
-                                        .accessibilityLabel("Up")
-                                    HStack(alignment: .center, spacing: 20) {
-                                        if phone.baseNavigatorKeyType == 3 {
-                                            Image(systemName: "arrowtriangle.left.fill")
-                                                .accessibilityLabel("Left")
-                                        }
-                                        if phone.baseNavigatorKeyCenterButton > 0 {
-                                            Image(systemName: "circle.fill")
-                                                .font(.system(size: 18))
-                                                .accessibilityLabel("Center Button")
-                                        }
-                                        if phone.baseNavigatorKeyType == 3 {
-                                            Image(systemName: "arrowtriangle.right.fill")
-                                                .accessibilityLabel("Right")
-                                        }
-                                    }
-                                    Image(systemName: "arrowtriangle.down.fill")
-                                        .accessibilityLabel("Down")
-                                }
-                                .font(.system(size: 18))
-                                .foregroundStyle(Color.primary)
-                            }
-                        }
+                        NavigationButtonExampleView(showLeftRight: phone.baseNavigatorKeyType == 3, showCenterButton: phone.baseNavigatorKeyCenterButton > 0)
                     }
                     if phone.baseNavigatorKeyType > 0 {
                         Picker("Base Navigation Button Center Button", selection: $phone.baseNavigatorKeyCenterButton) {
@@ -271,7 +241,7 @@ struct BaseDisplayBacklightButtonsView: View {
             }
         }
     }
-    
+
 }
 
 // MARK: - Preview

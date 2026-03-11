@@ -110,6 +110,7 @@
 		8D9587842F5F63AF00A5D3D1 /* DisplayColorThemesPickerItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9587832F5F63AF00A5D3D1 /* DisplayColorThemesPickerItems.swift */; };
 		8D9587862F5F66C300A5D3D1 /* ClockDisplayPickerItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9587852F5F66C300A5D3D1 /* ClockDisplayPickerItems.swift */; };
 		8D95997D2C22212400FEED40 /* SchemaVersioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D95997C2C22212400FEED40 /* SchemaVersioning.swift */; };
+		8DA03DCA2F61E74C00DC41A9 /* NavigationButtonExampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA03DC92F61E74C00DC41A9 /* NavigationButtonExampleView.swift */; };
 		8DA72F062D78FEDA00A957A4 /* PhoneOutgoingCallProtectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA72F052D78FEDA00A957A4 /* PhoneOutgoingCallProtectionView.swift */; };
 		8DA72F082D79021100A957A4 /* KeypadLockInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA72F072D79021100A957A4 /* KeypadLockInfoView.swift */; };
 		8DA72F0A2D79042700A957A4 /* OneTouchEmergencyCallingInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA72F092D79042700A957A4 /* OneTouchEmergencyCallingInfoView.swift */; };
@@ -318,6 +319,7 @@
 		8D9587832F5F63AF00A5D3D1 /* DisplayColorThemesPickerItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayColorThemesPickerItems.swift; sourceTree = "<group>"; };
 		8D9587852F5F66C300A5D3D1 /* ClockDisplayPickerItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockDisplayPickerItems.swift; sourceTree = "<group>"; };
 		8D95997C2C22212400FEED40 /* SchemaVersioning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemaVersioning.swift; sourceTree = "<group>"; };
+		8DA03DC92F61E74C00DC41A9 /* NavigationButtonExampleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationButtonExampleView.swift; sourceTree = "<group>"; };
 		8DA72F052D78FEDA00A957A4 /* PhoneOutgoingCallProtectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneOutgoingCallProtectionView.swift; sourceTree = "<group>"; };
 		8DA72F072D79021100A957A4 /* KeypadLockInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeypadLockInfoView.swift; sourceTree = "<group>"; };
 		8DA72F092D79042700A957A4 /* OneTouchEmergencyCallingInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneTouchEmergencyCallingInfoView.swift; sourceTree = "<group>"; };
@@ -710,6 +712,7 @@
 				8D842D5A2D3F060F00F50F32 /* ExampleAudioView.swift */,
 				8D35D98E2F10590A00E49D8E /* PhoneCollectionAchievementRow.swift */,
 				8D41FE502F22CCB800281527 /* ColorStack.swift */,
+				8DA03DC92F61E74C00DC41A9 /* NavigationButtonExampleView.swift */,
 			);
 			path = "Child Views";
 			sourceTree = "<group>";
@@ -1030,6 +1033,7 @@
 				8DA844E22B72E1D7006CBCA7 /* PhoneImage.swift in Sources */,
 				8DC69A672EC7CD8C00BFCA58 /* PhonePlaceInCollectionPicker.swift in Sources */,
 				8DBCB7EB2D4ACD2F00878A1F /* PhonebookGroupInfoView.swift in Sources */,
+				8DA03DCA2F61E74C00DC41A9 /* NavigationButtonExampleView.swift in Sources */,
 				8DBB95422CA48B84002E57EC /* DialogManager.swift in Sources */,
 				8DC964E02D0B6C9E00984466 /* AnalogPhoneConnectedToPickerItems.swift in Sources */,
 				8D38ED752CAF32F700CCC422 /* PhoneMOHView.swift in Sources */,

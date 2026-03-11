@@ -260,37 +260,7 @@ struct HandsetDisplayBacklightButtonsView: View {
                         InfoText("The handset has 2 soft keys (left and right) below the display, with the navigation button's center button being used as the middle soft key instead of the middle soft key being in-between the left and right soft keys.")
                     }
                     if handset.navigatorKeyType > 0 && handset.navigatorKeyType < 4 {
-                        VStack(alignment: .center) {
-                            Text("Navigation Button Example")
-                            ZStack {
-                                Circle()
-                                    .fill(Color.secondary.opacity(0.15))
-                                    .frame(width: 100, height: 100)
-                                VStack(spacing: 20) {
-                                    Image(systemName: "arrowtriangle.up.fill")
-                                        .accessibilityLabel("Up")
-                                    HStack(alignment: .center, spacing: 20) {
-                                        if handset.navigatorKeyLeftRight {
-                                            Image(systemName: "arrowtriangle.left.fill")
-                                                .accessibilityLabel("Left")
-                                        }
-                                        if handset.navigatorKeyCenterButton > 0 {
-                                            Image(systemName: "circle.fill")
-                                                .font(.system(size: 18))
-                                                .accessibilityLabel("Center Button")
-                                        }
-                                        if handset.navigatorKeyLeftRight {
-                                            Image(systemName: "arrowtriangle.right.fill")
-                                                .accessibilityLabel("Right")
-                                        }
-                                    }
-                                    Image(systemName: "arrowtriangle.down.fill")
-                                        .accessibilityLabel("Down")
-                                }
-                                .font(.system(size: 18))
-                                .foregroundStyle(Color.primary)
-                            }
-                        }
+                        NavigationButtonExampleView(showLeftRight: handset.navigatorKeyLeftRight, showCenterButton: handset.navigatorKeyCenterButton > 0)
                     }
                     if handset.sideVolumeButtons {
                         Toggle("Navigation Button Up/Down for Volume", isOn: $handset.navigatorKeyUpDownVolume)
