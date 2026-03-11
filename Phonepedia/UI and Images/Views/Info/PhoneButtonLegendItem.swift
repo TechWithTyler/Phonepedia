@@ -129,6 +129,7 @@ struct PhoneButtonLegendItem: View {
                     .foregroundStyle(.secondary)
             }
         }
+        .dynamicTypeSize(.medium)
     }
 
     // MARK: - Talk/Home Button

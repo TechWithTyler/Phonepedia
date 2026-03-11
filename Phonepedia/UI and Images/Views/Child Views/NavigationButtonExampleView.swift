@@ -50,6 +50,7 @@ struct NavigationButtonExampleView: View {
                 .foregroundStyle(Color.primary)
             }
         }
+        .dynamicTypeSize(.medium)
     }
 
     // MARK: - Navigation Button Shape

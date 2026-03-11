@@ -55,6 +55,7 @@ struct SoftKeyExplanationView: View {
                         Image(systemName: "minus.rectangle")
                             .font(.system(size: 24))
                     }
+                    .dynamicTypeSize(.medium)
                     .frame(width: 60)
                     .accessibilityElement(children: .ignore)
                     .accessibilityLabel(softKeyAccessibilityDescription(placement: .bottom, marking: .dash, textCase: .uppercase, hasTextBackground: false))
@@ -64,6 +65,7 @@ struct SoftKeyExplanationView: View {
                         Image(systemName: "dot.square")
                             .font(.system(size: 24))
                     }
+                    .dynamicTypeSize(.medium)
                     .frame(width: 60)
                     .accessibilityElement(children: .ignore)
                     .accessibilityLabel(softKeyAccessibilityDescription(placement: .bottom, marking: .dot, textCase: .uppercase, hasTextBackground: false))
@@ -78,6 +80,7 @@ struct SoftKeyExplanationView: View {
                         Image(systemName: "minus.rectangle")
                             .font(.system(size: 24))
                     }
+                    .dynamicTypeSize(.medium)
                     .frame(width: 60)
                     .accessibilityElement(children: .ignore)
                     .accessibilityLabel(softKeyAccessibilityDescription(placement: .bottom, marking: .dash, textCase: .uppercase, hasTextBackground: true))
@@ -90,6 +93,7 @@ struct SoftKeyExplanationView: View {
                         Image(systemName: "rectangle")
                             .font(.system(size: 24))
                     }
+                    .dynamicTypeSize(.medium)
                     .frame(width: 80)
                     .accessibilityElement(children: .ignore)
                     .accessibilityLabel(softKeyAccessibilityDescription(placement: .bottom, marking: .none, textCase: .capitalized, hasTextBackground: false))
@@ -99,6 +103,7 @@ struct SoftKeyExplanationView: View {
                         Image(systemName: "minus.rectangle")
                             .font(.system(size: 24))
                     }
+                    .dynamicTypeSize(.medium)
                     .accessibilityElement(children: .ignore)
                     .accessibilityLabel(softKeyAccessibilityDescription(placement: .right, marking: .dash, textCase: .capitalized, hasTextBackground: false))
                     Divider()
@@ -107,6 +112,7 @@ struct SoftKeyExplanationView: View {
                             .font(.system(size: 24))
                         Text("Messages")
                     }
+                    .dynamicTypeSize(.medium)
                     .accessibilityElement(children: .ignore)
                     .accessibilityLabel(softKeyAccessibilityDescription(placement: .left, marking: .dash, textCase: .capitalized, hasTextBackground: false))
                 }
