@@ -18,6 +18,16 @@ struct NavigationButtonExampleView: View {
 
     let showCenterButton: Bool
 
+    // MARK: - Properties - Floats
+
+    var upDownSpacing: CGFloat {
+        return showCenterButton || showLeftRight ? 15 : 20
+    }
+
+    var leftCenterRightSpacing: CGFloat {
+        return showCenterButton ? 15 : 50
+    }
+
     // MARK: - Body
 
     var body: some View {
@@ -25,10 +35,10 @@ struct NavigationButtonExampleView: View {
             Text("Navigation Button Example")
             ZStack {
                 shape
-                VStack(spacing: showCenterButton || showLeftRight ? 15 : 20) {
+                VStack(spacing: upDownSpacing) {
                     Image(systemName: "arrowtriangle.up.fill")
                         .accessibilityLabel("Up")
-                    HStack(alignment: .center, spacing: showCenterButton ? 15 : 50) {
+                    HStack(alignment: .center, spacing: leftCenterRightSpacing) {
                         if showLeftRight {
                             Image(systemName: "arrowtriangle.left.fill")
                                 .accessibilityLabel("Left")
@@ -51,6 +61,8 @@ struct NavigationButtonExampleView: View {
             }
         }
         .dynamicTypeSize(.medium)
+        .animation(.linear, value: showLeftRight)
+        .animation(.linear, value: showCenterButton)
     }
 
     // MARK: - Navigation Button Shape
