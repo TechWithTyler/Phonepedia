@@ -13,6 +13,10 @@ import SheftAppsStylishUI
 
 struct SoftKeyExplanationView: View {
 
+    // MARK: - Properties - System Theme
+
+    @Environment(\.colorScheme) var systemTheme
+
     // MARK: - Properties - Strings
 
     enum SoftKeyPlacement: String {
@@ -72,10 +76,10 @@ struct SoftKeyExplanationView: View {
                     Divider()
                     VStack {
                         Text("MENU")
-                            .foregroundStyle(.white)
+                            .foregroundStyle(systemTheme == .dark ? .black : .white)
                             .background(
                                 Rectangle()
-                                    .fill(.black)
+                                    .fill(systemTheme == .dark ? .white : .black)
                             )
                         Image(systemName: "minus.rectangle")
                             .font(.system(size: 24))
