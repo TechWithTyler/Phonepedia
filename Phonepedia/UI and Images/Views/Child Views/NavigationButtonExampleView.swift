@@ -14,9 +14,14 @@ struct NavigationButtonExampleView: View {
 
     // MARK: - Properties - Booleans
 
+    // Whether the left/right arrows should be displayed.
     let showLeftRight: Bool
 
+    // Whether the center button should be displayed.
     let showCenterButton: Bool
+
+    // Whether the navigation button is a joystick, which is represented by showing the center button as a circle in a circle.
+    let isJoystick: Bool
 
     // MARK: - Properties - Floats
 
@@ -25,8 +30,12 @@ struct NavigationButtonExampleView: View {
     }
 
     var leftCenterRightSpacing: CGFloat {
-        return showCenterButton ? 15 : 50
+        return showCenterButton || isJoystick ? 15 : 50
     }
+
+    // MARK: - Properties - Colors
+
+    let shapeColor: Color = .secondary.opacity(0.15)
 
     // MARK: - Body
 
@@ -43,8 +52,8 @@ struct NavigationButtonExampleView: View {
                             Image(systemName: "arrowtriangle.left.fill")
                                 .accessibilityLabel("Left")
                         }
-                        if showCenterButton {
-                            Image(systemName: "circle.fill")
+                        if showCenterButton || isJoystick {
+                            Image(systemName: isJoystick ? "circle.circle.fill" : "circle.fill")
                                 .font(.system(size: 18))
                                 .accessibilityLabel("Center Button")
                         }
@@ -71,30 +80,39 @@ struct NavigationButtonExampleView: View {
     var shape: some View {
         if showLeftRight {
             Circle()
-                .fill(Color.secondary.opacity(0.15))
+                .fill(shapeColor)
                 .frame(width: 100, height: 100)
         } else {
             Capsule()
-                .fill(Color.secondary.opacity(0.15))
+                .fill(shapeColor)
                 .frame(width: 50, height: 100)
         }
     }
+
 }
 
 // MARK: - Preview
 
 #Preview("Up/Down") {
-    NavigationButtonExampleView(showLeftRight: false, showCenterButton: false)
+    NavigationButtonExampleView(showLeftRight: false, showCenterButton: false, isJoystick: false)
 }
 
-#Preview("Up/Down/Left/Right") {
-    NavigationButtonExampleView(showLeftRight: true, showCenterButton: false)
+#Preview("Up/Down/Left/Right Button") {
+    NavigationButtonExampleView(showLeftRight: true, showCenterButton: false, isJoystick: false)
+}
+
+#Preview("Up/Down/Left/Right Joystick") {
+    NavigationButtonExampleView(showLeftRight: true, showCenterButton: false, isJoystick: true)
 }
 
 #Preview("Up/Down/Center") {
-    NavigationButtonExampleView(showLeftRight: false, showCenterButton: true)
+    NavigationButtonExampleView(showLeftRight: false, showCenterButton: true, isJoystick: false)
 }
 
-#Preview("Up/Down/Left/Right/Center") {
-    NavigationButtonExampleView(showLeftRight: true, showCenterButton: true)
+#Preview("Up/Down/Left/Right/Center Button") {
+    NavigationButtonExampleView(showLeftRight: true, showCenterButton: true, isJoystick: false)
+}
+
+#Preview("Up/Down/Left/Right/Center Joystick") {
+    NavigationButtonExampleView(showLeftRight: true, showCenterButton: true, isJoystick: true)
 }

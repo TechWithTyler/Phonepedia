@@ -260,7 +260,7 @@ struct HandsetDisplayBacklightButtonsView: View {
                         InfoText("The handset has 2 soft keys (left and right) below the display, with the navigation button's center button being used as the middle soft key instead of the middle soft key being in-between the left and right soft keys.")
                     }
                     if handset.navigatorKeyType > 0 && handset.navigatorKeyType < 4 {
-                        NavigationButtonExampleView(showLeftRight: handset.navigatorKeyLeftRight, showCenterButton: handset.navigatorKeyCenterButton > 0)
+                        NavigationButtonExampleView(showLeftRight: handset.navigatorKeyLeftRight, showCenterButton: handset.navigatorKeyCenterButton > 0, isJoystick: handset.navigatorKeyType == 3)
                     }
                     if handset.sideVolumeButtons {
                         Toggle("Navigation Button Up/Down for Volume", isOn: $handset.navigatorKeyUpDownVolume)

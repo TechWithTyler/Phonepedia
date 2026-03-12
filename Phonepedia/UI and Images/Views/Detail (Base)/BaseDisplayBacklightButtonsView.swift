@@ -205,7 +205,7 @@ struct BaseDisplayBacklightButtonsView: View {
                         phone.baseNavigatorKeyTypeChanged(oldValue: oldValue, newValue: newValue)
                     }
                     if phone.baseNavigatorKeyType > 0 {
-                        NavigationButtonExampleView(showLeftRight: phone.baseNavigatorKeyType == 3, showCenterButton: phone.baseNavigatorKeyCenterButton > 0)
+                        NavigationButtonExampleView(showLeftRight: phone.baseNavigatorKeyType == 3, showCenterButton: phone.baseNavigatorKeyCenterButton > 0, isJoystick: false)
                     }
                     if phone.baseNavigatorKeyType > 0 {
                         Picker("Base Navigation Button Center Button", selection: $phone.baseNavigatorKeyCenterButton) {
