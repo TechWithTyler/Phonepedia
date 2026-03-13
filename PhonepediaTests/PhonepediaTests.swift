@@ -39,6 +39,12 @@ final class PhonepediaTests: XCTestCase {
             model: "KX-TG",
             numberOfIncludedCordlessHandsets: 2
         )
+        let cordedCordlessPhone = makePhone(
+            brand: "AT&T",
+            model: "CL82413",
+            numberOfIncludedCordlessHandsets: 2,
+            hasCordedReceiver: true
+        )
         let threeHandsetPhone = makePhone(
             brand: "Panasonic",
             model: "KX-TGA",
@@ -55,11 +61,11 @@ final class PhonepediaTests: XCTestCase {
         )
         
         let filteredPhones = PhoneFilterManager.filter(
-            [twoHandsetPhone, threeHandsetPhone, cordedPhone],
+            [twoHandsetPhone, cordedCordlessPhone, threeHandsetPhone, cordedPhone],
             with: criteria
         )
         
-        XCTAssertEqual(filteredPhones.map(\.model), ["KX-TG"])
+        XCTAssertEqual(filteredPhones.map(\.model), ["KX-TG", "CL82413"])
     }
     
     func testFilter_cordedType_ignoresCordlessDeviceCountFilter() {
@@ -125,6 +131,30 @@ final class PhonepediaTests: XCTestCase {
         
         XCTAssertEqual(filteredPhones.map(\.model), ["WiFi One", "WiFi Two"])
     }
+
+    func testFilter_activeStatus_returnsOnlyMatchingPhones() {
+        let activePhone = makePhone(
+            brand: "AT&T",
+            model: "Active",
+            storageOrSetup: 1
+        )
+        let inactivePhone = makePhone(
+            brand: "Panasonic",
+            model: "Inactive",
+            storageOrSetup: 2
+        )
+        let filteredActivePhones = PhoneFilterManager.filter(
+            [activePhone, inactivePhone],
+            with: PhoneFilterManager.Criteria(activeStatus: 1)
+        )
+        let filteredInactivePhones = PhoneFilterManager.filter(
+            [activePhone, inactivePhone],
+            with: PhoneFilterManager.Criteria(activeStatus: 2)
+        )
+
+        XCTAssertEqual(filteredActivePhones.map(\.model), ["Active"])
+        XCTAssertEqual(filteredInactivePhones.map(\.model), ["Inactive"])
+    }
     
     private func makePhone(
         brand: String,
@@ -132,13 +162,17 @@ final class PhonepediaTests: XCTestCase {
         basePhoneType: Int = 0,
         hasAnsweringSystem: Int = 3,
         numberOfIncludedCordlessHandsets: Int = 0,
-        storageOrSetup: Int = 0
+        storageOrSetup: Int = 0,
+        hasCordedReceiver: Bool = false
     ) -> Phone {
         let phone = Phone(brand: brand, model: model)
         phone.basePhoneType = basePhoneType
         phone.hasAnsweringSystem = hasAnsweringSystem
         phone.numberOfIncludedCordlessHandsets = numberOfIncludedCordlessHandsets
         phone.storageOrSetup = storageOrSetup
+        if hasCordedReceiver {
+            phone.cordedReceiverMainColorAlpha = 1
+        }
         return phone
     }
 }
