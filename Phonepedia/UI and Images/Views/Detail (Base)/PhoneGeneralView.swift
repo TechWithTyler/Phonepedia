@@ -92,9 +92,9 @@ struct PhoneGeneralView: View {
         PhonePlaceInCollectionPicker(phone: phone)
         if phone.landlineConnectionType != 4 && phone.basePhoneType == 0 && !phone.isBusinessCordedCordlessSystem {
             Picker("Grade", selection: $phone.grade) {
-                Text("1 - Residential/Small Business").tag(0)
+                Text("1 - Residential/Small-Business").tag(0)
                 Text("2 - Hotel").tag(2)
-                Text("3 - Large Business").tag(1)
+                Text("3 - Large-Business").tag(1)
             }
             InfoButton("About Phone Grades…") {
                 dialogManager.showingAboutPhoneGrades = true
