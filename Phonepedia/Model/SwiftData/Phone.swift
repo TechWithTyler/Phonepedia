@@ -752,6 +752,12 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
         return !isCordless && (cordedPhoneType == 2 || cordedPhoneType == 3)
     }
 
+    // Whether the phone is a slim corded phone with the ringer and other essential circuitry in the base.
+    @Transient
+    var isSlimCordedWithBaseCircuitry: Bool {
+        return isSlimCorded && cordedRingerLocation == 0
+    }
+
     // Whether the keypad is in the corded receiver or the phone is base-less.
     @Transient
     var keypadInReceiver: Bool {

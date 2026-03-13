@@ -401,7 +401,7 @@ In most cases, if the base has a charge light/display message, the completion of
             Toggle("Has Dual Receivers", isOn: $phone.hasDualReceivers)
             InfoText("A corded phone with dual receivers allows 2 people to use the phone at the same time without having to connect 2 separate phones to the same line. These kinds of phones are often used by those requiring a language interpreter.")
         }
-        if phone.isSlimCorded {
+        if phone.isSlimCordedWithBaseCircuitry {
             Picker("\(phone.cordedPhoneType == 2 ? "Keypad" : "Rotary Dial") Location", selection: $phone.dialLocation) {
                 Text("Base").tag(0)
                 Text("Receiver").tag(1)
@@ -430,8 +430,8 @@ In most cases, if the base has a charge light/display message, the completion of
             }
             BoneConductionEarpieceInfoView()
             Picker("Switch Hook", selection: $phone.switchHookType) {
-                Text(phone.isSlimCorded ? "Press (On Base)" : "Press").tag(0)
-                if phone.isSlimCorded {
+                Text(phone.isSlimCordedWithBaseCircuitry ? "Press (On Base)" : "Press").tag(0)
+                if phone.isSlimCordedWithBaseCircuitry {
                     Text("Press (On Receiver)").tag(1)
                 }
                 Text("Magnetic").tag(2)
