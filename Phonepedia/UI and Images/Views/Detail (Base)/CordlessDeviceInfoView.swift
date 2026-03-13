@@ -100,7 +100,7 @@ struct CordlessDeviceInfoView: View {
                 .accessibilityIdentifier("AddHandsetButton")
                 .disabled(phone.maxOrTooManyCordlessDevices)
                 if phone.maxOrTooManyCordlessDevices {
-                    WarningText("You currently have the maximum number of cordless devices (\(phone.maxCordlessHandsets)) for this \(phone.brand) \(phone.model). If you're trying to add another cordless device, make sure you've specified the correct number of maximum cordless devices on the General page.")
+                    WarningText("You currently have the maximum number of cordless devices the base of this \(phone.brand) \(phone.model) allows (\(phone.maxCordlessHandsets)). If you're trying to add another cordless device, make sure you've specified the correct number of maximum cordless devices on the General page.")
                 }
                 Button(role: .destructive) {
                     dialogManager.showingDeleteAllHandsets = true

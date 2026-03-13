@@ -197,7 +197,7 @@ struct PhoneGeneralView: View {
                     .onChange(of: phone.maxCordlessHandsets) { oldValue, newValue in
                         phone.maxCordlessHandsetsChanged(oldValue: oldValue, newValue: newValue)
                     }
-                InfoText("If the phone uses the \"security codes must match\" method and the base doesn't know or care how many cordless handsets are being used with it, set this to -1. Press the button below to learn more about the differences between registration and \"security codes must match\".\nLarger DECT business cordless phone systems are made up of multiple bases, called multi-cell bases. Unlike a regular cordless phone handset being able to register to multiple bases, these bases all work together and expands the maximum number of cordless devices that can be registered to the system. Each base is called a cell.")
+                InfoText("If the phone uses the \"security codes must match\" method and the base doesn't know or care how many cordless handsets are being used with it, set this to \"Unlimited\". Press the button below to learn more about the differences between registration and \"security codes must match\".\nLarger DECT business cordless phone systems are made up of multiple bases, called multi-cell bases. Unlike a regular cordless phone handset being able to register to multiple bases, these bases all work together and expands the maximum number of cordless devices that can be registered to the system. Each base is called a cell.")
             }
             InfoButton("Registration/Security Code Explanation…") {
                 dialogManager.showingRegistrationExplanation = true
@@ -394,7 +394,7 @@ In most cases, if the base has a charge light/display message, the completion of
         }
         if phone.grade == 0 && phone.isCordlessOrPushButtonDesk {
             Toggle("Supports PBX-Style Features Without PBX", isOn: $phone.supportsPBXFeatures)
-            InfoText("Some small-business phones can communicate with other compatible phones on the same line without a PBX. Each phone sends and receives audio signals on specific frequency bands over the analog line (think wireless but wired), allowing them to detect calls or intercom requests from each other. This provides PBX-like features such as intercom, even without a PBX. Extension numbers are set manually on each phone.\nThe more distance between phones, the weaker the signal can get, which can prevent these features from working.\nThis isn't necessary for cordless phones, as most multi-handset systems already have these features. In both cases, going off-hook picks up an outside line, not an internal line.")
+            InfoText("Some small-business phones can communicate with other compatible phones on the same line without a PBX. Each phone sends and receives audio signals on specific frequency bands over the analog line (think analog wireless but wired), allowing them to detect calls or intercom requests from each other. This provides PBX-like features such as intercom, even without a PBX. Extension numbers are set manually on each phone.\nThe more distance between phones, the weaker the signal can get, which can prevent these features from working.\nThis isn't necessary for cordless phones unless more handsets are needed than a single base can support, as most multi-handset systems already have these features. In both cases, going off-hook picks up an outside line, not an internal line.")
 
         }
         if phone.cordedPhoneType == 0 {
@@ -413,7 +413,7 @@ In most cases, if the base has a charge light/display message, the completion of
             Text("Volume Button(s)").tag(2)
         }
         if phone.cordedReceiverVolumeAdjustmentType == 0 {
-            WarningText("If the corded receiver volume isn't adjustable and you find it too loud, you'll need to adjust your line's incoming volume. If you can't adjust it, adding a series of resistors between the phone and jack is recommended (consult a professional to build this for you if necessary). If the corded receiver's cord is removable, you can replace it with one that has a volume control.")
+            WarningText("If the corded receiver volume isn't adjustable and you find it too loud, you'll need to adjust your line's incoming volume. If you can't adjust it or you don't want to reduce it for the entire line, adding a series of resistors between the phone and jack is recommended (consult a professional to build this for you if necessary). If the corded receiver's cord is removable, you can replace it with one that has a volume control.")
         }
         if phone.cordedPhoneType != 4 {
             Toggle("Has Hard-Wired Corded Receiver", isOn: $phone.hasHardWiredCordedReceiver)
