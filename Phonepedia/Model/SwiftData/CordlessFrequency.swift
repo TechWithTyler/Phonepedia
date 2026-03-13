@@ -118,11 +118,11 @@ extension Phone {
 
         // MARK: - Properties - Strings
 
-        // The name of the frequency to display in the frequency list. "Separator" tells the picker to insert a separator instead of a menu item.
+        // The name of the frequency to display in the frequency list. For separators, return an empty string. Separators use negative numbers.
         var name: String {
             switch self {
             case .separator1, .separator2, .separator3, .separator4, .separator5:
-                return "Separator"
+                return String()
             case .unknown: return "Unknown"
                 // Older Frequencies
             case .analog1_7MHz: return "1.7MHz Analog"

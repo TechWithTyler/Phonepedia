@@ -29,11 +29,26 @@ enum PhonePhotoError: LocalizedError {
     // No photo data from dropped item.
     case noPhotoDataDrop
 
-    // Image prediction failed.
-    case predictionFailed(reason: String)
-
     // Photo export failed.
     case exportFailed(reason: String)
+
+    // Image for prediction had no data.
+    case noImageForPrediction
+
+    // No underlying CGImage for image prediction
+    case noUnderlyingImageForPrediction
+
+    // Failed to create image prediction request
+    case predictionRequestFailed
+
+    // Prediction request had no results.
+    case predictionNoResults
+
+    // Prediction produced the wrong result type.
+    case predictionWrongResultType(resultType: Any.Type)
+
+    // Unknown prediction failure with the given reason.
+    case unknownPredictionFailure(reason: String)
 
     // MARK: - Error Description
 
@@ -51,8 +66,18 @@ enum PhonePhotoError: LocalizedError {
             return "Photo picker selection contained no photo data."
         case .noPhotoDataDrop:
             return "Dropped item contained no photo data."
-        case .predictionFailed(let reason):
+        case .unknownPredictionFailure(let reason):
             return "Image prediction failed: \(reason)"
+        case .predictionRequestFailed:
+            return "Failed to create an image classification request."
+        case .predictionNoResults:
+            return "Vision request had no results."
+        case .predictionWrongResultType(let resultType):
+            return "VNRequest produced the wrong result type: \(resultType)."
+        case .noImageForPrediction:
+            return "Failed to create image from data."
+        case .noUnderlyingImageForPrediction:
+            return "No underlying CGImage for image prediction."
         case .exportFailed(let reason):
             return "Photo export failed: \(reason)"
         }

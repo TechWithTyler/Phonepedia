@@ -30,12 +30,6 @@ class LandlineOrNotPredictor {
 
     // MARK: - Type Aliases
 
-#if os(macOS)
-    typealias CrossPlatformImage = NSImage
-#else
-    typealias CrossPlatformImage = UIImage
-#endif
-
     // Change the number after V when a new version is created. Make sure to name new versions "LandlineOrNotVX", where X represents the version number.
     typealias CurrentLandlineOrNot = LandlineOrNotV1
 
@@ -104,21 +98,25 @@ class LandlineOrNotPredictor {
     // This method generates an image classification prediction for a photo.
     func makePredictions(for photoData: Data, phone: Phone, completionHandler: @escaping ImagePredictionHandler) {
         // 1. Make sure we can decode the photo data to an NSImage or UIImage.
-        guard let photo = CrossPlatformImage(data: photoData) else {
+        #if os(macOS)
+        let image = NSImage(data: photoData)
+        #else
+        let image = UIImage(data: photoData)
+        #endif
+        guard let photo = image else {
             DispatchQueue.main.async { [self] in
-                photoManager.phonePhotoError = .predictionFailed(reason: "Failed to create image from data.")
+                photoManager.phonePhotoError = .noImageForPrediction
                 photoManager.showingPhonePhotoErrorAlert = true
             }
             return
         }
         // 2. Convert the NSImage/UIImage to CGImage.
-        let noUnderlyingCGImageError = "No underlying CGImage."
         #if os(macOS)
         let orientation = CGImagePropertyOrientation.up
         var imageRect = CGRect(origin: .zero, size: photo.size)
         guard let photoImage = photo.cgImage(forProposedRect: &imageRect, context: nil, hints: nil) else {
             DispatchQueue.main.async { [self] in
-                photoManager.phonePhotoError = .predictionFailed(reason: noUnderlyingCGImageError)
+                photoManager.phonePhotoError = .noUnderlyingImageForPrediction
                 photoManager.showingPhonePhotoErrorAlert = true
             }
             return
@@ -127,7 +125,7 @@ class LandlineOrNotPredictor {
         let orientation = CGImagePropertyOrientation(photo.imageOrientation)
         guard let photoImage = photo.cgImage else {
             DispatchQueue.main.async { [self] in
-                photoManager.phonePhotoError = .predictionFailed(reason: noUnderlyingCGImageError)
+                photoManager.phonePhotoError = .predictionFailedNoUnderlyingImage
                 photoManager.showingPhonePhotoErrorAlert = true
             }
             return
@@ -136,7 +134,7 @@ class LandlineOrNotPredictor {
         // 3. Create an image classification request.
         guard let imageClassificationRequest = createImageClassificationRequest(photoData: photoData, phone: phone) else {
             DispatchQueue.main.async { [self] in
-                photoManager.phonePhotoError = .predictionFailed(reason: "Failed to create an image classification request.")
+                photoManager.phonePhotoError = .predictionRequestFailed
                 photoManager.showingPhonePhotoErrorAlert = true
             }
             return
@@ -152,7 +150,7 @@ class LandlineOrNotPredictor {
             try imageClassificationRequestHandler.perform(requests)
         } catch {
             DispatchQueue.main.async { [self] in
-                photoManager.phonePhotoError = .predictionFailed(reason: error.localizedDescription)
+                photoManager.phonePhotoError = .unknownPredictionFailure(reason: error.localizedDescription)
                 photoManager.showingPhonePhotoErrorAlert = true
             }
         }
@@ -172,7 +170,7 @@ class LandlineOrNotPredictor {
         // 3. Check for an error.
         if let error = error {
             DispatchQueue.main.async { [self] in
-                photoManager.phonePhotoError = .predictionFailed(reason: error.localizedDescription)
+                photoManager.phonePhotoError = .unknownPredictionFailure(reason: error.localizedDescription)
                 photoManager.showingPhonePhotoErrorAlert = true
             }
             return
@@ -180,7 +178,7 @@ class LandlineOrNotPredictor {
         // 4. Check that the results aren't nil. If they're nil, show an error.
         if request.results == nil {
             DispatchQueue.main.async { [self] in
-                photoManager.phonePhotoError = .predictionFailed(reason: "Vision request had no results.")
+                photoManager.phonePhotoError = .predictionNoResults
                 photoManager.showingPhonePhotoErrorAlert = true
             }
             return
@@ -188,7 +186,7 @@ class LandlineOrNotPredictor {
         // 5. Try to cast the request's results as a VNClassificationObservation array. If that fails, show an error.
         guard let observations = request.results as? [VNClassificationObservation] else {
             DispatchQueue.main.async { [self] in
-                photoManager.phonePhotoError = .predictionFailed(reason: "VNRequest produced the wrong result type: \(type(of: request.results)).")
+                photoManager.phonePhotoError = .predictionWrongResultType(resultType: type(of: request.results))
                 photoManager.showingPhonePhotoErrorAlert = true
             }
             return

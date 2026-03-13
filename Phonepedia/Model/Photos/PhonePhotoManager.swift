@@ -176,7 +176,7 @@ class PhonePhotoManager: ObservableObject {
             showingLoadingPhoto = false
         }
         guard let prediction = prediction else {
-            phonePhotoError = .predictionFailed(reason: "No prediction available.")
+            phonePhotoError = .unknownPredictionFailure(reason: "No prediction available.")
             DispatchQueue.main.async { [self] in
                 showingPhonePhotoErrorAlert = true
             }
