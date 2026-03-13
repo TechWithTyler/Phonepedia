@@ -11,7 +11,7 @@ import XCTest
 @testable import Phonepedia
 
 final class PhonepediaTests: XCTestCase {
-    
+
     func testFilterCriteriaIsEnabled_defaultsToFalse() {
         XCTAssertFalse(PhoneFilterManager.Criteria().isEnabled)
     }
@@ -24,10 +24,10 @@ final class PhonepediaTests: XCTestCase {
     
     func testAllBrands_returnsUniqueSortedBrands() {
         let phones = [
-            makePhone(brand: "Sony", model: "A"),
-            makePhone(brand: "AT&T", model: "B"),
-            makePhone(brand: "Sony", model: "C"),
-            makePhone(brand: "Panasonic", model: "D")
+            makePhone(brand: "AT&T", model: "CL83207"),
+            makePhone(brand: "AT&T", model: "BL108-2"),
+            makePhone(brand: "Sony", model: "SPP-N1000"),
+            makePhone(brand: "Panasonic", model: "KX-TGD862")
         ]
         
         XCTAssertEqual(PhoneFilterManager.allBrands(from: phones), ["AT&T", "Panasonic", "Sony"])
@@ -36,23 +36,23 @@ final class PhonepediaTests: XCTestCase {
     func testFilter_cordlessTypeAndCordlessDeviceCount_returnsOnlyMatchingCordlessPhones() {
         let twoHandsetPhone = makePhone(
             brand: "Panasonic",
-            model: "KX-TG",
+            model: "KX-TG7642",
             numberOfIncludedCordlessHandsets: 2
         )
         let cordedCordlessPhone = makePhone(
             brand: "AT&T",
-            model: "CL82413",
+            model: "CL84207",
             numberOfIncludedCordlessHandsets: 2,
             hasCordedReceiver: true
         )
         let threeHandsetPhone = makePhone(
             brand: "Panasonic",
-            model: "KX-TGA",
+            model: "KX-TG7873",
             numberOfIncludedCordlessHandsets: 3
         )
         let cordedPhone = makePhone(
             brand: "AT&T",
-            model: "Trimline",
+            model: "213",
             numberOfIncludedCordlessHandsets: 0
         )
         let criteria = PhoneFilterManager.Criteria(
@@ -65,7 +65,7 @@ final class PhonepediaTests: XCTestCase {
             with: criteria
         )
         
-        XCTAssertEqual(filteredPhones.map(\.model), ["KX-TG", "CL82413"])
+        XCTAssertEqual(filteredPhones.map(\.model), ["KX-TG7642", "CL84207"])
     }
     
     func testFilter_cordedType_ignoresCordlessDeviceCountFilter() {
@@ -76,13 +76,13 @@ final class PhonepediaTests: XCTestCase {
         )
         let secondCordedPhone = makePhone(
             brand: "AT&T",
-            model: "Trimline",
+            model: "230",
             numberOfIncludedCordlessHandsets: 0
         )
         let cordlessPhone = makePhone(
             brand: "Panasonic",
-            model: "KX-TG",
-            numberOfIncludedCordlessHandsets: 2
+            model: "KX-TGF975",
+            numberOfIncludedCordlessHandsets: 5
         )
         let criteria = PhoneFilterManager.Criteria(
             type: Phone.PhoneType.corded.rawValue.lowercased(),
@@ -94,29 +94,29 @@ final class PhonepediaTests: XCTestCase {
             with: criteria
         )
         
-        XCTAssertEqual(filteredPhones.map(\.model), ["500", "Trimline"])
+        XCTAssertEqual(filteredPhones.map(\.model), ["500", "230"])
     }
     
     func testFilter_wifiType_ignoresAnsweringSystemFilter() {
         let firstWiFiHandset = makePhone(
-            brand: "Motorola",
-            model: "WiFi One",
+            brand: "Grandstream",
+            model: "WP810",
             basePhoneType: 1,
             hasAnsweringSystem: 0,
             numberOfIncludedCordlessHandsets: 0
         )
         let secondWiFiHandset = makePhone(
             brand: "Cisco",
-            model: "WiFi Two",
+            model: "8821",
             basePhoneType: 1,
-            hasAnsweringSystem: 3,
+            hasAnsweringSystem: 0,
             numberOfIncludedCordlessHandsets: 0
         )
         let cordlessPhone = makePhone(
             brand: "Panasonic",
-            model: "Cordless",
+            model: "KX-TG5632",
             basePhoneType: 0,
-            hasAnsweringSystem: 0,
+            hasAnsweringSystem: 3,
             numberOfIncludedCordlessHandsets: 2
         )
         let criteria = PhoneFilterManager.Criteria(
@@ -129,18 +129,18 @@ final class PhonepediaTests: XCTestCase {
             with: criteria
         )
         
-        XCTAssertEqual(filteredPhones.map(\.model), ["WiFi One", "WiFi Two"])
+        XCTAssertEqual(filteredPhones.map(\.model), ["WP810", "8821"])
     }
 
     func testFilter_activeStatus_returnsOnlyMatchingPhones() {
         let activePhone = makePhone(
             brand: "AT&T",
-            model: "Active",
+            model: "BL108-2",
             storageOrSetup: 1
         )
         let inactivePhone = makePhone(
             brand: "Panasonic",
-            model: "Inactive",
+            model: "KX-TGL463",
             storageOrSetup: 2
         )
         let filteredActivePhones = PhoneFilterManager.filter(
@@ -152,8 +152,8 @@ final class PhonepediaTests: XCTestCase {
             with: PhoneFilterManager.Criteria(activeStatus: 2)
         )
 
-        XCTAssertEqual(filteredActivePhones.map(\.model), ["Active"])
-        XCTAssertEqual(filteredInactivePhones.map(\.model), ["Inactive"])
+        XCTAssertEqual(filteredActivePhones.map(\.model), ["BL108-2"])
+        XCTAssertEqual(filteredInactivePhones.map(\.model), ["KX-TGL463"])
     }
     
     private func makePhone(
