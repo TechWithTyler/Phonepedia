@@ -119,12 +119,10 @@ struct CordlessDeviceInfoView: View {
             .alert("Delete this cordless device?", isPresented: $dialogManager.showingDeleteHandset, presenting: $dialogManager.handsetToDelete) { handset in
                 Button("Delete", role: .destructive) {
                     deleteCordlessDevice(handset.wrappedValue!)
-                    dialogManager.handsetToDelete = nil
-                    dialogManager.showingDeleteHandset = false
+                    dialogManager.dismissDeleteHandset()
                 }
                 Button("Cancel", role: .cancel) {
-                    dialogManager.handsetToDelete = nil
-                    dialogManager.showingDeleteHandset = false
+                    dialogManager.dismissDeleteHandset()
                 }
             } message: { handset in
                 let wrappedHandset = handset.wrappedValue!
@@ -180,12 +178,10 @@ struct CordlessDeviceInfoView: View {
         .alert("Delete this charger?", isPresented: $dialogManager.showingDeleteCharger, presenting: $dialogManager.chargerToDelete) { charger in
             Button("Delete", role: .destructive) {
                 deleteCharger(charger.wrappedValue!)
-                dialogManager.chargerToDelete = nil
-                dialogManager.showingDeleteCharger = false
+                dialogManager.dismissDeleteCharger()
             }
             Button("Cancel", role: .cancel) {
-                dialogManager.chargerToDelete = nil
-                dialogManager.showingDeleteCharger = false
+                dialogManager.dismissDeleteCharger()
             }
         } message: { charger in
             Text("This charger will be deleted from this \(phone.brand) \(phone.model).")
@@ -241,29 +237,26 @@ struct CordlessDeviceInfoView: View {
                         .toggleStyle(.automatic)
                     Divider()
                     Button {
-                        dialogManager.handsetToReassign = handset
-                        dialogManager.showingReassignHandset = true
+                        dialogManager.showReassignHandset(handset: handset)
                     } label: {
                         Label("Reassign…", systemImage: "phone.arrow.right.fill")
                     }
                     Divider()
                     Button {
-                        duplicateCordlessDevice(handset)
+                        duplicateCordlessDevice(handset: handset)
                     } label: {
                         Label("Duplicate", systemImage: "doc.on.doc")
                     }
                     Divider()
                     Button(role: .destructive) {
-                        dialogManager.showingDeleteHandset = true
-                        dialogManager.handsetToDelete = handset
+                        dialogManager.showDeleteHandset(handset)
                     } label: {
                         Label("Delete…", systemImage: "trash")
                     }
                 }
                 .swipeActions {
                     Button(role: .destructive) {
-                        dialogManager.showingDeleteHandset = true
-                        dialogManager.handsetToDelete = handset
+                        dialogManager.showDeleteHandset(handset: handset)
                     } label: {
                         Label("Delete", systemImage: "trash")
                     }
@@ -308,16 +301,14 @@ struct CordlessDeviceInfoView: View {
                     }
                     Divider()
                     Button(role: .destructive) {
-                        dialogManager.showingDeleteCharger = true
-                        dialogManager.chargerToDelete = charger
+                        dialogManager.showDeleteCharger(charger: charger)
                     } label: {
                         Label("Delete…", systemImage: "trash")
                     }
                 }
                 .swipeActions {
                     Button(role: .destructive) {
-                        dialogManager.showingDeleteCharger = true
-                        dialogManager.chargerToDelete = charger
+                        dialogManager.showDeleteCharger(charger: charger)
                     } label: {
                         Label("Delete", systemImage: "trash")
                     }

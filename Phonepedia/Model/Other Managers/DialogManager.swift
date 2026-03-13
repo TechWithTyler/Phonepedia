@@ -113,4 +113,43 @@ class DialogManager: ObservableObject {
     @Published var showingSettings: Bool = false
     #endif
 
+    // MARK: - Show Dialogs
+
+    func showDeletePhone(phone: Phone) {
+        phoneToDelete = phone
+        showingDeletePhone = true
+    }
+
+    func showUpdateCordlessDevicePlaceInCollection(phone: Phone) {
+        showingUpdateCordlessDevicePlaceInCollection = true
+        phoneToUpdateCordlessDevicePlaceInCollection = phone
+    }
+
+    func showDeleteHandset(handset: CordlessHandset) {
+        showingDeleteHandset = true
+        handsetToDelete = handset
+    }
+
+    func showDeleteCharger(charger: CordlessHandsetCharger) {
+        showingDeleteCharger = true
+        chargerToDelete = charger
+    }
+
+    func showReassignHandset(handset: CordlessHandset) {
+        handsetToReassign = handset
+        showingReassignHandset = true
+    }
+
+    // MARK: - Dismiss Dialog
+
+    func dismissDeleteHandset() {
+        handsetToDelete = nil
+        showingDeleteHandset = false
+    }
+
+    func dismissDeleteCharger() {
+        chargerToDelete = nil
+        showingDeleteCharger = false
+    }
+
 }

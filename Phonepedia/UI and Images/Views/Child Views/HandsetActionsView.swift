@@ -29,8 +29,7 @@ struct HandsetActionsView: View {
         if let phone = handset.phone {
                 Text("Assigned to phone \(phone.actualPhoneNumberInCollection) (\(phone.brand) \(phone.model))")
                 Button {
-                    dialogManager.handsetToReassign = handset
-                    dialogManager.showingReassignHandset = true
+                    dialogManager.showReassignHandset(handset: handset)
                     dismiss()
                 } label: {
                     Label("Reassign…", systemImage: "phone.arrow.right.fill")
@@ -45,8 +44,7 @@ struct HandsetActionsView: View {
                 Label("Duplicate", systemImage: "doc.on.doc")
             }
             Button {
-                dialogManager.showingDeleteHandset = true
-                dialogManager.handsetToDelete = handset
+                dialogManager.showDeleteHandset(handset: handset)
                 dismiss()
             } label: {
                 Label("Delete…", systemImage: "trash")

@@ -44,8 +44,7 @@ struct ChargerDetailView: View {
                             Label("Duplicate", systemImage: "doc.on.doc")
                         }
                         Button {
-                            dialogManager.showingDeleteCharger = true
-                            dialogManager.chargerToDelete = charger
+                            dialogManager.showDeleteCharger(charger: charger)
                             dismiss()
                         } label: {
                             Label("Delete", systemImage: "trash")

@@ -196,8 +196,7 @@ struct PhoneListView: View {
                 .toggleStyle(.automatic)
             Divider()
             Button(role: .destructive) {
-                dialogManager.phoneToDelete = phone
-                dialogManager.showingDeletePhone = true
+                dialogManager.showDeletePhone(phone: phone)
             } label: {
                 Label("Delete…", systemImage: "trash")
             }
@@ -228,8 +227,7 @@ struct PhoneListView: View {
             achievementTrackerManager.evaluate(phones: phones)
         })
         .onChange(of: phone.storageOrSetup, { oldValue, newValue in
-            dialogManager.showingUpdateCordlessDevicePlaceInCollection = true
-            dialogManager.phoneToUpdateCordlessDevicePlaceInCollection = phone
+            dialogManager.showUpdateCordlessDevicePlaceInCollection(phone: phone)
         })
     }
 
@@ -431,9 +429,9 @@ struct PhoneListView: View {
     // This method deletes the phone at the given index set.
     private func deletePhones(at offsets: IndexSet) {
         guard let index = offsets.first else { return }
+        let phone = phones[index]
         withAnimation {
-            dialogManager.phoneToDelete = phones[index]
-            dialogManager.showingDeletePhone = true
+            dialogManager.showDeletePhone(phone: phone)
         }
     }
 
