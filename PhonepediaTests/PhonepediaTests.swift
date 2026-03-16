@@ -41,7 +41,6 @@ final class PhonepediaTests: XCTestCase {
     
     func testFilterCriteriaIsEnabled_brandFilterTurnsItOn() {
         let criteria = PhoneFilterManager.Criteria(brand: "AT&T")
-        
         XCTAssertTrue(criteria.isEnabled)
     }
     
@@ -52,7 +51,6 @@ final class PhonepediaTests: XCTestCase {
             makePhone(brand: "Sony", model: "SPP-N1000"),
             makePhone(brand: "Panasonic", model: "KX-TGD862")
         ]
-        
         XCTAssertEqual(PhoneFilterManager.allBrands(from: phones), ["AT&T", "Panasonic", "Sony"])
     }
     
@@ -82,12 +80,10 @@ final class PhonepediaTests: XCTestCase {
             type: Phone.PhoneType.cordless.rawValue.lowercased(),
             numberOfCordlessDevices: 2
         )
-        
         let filteredPhones = PhoneFilterManager.filter(
             [twoHandsetPhone, cordedCordlessPhone, threeHandsetPhone, cordedPhone],
             with: criteria
         )
-        
         XCTAssertEqual(filteredPhones.map(\.model), ["KX-TG7642", "CL84207"])
     }
     
@@ -111,12 +107,10 @@ final class PhonepediaTests: XCTestCase {
             type: Phone.PhoneType.corded.rawValue.lowercased(),
             numberOfCordlessDevices: 2
         )
-        
         let filteredPhones = PhoneFilterManager.filter(
             [firstCordedPhone, secondCordedPhone, cordlessPhone],
             with: criteria
         )
-        
         XCTAssertEqual(filteredPhones.map(\.model), ["500", "230"])
     }
     
@@ -146,12 +140,10 @@ final class PhonepediaTests: XCTestCase {
             type: Phone.PhoneType.wiFiHandset.rawValue.lowercased(),
             answeringSystem: 2
         )
-        
         let filteredPhones = PhoneFilterManager.filter(
             [firstWiFiHandset, secondWiFiHandset, cordlessPhone],
             with: criteria
         )
-        
         XCTAssertEqual(filteredPhones.map(\.model), ["WP810", "8821"])
     }
 
@@ -174,7 +166,6 @@ final class PhonepediaTests: XCTestCase {
             [activePhone, inactivePhone],
             with: PhoneFilterManager.Criteria(activeStatus: 2)
         )
-
         XCTAssertEqual(filteredActivePhones.map(\.model), ["BL108-2"])
         XCTAssertEqual(filteredInactivePhones.map(\.model), ["KX-TGL463"])
     }
