@@ -243,13 +243,13 @@ struct CordlessDeviceInfoView: View {
                     }
                     Divider()
                     Button {
-                        duplicateCordlessDevice(handset: handset)
+                        duplicateCordlessDevice(handset)
                     } label: {
                         Label("Duplicate", systemImage: "doc.on.doc")
                     }
                     Divider()
                     Button(role: .destructive) {
-                        dialogManager.showDeleteHandset(handset)
+                        dialogManager.showDeleteHandset(handset: handset)
                     } label: {
                         Label("Delete…", systemImage: "trash")
                     }

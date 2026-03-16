@@ -21,6 +21,8 @@ extension UserDefaults {
 
         static let useDetailedPhoneImage: String = "useDetailedPhoneImage"
 
+        static let backdropEnabled: String = "backdropEnabled"
+
         static let phoneDescriptionTextSize: String = "phoneDescriptionTextSize"
 
         static let showAchievementAlerts: String = "showAchievementAlerts"

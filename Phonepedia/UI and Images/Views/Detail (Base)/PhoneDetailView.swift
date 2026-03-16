@@ -23,10 +23,14 @@ struct PhoneDetailView: View {
     
     @EnvironmentObject var photoManager: PhonePhotoManager
 
+    // MARK: - Properties - Booleans
+
+    @AppStorage(UserDefaults.KeyNames.backdropEnabled) var backdropEnabled: Bool = true
+
     // MARK: - Body
     
     var body: some View {
-        SlickBackdropView {
+        SlickBackdropView(enabled: $backdropEnabled) {
         NavigationStack {
             Form {
                 if photoManager.showingLoadingPhoto {

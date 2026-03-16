@@ -19,6 +19,10 @@ struct ChargerDetailView: View {
     
     @EnvironmentObject var dialogManager: DialogManager
 
+    // MARK: - Properties - Booleans
+
+    @AppStorage(UserDefaults.KeyNames.backdropEnabled) var backdropEnabled: Bool = true
+
     // MARK: - Properties - Dismiss Action
 
     @Environment(\.dismiss) var dismiss
@@ -27,7 +31,7 @@ struct ChargerDetailView: View {
 
     var body: some View {
         if let phone = charger.phone {
-            SlickBackdropView {
+            SlickBackdropView(enabled: $backdropEnabled) {
                 Form {
                     Section {
                         HStack {

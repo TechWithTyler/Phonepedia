@@ -19,11 +19,15 @@ struct HandsetDetailView: View {
 
     @EnvironmentObject var dialogManager: DialogManager
 
+    // MARK: - Properties - Booleans
+
+    @AppStorage(UserDefaults.KeyNames.backdropEnabled) var backdropEnabled: Bool = true
+
     // MARK: - Body
 
     var body: some View {
         if let phone = handset.phone {
-            SlickBackdropView {
+            SlickBackdropView(enabled: $backdropEnabled) {
                 Form {
                     Section {
                         HStack {

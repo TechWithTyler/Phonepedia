@@ -53,6 +53,8 @@ struct DisplaySettingsPageView: View {
 
     @AppStorage(UserDefaults.KeyNames.useDetailedPhoneImage) var useDetailedPhoneImage: Bool = false
 
+    @AppStorage(UserDefaults.KeyNames.backdropEnabled) var backdropEnabled: Bool = true
+
     // MARK: - Body
 
     var body: some View {
@@ -93,6 +95,8 @@ struct DisplaySettingsPageView: View {
                 .foregroundStyle(.primary)
                 Toggle("Show Achievement Alerts" , isOn: $showAchievementAlerts)
                 InfoText("Turn this on to show alerts when unlocking achievements (e.g. getting 10 phones, getting a phone in its release year).")
+                Toggle("Enable Backdrop", isOn: $backdropEnabled)
+                InfoText("Turn this on to show a large, blurred version of a phone's photo as the detail view background.")
             }
             Section("Phone List Detail") {
                 PhoneListDetailOptions()

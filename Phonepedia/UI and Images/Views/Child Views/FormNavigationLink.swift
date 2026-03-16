@@ -25,6 +25,10 @@ struct FormNavigationLink<Destination: View, Label: View>: View {
 
     var phone: Phone
 
+    // MARK: - Properties - Booleans
+
+    @AppStorage(UserDefaults.KeyNames.backdropEnabled) var backdropEnabled: Bool = true
+
     // MARK: - Initialization
 
     init(phone: Phone, @ViewBuilder destination: @escaping () -> Destination, @ViewBuilder label: @escaping () -> Label) {
@@ -43,7 +47,7 @@ struct FormNavigationLink<Destination: View, Label: View>: View {
 
     var body: some View {
         NavigationLink {
-            SlickBackdropView {
+            SlickBackdropView(enabled: $backdropEnabled) {
                 Form {
                     Section {
                         HStack {
