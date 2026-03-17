@@ -31,9 +31,12 @@ class PhoneFilterManager {
         // The current setting of the "has answering system" filter.
         var answeringSystem: Int = 0
 
+        // The current setting of the "has Bluetooth cell linking" filter.
+        var bluetoothCellLinking: Int = 0
+
         // Whether any filter is active.
         var isEnabled: Bool {
-            return type != allItemsFilterOptionTag || activeStatus != 0 || brand != allItemsFilterOptionTag || numberOfCordlessDevices != 0 || answeringSystem != 0
+            return type != allItemsFilterOptionTag || activeStatus != 0 || brand != allItemsFilterOptionTag || numberOfCordlessDevices != 0 || answeringSystem != 0 || bluetoothCellLinking != 0
         }
 
         // Whether the selected type filter allows cordless device count filtering (i.e. type is all or cordless).
@@ -76,6 +79,7 @@ class PhoneFilterManager {
         // 6. Filter by whether it has an answering system.
         if criteria.typeIsNotStandaloneWireless {
             filteredPhones = filterByAnsweringSystemPresence(filteredPhones, answeringSystem: criteria.answeringSystem)
+            filteredPhones = filterByBluetoothCellLinkingPresence(filteredPhones, bluetoothCellLinking: criteria.bluetoothCellLinking)
         }
         // 7. Return the filtered phones array.
         return filteredPhones
@@ -131,6 +135,19 @@ class PhoneFilterManager {
         case 1: return phones.filter { $0.hasAnsweringSystem > 0 }
             // Without answering system
         case 2: return phones.filter { $0.hasAnsweringSystem == 0 }
+            // All
+        default: return phones
+        }
+    }
+
+    // This method filters phones by whether they have Bluetooth cell phone linking.
+    private static func filterByBluetoothCellLinkingPresence(_ phones: [Phone], bluetoothCellLinking: Int) -> [Phone] {
+        switch bluetoothCellLinking {
+            // With Bluetooth cell phone linking
+        case 1: return phones.filter { $0.baseBluetoothCellPhonesSupported > 0 }
+            // Without Bluetooth cell phone linking
+        case 2: return phones.filter { $0.baseBluetoothCellPhonesSupported == 0
+        }
             // All
         default: return phones
         }

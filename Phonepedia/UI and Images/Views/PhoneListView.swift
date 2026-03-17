@@ -328,6 +328,14 @@ struct PhoneListView: View {
                 }
                 .pickerStyle(.menu)
                 .toggleStyle(.automatic)
+                Picker("Bluetooth Cell Linking (\(filterCriteria.bluetoothCellLinking == 0 ? "Off" : "On"))", selection: $filterCriteria.bluetoothCellLinking) {
+                    Text("Off").tag(0)
+                    Divider()
+                    Text("Supported").tag(1)
+                    Text("Not Supported").tag(2)
+                }
+                .pickerStyle(.menu)
+                .toggleStyle(.automatic)
             }
             Divider()
             Button("Reset", systemImage: "arrow.clockwise") {
