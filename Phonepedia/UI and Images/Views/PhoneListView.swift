@@ -400,6 +400,11 @@ struct PhoneListView: View {
             } else if filterCriteria.answeringSystem == 2 {
                 newPhone.hasAnsweringSystem = 0
             }
+            if filterCriteria.bluetoothCellLinking == 1 && filterCriteria.typeIsNotStandaloneWireless {
+                newPhone.baseBluetoothCellPhonesSupported = 1
+            } else if filterCriteria.bluetoothCellLinking == 2 {
+                newPhone.baseBluetoothCellPhonesSupported = 0
+            }
             // 4. Insert the new phone into the model context.
             modelContext.insert(newPhone)
             // 5. Select the new phone.
