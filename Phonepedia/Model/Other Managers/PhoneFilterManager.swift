@@ -14,7 +14,7 @@ class PhoneFilterManager {
 
     // MARK: - Criteria Struct
 
-    struct Criteria: Equatable {
+    struct Criteria {
 
         // The current setting of the phone type filter.
         var type: String = allItemsFilterOptionTag
