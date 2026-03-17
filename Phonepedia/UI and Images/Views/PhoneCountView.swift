@@ -373,7 +373,7 @@ struct PhoneCountView: View {
 
     @ViewBuilder
     var excludingHandsetsText: some View {
-        Text("Excluding individual handsets")
+        Text("Excluding individual cordless devices")
             .foregroundStyle(.secondary)
             .font(.footnote)
     }
