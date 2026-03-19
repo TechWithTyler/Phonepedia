@@ -482,7 +482,7 @@ struct PhoneListView: View {
 
     // This method installs the default values for any new data added in app updates. For example, phone numbering was introduced in version 2025.5.
     func installDefaultsForNewData() {
-        // For updates from version 2024.11, set the numbers of each phone/cordless device/charger to the corresponding index. This is done by checking to see if the phoneNumberInCollection property of all phones is 0 (auto-set default for updates from version 2024.11).
+        // 1. For updates from version 2024.11, set the numbers of each phone/cordless device/charger to the corresponding index. This is done by checking to see if the phoneNumberInCollection property of all phones is 0 (auto-set default for updates from version 2024.11).
         let allPhonesFirstInCollection = phones.allSatisfy({ $0.phoneNumberInCollection == 0 })
         if allPhonesFirstInCollection {
             for phone in phones {
@@ -493,6 +493,12 @@ struct PhoneListView: View {
                 for charger in phone.chargersIHave {
                     charger.chargerNumber = phone.chargersIHave.firstIndex(of: charger)!
                 }
+            }
+        }
+        // 2. For updates from version 2025.11 or earlier, change the "unlimited max cordless devices" value from -1 to Int.max.
+        for phone in phones {
+            if phone.maxCordlessHandsets == -1 {
+                phone.maxCordlessHandsets = .max
             }
         }
     }

@@ -36,17 +36,15 @@ struct PhoneGeneralView: View {
         }
     }
 
+    // MARK: - Properties - Integers
+
+    var phoneAcquisitionYearRange: ClosedRange<Int> {
+        return phone.releaseYear...currentYear
+    }
+
     // MARK: - Properties - Booleans
 
     @AppStorage(UserDefaults.KeyNames.phoneDescriptionTextSize) var phoneDescriptionTextSize: Double = SATextViewIdealMinFontSize
-
-    // MARK: - Properties - Integers
-
-    // Range of "maximum number of cordless devices" values for cordless phones with registration. The base knows about the cordless devices being used.
-    var registrationMaxCordlessDevicesRange: ClosedRange<Int> = 1...30
-
-    // Range of "maximum number of cordless devices" values for cordless phones with "place on base to set digital security code". The base doesn't know about the handsets being used, but placing a new one on the base may "invalidate" the previous one.
-    var securityCodeMaxCordlessDevicesRange: ClosedRange<Int> = 1...1
 
     // MARK: - Body
 
@@ -70,12 +68,11 @@ struct PhoneGeneralView: View {
 
     @ViewBuilder
     var basicsGroup: some View {
-        UnknowableStepper("Release Year: \(phone.releaseYear == -1 ? "Unknown" : String(phone.releaseYear))", value: $phone.releaseYear, in: -1...currentYear)
+        CountPicker("Release Year", selection: $phone.releaseYear, numberRange: oldestPhoneYear...currentYear, usesGroupingSeparator: false, unknownTitle: "Unknown")
             .onChange(of: phone.releaseYear) { oldValue, newValue in
                 phone.releaseYearChanged(oldValue: oldValue, newValue: newValue)
             }
-        FormTextField("Nickname", text: $phone.nickname)
-        UnknowableStepper("Acquisition/Purchase Year: \(phone.acquisitionYear == -1 ? "Unknown" : String(phone.acquisitionYear))", value: $phone.acquisitionYear, in: phone.releaseYear...currentYear)
+        CountPicker("Acquisition/Purchase Year", selection: $phone.acquisitionYear, numberRange: phoneAcquisitionYearRange, usesGroupingSeparator: false, unknownTitle: phoneAcquisitionYearRange.count == 1 ? nil : "I Don't Remember")
         Button("Set to Release Year") {
             phone.setAcquisitionYearToReleaseYear()
         }
@@ -86,6 +83,7 @@ struct PhoneGeneralView: View {
                     .font(.callout)
             }
         }
+        FormTextField("Nickname", text: $phone.nickname)
         Picker("How I Got This Phone", selection: $phone.whereAcquired) {
             AcquisitionMethodPickerItems()
         }
@@ -111,7 +109,7 @@ struct PhoneGeneralView: View {
                 .padding()
                 .font(.system(size: phoneDescriptionTextSize))
         }
-        Stepper("Number of Included Cordless Devices (0 If Not Cordless): \(phone.numberOfIncludedCordlessHandsets)", value: $phone.numberOfIncludedCordlessHandsets, in: 0...30)
+        CountPicker("Number of Included Cordless Devices", selection: $phone.numberOfIncludedCordlessHandsets, numberRange: 1...30, noneTitle: "Not Cordless")
             .disabled(phone.handsetNumberDigit != nil)
             .onChange(of: phone.numberOfIncludedCordlessHandsets) { oldValue, newValue in
                 phone.numberOfIncludedCordlessHandsetsChanged(oldValue: oldValue, newValue: newValue)
@@ -124,7 +122,7 @@ struct PhoneGeneralView: View {
                 }
                 phone.isCordlessChanged(oldValue: oldValue, newValue: newValue)
             }
-            .alert("Specifying that this phone comes with 0 cordless devices makes it a non-cordless phone. Continue?", isPresented: $dialogManager.showingMakeCordedOnly) {
+            .alert("Make this phone corded-only?", isPresented: $dialogManager.showingMakeCordedOnly) {
                 Button("OK") {
                     phone.makeCordedOnly()
                     dialogManager.showingMakeCordedOnly = false
@@ -193,7 +191,7 @@ struct PhoneGeneralView: View {
                 }
             }
             if phone.cordlessDeviceLinkingMethod > 2 {
-                UnknowableStepper("Maximum Number of Cordless Devices: \(phone.maxCordlessHandsets == -1 ? "Unlimited" : String(phone.maxCordlessHandsets))", value: $phone.maxCordlessHandsets, in: phone.cordlessDeviceLinkingMethod == 4 ? registrationMaxCordlessDevicesRange : securityCodeMaxCordlessDevicesRange)
+                CountPicker("Maximum Number of Cordless Devices", selection: $phone.maxCordlessHandsets, oneTo: phone.cordlessDeviceLinkingMethod == 4 ? 30 : 1, unlimitedTitle: "Unlimited")
                     .onChange(of: phone.maxCordlessHandsets) { oldValue, newValue in
                         phone.maxCordlessHandsetsChanged(oldValue: oldValue, newValue: newValue)
                     }

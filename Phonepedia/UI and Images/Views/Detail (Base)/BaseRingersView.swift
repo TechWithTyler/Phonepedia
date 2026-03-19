@@ -20,9 +20,9 @@ struct BaseRingersView: View {
     // MARK: - Body
 
     var body: some View {
-        Stepper(phone.isCordless ? "Base Standard Ringtones: \(phone.baseRingtones)" : "Standard Ringtones: \(phone.baseRingtones)", value: $phone.baseRingtones, in: !phone.isCordless || phone.hasBaseSpeakerphone ? 1...50 : 0...50)
+        CountPicker(phone.isCordless ? "Base Standard Ringtones" : "Standard Ringtones", selection: $phone.baseRingtones, oneTo: 50, noneTitle: !phone.isCordless || phone.hasBaseSpeakerphone ? nil : "None")
         if phone.hasElectronicRinger {
-            Stepper(phone.isCordless ? "Base Music/Melody Ringtones: \(phone.baseMusicRingtones)" : "Music/Melody Ringtones: \(phone.baseMusicRingtones)", value: $phone.baseMusicRingtones, in: 0...50)
+            CountPicker(phone.isCordless ? "Base Music/Melody Ringtones" : "Music/Melody Ringtones", selection: $phone.baseMusicRingtones, oneTo: 50, noneTitle: "None")
         }
         Text("Total Ringtones: \(phone.totalBaseRingtones)")
         RingtoneInfoView()

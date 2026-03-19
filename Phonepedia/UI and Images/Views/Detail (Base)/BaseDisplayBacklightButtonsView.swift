@@ -226,16 +226,16 @@ struct BaseDisplayBacklightButtonsView: View {
                         Toggle("Base Navigation Button Standby Shortcuts", isOn: $phone.baseNavigatorKeyStandbyShortcuts)
                     }
                     if phone.baseDisplayType > 3 && phone.isCordlessOrPushButtonDesk {
-                        Stepper("Base Soft Keys (Bottom): \(phone.baseSoftKeysBottom)", value: $phone.baseSoftKeysBottom, in: 0...6)
+                        CountPicker("Base Bottom Soft Keys", selection: $phone.baseSoftKeysBottom, oneTo: 6, noneTitle: "None")
                             .onChange(of: phone.baseSoftKeysBottom) { oldValue, newValue in
                                 phone.baseSoftKeysBottomChanged(oldValue: oldValue, newValue: newValue)
                             }
-                        Stepper("Base Soft Keys (Side): \(phone.baseSoftKeysSide) On Each Side (\(phone.baseSoftKeysSide * 2) total)", value: $phone.baseSoftKeysSide, in: 0...5)
+                        CountPicker("Base Soft Keys On Each Side", selection: $phone.baseSoftKeysSide, oneTo: 5, noneTitle: "None")
                             .onChange(of: phone.baseSoftKeysSide) { oldValue, newValue in
                                 phone.baseSoftKeysSideChanged(oldValue: oldValue, newValue: newValue)
                             }
                         SoftKeyExplanationView()
-                        InfoText("Side soft keys are often used for programmable functions or speed dials in standby or one-touch menu selections in menus. For example, in a menu with 5 options, instead of scrolling up or down through the menu and then pressing the select button, you can press the corresponding side soft key. Side soft keys are often seen on business-grade phones, especially those used on a PBX system with multiple lines and/or extensions.")
+                        InfoText("Side soft keys are often used for programmable functions or speed dials in standby or one-touch menu selections in menus. For example, in a menu with 5 options, instead of scrolling up or down through the menu and then pressing the select button, you can press the corresponding side soft key. Side soft keys are often seen on business-grade phones, especially those used on a PBX system with multiple lines and/or extensions.\nThe number of side soft keys specifies the number of soft keys on each side. For example, if there are 4 side soft keys on each side, there are 8 total.")
                     }
                 }
             }

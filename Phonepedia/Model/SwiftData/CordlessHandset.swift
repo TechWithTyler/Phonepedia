@@ -699,10 +699,8 @@ final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatab
         if acquisitionYear < newValue && acquisitionYear != -1 {
             acquisitionYear = releaseYear
         }
-        if newValue == 0 && oldValue == -1 {
-            releaseYear = oldestHandsetYear
-        } else if newValue < oldestHandsetYear {
-            releaseYear = -1
+        if newValue == currentYear {
+            acquisitionYear = currentYear
         }
     }
 

@@ -18,6 +18,12 @@ struct HandsetGeneralView: View {
 
     @Bindable var handset: CordlessHandset
 
+    // MARK: - Properties - Integers
+
+    var handsetAcquisitionYearRange: ClosedRange<Int> {
+        return handset.releaseYear...currentYear
+    }
+
     // MARK: - Body
 
     var body: some View {
@@ -45,11 +51,11 @@ struct HandsetGeneralView: View {
     @ViewBuilder
     var basicsGroup: some View {
         if let phone = handset.phone {
-            Stepper("Release Year \(handset.releaseYear == -1 ? "Unknown" : String(handset.releaseYear))", value: $handset.releaseYear, in: -1...currentYear)
+            CountPicker("Release Year", selection: $handset.releaseYear, numberRange: oldestHandsetYear...currentYear, usesGroupingSeparator: false, unknownTitle: "Unknown")
                 .onChange(of: handset.releaseYear) { oldValue, newValue in
                     handset.releaseYearChanged(oldValue: oldValue, newValue: newValue)
                 }
-            Stepper("Acquisition/Purchase Year: \(handset.acquisitionYear == -1 ? "Don't Remember" : String(handset.acquisitionYear))", value: $handset.acquisitionYear, in: handset.releaseYear...currentYear)
+            CountPicker("Acquisition/Purchase Year", selection: $handset.acquisitionYear, numberRange: handsetAcquisitionYearRange, usesGroupingSeparator: false, unknownTitle: handsetAcquisitionYearRange.count == 1 ? nil : "I Don't Remember")
             Button("Set to Release Year") {
                 phone.setAcquisitionYearToReleaseYear()
             }
@@ -65,7 +71,7 @@ struct HandsetGeneralView: View {
             }
             HandsetPlaceInCollectionPicker(handset: handset)
             if phone.isDigitalCordless {
-                Stepper("Maximum Number of Bases: \(handset.maxBases)", value: $handset.maxBases, in: 1...4)
+                CountPicker("Maximum Number of Bases", selection: $handset.maxBases, oneTo: 4)
                 InfoText("Registering a cordless device to more than one base allows you to extend the coverage area and access the answering system, shared lists, etc. of multiple bases without having to register the device to one of those bases at a time. You can select a specific base for the handset to always connect to, or have it automatically choose the base with the strongest signal. In \(SABundleName), the base of the phone this cordless device is assigned to is considered its primary base.\nIf you want extended range but the same lines/shared lists/base features, and/or you don't want calls to disconnect when the device decides to communicate with a different base, use range extenders instead of multiple bases.\nTo use intercom, room monitor, and other multi-handset features, you must select the same base on both handsets or make sure they're connecting to the same base in auto mode.\nFor multi-cell systems, \"base\" here refers to all the bases in a system.")
             }
             Picker("Cordless Device Type", selection: $handset.cordlessDeviceType) {

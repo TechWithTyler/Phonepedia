@@ -454,6 +454,8 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
 
     var baseOneTouchDialCapacity: Int = 0
 
+    var numbersPerOneTouchDialButton: Int = 1
+
     var baseOneTouchDialCard: Int = 0
 
     var baseOneTouchDialExpansionModulesSupported: Bool = false
@@ -824,6 +826,12 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
     @Transient
     var isCordlessOrPushButtonDesk: Bool {
         return isCordless || cordedPhoneType == 0
+    }
+
+    // Whether the phone is a push-button corded desk phone or a cordless phone with a dialing base.
+    @Transient
+    var isPushButtonDeskOrCordlessDialingBase: Bool {
+        return cordedPhoneType == 0 || (isCordless && hasBaseKeypad)
     }
 
     // Whether the phone has a secondary color (the main and secondary colors aren't the same).
@@ -1248,6 +1256,9 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
         if acquisitionYear < newValue && acquisitionYear != -1 {
             acquisitionYear = releaseYear
         }
+        if newValue == currentYear {
+            acquisitionYear = currentYear
+        }
     }
 
     func baseBluetoothCellPhonesSupportedChanged(oldValue: Int, newValue: Int) {
@@ -1271,6 +1282,12 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
         if newValue {
             if dialMode == 0 {
                 dialMode = 2
+            }
+            if !hasBaseKeypad {
+                if baseOneTouchDialCard == 2 {
+                    baseOneTouchDialCard = 1
+                }
+                baseOneTouchDialExpansionModulesSupported = false
             }
             cordedPhoneType = 0
             cordedRingerType = 1
@@ -1428,7 +1445,7 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
             baseNavigatorKeyCenterButton = 0
             baseNavigatorKeyStandbyShortcuts = false
         }
-        if newValue <= 3 {
+        if newValue <= 2 {
             baseSoftKeysBottom = 0
             baseSoftKeysSide = 0
             basePhonebookCapacity = 0
@@ -1490,6 +1507,10 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
             baseCellRingtone = 1
         }
         if !newValue {
+            if baseOneTouchDialCard == 2 {
+                baseOneTouchDialCard = 1
+            }
+            baseOneTouchDialExpansionModulesSupported = false
             if voicemailQuickDial == 2 {
                 voicemailQuickDial = 0
             }
@@ -1587,6 +1608,10 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
 
     func cordedPhoneTypeChanged(oldValue: Int, newValue: Int) {
         if newValue != 0 {
+            if baseOneTouchDialCard > 1 {
+                baseOneTouchDialCard = 0
+            }
+            baseOneTouchDialExpansionModulesSupported = false
             hasDualReceivers = false
             hasBaseSpeakerphone = false
             hasTalkingKeypad = false
