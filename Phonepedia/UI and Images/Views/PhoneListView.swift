@@ -72,7 +72,7 @@ struct PhoneListView: View {
             }
         }
         .onAppear {
-            installDefaultsForNewData()
+            updateDataIfNeeded()
         }
         .contextMenu {
             PhoneListDetailOptions(menu: true)
@@ -460,9 +460,9 @@ struct PhoneListView: View {
         // 3. Clear the phone selection.
         selectedPhone = nil
         // 4. For any phone whose index is higher than the one that was just deleted, decrease phoneNumberInCollection by 1.
-        phones.forEach {
-            if $0.phoneNumberInCollection > deletedIndex {
-                $0.phoneNumberInCollection -= 1
+        for phone in phones {
+            if phone.phoneNumberInCollection > deletedIndex {
+                phone.phoneNumberInCollection -= 1
             }
         }
     }
@@ -480,25 +480,33 @@ struct PhoneListView: View {
         }
     }
 
-    // This method installs the default values for any new data added in app updates. For example, phone numbering was introduced in version 2025.5.
-    func installDefaultsForNewData() {
+    // This method installs the default values for any new data added in app updates or changes values as necessary. For example, phone numbering was introduced in version 2025.5, and the value for "unlimited max cordless devices" was changed from -1 to Int.max in version 2026.3.
+    func updateDataIfNeeded() {
         // 1. For updates from version 2024.11, set the numbers of each phone/cordless device/charger to the corresponding index. This is done by checking to see if the phoneNumberInCollection property of all phones is 0 (auto-set default for updates from version 2024.11).
+        updateCatalogForNumbering()
+        // 2. For updates from version 2025.11 or earlier, change the "unlimited max cordless devices" value from -1 to Int.max.
+        for phone in phones {
+            if phone.maxCordlessHandsets == -1 {
+                phone.maxCordlessHandsets = .max
+            }
+        }
+    }
+
+    // This method assigns a number to all phones (and their cordless devices/chargers) in a catalog created in version 2024.11.
+    func updateCatalogForNumbering() {
+        // 1. Check if the phoneNumberInCollection property of all phones is 0. This is the case for all phones in any catalog created in version 2024.11, as phone numbering/rearranging wasn't introduced until the following release, 2025.5.
         let allPhonesFirstInCollection = phones.allSatisfy({ $0.phoneNumberInCollection == 0 })
         if allPhonesFirstInCollection {
+            // 2. Go through each phone and set its phoneNumberInCollectionProperty to its corresponding index. For example, the phone at index 3 (the 4th phone in the catalog) have its phoneNumberInCollection property set to 3.
             for phone in phones {
                 phone.phoneNumberInCollection = phones.firstIndex(of: phone)!
+                // 3. Do the same for the phone's cordless devices and chargers, if any. Cordless device/charger numbering was introduced in the same version as phone numbering (2025.5), so if phones don't have assigned numbering, cordless devices and chargers don't either.
                 for handset in phone.cordlessHandsetsIHave {
                     handset.handsetNumber = phone.cordlessHandsetsIHave.firstIndex(of: handset)!
                 }
                 for charger in phone.chargersIHave {
                     charger.chargerNumber = phone.chargersIHave.firstIndex(of: charger)!
                 }
-            }
-        }
-        // 2. For updates from version 2025.11 or earlier, change the "unlimited max cordless devices" value from -1 to Int.max.
-        for phone in phones {
-            if phone.maxCordlessHandsets == -1 {
-                phone.maxCordlessHandsets = .max
             }
         }
     }

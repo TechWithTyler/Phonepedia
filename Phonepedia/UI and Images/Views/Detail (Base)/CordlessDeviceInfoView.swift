@@ -394,9 +394,9 @@ struct CordlessDeviceInfoView: View {
         // 2. Delete the cordless device.
         phone.cordlessHandsetsIHave.removeAll { $0.id == cordlessDevice.id }
         // 3. For any cordless device whose index is higher than the one that was just deleted, decrease handsetNumber by 1.
-        sortedCordlessDevices.forEach {
-            if $0.handsetNumber > deletedIndex {
-                $0.handsetNumber -= 1
+        for cordlessDevice in sortedCordlessDevices {
+            if cordlessDevice.handsetNumber > deletedIndex {
+                cordlessDevice.handsetNumber -= 1
             }
         }
     }
@@ -454,9 +454,9 @@ struct CordlessDeviceInfoView: View {
         // 2. Delete the charger.
         phone.chargersIHave.removeAll { $0.id == charger.id }
         // 3. For any charger whose index is higher than the one that was just deleted, decrease chargerNumber by 1.
-        sortedChargers.forEach {
-            if $0.chargerNumber > deletedIndex {
-                $0.chargerNumber -= 1
+        for charger in sortedChargers {
+            if charger.chargerNumber > deletedIndex {
+                charger.chargerNumber -= 1
             }
         }
     }
