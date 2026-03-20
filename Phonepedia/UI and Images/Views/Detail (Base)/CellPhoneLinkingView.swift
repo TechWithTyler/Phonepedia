@@ -21,7 +21,7 @@ struct CellPhoneLinkingView: View {
 
     var body: some View {
         Section("Bluetooth Cell Phone Linking") {
-            CountPicker("Maximum Supported", selection: $phone.baseBluetoothCellPhonesSupported, numbers: [1, 2, 4, 5, 10, 15], noneTitle: phone.basePhonebookCapacity >= phonebookTransferRequiredMaxCapacity ? "Phonebook Transfers Only" : "None")
+            CountPicker("Maximum Supported", selection: $phone.baseBluetoothCellPhonesSupported, numbers: [1, 2, 4, 5, 10, 15], singularSuffix: "Cell Phone", pluralSuffix: "Cell Phones", noneTitle: phone.basePhonebookCapacity >= phonebookTransferRequiredMaxCapacity ? "Phonebook Transfers Only" : "None")
             .onChange(of: phone.baseBluetoothCellPhonesSupported) { oldValue, newValue in
                 phone.baseBluetoothCellPhonesSupportedChanged(oldValue: oldValue, newValue: newValue)
             }
@@ -64,7 +64,7 @@ struct CellPhoneLinkingView: View {
             }
         }
         Section("Smartphones/Tablets As Handsets") {
-            CountPicker("Maximum Supported", selection: $phone.smartphonesAsHandsetsOverWiFi, startNumber: 1, multipliedBy: 2, endNumber: 4, noneTitle: "None")
+            CountPicker("Maximum Supported", selection: $phone.smartphonesAsHandsetsOverWiFi, startNumber: 1, multipliedBy: 2, endNumber: 4, singularSuffix: "Device", pluralSuffix: "Devices", noneTitle: "None")
             InfoText("When a smartphone or tablet is registered to a Wi-Fi-compatible base and both devices are on the same network, the smartphone can be used as a handset, and you can transfer its data to the base or handsets/desksets.")
         }
     }

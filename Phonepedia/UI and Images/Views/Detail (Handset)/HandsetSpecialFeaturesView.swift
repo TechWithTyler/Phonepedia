@@ -31,7 +31,7 @@ struct HandsetSpecialFeaturesView: View {
                 InfoText("The handset can be used as an alarm clock by playing a ringtone or voice announcement at the set time(s).")
             }
             if handset.cordlessDeviceType == 0 && phone.isDigitalCordless && phone.cordlessDeviceLinkingMethod == 4 {
-                CountPicker("Key Finders Supported", selection: $handset.keyFindersSupported, startNumber: 1, multipliedBy: 2, endNumber: 4, noneTitle: "None")
+                CountPicker("Key Finders Supported", selection: $handset.keyFindersSupported, startNumber: 1, multipliedBy: 2, endNumber: 4, singularSuffix: "Key Finder", pluralSuffix: "Key Finders", noneTitle: "None")
                 InfoText("By registering a key finder to a handset, you can use the handset to find lost items easily. If the handset is registered to a compatible base, key finder registrations can be used by any handset. Handsets in range will access the base's registration information and store it in the handset, while handsets out of range will access the registration information stored in them.")
             }
         } else {

@@ -109,7 +109,7 @@ struct PhoneGeneralView: View {
                 .padding()
                 .font(.system(size: phoneDescriptionTextSize))
         }
-        CountPicker("Number of Included Cordless Devices", selection: $phone.numberOfIncludedCordlessHandsets, numberRange: 1...30, noneTitle: "Not Cordless")
+        CountPicker("Number of Included Cordless Devices", selection: $phone.numberOfIncludedCordlessHandsets, numberRange: 1...30, singularSuffix: "Cordless Device", pluralSuffix: "Cordless Devices", noneTitle: "Not Cordless")
             .disabled(phone.handsetNumberDigit != nil)
             .onChange(of: phone.numberOfIncludedCordlessHandsets) { oldValue, newValue in
                 phone.numberOfIncludedCordlessHandsetsChanged(oldValue: oldValue, newValue: newValue)
@@ -191,7 +191,7 @@ struct PhoneGeneralView: View {
                 }
             }
             if phone.cordlessDeviceLinkingMethod > 2 {
-                CountPicker("Maximum Number of Cordless Devices", selection: $phone.maxCordlessHandsets, oneTo: phone.cordlessDeviceLinkingMethod == 4 ? 30 : 1, unlimitedTitle: "Unlimited")
+                CountPicker("Maximum Number of Cordless Devices", selection: $phone.maxCordlessHandsets, oneTo: phone.cordlessDeviceLinkingMethod == 4 ? 30 : 1, singularSuffix: "Cordless Device", pluralSuffix: "Cordless Devices", unlimitedTitle: "Unlimited")
                     .onChange(of: phone.maxCordlessHandsets) { oldValue, newValue in
                         phone.maxCordlessHandsetsChanged(oldValue: oldValue, newValue: newValue)
                     }

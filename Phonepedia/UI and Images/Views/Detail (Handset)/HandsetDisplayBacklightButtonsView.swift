@@ -268,7 +268,7 @@ struct HandsetDisplayBacklightButtonsView: View {
                     Toggle("Navigation Button Standby Shortcuts", isOn: $handset.navigatorKeyStandbyShortcuts)
                 }
                 if handset.displayType > 1 {
-                    CountPicker("Soft Keys", selection: $handset.softKeys, oneTo: 3, noneTitle: "None")
+                    CountPicker("Soft Keys", selection: $handset.softKeys, oneTo: 3, singularSuffix: "Soft Key", pluralSuffix: "Soft Keys", noneTitle: "None")
                         .onChange(of: handset.softKeys) { oldValue, newValue in
                             handset.softKeysChanged(oldValue: oldValue, newValue: newValue)
                         }

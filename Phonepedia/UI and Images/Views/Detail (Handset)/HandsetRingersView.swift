@@ -21,8 +21,8 @@ struct HandsetRingersView: View {
 
     var body: some View {
         if let phone = handset.phone {
-            CountPicker("Standard Ringtones", selection: $handset.ringtones, oneTo: 50)
-            CountPicker("Music/Melody Ringtones: \(handset.musicRingtones)", selection: $handset.musicRingtones, oneTo: 50, noneTitle: "None")
+            CountPicker("Standard Ringtones", selection: $handset.ringtones, oneTo: 50, singularSuffix: "Tone", pluralSuffix: "Tones")
+            CountPicker("Music/Melody Ringtones: \(handset.musicRingtones)", selection: $handset.musicRingtones, oneTo: 50, singularSuffix: "Melody", pluralSuffix: "Melodies", noneTitle: "None")
             Text("Total Ringtones: \(handset.totalRingtones)")
             RingtoneInfoView()
             if handset.hasSpeakerphone {
