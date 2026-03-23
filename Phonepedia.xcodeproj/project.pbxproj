@@ -83,6 +83,7 @@
 		8D71C8172CDD651D00072E50 /* RedialNameDisplayInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D71C8162CDD651D00072E50 /* RedialNameDisplayInfoView.swift */; };
 		8D71C8192CDD666C00072E50 /* SpeedDialEntryModeInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D71C8182CDD666C00072E50 /* SpeedDialEntryModeInfoView.swift */; };
 		8D71C81B2CDEBDF600072E50 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 8D71C81A2CDEBDF600072E50 /* PrivacyInfo.xcprivacy */; };
+		8D71EE782F719E9800F323D6 /* BrandQuickPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D71EE772F719E9800F323D6 /* BrandQuickPicker.swift */; };
 		8D7A097C2EBAA420008DB3F0 /* BoneConductionEarpieceInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7A097B2EBAA420008DB3F0 /* BoneConductionEarpieceInfoView.swift */; };
 		8D7A74A42C26203E00C5329E /* DocumentLaunchPhonesAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7A74A32C26203E00C5329E /* DocumentLaunchPhonesAccessoryView.swift */; };
 		8D8198A22D7645B90026D882 /* ringAndCallerIDFSK.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D8198A12D7645B90026D882 /* ringAndCallerIDFSK.wav */; };
@@ -292,6 +293,7 @@
 		8D71C8162CDD651D00072E50 /* RedialNameDisplayInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedialNameDisplayInfoView.swift; sourceTree = "<group>"; };
 		8D71C8182CDD666C00072E50 /* SpeedDialEntryModeInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedDialEntryModeInfoView.swift; sourceTree = "<group>"; };
 		8D71C81A2CDEBDF600072E50 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		8D71EE772F719E9800F323D6 /* BrandQuickPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandQuickPicker.swift; sourceTree = "<group>"; };
 		8D7A097B2EBAA420008DB3F0 /* BoneConductionEarpieceInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoneConductionEarpieceInfoView.swift; sourceTree = "<group>"; };
 		8D7A74A32C26203E00C5329E /* DocumentLaunchPhonesAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentLaunchPhonesAccessoryView.swift; sourceTree = "<group>"; };
 		8D8198A12D7645B90026D882 /* ringAndCallerIDFSK.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ringAndCallerIDFSK.wav; sourceTree = "<group>"; };
@@ -713,6 +715,7 @@
 				8D35D98E2F10590A00E49D8E /* PhoneCollectionAchievementRow.swift */,
 				8D41FE502F22CCB800281527 /* ColorStack.swift */,
 				8DA03DC92F61E74C00DC41A9 /* NavigationButtonExampleView.swift */,
+				8D71EE772F719E9800F323D6 /* BrandQuickPicker.swift */,
 			);
 			path = "Child Views";
 			sourceTree = "<group>";
@@ -1087,6 +1090,7 @@
 				8DBCB7E32D49861C00878A1F /* MultiEntryDisplayInfoView.swift in Sources */,
 				8DC725892D4D778800ED9D68 /* DocumentLaunchBackgroundView.swift in Sources */,
 				8DA844D42B72E1D7006CBCA7 /* NoPhoneSelectedView.swift in Sources */,
+				8D71EE782F719E9800F323D6 /* BrandQuickPicker.swift in Sources */,
 				8D35D98D2F10582500E49D8E /* PhoneCollectionAchievementsView.swift in Sources */,
 				8D7A097C2EBAA420008DB3F0 /* BoneConductionEarpieceInfoView.swift in Sources */,
 				8D94AA9A2EF0B71A00F23F14 /* RedialDuringCallPickerItems.swift in Sources */,

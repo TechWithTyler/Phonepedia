@@ -177,6 +177,9 @@ struct PhoneDetailView: View {
                 .onChange(of: phone.brand) { oldValue, newValue in
                     phone.brandChanged(oldValue: oldValue, newValue: newValue)
                 }
+            if phone.brand.isEmpty || phone.brand == Phone.mockBrand {
+                BrandQuickPicker(brandText: $phone.brand, cordless: phone.isCordless)
+            }
             FormTextField("Model", text: $phone.model)
                 .onChange(of: phone.model) { oldValue, newValue in
                     phone.modelNumberChanged(oldValue: oldValue, newValue: newValue)

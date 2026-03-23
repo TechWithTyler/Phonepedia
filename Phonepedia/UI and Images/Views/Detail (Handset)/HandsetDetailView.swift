@@ -62,6 +62,9 @@ struct HandsetDetailView: View {
                     .onChange(of: handset.brand) { oldValue, newValue in
                         handset.brandChanged(oldValue: oldValue, newValue: newValue)
                     }
+                if handset.brand.isEmpty || handset.brand == Phone.mockBrand {
+                    BrandQuickPicker(brandText: $handset.brand, cordless: true)
+                }
                 FormTextField("Model", text: $handset.model)
                 FormNavigationLink(phone: phone) {
                     HandsetGeneralView(handset: handset)
