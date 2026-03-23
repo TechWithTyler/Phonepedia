@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 12/20/23.
-//  Copyright © 2023-2025 SheftApps. All rights reserved.
+//  Copyright © 2023-2026 SheftApps. All rights reserved.
 //
 
 // MARK: - Imports
@@ -26,7 +26,7 @@ extension CGImagePropertyOrientation {
             case .downMirrored: self = .downMirrored
             case .leftMirrored: self = .leftMirrored
             case .rightMirrored: self = .rightMirrored
-            @unknown default: self = .up
+            default: self = .up
         }
     }
     

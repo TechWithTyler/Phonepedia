@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 10/3/24.
-//  Copyright © 2023-2025 SheftApps. All rights reserved.
+//  Copyright © 2023-2026 SheftApps. All rights reserved.
 //
 
 // MARK: - Imports
@@ -58,12 +58,6 @@ struct BaseCallerIDView: View {
                 ExampleAudioView(audioFile: .talkingCallerIDNumber)
             }
         }
-        if phone.isCordless || phone.baseDisplayType > 2 {
-            FormNumericTextField(phone.isCordless ? "Caller ID List Capacity (Base)" : "Caller ID List Capacity", value: $phone.baseCallerIDCapacity, valueRange: .allPositivesIncludingZero, singularSuffix: "entry", pluralSuffix: "entries")
-#if !os(visionOS)
-                .scrollDismissesKeyboard(.interactively)
-#endif
-        }
         if phone.hasAnalogLineConnection && phone.hasClock {
             Toggle("Caller ID Time Adjustment", isOn: $phone.callerIDTimeAdjust)
             InfoText("Caller ID data may include not only the name and/or phone number, but also the date and time of the call. This data can be used to automatically set the phone's clock.\nCaller ID data doesn't include the year or day of the week. You may need to manually set the year after a power outage. For this reason, if the year isn't correct and there's a leap day, the date might be incorrect. For phones that store a day of the week, it either has a manually-set year which tells it which day of the week to use, or you need to manually set the day of the week.")
@@ -73,6 +67,16 @@ struct BaseCallerIDView: View {
         ExampleAudioView(audioFile: .callWaitingTone)
         ExampleAudioView(audioFile: .dtmfToneD)
         ExampleAudioView(audioFile: .dtmfToneA)
+        if phone.isCordless || phone.baseDisplayType > 2 {
+            FormNumericTextField(phone.isCordless ? "Caller ID List Capacity (Base)" : "Caller ID List Capacity", value: $phone.baseCallerIDCapacity, valueRange: 0...Int.max, singularSuffix: "entry", pluralSuffix: "entries")
+#if !os(visionOS)
+                .scrollDismissesKeyboard(.interactively)
+#endif
+            if phone.hasCallerIDList {
+                Toggle("One-Ring Scam Call Detection", isOn: $phone.scamCallDetection)
+                InfoText("If a caller hangs up within 1 or 2 rings and caller ID is received, the phone can mark the call as a one-ring scam call when viewed in the caller ID list, and warn the user when trying to call that caller. One-ring scams often come from international numbers, which cost money to call.")
+            }
+        }
     }
 
 }

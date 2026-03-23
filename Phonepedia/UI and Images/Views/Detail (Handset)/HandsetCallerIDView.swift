@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 10/3/24.
-//  Copyright © 2023-2025 SheftApps. All rights reserved.
+//  Copyright © 2023-2026 SheftApps. All rights reserved.
 //
 
 // MARK: - Imports
@@ -20,6 +20,7 @@ struct HandsetCallerIDView: View {
     // MARK: - Body
 
     var body: some View {
+        Section("Features") {
             if handset.hasPhonebook && handset.handsetStyle < 3 {
                 Toggle(isOn: $handset.callerIDPhonebookMatch) {
                     Text("Caller ID Name Uses Matching Phonebook Entry Name")
@@ -35,8 +36,10 @@ struct HandsetCallerIDView: View {
                 ExampleAudioView(audioFile: .talkingCallerIDCNAM)
                 ExampleAudioView(audioFile: .talkingCallerIDNumber)
             }
+        }
+        Section("List") {
             if handset.handsetStyle < 3 {
-                FormNumericTextField("Caller ID List Capacity", value: $handset.callerIDCapacity, valueRange: .allPositivesIncludingZero, singularSuffix: "entry", pluralSuffix: "entries")
+                FormNumericTextField("Capacity", value: $handset.callerIDCapacity, valueRange: 0...Int.max, singularSuffix: "entry", pluralSuffix: "entries")
 #if !os(visionOS)
                     .scrollDismissesKeyboard(.interactively)
 #endif
@@ -48,6 +51,7 @@ struct HandsetCallerIDView: View {
                 Toggle("Uses Base Caller ID List", isOn: $handset.usesBaseCallerID)
             }
             InfoText("When handsets use the base caller ID list instead of having their own, the caller ID list, and the indication/number of missed calls, is shared by the base and all handsets. Only one can access it at a time.")
+        }
     }
 }
 

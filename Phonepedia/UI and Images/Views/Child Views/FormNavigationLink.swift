@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 9/6/24.
-//  Copyright © 2023-2025 SheftApps. All rights reserved.
+//  Copyright © 2023-2026 SheftApps. All rights reserved.
 //
 
 // MARK: - Imports
@@ -25,6 +25,10 @@ struct FormNavigationLink<Destination: View, Label: View>: View {
 
     var phone: Phone
 
+    // MARK: - Properties - Booleans
+
+    @AppStorage(UserDefaults.KeyNames.backdropEnabled) var backdropEnabled: Bool = true
+
     // MARK: - Initialization
 
     init(phone: Phone, @ViewBuilder destination: @escaping () -> Destination, @ViewBuilder label: @escaping () -> Label) {
@@ -43,12 +47,12 @@ struct FormNavigationLink<Destination: View, Label: View>: View {
 
     var body: some View {
         NavigationLink {
-            SlickBackdropView {
+            SlickBackdropView(enabled: $backdropEnabled) {
                 Form {
                     Section {
                         HStack {
                             Spacer()
-                            PhoneImage(phone: phone, mode: .full)
+                            PhoneImage(phone: phone, displayMode: .full)
                             Spacer()
                         }
                     }
@@ -57,7 +61,7 @@ struct FormNavigationLink<Destination: View, Label: View>: View {
                 .formStyle(.grouped)
                 .scrollContentBackground(.hidden)
             } backdropContent: {
-                PhoneImage(phone: phone, mode: .backdrop)
+                PhoneImage(phone: phone, displayMode: .backdrop)
             }
         } label: {
             label

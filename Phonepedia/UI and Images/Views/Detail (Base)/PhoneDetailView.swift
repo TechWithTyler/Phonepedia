@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 6/16/23.
-//  Copyright © 2023-2025 SheftApps. All rights reserved.
+//  Copyright © 2023-2026 SheftApps. All rights reserved.
 //
 
 // MARK: - Imports
@@ -21,15 +21,19 @@ struct PhoneDetailView: View {
     
     @EnvironmentObject var dialogManager: DialogManager
     
-    @EnvironmentObject var photoViewModel: PhonePhotoViewModel
+    @EnvironmentObject var photoManager: PhonePhotoManager
+
+    // MARK: - Properties - Booleans
+
+    @AppStorage(UserDefaults.KeyNames.backdropEnabled) var backdropEnabled: Bool = true
 
     // MARK: - Body
     
     var body: some View {
-        SlickBackdropView {
+        SlickBackdropView(enabled: $backdropEnabled) {
         NavigationStack {
             Form {
-                if photoViewModel.showingLoadingPhoto {
+                if photoManager.showingLoadingPhoto {
                     LoadingIndicator(message: "Loading photo…", style: .circular)
                 } else {
                     photoAndOptions
@@ -54,53 +58,55 @@ struct PhoneDetailView: View {
 #endif
     }
         } backdropContent: {
-            PhoneImage(phone: phone, mode: .backdrop)
+            PhoneImage(phone: phone, displayMode: .backdrop)
         }
         .scrollContentBackground(.hidden)
-        .photosPicker(isPresented: $photoViewModel.showingPhotoPicker, selection: $photoViewModel.selectedPhoto, matching: .images, preferredItemEncoding: .automatic)
-        .onChange(of: photoViewModel.selectedPhoto, { oldValue, newValue in
-            photoViewModel.updatePhonePhotoToPickerSelection(for: phone, to: newValue)
+        .photosPicker(isPresented: $photoManager.showingPhotoPicker, selection: $photoManager.selectedPhoto, matching: .images, preferredItemEncoding: .automatic)
+        .onChange(of: photoManager.selectedPhoto, { oldValue, newValue in
+            photoManager.handlePhotoPickerSelection(for: phone, newValue: newValue)
         })
         // Photo dialogs
 #if os(iOS)
-        .sheet(isPresented: $photoViewModel.takingPhoto) {
-            CameraViewController(viewModel: photoViewModel, phone: phone)
+        .sheet(isPresented: $photoManager.takingPhoto) {
+            CameraViewController(photoManager: photoManager, phone: phone)
         }
 #endif
-        .alert(isPresented: $photoViewModel.showingPhonePhotoErrorAlert, error: photoViewModel.phonePhotoError) {
+        .alert(isPresented: $photoManager.showingPhonePhotoErrorAlert, error: photoManager.phonePhotoError) {
             Button("OK") {
-                photoViewModel.showingPhonePhotoErrorAlert = false
-                photoViewModel.phonePhotoError = nil
+                photoManager.phonePhotoError = nil
             }
             .keyboardShortcut(.defaultAction)
         }
 #if os(macOS)
         .dialogSeverity(.critical)
 #endif
-        .alert("This phone's photo has successfully been saved to your Photos library!", isPresented: $photoViewModel.showingPhonePhotoExportSuccessfulAlert) {
+        .alert("This phone's photo has successfully been saved to your Photos library!", isPresented: $photoManager.showingPhonePhotoExportSuccessfulAlert) {
             Button("OK") {
-                photoViewModel.showingPhonePhotoExportSuccessfulAlert = false
+                photoManager.showingPhonePhotoExportSuccessfulAlert = false
             }
         }
-        .alert("Reset to the placeholder photo?", isPresented: $photoViewModel.showingResetAlert) {
+        .alert("Reset to the placeholder photo?", isPresented: $photoManager.showingResetAlert) {
             Button(role: .destructive) {
                 phone.photoData = nil
-                photoViewModel.showingResetAlert = false
             } label: {
                 Text("Delete")
             }
+            Button(role: .cancel) {
+                photoManager.showingResetAlert = false
+            } label: {
+                Text("Cancel")
+            }
         }
-        .alert("This photo doesn't appear to contain landline or VoIP phones. Save anyway?", isPresented: $photoViewModel.showingUnsurePhotoDataAlert) {
+        .alert("This photo doesn't appear to contain landline or VoIP phones. Save anyway?", isPresented: $photoManager.showingUnsurePhotoDataAlert) {
             Button {
-                phone.photoData = photoViewModel.unsurePhotoDataToUse
-                photoViewModel.unsurePhotoDataToUse = nil
-                photoViewModel.showingUnsurePhotoDataAlert = false
+                phone.photoData = photoManager.unsurePhotoDataToUse
+                photoManager.unsurePhotoDataToUse = nil
             } label: {
                 Text("Save")
             }
             .keyboardShortcut(.defaultAction)
             Button(role: .cancel) {
-                photoViewModel.showingUnsurePhotoDataAlert = false
+                photoManager.unsurePhotoDataToUse = nil
             } label: {
                 Text("Cancel")
             }
@@ -116,42 +122,42 @@ struct PhoneDetailView: View {
         Group {
             HStack {
                 Spacer()
-                PhoneImage(phone: phone, mode: .full)
+                PhoneImage(phone: phone, displayMode: .full)
                     .contextMenu {
                         Button("Save to Photos Library…", systemImage: "square.and.arrow.down") {
-                            photoViewModel.savePhonePhotoToLibrary(phone: phone)
+                            photoManager.savePhonePhotoToLibrary(phone: phone)
                         }
                         .disabled(phone.photoData == nil)
                     }
-                    .onDrop(of: [.image], isTargeted: $photoViewModel.hoveringItemOverPhoto) { providers in
-                        photoViewModel.handleDroppedPhoto(phone: phone, with: providers)
+                    .onDrop(of: [.image], isTargeted: $photoManager.hoveringItemOverPhoto) { providers in
+                        photoManager.handleDroppedPhoto(phone: phone, with: providers)
                     }
                     .onDrag {
-                        photoViewModel.exportPhonePhoto(phone: phone)
+                        photoManager.exportPhonePhoto(phone: phone)
                     }
-                    .sensoryFeedback(.alignment, trigger: photoViewModel.hoveringItemOverPhoto)
-                    .sensoryFeedback(.error, trigger: photoViewModel.showingPhonePhotoErrorAlert == true)
+                    .sensoryFeedback(.alignment, trigger: photoManager.hoveringItemOverPhoto)
+                    .sensoryFeedback(.error, trigger: photoManager.showingPhonePhotoErrorAlert)
                 Spacer()
             }
-            if photoViewModel.hoveringItemOverPhoto {
+            if photoManager.hoveringItemOverPhoto {
                 Text("Release to set photo")
                     .font(.caption)
                     .foregroundStyle(.secondary)
             } else {
 #if os(iOS)
                 Button {
-                    photoViewModel.takingPhoto = true
+                    photoManager.takingPhoto = true
                 } label: {
                     Label("Take Photo…", systemImage: "camera")
                 }
 #endif
                 Button {
-                    photoViewModel.showingPhotoPicker = true
+                    photoManager.showingPhotoPicker = true
                 } label: {
                     Label("Select From Library…", systemImage: "photo")
                 }
                 Button(role: .destructive) {
-                    photoViewModel.showingResetAlert = true
+                    photoManager.showingResetAlert = true
                 } label: {
                     Label("Reset to Placeholder…", systemImage: "arrow.clockwise")
 #if !os(macOS)
@@ -171,6 +177,9 @@ struct PhoneDetailView: View {
                 .onChange(of: phone.brand) { oldValue, newValue in
                     phone.brandChanged(oldValue: oldValue, newValue: newValue)
                 }
+            if phone.brand.isEmpty || phone.brand == Phone.mockBrand {
+                BrandQuickPicker(brandText: $phone.brand, cordless: phone.isCordless)
+            }
             FormTextField("Model", text: $phone.model)
                 .onChange(of: phone.model) { oldValue, newValue in
                     phone.modelNumberChanged(oldValue: oldValue, newValue: newValue)
@@ -359,6 +368,7 @@ struct PhoneDetailView: View {
                 } label: {
                     Label("Caller ID", systemImage: "phone.bubble.left")
                 }
+            }
                 FormNavigationLink(phone: phone) {
                     BaseSpeedDialView(phone: phone)
                         .navigationTitle("Quick Dialing")
@@ -368,7 +378,7 @@ struct PhoneDetailView: View {
                 } label: {
                     Label("Quick Dialing", systemImage: "person.3")
                 }
-                if phone.isCordlessOrPushButtonDesk {
+            if phone.isCordlessOrPushButtonDesk && phone.canShowPhoneNumbers {
                     FormNavigationLink(phone: phone) {
                         CallBlockView(phone: phone)
                             .navigationTitle("Call Blocking")
@@ -379,7 +389,6 @@ struct PhoneDetailView: View {
                         Label("Call Blocking", systemImage: "shield")
                     }
                 }
-            }
         }
     }
 
@@ -402,6 +411,6 @@ struct PhoneDetailView: View {
 
 #Preview {
     PhoneDetailView(phone: Phone(brand: "AT&T", model: "CL83207"))
-        .environmentObject(PhonePhotoViewModel())
+        .environmentObject(PhonePhotoManager())
         .environmentObject(DialogManager())
 }

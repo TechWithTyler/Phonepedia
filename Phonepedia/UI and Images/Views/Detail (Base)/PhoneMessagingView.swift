@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 10/3/24.
-//  Copyright © 2023-2025 SheftApps. All rights reserved.
+//  Copyright © 2023-2026 SheftApps. All rights reserved.
 //
 
 // MARK: - Imports
@@ -40,23 +40,11 @@ struct PhoneMessagingView: View {
                 phone.hasAnsweringSystemChanged(oldValue: oldValue, newValue: newValue)
             }
             if phone.hasBaseAccessibleAnsweringSystem {
-                Picker("Answering System Type", selection: $phone.answeringSystemType) {
+                Picker("Type", selection: $phone.answeringSystemType) {
                     Text("Digital").tag(1)
                     Text("Tape Cassette(s)").tag(0)
                 }
                 InfoText("Early answering systems stored messages on a tape cassette. The greeting is stored either on the same cassette as the messages (single-cassette systems), on a separate cassette (dual-cassette systems), or digitally. Storing the greeting on the same cassette as the messages results in a delay between the greeting and the beep, as the system needs to move the tape forward to the end where the message is to be recorded, then back to the beginning so it's ready to answer another call. Some models can count the number of messages on the tape by detecting the beeps on the tape. Beep detection may not work properly if the beeps on the tape were recorded by a different answering system.\nModern answering systems are fully digital, meaning messages are stored on a memory chip. This allows for quicker operation.")
-                if phone.answeringSystemType == 1 {
-                    Picker("All Message Deletion", selection: $phone.allMessageDeletion) {
-                        if phone.hasAnsweringSystem == 2 {
-                            Text("Not Supported").tag(0)
-                            Divider()
-                        }
-                        Text("All Messages").tag(1)
-                        Text("All Old Messages").tag(2)
-                        Text("When No New").tag(3)
-                    }
-                    InfoText("• All Messages: All messages are deleted.\n• All Old Messages: New messages aren't deleted.\n• When No New: Deleting all old messages is only possible when there are no new messages.")
-                }
                 if phone.isMultiline {
                     Picker("Multi-Line Button Layout", selection: $phone.answeringSystemMultilineButtonLayout) {
                         Text("Separate Buttons").tag(0)
@@ -64,6 +52,18 @@ struct PhoneMessagingView: View {
                     }
                     InfoText("Multi-line phones either have separate play and answer on/off buttons for each line, or one play and answer on/off button as well as a button which selects the line(s) those buttons will use.")
                 }
+            }
+            if phone.answeringSystemType == 1 {
+                Picker("All Message Deletion", selection: $phone.allMessageDeletion) {
+                    if phone.hasAnsweringSystem == 2 {
+                        Text("Not Supported").tag(0)
+                        Divider()
+                    }
+                    Text("All Messages").tag(1)
+                    Text("All Old Messages").tag(2)
+                    Text("When No New").tag(3)
+                }
+                InfoText("• All Messages: All messages are deleted.\n• All Old Messages: New messages aren't deleted.\n• When No New: Deleting all old messages is only possible when there are no new messages.")
             }
             if phone.hasAnsweringSystem > 0 && phone.baseBluetoothCellPhonesSupported > 0 && phone.answeringSystemType == 1 {
                 Toggle("Answering System For Cell Lines", isOn: $phone.answeringSystemForCellLines)
@@ -77,6 +77,8 @@ struct PhoneMessagingView: View {
                     }
                 }
                 AnsweringSystemMenuInfoView()
+                InfoText("An answering system voice menu might also display the current setting on the message counter if it has one.")
+                InfoText("Example answering system menu voice prompt: \"Number of rings: 4 rings. Press skip or repeat to change the setting. Press menu to go to the next option, or press stop to exit.\"")
             } else if phone.isCordless && phone.hasAnsweringSystem == 3 {
                 Picker("Answering System Menu (Base)", selection: $phone.answeringSystemMenuOnBase) {
                     Text("None").tag(0)
@@ -173,9 +175,9 @@ struct PhoneMessagingView: View {
                 InfoText("""
 A phone's voicemail indicator works in one of the following ways:
 • 1: Your phone provider may send FSK tones to the phone whenever a new voicemail is left and when all new voicemails are played, to tell the phone to turn on or off its voicemail indicator.
-• 2: The phone may go off-hook for a few seconds periodically, or when you hang up or it stops ringing, to listen for a stutter dial tone ("bee-bee-bee-beeeeeeeep") which your phone provider may use as an audible indication of new voicemails.
-• 3: A high voltage signal on the line turns on and off repeatedly, or stays on, as long as you have new voicemails. This voltage causes the phone's message waiting light (usually the same as the visual ringer) to turn on or flash. If you use a device to listen in on the phone line without going off-hook, this signal sounds like purring or hissing. This is often used in conjunction with a constantly-pulsing dial tone.
-• 4: The phone can use line polarity reversal to indicate new voicemails. This method is the least reliable as the provider and phone aren't guaranteed to be in sync (e.g. if the phone wasn't connected to the line when the expected indicator state changed).
+• 2: The phone may go off-hook for a few seconds periodically, or when you hang up or it stops ringing, to listen for a stutter dial tone ("bee-bee-bee-beeeeeeeep") which your phone provider may use as an audible indication of new voicemails. If you hear a stutter dial tone instead of just a continuous dial tone, there are new voicemails.
+• 3: A high voltage signal on the line turns on and off repeatedly, or stays on, as long as you have new voicemails. This voltage causes the phone's visual ringer to turn on or flash. If you use a device to listen in on the phone line without going off-hook, this signal sounds like purring or hissing. This is often used in conjunction with a constantly-pulsing dial tone.
+• 4: The phone can use line polarity reversal to toggle the new voicemail indication on or off. This method is the least reliable as the provider and phone aren't guaranteed to be in sync (e.g. if the phone wasn't connected to the line when the expected indicator state changed).
 • 1 and 2: The phone can go off-hook to listen for a stutter dial tone, or respond to FSK tones. This allows the voicemail indicator to work when one of the 2 methods is unreliable (e.g. stutter dial tone detection only happens after going on-hook or the phone stops ringing, or the FSK tone isn't sent for some reason). The phone may have an option to disable stutter dial tone detection, which is useful if your provider only sends FSK tones.
 • 1 and 3: The phone can use FSK tones for a display indicator and NEON for a light.
 • Selectable: The phone can be set to use any of the above methods. This selectability is often present on hotel phones, since they're designed to be compatible with a wide range of hotel PBX systems which may not offer the same selectability.
@@ -184,7 +186,7 @@ A phone's voicemail indicator works in one of the following ways:
                     ExampleAudioView(audioFile: .stutterDialTone)
                 }
             }
-            if !phone.isCordless || phone.hasBaseSpeakerphone {
+            if (!phone.isCordless || phone.hasBaseSpeakerphone) && (phone.voicemailIndication > 0 || phone.landlineConnectionType > 0) {
                 Picker("Voicemail Quick Dial", selection: $phone.voicemailQuickDial) {
                     Text("None").tag(0)
                     Text("Button").tag(1)
@@ -204,7 +206,7 @@ A phone's voicemail indicator works in one of the following ways:
             }
             if phone.voicemailQuickDial > 0 {
                 Toggle("Can Store Voicemail Feature Codes", isOn: $phone.voicemailFeatureCodes)
-                InfoText("Storing voicemail feature codes allows you to, for example, play and delete messages using a button or menu item once you've dialed into voicemail, just like with built-in answering systems. Example: If your voicemail system's main menu asks you to press 1 to play messages, you can store \"1\" to the Play code and then quickly dial it using a button/menu item.")
+                InfoText("Storing voicemail feature codes allows you to, for example, play and delete messages using a button or menu item once you've dialed into voicemail, just like with built-in answering systems. Example: If your voicemail system's main menu asks you to press 1 to play messages, you can store \"1\" as the Play code and then quickly dial it using a button/menu item.")
             }
         }
     }

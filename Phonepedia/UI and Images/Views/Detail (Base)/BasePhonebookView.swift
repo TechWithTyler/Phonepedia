@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 10/3/24.
-//  Copyright © 2023-2025 SheftApps. All rights reserved.
+//  Copyright © 2023-2026 SheftApps. All rights reserved.
 //
 
 // MARK: - Imports
@@ -20,11 +20,11 @@ struct BasePhonebookView: View {
     // MARK: - Body
 
     var body: some View {
-        FormNumericTextField(phone.isCordless ? "Phonebook Capacity (Base)" : "Phonebook Capacity", value: $phone.basePhonebookCapacity, valueRange: .allPositivesIncludingZero, singularSuffix: "entry", pluralSuffix: "entries")
+        FormNumericTextField(phone.isCordless ? "Capacity (Base)" : "Capacity", value: $phone.basePhonebookCapacity, valueRange: 0...Int.max, singularSuffix: "entry", pluralSuffix: "entries")
 #if !os(visionOS)
             .scrollDismissesKeyboard(.interactively)
 #endif
-        FormNumericTextField(phone.isCordless ? "Numbers Per Phonebook Entry (Base)" : "Numbers Per Phonebook Entry", value: $phone.numbersPerPhonebookEntry, valueRange: .oneToMax(5), singularSuffix: "number", pluralSuffix: "numbers")
+        FormNumericTextField(phone.isCordless ? "Numbers Per Entry (Base)" : "Numbers Per Entry", value: $phone.numbersPerPhonebookEntry, valueRange: 1...5, singularSuffix: "number", pluralSuffix: "numbers")
 #if !os(visionOS)
             .scrollDismissesKeyboard(.interactively)
 #endif
@@ -39,9 +39,9 @@ struct BasePhonebookView: View {
         if phone.basePhonebookCapacity > 0 {
             Toggle("Supports Audio Tags", isOn: $phone.phonebookAudioTags)
             InfoText("A phonebook entry's audio tag is announced when that entry calls.")
-            Toggle("Supports Phonebook Groups", isOn: $phone.baseSupportsPhonebookGroups)
+            Toggle("Supports Groups", isOn: $phone.baseSupportsPhonebookGroups)
             PhonebookGroupInfoView()
-            FormNumericTextField(phone.isCordless ? "Favorite Entry Capacity (Base)" : "Favorite Entry Capacity", value: $phone.baseFavoriteEntriesCapacity, valueRange: .allPositivesIncludingZero, singularSuffix: "entry", pluralSuffix: "entries")
+            FormNumericTextField(phone.isCordless ? "Favorite Entry Capacity (Base)" : "Favorite Entry Capacity", value: $phone.baseFavoriteEntriesCapacity, valueRange: 0...Int.max, singularSuffix: "entry", pluralSuffix: "entries")
             FavoriteEntriesInfoView()
             if phone.baseDisplayType > 2 {
                 Toggle("Supports Phonebook Ringtones", isOn: $phone.baseSupportsPhonebookRingtones)
@@ -54,6 +54,7 @@ struct BasePhonebookView: View {
             if phone.basePhonebookCapacity >= phonebookTransferRequiredMaxCapacity {
                 Picker("Bluetooth Cell Phone Phonebook Transfers", selection: $phone.bluetoothPhonebookTransfers) {
                     Text("Not Supported").tag(0)
+                    Divider()
                     Text("To Home Phonebook").tag(1)
                     if phone.baseBluetoothCellPhonesSupported > 0 {
                         Text("To Separate Cell Phonebook").tag(2)

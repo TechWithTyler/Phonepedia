@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 12/6/24.
-//  Copyright © 2023-2025 SheftApps. All rights reserved.
+//  Copyright © 2023-2026 SheftApps. All rights reserved.
 //
 
 // MARK: - Imports
@@ -15,7 +15,7 @@ struct SettingsView: View {
 
     // MARK: - Properties - Dialog Manager
 
-    @ObservedObject var dialogManager = DialogManager()
+    @StateObject var dialogManager = DialogManager()
 
     // MARK: - Properties - Dismiss Action
 
@@ -36,7 +36,7 @@ struct SettingsView: View {
                     .frame(width: 500, height: 500)
                     .formStyle(.grouped)
                 } label: {
-                    Label(SettingsPage.display.rawValue.capitalized, systemImage: SettingsPage.Icons.display.rawValue)
+                    Label(SettingsPage.display.title, systemImage: SettingsPage.Icons.display.rawValue)
                 }
                 Tab(value: SettingsPage.newPhones) {
                     SAMVisualEffectViewSwiftUIRepresentable(activeState: .active) {
@@ -45,7 +45,7 @@ struct SettingsView: View {
                     .frame(width: 500, height: 200)
                     .formStyle(.grouped)
                 } label: {
-                    Label(SettingsPage.newPhones.rawValue.capitalized, systemImage: SettingsPage.Icons.newPhones.rawValue)
+                    Label(SettingsPage.newPhones.title, systemImage: SettingsPage.Icons.newPhones.rawValue)
                 }
             }
         .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
@@ -56,15 +56,15 @@ struct SettingsView: View {
                 Section {
                     NavigationLink {
                         DisplaySettingsPageView()
-                            .navigationTitle(SettingsPage.display.rawValue.capitalized)
+                            .navigationTitle(SettingsPage.display.title)
                     } label: {
-                        Label(SettingsPage.display.rawValue.capitalized, systemImage: SettingsPage.Icons.display.rawValue)
+                        Label(SettingsPage.display.title, systemImage: SettingsPage.Icons.display.rawValue)
                     }
                     NavigationLink {
                         NewPhonesSettingsPageView()
-                            .navigationTitle(SettingsPage.newPhones.rawValue.capitalized)
+                            .navigationTitle(SettingsPage.newPhones.title)
                     } label: {
-                        Label(SettingsPage.newPhones.rawValue.capitalized, systemImage: SettingsPage.Icons.newPhones.rawValue)
+                        Label(SettingsPage.newPhones.title, systemImage: SettingsPage.Icons.newPhones.rawValue)
                     }
                 }
                 Section {

@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 12/6/24.
-//  Copyright © 2023-2025 SheftApps. All rights reserved.
+//  Copyright © 2023-2026 SheftApps. All rights reserved.
 //
 
 // MARK: - Imports
@@ -12,13 +12,20 @@ import Foundation
 
 extension UserDefaults {
 
+    // Names of UserDefaults keys.
     struct KeyNames {
 
         // MARK: - UserDefaults Key Names
 
+        static let selectedSettingsPage: String = "selectedSettingsPage"
+
         static let useDetailedPhoneImage: String = "useDetailedPhoneImage"
 
+        static let backdropEnabled: String = "backdropEnabled"
+
         static let phoneDescriptionTextSize: String = "phoneDescriptionTextSize"
+
+        static let showAchievementAlerts: String = "showAchievementAlerts"
 
         static let showPhoneTypeInList: String = "showPhoneTypeInList"
 

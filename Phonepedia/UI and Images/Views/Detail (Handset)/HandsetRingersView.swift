@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 10/3/24.
-//  Copyright © 2023-2025 SheftApps. All rights reserved.
+//  Copyright © 2023-2026 SheftApps. All rights reserved.
 //
 
 // MARK: - Imports
@@ -21,18 +21,23 @@ struct HandsetRingersView: View {
 
     var body: some View {
         if let phone = handset.phone {
-            Stepper("Standard Ringtones: \(handset.ringtones)", value: $handset.ringtones, in: .oneToMax(50))
-            Stepper("Music/Melody Ringtones: \(handset.musicRingtones)", value: $handset.musicRingtones, in: .zeroToMax(50))
+            CountPicker("Standard Ringtones", selection: $handset.ringtones, oneTo: 50, singularSuffix: "Tone", pluralSuffix: "Tones")
+            CountPicker("Music/Melody Ringtones: \(handset.musicRingtones)", selection: $handset.musicRingtones, oneTo: 50, singularSuffix: "Melody", pluralSuffix: "Melodies", noneTitle: "None")
             Text("Total Ringtones: \(handset.totalRingtones)")
             RingtoneInfoView()
             if handset.hasSpeakerphone {
                 Picker("Custom Ringtones Source", selection: $handset.customRingtonesSource) {
                     Text("None").tag(0)
+                    Divider()
                     Text("Recording Only").tag(1)
                     Text("Audio Files Only").tag(2)
                     Text("Recording/Audio Files").tag(3)
                 }
                 InfoText("Some handsets allow you to record audio to use as ringtones, transfer audio files from a device to use as ringtones, or both.")
+            }
+            if phone.cordlessDeviceLinkingMethod <= 3 && phone.baseChargesHandset && handset.fitsOnBase && phone.totalBaseRingtones > 0 {
+                Toggle("Rings On Base", isOn: $handset.ringsOnBase)
+                InfoText("On many single-handset phones without registration, if the base has a ringer and it's turned on, the handset won't ring since its ringer is redundant.")
             }
             Picker("Silent Mode", selection: $handset.silentMode) {
                 Text("None").tag(0)
@@ -67,7 +72,7 @@ struct HandsetRingersView: View {
                 InfoText("Some cordless handsets have vibrator motors like cell phones.")
             }
         } else {
-            Text("Error")
+            Text(cordlessDeviceMissingPhoneText)
         }
     }
 

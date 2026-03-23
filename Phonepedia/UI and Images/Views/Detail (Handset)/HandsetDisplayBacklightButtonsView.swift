@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 10/3/24.
-//  Copyright © 2023-2025 SheftApps. All rights reserved.
+//  Copyright © 2023-2026 SheftApps. All rights reserved.
 //
 
 // MARK: - Imports
@@ -12,15 +12,15 @@ import SwiftUI
 import SheftAppsStylishUI
 
 struct HandsetDisplayBacklightButtonsView: View {
-
+    
     // MARK: - Properties - Objects
-
+    
     @Bindable var handset: CordlessHandset
-
+    
     @EnvironmentObject var dialogManager: DialogManager
-
+    
     // MARK: - Body
-
+    
     var body: some View {
         if let phone = handset.phone {
             Section("Buttons") {
@@ -64,7 +64,7 @@ struct HandsetDisplayBacklightButtonsView: View {
                         PhoneButtonLegendItem(button: .off, colorLayer: handset.talkOffColorLayer)
                     }
                 }
-
+                
                 if handset.softKeys > 0 && handset.talkOffButtonType != 4 && (phone.isMultiline || phone.baseBluetoothCellPhonesSupported > 0) {
                     Picker("Line Buttons", selection: $handset.lineButtons) {
                         Text("Physical").tag(0)
@@ -86,35 +86,50 @@ struct HandsetDisplayBacklightButtonsView: View {
                 Toggle(isOn: $handset.hasTalkingKeypad) {
                     Text("Talking Keypad")
                 }
-                Picker("Button Backlight", selection: $handset.keyBacklightAmount) {
+                Picker("Button Lighting", selection: $handset.keyBacklightAmount) {
                     Text("None").tag(0)
+                    Divider()
                     Text("Numbers Only").tag(1)
                     Text("Numbers + Some Function Buttons").tag(2)
                     Text("Numbers + All Function Buttons").tag(3)
-                    Text("Numbers + Navigation Button").tag(4)
-                    Text("All Buttons").tag(5)
+                    if handset.navigatorKeyType > 0 {
+                        Text("Numbers + Navigation Button").tag(4)
+                        Text("All Buttons").tag(5)
+                    }
+                    Divider()
+                    Text("Front Light").tag(6)
                 }
                 if handset.keyBacklightAmount > 0 {
-                    ColorPicker("Button Backlight Color", selection: handset.keyBacklightColorBinding, supportsOpacity: false)
-                    Picker("Button Backlight Layer", selection: $handset.keyBacklightLayer) {
-                        Text("Background").tag(0)
-                        Text("Foreground").tag(1)
-                    }
-                    VStack {
-                        Text("Button Backlight Example")
-                        Image(systemName: "5.square.fill")
-                            .foregroundStyle(
-                                handset.keyBacklightLayer == 0 ? handset.keyForegroundColorBinding.wrappedValue : handset.keyBacklightColorBinding.wrappedValue,
-                                handset.keyBacklightLayer == 0 ? handset.keyBacklightColorBinding.wrappedValue : handset.keyBackgroundColorBinding.wrappedValue
-                            )
-                            .font(.system(size: 40))
+                    ColorPicker("Button Lighting Color", selection: handset.keyBacklightColorBinding)
+                    if handset.keyBacklightAmount < 6 {
+                        if handset.hasMonochromeDisplay {
+                            Button("Set To Display Backlight Color") {
+                                handset.setKeyBacklightColorToDisplayBacklight()
+                            }
+                        }
+                        Picker("Button Backlight Layer", selection: $handset.keyBacklightLayer) {
+                            Text("Background").tag(0)
+                            Text("Foreground").tag(1)
+                        }
+                        VStack {
+                            Text("Button Backlight Example")
+                            Image(systemName: "5.square.fill")
+                                .foregroundStyle(
+                                    handset.keyBacklightLayer == 0 ? handset.keyForegroundColorBinding.wrappedValue : handset.keyBacklightColorBinding.wrappedValue,
+                                    handset.keyBacklightLayer == 0 ? handset.keyBacklightColorBinding.wrappedValue : handset.keyBackgroundColorBinding.wrappedValue
+                                )
+                                .font(.system(size: 40))
+                        }
                     }
                 }
-                if handset.keyBacklightAmount == 0 || handset.keyBacklightLayer == 0 {
-                    ColorPicker("Button Foreground Color", selection: handset.keyForegroundColorBinding, supportsOpacity: false)
+                if handset.keyBacklightAmount == 0 || handset.keyBacklightAmount == 6 || handset.keyBacklightLayer == 0 {
+                    ColorPicker("Button Foreground Color", selection: handset.keyForegroundColorBinding)
                 }
-                if handset.keyBacklightAmount == 0 || handset.keyBacklightLayer == 1 {
-                    ColorPicker("Button Background Color", selection: handset.keyBackgroundColorBinding, supportsOpacity: false)
+                if handset.keyBacklightAmount == 0 || handset.keyBacklightAmount == 6 || handset.keyBacklightLayer == 1 {
+                    ColorPicker("Button Background Color", selection: handset.keyBackgroundColorBinding)
+                    Button("Set To Main Color") {
+                        phone.setKeyBackgroundColorToMain()
+                    }
                 }
                 if handset.keyBacklightAmount == 0 {
                     Button("Swap Foreground/Background Colors", systemImage: "arrow.swap") {
@@ -143,13 +158,21 @@ struct HandsetDisplayBacklightButtonsView: View {
                         InfoText("Answering system settings are typically changed from the handset by pressing the program button followed by the message playback button, then entering codes on the keypad. The current settings may be displayed on the base message counter or display (if it has one), in which case the handset will link to the base after entering answering system programming mode or the desired setting code is entered.\nFor example, the remote access code might be changed by pressing the program button > the message playback button > 2 for remote access code > the desired code > the program or message playback button again to save.")
                     }
                 } else {
+                    if handset.displayType >= 5 {
+                        Picker("Display Background Color Themes", selection: $handset.displayColorThemes) {
+                            DisplayColorThemesPickerItems()
+                        }
+                    }
+                    Picker("Brightness/Contrast Adjustment", selection: $handset.displayBrightnessContrastAdjustment) {
+                        BrightnessContrastAdjustmentPickerItems(colorDisplay: handset.displayType >= 5)
+                    }
                     if handset.cordlessDeviceType == 1 && handset.handsetStyle < 2 {
                         Picker("Display Location", selection: $handset.displayLocation) {
                             Text("Front").tag(0)
                             Text("Back").tag(1)
                             Text("Front and Back").tag(2)
                         }
-                        InfoText("Some handsets have the display and menu/navigation-related buttons on the back to resemble a slim corded phone with caller ID.\nSome handsets have a display on both the front and back, with the back one used for answering system controls and/or an extra set of caller ID navigation controls.")
+                        InfoText("Some handsets have the display and menu/navigation-related buttons on the back to resemble a slim corded phone with caller ID.\nSome handsets have a display and buttons on both the front and back, with the back ones used for answering system controls and/or an extra set of caller ID navigation controls.")
                         if phone.hasAnsweringSystem > 1 {
                             Toggle("Has Answering System Controls", isOn: $handset.hasAnsweringSystemControls)
                             InfoText("Dedicated answering system controls allow you to use the answering system from the handset in the same way you'd use it from a base. This is often seen on phones with an answering system but no base controls for it.")
@@ -167,11 +190,7 @@ struct HandsetDisplayBacklightButtonsView: View {
                 }
                 if handset.displayType > 1 && (handset.handsetStyle < 2 || handset.cordlessDeviceType == 1) {
                     Picker("Clock Display", selection: $handset.clock) {
-                        Text("None").tag(0)
-                        Text("Time Only").tag(1)
-                        Text("Day and Time").tag(2)
-                        Text("Date and Time (w/o Year)").tag(3)
-                        Text("Date and Time (w/ Year)").tag(4)
+                        ClockDisplayPickerItems()
                     }
                     if handset.clock > 0 {
                         Toggle("Supports Clock Backup", isOn: $handset.supportsTimeBackup)
@@ -199,7 +218,12 @@ struct HandsetDisplayBacklightButtonsView: View {
                     }
                 }
                 if handset.hasMonochromeDisplay {
-                    ColorPicker("Display Backlight Color", selection: handset.displayBacklightColorBinding, supportsOpacity: false)
+                    ColorPicker("Display Backlight Color", selection: handset.displayBacklightColorBinding)
+                    if handset.keyBacklightAmount > 0 && handset.keyBacklightAmount < 6 {
+                        Button("Set To Button Backlight Color") {
+                            handset.setDisplayBacklightColorToKeyBacklight()
+                        }
+                    }
                 }
                 if handset.displayType > 0 {
                     Picker("Update Available Handset Menus", selection: $handset.menuUpdateMode) {
@@ -236,37 +260,7 @@ struct HandsetDisplayBacklightButtonsView: View {
                         InfoText("The handset has 2 soft keys (left and right) below the display, with the navigation button's center button being used as the middle soft key instead of the middle soft key being in-between the left and right soft keys.")
                     }
                     if handset.navigatorKeyType > 0 && handset.navigatorKeyType < 4 {
-                        VStack(alignment: .center) {
-                            Text("Navigation Button Example")
-                            ZStack {
-                                Circle()
-                                    .fill(Color.secondary.opacity(0.15))
-                                    .frame(width: 100, height: 100)
-                                VStack(spacing: 20) {
-                                    Image(systemName: "arrowtriangle.up.fill")
-                                        .accessibilityLabel("Up")
-                                    HStack(alignment: .center, spacing: 20) {
-                                        if handset.navigatorKeyLeftRight {
-                                            Image(systemName: "arrowtriangle.left.fill")
-                                                .accessibilityLabel("Left")
-                                        }
-                                        if handset.navigatorKeyCenterButton > 0 {
-                                            Image(systemName: "circle.fill")
-                                                .font(.system(size: 18))
-                                                .accessibilityLabel("Center Button")
-                                        }
-                                        if handset.navigatorKeyLeftRight {
-                                            Image(systemName: "arrowtriangle.right.fill")
-                                                .accessibilityLabel("Right")
-                                        }
-                                    }
-                                    Image(systemName: "arrowtriangle.down.fill")
-                                        .accessibilityLabel("Down")
-                                }
-                                .font(.system(size: 18))
-                                .foregroundStyle(Color.primary)
-                            }
-                        }
+                        NavigationButtonExampleView(showLeftRight: handset.navigatorKeyLeftRight, showCenterButton: handset.navigatorKeyCenterButton > 0, isJoystick: handset.navigatorKeyType == 3)
                     }
                     if handset.sideVolumeButtons {
                         Toggle("Navigation Button Up/Down for Volume", isOn: $handset.navigatorKeyUpDownVolume)
@@ -274,7 +268,7 @@ struct HandsetDisplayBacklightButtonsView: View {
                     Toggle("Navigation Button Standby Shortcuts", isOn: $handset.navigatorKeyStandbyShortcuts)
                 }
                 if handset.displayType > 1 {
-                    Stepper("Soft Keys: \(handset.softKeys)", value: $handset.softKeys, in: .zeroToMax(3))
+                    CountPicker("Soft Keys", selection: $handset.softKeys, oneTo: 3, singularSuffix: "Soft Key", pluralSuffix: "Soft Keys", noneTitle: "None")
                         .onChange(of: handset.softKeys) { oldValue, newValue in
                             handset.softKeysChanged(oldValue: oldValue, newValue: newValue)
                         }
@@ -290,10 +284,10 @@ struct HandsetDisplayBacklightButtonsView: View {
                 }
             }
         } else {
-            Text("Error")
+            Text(cordlessDeviceMissingPhoneText)
         }
     }
-
+    
 }
 
 // MARK: - Preview

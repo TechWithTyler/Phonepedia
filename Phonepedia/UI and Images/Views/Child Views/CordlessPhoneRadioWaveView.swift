@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 2/29/24.
-//  Copyright © 2023-2025 SheftApps. All rights reserved.
+//  Copyright © 2023-2026 SheftApps. All rights reserved.
 //
 
 // MARK: - Imports
@@ -54,7 +54,7 @@ struct CordlessPhoneRadioWaveView: View {
     var body: some View {
         VStack {
             Text("Select different frequencies and see how the wavelength changes.")
-            Slider(value: $selectedFrequencySliderValue, in: .zeroToMax(Double(availableFrequencies.count-1)), step: 1) {
+            Slider(value: $selectedFrequencySliderValue, in: 0...Double(availableFrequencies.count-1), step: 1) {
                 Text("Frequency")
             } minimumValueLabel: {
                 Text("Low")

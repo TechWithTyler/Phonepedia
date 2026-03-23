@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 10/3/24.
-//  Copyright © 2023-2025 SheftApps. All rights reserved.
+//  Copyright © 2023-2026 SheftApps. All rights reserved.
 //
 
 // MARK: - Imports
@@ -20,18 +20,23 @@ struct BaseRedialView: View {
     // MARK: - Body
 
     var body: some View {
-        FormNumericTextField(phone.isCordless ? "Redial Capacity (Base)" : "Redial Capacity", value: $phone.baseRedialCapacity, valueRange: .zeroToMax(phone.baseDisplayType > 2 ? 20 : 1), singularSuffix: "entry", pluralSuffix: "entries")
+        FormNumericTextField(phone.isCordless ? "Capacity (Base)" : "Capacity", value: $phone.baseRedialCapacity, valueRange: phone.baseDisplayType > 2 ? 0...20 : 0...1, singularSuffix: "entry", pluralSuffix: "entries")
 #if !os(visionOS)
             .scrollDismissesKeyboard(.interactively)
 #endif
+        if phone.baseRedialCapacity > 1 {
+            Picker("During Call", selection: $phone.redialDuringCall) {
+                RedialDuringCallPickerItems()
+            }
+        }
         if phone.baseRedialCapacity > 0 && (phone.isCordless || !phone.isLinePoweredCorded) {
-            Picker("Redial When Busy", selection: $phone.busyRedialMode) {
+            Picker("When Busy", selection: $phone.busyRedialMode) {
                 RedialWhenBusyPickerItems()
             }
             RedialWhenBusyInfoView()
         }
         if phone.baseRedialCapacity > 1 && phone.basePhonebookCapacity > 0 {
-            Picker("Redial Name Display", selection: $phone.redialNameDisplay) {
+            Picker("Name Display", selection: $phone.redialNameDisplay) {
                 RedialNameDisplayPickerItems()
             }
             RedialNameDisplayInfoView()

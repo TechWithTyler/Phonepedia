@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 6/15/23.
-//  Copyright © 2023-2025 SheftApps. All rights reserved.
+//  Copyright © 2023-2026 SheftApps. All rights reserved.
 //
 
 // MARK: - Imports
@@ -18,8 +18,11 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
 
     // MARK: - Properties - Mock Phone
 
+    // The mock phone, which is the default for new phones. It needs to be a computed property so it gets a new ID each time.
     @Transient
-    static let mockPhone: Phone = Phone(brand: Phone.mockBrand, model: Phone.mockModel)
+    static var mockPhone: Phone {
+        return Phone(brand: Phone.mockBrand, model: Phone.mockModel)
+    }
 
     // MARK: - Properties - Default Data
 
@@ -45,7 +48,7 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
     // Use @Attribute(_:) to specify an attribute for a SwiftData property.
     @Attribute(.externalStorage) var photoData: Data? = nil
 
-    var releaseYear: Int = currentYear
+    var releaseYear: Int = currentYear - 1
 
     var acquisitionYear: Int = currentYear
 
@@ -195,6 +198,8 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
 
     var cordedRingerType: Int = 0
 
+    var ringerForOtherLines: Int = 0
+
     var cordedRingerLocation: Int = 0
 
     var numberOfIncludedCordlessHandsets: Int = 2
@@ -204,6 +209,8 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
     var handsetNumberDigitIndex: Int? = 5
 
     var maxCordlessHandsets: Int = defaultMaxCordlessDevices
+
+    var cordlessDeviceLinkingMethod: Int = 4
 
     var supportsRangeExtenders: Bool = false
 
@@ -243,6 +250,8 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
 
     var callPrivacyMode: Int = 0
 
+    var joinLeaveTone: Int = 0
+
     var hasBaseIntercom: Bool = false
 
     var intercomAutoAnswer: Int = 0
@@ -253,9 +262,23 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
 
     var landlineInUseStatusOnBase: Int = 0
 
+    var landlineInUseParallelPhoneIndication: Int = 1
+
     var landlineInUseVisualRingerFollowsRingSignal: Bool = true
 
+    var baseSupportsWiredHeadsets: Bool = false
+
+    var baseBluetoothHeadphonesSupported: Int = 0
+
+    var baseBluetoothCellPhonesSupported: Int = 0
+
+    var hasUSBCharging: Bool = false
+
     var cellLineInUseStatusOnBase: Int = 0
+
+    var supportsTransferToCell: Bool = false
+
+    var cellCallTransferToPhone: Int = 0
 
     var cellLineOnlyBehavior: Int = 0
 
@@ -269,9 +292,11 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
 
     var hasAnsweringSystem: Int = 3
 
+    var voiceGuidedSetup: Bool = false
+
     var answeringSystemType: Int = 1
 
-    var allMessageDeletion: Int = 0
+    var allMessageDeletion: Int = 1
 
     var remoteAccessCodeType: Int = 2
 
@@ -329,6 +354,10 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
 
     var baseDisplayType: Int = 0
 
+    var baseDisplayBrightnessContrastAdjustment: Int = 0
+
+    var baseDisplayColorThemes: Int = 0
+
     var cordlessBaseMenuType: Int = 0
 
     var baseDisplayCanTilt: Bool = false
@@ -368,12 +397,6 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
     var cordedFunctionalityOnBackupBatteries: Int = 1
 
     var cordlessPowerBackupReturnBehavior: Int = 0
-
-    var baseSupportsWiredHeadsets: Bool = false
-
-    var baseBluetoothHeadphonesSupported: Int = 0
-
-    var baseBluetoothCellPhonesSupported: Int = 0
 
     var supportsPhonebookTransferDialingCodes: Bool = false
 
@@ -415,6 +438,8 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
 
     var busyRedialMode: Int = 0
 
+    var redialDuringCall: Int = 1
+
     var redialNameDisplay: Int = 0
 
     var supportsCallWaiting: Bool = true
@@ -428,6 +453,8 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
     var hasOneTouchEmergencyCalling: Bool = false
 
     var baseOneTouchDialCapacity: Int = 0
+
+    var numbersPerOneTouchDialButton: Int = 1
 
     var baseOneTouchDialCard: Int = 0
 
@@ -499,6 +526,8 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
 
     var grade: Int = 0
 
+    var supportsPBXFeatures: Bool = false
+
     var landlineConnectedTo: Int = 2
 
     var storageOrSetup: Int = 0
@@ -512,6 +541,8 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
     var neededReplacements: Bool = false
 
     var cellCallRejection: Int = 0
+
+    var cellLineSelection: Int = 0
 
     // MARK: - Properties - Supported VoIP Audio Codecs
 
@@ -687,6 +718,12 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
         return baseRingtones + baseMusicRingtones
     }
 
+    // The total call block capacity (call block list + pre-blocked).
+    @Transient
+    var totalCallBlockCapacity: Int {
+        return callBlockCapacity + callBlockPreProgrammedDatabaseEntryCount
+    }
+
     // Whether the base can be used to talk on the phone.
     @Transient
     var canTalkOnBase: Bool {
@@ -717,6 +754,18 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
         return !isCordless && (cordedPhoneType == 2 || cordedPhoneType == 3)
     }
 
+    // Whether the phone is a slim corded phone with the ringer and other essential circuitry in the base.
+    @Transient
+    var isSlimCordedWithBaseCircuitry: Bool {
+        return isSlimCorded && cordedRingerLocation == 0
+    }
+
+    // Whether the keypad is in the corded receiver or the phone is base-less.
+    @Transient
+    var keypadInReceiver: Bool {
+        return (cordedPhoneType == 2 && dialLocation == 1) || cordedPhoneType == 4
+    }
+
     // Whether the phone is cordless, which is true if it came with 1 or more cordless devices (handsets/headsets/speakerphones).
     @Transient
     var isCordless: Bool {
@@ -728,6 +777,13 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
     var isDigitalCordless: Bool {
         guard let frequency = Phone.CordlessFrequency(rawValue: frequency) else { return false }
         return frequency.isDigital
+    }
+
+    // Whether the phone is a DECT cordless phone.
+    @Transient
+    var isDECTCordless: Bool {
+        guard let frequency = Phone.CordlessFrequency(rawValue: frequency) else { return false }
+        return frequency.isDECT
     }
 
     // Whether the phone is corded/cordless, meaning the base is a corded phone and acts as a main transmitting base for cordless devices.
@@ -754,7 +810,13 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
         return cordlessHandsetsIHave.count > maxCordlessHandsets && maxCordlessHandsets != -1
     }
 
-    // Whether the phone has a charging area for a cordless handset.
+    // Whether the phone takes AC power.
+    @Transient
+    var takesACPower: Bool {
+        return isCordless || cordedPowerSource > 1
+    }
+
+    // Whether the base has a charging area for a cordless handset.
     @Transient
     var baseChargesHandset: Bool {
         return isCordless && !hasCordedReceiver && !hasTransmitOnlyBase
@@ -764,6 +826,12 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
     @Transient
     var isCordlessOrPushButtonDesk: Bool {
         return isCordless || cordedPhoneType == 0
+    }
+
+    // Whether the phone is a push-button corded desk phone or a cordless phone with a dialing base.
+    @Transient
+    var isPushButtonDeskOrCordlessDialingBase: Bool {
+        return cordedPhoneType == 0 || (isCordless && hasBaseKeypad)
     }
 
     // Whether the phone has a secondary color (the main and secondary colors aren't the same).
@@ -802,10 +870,10 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
         return landlineInUseStatusOnBase == 1 || landlineInUseStatusOnBase == 3
     }
 
-    // Whether the phone is a business corded/cordless system (i.e., a 4-line system with a corded base that can accept 8 or more cordless handsets/desksets).
+    // Whether the phone is a business corded/cordless system (i.e., a 4-or-more-line system with a corded base that can accept 8 or more cordless handsets/desksets).
     @Transient
     var isBusinessCordedCordlessSystem: Bool {
-        return isCordedCordless && maxCordlessHandsets >= 8 && numberOfLandlines == 4
+        return isCordedCordless && maxCordlessHandsets >= 8 && numberOfLandlines >= 4
     }
 
     // Whether the phone has a clock display or answering system message day/time stamp.
@@ -1026,44 +1094,61 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
 
     // MARK: - Set Acquisition Year to Release Year
 
+    // This method sets the phone's acquisition year to its release year.
     func setAcquisitionYearToReleaseYear() {
         acquisitionYear = releaseYear
     }
 
+    // MARK: - Deselect Handset Number Digit
+
+    // This method clears the handset number digit selection.
+    func deselectHandsetNumberDigit() {
+        handsetNumberDigit = nil
+        handsetNumberDigitIndex = nil
+    }
+
     // MARK: - Update All Cordless Devices' Place In Collection
 
+    // This method updates the storageOrSetup property of all the phone's cordless devices.
     func updateAllCordlessDevicePlaceInCollection() {
         for handset in cordlessHandsetsIHave {
             handset.storageOrSetup = storageOrSetup
         }
     }
 
-    // MARK: - Color Methods
-    
-    // Public wrappers that maintain existing method names for UI compatibility
-    // These delegate to protocol default implementations from SheftAppsStylishUI
-    
-    func setBaseSecondaryColorToMain() {
-        setSecondaryColorToMain()
+    // MARK: - Make Corded-Only
+
+    // This method makes the phone corded-only.
+    func makeCordedOnly() {
+        cordlessHandsetsIHave.removeAll()
+        chargersIHave.removeAll()
+        numberOfIncludedCordlessHandsets = 0
     }
-    
-    func setBaseAccentColorToMain() {
-        setAccentColorToMain()
+
+    // MARK: - Set Key Color To Main
+
+    // This method sets the key background color to the main color.
+    func setKeyBackgroundColorToMain() {
+        baseKeyBackgroundColorRed = baseMainColorRed
+        baseKeyBackgroundColorGreen = baseMainColorGreen
+        baseKeyBackgroundColorBlue = baseMainColorBlue
     }
-    
-    func setBaseAccentColorToSecondary() {
-        setAccentColorToSecondary()
+
+    // MARK: - Set Key Backlight Color To Display Backlight and Vice Versa
+
+    // This method sets the key backlight color to the display backlight color.
+    func setKeyBacklightColorToDisplayBacklight() {
+        baseKeyBacklightColorRed = baseDisplayBacklightColorRed
+        baseKeyBacklightColorGreen = baseDisplayBacklightColorGreen
+        baseKeyBacklightColorBlue = baseDisplayBacklightColorBlue
     }
-    
-    // Note: The following methods are provided by protocol default implementations:
-    // - setSecondaryColorToMain() via BaseColorManipulatable
-    // - setAccentColorToMain() via BaseColorManipulatable
-    // - setAccentColorToSecondary() via BaseColorManipulatable
-    // - setChargeLightChargedColorToCharging() via ChargeLightColorManipulatable
-    // - setCordedReceiverSecondaryColorToMain() via CordedReceiverColorManipulatable
-    // - setCordedReceiverAccentColorToMain() via CordedReceiverColorManipulatable
-    // - setCordedReceiverAccentColorToSecondary() via CordedReceiverColorManipulatable
-    // - swapKeyBackgroundAndForegroundColors() via KeyColorManipulatable
+
+    // This method sets the display backlight color to the key backlight color.
+    func setDisplayBacklightColorToKeyBacklight() {
+        baseDisplayBacklightColorRed = baseKeyBacklightColorRed
+        baseDisplayBacklightColorGreen = baseKeyBacklightColorGreen
+        baseDisplayBacklightColorBlue = baseKeyBacklightColorBlue
+    }
 
     // MARK: - Property Change Handlers
 
@@ -1080,11 +1165,9 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
         guard let digit = handsetNumberDigit, let digitIndex = handsetNumberDigitIndex else { return }
         let array = newValue.split(separator: String())
         if digitIndex > array.count - 1 {
-            handsetNumberDigit = nil
-            handsetNumberDigitIndex = nil
+            deselectHandsetNumberDigit()
         } else if array[digitIndex] != String(digit) {
-            handsetNumberDigit = nil
-            handsetNumberDigitIndex = nil
+            deselectHandsetNumberDigit()
         }
     }
 
@@ -1173,18 +1256,8 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
         if acquisitionYear < newValue && acquisitionYear != -1 {
             acquisitionYear = releaseYear
         }
-        if newValue == 0 && oldValue == -1 {
-            releaseYear = oldestPhoneYear
-        } else if newValue < oldestPhoneYear {
-            releaseYear = -1
-        }
-    }
-
-    func acquisitionYearChanged(oldValue: Int, newValue: Int) {
-        if newValue == 0 && oldValue == -1 {
-            acquisitionYear = releaseYear == -1 ? oldestPhoneYear : releaseYear
-        } else if newValue < releaseYear || newValue < oldestPhoneYear {
-            acquisitionYear = -1
+        if newValue == currentYear {
+            acquisitionYear = currentYear
         }
     }
 
@@ -1209,6 +1282,12 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
         if newValue {
             if dialMode == 0 {
                 dialMode = 2
+            }
+            if !hasBaseKeypad {
+                if baseOneTouchDialCard == 2 {
+                    baseOneTouchDialCard = 1
+                }
+                baseOneTouchDialExpansionModulesSupported = false
             }
             cordedPhoneType = 0
             cordedRingerType = 1
@@ -1262,21 +1341,38 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
         if newValue < 8 {
             hasAutoAttendantAndPersonalMailboxes = false
         }
-        if newValue == 0 && oldValue == -1 {
-            maxCordlessHandsets = 1
-        } else if newValue == 0 && oldValue == 1 {
-            maxCordlessHandsets = -1
-        }
         if newValue < numberOfIncludedCordlessHandsets && newValue >= 1 {
             numberOfIncludedCordlessHandsets = newValue
         }
     }
 
-    func isDigitalCordlessChanged(oldValue: Bool, newValue: Bool) {
-        if !newValue {
-            maxCordlessHandsets = -1
+    func frequencyChanged(oldValue: Double, newValue: Double) {
+        if newValue > Phone.CordlessFrequency.analog1_7MHzOver46MHz.rawValue && cordlessDeviceLinkingMethod == 0 {
+            cordlessDeviceLinkingMethod = baseChargesHandset ? 3 : 2
+        }
+        if !isDigitalCordless {
+            if cordlessDeviceLinkingMethod == 4 {
+                cordlessDeviceLinkingMethod = baseChargesHandset ? 3 : 2
+            }
+            if maxCordlessHandsets > 1 {
+                maxCordlessHandsets = -1
+            }
             locatorButtons = 0
             deregistration = 1
+        }
+        if isDECTCordless && cordlessDeviceLinkingMethod < 4 {
+            cordlessDeviceLinkingMethod = 4
+        }
+    }
+
+    func cordlessDeviceLinkingMethodChanged(oldValue: Int, newValue: Int) {
+        if newValue < 4 && maxCordlessHandsets > 1 {
+            maxCordlessHandsets = -1
+        }
+        if newValue == 4 {
+            for handset in cordlessHandsetsIHave {
+                handset.ringsOnBase = true
+            }
         }
     }
 
@@ -1287,6 +1383,9 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
             }
             if maxCordlessHandsets == -1 {
                 maxCordlessHandsets = 1
+            }
+            if cordlessDeviceLinkingMethod > 1 && cordlessDeviceLinkingMethod != 4 {
+                cordlessDeviceLinkingMethod = 1
             }
             dialWithBaseDuringHandsetCall = false
             hasPickUpToSwitch = false
@@ -1346,7 +1445,7 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
             baseNavigatorKeyCenterButton = 0
             baseNavigatorKeyStandbyShortcuts = false
         }
-        if newValue <= 3 {
+        if newValue <= 2 {
             baseSoftKeysBottom = 0
             baseSoftKeysSide = 0
             basePhonebookCapacity = 0
@@ -1357,6 +1456,12 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
         }
         if newValue < 4 {
             baseMainMenuLayout = 0
+        }
+        if newValue == 7 || newValue == 9 {
+            baseDisplayBacklightColorBinding.wrappedValue = .white
+        }
+        if newValue == 8 || newValue < 7 && baseDisplayBrightnessContrastAdjustment > 1 {
+            baseDisplayBrightnessContrastAdjustment = 1
         }
         if newValue < 3 || newValue > 6 {
             let colorComponents = Color.Components(fromColor: .white)
@@ -1402,6 +1507,10 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
             baseCellRingtone = 1
         }
         if !newValue {
+            if baseOneTouchDialCard == 2 {
+                baseOneTouchDialCard = 1
+            }
+            baseOneTouchDialExpansionModulesSupported = false
             if voicemailQuickDial == 2 {
                 voicemailQuickDial = 0
             }
@@ -1475,6 +1584,9 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
             if maxCordlessHandsets == -1 {
                 maxCordlessHandsets = 1
             }
+            if cordlessDeviceLinkingMethod > 1 && cordlessDeviceLinkingMethod != 4 {
+                cordlessDeviceLinkingMethod = 1
+            }
             dialWithBaseDuringHandsetCall = false
             hasPickUpToSwitch = false
             placeOnBaseAutoRegister = false
@@ -1496,6 +1608,10 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
 
     func cordedPhoneTypeChanged(oldValue: Int, newValue: Int) {
         if newValue != 0 {
+            if baseOneTouchDialCard > 1 {
+                baseOneTouchDialCard = 0
+            }
+            baseOneTouchDialExpansionModulesSupported = false
             hasDualReceivers = false
             hasBaseSpeakerphone = false
             hasTalkingKeypad = false

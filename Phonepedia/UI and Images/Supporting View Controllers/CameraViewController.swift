@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 8/16/23.
-//  Copyright © 2023-2025 SheftApps. All rights reserved.
+//  Copyright © 2023-2026 SheftApps. All rights reserved.
 //
 
 #if os(iOS)
@@ -12,11 +12,12 @@
 
 import SwiftUI
 
+// UIViewControllerRepresentable allows a UIViewController's view to be placed (hosted) in a SwiftUI view. UIViewRepresentable hosts a UIView in a SwiftUI view.
 struct CameraViewController: UIViewControllerRepresentable {
 
     // MARK: - Properties - Objects
 
-	@ObservedObject var viewModel: PhonePhotoViewModel
+	@StateObject var photoManager: PhonePhotoManager
 
 	@Bindable var phone: Phone
 
@@ -29,13 +30,18 @@ struct CameraViewController: UIViewControllerRepresentable {
 	// MARK: - UIViewControllerRepresentable
 
 	func makeUIViewController(context: Context) -> UIImagePickerController {
+        // 1. Create a UIImagePickerController.
 		let camera = UIImagePickerController()
+        // 2. Set the delegate.
 		camera.delegate = context.coordinator
+        // 3. Set the source type to camera, which is now the only supported type.
 		camera.sourceType = .camera
+        // 4. Set the other properties.
 		camera.cameraCaptureMode = .photo
 		camera.allowsEditing = true
 		camera.cameraFlashMode = .off
 		camera.showsCameraControls = true
+        // 5. Return the UIImagePickerController.
 		return camera
 	}
 

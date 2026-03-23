@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 1/24/25.
-//  Copyright © 2023-2025 SheftApps. All rights reserved.
+//  Copyright © 2023-2026 SheftApps. All rights reserved.
 //
 
 // MARK: - Imports
@@ -14,61 +14,102 @@ extension Phone {
 
     enum CordlessFrequency: Double, CaseIterable, Identifiable {
 
-        // MARK: - Frequency Cases
+        // MARK: - Frequency Cases - Unknown
 
-        // Unknown
         case unknown = 0.0
+
         case separator1 = -1.0
 
-        // Older
+        // MARK: - Frequency Cases - Older
+
         case analog1_7MHz = 1.0
+
         case analog1_7MHzOver46MHz = 1.46
+
         case analog30_39MHz = 30.0
+
         case analog46_49MHz = 46.0
+
         case analog46_49MHzVoiceScramble = 46.1
+
         case separator2 = -1.1
 
-        // 900MHz
+        // MARK: - Frequency Cases - 900MHz
+
         case analog900MHz = 900.0
+
         case analog900MHzVoiceScramble = 900.1
+
         case digital900MHz = 900.2
+
         case dss900MHz = 900.3
+
         case separator3 = -1.2
 
-        // 2.4GHz
+        // MARK: - Frequency Cases - 2.4GHz
+
         case analog2_4GHz = 2400.0
+
         case analog2_4GHzOver900MHz = 2400.900
+
         case digital2_4GHz = 2400.1
+
         case digital2_4GHzOver900MHz = 2400.901
+
         case dss2_4GHz = 2400.2
+
         case dss2_4GHzOver900MHz = 2400.902
+
         case fhss2_4GHz = 2400.3
+
         case fhss2_4GHzOver900MHz = 2400.903
+
         case dss2_4GHzOverAnalog900MHz = 2400.904
+
         case separator4 = -1.3
 
-        // 5.8GHz
+        // MARK: - Frequency Cases - 5.8GHz
+
         case analog5_8GHz = 5800.0
+
         case analog5_8GHzOver900MHz = 5800.900
+
         case analog5_8GHzOver2_4GHz = 5800.2400
+
         case digital5_8GHz = 5800.1
+
         case digital5_8GHzOver900MHz = 5800.901
+
         case digital5_8GHzOver2_4GHz = 5800.2401
+
         case dss5_8GHz = 5800.2
+
         case dss5_8GHzOver900MHz = 5800.902
+
         case dss5_8GHzOver2_4GHz = 5800.2402
+
         case fhss5_8GHz = 5800.3
+
         case fhss5_8GHzOver900MHz = 5800.903
+
         case fhss5_8GHzOver2_4GHz = 5800.2403
+
         case separator5 = -1.4
 
-        // DECT
+        // MARK: - Frequency Cases - DECT
+
         case southKoreaDECT = 1786.0
+
         case taiwanDECT = 1880.0
-        case europeAsiaAfricaOceaniaDECT = 1880.1
+
+        case etsiDECT = 1880.1
+
         case japanJDECT = 1893.0
+
         case brazilDECT = 1910.0
+
         case latinAmericaDECT = 1910.1
+
         case northAmericaDECT6 = 1920.0
 
         // MARK: - Properties - ID
@@ -77,10 +118,11 @@ extension Phone {
 
         // MARK: - Properties - Strings
 
+        // The name of the frequency to display in the frequency list. For separators, return an empty string. Separators use negative numbers.
         var name: String {
             switch self {
             case .separator1, .separator2, .separator3, .separator4, .separator5:
-                return "Separator"
+                return String()
             case .unknown: return "Unknown"
                 // Older Frequencies
             case .analog1_7MHz: return "1.7MHz Analog"
@@ -121,7 +163,7 @@ extension Phone {
                 return "South Korea DECT"
             case .taiwanDECT:
                 return "Taiwan DECT"
-            case .europeAsiaAfricaOceaniaDECT:
+            case .etsiDECT:
                 return "ETSI DECT"
             case .japanJDECT:
                 return "Japan J-DECT"
@@ -134,6 +176,7 @@ extension Phone {
             }
         }
 
+        // The name of the frequency to display in the radio wave view.
         var waveName: String {
             switch self {
             case .analog1_7MHz:
@@ -148,7 +191,7 @@ extension Phone {
                 return "2.4GHz"
             case .analog5_8GHz:
                 return "5.8GHz"
-            case .southKoreaDECT, .taiwanDECT, .europeAsiaAfricaOceaniaDECT, .japanJDECT, .brazilDECT, .latinAmericaDECT, .northAmericaDECT6:
+            case .southKoreaDECT, .taiwanDECT, .etsiDECT, .japanJDECT, .brazilDECT, .latinAmericaDECT, .northAmericaDECT6:
                 return name
             default: return String()
             }
@@ -156,6 +199,7 @@ extension Phone {
 
         // MARK: - Properties - Doubles
 
+        // One of the frequencies in a frequency range to use as the value of the wave in the radio wave view.
         var waveFrequency: Double {
             switch self {
             case .analog1_7MHz:
@@ -174,7 +218,7 @@ extension Phone {
                 return 1786
             case .taiwanDECT:
                 return 1880
-            case .europeAsiaAfricaOceaniaDECT:
+            case .etsiDECT:
                 return 1890
             case .japanJDECT:
                 return 1893
@@ -206,264 +250,18 @@ extension Phone {
             case "BR":
                 // Brazil
                 return .brazilDECT
-            case "US":
-                // United States
+            case "US", "PR", "VI", "CA", "MX", "GU", "MP", "AS", "DO":
+                // North America (United States, Puerto Rico, US Virgin Islands, Canada, Mexico, Guam, Northern Mariana Islands, American Samoa, Dominican Republic)
                 return .northAmericaDECT6
-            case "CA":
-                // Canada
-                return .northAmericaDECT6
-            case "MX":
-                // Mexico
-                return .northAmericaDECT6
-            case "VI":
-                // Virgin Islands
-                return .northAmericaDECT6
-            case "PR":
-                // Puerto Rico
-                return .northAmericaDECT6
-            case "GU":
-                // Guam
-                return .northAmericaDECT6
-            case "MP":
-                // Northern Mariana Islands
-                return .northAmericaDECT6
-            case "AS":
-                // American Samoa
-                return .northAmericaDECT6
-            case "AR":
-                // Argentina
+            case "AR", "CO", "CL", "PE", "EC", "UY", "PY", "BO", "VE", "CR", "PA", "SV", "GT", "HN":
+                // Latin America (Argentina, Chile, Colombia, Peru, Ecuador, Uruguay, Paraguay, Bolivia, Venezuela, Costa Rica, Panama, El Salvador, Guatemala, Honduras)
                 return .latinAmericaDECT
-            case "CL":
-                // Chile
-                return .latinAmericaDECT
-            case "CO":
-                // Colombia
-                return .latinAmericaDECT
-            case "PE":
-                // Peru
-                return .latinAmericaDECT
-            case "EC":
-                // Ecuador
-                return .latinAmericaDECT
-            case "UY":
-                // Uruguay
-                return .latinAmericaDECT
-            case "PY":
-                // Paraguay
-                return .latinAmericaDECT
-            case "BO":
-                // Bolivia
-                return .latinAmericaDECT
-            case "VE":
-                // Venezuela
-                return .latinAmericaDECT
-            case "CR":
-                // Costa Rica
-                return .latinAmericaDECT
-            case "PA":
-                // Panama
-                return .latinAmericaDECT
-            case "SV":
-                // El Salvador
-                return .latinAmericaDECT
-            case "GT":
-                // Guatemala
-                return .latinAmericaDECT
-            case "HN":
-                // Honduras
-                return .latinAmericaDECT
-            case "NI":
-                // Nicaragua
-                return .latinAmericaDECT
-            case "DO":
-                // Dominican Republic
-                return .latinAmericaDECT
-            case "GB":
-                // United Kingdom
-                return .europeAsiaAfricaOceaniaDECT
-            case "FR":
-                // France
-                return .europeAsiaAfricaOceaniaDECT
-            case "DE":
-                // Germany
-                return .europeAsiaAfricaOceaniaDECT
-            case "AU":
-                // Australia
-                return .europeAsiaAfricaOceaniaDECT
-            case "IN":
-                // India
-                return .europeAsiaAfricaOceaniaDECT
-            case "IT":
-                // Italy
-                return .europeAsiaAfricaOceaniaDECT
-            case "ES":
-                // Spain
-                return .europeAsiaAfricaOceaniaDECT
-            case "NL":
-                // Netherlands
-                return .europeAsiaAfricaOceaniaDECT
-            case "SE":
-                // Sweden
-                return .europeAsiaAfricaOceaniaDECT
-            case "NO":
-                // Norway
-                return .europeAsiaAfricaOceaniaDECT
-            case "DK":
-                // Denmark
-                return .europeAsiaAfricaOceaniaDECT
-            case "FI":
-                // Finland
-                return .europeAsiaAfricaOceaniaDECT
-            case "BE":
-                // Belgium
-                return .europeAsiaAfricaOceaniaDECT
-            case "CH":
-                // Switzerland
-                return .europeAsiaAfricaOceaniaDECT
-            case "AT":
-                // Austria
-                return .europeAsiaAfricaOceaniaDECT
-            case "IE":
-                // Ireland
-                return .europeAsiaAfricaOceaniaDECT
-            case "NZ":
-                // New Zealand
-                return .europeAsiaAfricaOceaniaDECT
-            case "SG":
-                // Singapore
-                return .europeAsiaAfricaOceaniaDECT
-            case "MY":
-                // Malaysia
-                return .europeAsiaAfricaOceaniaDECT
-            case "ZA":
-                // South Africa
-                return .europeAsiaAfricaOceaniaDECT
-            case "PT":
-                // Portugal
-                return .europeAsiaAfricaOceaniaDECT
-            case "GR":
-                // Greece
-                return .europeAsiaAfricaOceaniaDECT
-            case "CZ":
-                // Czech Republic
-                return .europeAsiaAfricaOceaniaDECT
-            case "PL":
-                // Poland
-                return .europeAsiaAfricaOceaniaDECT
-            case "HU":
-                // Hungary
-                return .europeAsiaAfricaOceaniaDECT
-            case "RO":
-                // Romania
-                return .europeAsiaAfricaOceaniaDECT
-            case "SK":
-                // Slovakia
-                return .europeAsiaAfricaOceaniaDECT
-            case "SI":
-                // Slovenia
-                return .europeAsiaAfricaOceaniaDECT
-            case "EE":
-                // Estonia
-                return .europeAsiaAfricaOceaniaDECT
-            case "LV":
-                // Latvia
-                return .europeAsiaAfricaOceaniaDECT
-            case "LT":
-                // Lithuania
-                return .europeAsiaAfricaOceaniaDECT
-            case "BG":
-                // Bulgaria
-                return .europeAsiaAfricaOceaniaDECT
-            case "HR":
-                // Croatia
-                return .europeAsiaAfricaOceaniaDECT
-            case "CY":
-                // Cyprus
-                return .europeAsiaAfricaOceaniaDECT
-            case "MT":
-                // Malta
-                return .europeAsiaAfricaOceaniaDECT
-            case "IS":
-                // Iceland
-                return .europeAsiaAfricaOceaniaDECT
-            case "LU":
-                // Luxembourg
-                return .europeAsiaAfricaOceaniaDECT
-            case "LI":
-                // Liechtenstein
-                return .europeAsiaAfricaOceaniaDECT
-            case "RU":
-                // Russia
-                return .europeAsiaAfricaOceaniaDECT
-            case "UA":
-                // Ukraine
-                return .europeAsiaAfricaOceaniaDECT
-            case "BY":
-                // Belarus
-                return .europeAsiaAfricaOceaniaDECT
-            case "KZ":
-                // Kazakhstan
-                return .europeAsiaAfricaOceaniaDECT
-            case "MD":
-                // Moldova
-                return .europeAsiaAfricaOceaniaDECT
-            case "GE":
-                // Georgia
-                return .europeAsiaAfricaOceaniaDECT
-            case "AM":
-                // Armenia
-                return .europeAsiaAfricaOceaniaDECT
-            case "AZ":
-                // Azerbaijan
-                return .europeAsiaAfricaOceaniaDECT
-            case "SA":
-                // Saudi Arabia
-                return .europeAsiaAfricaOceaniaDECT
-            case "AE":
-                // United Arab Emirates
-                return .europeAsiaAfricaOceaniaDECT
-            case "QA":
-                // Qatar
-                return .europeAsiaAfricaOceaniaDECT
-            case "KW":
-                // Kuwait
-                return .europeAsiaAfricaOceaniaDECT
-            case "BH":
-                // Bahrain
-                return .europeAsiaAfricaOceaniaDECT
-            case "OM":
-                // Oman
-                return .europeAsiaAfricaOceaniaDECT
-            case "EG":
-                // Egypt
-                return .europeAsiaAfricaOceaniaDECT
-            case "JO":
-                // Jordan
-                return .europeAsiaAfricaOceaniaDECT
-            case "LB":
-                // Lebanon
-                return .europeAsiaAfricaOceaniaDECT
-            case "MA":
-                // Morocco
-                return .europeAsiaAfricaOceaniaDECT
-            case "DZ":
-                // Algeria
-                return .europeAsiaAfricaOceaniaDECT
-            case "TN":
-                // Tunisia
-                return .europeAsiaAfricaOceaniaDECT
-            case "LY":
-                // Libya
-                return .europeAsiaAfricaOceaniaDECT
-            case "CN":
-                // China
-                return .europeAsiaAfricaOceaniaDECT
-            case "HK":
-                // Hong Kong
-                return .europeAsiaAfricaOceaniaDECT
-            case "MO":
-                // Macau
-                return .europeAsiaAfricaOceaniaDECT
+            case /*Europe*/ "GB", "IE", "FR", "DE", "ES", "NL", "SE", "NO", "DK", "FI", "BE", "CH", "AT", "PT", "GR", "CZ", "PL", "HU", "RO", "SK", "SI", "EE", "LV", "LT", "BG", "HR", "CY", "MT", "IS", "LU", "LI", "RU", "UA", "BY", "KZ", "MD", "GE", "AM", "AZ", "ZA", /*Africa*/ "EG", "MA", "DZ", "TN", "LY", /*Asia*/ "IN", "SG", "MY", "CN", "HK", "MO", "AE", "QA", "KW", "BH", "OM", "JO", "LB", /*Oceania*/ "AU", "NZ":
+                // Europe (United Kingdom, Ireland, France, Germany, Spain, Netherlands, Sweden, Norway, Denmark, Finland, Belgium, Switzerland, Austria, Portugal, Greece, Czech Republic, Poland, Hungary, Romania, Slovakia, Slovenia, Estonia, Latvia, Lithuania, Bulgaria, Croatia, Cyprus, Malta, Iceland, Luxembourg, Liechtenstein, Russia, Ukraine, Belarus, Kazakhstan, Moldova, Georgia, Armenia, Azerbaijan)
+                // Africa (South Africa, Egypt, Morocco, Algeria, Tunisia, Libya)
+                // Asia (India, Singapore, Malaysia, China, Hong Kong, Macau, United Arab Emirates, Qatar, Kuwait, Bahrain, Oman, Jordan, Lebanon)
+                // Oceania (Australia, New Zealand)
+                return .etsiDECT
             default:
                 return .unknown // Unknown region/unknown default cordless phone frequency for current region
             }
@@ -475,6 +273,10 @@ extension Phone {
             return (name.contains("Digital") || name.contains("DSS") /*Digital Spread Spectrum*/ || name.contains("FHSS") /*Frequency-Hopping Spread Spectrum, doesn't include digital in the name but is digital*/ || name.contains("DECT") /*Digital Enhanced Cordless Telecommunications*/) && !name.contains("Analog")
         }
 
+        var isDECT: Bool {
+            return name.contains("DECT")
+        }
+
         // MARK: - Frequency Name From Raw Value
 
         static func nameFromRawValue(_ rawValue: Double) -> String {
@@ -483,3 +285,4 @@ extension Phone {
 
     }
 }
+

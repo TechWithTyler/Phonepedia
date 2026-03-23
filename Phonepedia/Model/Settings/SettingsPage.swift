@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 1/6/25.
-//  Copyright © 2023-2025 SheftApps. All rights reserved.
+//  Copyright © 2023-2026 SheftApps. All rights reserved.
 //
 
 // MARK: - Imports
@@ -23,10 +23,16 @@ enum SettingsPage : String {
 
     }
 
-    // MARK: - Settings Page Name Cases
+    // MARK: - Settings Page Enum Cases
 
     case display
 
     case newPhones = "New Phones"
+
+    // MARK: - Settings Page Title
+
+    var title: String {
+        return rawValue.capitalized
+    }
 
 }

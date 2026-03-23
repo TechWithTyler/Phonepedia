@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 10/3/24.
-//  Copyright © 2023-2025 SheftApps. All rights reserved.
+//  Copyright © 2023-2026 SheftApps. All rights reserved.
 //
 
 // MARK: - Imports
@@ -24,7 +24,7 @@ struct PhoneAudioView: View {
             if phone.canTalkOnBase {
                 Toggle(phone.isCordless ? "Base Supports Wired Headsets" : "Supports Wired Headsets", isOn: $phone.baseSupportsWiredHeadsets)
             }
-            CountPicker(phone.isCordless ? "Maximum Number of Bluetooth Headphones (Base)" : "Maximum Number of Bluetooth Headphones", selection: $phone.baseBluetoothHeadphonesSupported, numbers: [1, 2, 4], noneTitle: "None", unlimitedTitle: "Unlimited")
+            CountPicker(phone.isCordless ? "Maximum Number of Bluetooth Headphones (Base)" : "Maximum Number of Bluetooth Headphones", selection: $phone.baseBluetoothHeadphonesSupported, startNumber: 1, multipliedBy: 2, endNumber: 4, singularSuffix: "Bluetooth Headphone", pluralSuffix: "Bluetooth Headphones", noneTitle: "None", unlimitedTitle: "Unlimited")
         }
         if phone.landlineConnectionType > 0 {
         Section("Supported Audio Codecs") {
@@ -33,7 +33,7 @@ struct PhoneAudioView: View {
                         Text("U-law (G.711 U-law or PCM-U)")
                         Text("Standard voice codec in North America and Japan; good quality, uncompressed. Often written as μ-law (with the Greek letter \"mu\" (μ) instead of \"u\", but pronounced \"U-law\"). Commonly used when connecting analog phones to digital networks.")
                             .font(.caption)
-                            .foregroundColor(.secondary)
+                            .foregroundStyle(.secondary)
                     }
                 }
                 Toggle(isOn: $phone.supportsALaw) {
@@ -41,7 +41,7 @@ struct PhoneAudioView: View {
                         Text("A-law (G.711 A-law or PCM-A)")
                         Text("Similar to μ-law but used mainly in Europe and international telephony. Commonly used when connecting analog phones to digital networks.")
                             .font(.caption)
-                            .foregroundColor(.secondary)
+                            .foregroundStyle(.secondary)
                     }
                 }
                 Toggle(isOn: $phone.supportsG722) {
@@ -49,7 +49,7 @@ struct PhoneAudioView: View {
                         Text("G.722")
                         Text("Wideband codec with higher voice quality than G.711; used in HD voice.")
                             .font(.caption)
-                            .foregroundColor(.secondary)
+                            .foregroundStyle(.secondary)
                     }
                 }
                 Toggle(isOn: $phone.supportsG726) {
@@ -57,7 +57,7 @@ struct PhoneAudioView: View {
                         Text("G.726")
                         Text("ADPCM codec with flexible bitrate; used in legacy and enterprise telephony.")
                             .font(.caption)
-                            .foregroundColor(.secondary)
+                            .foregroundStyle(.secondary)
                     }
                 }
                 if phone.landlineConnectionType > 1 {
@@ -66,7 +66,7 @@ struct PhoneAudioView: View {
                             Text("Opus")
                             Text("High-quality, low-latency codec suitable for voice and music over the internet.")
                                 .font(.caption)
-                                .foregroundColor(.secondary)
+                                .foregroundStyle(.secondary)
                         }
                     }
                     Toggle(isOn: $phone.supportsG729) {
@@ -74,7 +74,7 @@ struct PhoneAudioView: View {
                             Text("G.729")
                             Text("Compressed codec for low-bandwidth VoIP, with moderate voice quality.")
                                 .font(.caption)
-                                .foregroundColor(.secondary)
+                                .foregroundStyle(.secondary)
                         }
                     }
                     Toggle(isOn: $phone.supportsG723) {
@@ -82,7 +82,7 @@ struct PhoneAudioView: View {
                             Text("G.723")
                             Text("Low-bitrate codec used in early VoIP; suitable for bandwidth-limited environments.")
                                 .font(.caption)
-                                .foregroundColor(.secondary)
+                                .foregroundStyle(.secondary)
                         }
                     }
                     Toggle(isOn: $phone.supportsILBC) {
@@ -90,7 +90,7 @@ struct PhoneAudioView: View {
                             Text("iLBC (internet Low Bitrate Codec)")
                             Text("Resilient to packet loss; good for VoIP over unreliable networks, but very low quality as a result.")
                                 .font(.caption)
-                                .foregroundColor(.secondary)
+                                .foregroundStyle(.secondary)
                         }
                     }
                 }

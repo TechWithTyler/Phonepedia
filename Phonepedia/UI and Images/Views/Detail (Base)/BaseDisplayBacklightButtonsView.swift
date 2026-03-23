@@ -2,7 +2,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 10/3/24.
-//  Copyright © 2023-2025 SheftApps. All rights reserved.
+//  Copyright © 2023-2026 SheftApps. All rights reserved.
 //
 
 // MARK: - Imports
@@ -35,7 +35,7 @@ struct BaseDisplayBacklightButtonsView: View {
                     Toggle(isOn: $phone.hasBaseKeypad) {
                         Text(phone.isCordless ? "Has Base Keypad" : "Has User-Accessible Keypad")
                     }
-                    InfoText("Some cordless phones have a base speakerphone and keypad, which allows you to make calls if the handset isn't nearby or if it needs to charge. Bases with keypads are a great option for office spaces as they combine a cordless-only phone with the design people expect from an office phone.\nSome corded phones, such as those found in hotel lobbies, don't have a user-accessible keypad and are used only for answering calls, checking voicemail, or calling a specific number when picking it up. The keypad and other programming controls are hidden behind a removable faceplate or within the phone's casing.")
+                    InfoText("Some cordless phones have a base speakerphone and keypad, which allows you to make calls if the handset isn't nearby or if it needs to charge. Bases with keypads are a great option for office spaces as they combine a cordless-only phone with the design people expect from an office phone.\nSome corded phones, such as those found in hotel lobbies, don't have a user-accessible keypad and are used only for answering calls, checking voicemail, or calling a specific number when picking it up. The keypad and other programming controls are hidden behind a removable faceplate or within the phone's casing. Some keypad-less phones have no programming at all and are designed only for lines which perform auto-dialing upon going off-hook.")
                     if phone.hasBaseKeypad {
                         Toggle(isOn: $phone.hasTalkingKeypad) {
                             Text("Talking Keypad")
@@ -51,6 +51,7 @@ struct BaseDisplayBacklightButtonsView: View {
             if phone.isCordless || phone.isPushButtonCorded || phone.basePhoneType > 0 {
                 Picker("Button Lighting", selection: $phone.baseKeyBacklightAmount) {
                     Text("None").tag(0)
+                    Divider()
                     Text("Numbers Only").tag(1)
                     Text("Numbers + Some Function Buttons").tag(2)
                     Text("Numbers + All Function Buttons").tag(3)
@@ -58,7 +59,8 @@ struct BaseDisplayBacklightButtonsView: View {
                         Text("Numbers + Navigation Button").tag(4)
                         Text("All Buttons").tag(5)
                     }
-                    if !phone.isCordless && phone.cordedPhoneType == 2 {
+                    if !phone.isCordless && phone.keypadInReceiver {
+                        Divider()
                         Text("Front Light").tag(6)
                     }
                 }
@@ -66,25 +68,33 @@ struct BaseDisplayBacklightButtonsView: View {
                     InfoText("The brightness of a line-powered phone's button lighting depends on the line's off-hook power. If it's low, the backlight will be dim.")
                 }
                 if phone.baseKeyBacklightAmount > 0 {
-                    ColorPicker("Button Lighting Color", selection: phone.baseKeyBacklightColorBinding, supportsOpacity: false)
+                    ColorPicker("Button Lighting Color", selection: phone.baseKeyBacklightColorBinding)
                     if phone.baseKeyBacklightAmount < 6 {
+                        if phone.baseDisplayIsMonochrome {
+                            Button("Set To Display Backlight Color") {
+                                phone.setKeyBacklightColorToDisplayBacklight()
+                            }
+                        }
                         Picker("Button Backlight Layer", selection: $phone.baseKeyBacklightLayer) {
                             Text("Background").tag(0)
                             Text("Foreground").tag(1)
                         }
-                    }
-                    VStack {
-                        Text("Button Backlight Example")
-                        Image(systemName: "5.square.fill")
-                            .foregroundStyle(phone.baseKeyBacklightLayer == 0 ? phone.baseKeyForegroundColorBinding.wrappedValue : phone.baseKeyBacklightColorBinding.wrappedValue, phone.baseKeyBacklightLayer == 0 ? phone.baseKeyBacklightColorBinding.wrappedValue : phone.baseKeyBackgroundColorBinding.wrappedValue)
-                            .font(.system(size: 40))
+                        VStack {
+                            Text("Button Backlight Example")
+                            Image(systemName: "5.square.fill")
+                                .foregroundStyle(phone.baseKeyBacklightLayer == 0 ? phone.baseKeyForegroundColorBinding.wrappedValue : phone.baseKeyBacklightColorBinding.wrappedValue, phone.baseKeyBacklightLayer == 0 ? phone.baseKeyBacklightColorBinding.wrappedValue : phone.baseKeyBackgroundColorBinding.wrappedValue)
+                                .font(.system(size: 40))
+                        }
                     }
                 }
                 if phone.baseKeyBacklightAmount == 0 || phone.baseKeyBacklightAmount == 6 || phone.baseKeyBacklightLayer == 0 {
-                    ColorPicker("Button Foreground Color", selection: phone.baseKeyForegroundColorBinding, supportsOpacity: false)
+                    ColorPicker("Button Foreground Color", selection: phone.baseKeyForegroundColorBinding)
                 }
                 if phone.baseKeyBacklightAmount == 0 || phone.baseKeyBacklightAmount == 6 || phone.baseKeyBacklightLayer == 1 {
-                    ColorPicker("Button Background Color", selection: phone.baseKeyBackgroundColorBinding, supportsOpacity: false)
+                    ColorPicker("Button Background Color", selection: phone.baseKeyBackgroundColorBinding)
+                    Button("Set To Main Color") {
+                        phone.setKeyBackgroundColorToMain()
+                    }
                 }
                 if phone.baseKeyBacklightAmount == 0 || phone.baseKeyBacklightAmount == 6 {
                     Button("Swap Foreground/Background Colors", systemImage: "arrow.swap") {
@@ -125,13 +135,17 @@ struct BaseDisplayBacklightButtonsView: View {
                         ProgrammingWithoutDisplayInfoView()
                     }
                     if phone.baseDisplayType >= 3 {
+                        if !phone.baseDisplayIsMonochrome {
+                            Picker("Base Display Background Color Themes", selection: $phone.baseDisplayColorThemes) {
+                                DisplayColorThemesPickerItems()
+                            }
+                        }
+                        Picker("Brightness/Contrast Adjustment", selection: $phone.baseDisplayBrightnessContrastAdjustment) {
+                            BrightnessContrastAdjustmentPickerItems(colorDisplay: !phone.baseDisplayIsMonochrome)
+                        }
                         Toggle("Base Display Can Tilt", isOn: $phone.baseDisplayCanTilt)
                         Picker("Clock Display", selection: $phone.clock) {
-                            Text("None").tag(0)
-                            Text("Time Only").tag(1)
-                            Text("Day and Time").tag(2)
-                            Text("Date and Time (w/o Year)").tag(3)
-                            Text("Date and Time (w/ Year)").tag(4)
+                            ClockDisplayPickerItems()
                         }
                     }
                     InfoButton("About Display Types…") {
@@ -167,12 +181,17 @@ struct BaseDisplayBacklightButtonsView: View {
                     ClearSupportedColorPicker(phone.isCordless ? "Base Display Backlight Color" : "Display Backlight Color", selection: phone.baseDisplayBacklightColorBinding) {
                         Text("No Backlight")
                     }
+                    if phone.baseKeyBacklightAmount > 0 && phone.baseKeyBacklightAmount < 6 {
+                        Button("Set To Button Backlight Color") {
+                            phone.setDisplayBacklightColorToKeyBacklight()
+                        }
+                    }
                 }
                 if phone.baseDisplayType >= 3 && phone.isCordlessOrPushButtonDesk && phone.hasAnsweringSystem > 0 {
                     Toggle("Base Has LED Message Counter In Addition To Display", isOn: $phone.baseHasDisplayAndMessageCounter)
                 }
                 if phone.baseDisplayType == 1 || phone.baseHasDisplayAndMessageCounter {
-                    ColorPicker("LED Message Counter Color", selection: phone.baseLEDMessageCounterColorBinding, supportsOpacity: false)
+                    ColorPicker("LED Message Counter Color", selection: phone.baseLEDMessageCounterColorBinding)
                 }
             }
             if phone.baseDisplayType > 2 {
@@ -186,37 +205,7 @@ struct BaseDisplayBacklightButtonsView: View {
                         phone.baseNavigatorKeyTypeChanged(oldValue: oldValue, newValue: newValue)
                     }
                     if phone.baseNavigatorKeyType > 0 {
-                        VStack(alignment: .center) {
-                            Text("Navigation Button Example")
-                            ZStack {
-                                Circle()
-                                    .fill(Color.secondary.opacity(0.15))
-                                    .frame(width: 100, height: 100)
-                                VStack(spacing: 20) {
-                                    Image(systemName: "arrowtriangle.up.fill")
-                                        .accessibilityLabel("Up")
-                                    HStack(alignment: .center, spacing: 20) {
-                                        if phone.baseNavigatorKeyType == 3 {
-                                            Image(systemName: "arrowtriangle.left.fill")
-                                                .accessibilityLabel("Left")
-                                        }
-                                        if phone.baseNavigatorKeyCenterButton > 0 {
-                                            Image(systemName: "circle.fill")
-                                                .font(.system(size: 18))
-                                                .accessibilityLabel("Center Button")
-                                        }
-                                        if phone.baseNavigatorKeyType == 3 {
-                                            Image(systemName: "arrowtriangle.right.fill")
-                                                .accessibilityLabel("Right")
-                                        }
-                                    }
-                                    Image(systemName: "arrowtriangle.down.fill")
-                                        .accessibilityLabel("Down")
-                                }
-                                .font(.system(size: 18))
-                                .foregroundStyle(Color.primary)
-                            }
-                        }
+                        NavigationButtonExampleView(showLeftRight: phone.baseNavigatorKeyType == 3, showCenterButton: phone.baseNavigatorKeyCenterButton > 0, isJoystick: false)
                     }
                     if phone.baseNavigatorKeyType > 0 {
                         Picker("Base Navigation Button Center Button", selection: $phone.baseNavigatorKeyCenterButton) {
@@ -231,22 +220,22 @@ struct BaseDisplayBacklightButtonsView: View {
                             Text("Other Function").tag(6)
                         }
                         Toggle("Base Navigation Button Up/Down for Volume", isOn: $phone.baseNavigatorKeyUpDownVolume)
-                        if phone.hasBaseAccessibleAnsweringSystem {
+                        if phone.hasBaseAccessibleAnsweringSystem && phone.baseNavigatorKeyType > 1 {
                             Toggle("Base Navigation Button Left/Right for Repeat/Skip", isOn: $phone.baseNavigatorKeyLeftRightRepeatSkip)
                         }
                         Toggle("Base Navigation Button Standby Shortcuts", isOn: $phone.baseNavigatorKeyStandbyShortcuts)
                     }
                     if phone.baseDisplayType > 3 && phone.isCordlessOrPushButtonDesk {
-                        Stepper("Base Soft Keys (Bottom): \(phone.baseSoftKeysBottom)", value: $phone.baseSoftKeysBottom, in: .zeroToMax(6))
+                        CountPicker("Base Bottom Soft Keys", selection: $phone.baseSoftKeysBottom, oneTo: 6, singularSuffix: "Soft Key", pluralSuffix: "Soft Keys", noneTitle: "None")
                             .onChange(of: phone.baseSoftKeysBottom) { oldValue, newValue in
                                 phone.baseSoftKeysBottomChanged(oldValue: oldValue, newValue: newValue)
                             }
-                        Stepper("Base Soft Keys (Side): \(phone.baseSoftKeysSide) On Each Side (\(phone.baseSoftKeysSide * 2) total)", value: $phone.baseSoftKeysSide, in: .zeroToMax(5))
+                        CountPicker("Base Side Soft Keys", selection: $phone.baseSoftKeysSide, oneTo: 5, suffix: "On Each Side", noneTitle: "None")
                             .onChange(of: phone.baseSoftKeysSide) { oldValue, newValue in
                                 phone.baseSoftKeysSideChanged(oldValue: oldValue, newValue: newValue)
                             }
                         SoftKeyExplanationView()
-                        InfoText("Side soft keys are often used for programmable functions or speed dials in standby or one-touch menu selections in menus. For example, in a menu with 5 options, instead of scrolling up or down through the menu and then pressing the select button, you can press the corresponding side soft key. Side soft keys are often seen on business-grade phones, especially those used on a PBX system with multiple lines and/or extensions.")
+                        InfoText("Side soft keys are often used for programmable functions or speed dials in standby or one-touch menu selections in menus. For example, in a menu with 5 options, instead of scrolling up or down through the menu and then pressing the select button, you can press the corresponding side soft key. Side soft keys are often seen on business-grade phones, especially those used on a PBX system with multiple lines and/or extensions.\nThe number of side soft keys specifies the number of soft keys on each side. For example, if there are 4 side soft keys on each side, there are 8 total.")
                     }
                 }
             }

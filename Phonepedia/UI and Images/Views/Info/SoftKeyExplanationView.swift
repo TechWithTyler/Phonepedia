@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 8/2/23.
-//  Copyright © 2023-2025 SheftApps. All rights reserved.
+//  Copyright © 2023-2026 SheftApps. All rights reserved.
 //
 
 // MARK: - Imports
@@ -12,6 +12,10 @@ import SwiftUI
 import SheftAppsStylishUI
 
 struct SoftKeyExplanationView: View {
+
+    // MARK: - Properties - System Theme
+
+    @Environment(\.colorScheme) var systemTheme
 
     // MARK: - Properties - Strings
 
@@ -55,6 +59,7 @@ struct SoftKeyExplanationView: View {
                         Image(systemName: "minus.rectangle")
                             .font(.system(size: 24))
                     }
+                    .dynamicTypeSize(.medium)
                     .frame(width: 60)
                     .accessibilityElement(children: .ignore)
                     .accessibilityLabel(softKeyAccessibilityDescription(placement: .bottom, marking: .dash, textCase: .uppercase, hasTextBackground: false))
@@ -64,20 +69,22 @@ struct SoftKeyExplanationView: View {
                         Image(systemName: "dot.square")
                             .font(.system(size: 24))
                     }
+                    .dynamicTypeSize(.medium)
                     .frame(width: 60)
                     .accessibilityElement(children: .ignore)
                     .accessibilityLabel(softKeyAccessibilityDescription(placement: .bottom, marking: .dot, textCase: .uppercase, hasTextBackground: false))
                     Divider()
                     VStack {
                         Text("MENU")
-                            .foregroundStyle(.white)
+                            .foregroundStyle(systemTheme == .dark ? .black : .white)
                             .background(
                                 Rectangle()
-                                    .fill(.black)
+                                    .fill(systemTheme == .dark ? .white : .black)
                             )
                         Image(systemName: "minus.rectangle")
                             .font(.system(size: 24))
                     }
+                    .dynamicTypeSize(.medium)
                     .frame(width: 60)
                     .accessibilityElement(children: .ignore)
                     .accessibilityLabel(softKeyAccessibilityDescription(placement: .bottom, marking: .dash, textCase: .uppercase, hasTextBackground: true))
@@ -90,6 +97,7 @@ struct SoftKeyExplanationView: View {
                         Image(systemName: "rectangle")
                             .font(.system(size: 24))
                     }
+                    .dynamicTypeSize(.medium)
                     .frame(width: 80)
                     .accessibilityElement(children: .ignore)
                     .accessibilityLabel(softKeyAccessibilityDescription(placement: .bottom, marking: .none, textCase: .capitalized, hasTextBackground: false))
@@ -99,6 +107,7 @@ struct SoftKeyExplanationView: View {
                         Image(systemName: "minus.rectangle")
                             .font(.system(size: 24))
                     }
+                    .dynamicTypeSize(.medium)
                     .accessibilityElement(children: .ignore)
                     .accessibilityLabel(softKeyAccessibilityDescription(placement: .right, marking: .dash, textCase: .capitalized, hasTextBackground: false))
                     Divider()
@@ -107,6 +116,7 @@ struct SoftKeyExplanationView: View {
                             .font(.system(size: 24))
                         Text("Messages")
                     }
+                    .dynamicTypeSize(.medium)
                     .accessibilityElement(children: .ignore)
                     .accessibilityLabel(softKeyAccessibilityDescription(placement: .left, marking: .dash, textCase: .capitalized, hasTextBackground: false))
                 }

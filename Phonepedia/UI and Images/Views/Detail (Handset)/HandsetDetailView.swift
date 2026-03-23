@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 6/19/23.
-//  Copyright © 2023-2025 SheftApps. All rights reserved.
+//  Copyright © 2023-2026 SheftApps. All rights reserved.
 //
 
 // MARK: - Imports
@@ -19,16 +19,20 @@ struct HandsetDetailView: View {
 
     @EnvironmentObject var dialogManager: DialogManager
 
+    // MARK: - Properties - Booleans
+
+    @AppStorage(UserDefaults.KeyNames.backdropEnabled) var backdropEnabled: Bool = true
+
     // MARK: - Body
 
     var body: some View {
         if let phone = handset.phone {
-            SlickBackdropView {
+            SlickBackdropView(enabled: $backdropEnabled) {
                 Form {
                     Section {
                         HStack {
                             Spacer()
-                            PhoneImage(phone: phone, mode: .full)
+                            PhoneImage(phone: phone, displayMode: .full)
                             Spacer()
                         }
                     }
@@ -42,7 +46,7 @@ struct HandsetDetailView: View {
                 }
                 .formStyle(.grouped)
             } backdropContent: {
-                PhoneImage(phone: phone, mode: .backdrop)
+                PhoneImage(phone: phone, displayMode: .backdrop)
             }
             .scrollContentBackground(.hidden)
         }
@@ -58,6 +62,9 @@ struct HandsetDetailView: View {
                     .onChange(of: handset.brand) { oldValue, newValue in
                         handset.brandChanged(oldValue: oldValue, newValue: newValue)
                     }
+                if handset.brand.isEmpty || handset.brand == Phone.mockBrand {
+                    BrandQuickPicker(brandText: $handset.brand, cordless: true)
+                }
                 FormTextField("Model", text: $handset.model)
                 FormNavigationLink(phone: phone) {
                     HandsetGeneralView(handset: handset)
@@ -92,14 +99,16 @@ struct HandsetDetailView: View {
                             Label("Buttons/Display/Backlight", systemImage: "5.square")
                         }
                     }
-                    FormNavigationLink(phone: phone) {
-                        HandsetMessagingView(handset: handset)
-                            .navigationTitle("Msg-ing (HS\(handset.actualHandsetNumber))")
+                    if handset.supportsMessaging {
+                        FormNavigationLink(phone: phone) {
+                            HandsetMessagingView(handset: handset)
+                                .navigationTitle("Msg-ing (HS\(handset.actualHandsetNumber))")
 #if !os(macOS)
-                            .navigationBarTitleDisplayMode(.inline)
+                                .navigationBarTitleDisplayMode(.inline)
 #endif
-                    } label: {
-                        Label("Messaging", systemImage: "recordingtape")
+                        } label: {
+                            Label("Messaging", systemImage: "recordingtape")
+                        }
                     }
                 }
             }

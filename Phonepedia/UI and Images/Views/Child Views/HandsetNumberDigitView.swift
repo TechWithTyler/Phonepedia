@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 12/3/24.
-//  Copyright © 2023-2025 SheftApps. All rights reserved.
+//  Copyright © 2023-2026 SheftApps. All rights reserved.
 //
 
 // MARK: - Imports
@@ -54,8 +54,7 @@ struct HandsetNumberDigitView: View {
                     }
                     Divider()
                     Button("None") {
-                        phone.handsetNumberDigit = nil
-                        phone.handsetNumberDigitIndex = nil
+                        phone.deselectHandsetNumberDigit()
                     }
                     .tint(phone.handsetNumberDigitIndex == nil ? .accentColor.mix(with: .primary, by: 0.25) : .primary)
                     .bold(phone.handsetNumberDigitIndex == nil)

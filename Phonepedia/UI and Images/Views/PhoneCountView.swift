@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 7/9/24.
-//  Copyright © 2023-2025 SheftApps. All rights reserved.
+//  Copyright © 2023-2026 SheftApps. All rights reserved.
 //
 
 // MARK: - Imports
@@ -133,6 +133,12 @@ struct PhoneCountView: View {
         return count
     }
 
+    // The total number of phones acquired in their release year.
+    var acquiredInReleaseYearCount: Int {
+        let count = phones.filter({$0.acquiredInYearOfRelease}).count
+        return count
+    }
+
     // MARK: - Properties - Strings
 
     // Brands of phones. Unlike the allBrands property in PhoneListView, this property is an array so a brand can exist more than once to count them.
@@ -173,6 +179,18 @@ struct PhoneCountView: View {
                         }
                         Spacer()
                         Text(totalPhoneCount, format: .number)
+                            .foregroundStyle(.secondary)
+                            .multilineTextAlignment(.trailing)
+                    }
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text("Acquired In Release Year")
+                                .foregroundStyle(.primary)
+                                .multilineTextAlignment(.leading)
+                            excludingHandsetsText
+                        }
+                        Spacer()
+                        Text(acquiredInReleaseYearCount, format: .number)
                             .foregroundStyle(.secondary)
                             .multilineTextAlignment(.trailing)
                     }
@@ -355,7 +373,7 @@ struct PhoneCountView: View {
 
     @ViewBuilder
     var excludingHandsetsText: some View {
-        Text("Excluding individual handsets")
+        Text("Excluding individual cordless devices")
             .foregroundStyle(.secondary)
             .font(.footnote)
     }

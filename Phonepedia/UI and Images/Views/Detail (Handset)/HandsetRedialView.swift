@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 10/3/24.
-//  Copyright © 2023-2025 SheftApps. All rights reserved.
+//  Copyright © 2023-2026 SheftApps. All rights reserved.
 //
 
 // MARK: - Imports
@@ -20,18 +20,23 @@ struct HandsetRedialView: View {
     // MARK: - Body
 
     var body: some View {
-        FormNumericTextField("Redial Capacity", value: $handset.redialCapacity, valueRange: .zeroToMax(handset.displayType > 0 ? 20 : 1), singularSuffix: "entry", pluralSuffix: "entries")
+        FormNumericTextField("Capacity", value: $handset.redialCapacity, valueRange: handset.displayType > 0 ? 0...20 : 0...1, singularSuffix: "entry", pluralSuffix: "entries")
 #if !os(visionOS)
                 .scrollDismissesKeyboard(.interactively)
 #endif
         if handset.redialCapacity > 0 {
-            Picker("Redial When Busy", selection: $handset.busyRedialMode) {
+            Picker("When Busy", selection: $handset.busyRedialMode) {
                 RedialWhenBusyPickerItems()
             }
             RedialWhenBusyInfoView()
         }
+        if handset.redialCapacity > 1 {
+            Picker("During Call", selection: $handset.redialDuringCall) {
+                RedialDuringCallPickerItems()
+            }
+        }
             if handset.hasPhonebookAndRedialList {
-                Picker("Redial Name Display", selection: $handset.redialNameDisplay) {
+                Picker("Name Display", selection: $handset.redialNameDisplay) {
                     RedialNameDisplayPickerItems()
                 }
                 RedialNameDisplayInfoView()

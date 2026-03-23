@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 10/3/24.
-//  Copyright © 2023-2025 SheftApps. All rights reserved.
+//  Copyright © 2023-2026 SheftApps. All rights reserved.
 //
 
 // MARK: - Imports
@@ -20,17 +20,22 @@ struct HandsetSpecialFeaturesView: View {
     // MARK: - Body
 
     var body: some View {
-        if handset.handsetStyle < 3 {
-            Picker("Alarm", selection: $handset.alarm) {
-                Text("Not Supported").tag(0)
-                Text("Ringtones").tag(1)
-                Text("Ringtones or Voice").tag(2)
+        if let phone = handset.phone {
+            if handset.handsetStyle < 3 {
+                Picker("Alarm", selection: $handset.alarm) {
+                    Text("Not Supported").tag(0)
+                    Divider()
+                    Text("Ringtones").tag(1)
+                    Text("Ringtones or Voice").tag(2)
+                }
+                InfoText("The handset can be used as an alarm clock by playing a ringtone or voice announcement at the set time(s).")
             }
-            InfoText("The handset can be used as an alarm clock by playing a ringtone or voice announcement at the set time(s).")
-        }
-        if handset.cordlessDeviceType == 0 {
-            CountPicker("Key Finders Supported", selection: $handset.keyFindersSupported, numbers: [1, 2, 4], noneTitle: "None")
-            InfoText("By registering a key finder to a handset, you can use the handset to find lost items easily. If the handset is registered to a compatible base, key finder registrations can be used by any handset. Handsets in range will access the base's registration information and store it in the handset, while handsets out of range will access the registration information stored in them.")
+            if handset.cordlessDeviceType == 0 && phone.isDigitalCordless && phone.cordlessDeviceLinkingMethod == 4 {
+                CountPicker("Key Finders Supported", selection: $handset.keyFindersSupported, startNumber: 1, multipliedBy: 2, endNumber: 4, singularSuffix: "Key Finder", pluralSuffix: "Key Finders", noneTitle: "None")
+                InfoText("By registering a key finder to a handset, you can use the handset to find lost items easily. If the handset is registered to a compatible base, key finder registrations can be used by any handset. Handsets in range will access the base's registration information and store it in the handset, while handsets out of range will access the registration information stored in them.")
+            }
+        } else {
+            Text(cordlessDeviceMissingPhoneText)
         }
     }
 }

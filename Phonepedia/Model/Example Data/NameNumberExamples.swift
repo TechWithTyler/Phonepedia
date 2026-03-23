@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 1/10/25.
-//  Copyright © 2023-2025 SheftApps. All rights reserved.
+//  Copyright © 2023-2026 SheftApps. All rights reserved.
 //
 
 // MARK: - Imports
@@ -14,6 +14,7 @@ struct NameNumberExamples {
 
     // MARK: - Phone Number Format Enum
 
+    // A display format for a NANP (North American Numbering Plan) number.
     enum NANPPhoneNumberFormat {
 
         case parentheses // Example: (201) 555-1234
@@ -43,6 +44,12 @@ struct NameNumberExamples {
         return names.filter { $0.components(separatedBy: .whitespaces).count == 2 }
     }
 
+    // MARK: - Properties - Strings
+
+    static let exampleUKNumber = "2079460018"
+
+    static let exampleHotelRoomNumber = "925"
+
     // MARK: - CNAM for Name
 
     // Takes the given name and converts it from "First Last" to "LAST, FIRST".
@@ -58,7 +65,7 @@ struct NameNumberExamples {
         return lastFirstName
     }
 
-    // MARK: - Random Phone Number
+    // MARK: - Random Phone Number (NANP)
 
     // Returns an example area code, central exchange (middle 3 digits), and local phone number (last 4 digits).
     static func examplePhoneNumber() -> (areaCode: String, centralExchange: String.SubSequence, number: String.SubSequence) {
@@ -81,9 +88,9 @@ struct NameNumberExamples {
         return (areaCode: randomAreaCode, centralExchange: randomNumber.prefix(3), number: randomNumber.suffix(4))
     }
 
-    // MARK: - Format Phone Number
+    // MARK: - Format NANP Phone Number
 
-    // Formats the phone number into one of 3 patterns: with parentheses, with dashes, or as a plain number string.
+    // Formats the NANP (North American Numbering Plan) phone number into one of 3 patterns: with parentheses, with dashes, or as a plain number string.
     static func formatPhoneNumber(areaCode: String, centralExchange: String.SubSequence, localNumber: String.SubSequence, withFormat format: NANPPhoneNumberFormat) -> String {
         // Format the number based on the requested format.
         switch format {

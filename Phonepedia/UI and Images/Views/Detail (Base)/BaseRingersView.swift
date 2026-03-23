@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 10/3/24.
-//  Copyright © 2023-2025 SheftApps. All rights reserved.
+//  Copyright © 2023-2026 SheftApps. All rights reserved.
 //
 
 // MARK: - Imports
@@ -20,9 +20,9 @@ struct BaseRingersView: View {
     // MARK: - Body
 
     var body: some View {
-        Stepper(phone.isCordless ? "Base Standard Ringtones: \(phone.baseRingtones)" : "Standard Ringtones: \(phone.baseRingtones)", value: $phone.baseRingtones, in: !phone.isCordless || phone.hasBaseSpeakerphone ? .oneToMax(50) : .zeroToMax(50))
+        CountPicker(phone.isCordless ? "Base Standard Ringtones" : "Standard Ringtones", selection: $phone.baseRingtones, oneTo: 50, singularSuffix: "Tone", pluralSuffix: "Tones", noneTitle: !phone.isCordless || phone.hasBaseSpeakerphone ? nil : "None")
         if phone.hasElectronicRinger {
-            Stepper(phone.isCordless ? "Base Music/Melody Ringtones: \(phone.baseMusicRingtones)" : "Music/Melody Ringtones: \(phone.baseMusicRingtones)", value: $phone.baseMusicRingtones, in: .zeroToMax(50))
+            CountPicker(phone.isCordless ? "Base Music/Melody Ringtones" : "Music/Melody Ringtones", selection: $phone.baseMusicRingtones, oneTo: 50, singularSuffix: "Melody", pluralSuffix: "Melodies", noneTitle: "None")
         }
         Text("Total Ringtones: \(phone.totalBaseRingtones)")
         RingtoneInfoView()
@@ -34,12 +34,6 @@ struct BaseRingersView: View {
             .onChange(of: phone.cordedRingerType) { oldValue, newValue in
                 phone.cordedRingerTypeChanged(oldValue: oldValue, newValue: newValue)
             }
-            if (phone.cordedRingerType == 1 || phone.totalBaseRingtones > 1) && phone.cordedPhoneType == 2 {
-                Picker("Ringer Location", selection: $phone.cordedRingerLocation) {
-                    Text("Base").tag(0)
-                    Text("Receiver").tag(1)
-                }
-            }
             InfoText("""
             Bell phones contain one or more bells and an electromagnet. The electromagnet causes a striker to move and strike the bell(s) when the phone rings.
             Some bell phones have two ringtone options. These models include an additional bell and a switch that turns its electromagnet on or off.
@@ -48,7 +42,16 @@ struct BaseRingersView: View {
             Other countries use different systems. In the UK, older phones were labeled with a Load Number (LN), where 4 LNs ≈ 1 REN. A UK POTS line typically supports up to 4 LNs. Australia and New Zealand also use REN, though with slightly different limits. Most of Europe, Asia, and South America follow ETSI (European Telecommunications Standards Institute)-style standards without REN labels, but the practical limit is usually 3–4 phones per line.
             If your line cannot provide enough power for mechanical ringers, you can connect a REN booster to increase ringing capacity and ensure bell/mechanical phones ring properly. Exceeding the REN (or equivalent) limit for your line or provider device can cause damage to it.
             """)
-
+        }
+        if phone.basePhoneType == 0 && phone.isMultiline && phone.cordedPhoneType == 0 && phone.cordedRingerType == 1 && phone.totalBaseRingtones == 1 {
+            Picker("Ringer for Other Lines", selection: $phone.ringerForOtherLines) {
+                Text("Same As Line 1").tag(0)
+                Divider()
+                Text("Different Cadence/Speed").tag(1)
+                Text("Different Pitch").tag(2)
+                Text("Different Tone").tag(3)
+            }
+            InfoText("• Same As Line 1: The ringtone is the same for all lines.\n• Different Cadence/Speed: The ring cadence or speed of the tone is different for each line. For example, a 2-line phone might have a fast ring for line 1, and a slow ring or double-ring for line 2.\n• Different Pitch: The pitch of the tone is different for each line. For example, a 2-line phone might have a low-pitch ring for line 1 and a higher-pitch ring for line 2.\n• Different Tone: The ringers are completely different for each line.")
         }
         if phone.totalBaseRingtones > 0 {
             Picker("Silent Mode", selection: $phone.silentMode) {
@@ -99,6 +102,7 @@ struct BaseRingersView: View {
                 Text("Volume Buttons").tag(1)
             }
             Toggle("Supports Ringer Off", isOn: $phone.baseSupportsRingerOff)
+            InfoText("For phones which don't allow turning the ringer off, you can replace the line cord with one that has a ringer on/off switch if the cord is removable. This switch causes the ring signal to be filtered out by capacitors and resistors in the cord instead of being sent to the phone. This will prevent the phone from receiving incoming calls at all unless it has caller ID and it can detect caller ID before ringing, and answering systems can't answer calls.")
         }
     }
 

@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 7/4/24.
-//  Copyright © 2023-2025 SheftApps. All rights reserved.
+//  Copyright © 2023-2026 SheftApps. All rights reserved.
 //
 
 // MARK: - Imports
@@ -34,7 +34,7 @@ struct AnsweringSystemGreetingComponents {
 
     // This method returns either "again" or "back" for use in the example answering system "answer only" greeting.
     static func againOrBack() -> String {
-        let words = ["back", "again"]
+        let words = ["again", "back"]
         return words.randomElement()!
     }
 

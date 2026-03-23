@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 8/16/23.
-//  Copyright © 2023-2025 SheftApps. All rights reserved.
+//  Copyright © 2023-2026 SheftApps. All rights reserved.
 //
 
 // MARK: - Imports
@@ -19,6 +19,10 @@ struct ChargerDetailView: View {
     
     @EnvironmentObject var dialogManager: DialogManager
 
+    // MARK: - Properties - Booleans
+
+    @AppStorage(UserDefaults.KeyNames.backdropEnabled) var backdropEnabled: Bool = true
+
     // MARK: - Properties - Dismiss Action
 
     @Environment(\.dismiss) var dismiss
@@ -27,12 +31,12 @@ struct ChargerDetailView: View {
 
     var body: some View {
         if let phone = charger.phone {
-            SlickBackdropView {
+            SlickBackdropView(enabled: $backdropEnabled) {
                 Form {
                     Section {
                         HStack {
                             Spacer()
-                            PhoneImage(phone: phone, mode: .full)
+                            PhoneImage(phone: phone, displayMode: .full)
                             Spacer()
                         }
                     }
@@ -44,8 +48,7 @@ struct ChargerDetailView: View {
                             Label("Duplicate", systemImage: "doc.on.doc")
                         }
                         Button {
-                            dialogManager.showingDeleteCharger = true
-                            dialogManager.chargerToDelete = charger
+                            dialogManager.showDeleteCharger(charger: charger)
                             dismiss()
                         } label: {
                             Label("Delete", systemImage: "trash")
@@ -55,12 +58,12 @@ struct ChargerDetailView: View {
                         }
                     }
                     Section("Basic Info") {
-                        ColorPicker("Main Color", selection: charger.mainColorBinding, supportsOpacity: false)
-                        ColorPicker("Secondary/Accent Color", selection: charger.secondaryColorBinding, supportsOpacity: false)
+                        ColorPicker("Main Color", selection: charger.mainColorBinding)
+                        ColorPicker("Secondary/Accent Color", selection: charger.secondaryColorBinding)
                         Button("Use Main Color") {
                             charger.setSecondaryColorToMain()
                         }
-                        ColorPicker("Accent Color", selection: charger.accentColorBinding, supportsOpacity: false)
+                        ColorPicker("Accent Color", selection: charger.accentColorBinding)
                         Button("Use Top Color") {
                             charger.setAccentColorToMain()
                         }
@@ -75,7 +78,7 @@ struct ChargerDetailView: View {
                         }
                         Toggle("Has Charge Light", isOn: $charger.hasChargeLight)
                         if charger.hasChargeLight {
-                            ColorPicker("Charge Light Color (Charging)", selection: charger.chargeLightColorChargingBinding, supportsOpacity: false)
+                            ColorPicker("Charge Light Color (Charging)", selection: charger.chargeLightColorChargingBinding)
                             ClearSupportedColorPicker("Charge Light Color (Charged)", selection: charger.chargeLightColorChargedBinding) {
                                 Text("Off When Charged")
                             }
@@ -115,12 +118,12 @@ struct ChargerDetailView: View {
                     }
                 }
             } backdropContent: {
-                PhoneImage(phone: phone, mode: .backdrop)
+                PhoneImage(phone: phone, displayMode: .backdrop)
             }
             .formStyle(.grouped)
             .scrollContentBackground(.hidden)
         } else {
-            Text("Error")
+            Text(chargerMissingPhoneText)
         }
     }
 

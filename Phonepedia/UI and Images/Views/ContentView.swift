@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 6/15/23.
-//  Copyright © 2023-2025 SheftApps. All rights reserved.
+//  Copyright © 2023-2026 SheftApps. All rights reserved.
 //
 
 // MARK: - Imports
@@ -19,13 +19,15 @@ struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
 
     // Handles the display of dialogs in the app.
-    @ObservedObject var dialogManager = DialogManager()
+    @StateObject var dialogManager = DialogManager()
 
     // Handles playback of audio.
-    @ObservedObject var audioManager = AudioManager()
+    @StateObject var audioManager = AudioManager()
 
     // Handles the import and export of phone photos.
-    @ObservedObject var photoViewModel = PhonePhotoViewModel()
+    @StateObject var photoManager = PhonePhotoManager()
+
+    @StateObject var achievementTrackerManager = PhoneCollectionAchievementTrackerManager()
 
     // MARK: - Properties - Phones
 
@@ -101,8 +103,10 @@ struct ContentView: View {
         .focusedSceneObject(dialogManager)
         .environmentObject(audioManager)
         .focusedSceneObject(audioManager)
-        .environmentObject(photoViewModel)
-        .focusedSceneObject(photoViewModel)
+        .environmentObject(photoManager)
+        .focusedSceneObject(photoManager)
+        .environmentObject(achievementTrackerManager)
+        .focusedSceneObject(achievementTrackerManager)
     }
 
 }
@@ -112,6 +116,6 @@ struct ContentView: View {
 #Preview {
     ContentView()
         .modelContainer(for: [Phone.self, CordlessHandset.self, CordlessHandsetCharger.self], inMemory: true)
-        .environmentObject(PhonePhotoViewModel())
+        .environmentObject(PhonePhotoManager())
         .environmentObject(DialogManager())
 }

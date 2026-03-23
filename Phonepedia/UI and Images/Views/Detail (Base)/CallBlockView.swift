@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 10/3/24.
-//  Copyright © 2023-2025 SheftApps. All rights reserved.
+//  Copyright © 2023-2026 SheftApps. All rights reserved.
 //
 
 // MARK: - Imports
@@ -21,7 +21,7 @@ struct CallBlockView: View {
 
     var body: some View {
         Section("Manual") {
-            FormNumericTextField("Call Block List Capacity", value: $phone.callBlockCapacity, valueRange: .allPositivesIncludingZero, singularSuffix: "entry", pluralSuffix: "entries")
+            FormNumericTextField("Call Block List Capacity", value: $phone.callBlockCapacity, valueRange: 0...Int.max, singularSuffix: "entry", pluralSuffix: "entries")
 #if !os(visionOS)
                 .scrollDismissesKeyboard(.interactively)
 #endif
@@ -73,42 +73,45 @@ When the first ring is suppressed, the number of rings you hear will be one less
                     Text("Has One-Touch/Quick Call Block")
                 }
                 InfoText("One-touch/quick call block allows you to press the dedicated call block button or select the call block menu item to block an incoming call as it rings or while talking on the phone. On most phones, if it's not a soft key or menu option, it can also be used to access the call block menu in standby.")
-            FormNumericTextField("Pre-Blocked", value: $phone.callBlockPreProgrammedDatabaseEntryCount, valueRange: .allPositivesIncludingZero, singularSuffix: "number", pluralSuffix: "numbers")
+            FormNumericTextField("Pre-Blocked", value: $phone.callBlockPreProgrammedDatabaseEntryCount, valueRange: 0...Int.max, singularSuffix: "number", pluralSuffix: "numbers")
 #if !os(visionOS)
                 .scrollDismissesKeyboard(.interactively)
 #endif
             if phone.callBlockPreProgrammedDatabaseEntryCount > 0 {
                 InfoText("Some phones have an invisible database of pre-blocked phone numbers. These numbers might be excluded from the caller ID list. Numbers from this database can be saved to the phonebook if they happen to become safe in the future.")
             }
+                Text("Total Blocked Numbers Capacity: \(phone.totalCallBlockCapacity)")
             }
             if phone.baseBluetoothCellPhonesSupported > 0 {
                 Picker("Cell Call Rejection", selection: $phone.cellCallRejection) {
                     Text("Not Supported").tag(0)
+                    Divider()
                     Text("Button").tag(1)
                     if phone.callBlockCapacity > 0 {
                         Text("When Blocking").tag(2)
                         Text("Button/When Blocking").tag(3)
                     }
                 }
-                InfoText("When a cell call is rejected, the phone will send the Bluetooth \"call reject\" command to the cell phone, which typically sends the call to voicemail.")
+                InfoText("When a cell call is rejected, the phone will send the Bluetooth \"call reject\" command to the cell phone, which typically sends the call to voicemail. The action performed depends on the app receiving the call.")
             }
         }
         if phone.callBlockCapacity > 0 {
             Section("Pre-Screening") {
                 Picker("Mode", selection: $phone.callBlockPreScreening) {
                     Text("Not Supported").tag(0)
+                    Divider()
                     Text("Ask for Caller Name").tag(1)
                     Text("Ask for Code Entry").tag(2)
                 }
-                InfoText("Call block pre-screening answers an incoming call and plays a message asking the caller to press a key so the phone can identify whether they're a human or a robot. The first ring is always suppressed when this feature is enabled.\nCallers with numbers stored in the phone's allowed number list/database or phonebook, or callers whose caller ID names are stored in the phone's allowed name list, will always ring through.\nAsking for the caller name allows you to hear the caller's real name in their own voice when you pick up\(phone.hasTalkingCallerID ? " or as the caller ID announcement" : String()).\nCallers blocked by other call block features won't hear the pre-screening message or be able to get through.")
+                InfoText("Call block pre-screening answers an incoming call and plays a message asking the caller to press a key so the phone can identify whether they're a human or a robot. The first ring is always suppressed when this feature is enabled.\nCallers with numbers stored in the phone's allowed number list/database or phonebook, or callers whose caller ID names are stored in the phone's allowed name list, will always ring through.\nAsking for the caller name allows you to hear the caller's real name in their own voice when you pick up\(phone.hasTalkingCallerID ? " or as the caller ID announcement" : String()).\nCallers blocked by other call block features won't hear the pre-screening message and won't be able to get through.")
                 if phone.callBlockPreScreening > 0 {
-                    InfoText("Example screening message: \"Hello. Your call is being screened to make sure you're a person. Please \(phone.callBlockPreScreening == 2 ? "press \(Int.random(in: .zeroToMax(999)))" : "say your name after the \(AnsweringSystemGreetingComponents.beepOrTone()) then press the pound key") to be connected.\"")
+                    InfoText("Example screening message: \"Hello. Your call is being screened to make sure you're a person. Please \(phone.callBlockPreScreening == 2 ? "press \(Int.random(in: 0...999))" : "say your name after the \(AnsweringSystemGreetingComponents.beepOrTone()) then press the pound key") to be connected.\"")
                     ExampleAudioView(audioFile: phone.callBlockPreScreening == 2 ? .callBlockPreScreeningCode : .callBlockPreScreeningCallerName)
                     if phone.hasAnsweringSystem == 0 {
                         InfoText("Calls can't go to a voicemail service once answered by a call block pre-screening system.")
                     }
                     Toggle("Supports Custom Greeting", isOn: $phone.callBlockPreScreeningCustomGreeting)
-                    FormNumericTextField("Allowed Numbers Capacity", value: $phone.callBlockPreScreeningAllowedNumberCapacity, valueRange: .allPositivesIncludingZero, singularSuffix: "entry", pluralSuffix: "entries")
+                    FormNumericTextField("Allowed Numbers Capacity", value: $phone.callBlockPreScreeningAllowedNumberCapacity, valueRange: 0...Int.max, singularSuffix: "entry", pluralSuffix: "entries")
 #if !os(visionOS)
                         .scrollDismissesKeyboard(.interactively)
 #endif
@@ -116,8 +119,8 @@ When the first ring is suppressed, the number of rings you hear will be one less
                         Toggle("Allowed Numbers List Visible To User", isOn: $phone.callBlockPreScreeningAllowedNumberListVisible)
                     }
                     InfoText("Numbers saved to the allowed numbers list will always ring through. If you want to be able to quickly dial these numbers or give them a name or ringtone, save them to the phonebook instead.")
-                    FormNumericTextField("Allowed Names Capacity", value: $phone.callBlockPreScreeningAllowedNameCapacity, valueRange: .allPositivesIncludingZero, singularSuffix: "entry", pluralSuffix: "entries")
-                    InfoText("If you know a caller's name but not a caller's phone number or their number changes frequently, saving their name as it appears in the incoming caller ID will allow their calls to always ring through. This is a good place to put names of businesses you want to receive automated messages from (e.g. schools, doctor's offices, pharmacies).")
+                    FormNumericTextField("Allowed Names Capacity", value: $phone.callBlockPreScreeningAllowedNameCapacity, valueRange: 0...Int.max, singularSuffix: "entry", pluralSuffix: "entries")
+                    InfoText("If you know a caller's name but not a caller's phone number or their number changes frequently/they call from different numbers, saving their name as it appears in the incoming caller ID will allow their calls to always ring through. This is a good place to put names of businesses you want to receive automated messages from (e.g. schools, doctor's offices, pharmacies).")
 #if !os(visionOS)
                         .scrollDismissesKeyboard(.interactively)
 #endif

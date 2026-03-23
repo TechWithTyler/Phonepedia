@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 6/28/23.
-//  Copyright © 2023-2025 SheftApps. All rights reserved.
+//  Copyright © 2023-2026 SheftApps. All rights reserved.
 //
 
 // MARK: - Imports
@@ -33,6 +33,7 @@ final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatab
 
     // MARK: - Properties - Mock Handset
 
+    // The mock handset, which is used in Xcode previews and in the phone row preview in Settings. New cordless devices added to a phone use the phone's brand, the phone's main cordless device model number, and the phone's base colors.
     @Transient
     static var mockHandset: CordlessHandset {
         let phone = Phone.mockPhone
@@ -58,7 +59,7 @@ final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatab
 
     var handsetNumber: Int = 0
 
-	var releaseYear: Int = currentYear
+	var releaseYear: Int = currentYear - 1
 
     var acquisitionYear: Int = currentYear
 
@@ -172,6 +173,10 @@ final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatab
 
 	var displayType: Int = 2
 
+    var displayBrightnessContrastAdjustment: Int = 0
+
+    var displayColorThemes: Int = 0
+
     var displayLocation: Int = 0
 
     var baseSettingsChangeMethod: Int = 0
@@ -226,7 +231,11 @@ final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatab
 
     var intercomRingtone: Int = 0
 
+    var ringsOnBase: Bool = true
+
     var silentMode: Int = 0
+
+    var joinLeaveTone: Int = 0
 
     var supportsSilentModeBypass: Bool = false
 
@@ -289,9 +298,15 @@ final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatab
 	var usesBaseOneTouchDial: Bool = false
 	
 	var speedDialPhonebookEntryMode: Int = 0
-	
+
+    var redialDuringCall: Int = 1
+
 	var redialNameDisplay: Int = 0
-	
+
+    var standbyCellCallDialing: Int = 0
+
+    var cellLineSelection: Int = 0
+
 	var bluetoothHeadphonesSupported: Int = 0
 	
 	var bluetoothPhonebookTransfers: Bool = false
@@ -358,6 +373,18 @@ final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatab
         return handsetNumber + 1
     }
 
+    // Whether the cordless device has a secondary color (the main and secondary colors aren't the same).
+    @Transient
+    var hasSecondaryColor: Bool {
+        return secondaryColorBinding.wrappedValue != mainColorBinding.wrappedValue
+    }
+
+    // Whether the cordless device has an accent color (the accent color is different from both the main and secondary colors).
+    @Transient
+    var hasAccentColor: Bool {
+        return accentColorBinding.wrappedValue != mainColorBinding.wrappedValue && accentColorBinding.wrappedValue != secondaryColorBinding.wrappedValue
+    }
+
     // Whether the cordless device is a deskset with a corded receiver.
     @Transient
     var hasCordedReceiver: Bool {
@@ -411,6 +438,13 @@ final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatab
     @Transient
     var hasMonochromeDisplay: Bool {
         return displayType > 0 && displayType < 5
+    }
+
+    // Whether the cordless device supports answering system/voicemail features.
+    @Transient
+    var supportsMessaging: Bool {
+        guard let phone = phone else { return false }
+        return (phone.hasAnsweringSystem > 1 && displayType > 0) || phone.voicemailIndication > 0 || phone.landlineConnectionType > 0
     }
 
     // Whether the cordless device has lists of entries (e.g. phonebook, caller ID list).
@@ -570,21 +604,35 @@ final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatab
 
     // MARK: - Set Acquisition Year to Release Year
 
+    // This method sets the cordless device's acquisition year to its release year.
     func setAcquisitionYearToReleaseYear() {
         acquisitionYear = releaseYear
     }
 
-    // MARK: - Color Methods
-    
-    // Note: Color manipulation methods are provided by protocol default implementations from SheftAppsStylishUI:
-    // - setSecondaryColorToMain() via BaseColorManipulatable
-    // - setAccentColorToMain() via BaseColorManipulatable
-    // - setAccentColorToSecondary() via BaseColorManipulatable
-    // - setChargeLightChargedColorToCharging() via ChargeLightColorManipulatable
-    // - setCordedReceiverSecondaryColorToMain() via CordedReceiverColorManipulatable
-    // - setCordedReceiverAccentColorToMain() via CordedReceiverColorManipulatable
-    // - setCordedReceiverAccentColorToSecondary() via CordedReceiverColorManipulatable
-    // - swapKeyBackgroundAndForegroundColors() via KeyColorManipulatable
+    // MARK: - Set Key Background Color To Main
+
+    // This method sets the key background color to the main color.
+    func setKeyBackgroundColorToMain() {
+        keyBackgroundColorRed = mainColorRed
+        keyBackgroundColorGreen = mainColorGreen
+        keyBackgroundColorBlue = mainColorBlue
+    }
+
+    // MARK: - Set Key Backlight Color To Display Backlight and Vice Versa
+
+    // This method sets the key backlight color to the display backlight color.
+    func setKeyBacklightColorToDisplayBacklight() {
+        keyBacklightColorRed = displayBacklightColorRed
+        keyBacklightColorGreen = displayBacklightColorGreen
+        keyBacklightColorBlue = displayBacklightColorBlue
+    }
+
+    // This method sets the display backlight color to the key backlight color.
+    func setDisplayBacklightColorToKeyBacklight() {
+        displayBacklightColorRed = keyBacklightColorRed
+        displayBacklightColorGreen = keyBacklightColorGreen
+        displayBacklightColorBlue = keyBacklightColorBlue
+    }
 
     // MARK: - Property Change Handlers
 
@@ -651,18 +699,8 @@ final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatab
         if acquisitionYear < newValue && acquisitionYear != -1 {
             acquisitionYear = releaseYear
         }
-        if newValue == 0 && oldValue == -1 {
-            releaseYear = oldestHandsetYear
-        } else if newValue < oldestHandsetYear {
-            releaseYear = -1
-        }
-    }
-
-    func acquisitionYearChanged(oldValue: Int, newValue: Int) {
-        if newValue == 0 && oldValue == -1 {
-            acquisitionYear = releaseYear == -1 ? oldestHandsetYear : releaseYear
-        } else if newValue < releaseYear || newValue < oldestHandsetYear {
-            acquisitionYear = -1
+        if newValue == currentYear {
+            acquisitionYear = currentYear
         }
     }
 
@@ -695,9 +733,12 @@ final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatab
         if newValue < 3 {
             mainMenuLayout = 0
         }
-		if newValue == 5 {
+        if newValue >= 5 {
             displayBacklightColorBinding.wrappedValue = .white
-		}
+        }
+        if newValue < 5 && displayBrightnessContrastAdjustment > 1 {
+            displayBrightnessContrastAdjustment = 1
+        }
 		if newValue == 0 {
             displayBacklightColorBinding.wrappedValue = .white
 			menuUpdateMode = 0
@@ -744,6 +785,7 @@ final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatab
 
     // MARK: - Duplicate
 
+    // This method duplicates the cordless device.
     func duplicate() -> CordlessHandset {
         // 1. Initialize a new CordlessHandset, passing the original's properties to the initializer.
         let newHandset = CordlessHandset(
@@ -889,6 +931,8 @@ final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatab
         newHandset.hasSpeakerphoneButtonLight = self.hasSpeakerphoneButtonLight
         newHandset.storageOrSetup = self.storageOrSetup
         newHandset.hasQZ = self.hasQZ
+        newHandset.displayColorThemes = self.displayColorThemes
+        newHandset.displayBrightnessContrastAdjustment = self.displayBrightnessContrastAdjustment
         // 4. Return the duplicated handset.
         return newHandset
     }

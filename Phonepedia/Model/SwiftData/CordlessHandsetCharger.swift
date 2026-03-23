@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 6/28/23.
-//  Copyright © 2023-2025 SheftApps. All rights reserved.
+//  Copyright © 2023-2026 SheftApps. All rights reserved.
 //
 
 // MARK: - Imports
@@ -80,6 +80,18 @@ final class CordlessHandsetCharger: BaseColorManipulatable, ChargeLightColorMani
         return chargerNumber + 1
     }
 
+    // Whether the charger has a secondary color (the main and secondary colors aren't the same).
+    @Transient
+    var hasSecondaryColor: Bool {
+        return secondaryColorBinding.wrappedValue != mainColorBinding.wrappedValue
+    }
+
+    // Whether the charger has an accent color (the accent color is different from both the main and secondary colors).
+    @Transient
+    var hasAccentColor: Bool {
+        return accentColorBinding.wrappedValue != mainColorBinding.wrappedValue && accentColorBinding.wrappedValue != secondaryColorBinding.wrappedValue
+    }
+
     // MARK: - Properties - Color Bindings
 
     var mainColorBinding: Binding<Color> {
@@ -140,16 +152,9 @@ final class CordlessHandsetCharger: BaseColorManipulatable, ChargeLightColorMani
         self.accentColorBlue = accentColorBlue
     }
 
-    // MARK: - Color Methods
-    
-    // Note: Color manipulation methods are provided by protocol default implementations from SheftAppsStylishUI:
-    // - setSecondaryColorToMain() via BaseColorManipulatable
-    // - setAccentColorToMain() via BaseColorManipulatable
-    // - setAccentColorToSecondary() via BaseColorManipulatable
-    // - setChargeLightChargedColorToCharging() via ChargeLightColorManipulatable
-
     // MARK: - Duplicate
 
+    // This method duplicates the charger.
     func duplicate() -> CordlessHandsetCharger {
         // 1. Initialize a new CordlessHandsetCharger, passing the original's properties to the initializer.
         let newCharger = CordlessHandsetCharger(

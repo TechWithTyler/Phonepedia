@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 6/19/23.
-//  Copyright © 2023-2025 SheftApps. All rights reserved.
+//  Copyright © 2023-2026 SheftApps. All rights reserved.
 //
 
 // MARK: - Imports
@@ -54,6 +54,10 @@ struct CordlessDeviceInfoView: View {
 
     @AppStorage(UserDefaults.KeyNames.defaultAcquisitionMethod) var defaultAcquisitionMethod: Int = 0
 
+    // MARK: - Properties - Booleans
+
+    @AppStorage(UserDefaults.KeyNames.showPhoneColorsInList) var showPhoneColorsInList: Bool = false
+
     // The number of cordless devices for this phone.
     var handsetCount: Int {
         return filteredCordlessDevices.count
@@ -96,7 +100,7 @@ struct CordlessDeviceInfoView: View {
                 .accessibilityIdentifier("AddHandsetButton")
                 .disabled(phone.maxOrTooManyCordlessDevices)
                 if phone.maxOrTooManyCordlessDevices {
-                    WarningText("You currently have the maximum number of cordless devices (\(phone.maxCordlessHandsets)) for this \(phone.brand) \(phone.model). If you're trying to add another cordless device, make sure you've specified the correct number of maximum cordless devices on the General page.")
+                    WarningText("You currently have the maximum number of cordless devices the base of this \(phone.brand) \(phone.model) allows (\(phone.maxCordlessHandsets)). If you're trying to add another cordless device, make sure you've specified the correct number of maximum cordless devices on the General page.")
                 }
                 Button(role: .destructive) {
                     dialogManager.showingDeleteAllHandsets = true
@@ -115,12 +119,10 @@ struct CordlessDeviceInfoView: View {
             .alert("Delete this cordless device?", isPresented: $dialogManager.showingDeleteHandset, presenting: $dialogManager.handsetToDelete) { handset in
                 Button("Delete", role: .destructive) {
                     deleteCordlessDevice(handset.wrappedValue!)
-                    dialogManager.handsetToDelete = nil
-                    dialogManager.showingDeleteHandset = false
+                    dialogManager.dismissDeleteHandset()
                 }
                 Button("Cancel", role: .cancel) {
-                    dialogManager.handsetToDelete = nil
-                    dialogManager.showingDeleteHandset = false
+                    dialogManager.dismissDeleteHandset()
                 }
             } message: { handset in
                 let wrappedHandset = handset.wrappedValue!
@@ -176,12 +178,10 @@ struct CordlessDeviceInfoView: View {
         .alert("Delete this charger?", isPresented: $dialogManager.showingDeleteCharger, presenting: $dialogManager.chargerToDelete) { charger in
             Button("Delete", role: .destructive) {
                 deleteCharger(charger.wrappedValue!)
-                dialogManager.chargerToDelete = nil
-                dialogManager.showingDeleteCharger = false
+                dialogManager.dismissDeleteCharger()
             }
             Button("Cancel", role: .cancel) {
-                dialogManager.chargerToDelete = nil
-                dialogManager.showingDeleteCharger = false
+                dialogManager.dismissDeleteCharger()
             }
         } message: { charger in
             Text("This charger will be deleted from this \(phone.brand) \(phone.model).")
@@ -210,6 +210,10 @@ struct CordlessDeviceInfoView: View {
                         .navigationTitle("Device \(handset.actualHandsetNumber)")
                 } label: {
                     HStack {
+                        if showPhoneColorsInList {
+                            ColorStack(mainColor: handset.mainColorBinding.wrappedValue, secondaryColor: handset.hasSecondaryColor ? handset.secondaryColorBinding.wrappedValue : nil, accentColor: handset.hasAccentColor ? handset.accentColorBinding.wrappedValue : nil)
+                                .padding(.horizontal)
+                        }
                         VStack(alignment: .leading) {
                             Text("\(handset.brand) \(handset.model.isEmpty ? "<No Model Number>" : handset.model)")
                                 .bold(handset.model == phone.mainHandsetModel)
@@ -233,8 +237,7 @@ struct CordlessDeviceInfoView: View {
                         .toggleStyle(.automatic)
                     Divider()
                     Button {
-                        dialogManager.handsetToReassign = handset
-                        dialogManager.showingReassignHandset = true
+                        dialogManager.showReassignHandset(handset: handset)
                     } label: {
                         Label("Reassign…", systemImage: "phone.arrow.right.fill")
                     }
@@ -246,16 +249,14 @@ struct CordlessDeviceInfoView: View {
                     }
                     Divider()
                     Button(role: .destructive) {
-                        dialogManager.showingDeleteHandset = true
-                        dialogManager.handsetToDelete = handset
+                        dialogManager.showDeleteHandset(handset: handset)
                     } label: {
                         Label("Delete…", systemImage: "trash")
                     }
                 }
                 .swipeActions {
                     Button(role: .destructive) {
-                        dialogManager.showingDeleteHandset = true
-                        dialogManager.handsetToDelete = handset
+                        dialogManager.showDeleteHandset(handset: handset)
                     } label: {
                         Label("Delete", systemImage: "trash")
                     }
@@ -278,11 +279,17 @@ struct CordlessDeviceInfoView: View {
                     ChargerDetailView(charger: charger)
                         .navigationTitle("Charger \(charger.actualChargerNumber)")
                 } label: {
-                    VStack(alignment: .leading) {
-                        Text("Charger \(charger.actualChargerNumber)")
-                        if phone.basePhoneType == 0 {
-                            Text("Cordless \(charger.type == 0 ? "handset" : "headset/speakerphone") charger")
-                                .foregroundStyle(.secondary)
+                    HStack {
+                        if showPhoneColorsInList {
+                            ColorStack(mainColor: charger.mainColorBinding.wrappedValue, secondaryColor: charger.hasSecondaryColor ? charger.secondaryColorBinding.wrappedValue : nil, accentColor: charger.hasAccentColor ? charger.accentColorBinding.wrappedValue : nil)
+                                .padding(.horizontal)
+                        }
+                        VStack(alignment: .leading) {
+                            Text("Charger \(charger.actualChargerNumber)")
+                            if phone.basePhoneType == 0 {
+                                Text("Cordless \(charger.type == 0 ? "handset" : "headset/speakerphone") charger")
+                                    .foregroundStyle(.secondary)
+                            }
                         }
                     }
                 }
@@ -294,16 +301,14 @@ struct CordlessDeviceInfoView: View {
                     }
                     Divider()
                     Button(role: .destructive) {
-                        dialogManager.showingDeleteCharger = true
-                        dialogManager.chargerToDelete = charger
+                        dialogManager.showDeleteCharger(charger: charger)
                     } label: {
                         Label("Delete…", systemImage: "trash")
                     }
                 }
                 .swipeActions {
                     Button(role: .destructive) {
-                        dialogManager.showingDeleteCharger = true
-                        dialogManager.chargerToDelete = charger
+                        dialogManager.showDeleteCharger(charger: charger)
                     } label: {
                         Label("Delete", systemImage: "trash")
                     }
@@ -389,9 +394,9 @@ struct CordlessDeviceInfoView: View {
         // 2. Delete the cordless device.
         phone.cordlessHandsetsIHave.removeAll { $0.id == cordlessDevice.id }
         // 3. For any cordless device whose index is higher than the one that was just deleted, decrease handsetNumber by 1.
-        sortedCordlessDevices.forEach {
-            if $0.handsetNumber > deletedIndex {
-                $0.handsetNumber -= 1
+        for cordlessDevice in sortedCordlessDevices {
+            if cordlessDevice.handsetNumber > deletedIndex {
+                cordlessDevice.handsetNumber -= 1
             }
         }
     }
@@ -449,9 +454,9 @@ struct CordlessDeviceInfoView: View {
         // 2. Delete the charger.
         phone.chargersIHave.removeAll { $0.id == charger.id }
         // 3. For any charger whose index is higher than the one that was just deleted, decrease chargerNumber by 1.
-        sortedChargers.forEach {
-            if $0.chargerNumber > deletedIndex {
-                $0.chargerNumber -= 1
+        for charger in sortedChargers {
+            if charger.chargerNumber > deletedIndex {
+                charger.chargerNumber -= 1
             }
         }
     }

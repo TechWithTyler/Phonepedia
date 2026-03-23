@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 9/16/24.
-//  Copyright © 2023-2025 SheftApps. All rights reserved.
+//  Copyright © 2023-2026 SheftApps. All rights reserved.
 //
 
 // MARK: - Imports
@@ -23,7 +23,7 @@ struct AboutDisplayTypesView: View {
             List {
                 Text("A phone's display, if any, can be one of several types. Expand each section to learn about each one.")
                 DisclosureGroup {
-                    Text("A segmented monochrome display is a basic LCD display with a font reminiscent of a 7-segment display, although these kinds of displays often have more segments. These displays are often found on very low-end phones and rarely have soft keys.")
+                    Text("A segmented monochrome display is a basic LCD display with a font reminiscent of a 7-segment or 14-segment display. These displays are often found on very low-end phones and rarely have soft keys.")
                 } label: {
                     Text("Segmented Monochrome")
                 }
@@ -43,7 +43,7 @@ struct AboutDisplayTypesView: View {
                     Text("Color")
                 }
                 DisclosureGroup {
-                    Text("An LED message counter is made up of 1 or 2 7-segment LED displays and are used to display the number of answering system messages, the ringer/speaker volume level while adjusting, and other info. For example, it might display the letter A to indicate the answering system is answering a call, F to indicate the answering system memory is full, or CL to indicate the clock needs to be set. This type of display makes it easy to see how many messages you have at a glance.")
+                    Text("An LED message counter is made up of 1 or 2 7-segment LED displays and is used to display the number of answering system messages, the ringer/speaker volume level while adjusting, and other info. For example, it might display the letter A to indicate the answering system is answering a call, F to indicate the answering system memory is full, or CL to indicate the clock needs to be set. This type of display makes it easy to see how many messages you have at a glance.")
                 } label: {
                     Text("LED Message Counter")
                 }
@@ -51,6 +51,26 @@ struct AboutDisplayTypesView: View {
                     Text("An LCD message counter with status items is a monochrome display with pixels/segments that make up 1 or 2 7-segment displays, and pixels for various status items (e.g., a flashing clock to indicate the clock needs to be set). As this type of display usually doesn't have a backlight, it isn't as easy to see how many messages you have at a glance compared to LED message counters.")
                 } label: {
                     Text("LCD Message Counter With Status Items")
+                }
+                DisclosureGroup {
+                    Text(
+                        """
+                        Any information displayed on a dual 7-segment display is abbreviated. Examples:
+                        • OF (looks like 0F): Off
+                        • Y: Yes
+                        • tS (looks like t5): Toll saver
+                        • E: English or Error
+                        • S (looks like 5): Spanish
+                        • F: French or Full
+                        • Lo: Low
+                        • HI (looks like H1): High
+                        • AO (looks like A0): Answer only
+                        • Go (looks like 9o): Greeting only
+                        • CL: Clock not set
+                        • Er: Error
+                        """)
+                } label: {
+                    Text("Dual 7-Segment Display Abbreviations")
                 }
             }
             .navigationTitle("About Display Types")

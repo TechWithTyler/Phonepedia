@@ -3,13 +3,14 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 10/19/23.
-//  Copyright © 2023-2025 SheftApps. All rights reserved.
+//  Copyright © 2023-2026 SheftApps. All rights reserved.
 //
 
 // MARK: - Imports
 
 import SwiftUI
 import SheftAppsStylishUI
+import SheftAppsInternals
 
 struct FrequenciesExplanationView: View {
     
@@ -40,7 +41,7 @@ struct FrequenciesExplanationView: View {
                     CordlessPhoneRadioWaveView()
                 }
                 DisclosureGroup("Analog") {
-                    Text("Analog phones transmit and receive analog audio signals. These phones are prone to interference and their signals can be picked up by anyone using a radio scanner set to the same frequency, which isn't ideal for private conversations (e.g., when giving out your credit card number to a bank or entering the password for your voicemail). When hanging up an analog phone, when dialing numbers, or pressing other buttons that send a command to the base, communication between the handset and base is briefly interrupted, which causes the other end to hear a short burst of noise. On some phones, placing the handset on the base will cause the phone to hang up immediately by terminating the handset and base connections at the same time, in which case this burst of noise won't be heard. Another way you can tell you're using an analog phone is if you or the other end hear static when going out of range, vs the audio clipping in and out on a digital cordless phone.")
+                    Text("Analog phones transmit and receive analog audio signals. These phones are prone to interference and their signals can be picked up by anyone using a radio scanner set to the same frequency, which isn't ideal for private conversations (e.g., when giving out your credit card number to a bank or entering the password for your voicemail). When hanging up an analog phone, when dialing numbers, or pressing other buttons that send a command to the base, this data is sent as part of the analog audio stream, which causes the other end to hear a short burst of noise. On some phones, placing the handset on the base will cause the phone to hang up immediately by terminating the handset and base connections at the same time, in which case this burst of noise won't be heard. Another way you can tell you're using an analog phone is if you or the other end hear static when going out of range, vs the audio clipping in and out on a digital cordless phone.")
                     Text("Some 46-49MHz and 900MHz analog phones include a technology known as voice scrambling, which scrambles the audio before it's transmitted between the base and handset, and is then unscrambled when it's sent to the receiving end. For example, when you say \"Hello\" into the handset, it becomes \"Grblm\" (gibberish used as example of scrambled speech) before it's sent to the base, where it then becomes \"Hello\" again before it's sent to the caller. This way, anyone using a radio scanner to pick up the signal will hear the scrambled audio, which they likely won't be able to understand, while you and the caller hear it as if there wasn't any scrambling at all.")
                     Text("There are many voice scrambling methods. Frequency inversion scrambling, the most common and least complex, flips the audio spectrum, so low frequencies become high frequencies, and vice versa. Split-band scrambling divides and inverts parts of the audio spectrum. Time-division scrambling chops the signal into segments and rearranges them. Rolling code scrambling uses dynamic codes to continuously alter the signal. Noise injection adds artificial noise to obscure the voice.")
                     ExampleAudioView(audioFile: .analogCordlessPhoneAudioSampleNormal)
@@ -58,7 +59,7 @@ struct FrequenciesExplanationView: View {
                     Text("DECT uses encryption, making it the most secure cordless phone frequency. Since it's dedicated to cordless phones, baby monitors, and other telecommunications-related devices, interference from other wireless technologies is minimal, and DECT devices rarely interfere with each other. Different countries use different frequencies for DECT.")
                     Text("1.786–1.792GHz (1786–1792MHz) is used in South Korea.")
                     Text("1.88–1.895GHz (1880–1895MHz) is used in Taiwan.")
-                    Text("1.88–1.90GHz (1880–190MHz) is used for DECT in Europe, the UK, Ireland, Australia, New Zealand, and the Middle East. Throughout \(appName!), it's referred to as ETSI DECT (ETSI standing for European Telecommunications Standards Institute). DECT originated from Europe, originally standing for Digital European Cordless Telecommunications before DECT was adopted by other countries.")
+                    Text("1.88–1.90GHz (1880–190MHz) is used for DECT in Europe, the UK, Ireland, Australia, New Zealand, and the Middle East. Throughout \(SABundleName), it's referred to as ETSI DECT (ETSI standing for European Telecommunications Standards Institute). DECT originated from Europe, originally standing for Digital European Cordless Telecommunications before DECT was adopted by other countries.")
                     Text("J-DECT (1.893–1.906GHz or 1893–1906MHz) is used in Japan.")
                     Text("1.91–1.92GHz (1910–1920MHz) is used in Brazil.")
                     Text("1.91–1.93GHz (1910–1930MHz) is used in parts of Latin America.")
@@ -67,7 +68,7 @@ struct FrequenciesExplanationView: View {
                 DisclosureGroup("Marketing vs Actual Frequency Range") {
                     Text("Some cordless phones only use a subset of their actual frequency band.")
                     Text("Some 1.7MHz cordless phones used 46MHz for handset-to-base.")
-                    Text("46-49MHz cordless phones are often referred to as such because that's the frequency range they typically operate in, and is shown as such throughout \(appName!), although the actual frequency range is 43-46MHz base-to-handset and 48-49MHz handset-to-base.")
+                    Text("46-49MHz cordless phones are often referred to as such because that's the frequency range they typically operate in, and is shown as such throughout \(SABundleName), although the actual frequency range is 43-46MHz base-to-handset and 48-49MHz handset-to-base.")
                     Text("The actual frequency range for 900MHz cordless phones is 902-928MHz. Rounding down for marketing/documentation makes it simpler to understand.")
                     Text("The actual frequency range for 2.4GHz cordless phones is 2.400–2.4835GHz (2400-2483.5MHz). Rounding down for marketing/documentation makes it simpler to understand.")
                     Text("The actual frequency range for 5.8GHz cordless phones is 5.725-5.850GHz (5725-5850MHz). Rounding up for marketing/documentation makes it simpler to understand.")

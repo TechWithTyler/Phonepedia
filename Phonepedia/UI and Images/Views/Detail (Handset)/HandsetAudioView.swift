@@ -3,7 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 10/3/24.
-//  Copyright © 2023-2025 SheftApps. All rights reserved.
+//  Copyright © 2023-2026 SheftApps. All rights reserved.
 //
 
 // MARK: - Imports
@@ -51,7 +51,7 @@ struct HandsetAudioView: View {
             Section("Headsets") {
                 Toggle("Supports Wired Headsets", isOn: $handset.supportsWiredHeadsets)
                 if handset.handsetStyle < 3 {
-                    CountPicker("Maximum Number of Bluetooth Headphones", selection: $handset.bluetoothHeadphonesSupported, numbers: [1, 2, 4], noneTitle: "None", unlimitedTitle: "Unlimited")
+                    CountPicker("Maximum Number of Bluetooth Headphones", selection: $handset.bluetoothHeadphonesSupported, startNumber: 1, multipliedBy: 2, endNumber: 4, singularSuffix: "Bluetooth Headphone", pluralSuffix: "Bluetooth Headphones", noneTitle: "None", unlimitedTitle: "Unlimited")
                 }
             }
             if phone.hasIntercom {
@@ -69,7 +69,7 @@ struct HandsetAudioView: View {
                 }
             }
         } else {
-            Text("Error")
+            Text(cordlessDeviceMissingPhoneText)
         }
     }
 }
