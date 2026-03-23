@@ -125,7 +125,7 @@ class LandlineOrNotPredictor {
         let orientation = CGImagePropertyOrientation(photo.imageOrientation)
         guard let photoImage = photo.cgImage else {
             DispatchQueue.main.async { [self] in
-                photoManager.phonePhotoError = .predictionFailedNoUnderlyingImage
+                photoManager.phonePhotoError = .noUnderlyingImageForPrediction
                 photoManager.showingPhonePhotoErrorAlert = true
             }
             return
