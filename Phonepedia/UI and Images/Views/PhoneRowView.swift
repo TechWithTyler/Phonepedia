@@ -11,29 +11,29 @@
 import SwiftUI
 
 struct PhoneRowView: View {
-
+    
     // MARK: - Properties - Booleans
-
+    
     @AppStorage(UserDefaults.KeyNames.showPhoneTypeInList) var showPhoneTypeInList: Bool = true
-
+    
     @AppStorage(UserDefaults.KeyNames.showAnsweringSystemInList) var showAnsweringSystemInList: Bool = true
-
+    
     @AppStorage(UserDefaults.KeyNames.showPhoneActiveStatusInList) var showPhoneActiveStatusInList: Bool = true
-
+    
     @AppStorage(UserDefaults.KeyNames.showNumberOfCordlessHandsetsInList) var showNumberOfCordlessHandsetsInList: Bool = true
-
+    
     @AppStorage(UserDefaults.KeyNames.showPhoneColorsInList) var showPhoneColorsInList: Bool = true
-
+    
     @AppStorage(UserDefaults.KeyNames.showYearsInList) var showYearsInList: Bool = true
-
+    
     @AppStorage(UserDefaults.KeyNames.showFrequencyInList) var showFrequencyInList: Bool = true
-
+    
     // MARK: - Properties - Integers
-
+    
     @AppStorage(UserDefaults.KeyNames.highlightHandsetNumberDigitInList) var highlightHandsetNumberDigitInList: Int = 2
-
+    
     // MARK: - Properties - Strings
-
+    
     // The text to display for a phone's type.
     var phoneTypeText: String {
         if phone.isCordless && showFrequencyInList {
@@ -42,7 +42,7 @@ struct PhoneRowView: View {
             return phone.phoneTypeText
         }
     }
-
+    
     // The text to display for a phone's answering system type.
     var answeringSystemText: String {
         if phone.hasAnsweringSystem > 0 {
@@ -51,15 +51,15 @@ struct PhoneRowView: View {
             return "No answering system"
         }
     }
-
+    
     // MARK: - Properties - Phone
-
-	@Bindable var phone: Phone
+    
+    @Bindable var phone: Phone
     
     // MARK: - Body
-
+    
     var body: some View {
-		HStack {
+        HStack {
             VStack {
                 Text("\(phone.actualPhoneNumberInCollection)")
                 if phone.acquiredInYearOfRelease {
@@ -72,13 +72,13 @@ struct PhoneRowView: View {
                 ColorStack(mainColor: phone.baseMainColorBinding.wrappedValue, secondaryColor: phone.hasSecondaryColor ? phone.baseSecondaryColorBinding.wrappedValue : nil, accentColor: phone.hasAccentColor ? phone.baseAccentColorBinding.wrappedValue : nil)
             }
             Spacer()
-			VStack {
-				Text(phone.brand)
-					.font(.largeTitle)
+            VStack {
+                Text(phone.brand)
+                    .font(.largeTitle)
                     .lineLimit(nil)
                     .multilineTextAlignment(.center)
                 Text(modelNumberWithIndicatedHandsetNumberDigit(phone.model, digit: phone.handsetNumberDigit, at: phone.handsetNumberDigitIndex))
-					.font(.title2)
+                    .font(.title2)
                     .lineLimit(nil)
                     .multilineTextAlignment(.center)
                     .animation(.linear, value: phone.handsetNumberDigitIndex)
@@ -89,13 +89,13 @@ struct PhoneRowView: View {
                         .multilineTextAlignment(.center)
                 }
                 phoneDetailStack
-			}
-			Spacer()
-		}
+            }
+            Spacer()
+        }
     }
-
+    
     // MARK: - Detail Stack
-
+    
     @ViewBuilder
     var phoneDetailStack: some View {
         if showYearsInList {
@@ -104,10 +104,10 @@ struct PhoneRowView: View {
                     .font(.callout)
                     .multilineTextAlignment(.center)
                     .lineLimit(nil)
-                    Text("Acquired in year of release!")
-                        .font(.callout)
-                        .multilineTextAlignment(.center)
-                        .lineLimit(nil)
+                Text("Acquired in year of release!")
+                    .font(.callout)
+                    .multilineTextAlignment(.center)
+                    .lineLimit(nil)
             } else {
                 Text(phone.releaseYear == -1 ? "Unknown release year" : "Released \(String(phone.releaseYear))")
                     .font(.callout)
@@ -161,26 +161,50 @@ struct PhoneRowView: View {
                 .lineLimit(nil)
         }
     }
-
+    
     // MARK: - Model Number "Number of Included Cordless Devices" Digit Highlight
-
+    
     // This method highlights or underlines digit at index based on a phone's selected handset model number digit. For example, if the last 2 in the model number M123-2 is selected, it's highlighted or underlined.
     func modelNumberWithIndicatedHandsetNumberDigit(_ modelNumber: String, digit: Int?, at index: Int?) -> AttributedString {
         // 1. Convert the model number String to an AttributedString. As AttributedString is a data type, it's declared in the Foundation framework instead of the SwiftUI framework, even though its cross-platform design makes it shine with SwiftUI. Unlike with NSAttributedString, you can simply initialize it with a String argument without having to use an argument label.
         var attributedString = AttributedString(modelNumber)
-        // 2. Ensure digit and index aren't nil and that index is within modelNumber's bounds.
+        // 2. Check if the last dash in the model number is selected.
+        if let digit = digit, digit == -1, highlightHandsetNumberDigitInList > 0 {
+            // 3. Find the last dash in the model number.
+            if let lastDashIndex = modelNumber.lastIndex(of: phone.handsetNumberDigitRepresents == 1 ? "+" : "-") {
+                // 4. Get the substring after the last dash.
+                let suffixStart = phone.handsetNumberDigitRepresents == 1 ? lastDashIndex : modelNumber.index(after: lastDashIndex)
+                let suffix = modelNumber[suffixStart...]
+                // 5. Convert the String index to an AttributedString index.
+                let startOffset = modelNumber.distance(from: modelNumber.startIndex, to: suffixStart)
+                let attributedStartIndex = attributedString.index(attributedString.startIndex, offsetByCharacters: startOffset)
+                let attributedEndIndex = attributedString.endIndex
+                let rangeToHighlight = attributedStartIndex..<attributedEndIndex
+                // 6. Apply highlight or underline based on the setting.
+                switch highlightHandsetNumberDigitInList {
+                case 2:
+                    // Highlight
+                    attributedString[rangeToHighlight].backgroundColor = .accentColor.opacity(0.75)
+                    attributedString[rangeToHighlight].foregroundColor = .white
+                default:
+                    // Underline
+                    attributedString[rangeToHighlight].underlineStyle = .single
+                }
+            }
+        } else
+        // 7. Ensure digit and index aren't nil and that index is within modelNumber's bounds.
         if let digit = digit, let index = index, (modelNumber.count > index && highlightHandsetNumberDigitInList > 0) {
-            // 3. Calculate the String.Index for the given Int index.
+            // 8. Calculate the String.Index for the given Int index.
             let stringIndex = modelNumber.index(modelNumber.startIndex, offsetBy: index)
-            // 4. Check if the character at index matches digit. To convert a number to a Character, it first needs to be converted to a String.
+            // 9. Check if the character at index matches digit. To convert a number to a Character, it first needs to be converted to a String.
             let digitAsString = "\(digit)"
             let digitAsCharacter = Character(digitAsString)
             if modelNumber[stringIndex] == digitAsCharacter {
-                // 5. Calculate the range in AttributedString to apply highlighting/underlining to. The range should be only a single character.
+                // 10. Calculate the range in AttributedString to apply highlighting/underlining to. The range should be only a single character.
                 let attributedStartIndex = attributedString.index(attributedString.startIndex, offsetByCharacters: index)
                 let attributedEndIndex = attributedString.index(afterCharacter: attributedStartIndex)
                 let rangeToHighlight = attributedStartIndex..<attributedEndIndex
-                // 6. Choose whether to apply an underline or highlight to the digit based on the "Handset Number Digit Indication" setting.
+                // 11. Choose whether to apply an underline or highlight to the digit based on the "Handset Number Digit Indication" setting.
                 switch highlightHandsetNumberDigitInList {
                 case 2:
                     // Highlight
@@ -192,15 +216,15 @@ struct PhoneRowView: View {
                 }
             }
         }
-        // 7. Return the attributed string. If digit and index are nil in step 2, or "Handset Number Digit Indication" is turned off, no highlighting/underlining is applied (steps 3-6 are skipped and the attributed string is unmodified).
+        // 12. Return the attributed string. If digit and index are nil in step 2, or "Handset Number Digit Indication" is turned off, no highlighting/underlining is applied (steps 3-6 are skipped and the attributed string is unmodified).
         return attributedString
     }
-
+    
 }
 
 // MARK: - Preview
 
 #Preview {
-	PhoneRowView(phone: Phone(brand: "Panasonic", model: "KX-TGF975"))
+    PhoneRowView(phone: Phone(brand: "Panasonic", model: "KX-TGF975"))
         .modelContainer(for: Phone.self, inMemory: true)
 }

@@ -208,6 +208,8 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
 
     var handsetNumberDigitIndex: Int? = 5
 
+    var handsetNumberDigitRepresents: Int = 0
+
     var maxCordlessHandsets: Int = defaultMaxCordlessDevices
 
     var cordlessDeviceLinkingMethod: Int = 4
@@ -700,6 +702,22 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
         return phoneNumberInCollection + 1
     }
 
+    // Whether the model number ends in a dash followed by one or more digits.
+
+    var modelNumberEndsInDashOrPlusFollowedByDigits: Bool {
+        if let lastDashIndex = model.lastIndex(of: handsetNumberDigitRepresents == 1 ? "+" : "-") {
+            let suffixStart = model.index(after: lastDashIndex)
+            let suffix = model[suffixStart...]
+            if !suffix.isEmpty && suffix.allSatisfy({ $0.isNumber }) {
+                return true
+            } else {
+                return false
+            }
+        } else {
+            return false
+        }
+    }
+
     // Whether the base charges a handset in a lay-down position.
     @Transient
     var hasLayDownCharging: Bool {
@@ -1168,6 +1186,16 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
             deselectHandsetNumberDigit()
         } else if array[digitIndex] != String(digit) {
             deselectHandsetNumberDigit()
+        }
+    }
+
+    func handsetNumberDigitRepresentsChanged(oldValue: Int, newValue: Int) {
+        guard handsetNumberDigit != nil else { return }
+        if newValue == 1 && oldValue == 0 {
+            numberOfIncludedCordlessHandsets += 1
+        }
+        if newValue == 0 && oldValue == 1 {
+            numberOfIncludedCordlessHandsets -= 1
         }
     }
 
