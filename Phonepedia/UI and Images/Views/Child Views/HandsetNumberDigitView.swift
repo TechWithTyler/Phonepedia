@@ -19,7 +19,8 @@ struct HandsetNumberDigitView: View {
 
     // MARK: - Properties - Arrays
 
-    var modelNumber: [Character] {
+    // The phone's model number as an array of characters.
+    var modelNumberCharacters: [Character] {
         return Array(phone.model)
     }
 
@@ -39,7 +40,7 @@ struct HandsetNumberDigitView: View {
             }
             ScrollView(.horizontal) {
                 HStack {
-                    ForEach(0..<modelNumber.count, id: \.self) { index in
+                    ForEach(0..<modelNumberCharacters.count, id: \.self) { index in
                         digit(at: index)
                     }
                     Divider()
@@ -62,9 +63,11 @@ struct HandsetNumberDigitView: View {
         InfoText("The selected digit will be highlighted or underlined in the model number in the phone list. If the last \"+\" or \"-\" is selected, and all the following characters are digits, they'll be highlighted/underlined. Select \"None\" if none of the digits in the model number are the number of included cordless handsets.")
     }
 
+    // MARK: - Digit At Index
+
     @ViewBuilder
     func digit(at index: Int) -> some View {
-        let character = modelNumber[index]
+        let character = modelNumberCharacters[index]
         // If the character is a number, display it as a button.
         if let newDigitStringAsInt = Int(String(character)) {
             Button(String(character)) {
@@ -79,7 +82,7 @@ struct HandsetNumberDigitView: View {
             #endif
             .accessibilityConditionalTrait(.isSelected, condition: phone.handsetNumberDigitIndex == index)
         } else {
-            let character = String(modelNumber[index])
+            let character = String(modelNumberCharacters[index])
             if phone.modelNumberEndsInDashOrPlusFollowedByDigits && (character == "+" || character == "-") {
                     Button(character) {
                         setHandsetNumberDigit(to: -1, at: index)
@@ -101,7 +104,7 @@ struct HandsetNumberDigitView: View {
         // 1. Set the number of included cordless handsets to the value corresponding to the new digit. For example, if the 2 after the dash in M123-2 is selected, the number of included cordless handsets will be set to 2. If the selected digit is 0, set it to 1.
         let newNumberOfIncludedCordlessHandsets: Int
         if newDigit == -1 {
-            phone.handsetNumberDigitRepresents = modelNumber[index] == "+" ? 1 : 0
+            phone.handsetNumberDigitRepresents = modelNumberCharacters[index] == "+" ? 1 : 0
             guard let afterDash = phone.model.components(separatedBy: ["-", "+"]).last, let digits = Int(afterDash) else { return }
             newNumberOfIncludedCordlessHandsets = digits == 0 ? 1 : digits
         } else {
