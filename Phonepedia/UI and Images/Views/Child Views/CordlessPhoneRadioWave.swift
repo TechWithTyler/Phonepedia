@@ -43,7 +43,7 @@ struct CordlessPhoneRadioWave: Shape {
         let frequencyHz: CGFloat = frequency.waveFrequency * 1_000_000
         // 3. Define the lowest frequency in Hz using scientific notation.
         // This number is written using the pow(_:_:) method, where the first number is the base and the second number is the exponent.
-        let lowestFrequencyHz: CGFloat = 1.7 * Double(pow(10, 6))  // 1.7 × 10^6 Hz = 1,700,000Hz (1.7MHz)
+        let lowestFrequencyHz: CGFloat = 1.7 * pow(10, 6)  // 1.7 × 10^6 Hz = 1,700,000Hz (1.7MHz)
         // 4. Define the highest frequency in Hz using scientific notation.
         // This number is written using XeY notation, where X is the number and Y is the power of 10.
         let highestFrequencyHz: CGFloat = 5800e6  // 5.8 × 10^9 Hz = 5,800,000,000Hz (5.8 GHz)
