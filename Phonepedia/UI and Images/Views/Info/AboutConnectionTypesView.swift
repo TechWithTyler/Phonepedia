@@ -9,6 +9,7 @@
 // MARK: - Imports
 
 import SwiftUI
+import SheftAppsInternals
 
 struct AboutConnectionTypesView: View {
 
@@ -44,10 +45,13 @@ struct AboutConnectionTypesView: View {
                 }
                 DisclosureGroup {
                     Text("VoIP is how most telecommunication works today, and is the backbone for video conferencing services. Modern cell towers use VoIP for their network connection, allowing for features like Wi-Fi calling.")
+                    Text("VoIP calls are made using several core protocols that work together. SIP (Session Initiation Protocol) is used to set up, manage, and end calls. It handles things like dialing, ringing, and call status. SDP (Session Description Protocol) is used during call setup to describe the media details, such as which audio codecs to use and where to send the audio. RTP (Real-time Transport Protocol) is what actually carries the audio stream between devices once the call is connected.")
+                    Text("A typical SIP call flow works like this: your phone or ATA (called an endpoint) sends a SIP INVITE to the PBX or provider (the server) when you dial a number. The server responds with a \"100 Trying\" to indicate it received the request, then \"180 Ringing\" when the destination is being alerted. During this process, SDP is exchanged to negotiate things like codecs and IP addresses. When the call is answered, a \"200 OK\" is sent, and your phone replies with an ACK (acknowledgement) to confirm the connection. At that point, RTP audio begins flowing directly between endpoints or through the PBX, depending on the configuration. When the call ends, a SIP BYE message is sent to terminate the session.")
                     Text("The latency in VoIP audio varies depending on the network connection and the infrastructure the call is travelling through. For example, if both ends of a call are extensions on the same VoIP PBX system on your local network, the latency is lower than if you were talking to someone over the internet. There is no latency if both ends of the call are analog lines--if there's noticeable latency (at least 300ms), at least one end of the call is VoIP.")
                     Text("Dedicated VoIP phones can only work with an Ethernet (RJ45 jack) or Wi-Fi connection, and may require paying for extra hardware or subscriptions, which makes them not as good for phone collectors who don't want to pay too much for the necessary hardware and providers. These phones offer landline comfort and convenience while integrating natively with VoIP provider features like voicemail and call forwarding.")
-                    Text("To connect an analog phone to VoIP, you need a cable modem or analog telephone adaptor (ATA).")
+                    Text("To connect an analog phone to VoIP, you need a cable/fiber modem or analog telephone adaptor (ATA).")
                     Text("Some phones can connect to an analog line and Ethernet, allowing you to use both an analog and VoIP line on the same phone. This allows you to fall back to an analog line if your VoIP service isn't available, or to use an analog line now and VoIP in the future. You can also use this to connect a cell-to-landline Bluetooth adaptor and VoIP to the same phone.")
+                    Text("Fax works on many VoIP providers and PBXs. T.38 fax converts fax tones into fax data, which is transmitted over the VoIP network. If the destination is another VoIP fax device, it converts the data back into tones for the fax machine. If the destination is an analog phone line, a gateway converts the data back into analog audio along the way.")
                     Text("To place an Ethernet VoIP phone or ATA in locations where Ethernet jacks aren't available, such as in a bedroom away from your modem, you need a Wi-Fi-to-Ethernet bridge (most Wi-Fi range extenders and travel routers can be used this way if they're set to extender, repeater, or client mode).")
                     Text("VoIP phones and ATAs can be configured via a web UI or by a configuration file stored on a server. For example, if you have multiple VoIP phones from the same brand, you can store a configuration file on a server on your network and then point your phones to that server to pull the configuration. This allows businesses and hotels to batch-configure multiple phones at once. Logging each phone into the desired SIP account, which corresponds to its extension number, must be done separately on the phone or web UI.")
                     Text("Hotel and business VoIP cordless phones with handset phonebooks/speed dial lists often have this information pushed via the base's configuration file. This means all handsets on the same base get the same information, but the handset doesn't need to link to the base to access it. Other handset settings, like wallpapers and ringtones, might also be pushed via the base's configuration file.")
@@ -55,23 +59,93 @@ struct AboutConnectionTypesView: View {
                     Text("VoIP (Voice-over-Internet Protocol)")
                 }
                 DisclosureGroup {
-                    Text("A cellular corded or cordless phone (not to be confused with a cell-phone-linking-capable corded or cordless phone) is a corded or cordless phone that has a SIM card and connects to cell towers. These phones offer landline comfort and convenience while integrating natively with cell phone provider features like visual voicemail. To connect an analog phone to cellular, you need a cellular phone jack or cellular gateway with a SIM card installed. Setting up the cellular part is just like setting up cell service on a cell phone.")
+                    Text("SIP responses are grouped by status codes, similar to HTTP. Each message tells the phone/ATA what’s happening during a call. The initiating VoIP device plays a ringback, busy, or reorder (often fast busy) tone depending on the response.")
+                    Text("100 Trying: The server received the INVITE and is working on it.")
+                    Text("180 Ringing: The destination device is receiving a call. This tells it to play a ringtone and show caller ID.")
+                    Text("183 Session Progress: Early media (e.g. a \"call cannot be completed as dialed\" message) is being played but the call isn't considered answered. On a VoIP phone, the call timer won't be running.")
+                    Text("200 OK: The call was answered or the request succeeded. RTP audio will begin after ACK.")
+                    Text("202 Accepted: The request was accepted but not yet completed (less common in basic calling).")
+                    Text("301 Moved Permanently: The user has a new permanent address.")
+                    Text("302 Moved Temporarily: Try a different location temporarily (used in call forwarding scenarios).")
+                    Text("400 Bad Request: The request was malformed.")
+                    Text("401 Unauthorized: Authentication is required.")
+                    Text("403 Forbidden: The server refused the request.")
+                    Text("404 Not Found: The extension or number doesn’t exist.")
+                    Text("408 Request Timeout: The destination didn’t respond in time.")
+                    Text("480 Temporarily Unavailable: The user is offline or unreachable and no unavailable destination (e.g. voicemail) is configured on the server.")
+                    Text("484 Address Incomplete: The phone number (address) is incomplete.")
+                    Text("486 Busy Here: The called device is busy and rejected the call.")
+                    Text("487 Request Terminated: The call was canceled before being answered (e.g., caller hung up).")
+                    Text("488 Not Acceptable Here: Codec or media parameters are incompatible.")
+                    Text("500 Server Internal Error: Something went wrong on the server.")
+                    Text("501 Not Implemented: The server doesn’t support the request.")
+                    Text("503 Service Unavailable: The server is overloaded or down, or reported congestion.")
+                    Text("504 Server Timeout: Another server didn’t respond in time.")
+                    Text("600 Busy Everywhere: All possible destinations are busy.")
+                    Text("603 Decline: The call was explicitly rejected.")
+                    Text("604 Does Not Exist Anywhere: The user doesn’t exist on any server.")
+                } label: {
+                    Text("SIP Response Codes")
+                }
+                DisclosureGroup {
+                    Text("SIP messages include headers, similar to email or HTTP, which provide important information about the call, routing, and media. Each header has a specific role in making the call work properly.")
+                    Text("Via: Shows the path the SIP request has taken and helps responses find their way back to the sender. Each SIP proxy adds its own entry to the top of the Via list.")
+                    Text("From: Identifies the originator of the request. Typically includes the caller’s SIP URI (Uniform Resource Identifier, e.g. sip:7\(NameNumberExamples.exampleHotelRoomNumber)@hotelpbx.local) and a display name if provided. The display name is used as the caller ID name.")
+                    Text("To: Identifies the intended recipient of the request. For INVITE requests, this is the destination SIP URI.")
+                    Text("Call-ID: A unique identifier for the call (not to be confused with its caller ID information). Every SIP transaction related to the same call shares the same Call-ID, so servers and endpoints (devices) can correlate messages.")
+                    Text("CSeq (Sequence): Tracks the order of requests within a transaction. Each new request increments the CSeq, helping detect re-transmissions or out-of-order messages.")
+                    Text("Contact: Provides the SIP URI where the user can be reached directly. This is often used to route future requests like ACK, BYE, or re-INVITE directly to the endpoint.")
+                    Text("Max-Forwards: Limits how many proxies a request can pass through to prevent loops. Each proxy decrements this value by 1.")
+                    Text("Content-Type / Content-Length: Specify the type of payload (for example, SDP) and its size. This tells the recipient how to interpret the body of the message.")
+                    Text("Subject / Call-Info / User-Agent: Optional headers that provide extra information, like a call topic, helpful URLs, or the software/device making the request. SIP user agents are just like web browser user agents.")
+                    Text("Authorization / Proxy-Authorization: Used when a server requires authentication, carrying credentials for the call or proxy.")
+                    Text("P-Asserted-Identity (PAI): Used by trusted networks to indicate the identity of the caller. Often used for caller ID within carrier networks.")
+                    Text("P-Preferred-Identity (PPI): Suggests which identity the caller prefers to use when calling another party. This can influence what the recipient sees as caller ID.")
+                    Text("P-Charge-Info: Provides billing or charging information for the call, often used by carriers for call accounting or prepaid systems.")
+                    Text("P-Access-Network-Info: Conveys information about the access network (like Wi-Fi, LTE, or fixed-line) the caller is using, sometimes for routing or policy purposes.")
+                } label: {
+                    Text("SIP Headers")
+                }
+                DisclosureGroup {
+                    Text("SIP SUBSCRIBE and NOTIFY are used for event-based updates, allowing a device to receive real-time information without repeatedly requesting it.")
+                    Text("SUBSCRIBE: Sent by a device to request updates about a specific event, such as voicemail status, presence, or line state.")
+                    Text("SUBSCRIBE includes an Event header (for example, message-summary) and an Expires value indicating how long the subscription should remain active.")
+                    Text("The server responds with 200 OK if the subscription is accepted, and will begin sending updates as they occur.")
+                    Text("NOTIFY: Sent by the server to deliver updates about the subscribed event, such as new voicemail messages or presence changes.")
+                    Text("NOTIFY messages include the current state (for example, \"Message-Waiting: yes\") and may include additional details like message counts. On an ATA, a change to \"Message-Waiting\" sends the respective voicemail indication FSK tone to the phone or starts/stops the NEON voicemail indication signal.")
+                    Text("Phones/ATAs typically send periodic SUBSCRIBE requests to refresh the subscription before it expires.")
+                    Text("This mechanism is commonly used for Message Waiting Indicators (MWI), presence, BLF (Busy Lamp Field), and other real-time status features.")
+                } label: {
+                    Text("SIP SUBSCRIBE and NOTIFY")
+                }
+                DisclosureGroup {
+                    Text("OPTIONS is a SIP request used to query a device or server about its capabilities without setting up a call.")
+                    Text("The main purpose is to check if a SIP endpoint is alive, discover supported methods, and see which codecs or features it supports.")
+                    Text("When a device receives an OPTIONS request, it responds with 200 OK and includes headers like \"Allow\" and \"Supported\" to indicate what it can handle.")
+                    Text("PBXs often send OPTIONS periodically to endpoints or trunks as a heartbeat to confirm they are online and reachable.")
+                    Text("OPTIONS can also be used for debugging, showing which SIP methods an endpoint or server supports without placing a call.")
+                } label: {
+                    Text("SIP OPTIONS")
+                }
+                DisclosureGroup {
+                    Text("A cellular corded or cordless phone (not to be confused with a cell-phone-linking-capable corded or cordless phone) is a corded or cordless phone that has a SIM card and connects to cell towers. These phones offer landline comfort and convenience while integrating natively with cell phone provider features like visual voicemail. To connect an analog phone to cellular, you need a cellular phone jack or cellular gateway with a SIM card installed. Setting up the cellular part is just like setting up cell service on a cell phone, and looks no different to the cell carrier than a cell phone.")
                 } label: {
                     Text("Cellular Corded or Cordless Phone")
                 }
                 DisclosureGroup {
-                    Text("An ATA (Analog Telephone Adaptor/Analog Terminal Adaptor) allows an analog phone (most home phones sold today) to be used on a digital, VoIP, or cellular service. These can connect to any compatible provider of the respective service. A VoIP modem, on the other hand, combines the internet connection and ATA (and sometimes Wi-Fi router) into a single device which connects to cable or fiber, and is the most common device used for those who have internet and phone (or TV, internet, and phone) from the same cable/fiber company. Some even have built-in DECT, allowing select DECT cordless phone handsets to be directly registered to them, without needing a separate base.")
+                    Text("An ATA (Analog Telephone Adaptor/Analog Terminal Adaptor) allows an analog phone (most home phones sold today) to be used on a digital, VoIP, or cellular service by converting audio between analog audio and digital data packets. These can connect to any compatible provider of the respective service. A VoIP modem, on the other hand, combines the internet connection and ATA (and sometimes Wi-Fi router) into a single device which connects to cable or fiber, and is the most common device used for those who have internet and phone (or TV, internet, and phone) from the same cable/fiber company. Some even have built-in DECT, allowing select DECT cordless phone handsets to be directly registered to them, without needing a separate base.")
                 } label: {
                     Text("VoIP Modem/ATA")
                 }
                 DisclosureGroup {
-                    Text("There are 2 ways to connect a landline phone to a cellular service. One is a cell-to-landline Bluetooth adaptor, which combines an ATA with a Bluetooth transceiver. You can pair your cell phone to it and then use your connected phone(s) to make and receive calls through your paired cell phone. Quality may vary depending on the version of Bluetooth your cell phone and adaptor uses. A cellular phone jack or cellular phone base combines an ATA with cellular connectivity. Setting up the cellular part is just like setting up cell service on a cell phone. A cell-to-landline Bluetooth adaptor is the simpler and more affordable solution as it pairs with an existing cell phone, which also enables it to work with any calling app.")
+                    Text("There are 2 ways to connect an analog phone to a cellular service. One is a cell-to-landline Bluetooth adaptor, which combines an ATA with a Bluetooth transceiver. You can pair your cell phone to it and then use your connected phone(s) to make and receive calls through your paired cell phone. Quality may vary depending on the version of Bluetooth your cell phone and adaptor uses. A cellular phone jack or cellular phone base combines an ATA with cellular connectivity. Setting up the cellular part is just like setting up cell service on a cell phone. A cell-to-landline Bluetooth adaptor is the simpler and more affordable solution as it pairs with an existing cell phone, which also enables it to work with any calling app.")
+                    Text("Due to the nature of current cell networks at the time of the release of this version of \(SABundleName), faxing isn't supported over cellular.")
                 } label: {
                     Text("Cell-To-Landline Solutions")
                 }
                 DisclosureGroup(isExpanded: $dialogManager.aboutPBXExpanded) {
                     Text("A PBX is a device that creates multiple internal phone lines (analog, digital, or VoIP). You can think of a PBX as a small phone company with a small number of lines. PBXs are usually seen in businesses and hotels. Analog or digital phone jacks on a PBX directly correspond to an internal phone line, called an extension. Ethernet jacks on a VoIP PBX are only used to connect phones/devices to the network--the device itself needs to be configured to use the desired extension. Each extension is assigned an internal number, called an extension number, which can only be dialed from phones/devices on the same PBX.")
-                    Text("To access the regular phone line, often called the outside line, a leading digit (e.g. 9) must be dialed to connect the given extension to it (this is why hotel phones say something like \"dial 9 + area code + number\") on their faceplates. The term \"outside line\" is used to distinguish the regular phone line from internal extensions, and refers to the fact that this line is provided outside the PBX.")
+                    Text("To access the regular phone line, often called the outside line, a leading digit (e.g. 9) may need to be dialed to connect the given extension to it (this is why hotel phones say something like \"dial 9 + area code + number\") on their faceplates. The term \"outside line\" is used to distinguish the regular phone line from internal extensions, and refers to the fact that this line is provided outside the PBX.")
                     Text("There can only be as many extensions on separate outside calls as there are outside lines--if one extension is using one outside line, another outside line is used if another extension wants to make an outside call (same as the default behavior for multi-line cordless phones), and the phone gives a busy signal if all outside lines are in use. The outside line is optional on many PBXs, so if you just want internal lines, a PBX is a great option.")
                     Text("Depending on the PBX, a leading digit to get an outside line isn't necessary. On these PBXs, the number is sent to the outside line after dialing. Some PBXs which do require (or optionally allow) the use of a leading digit for an outside line generate a simulated dial tone and wait to take the outside line off-hook until the number is dialed. If PBX feature codes begin with the leading digit (e.g. 9 + 0 + 0 for an operator-assisted call in a hotel, where 9 is the digit to get the outside line), the dial tone is simulated. This prevents the following digits from being interpreted by the outside line.")
                     Text("Many PBXs allow dialing of the emergency number (e.g. 911 in the US) without a leading digit. When the emergency number is dialed via an analog outside line, the PBX \"repeats\" the number to an analog outside line.")
