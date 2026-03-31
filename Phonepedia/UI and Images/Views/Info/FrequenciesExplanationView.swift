@@ -47,6 +47,7 @@ struct FrequenciesExplanationView: View {
                     Text("Note: The phone used to make the following recording doesn't have voice scramble. This is just an example.")
                     ExampleAudioView(audioFile: .analogCordlessPhoneAudioSampleNormal)
                     ExampleAudioView(audioFile: .analogCordlessPhoneAudioSampleScrambled)
+                    Text("Couldn't understand what was being said in the scrambled audio sample? That was the whole point of voice scramble on analog cordless phones--making it difficult for people with radio scanners to understand what was being said.")
                 }
                 DisclosureGroup("Digital") {
                     Text("Digital cordless phones convert signals between analog audio signals and digital data when transmitted between the base and handset. The person on the other end won't hear a short burst of noise when you hang up or press buttons like on an analog phone. Some digital cordless phones operate on only one channel at a time, so they're still prone to interference and their signals can be picked up by a digital radio scanner, which may reveal information about the communication or decode the audio data.")
