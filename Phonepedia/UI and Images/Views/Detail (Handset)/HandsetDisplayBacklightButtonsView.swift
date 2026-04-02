@@ -218,7 +218,9 @@ struct HandsetDisplayBacklightButtonsView: View {
                     }
                 }
                 if handset.hasMonochromeDisplay {
-                    ColorPicker("Display Backlight Color", selection: handset.displayBacklightColorBinding)
+                    ClearSupportedColorPicker("Display Backlight Color", selection: handset.displayBacklightColorBinding) {
+                        Text("No Backlight")
+                    }
                     if handset.keyBacklightAmount > 0 && handset.keyBacklightAmount < 6 {
                         Button("Set To Button Backlight Color") {
                             handset.setDisplayBacklightColorToKeyBacklight()

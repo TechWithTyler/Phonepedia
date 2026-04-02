@@ -96,7 +96,9 @@ final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatab
     var displayBacklightColorGreen: Double = 255
     
     var displayBacklightColorBlue: Double = 255
-    
+
+    var displayBacklightColorAlpha: Double = 1
+
     var keyForegroundColorRed: Double = 255
     
     var keyForegroundColorGreen: Double = 255
@@ -552,10 +554,11 @@ final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatab
 
     @Transient
     var displayBacklightColorBinding: Binding<Color> {
-        Color.rgbBinding(get: { [self] in (displayBacklightColorRed, displayBacklightColorGreen, displayBacklightColorBlue) }, set: { [self] r, g, b in
+        Color.rgbaQuantizedAlphaBinding(get: { [self] in (displayBacklightColorRed, displayBacklightColorGreen, displayBacklightColorBlue, displayBacklightColorAlpha) }, set: { [self] r, g, b, a in
             displayBacklightColorRed = r
             displayBacklightColorGreen = g
             displayBacklightColorBlue = b
+            displayBacklightColorAlpha = a
         })
     }
     
