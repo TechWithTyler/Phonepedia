@@ -152,6 +152,19 @@ struct HandsetDisplayBacklightButtonsView: View {
                 .onChange(of: handset.displayType) { oldValue, newValue in
                     handset.displayTypeChanged(oldValue: oldValue, newValue: newValue)
                 }
+                InfoButton("About Display Types…") {
+                    dialogManager.showingAboutDisplayTypes = true
+                }
+                if handset.hasMonochromeDisplay {
+                    ClearSupportedColorPicker("Display Backlight Color", selection: handset.displayBacklightColorBinding) {
+                        Text("No Backlight")
+                    }
+                    if handset.keyBacklightAmount > 0 && handset.keyBacklightAmount < 6 {
+                        Button("Set To Button Backlight Color") {
+                            handset.setDisplayBacklightColorToKeyBacklight()
+                        }
+                    }
+                }
                 if handset.displayType == 0 {
                     ProgrammingWithoutDisplayInfoView()
                     if phone.hasAnsweringSystem > 1 {
@@ -197,9 +210,6 @@ struct HandsetDisplayBacklightButtonsView: View {
                         InfoText("On a handset/deskset which displays a clock, clock backup allows it to store the clock settings for as long as it has power. This allows it to restore them to the base when power returns, since most bases don't preserve them when they lose power.")
                     }
                 }
-                InfoButton("About Display Types…") {
-                    dialogManager.showingAboutDisplayTypes = true
-                }
                 if handset.displayType >= 3 && handset.handsetStyle < 2 && handset.hasListsOfEntries {
                     Toggle("Allows Display of Multiple Entries", isOn: $handset.displayMultiEntries)
                     MultiEntryDisplayInfoView()
@@ -214,16 +224,6 @@ struct HandsetDisplayBacklightButtonsView: View {
                                 Text("Carousel").tag(2)
                                 Text("Grid").tag(3)
                             }
-                        }
-                    }
-                }
-                if handset.hasMonochromeDisplay {
-                    ClearSupportedColorPicker("Display Backlight Color", selection: handset.displayBacklightColorBinding) {
-                        Text("No Backlight")
-                    }
-                    if handset.keyBacklightAmount > 0 && handset.keyBacklightAmount < 6 {
-                        Button("Set To Button Backlight Color") {
-                            handset.setDisplayBacklightColorToKeyBacklight()
                         }
                     }
                 }

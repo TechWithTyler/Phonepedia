@@ -134,6 +134,19 @@ struct BaseDisplayBacklightButtonsView: View {
                     if phone.baseDisplayType < 3 && !phone.isCordless {
                         ProgrammingWithoutDisplayInfoView()
                     }
+                    if phone.basePhoneType > 0 || phone.baseDisplayIsMonochrome {
+                        ClearSupportedColorPicker(phone.isCordless ? "Base Display Backlight Color" : "Display Backlight Color", selection: phone.baseDisplayBacklightColorBinding) {
+                            Text("No Backlight")
+                        }
+                        if phone.baseKeyBacklightAmount > 0 && phone.baseKeyBacklightAmount < 6 {
+                            Button("Set To Button Backlight Color") {
+                                phone.setDisplayBacklightColorToKeyBacklight()
+                            }
+                        }
+                    }
+                    InfoButton("About Display Types…") {
+                        dialogManager.showingAboutDisplayTypes = true
+                    }
                     if phone.baseDisplayType >= 3 {
                         if !phone.baseDisplayIsMonochrome {
                             Picker("Base Display Background Color Themes", selection: $phone.baseDisplayColorThemes) {
@@ -147,9 +160,6 @@ struct BaseDisplayBacklightButtonsView: View {
                         Picker("Clock Display", selection: $phone.clock) {
                             ClockDisplayPickerItems()
                         }
-                    }
-                    InfoButton("About Display Types…") {
-                        dialogManager.showingAboutDisplayTypes = true
                     }
                     if phone.baseDisplayType >= 5 && phone.hasListsOfEntries {
                         Toggle("Allows Display of Multiple Entries", isOn: $phone.baseDisplayMultiEntries)
@@ -174,16 +184,6 @@ struct BaseDisplayBacklightButtonsView: View {
                                     }
                                 }
                             }
-                        }
-                    }
-                }
-                if phone.basePhoneType > 0 || phone.baseDisplayIsMonochrome {
-                    ClearSupportedColorPicker(phone.isCordless ? "Base Display Backlight Color" : "Display Backlight Color", selection: phone.baseDisplayBacklightColorBinding) {
-                        Text("No Backlight")
-                    }
-                    if phone.baseKeyBacklightAmount > 0 && phone.baseKeyBacklightAmount < 6 {
-                        Button("Set To Button Backlight Color") {
-                            phone.setDisplayBacklightColorToKeyBacklight()
                         }
                     }
                 }
