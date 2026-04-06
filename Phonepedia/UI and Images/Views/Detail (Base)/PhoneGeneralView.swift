@@ -428,20 +428,13 @@ In most cases, if the base has a charge light/display message, the completion of
             }
             BoneConductionEarpieceInfoView()
             Picker("Switch Hook", selection: $phone.switchHookType) {
-                Text(phone.isSlimCordedWithBaseCircuitry ? "Press (On Base)" : "Press").tag(0)
-                if phone.isSlimCordedWithBaseCircuitry {
-                    Text("Press (On Receiver)").tag(1)
-                }
-                Text("Magnetic").tag(2)
-                Text("Contacts").tag(3)
+                SwitchHookTypePickerItems(slim: phone.isSlimCordedWithBaseCircuitry)
             }
-            InfoText("Most corded phones have a switch hook which presses, located on either the base (pressed by the receiver) or the receiver (pressed by the base). More advanced corded phones might have magnetic switch hooks, where magnets in the base and receiver trigger a magnetically-activated switch, called a reed switch. Some corded phones might use contacts like those found on cordless phones, instead of a switch hook. This is mostly seen on corded phones which are extensions of a cordless system, where placing the corded receiver on the cordless base registers the corded extension phone to the base.")
+            SwitchHookInfoView()
             Picker("Corded Receiver Hook Type", selection: $phone.cordedReceiverHookType) {
-                Text("Fixed").tag(0)
-                Text("Flip/Rotate").tag(1)
-                Text("Removable").tag(2)
+                CordedReceiverHookTypePickerItems()
             }
-            InfoText("The corded receiver hook holds it in place when the phone is wall-mounted, which prevents it from falling off the base. This is not to be confused with the switch hook, which is what tells the phone whether it's on or off-hook.\n• Fixed: The phone has a hook that slots into a hole on the corded receiver below the earpiece. On slim/wall phones where the switch hook is on the receiver instead of on the base, the switch hook is located directly below this hole and gets pressed by the hook on the base.\n• Flip/Rotate: The hook can be flipped or rotated so it sticks out when you want to mount the phone on the wall, or so it doesn't stick out when you don't want to mount it on the wall.\n• Removable: The phone has a removable hook which is inserted one way for desk use and another way for wall use. This is the most common type of corded receiver hook and has the risk of getting lost.")
+            CordedReceiverHookInfoView()
         }
     }
 

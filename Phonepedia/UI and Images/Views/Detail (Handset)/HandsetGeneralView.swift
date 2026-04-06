@@ -166,16 +166,10 @@ struct HandsetGeneralView: View {
         if handset.hasCordedReceiver {
             Toggle("Is Slim Corded Deskset", isOn: $handset.isSlimCordedDeskset)
             Picker("Switch Hook", selection: $handset.switchHookType) {
-                Text(handset.isSlimCordedDeskset ? "Press (On Base)" : "Press").tag(0)
-                Text("Press (On Receiver)").tag(1)
-            }
-            Text("Magnetic").tag(2)
-            Text("Contacts").tag(3)
+                SwitchHookTypePickerItems(slim: handset.isSlimCordedDeskset)
         }
         Picker("Corded Receiver Hook Type", selection: $handset.cordedReceiverHookType) {
-            Text("Fixed").tag(0)
-            Text("Flip/Rotate").tag(1)
-            Text("Removable").tag(2)
+            CordedReceiverHookTypePickerItems()
         }
     }
 

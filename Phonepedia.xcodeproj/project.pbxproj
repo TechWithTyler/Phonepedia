@@ -20,6 +20,10 @@
 		8D2BAF512CD187EA0016C61E /* ChargingDirectionPickerItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2BAF502CD187EA0016C61E /* ChargingDirectionPickerItems.swift */; };
 		8D2BAF532CD188380016C61E /* ChargeContactPlacementPickerItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2BAF522CD188380016C61E /* ChargeContactPlacementPickerItems.swift */; };
 		8D2BAF552CD188740016C61E /* ChargeContactTypePickerItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2BAF542CD188740016C61E /* ChargeContactTypePickerItems.swift */; };
+		8D2EBE562F84516900519D81 /* SwitchHookTypePickerItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2EBE552F84516900519D81 /* SwitchHookTypePickerItems.swift */; };
+		8D2EBE582F84524800519D81 /* CordedReceiverHookTypePickerItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2EBE572F84524800519D81 /* CordedReceiverHookTypePickerItems.swift */; };
+		8D2EBE5A2F84533A00519D81 /* SwitchHookInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2EBE592F84533A00519D81 /* SwitchHookInfoView.swift */; };
+		8D2EBE5C2F84537F00519D81 /* CordedReceiverHookInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2EBE5B2F84537F00519D81 /* CordedReceiverHookInfoView.swift */; };
 		8D32A5002D419FF100F606FC /* ProgrammingWithoutDisplayInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D32A4FF2D419FF100F606FC /* ProgrammingWithoutDisplayInfoView.swift */; };
 		8D32A5042D42EC2400F606FC /* stutterDialTone.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D32A5032D42EC2400F606FC /* stutterDialTone.wav */; };
 		8D32A5062D42EEBF00F606FC /* busyTone.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D32A5052D42EEBF00F606FC /* busyTone.wav */; };
@@ -229,6 +233,10 @@
 		8D2BAF502CD187EA0016C61E /* ChargingDirectionPickerItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargingDirectionPickerItems.swift; sourceTree = "<group>"; };
 		8D2BAF522CD188380016C61E /* ChargeContactPlacementPickerItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeContactPlacementPickerItems.swift; sourceTree = "<group>"; };
 		8D2BAF542CD188740016C61E /* ChargeContactTypePickerItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeContactTypePickerItems.swift; sourceTree = "<group>"; };
+		8D2EBE552F84516900519D81 /* SwitchHookTypePickerItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchHookTypePickerItems.swift; sourceTree = "<group>"; };
+		8D2EBE572F84524800519D81 /* CordedReceiverHookTypePickerItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordedReceiverHookTypePickerItems.swift; sourceTree = "<group>"; };
+		8D2EBE592F84533A00519D81 /* SwitchHookInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchHookInfoView.swift; sourceTree = "<group>"; };
+		8D2EBE5B2F84537F00519D81 /* CordedReceiverHookInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordedReceiverHookInfoView.swift; sourceTree = "<group>"; };
 		8D32A4FF2D419FF100F606FC /* ProgrammingWithoutDisplayInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgrammingWithoutDisplayInfoView.swift; sourceTree = "<group>"; };
 		8D32A5032D42EC2400F606FC /* stutterDialTone.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = stutterDialTone.wav; sourceTree = "<group>"; };
 		8D32A5052D42EEBF00F606FC /* busyTone.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = busyTone.wav; sourceTree = "<group>"; };
@@ -533,6 +541,8 @@
 				8D9587812F5F633300A5D3D1 /* BrightnessContrastAdjustmentPickerItems.swift */,
 				8D9587832F5F63AF00A5D3D1 /* DisplayColorThemesPickerItems.swift */,
 				8D9587852F5F66C300A5D3D1 /* ClockDisplayPickerItems.swift */,
+				8D2EBE552F84516900519D81 /* SwitchHookTypePickerItems.swift */,
+				8D2EBE572F84524800519D81 /* CordedReceiverHookTypePickerItems.swift */,
 			);
 			path = "Pickers and Picker Items";
 			sourceTree = "<group>";
@@ -698,6 +708,8 @@
 				8D94AA952EF0B33C00F23F14 /* CellLineSelectionInfoView.swift */,
 				8D94AA972EF0B60900F23F14 /* VisualRingerInfoView.swift */,
 				8D6861E32F314A3200DDBC2C /* JoinLeaveToneInfoView.swift */,
+				8D2EBE592F84533A00519D81 /* SwitchHookInfoView.swift */,
+				8D2EBE5B2F84537F00519D81 /* CordedReceiverHookInfoView.swift */,
 			);
 			path = Info;
 			sourceTree = "<group>";
@@ -1036,6 +1048,7 @@
 				8DA844E22B72E1D7006CBCA7 /* PhoneImage.swift in Sources */,
 				8DC69A672EC7CD8C00BFCA58 /* PhonePlaceInCollectionPicker.swift in Sources */,
 				8DBCB7EB2D4ACD2F00878A1F /* PhonebookGroupInfoView.swift in Sources */,
+				8D2EBE5A2F84533A00519D81 /* SwitchHookInfoView.swift in Sources */,
 				8DA03DCA2F61E74C00DC41A9 /* NavigationButtonExampleView.swift in Sources */,
 				8DBB95422CA48B84002E57EC /* DialogManager.swift in Sources */,
 				8DC964E02D0B6C9E00984466 /* AnalogPhoneConnectedToPickerItems.swift in Sources */,
@@ -1052,6 +1065,7 @@
 				8DEC3A682C2CB9D200737094 /* HandsetPhonebookType.swift in Sources */,
 				8D38ED772CAF335000CCC422 /* BaseDisplayBacklightButtonsView.swift in Sources */,
 				8D38ED7F2CAF373000CCC422 /* CellPhoneLinkingView.swift in Sources */,
+				8D2EBE582F84524800519D81 /* CordedReceiverHookTypePickerItems.swift in Sources */,
 				8D38ED7D2CAF36C600CCC422 /* LandlineDetailView.swift in Sources */,
 				8D38ED812CAF377F00CCC422 /* BaseRedialView.swift in Sources */,
 				8DBCB7E92D4AC95100878A1F /* PhonebookRingtoneInfoView.swift in Sources */,
@@ -1116,6 +1130,7 @@
 				8D94AA962EF0B33C00F23F14 /* CellLineSelectionInfoView.swift in Sources */,
 				8D38ED852CAF382C00CCC422 /* BasePhonebookView.swift in Sources */,
 				8DA844F02B72E1D7006CBCA7 /* LandlineOrNotV1.mlmodel in Sources */,
+				8D2EBE562F84516900519D81 /* SwitchHookTypePickerItems.swift in Sources */,
 				8D6861E42F314A3200DDBC2C /* JoinLeaveToneInfoView.swift in Sources */,
 				8DD3A2962D2C7CB200595AB3 /* NewPhonesSettingsPageView.swift in Sources */,
 				8DA844EE2B72E1D7006CBCA7 /* CGImagePropertyOrientationExtension.swift in Sources */,
@@ -1154,6 +1169,7 @@
 				8DA844F22B72E1D7006CBCA7 /* PhonePhotoError.swift in Sources */,
 				8DA844E62B72E1D7006CBCA7 /* Globals.swift in Sources */,
 				8D32A5182D4562C500F606FC /* HandsetPowerView.swift in Sources */,
+				8D2EBE5C2F84537F00519D81 /* CordedReceiverHookInfoView.swift in Sources */,
 				8D53EBAB2E7A026300B71D8C /* RedialWhenBusyInfoView.swift in Sources */,
 				8DA844D32B72E1D7006CBCA7 /* HandsetDetailView.swift in Sources */,
 				8DA844E12B72E1D7006CBCA7 /* ContentView.swift in Sources */,
