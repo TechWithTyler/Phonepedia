@@ -822,6 +822,17 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
         return cordlessHandsetsIHave.count >= maxCordlessHandsets + desksetHandsetCount
     }
 
+    @Transient
+    var desksets: [CordlessHandset] {
+        return cordlessHandsetsIHave.filter { $0.cordlessDeviceType == 1 }
+    }
+
+    @Transient
+    var cordlessDevicesRegisteredToDesksets: [CordlessHandset] {
+        return cordlessHandsetsIHave.filter {
+            $0.registeredTo == 1 }
+    }
+
     // The maximum number of additional cordless handsets that can be added to a phone based on the maximum number of cordless handsets supported by each of this phone's cordless desksets.
     @Transient
     var desksetHandsetCount: Int {
@@ -1714,6 +1725,14 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
     func deregistrationChanged(oldValue: Int, newValue: Int) {
         if newValue == 0 {
             placeOnBaseAutoRegister = false
+        }
+    }
+
+    func checkForRegisteredDesksets() {
+        if desksets.isEmpty {
+            for cordlessDevice in cordlessDevicesRegisteredToDesksets {
+                cordlessDevice.registeredTo = 0
+            }
         }
     }
 

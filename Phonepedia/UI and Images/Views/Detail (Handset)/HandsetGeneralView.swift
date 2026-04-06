@@ -51,7 +51,7 @@ struct HandsetGeneralView: View {
     @ViewBuilder
     var basicsGroup: some View {
         if let phone = handset.phone {
-            if phone.desksetHandsetCount > 0 && handset.handsetNumber <= phone.maxCordlessHandsets {
+            if let firstDeskset = phone.desksets.first, (handset.id != firstDeskset.id && handset.handsetNumber <= phone.maxCordlessHandsets) {
                 Picker("Registered To", selection: $handset.registeredTo) {
                     Text("Base").tag(0)
                     Text("Deskset").tag(1)
@@ -90,7 +90,7 @@ struct HandsetGeneralView: View {
             }
             InfoText("A deskset is a phone that connects wirelessly to a main base and is treated like a handset. Desksets can have a corded receiver or a charging area for a cordless handset, and some support registering cordless devices to it.\nA cordless headset/speakerphone can pick up the line and answer/join calls, but can't dial or use other features. If a cordless phone comes only with cordless headsets, it's often called a headset phone.")
             if handset.cordlessDeviceType == 1 {
-                CountPicker("Cordless Devices Supported", selection: $handset.desksetCordlessHandsetsSupported, numberRange: 0...4, singularSuffix: "Cordless Device", pluralSuffix: "Cordless Devices", noneTitle: "None")
+                CountPicker("Cordless Devices Supported", selection: $handset.desksetCordlessHandsetsSupported, oneTo: 4, singularSuffix: "Cordless Device", pluralSuffix: "Cordless Devices", noneTitle: "None")
                 InfoText("Some business phones allow cordless devices to be registered to a deskset, allowing them to share the same extension number. When specifying details for the cordless devices that are registered to a deskset, \"base\" refers to the deskset.")
             }
             if handset.cordlessDeviceType < 2 && handset.handsetStyle < 3 {

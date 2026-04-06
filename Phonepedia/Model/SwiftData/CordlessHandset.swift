@@ -692,6 +692,9 @@ final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatab
             hasSpeakerphone = true
         }
         if newValue != 1 {
+            if let phone = phone {
+                phone.checkForRegisteredDesksets()
+            }
             cordedReceiverMainColorBinding.wrappedValue = .clear
             cordedReceiverSecondaryColorBinding.wrappedValue = .black
             desksetSupportsBackupBatteries = false

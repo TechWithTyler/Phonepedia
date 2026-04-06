@@ -270,9 +270,7 @@ struct CordlessDeviceInfoView: View {
         if phone.tooManyCordlessDevices {
             WarningText("You have more cordless devices than the base can handle!")
         }
-        let cordlessDevicesRegisteredToDesksets = phone.cordlessHandsetsIHave.filter {
-            $0.registeredTo == 1 }.count
-        if cordlessDevicesRegisteredToDesksets > phone.desksetHandsetCount {
+        if phone.cordlessDevicesRegisteredToDesksets.count > phone.desksetHandsetCount {
             WarningText("More cordless devices are specified as registered to desksets than can be registered to all this \(phone.brand) \(phone.model)'s desksets!")
         }
     }
@@ -415,6 +413,8 @@ struct CordlessDeviceInfoView: View {
                 cordlessDevice.handsetNumber -= 1
             }
         }
+        // 4. If there are no cordless desksets left, set "Registered To" for all cordless devices back to "Base".
+        phone.checkForRegisteredDesksets()
     }
 
     // MARK: - Charger Management
