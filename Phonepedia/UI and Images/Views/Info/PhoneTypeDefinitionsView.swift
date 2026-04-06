@@ -39,6 +39,19 @@ struct PhoneTypeDefinitionsView: View {
         DictionaryEntry(Phone.CordlessBaseType.dialingBase.rawValue, definition: "A base with a speakerphone and keypad. These kinds of bases may or may not have answering systems.")
     ]
 
+    let cordlessDeviceTypeDictionary: [DictionaryEntry] = [
+        DictionaryEntry(Phone.CordlessDeviceType.handset.rawValue, definition: "The most common cordless device, a handset is a portable phone which connects wirelessly to a main base. While some early cordless handsets used a charging cable like laptops and cell phones, most charge on the main base or a smaller charging base."),
+        DictionaryEntry(Phone.CordlessDeviceType.deskset.rawValue, definition: "A deskset is a fixed phone which connects wirelessly to a main base and is treated like a handset. Desksets can have a corded receiver or a charging area for a cordless handset, and some support registering cordless devices to them. Desksets are used when a non-cordless phone is preferred but line/Ethernet jacks aren't available in the desired location."),
+        DictionaryEntry(Phone.CordlessDeviceType.headset.rawValue, definition: "A cordless headset/speakerphone can pick up the line and answer/join calls, but can't dial or use other features. If a cordless phone comes only with cordless headsets, it's often called a headset phone. Cordless headset phone bases can connect to a phone's headset jack in place of a wired headset.")
+    ]
+
+    let cordlessHandsetStyleDictionary: [DictionaryEntry] = [
+        DictionaryEntry(Phone.CordlessHandsetStyle.traditional.rawValue, definition: "Traditional handsets don't have many special design aspects. They're mostly straight and have physical buttons."),
+        DictionaryEntry(Phone.CordlessHandsetStyle.futuristic.rawValue, definition: "Futuristic handsets include design elements like curves and a seamless look when placed on the base or charger. For example, a base might resemble part of a ring, with a curved handset completing the ring when placed on the base. These handsets might also have touch buttons instead of physical buttons."),
+        DictionaryEntry(Phone.CordlessHandsetStyle.cellPhone.rawValue, definition: "Cell phone-style handsets flip or slide open like traditional cell phones, but charge on a main base or charger like traditional handsets."),
+        DictionaryEntry(Phone.CordlessHandsetStyle.smartphone.rawValue, definition: "Smartphone-style handsets run a smartphone operating system and can run smartphone apps. Software and hardware is mostly identical to a smartphone, plus a cordless handset antenna and a specialized app for cordless phone features like base settings and answering system access. Some smartphone-style handsets can function as both a cordless handset and a smartphone.")
+    ]
+
     let cordedPhoneStyleDictionary: [DictionaryEntry] = [
         DictionaryEntry(Phone.CordedPhoneStyle.candlestick.rawValue, definition: "A corded phone where the receiver is only used to listen, and the microphone is on the part of the base that sticks up like a candlestick holder, hence the name. The receiver hangs up on a hook to the left of the \"candlestick holder\", hence the terms \"on-hook\", \"off-hook\", \"switch hook\", and \"hanging up\". This design of phone came before dialing, so picking up the receiver would connect you to an operator (or on today's lines, just give you a dial tone). Unlike most phones, the ringer and most of the circuitry were usually contained in a separate box, called a subset, that was connected to the phone. This was because these components couldn't fit into the candlestick phone itself at the time. As this design of phone is very old and was from the \"phone company owns the phones\" era, most candlestick phones seen today are replicas which have either a rotary dial or keypad, and the ringer and circuitry are in the phone itself."),
         DictionaryEntry(Phone.CordedPhoneStyle.woodenBox.rawValue, definition: "Similar in concept to a candlestick phone, but the base is shaped like a wooden box instead of a candlestick holder. Visible bells at the top serve as the ringer. These kinds of phones often have a crank on the side, which you turn to ring the operator, and you would stop cranking once the operator answers. These kinds of phones are very old and were from the \"phone company owns the phones\" era, so most wooden box phones seen today are replicas which have either a rotary dial or keypad."),
@@ -65,6 +78,26 @@ struct PhoneTypeDefinitionsView: View {
                 }
                 Section(cordlessBaseTypeSectionName) {
                     ForEach(cordlessBaseTypeDictionary) { item in
+                        DisclosureGroup {
+                            Text(item.definition)
+                        } label: {
+                            Text(item.term)
+                                .fontWeight(.bold)
+                        }
+                    }
+                }
+                Section("Cordless Device Types") {
+                    ForEach(cordlessDeviceTypeDictionary) { item in
+                        DisclosureGroup {
+                            Text(item.definition)
+                        } label: {
+                            Text(item.term)
+                                .fontWeight(.bold)
+                        }
+                    }
+                }
+                Section("Cordless Handset Styles") {
+                    ForEach(cordlessHandsetStyleDictionary) { item in
                         DisclosureGroup {
                             Text(item.definition)
                         } label: {

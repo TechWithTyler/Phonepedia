@@ -88,7 +88,6 @@ struct HandsetGeneralView: View {
             .onChange(of: handset.cordlessDeviceType) { oldValue, newValue in
                 handset.cordlessDeviceTypeChanged(oldValue: oldValue, newValue: newValue)
             }
-            InfoText("A deskset is a phone that connects wirelessly to a main base and is treated like a handset. Desksets can have a corded receiver or a charging area for a cordless handset, and some support registering cordless devices to them.\nA cordless headset/speakerphone can pick up the line and answer/join calls, but can't dial or use other features. If a cordless phone comes only with cordless headsets, it's often called a headset phone. Cordless headset phone bases can connect to a phone's headset jack in place of a wired headset.")
             if handset.cordlessDeviceType == 1 {
                 CountPicker("Cordless Devices Supported", selection: $handset.desksetCordlessHandsetsSupported, oneTo: 4, singularSuffix: "Cordless Device", pluralSuffix: "Cordless Devices", noneTitle: "None")
                 InfoText("Some business phones allow cordless devices to be registered to a deskset, allowing them to share the same extension number. When specifying details for the cordless devices that are registered to a deskset (e.g. whether it uses the base's phonebook), \"base\" refers to the deskset.")
@@ -146,7 +145,6 @@ struct HandsetGeneralView: View {
             .onChange(of: handset.handsetStyle) { oldValue, newValue in
                 handset.handsetStyleChanged(oldValue: oldValue, newValue: newValue)
             }
-            InfoText("Futuristic handsets include design elements like curves and a seamless look when placed on the base or charger. For example, a base might resemble part of a ring, with a curved handset completing the ring when placed on the base.\nCell phone-style handsets flip or slide open like traditional cell phones.\nSmartphone-style handsets run a smartphone operating system and can run smartphone apps. Software and hardware is mostly identical to a smartphone, plus a cordless handset antenna and a specialized app for cordless phone features like base settings and answering system access. Some smartphone-style handsets can function as both a cordless handset and a smartphone.")
             if phone.baseChargesHandset && phone.isDigitalCordless {
                 Toggle("Fits On Base", isOn: $handset.fitsOnBase)
                 if !handset.fitsOnBase {

@@ -63,6 +63,28 @@ extension Phone {
 
     }
 
+    enum CordlessDeviceType : String {
+
+        case handset = "Handset"
+
+        case deskset = "Deskset"
+
+        case headset = "Headset/Speakerphone"
+
+    }
+
+    enum CordlessHandsetStyle : String {
+
+        case traditional = "Traditional"
+
+        case futuristic = "Futuristic"
+
+        case cellPhone = "Cell Phone"
+
+        case smartphone = "Smartphone"
+
+    }
+
     enum CordedPhoneStyle : String {
 
         // MARK: - Corded Phone Styles
