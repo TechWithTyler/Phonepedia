@@ -101,7 +101,7 @@ class PhonePhotoManager: ObservableObject {
                 if let data = data {
                     checkPhotoForLandlinesAndSave(photoData: data, phone: phone)
                 } else {
-                    phonePhotoError = .noPhotoDataPhotoPicker
+                    phonePhotoError = .noPhotoData(source: .photoPicker)
                     showingPhonePhotoErrorAlert = true
                     showingLoadingPhoto = false
                 }
@@ -155,7 +155,7 @@ class PhonePhotoManager: ObservableObject {
             showingLoadingPhoto = false
         } else {
             // 3. If there's no data or explicit error, show a generic "no photo data" error.
-            phonePhotoError = .noPhotoDataDrop
+            phonePhotoError = .noPhotoData(source: .drop)
             showingPhonePhotoErrorAlert = true
             showingLoadingPhoto = false
         }

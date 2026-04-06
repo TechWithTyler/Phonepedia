@@ -3,6 +3,7 @@
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 12/11/23.
+//  Copyright © 2023-2026 SheftApps. All rights reserved.
 //
 
 // MARK: - Imports
@@ -10,6 +11,14 @@
 import Foundation
 
 enum PhonePhotoError: LocalizedError {
+
+    enum PhotoSource {
+
+        case photoPicker
+
+        case drop
+
+    }
 
     // MARK: - Error Cases
 
@@ -23,11 +32,8 @@ enum PhonePhotoError: LocalizedError {
     // Too many photos were dropped on a phone's photo.
     case tooManyPhotos(count: Int)
 
-    // No photo data from PhotosPickerItem.
-    case noPhotoDataPhotoPicker
-
-    // No photo data from dropped item.
-    case noPhotoDataDrop
+    // No photo data from the given source.
+    case noPhotoData(source: PhotoSource)
 
     // Photo export failed.
     case exportFailed(reason: String)
@@ -59,13 +65,11 @@ enum PhonePhotoError: LocalizedError {
             return "Camera error."
             #endif
         case .loadFailed(let error):
-            return "(Bee-bee-beep) We're sorry, your photo can't be loaded. Please try again later. \(error.localizedDescription)"
+            return "(Bee-bee-beep) We're sorry, your photo can't be loaded at this time. Please try again later. \(error.localizedDescription)"
         case .tooManyPhotos(let count):
             return "Only 1 photo can be imported. You attempted to import \(count) photos."
-        case .noPhotoDataPhotoPicker:
-            return "Photo picker selection contained no photo data."
-        case .noPhotoDataDrop:
-            return "Dropped item contained no photo data."
+        case .noPhotoData(let source):
+            return "\(source == .drop ? "Dropped item" : "Photo picker selection") contained no photo data."
         case .unknownPredictionFailure(let reason):
             return "Image prediction failed: \(reason)"
         case .predictionRequestFailed:
