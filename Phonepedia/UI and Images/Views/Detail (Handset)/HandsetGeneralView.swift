@@ -13,19 +13,19 @@ import SheftAppsStylishUI
 import SheftAppsInternals
 
 struct HandsetGeneralView: View {
-
+    
     // MARK: - Properties - Handset
-
+    
     @Bindable var handset: CordlessHandset
-
+    
     // MARK: - Properties - Integers
-
+    
     var handsetAcquisitionYearRange: ClosedRange<Int> {
         return handset.releaseYear...currentYear
     }
-
+    
     // MARK: - Body
-
+    
     var body: some View {
         Section("Basic Info") {
             basicsGroup
@@ -47,7 +47,7 @@ struct HandsetGeneralView: View {
             }
         }
     }
-
+    
     @ViewBuilder
     var basicsGroup: some View {
         if let phone = handset.phone {
@@ -132,7 +132,7 @@ struct HandsetGeneralView: View {
             Text(cordlessDeviceMissingPhoneText)
         }
     }
-
+    
     @ViewBuilder
     var handsetGroup: some View {
         if let phone = handset.phone {
@@ -155,7 +155,7 @@ struct HandsetGeneralView: View {
             Text(cordlessDeviceMissingPhoneText)
         }
     }
-
+    
     @ViewBuilder
     var desksetGroup: some View {
         HStack {
@@ -167,12 +167,15 @@ struct HandsetGeneralView: View {
             Toggle("Is Slim Corded Deskset", isOn: $handset.isSlimCordedDeskset)
             Picker("Switch Hook", selection: $handset.switchHookType) {
                 SwitchHookTypePickerItems(slim: handset.isSlimCordedDeskset)
-        }
-        Picker("Corded Receiver Hook Type", selection: $handset.cordedReceiverHookType) {
-            CordedReceiverHookTypePickerItems()
+            }
+            SwitchHookInfoView()
+            Picker("Corded Receiver Hook Type", selection: $handset.cordedReceiverHookType) {
+                CordedReceiverHookTypePickerItems()
+            }
+            CordedReceiverHookInfoView()
         }
     }
-
+    
 }
 
 // MARK: - Preview
