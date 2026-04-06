@@ -185,6 +185,10 @@ final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatab
 
     var hasAnsweringSystemControls: Bool = false
 
+    var desksetCordlessHandsetsSupported: Int = 0
+
+    var registeredTo: Int = 0
+
     var desksetDisplayCanTilt: Bool = false
 
     var displayMultiEntries: Bool = false
@@ -936,6 +940,8 @@ final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatab
         newHandset.hasQZ = self.hasQZ
         newHandset.displayColorThemes = self.displayColorThemes
         newHandset.displayBrightnessContrastAdjustment = self.displayBrightnessContrastAdjustment
+        newHandset.desksetCordlessHandsetsSupported = self.desksetCordlessHandsetsSupported
+        newHandset.registeredTo = self.registeredTo
         // 4. Return the duplicated handset.
         return newHandset
     }

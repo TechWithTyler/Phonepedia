@@ -35,7 +35,7 @@ struct CellPhoneLinkingView: View {
                         Text("Display and Light").tag(3)
                     }
                 }
-                InfoText("Cell line in use status indicates when the cell line on this phone is in use, not when the paired cell phone is in use.")
+                InfoText("Cell line in use status indicates when the cell line on this phone is in use, not when the paired cell phone is in use. Using the cell phone separately from this phone may cause it to show as disconnected.")
                 Picker("Call Transfer From Cell To Phone", selection: $phone.cellCallTransferToPhone) {
                     Text("Not Supported").tag(0)
                     Divider()

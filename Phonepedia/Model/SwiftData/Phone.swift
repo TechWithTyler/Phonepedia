@@ -819,13 +819,24 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
     // Whether the user has added the maximum number of, or too many, cordless devices to the phone based on how many can be registered to its base.
     @Transient
     var maxOrTooManyCordlessDevices: Bool {
-        return cordlessHandsetsIHave.count >= maxCordlessHandsets && maxCordlessHandsets != -1
+        return cordlessHandsetsIHave.count >= maxCordlessHandsets + desksetHandsetCount
+    }
+
+    // The maximum number of additional cordless handsets that can be added to a phone based on the maximum number of cordless handsets supported by each of this phone's cordless desksets.
+    @Transient
+    var desksetHandsetCount: Int {
+        let desksets = cordlessHandsetsIHave.filter { $0.cordlessDeviceType == 1 }
+        var count: Int = 0
+        for deskset in desksets {
+            count += deskset.desksetCordlessHandsetsSupported
+        }
+        return count
     }
 
     // Whether the user has added too many cordless devices (at least 1 more than maxCordlessHandsets) to the phone based on how many can be registered to its base.
     @Transient
     var tooManyCordlessDevices: Bool {
-        return cordlessHandsetsIHave.count > maxCordlessHandsets && maxCordlessHandsets != -1
+        return cordlessHandsetsIHave.count > maxCordlessHandsets + desksetHandsetCount
     }
 
     // Whether the phone takes AC power.
@@ -1352,16 +1363,12 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
     }
 
     func maxCordlessHandsetsChanged(oldValue: Int, newValue: Int) {
-        if newValue == -1 {
-            hasTransmitOnlyBase = false
-            cordedReceiverMainColorBinding.wrappedValue = .clear
-            placeOnBaseAutoRegister = false
-            deregistration = 0
-            locatorButtons = 0
-            for handset in cordlessHandsetsIHave {
-                handset.fitsOnBase = true
+        for handset in cordlessHandsetsIHave {
+            if handset.handsetNumber + 1 > newValue && handset.registeredTo == 0 {
+                handset.registeredTo = 1
             }
-        } else if newValue > 1 {
+        }
+        if newValue > 1 {
             if locatorButtons == 0 {
                 deregistration = 1
             }
@@ -1369,7 +1376,7 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
         if newValue < 8 {
             hasAutoAttendantAndPersonalMailboxes = false
         }
-        if newValue < numberOfIncludedCordlessHandsets && newValue >= 1 {
+        if newValue + desksetHandsetCount < numberOfIncludedCordlessHandsets && newValue >= 1 {
             numberOfIncludedCordlessHandsets = newValue
         }
     }
@@ -1395,7 +1402,15 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
 
     func cordlessDeviceLinkingMethodChanged(oldValue: Int, newValue: Int) {
         if newValue < 4 && maxCordlessHandsets > 1 {
-            maxCordlessHandsets = -1
+            maxCordlessHandsets = Int.max
+            hasTransmitOnlyBase = false
+            cordedReceiverMainColorBinding.wrappedValue = .clear
+            placeOnBaseAutoRegister = false
+            deregistration = 0
+            locatorButtons = 0
+            for handset in cordlessHandsetsIHave {
+                handset.fitsOnBase = true
+            }
         }
         if newValue == 4 {
             for handset in cordlessHandsetsIHave {

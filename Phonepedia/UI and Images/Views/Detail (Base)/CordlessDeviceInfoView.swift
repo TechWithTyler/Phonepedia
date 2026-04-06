@@ -100,7 +100,7 @@ struct CordlessDeviceInfoView: View {
                 .accessibilityIdentifier("AddHandsetButton")
                 .disabled(phone.maxOrTooManyCordlessDevices)
                 if phone.maxOrTooManyCordlessDevices {
-                    WarningText("You currently have the maximum number of cordless devices the base of this \(phone.brand) \(phone.model) allows (\(phone.maxCordlessHandsets)). If you're trying to add another cordless device, make sure you've specified the correct number of maximum cordless devices on the General page.")
+                    WarningText("You currently have the maximum number of cordless devices the \(phone.desksetHandsetCount == 0 ? "base" : "base and desksets") of this \(phone.brand) \(phone.model) allows (\(phone.maxCordlessHandsets + phone.desksetHandsetCount)). If you're trying to add another cordless device, make sure you've specified the correct number of maximum cordless devices on the General page.")
                 }
                 Button(role: .destructive) {
                     dialogManager.showingDeleteAllHandsets = true
@@ -226,6 +226,9 @@ struct CordlessDeviceInfoView: View {
                             if cordlessDeviceFilter == allItemsFilterOptionTag {
                                 Text(handset.cordlessDeviceTypeText)
                             }
+                            if phone.desksetHandsetCount > 0 {
+                                Text("Registered to \(handset.registeredTo == 1 ? "deskset" : "base")")
+                            }
                         }
                         .foregroundStyle(.secondary)
                     }
@@ -266,6 +269,11 @@ struct CordlessDeviceInfoView: View {
         }
         if phone.tooManyCordlessDevices {
             WarningText("You have more cordless devices than the base can handle!")
+        }
+        let cordlessDevicesRegisteredToDesksets = phone.cordlessHandsetsIHave.filter {
+            $0.registeredTo == 1 }.count
+        if cordlessDevicesRegisteredToDesksets > phone.desksetHandsetCount {
+            WarningText("More cordless devices are specified as registered to desksets than can be registered to all this \(phone.brand) \(phone.model)'s desksets!")
         }
     }
 
@@ -333,9 +341,12 @@ struct CordlessDeviceInfoView: View {
         }
         // A cordless device's handsetNumber property is the index of the cordless device in the list, and as with any index, it starts at 0. The number of cordless devices in the list before the new one is added can be used as its index without adding/subtracting 1.
         newCordlessDevice.handsetNumber = phone.cordlessHandsetsIHave.count
+        if newCordlessDevice.handsetNumber + 1 > phone.maxCordlessHandsets && phone.desksetHandsetCount > 0 {
+            newCordlessDevice.registeredTo = 1
+        }
         // 3. Set the new cordless device's release year to the phone's release year.
         newCordlessDevice.releaseYear = phone.releaseYear
-        // 5. Set the cordless device type based on the cordless device type filter.
+        // 4. Set the cordless device type based on the cordless device type filter.
         switch cordlessDeviceFilter {
         case CordlessHandset.CordlessDeviceType.deskset.rawValue.lowercased():
             newCordlessDevice.cordlessDeviceType = 1
@@ -344,7 +355,7 @@ struct CordlessDeviceInfoView: View {
         default:
             newCordlessDevice.cordlessDeviceType = 0
         }
-        // 4. Add the cordless device to the phone's list of cordless devices.
+        // 5. Add the cordless device to the phone's list of cordless devices.
         phone.cordlessHandsetsIHave.append(newCordlessDevice)
     }
 
@@ -354,6 +365,11 @@ struct CordlessDeviceInfoView: View {
         let newCordlessDeviceNumber = sortedCordlessDevices.endIndex
         let newCordlessDevice = cordlessDevice.duplicate()
         newCordlessDevice.handsetNumber = newCordlessDeviceNumber
+            if newCordlessDevice.handsetNumber + 1 > phone.maxCordlessHandsets {
+                newCordlessDevice.registeredTo = 1
+            } else if newCordlessDeviceNumber + 1 < phone.maxCordlessHandsets && newCordlessDeviceNumber + 1 > phone.desksetHandsetCount {
+                newCordlessDevice.registeredTo = 0
+            }
         // 2. Insert the duplicate handset at the end of the array.
         phone.cordlessHandsetsIHave.append(newCordlessDevice)
         // 3. Move the duplicate handset to after the original.
