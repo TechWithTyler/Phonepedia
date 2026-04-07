@@ -326,6 +326,8 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
 
     var numberOfMailboxes: Int = 1
 
+    var mailboxPasswordProtection: Bool = false
+
     var hasAutoAttendantAndPersonalMailboxes: Bool = false
 
     var hasGreetingOnlyMode: Bool = true
