@@ -163,7 +163,7 @@ struct PhoneMessagingView: View {
         Section("Voicemail") {
             if phone.hasAnalogLineConnection {
                 Picker("\"New Voicemail\" Detection Method", selection: $phone.voicemailIndication) {
-                    Text("None").tag(0)
+                    Text("No Voicemail Indication").tag(0)
                     Divider()
                     Text("1 - Frequency-Shift-Keying (FSK) Tones").tag(1)
                     Text("2 - Listen For Stutter Dial Tones").tag(2)
