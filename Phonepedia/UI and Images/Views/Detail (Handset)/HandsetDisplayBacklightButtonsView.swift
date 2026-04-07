@@ -136,6 +136,7 @@ struct HandsetDisplayBacklightButtonsView: View {
                         handset.swapKeyBackgroundAndForegroundColors()
                     }
                 }
+                ButtonColorInfoView()
             }
             Section("Display") {
                 Picker("Display Type", selection: $handset.displayType) {

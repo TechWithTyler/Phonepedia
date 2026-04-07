@@ -24,6 +24,7 @@
 		8D2EBE582F84524800519D81 /* CordedReceiverHookTypePickerItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2EBE572F84524800519D81 /* CordedReceiverHookTypePickerItems.swift */; };
 		8D2EBE5A2F84533A00519D81 /* SwitchHookInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2EBE592F84533A00519D81 /* SwitchHookInfoView.swift */; };
 		8D2EBE5C2F84537F00519D81 /* CordedReceiverHookInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2EBE5B2F84537F00519D81 /* CordedReceiverHookInfoView.swift */; };
+		8D2EBE5E2F859AC500519D81 /* ButtonColorInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2EBE5D2F859AC500519D81 /* ButtonColorInfoView.swift */; };
 		8D32A5002D419FF100F606FC /* ProgrammingWithoutDisplayInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D32A4FF2D419FF100F606FC /* ProgrammingWithoutDisplayInfoView.swift */; };
 		8D32A5042D42EC2400F606FC /* stutterDialTone.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D32A5032D42EC2400F606FC /* stutterDialTone.wav */; };
 		8D32A5062D42EEBF00F606FC /* busyTone.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8D32A5052D42EEBF00F606FC /* busyTone.wav */; };
@@ -237,6 +238,7 @@
 		8D2EBE572F84524800519D81 /* CordedReceiverHookTypePickerItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordedReceiverHookTypePickerItems.swift; sourceTree = "<group>"; };
 		8D2EBE592F84533A00519D81 /* SwitchHookInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchHookInfoView.swift; sourceTree = "<group>"; };
 		8D2EBE5B2F84537F00519D81 /* CordedReceiverHookInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordedReceiverHookInfoView.swift; sourceTree = "<group>"; };
+		8D2EBE5D2F859AC500519D81 /* ButtonColorInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonColorInfoView.swift; sourceTree = "<group>"; };
 		8D32A4FF2D419FF100F606FC /* ProgrammingWithoutDisplayInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgrammingWithoutDisplayInfoView.swift; sourceTree = "<group>"; };
 		8D32A5032D42EC2400F606FC /* stutterDialTone.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = stutterDialTone.wav; sourceTree = "<group>"; };
 		8D32A5052D42EEBF00F606FC /* busyTone.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = busyTone.wav; sourceTree = "<group>"; };
@@ -710,6 +712,7 @@
 				8D6861E32F314A3200DDBC2C /* JoinLeaveToneInfoView.swift */,
 				8D2EBE592F84533A00519D81 /* SwitchHookInfoView.swift */,
 				8D2EBE5B2F84537F00519D81 /* CordedReceiverHookInfoView.swift */,
+				8D2EBE5D2F859AC500519D81 /* ButtonColorInfoView.swift */,
 			);
 			path = Info;
 			sourceTree = "<group>";
@@ -1164,6 +1167,7 @@
 				8D94AA982EF0B60900F23F14 /* VisualRingerInfoView.swift in Sources */,
 				8D27B18D2D03AABB004B75E4 /* SettingsView.swift in Sources */,
 				8D394FA22B87F4CE0047C2F8 /* RegistrationExplanationView.swift in Sources */,
+				8D2EBE5E2F859AC500519D81 /* ButtonColorInfoView.swift in Sources */,
 				8D38EDA12CAF404C00CCC422 /* HandsetSpecialFeaturesView.swift in Sources */,
 				8DA844D92B72E1D7006CBCA7 /* SoftKeyExplanationView.swift in Sources */,
 				8DA844F22B72E1D7006CBCA7 /* PhonePhotoError.swift in Sources */,

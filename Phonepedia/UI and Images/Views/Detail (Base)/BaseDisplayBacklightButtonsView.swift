@@ -101,6 +101,7 @@ struct BaseDisplayBacklightButtonsView: View {
                         phone.swapKeyBackgroundAndForegroundColors()
                     }
                 }
+                ButtonColorInfoView()
             }
             if phone.hasBaseSpeakerphone && phone.baseChargesHandset {
                 Toggle("Dial On Base While Using Handset", isOn: $phone.dialWithBaseDuringHandsetCall)
