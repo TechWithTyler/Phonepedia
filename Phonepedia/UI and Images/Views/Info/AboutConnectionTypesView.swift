@@ -119,6 +119,21 @@ struct AboutConnectionTypesView: View {
                     Text("SIP SUBSCRIBE and NOTIFY")
                 }
                 DisclosureGroup {
+                    Text("REFER is a SIP request used to tell another device to initiate a new call to a different destination.")
+                    Text("It is most commonly used for call transfers, where one party instructs another to call someone else.")
+                    Text("When a device receives a REFER request, it typically sends a new INVITE to the target specified in the \"Refer-To\" header.")
+                    Text("Attended transfers are completed using REFER.")
+                    Text("In attended transfers, the Refer-To header may include a \"Replaces\" parameter, which tells the new call to replace an existing call leg. For example, if extension \(NameNumberExamples.examplePBXExtension1) on a PBX is on a call with extension \(NameNumberExamples.examplePBXExtension2), and extension \(NameNumberExamples.examplePBXExtension1) transfers the call to extension \(NameNumberExamples.examplePBXExtension3), extension \(NameNumberExamples.examplePBXExtension1)'s leg of the call is redirected from extension \(NameNumberExamples.examplePBXExtension2) to extension \(NameNumberExamples.examplePBXExtension3).")
+                    Text("The Replaces mechanism allows the new destination to take over the original call seamlessly without creating duplicate call legs.")
+                    Text("REFER often works together with NOTIFY messages to report the status of the transfer (for example, ringing, answered, or failed).")
+                    Text("Example flow: Phone A sends REFER to Phone B → B sends INVITE (with Replaces if needed) to Phone C → B sends NOTIFY updates to A → call is transferred.")
+                    Text("In Asterisk/FreePBX logs, you may see REFER followed by a new INVITE and NOTIFY messages indicating transfer progress or failure.")
+                    Text("If REFER or Replaces is not supported by a device, the transfer may fail or fall back to server-side transfer handled by the PBX.")
+                    Text("Key point: REFER does not carry audio itself; it instructs another device to create or modify a call.")
+                } label: {
+                    Text("SIP REFER")
+                }
+                DisclosureGroup {
                     Text("OPTIONS is a SIP request used to query a device or server about its capabilities without setting up a call.")
                     Text("The main purpose is to check if a SIP endpoint is alive, discover supported methods, and see which codecs or features it supports.")
                     Text("When a device receives an OPTIONS request, it responds with 200 OK and includes headers like \"Allow\" and \"Supported\" to indicate what it can handle.")

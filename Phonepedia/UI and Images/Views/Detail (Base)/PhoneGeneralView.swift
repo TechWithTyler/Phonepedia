@@ -103,7 +103,7 @@ struct PhoneGeneralView: View {
         VStack {
             Text("Write more about your phone (e.g., the story behind why you got it, when/where you got it, whether you had to replace broken parts) in the text area below.\nExample: \"\(phoneDescriptionSampleText)\"")
                 .lineLimit(nil)
-            Stepper("Font Size: \(Int(phoneDescriptionTextSize))", value: $phoneDescriptionTextSize)
+            Stepper("Font Size: \(Int(phoneDescriptionTextSize))pt", value: $phoneDescriptionTextSize)
             ContrastingTextEditor(text: $phone.phoneDescription)
                 .frame(minHeight: 300)
                 .padding()

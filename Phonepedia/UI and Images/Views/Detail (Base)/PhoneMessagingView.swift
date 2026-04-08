@@ -130,6 +130,8 @@ struct PhoneMessagingView: View {
                 }
                 Toggle("Has Message Alert by Call", isOn: $phone.hasMessageAlertByCall)
                 InfoText("This feature allows the answering system to call out to a stored phone number each time a new message is left, so you don't have to constantly be calling to check for new messages while you're away.")
+                Toggle("Marks Caller ID List Entries", isOn: $phone.answeringSystemMarksCallerIDListEntries)
+                InfoText("When a caller leaves a message, the entry in the caller ID list will be marked as having left a message. For phones with separate caller ID lists for each handset/deskset, the handset/deskset needs to have a link to the base at the time the message recording ends.")
                 Toggle("Can Record Voice Memos", isOn: $phone.canRecordVoiceMemos)
                 InfoText("Some answering systems allow you to record voice memos, which are saved like incoming messages but don't involve the phone line.")
                 Picker("Number of Mailboxes", selection: $phone.numberOfMailboxes) {

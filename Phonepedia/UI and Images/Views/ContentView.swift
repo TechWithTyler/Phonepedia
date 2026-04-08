@@ -62,6 +62,9 @@ struct ContentView: View {
         .sheet(isPresented: $dialogManager.showingReassignHandset) {
             CordlessDeviceReassignmentView(phones: phones, selectedPhone: $selectedPhone)
         }
+        .sheet(isPresented: $dialogManager.showingPhoneBackstory) {
+            PhoneBackstoryView(phone: dialogManager.phoneToShowBackstory!)
+        }
         // Info views
         .sheet(isPresented: $dialogManager.showingPhoneTypeDefinitions) {
             PhoneTypeDefinitionsView()

@@ -46,8 +46,19 @@ struct NameNumberExamples {
 
     // MARK: - Properties - Strings
 
+    // An example UK number.
     static let exampleUKNumber = "2079460018"
 
+    // An example extension number on a PBX.
+    static let examplePBXExtension1 = "101"
+
+    // A second example extension number on a PBX.
+    static let examplePBXExtension2 = "105"
+
+    // A 3rd example extension number on a PBX.
+    static let examplePBXExtension3 = "123"
+
+    // An example hotel room number.
     static let exampleHotelRoomNumber = "925"
 
     // MARK: - CNAM for Name

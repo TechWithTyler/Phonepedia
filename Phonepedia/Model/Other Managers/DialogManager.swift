@@ -37,6 +37,9 @@ class DialogManager: ObservableObject {
     // The cordless device to be reassigned to a different phone.
     @Published var handsetToReassign: CordlessHandset? = nil
 
+    // The phone whose backstory to show.
+    @Published var phoneToShowBackstory: Phone? = nil
+
     // MARK: - Properties - Booleans
 
     // Whether the "move failed" alert should be/is being displayed.
@@ -80,6 +83,9 @@ class DialogManager: ObservableObject {
 
     // Whether the "delete all chargers" alert should be/is being displayed.
     @Published var showingDeleteAllChargers: Bool = false
+
+    // Whether the phone backstory sheet should be/is being displayed.
+    @Published var showingPhoneBackstory: Bool = false
 
     // Whether the "make corded-only" alert should be/is being displayed.
     @Published var showingMakeCordedOnly: Bool = false
@@ -140,6 +146,11 @@ class DialogManager: ObservableObject {
         showingReassignHandset = true
     }
 
+    func showPhoneBackstory(for phone: Phone) {
+        showingPhoneBackstory = true
+        phoneToShowBackstory = phone
+    }
+
     // MARK: - Dismiss Dialog
 
     func dismissDeleteHandset() {
@@ -150,6 +161,11 @@ class DialogManager: ObservableObject {
     func dismissDeleteCharger() {
         chargerToDelete = nil
         showingDeleteCharger = false
+    }
+
+    func dismissPhoneBackstory() {
+        phoneToShowBackstory = nil
+        showingPhoneBackstory = false
     }
 
 }

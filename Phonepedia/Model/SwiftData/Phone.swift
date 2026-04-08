@@ -330,6 +330,8 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
 
     var hasAutoAttendantAndPersonalMailboxes: Bool = false
 
+    var answeringSystemMarksCallerIDListEntries: Bool = false
+
     var hasGreetingOnlyMode: Bool = true
 
     var voicemailIndication: Int = 3
@@ -960,7 +962,7 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
         return !isCordless && cordedPowerSource == 0 && landlineConnectionType == 0 && basePhoneType == 0
     }
 
-    // The following computed properties check whether the base and/or cordless handsets of a cordless phone have a given feature. For corded phones, the cordless handset checks don't apply.
+    // The following computed properties check whether the base and/or cordless devices of a cordless phone have a given feature. For corded phones, the cordless device checks don't apply.
 
     // Whether the phone doesn't have any handsets which fit on the base.
     @Transient
@@ -974,18 +976,19 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
         return cordlessHandsetsIHave.filter({$0.fitsOnBase && $0.hasSpeakerphone && $0.supportsPlaceOnBasePowerBackup}).isEmpty
     }
 
+    // Whether the base or any cordless handset/deskset supports wired headsets.
     @Transient
     var supportsWiredHeadsets: Bool {
         return baseSupportsWiredHeadsets || !cordlessHandsetsIHave.filter({$0.supportsWiredHeadsets}).isEmpty
     }
 
-    // Whether the base or any cordless handset has a phonebook.
+    // Whether the base or any cordless handset/deskset has a phonebook.
     @Transient
     var hasPhonebook: Bool {
         return basePhonebookCapacity > 0 || !cordlessHandsetsIHave.filter({$0.phonebookCapacity > 0}).isEmpty
     }
 
-    // Whether the base or any cordless handset has a caller ID list.
+    // Whether the base or any cordless handset/deskset has a caller ID list.
     @Transient
     var hasCallerIDList: Bool {
         return baseCallerIDCapacity > 0 || !cordlessHandsetsIHave.filter({$0.callerIDCapacity > 0}).isEmpty

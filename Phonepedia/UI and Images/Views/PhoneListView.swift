@@ -191,6 +191,12 @@ struct PhoneListView: View {
             PhoneRowView(phone: phone)
         }
         .contextMenu {
+            if !phone.phoneDescription.isEmpty {
+                Button("Show Backstory…") {
+                    dialogManager.showPhoneBackstory(for: phone)
+                }
+                Divider()
+            }
             PhonePlaceInCollectionPicker(phone: phone)
                 .pickerStyle(.menu)
                 .toggleStyle(.automatic)

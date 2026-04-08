@@ -193,6 +193,15 @@ struct PhoneDetailView: View {
                 }
                 .labelStyle(.iconOnly)
             }
+            if !phone.phoneDescription.isEmpty {
+                HStack {
+                    Text("Backstory")
+                    Spacer()
+                    Button("View") {
+                        dialogManager.showPhoneBackstory(for: phone)
+                    }
+                }
+            }
             FormNavigationLink(phone: phone) {
                 PhoneGeneralView(phone: phone)
                     .navigationTitle("General")
