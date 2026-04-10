@@ -18,6 +18,7 @@ struct BrandQuickPicker: View {
 
     // Brands of phones that were never put on cordless phones.
     var nonCordlessBrands: [String] {
+        // 1. Create an array of brands that were never put on cordless phones.
         var brands: [String] = [
             "Western Electric",
             "Lucent",
@@ -28,22 +29,25 @@ struct BrandQuickPicker: View {
             "Kellogg",
             "Automatic Electric",
             "Northern Electric",
-            "Ericsson (legacy PSTN sets)",
             "WECO"
         ]
+        // 2. Add the cordless phone brands to the list.
         brands.append(contentsOf: cordlessBrands)
+        // 3. Sort the brands in ascending order.
         let sortedBrands = brands.sorted(by: <)
+        // 4. Return the sorted brands.
         return sortedBrands
     }
 
     // Brands of phones that were put on any phone.
     var cordlessBrands: [String] {
+        // 1. Create a list of brands.
         let brands: [String] = [
             "Panasonic",
-            "Sony",
             "Uniden",
             "Vtech",
             "AT&T",
+            "Sony",
             "SBC",
             "GTE",
             "Avaya",
@@ -52,8 +56,8 @@ struct BrandQuickPicker: View {
             "General Electric",
             "Southwestern Bell",
             "Northwestern Bell",
-            "Bell",
             "BellSouth",
+            "Bell",
             "Toshiba",
             "Sanyo",
             "Qwest",
@@ -74,6 +78,7 @@ struct BrandQuickPicker: View {
             "RadioShack",
             "Presidian",
             "Spark",
+            "Telecom",
             "Cortelco",
             "Cisco",
             "Grandstream",
@@ -93,6 +98,7 @@ struct BrandQuickPicker: View {
             "IDECT",
             "Brondi",
             "Beetel",
+            "TalkTalk",
             "Oricom",
             "Amplicomms",
             "Topo",
@@ -132,7 +138,9 @@ struct BrandQuickPicker: View {
             "Ericsson",
             "Plantronics"
         ]
+        // 2. Sort the brands in ascending order.
         let sortedBrands = brands.sorted(by: <)
+        // 3. Return the sorted brands.
         return sortedBrands
     }
 
