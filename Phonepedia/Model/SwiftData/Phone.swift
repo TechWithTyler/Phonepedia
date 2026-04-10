@@ -962,6 +962,12 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
         return !isCordless && cordedPowerSource == 0 && landlineConnectionType == 0 && basePhoneType == 0
     }
 
+    // Whether the phone requires AC power or batteries for the selected "new voicemail" detection method.
+    @Transient
+    var requiresACPowerOrBatteriesForVoicemailIndication: Bool {
+        return voicemailIndication == 1 || voicemailIndication == 2 || voicemailIndication == 3 || voicemailIndication == 6
+    }
+
     // The following computed properties check whether the base and/or cordless devices of a cordless phone have a given feature. For corded phones, the cordless device checks don't apply.
 
     // Whether the phone doesn't have any handsets which fit on the base.
@@ -1333,6 +1339,12 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
         }
     }
 
+    func cordedPowerSourceChanged(oldValue: Int, newValue: Int) {
+        if newValue == 0 && requiresACPowerOrBatteriesForVoicemailIndication {
+            voicemailIndication = 0
+        }
+    }
+
     func isCordlessChanged(oldValue: Bool, newValue: Bool) {
         if newValue {
             if dialMode == 0 {
@@ -1352,6 +1364,9 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
             }
             basePhoneType = 0
         } else {
+            if cordedPowerSource == 0 && requiresACPowerOrBatteriesForVoicemailIndication {
+                voicemailIndication = 0
+            }
             if hasAnsweringSystem > 1 {
                 hasAnsweringSystem = 1
             }

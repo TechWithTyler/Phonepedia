@@ -42,6 +42,9 @@ struct PhonePowerView: View {
                     Text("AC Power with Battery Backup (Non-Recharging)").tag(3)
                     Text("AC Power with Battery Backup (Recharging)").tag(4)
                 }
+                .onChange(of: phone.cordedPowerSource) { oldValue, newValue in
+                    phone.cordedPowerSourceChanged(oldValue: oldValue, newValue: newValue)
+                }
                 if phone.landlineConnectionType == 0 {
                     InfoText("When a phone is on-hook, the voltage on an analog line is ~48V DC. When a phone goes off-hook, this voltage is reduced to ~6V DC. These voltage levels make line power only good for basic corded phones, because the on-hook voltage is too high and the off-hook voltage is too low. The circuit (loop) is also open when on-hook, so loop current is 0mA.\nSome line-powered phones can take batteries, which stabilize the power required for features like speed dial and caller ID display. You can access the phone's features even when it isn't connected to a line. For slim/wall phones, their manuals often advise you to disconnect the phone from the line for programming to prevent accidental dialing or the line voltage from interfering with programming.\nMost line-powered or battery-powered corded phones will keep their memory intact for some time if line/battery power is lost (usually 72 hours).\nMost AC-powered corded phones can work on line power when the power is out. If the phone takes AC power and backup batteries, usually only the batteries will provide backup power--the phone won't work at all once the batteries run out.")
                 }
@@ -79,14 +82,14 @@ struct PhonePowerView: View {
                 }
                 if phone.cordlessPowerBackupMode == 1 {
                     if phone.baseChargesHandset {
-                            InfoText("When the power goes out, placing a charged handset on the base can give it power. The base buttons might not work, and features like the answering system and base Bluetooth might not be available while the handset is powering the base, to help conserve handset battery power.\nRemember that when the handset is powering the base, the battery will drain faster than usual, because some of the battery power is being used to power the base. This is especially true if you're using the handset that's powering the base--you may find that the handset powering the base runs out of charge before the other handset(s), or that you can be on a call on the other handset(s) longer than you can on the one powering the base. For this reason, the manuals of such phones often advise you to leave a handset on the base specifically for power, and use the other handset(s), if you have more than one.\nIf using the handset placed on the base, only the speakerphone is available for calls, since holding the phone up to your ear would not only feel uncomfortable (since you'd have to hold it with the handset placed on the base), but the handset could lose connection with the base charging contacts too easily.")
-                            Picker("When Power Returns", selection: $phone.cordlessPowerBackupReturnBehavior) {
-                                Text("Reboot/Refresh Handset Menus").tag(0)
-                                Text("Restore Full Functionality w/o Rebooting").tag(1)
-                            }
-                            if phone.noHandsetsForPlaceOnBasePowerBackup {
-                                WarningText("To use place-on-base power backup, you must have at least one handset which:\n• Has speakerphone.\n• Fits on the base.\n• Supports place-on-base power backup.")
-                            }
+                        InfoText("When the power goes out, placing a charged handset on the base can give it power. The base buttons might not work, and features like the answering system and base Bluetooth might not be available while the handset is powering the base, to help conserve handset battery power.\nRemember that when the handset is powering the base, the battery will drain faster than usual, because some of the battery power is being used to power the base. This is especially true if you're using the handset that's powering the base--you may find that the handset powering the base runs out of charge before the other handset(s), or that you can be on a call on the other handset(s) longer than you can on the one powering the base. For this reason, the manuals of such phones often advise you to leave a handset on the base specifically for power, and use the other handset(s), if you have more than one.\nIf using the handset placed on the base, only the speakerphone is available for calls, since holding the phone up to your ear would not only feel uncomfortable (since you'd have to hold it with the handset placed on the base), but the handset could lose connection with the base charging contacts too easily.")
+                        Picker("When Power Returns", selection: $phone.cordlessPowerBackupReturnBehavior) {
+                            Text("Reboot/Refresh Handset Menus").tag(0)
+                            Text("Restore Full Functionality w/o Rebooting").tag(1)
+                        }
+                        if phone.noHandsetsForPlaceOnBasePowerBackup {
+                            WarningText("To use place-on-base power backup, you must have at least one handset which:\n• Has speakerphone.\n• Fits on the base.\n• Supports place-on-base power backup.")
+                        }
                     } else {
                         InfoText("When the power goes out, the corded base will work as a line-powered corded phone with basic features, and will often use a piezo speaker for the ringer since it's easier for the ring voltage to power a piezo speaker than the main speaker.")
                     }
