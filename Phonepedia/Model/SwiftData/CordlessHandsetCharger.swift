@@ -16,65 +16,93 @@ final class CordlessHandsetCharger: BaseColorManipulatable, ChargeLightColorMani
     
     // MARK: - Properties - Persistent Data
 
-	var phone: Phone?
-    
+    // The ID of the charger.
     var id = UUID()
 
+    // The phone this charger is assigned to.
+    var phone: Phone?
+
+    // The index of the charger.
     var chargerNumber: Int = 0
 
+    // The main color's red component.
     var mainColorRed: Double = 0
 
+    // The main color's green component.
     var mainColorGreen: Double = 0
 
+    // The main color's blue component.
     var mainColorBlue: Double = 0
 
+    // The secondary color's red component.
     var secondaryColorRed: Double = 0
 
+    // The secondary color's green component.
     var secondaryColorGreen: Double = 0
 
+    // The secondary color's blue component.
     var secondaryColorBlue: Double = 0
 
+    // The accent color's red component.
     var accentColorRed: Double = 0
 
+    // The accent color's green component.
     var accentColorGreen: Double = 0
 
+    // The accent color's blue component.
     var accentColorBlue: Double = 0
 
+    // The charge light charging state color's red component.
     var chargeLightColorChargingRed: Double = 255
 
+    // The charge light charging state color's green component.
     var chargeLightColorChargingGreen: Double = 0
 
+    // The charge light charging state color's blue component.
     var chargeLightColorChargingBlue: Double = 0
 
+    // The charge light charged state color's red component.
     var chargeLightColorChargedRed: Double = 0
 
+    // The charge light charged state color's green component.
     var chargeLightColorChargedGreen: Double = 255
 
+    // The charge light charged state color's blue component.
     var chargeLightColorChargedBlue: Double = 0
 
+    // The charge light charged state color's alpha component.
     var chargeLightColorChargedAlpha: Double = 1
 
+    // Whether the charger has a charge light.
     var hasChargeLight: Bool = false
 
+    // The direction the handset charges.
 	var chargingDirection: Int = 0
 
+    // The placement of the charging contacts.
 	var chargeContactPlacement: Int = 0
 
+    // The charging contact type.
 	var chargeContactType: Int = 1
 
+    // Whether the charger has a built-in range extender.
 	var hasRangeExtender: Bool = false
 
+    // Whether the charger has a clock/radio/alarm.
     var hasClockRadioAlarm: Bool = false
 
+    // Whether the charger can be wall-mounted. 0 = not supported, 1 = holes on back, 2 = optional bracket.
 	var wallMountability: Int = 0
 
+    // The cordless device the charger charges. 0 = handset, 1 = headset/speakerphone.
     var type: Int = 0
 
+    // Whether the AC adaptor is hard-wired (non-removable).
     var hasHardWiredACAdaptor: Bool = false
 
     // MARK: - Properties - Transient (Non-Persistent) Properties
 
-    // The actual number of this charger, which is handsetNumber (the index of the charger) + 1.
+    // The actual number of the charger, which is chargerNumber (the index of the charger) + 1.
     @Transient
     var actualChargerNumber: Int {
         return chargerNumber + 1

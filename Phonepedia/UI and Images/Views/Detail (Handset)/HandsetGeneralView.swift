@@ -137,10 +137,10 @@ struct HandsetGeneralView: View {
     var handsetGroup: some View {
         if let phone = handset.phone {
             Picker("Handset Style", selection: $handset.handsetStyle) {
-                Text("Traditional").tag(0)
-                Text("Futuristic").tag(1)
-                Text("Cell Phone").tag(2)
-                Text("Smartphone").tag(3)
+                Text(CordlessHandset.Style.traditional.rawValue).tag(0)
+                Text(CordlessHandset.Style.futuristic.rawValue).tag(1)
+                Text(CordlessHandset.Style.cellPhone.rawValue).tag(2)
+                Text(CordlessHandset.Style.smartphone.rawValue).tag(3)
             }
             .onChange(of: handset.handsetStyle) { oldValue, newValue in
                 handset.handsetStyleChanged(oldValue: oldValue, newValue: newValue)
