@@ -169,6 +169,7 @@ struct PhoneCountView: View {
     var body: some View {
         NavigationStack {
             List {
+                PhoneCollectionStabilityView(phones: phones)
                 DisclosureGroup("Total (\(totalPhoneCount))") {
                     HStack {
                         VStack(alignment: .leading) {

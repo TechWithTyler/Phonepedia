@@ -86,6 +86,7 @@
 		8D53EBAB2E7A026300B71D8C /* RedialWhenBusyInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D53EBAA2E7A026300B71D8C /* RedialWhenBusyInfoView.swift */; };
 		8D6861E22F314A1D00DDBC2C /* JoinLeaveTonePickerItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6861E12F314A1D00DDBC2C /* JoinLeaveTonePickerItems.swift */; };
 		8D6861E42F314A3200DDBC2C /* JoinLeaveToneInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6861E32F314A3200DDBC2C /* JoinLeaveToneInfoView.swift */; };
+		8D6ABE0E2F8D87E000371C94 /* PhoneCollectionStabilityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6ABE0D2F8D87E000371C94 /* PhoneCollectionStabilityView.swift */; };
 		8D71C8172CDD651D00072E50 /* RedialNameDisplayInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D71C8162CDD651D00072E50 /* RedialNameDisplayInfoView.swift */; };
 		8D71C8192CDD666C00072E50 /* SpeedDialEntryModeInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D71C8182CDD666C00072E50 /* SpeedDialEntryModeInfoView.swift */; };
 		8D71C81B2CDEBDF600072E50 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 8D71C81A2CDEBDF600072E50 /* PrivacyInfo.xcprivacy */; };
@@ -302,6 +303,7 @@
 		8D53EBAA2E7A026300B71D8C /* RedialWhenBusyInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedialWhenBusyInfoView.swift; sourceTree = "<group>"; };
 		8D6861E12F314A1D00DDBC2C /* JoinLeaveTonePickerItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinLeaveTonePickerItems.swift; sourceTree = "<group>"; };
 		8D6861E32F314A3200DDBC2C /* JoinLeaveToneInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinLeaveToneInfoView.swift; sourceTree = "<group>"; };
+		8D6ABE0D2F8D87E000371C94 /* PhoneCollectionStabilityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneCollectionStabilityView.swift; sourceTree = "<group>"; };
 		8D71C8162CDD651D00072E50 /* RedialNameDisplayInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedialNameDisplayInfoView.swift; sourceTree = "<group>"; };
 		8D71C8182CDD666C00072E50 /* SpeedDialEntryModeInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedDialEntryModeInfoView.swift; sourceTree = "<group>"; };
 		8D71C81A2CDEBDF600072E50 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
@@ -723,6 +725,7 @@
 		8DA844B52B72E1D7006CBCA7 /* Child Views */ = {
 			isa = PBXGroup;
 			children = (
+				8D6ABE0D2F8D87E000371C94 /* PhoneCollectionStabilityView.swift */,
 				8DA844B62B72E1D7006CBCA7 /* PhoneImage.swift */,
 				8D94EE0B2B912B9E00B04EBF /* CordlessPhoneRadioWaveView.swift */,
 				8D94EE0D2B912FB900B04EBF /* CordlessPhoneRadioWave.swift */,
@@ -1164,6 +1167,7 @@
 				8DB25E902C8BC4A9001617C2 /* FormNavigationLink.swift in Sources */,
 				8D38ED8B2CAF393D00CCC422 /* CallBlockView.swift in Sources */,
 				8D38ED6F2CAF31BA00CCC422 /* PhoneColorView.swift in Sources */,
+				8D6ABE0E2F8D87E000371C94 /* PhoneCollectionStabilityView.swift in Sources */,
 				8D27B1902D03AC3B004B75E4 /* UserDefaultsKeyNames.swift in Sources */,
 				8D20EDD02F3A9CA50078F4FE /* PhoneFilterManager.swift in Sources */,
 				8D38ED832CAF37D400CCC422 /* DialingCodesView.swift in Sources */,

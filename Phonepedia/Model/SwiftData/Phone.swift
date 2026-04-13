@@ -984,6 +984,13 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
         }
     }
 
+    // Whether one or more parts of the phone are broken and actively need replacements.
+    var isBrokenNeedingReplacements: Bool {
+        let baseIsBroken = storageOrSetup % 2 != 0
+        let cordlessDevicesAreBroken = !cordlessHandsetsIHave.filter({$0.storageOrSetup % 2 != 0}).isEmpty
+        return neededReplacements && (baseIsBroken || cordlessDevicesAreBroken)
+    }
+
     // Whether the base charges a handset in a lay-down position.
     @Transient
     var hasLayDownCharging: Bool {
