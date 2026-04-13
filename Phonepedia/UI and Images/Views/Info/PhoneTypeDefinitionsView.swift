@@ -42,7 +42,7 @@ struct PhoneTypeDefinitionsView: View {
     let cordlessDeviceTypeDictionary: [DictionaryEntry] = [
         DictionaryEntry(CordlessHandset.CordlessDeviceType.handset.rawValue, definition: "The most common cordless device, a handset is a portable phone which connects wirelessly to a main base. While some early cordless handsets used a charging cable like laptops and cell phones, most charge on the main base or a smaller charging base."),
         DictionaryEntry(CordlessHandset.CordlessDeviceType.deskset.rawValue, definition: "A deskset is a fixed phone which connects wirelessly to a main base and is treated like a handset. Desksets can have a corded receiver or a charging area for a cordless handset, and some support registering cordless devices to them. Desksets are used when a non-cordless phone is preferred but line/Ethernet jacks aren't available in the desired location."),
-        DictionaryEntry(CordlessHandset.CordlessDeviceType.headset.rawValue, definition: "A cordless headset/speakerphone can pick up the line and answer/join calls, but can't dial or use other features. If a cordless phone comes only with cordless headsets, it's often called a headset phone. Cordless headset phone bases can connect to a phone's headset jack in place of a wired headset.")
+        DictionaryEntry(CordlessHandset.CordlessDeviceType.headset.rawValue, definition: "A cordless headset/speakerphone can pick up the line and answer/join calls, but can't dial or use other features. If a cordless phone comes only with cordless headsets, it's often called a headset phone. Cordless headset phone bases can also connect to a phone's headset jack, instead of to a phone line.")
     ]
 
     let cordlessHandsetStyleDictionary: [DictionaryEntry] = [
