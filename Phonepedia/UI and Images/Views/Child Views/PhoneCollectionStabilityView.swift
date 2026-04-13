@@ -87,7 +87,7 @@ struct PhoneCollectionStabilityView: View {
                 .foregroundColor(.secondary)
                 VStack(alignment: .leading) {
                     ForEach(brokenPhones) { phone in
-                        Text("• Phone \(phone.actualPhoneNumberInCollection) (\(phone.brand) \(phone.model))")
+                        Text("• Phone \(phone.actualPhoneNumberInCollection) (\(phone.brand) \(phone.model)) \(phone.partsNeedingReplacement)")
                     }
                 }
             }

@@ -127,6 +127,7 @@ class DialogManager: ObservableObject {
     }
 
     func showUpdateCordlessDevicePlaceInCollection(phone: Phone) {
+        guard phone.isCordless else { return }
         showingUpdateCordlessDevicePlaceInCollection = true
         phoneToUpdateCordlessDevicePlaceInCollection = phone
     }

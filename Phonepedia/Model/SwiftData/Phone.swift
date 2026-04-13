@@ -991,6 +991,24 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
         return neededReplacements && (baseIsBroken || cordlessDevicesAreBroken)
     }
 
+    @Transient
+    var partsNeedingReplacement: String {
+        let baseIsBroken = storageOrSetup % 2 != 0
+        let brokenCordlessDevices = cordlessHandsetsIHave.filter({$0.storageOrSetup % 2 != 0})
+        var cordlessDeviceNumbers: [String] = []
+        for cordlessDevice in brokenCordlessDevices {
+            cordlessDeviceNumbers.append("\(cordlessDevice.actualHandsetNumber)")
+        }
+        let formattedString = ListFormatter.localizedString(byJoining: [String](cordlessDeviceNumbers))
+        if !baseIsBroken && !brokenCordlessDevices.isEmpty {
+            return brokenCordlessDevices.count == 1 ? "Cordless Device \((cordlessDeviceNumbers.first)!)" : "Cordless Devices \(formattedString)"
+        } else if baseIsBroken && !brokenCordlessDevices.isEmpty {
+            return brokenCordlessDevices.count == 1 ? "Base and Cordless Device \((cordlessDeviceNumbers.first)!)" : "Base and Cordless Devices \(formattedString)"
+        } else {
+            return "Base"
+        }
+    }
+
     // Whether the base charges a handset in a lay-down position.
     @Transient
     var hasLayDownCharging: Bool {
