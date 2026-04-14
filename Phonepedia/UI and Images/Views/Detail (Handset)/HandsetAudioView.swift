@@ -35,6 +35,7 @@ struct HandsetAudioView: View {
                     if handset.hasSpeakerphone {
                         Picker("Speakerphone Button Coloring", selection: $handset.speakerphoneColorLayer) {
                             Text("None").tag(0)
+                            Divider()
                             Text("Foreground").tag(1)
                             Text("Background").tag(2)
                         }

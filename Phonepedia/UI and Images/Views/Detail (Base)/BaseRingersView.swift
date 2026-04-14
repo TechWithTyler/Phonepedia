@@ -56,6 +56,7 @@ struct BaseRingersView: View {
         if phone.totalBaseRingtones > 0 {
             Picker("Silent Mode", selection: $phone.silentMode) {
                 Text("None").tag(0)
+                Divider()
                 Text("Number of Hours").tag(1)
                 Text("Time Period").tag(2)
             }
@@ -80,6 +81,7 @@ struct BaseRingersView: View {
             Picker("Base Cell Line Ringtone", selection: $phone.baseCellRingtone) {
                 if !phone.hasBaseKeypad {
                     Text("None").tag(0)
+                    Divider()
                 }
                 Text("Landline Ringtone").tag(1)
                 Text("Cell Line-Specific Ringtone").tag(2)

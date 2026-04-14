@@ -16,6 +16,7 @@ struct RedialNameDisplayPickerItems: View {
 
     var body: some View {
         Text("None").tag(0)
+        Divider()
         Text("Phonebook Match").tag(1)
         Text("From Dialed Entry").tag(2)
     }

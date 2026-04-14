@@ -82,6 +82,7 @@ struct PhoneMessagingView: View {
             } else if phone.isCordless && phone.hasAnsweringSystem == 3 {
                 Picker("Answering System Menu (Base)", selection: $phone.answeringSystemMenuOnBase) {
                     Text("None").tag(0)
+                    Divider()
                     Text("Voice Prompts").tag(1)
                     if phone.baseDisplayType > 2 {
                         Text("Display Menu").tag(2)
@@ -120,6 +121,7 @@ struct PhoneMessagingView: View {
                 }
                 Picker("Message Day/Time Stamp", selection: $phone.answeringSystemMessageTimestamp) {
                     Text("None").tag(0)
+                    Divider()
                     Text("Before Message").tag(1)
                     Text("After Message").tag(2)
                 }
@@ -197,6 +199,7 @@ A phone's voicemail indicator works in one of the following ways:
             if (!phone.isCordless || phone.hasBaseSpeakerphone) && (phone.voicemailIndication > 0 || phone.landlineConnectionType > 0) {
                 Picker("Voicemail Quick Dial", selection: $phone.voicemailQuickDial) {
                     Text("None").tag(0)
+                    Divider()
                     Text("Button").tag(1)
                     if phone.hasBaseKeypad {
                         Text("Speed Dial 1").tag(2)

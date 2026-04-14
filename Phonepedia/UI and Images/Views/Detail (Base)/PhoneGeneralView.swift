@@ -187,7 +187,7 @@ struct PhoneGeneralView: View {
                     if !phone.baseChargesHandset {
                         Text("Factory-Linked (Fixed)").tag(1)
                     } else {
-                        if phone.maxCordlessHandsets == -1 {
+                        if phone.maxCordlessHandsets == Int.max {
                             Text("Security Code (Switches)").tag(2)
                         }
                         Text("Security Code (Place Handset On Base)").tag(3)
@@ -216,6 +216,7 @@ struct PhoneGeneralView: View {
             }
             Picker("Antenna(s)", selection: $phone.antennas) {
                 Text("Hidden").tag(0)
+                Divider()
                 Text("Telescopic").tag(1)
                 Text("Standard (Left)").tag(2)
                 Text("Standard (Right)").tag(3)
@@ -261,6 +262,7 @@ struct PhoneGeneralView: View {
                 if phone.wallMountability > 0 && phone.hasLayDownCharging {
                     Picker("Lay-Down Hook Type", selection: $phone.cordlessHandsetLayDownHookType) {
                         Text("None").tag(0)
+                        Divider()
                         Text("Fixed").tag(1)
                         Text("Flip/Rotate (Face/Back)").tag(2)
                         Text("Flip (Top)").tag(3)
@@ -307,6 +309,7 @@ In most cases, if the base has a charge light/display message, the completion of
             InfoText("Typically, with digital cordless phones, when a handset moves out of range from the base during a call, the call is dropped. With some cordless phones, the base can put the call on hold for a short time once it detects that the handset has gone out of range, to allow the call to continue if the handset moves back in range quickly enough. On analog cordless phones, the base can't know that the handset went out of range, so the phone will remain off-hook until the base is unplugged and plugged back in, or the handset goes back in range without having been hung up first (or for some single-handset models, placing a handset on the base).")
             Picker("ECO Mode", selection: $phone.ecoMode) {
                 Text("Not Supported").tag(0)
+                Divider()
                 Text("Reduced Power Only").tag(1)
                 Text("Reduced Power or No Transmit").tag(2)
             }
@@ -417,6 +420,7 @@ In most cases, if the base has a charge light/display message, the completion of
         }
         Picker("Corded Receiver Volume Adjustment", selection: $phone.cordedReceiverVolumeAdjustmentType) {
             Text("None").tag(0)
+            Divider()
             Text("Volume Switch/Dial").tag(1)
             Text("Volume Button(s)").tag(2)
         }

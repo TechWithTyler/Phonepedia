@@ -56,6 +56,7 @@ struct HandsetDisplayBacklightButtonsView: View {
                     if handset.hasTalkButton {
                         Picker("Talk/Off Button Coloring", selection: $handset.talkOffColorLayer) {
                             Text("None").tag(0)
+                            Divider()
                             Text("Foreground").tag(1)
                             Text("Background").tag(2)
                         }
@@ -142,6 +143,7 @@ struct HandsetDisplayBacklightButtonsView: View {
                 Picker("Display Type", selection: $handset.displayType) {
                     if handset.handsetStyle < 2 {
                         Text("None").tag(0)
+                        Divider()
                         Text("Monochrome Display (Segmented)").tag(1)
                         Text("Monochrome Display (Traditional)").tag(2)
                         Text("Monochrome Display (Full-Dot w/ Status Items)").tag(3)
@@ -194,6 +196,7 @@ struct HandsetDisplayBacklightButtonsView: View {
                     }
                     Picker("Base-Specific Settings On Handset", selection: $handset.baseSettingsChangeMethod) {
                         Text("None").tag(0)
+                        Divider()
                         Text("Base Settings Menu").tag(1)
                         Text("Handset/Base Selection").tag(2)
                     }
@@ -240,6 +243,7 @@ struct HandsetDisplayBacklightButtonsView: View {
                 if handset.handsetStyle < 2 {
                     Picker("Navigation Button Type", selection: $handset.navigatorKeyType) {
                         Text("None").tag(0)
+                        Divider()
                         Text("Up/Down Button").tag(1)
                         Text("Up/Down/Left/Right Button").tag(2)
                         Text("Up/Down/Left/Right Joystick").tag(3)
@@ -252,6 +256,7 @@ struct HandsetDisplayBacklightButtonsView: View {
                 if handset.navigatorKeyType > 0 {
                     Picker("Navigation Button Center Button", selection: $handset.navigatorKeyCenterButton) {
                         Text("None").tag(0)
+                        Divider()
                         Text("Select").tag(1)
                         Text("Menu/Select").tag(2)
                         if handset.softKeys == 3 {

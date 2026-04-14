@@ -49,6 +49,7 @@ struct BaseSpeedDialView: View {
         if phone.baseOneTouchDialCapacity > 0 {
             Picker("One-Touch Dial Card", selection: $phone.baseOneTouchDialCard) {
                 Text("None").tag(0)
+                Divider()
                 Text("Paper Card/Faceplate").tag(1)
                 if phone.isPushButtonDeskOrCordlessDialingBase {
                     Text("Display").tag(2)

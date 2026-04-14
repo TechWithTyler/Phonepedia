@@ -117,9 +117,11 @@ struct BaseDisplayBacklightButtonsView: View {
                 if phone.basePhoneType == 0 {
                     Picker(phone.isCordless ? "Display Type (Base)" : "Display Type", selection: $phone.baseDisplayType) {
                         Text("None").tag(0)
+                        Divider()
                         if phone.hasAnsweringSystem > 0 {
                             Text("LED Message Counter").tag(1)
                             Text("LCD Message Counter w/ Status Items").tag(2)
+                            Divider()
                         }
                         Text("Monochrome Display (Segmented)").tag(3)
                         Text("Monochrome Display (Traditional)").tag(4)
@@ -169,6 +171,7 @@ struct BaseDisplayBacklightButtonsView: View {
                     if phone.isCordless && phone.hasListsOfEntries && phone.baseDisplayType > 2 {
                         Picker("Base Menu Type", selection: $phone.cordlessBaseMenuType) {
                             Text("None").tag(0)
+                            Divider()
                             Text("Partial").tag(1)
                             Text("Full").tag(2)
                         }
@@ -199,6 +202,7 @@ struct BaseDisplayBacklightButtonsView: View {
                 Section("Navigation Button/Soft Keys") {
                     Picker("Base Navigation Button Type", selection: $phone.baseNavigatorKeyType) {
                         Text("None").tag(0)
+                        Divider()
                         Text("Up/Down").tag(1)
                         Text("Up/Down/Left/Right").tag(3)
                     }
@@ -211,6 +215,7 @@ struct BaseDisplayBacklightButtonsView: View {
                     if phone.baseNavigatorKeyType > 0 {
                         Picker("Base Navigation Button Center Button", selection: $phone.baseNavigatorKeyCenterButton) {
                             Text("None").tag(0)
+                            Divider()
                             Text("Select").tag(1)
                             Text("Menu/Select").tag(2)
                             if phone.hasBaseAccessibleAnsweringSystem {

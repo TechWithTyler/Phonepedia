@@ -47,6 +47,7 @@ struct BaseSpeakerphoneIntercomView: View {
                     if phone.hasPickUpToSwitch && phone.hasBaseIntercom {
                         Picker("Handset <-> Base Call Pickup Behavior", selection: $phone.handsetToBaseCallPickupBehavior) {
                             Text("Not Supported").tag(0)
+                            Divider()
                             Text("Move Call").tag(1)
                             Text("Conference Call").tag(2)
                         }
@@ -66,6 +67,7 @@ struct BaseSpeakerphoneIntercomView: View {
                     InfoText("Call transfer allows you to transfer a call between cordless devices/the base and a cordless device, just like how phones (extensions) on a PBX system can transfer calls between each other. The terminology between cordless phone call transfer and PBX call transfer is similar.\n• Blind Only: The destination base/cordless device rings, and is connected to the outside call upon answering. Depending on the phone, you can hang up while the destination is ringing, and the call will ring back to you if the destination doesn't answer. This method of call transfer is sometimes called \"unattended transfer\".\n• Intercom Only: An intercom call is established between your base/cordless device and the destination. You can then have an intercom call and let the other person know you're transferring the call to them. This method of call transfer is sometimes called \"attended transfer\". The way the transfer is completed depends on the phone. Some allow you to hang up your base/cordless device, while others require the destination to pick up (or end the intercom call and then pick up).\n• Intercom or Blind: You can transfer the call either via intercom or via blind transfer. On some phones, these are separate in-call options, while on others, blind transfer is done by hanging up your base/cordless device while the destination rings for intercom.")
                     Picker("Call Privacy Mode", selection: $phone.callPrivacyMode) {
                         Text("Not Supported").tag(0)
+                        Divider()
                         Text("Per-Call Only").tag(1)
                         Text("All Calls").tag(2)
                     }
@@ -92,6 +94,7 @@ struct BaseSpeakerphoneIntercomView: View {
                     JoinLeaveToneInfoView()
                     Picker("Push-To-Talk (PTT) or Broadcast", selection: $phone.pushToTalkOrBroadcastToAll) {
                         Text("None").tag(0)
+                        Divider()
                         Text("Push-To-Talk (PTT)").tag(1)
                         Text("Broadcast to \(phone.hasBaseIntercom ? "Base/All HS" : "All HS")").tag(2)
                     }

@@ -105,6 +105,7 @@ struct HandsetGeneralView: View {
             }
             Picker("Visual Ringer", selection: $handset.visualRinger) {
                 Text("None").tag(0)
+                Divider()
                 Text("Ignore Ring Signal").tag(1)
                 Text("Follow Ring Signal").tag(2)
             }

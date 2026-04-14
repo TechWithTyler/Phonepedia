@@ -29,6 +29,7 @@ struct CellPhoneLinkingView: View {
             if phone.baseBluetoothCellPhonesSupported > 0 {
                 Picker("Cell Line In Use Status On Base", selection: $phone.cellLineInUseStatusOnBase) {
                     Text("None").tag(0)
+                    Divider()
                     Text("Light").tag(1)
                     if phone.baseDisplayType > 1 {
                         Text("Display").tag(2)

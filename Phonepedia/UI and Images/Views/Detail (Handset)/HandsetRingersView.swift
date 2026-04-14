@@ -41,6 +41,7 @@ struct HandsetRingersView: View {
             }
             Picker("Silent Mode", selection: $handset.silentMode) {
                 Text("None").tag(0)
+                Divider()
                 Text("Number of Hours").tag(1)
                 Text("Time Period").tag(2)
             }
