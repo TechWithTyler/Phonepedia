@@ -55,13 +55,13 @@ struct PhoneCountView: View {
         return count
     }
 
-    // The total number of Wi-Fi handsets. Though these look and feel like cordless phones, they're not counted as cordless phones since they're standalone wireless handsets.
+    // The total number of Wi-Fi handsets. Although these look and feel like cordless phones, they're not counted as cordless phones since they're standalone wireless handsets.
     var wiFiHandsetCount: Int {
         let count = phones.filter({ !$0.isCordless && $0.basePhoneType == 1 }).count
         return count
     }
 
-    // The total number of cellular handsets. Though these look and feel like cordless phones, they're not counted as cordless phones since they're standalone wireless handsets.
+    // The total number of cellular handsets. Although these look and feel like cordless phones, they're not counted as cordless phones since they're standalone wireless handsets.
     var cellularHandsetCount: Int {
         let count = phones.filter({ !$0.isCordless && $0.basePhoneType == 2 }).count
         return count
@@ -395,9 +395,12 @@ struct PhoneCountView: View {
 #endif
     }
 
+    // MARK: - Average Text
+
     @ViewBuilder
     func averageText(_ value: Double) -> some View {
-        Text("Average \(value, format: .number.precision(.fractionLength(1))) per cordless phone")
+        let roundedValue = value.rounded()
+        Text("Average \(Int(roundedValue)) per cordless phone")
             .foregroundStyle(.secondary)
             .font(.footnote)
     }
