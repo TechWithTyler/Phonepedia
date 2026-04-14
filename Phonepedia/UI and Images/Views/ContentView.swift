@@ -27,6 +27,7 @@ struct ContentView: View {
     // Handles the import and export of phone photos.
     @StateObject var photoManager = PhonePhotoManager()
 
+    // Handles the display of phone collection achievements.
     @StateObject var achievementTrackerManager = PhoneCollectionAchievementTrackerManager()
 
     // MARK: - Properties - Phones

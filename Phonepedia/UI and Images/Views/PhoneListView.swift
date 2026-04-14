@@ -449,9 +449,7 @@ struct PhoneListView: View {
     private func deletePhones(at offsets: IndexSet) {
         guard let index = offsets.first else { return }
         let phone = phones[index]
-        withAnimation {
-            dialogManager.showDeletePhone(phone: phone)
-        }
+        dialogManager.showDeletePhone(phone: phone)
     }
 
     // This method deletes phone from the model context. A temporary snapshot of the phone to be deleted is created to assist with correcting the phoneNumberInCollection property of phones placed above the deleted one.
@@ -462,7 +460,9 @@ struct PhoneListView: View {
         dialogManager.phoneToDelete = nil
         phone.cordlessHandsetsIHave.removeAll()
         phone.chargersIHave.removeAll()
-        modelContext.delete(phone)
+        withAnimation {
+            modelContext.delete(phone)
+        }
         // 3. Clear the phone selection.
         selectedPhone = nil
         // 4. For any phone whose index is higher than the one that was just deleted, decrease phoneNumberInCollection by 1.
