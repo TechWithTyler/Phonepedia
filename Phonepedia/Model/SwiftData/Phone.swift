@@ -67,6 +67,9 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
     // The phone type for non-cordless phones. 0 = corded, 1 = Wi-Fi handset, 2 = cellular handset.
     var basePhoneType: Int = 0
 
+    // Whether the base doubles as a home network hub, wireless router, fax, or all-in-one printer.
+    var doublesAs: Int = 0
+
     // The model number assigned to new cordless devices.
     var mainHandsetModel: String = CordlessHandset.mockModel
 

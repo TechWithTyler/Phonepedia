@@ -141,6 +141,16 @@ struct PhoneGeneralView: View {
                 Text(Phone.PhoneType.cellularHandset.rawValue).tag(2)
             }
         }
+        if phone.isCordless || phone.basePhoneType == 0 {
+            Picker("Doubles As", selection: $phone.doublesAs) {
+                Text("None").tag(0)
+                Divider()
+                Text("Smart Home Hub").tag(1)
+                Text("Fax/Copier").tag(2)
+                Text("Printer With Fax").tag(3)
+            }
+            InfoText("A phone that doubles as a smart home hub works as a smart home hub first, phone second, compared to a phone with smart home device capability which works as a phone first, smart home hub second, and lacks smartphone/tablet integration for smart home control.\nMany fax machines double as a phone. If a fax machine shares the same line as a phone, or it's a phone/fax, separate numbers can come in on a single line, with distinct ring patterns to distinguish a phone call from a fax call. Outgoing calls will always use the main number. Separate lines are necessary if the 2nd number must be used for outgoing faxes.")
+        }
         if phone.hasBaseAccessibleAnsweringSystem {
             Toggle("Has Voice-Guided Setup", isOn: $phone.voiceGuidedSetup)
             InfoText("Voice-guided setup gives the user spoken instructions to help them set up the phone, either when first plugging in the base or later by selecting a menu option/pressing a sequence of buttons.")
