@@ -12,7 +12,7 @@ import SheftAppsStylishUI
 import SwiftData
 
 @Model
-final class CordlessHandsetCharger: BaseColorManipulatable, ChargeLightColorManipulatable {
+final class CordlessHandsetCharger: BaseHandsetChargerColorManipulatable, ChargeLightColorManipulatable {
     
     // MARK: - Properties - Persistent Data
 

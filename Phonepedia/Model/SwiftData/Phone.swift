@@ -14,7 +14,7 @@ import SwiftData
 // The structure of a SwiftData model class is very simple--a Swift class with @Model before its declaration. Any property not marked with @Transient is a persistent property which will be stored to the underlying Core Data persistent store SQLite file. @Model does 2 things: makes this class conform to PersistentModel and Observable, and internally adds @_PersistedProperty to the beginning of persistent properties.
 // A final class is a class that can't be subclassed.
 @Model
-final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, CordedReceiverColorManipulatable, KeyColorManipulatable {
+final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipulatable, CordedReceiverColorManipulatable, KeyColorManipulatable {
 
     // MARK: - Properties - Mock Phone
 
@@ -1091,6 +1091,13 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
         return frequency.isDigital
     }
 
+    // Whether the phone's cordless frequency is less than 30MHz.
+    @Transient
+    var isLessThan30MHz: Bool {
+        guard let frequency = Phone.CordlessFrequency(rawValue: frequency) else { return false }
+        return frequency.isLessThan30MHz
+    }
+
     // Whether the phone is a DECT cordless phone.
     @Transient
     var isDECTCordless: Bool {
@@ -1416,7 +1423,7 @@ final class Phone: BaseColorManipulatable, ChargeLightColorManipulatable, Corded
 
     // MARK: - Protocol Conformance Adapters
 
-    // BaseColorManipulatable protocol requires generic property names, but Phone uses "base" prefix
+    // BaseHandsetChargerColorManipulatable protocol requires generic property names, but Phone uses "base" prefix
     @Transient
     var mainColorBinding: Binding<Color> { baseMainColorBinding }
     
