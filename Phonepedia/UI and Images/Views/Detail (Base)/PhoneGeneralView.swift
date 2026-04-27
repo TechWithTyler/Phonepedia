@@ -38,6 +38,18 @@ struct PhoneGeneralView: View {
 
     // MARK: - Properties - Integers
 
+    var releaseYearRange: ClosedRange<Int> {
+        if phone.isCordless {
+            return oldestHandsetYear...currentYear
+        } else if phone.basePhoneType == 1 {
+            return oldestWiFiHandsetYear...currentYear
+        } else if phone.basePhoneType == 2 {
+            return oldestCellularHandsetYear...currentYear
+        } else {
+            return oldestPhoneYear...currentYear
+        }
+    }
+
     var phoneAcquisitionYearRange: ClosedRange<Int> {
         return phone.releaseYear...currentYear
     }
@@ -68,7 +80,7 @@ struct PhoneGeneralView: View {
 
     @ViewBuilder
     var basicsGroup: some View {
-        CountPicker("Release Year", selection: $phone.releaseYear, numberRange: oldestPhoneYear...currentYear, usesGroupingSeparator: false, unknownTitle: "Unknown")
+        CountPicker("Release Year", selection: $phone.releaseYear, numberRange: releaseYearRange, usesGroupingSeparator: false, unknownTitle: "Unknown")
             .onChange(of: phone.releaseYear) { oldValue, newValue in
                 phone.releaseYearChanged(oldValue: oldValue, newValue: newValue)
             }
@@ -139,6 +151,9 @@ struct PhoneGeneralView: View {
                 Text(Phone.PhoneType.corded.rawValue).tag(0)
                 Text(Phone.PhoneType.wiFiHandset.rawValue).tag(1)
                 Text(Phone.PhoneType.cellularHandset.rawValue).tag(2)
+            }
+            .onChange(of: phone.basePhoneType) { oldValue, newValue in
+                phone.basePhoneTypeChanged(oldValue: oldValue, newValue: newValue)
             }
         }
         if phone.isCordless || phone.basePhoneType == 0 {

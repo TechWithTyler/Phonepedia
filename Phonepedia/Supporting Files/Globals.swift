@@ -42,6 +42,12 @@ let oldestPhoneYear: Int = 1876
 // The earliest year of a cordless device, which is when the first cordless phones were sold.
 let oldestHandsetYear: Int = 1978
 
+// The earliest year of a cordless handset-style Wi-Fi handset.
+let oldestWiFiHandsetYear: Int = 2006
+
+// The earliest year of a cordless handset-style cellular handset.
+let oldestCellularHandsetYear: Int = 2008
+
 // The default maximum number of cordless devices.
 let defaultMaxCordlessDevices: Int = 5
 

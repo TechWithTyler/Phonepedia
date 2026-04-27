@@ -1642,8 +1642,19 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
         }
     }
 
+    func basePhoneTypeChanged(oldValue: Int, newValue: Int) {
+        if newValue == 1 && releaseYear < oldestWiFiHandsetYear {
+            releaseYear = oldestWiFiHandsetYear
+        } else if newValue == 2 && releaseYear < oldestCellularHandsetYear {
+            releaseYear = oldestCellularHandsetYear
+        }
+    }
+
     func isCordlessChanged(oldValue: Bool, newValue: Bool) {
         if newValue {
+            if releaseYear < oldestHandsetYear {
+                releaseYear = oldestHandsetYear
+            }
             if dialMode == 0 {
                 dialMode = 2
             }
