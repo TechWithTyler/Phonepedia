@@ -166,6 +166,8 @@ struct PhoneGeneralView: View {
             }
             InfoText("A phone that doubles as a smart home hub works as a smart home hub first, phone second, compared to a phone with smart home device capability which works as a phone first, smart home hub second, and lacks smartphone/tablet integration for smart home control.\nMany fax machines double as a phone. If a fax machine shares the same line as a phone, or it's a phone/fax, separate numbers can come in on a single line, with distinct ring patterns to distinguish a phone call from a fax call. Outgoing calls will always use the main number. Separate lines are necessary if the 2nd number must be used for outgoing faxes.")
         }
+        Toggle("Allows Slowing Down Incoming Phone Call Audio", isOn: $phone.canSlowDownIncomingAudio)
+        InfoText("Slowing down incoming audio during a call works by buffering the incoming audio as it's being received, then slowing down that buffered audio. Incoming audio might return to normal speed if the buffer can't keep up with the incoming audio stream.\nWith this feature enabled, incoming audio is about half a second old by the time it's played back due to the buffering and slowing down. The difference in timing can be heard if another phone is off-hook at the same time, or if you turn off the feature while audio is playing.")
         if phone.hasBaseAccessibleAnsweringSystem {
             Toggle("Has Voice-Guided Setup", isOn: $phone.voiceGuidedSetup)
             InfoText("Voice-guided setup gives the user spoken instructions to help them set up the phone, either when first plugging in the base or later by selecting a menu option/pressing a sequence of buttons.")

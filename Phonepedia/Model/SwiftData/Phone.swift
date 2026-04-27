@@ -425,6 +425,12 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
     // Whether the phone has an answering system. 0 = no, 1 = base only, 2 = handset only, 3 = base or handset.
     var hasAnsweringSystem: Int = 3
 
+    // Whether the phone allows slowing down the answering system message playback speed.
+    var canSlowDownMessagePlayback: Bool = false
+
+    // Whether the phone allows slowing down incoming audio in real time.
+    var canSlowDownIncomingAudio: Bool = false
+
     // Whether the phone has a voice-guided setup process.
     var voiceGuidedSetup: Bool = false
 

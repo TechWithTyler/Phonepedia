@@ -53,6 +53,8 @@ struct PhoneMessagingView: View {
                     InfoText("Multi-line phones either have separate play and answer on/off buttons for each line, or one play and answer on/off button as well as a button which selects the line(s) those buttons will use.")
                 }
             }
+            Toggle("Allows Slowing Down Message Playback", isOn: $phone.canSlowDownMessagePlayback)
+            InfoText("On a digital answering system, message playback can be slowed down without affecting the pitch. On a tape answering system, the tape is driven slower, resulting in not only slower playback speed but also lower pitch.")
             if phone.answeringSystemType == 1 {
                 Picker("All Message Deletion", selection: $phone.allMessageDeletion) {
                     if phone.hasAnsweringSystem == 2 {
