@@ -1111,7 +1111,7 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
         return frequency.isDECT
     }
 
-    // Whether the phone is corded/cordless, meaning the base is a corded phone and acts as a main transmitting base for cordless devices.
+    // Whether the phone is corded/cordless, meaning the base is a corded phone which acts as a main transmitting base for cordless devices.
     @Transient
     var isCordedCordless: Bool {
         return isCordless && hasCordedReceiver
