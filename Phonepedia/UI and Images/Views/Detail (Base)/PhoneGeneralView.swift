@@ -54,6 +54,12 @@ struct PhoneGeneralView: View {
         return phone.releaseYear...currentYear
     }
 
+    var maxCordlessDevicesRange: ClosedRange<Int> {
+        let minValue = phone.numberOfIncludedCordlessHandsets
+        let maxValue = phone.cordlessDeviceLinkingMethod == 4 ? 30 : 1
+        return minValue...maxValue
+    }
+
     // MARK: - Properties - Booleans
 
     @AppStorage(UserDefaults.KeyNames.phoneDescriptionTextSize) var phoneDescriptionTextSize: Double = SATextViewIdealMinFontSize
@@ -218,7 +224,7 @@ struct PhoneGeneralView: View {
                 }
             }
             if phone.cordlessDeviceLinkingMethod > 2 {
-                CountPicker("Maximum Number of Cordless Devices", selection: $phone.maxCordlessHandsets, oneTo: phone.cordlessDeviceLinkingMethod == 4 ? 30 : 1, singularSuffix: "Cordless Device", pluralSuffix: "Cordless Devices", unlimitedTitle: "Unlimited")
+                CountPicker("Maximum Number of Cordless Devices", selection: $phone.maxCordlessHandsets, numberRange: maxCordlessDevicesRange, singularSuffix: "Cordless Device", pluralSuffix: "Cordless Devices", unlimitedTitle: "Unlimited")
                     .onChange(of: phone.maxCordlessHandsets) { oldValue, newValue in
                         phone.maxCordlessHandsetsChanged(oldValue: oldValue, newValue: newValue)
                     }

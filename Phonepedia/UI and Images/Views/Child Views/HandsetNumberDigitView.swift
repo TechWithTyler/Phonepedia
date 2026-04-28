@@ -60,7 +60,7 @@ struct HandsetNumberDigitView: View {
                 .buttonStyle(.borderless)
             }
         }
-        InfoText("The selected digit will be highlighted or underlined in the model number in the phone list. If the last \"+\" or \"-\" is selected, and all the following characters are digits, they'll be highlighted/underlined. Select \"None\" if none of the digits in the model number are the number of included cordless handsets.")
+        InfoText("The selected digit will be highlighted or underlined in the model number in the phone list. If the last \"+\" or \"-\" is selected, and all the following characters make up a number less than 29 or 30, they'll be highlighted/underlined. Select \"None\" if none of the digits in the model number are the number of included cordless devices.")
     }
 
     // MARK: - Digit At Index

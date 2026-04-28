@@ -1721,9 +1721,6 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
         if newValue < 8 {
             hasAutoAttendantAndPersonalMailboxes = false
         }
-        if newValue + desksetHandsetCount < numberOfIncludedCordlessHandsets && newValue >= 1 {
-            numberOfIncludedCordlessHandsets = newValue
-        }
     }
 
     func frequencyChanged(oldValue: Double, newValue: Double) {
