@@ -73,7 +73,7 @@ struct HandsetDetailView: View {
                         .navigationBarTitleDisplayMode(.inline)
 #endif
                 } label: {
-                    Label("General", systemImage: "gearshape")
+                    Label(generalPageName, systemImage: "gearshape")
                 }
                 FormNavigationLink(phone: phone) {
                     HandsetPowerView(handset: handset)

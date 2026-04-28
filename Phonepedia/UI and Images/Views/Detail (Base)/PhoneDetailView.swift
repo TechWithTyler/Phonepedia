@@ -197,6 +197,11 @@ struct PhoneDetailView: View {
                 HStack {
                     Text("Backstory")
                     Spacer()
+                    HStack {
+                        Text("Edit")
+                        Image(systemName: "arrow.down")
+                    }
+                    .help("Go to the \(generalPageName) page to edit the backstory.")
                     Button("View") {
                         dialogManager.showPhoneBackstory(for: phone)
                     }
@@ -204,12 +209,12 @@ struct PhoneDetailView: View {
             }
             FormNavigationLink(phone: phone) {
                 PhoneGeneralView(phone: phone)
-                    .navigationTitle("General")
+                    .navigationTitle(generalPageName)
 #if !os(macOS)
                     .navigationBarTitleDisplayMode(.inline)
 #endif
             } label: {
-                Label("General", systemImage: "gearshape")
+                Label(generalPageName, systemImage: "gearshape")
             }
             if phone.basePhoneType == 0 {
                 FormNavigationLink(phone: phone) {
@@ -314,12 +319,12 @@ struct PhoneDetailView: View {
         Section("Lines/Cell Phone Linking") {
             FormNavigationLink(phone: phone) {
                 LandlineDetailView(phone: phone)
-                    .navigationTitle("Main Line")
+                    .navigationTitle(mainLinePageName)
 #if !os(macOS)
                     .navigationBarTitleDisplayMode(.inline)
 #endif
             } label: {
-                Label("Main Line", systemImage: "phone.connection")
+                Label(mainLinePageName, systemImage: "phone.connection")
             }
             if phone.isCordlessOrPushButtonDesk {
                 FormNavigationLink(phone: phone) {

@@ -490,10 +490,13 @@ struct PhoneListView: View {
     func updateDataIfNeeded() {
         // 1. For updates from version 2024.11, set the numbers of each phone/cordless device/charger to the corresponding index. This is done by checking to see if the phoneNumberInCollection property of all phones is 0 (auto-set default for updates from version 2024.11).
         updateCatalogForNumbering()
-        // 2. For updates from version 2025.11 or earlier, change the "unlimited max cordless devices" value from -1 to Int.max.
+        // 2. For updates from version 2025.11 or earlier, change the "unlimited max cordless devices" value from -1 to Int.max, and set the cordless device linking method for DECT phones.
         for phone in phones {
             if phone.maxCordlessHandsets == -1 {
                 phone.maxCordlessHandsets = .max
+            }
+            if phone.isDECTCordless {
+                phone.cordlessDeviceLinkingMethod = 4
             }
         }
     }

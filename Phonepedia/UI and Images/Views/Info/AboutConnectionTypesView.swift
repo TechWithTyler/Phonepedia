@@ -169,7 +169,7 @@ struct AboutConnectionTypesView: View {
                     Text("Early PBXs worked like switchboards but for a business' internal phone system. With switchboards and early PBX systems, an operator would connect the caller to the desired extension by plugging a cord into the correct jack, which would connect the caller to the extension. Modern PBXs automate the process and are sometimes called Private Automatic Branch Exchanges (PABX). However, since today's PBXs are automatic, they're usually just called PBXs.")
                     Text("Voicemail on a PBX is stored on the PBX itself or a module connected to it, and can be accessed by dialing a specific extension number. The mailbox number is usually the same as the extension number. For example, room \(NameNumberExamples.exampleHotelRoomNumber) in a hotel which requires a 7 before 3-digit room numbers would use mailbox 7\(NameNumberExamples.exampleHotelRoomNumber) for its voicemail.")
                 } label: {
-                    Text("PBX (Private Branch Exchange)")
+                    Text(pbxSectionName)
                 }
                 DisclosureGroup {
                     Text("A phone line simulator is a device that has 2 internal analog phone lines and is designed to simulate a central office (CO). Picking up a phone connected to one of the 2 internal lines will ring the other internal line after a few seconds or after a number is dialed. This is an ideal setup for testing or demonstrating phones as you don't have to worry about accidentally calling random numbers since the lines are all internal. A PBX's internal lines can also serve the same purpose, but PBXs often have different dial tones and ring cadences compared to a real line, which a phone line simulator replicates. A combination of a software-based PBX and 2 or more ATAs can also be used as a phone line simulator by configuring the software-based PBX and ATAs to simulate a real phone line/central office.")
@@ -204,7 +204,7 @@ struct AboutConnectionTypesView: View {
                     Text("Using Building Wiring Without Analog Lines")
                 }
             }
-            .navigationTitle("About Connection Types/Devices")
+            .navigationTitle(connectionTypesDialogTitle)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button {

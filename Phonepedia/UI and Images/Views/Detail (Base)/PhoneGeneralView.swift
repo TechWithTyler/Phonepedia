@@ -55,9 +55,7 @@ struct PhoneGeneralView: View {
     }
 
     var maxCordlessDevicesRange: ClosedRange<Int> {
-        let minValue = phone.numberOfIncludedCordlessHandsets
-        let maxValue = phone.cordlessDeviceLinkingMethod == 4 ? 30 : 1
-        return minValue...maxValue
+        return phone.cordlessDeviceLinkingMethod == 4 ? phone.numberOfIncludedCordlessHandsets...30 : 1...1
     }
 
     // MARK: - Properties - Booleans
