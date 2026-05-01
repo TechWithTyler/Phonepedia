@@ -94,6 +94,15 @@ struct ContentView: View {
         .sheet(isPresented: $dialogManager.showingAboutConnectionTypes) {
             AboutConnectionTypesView()
         }
+        .sheet(isPresented: $dialogManager.showingPhoneCount) {
+            PhoneCountView(phones: phones)
+        }
+        .sheet(isPresented: $dialogManager.showingPhoneCollectionAchievements) {
+            PhoneCollectionAchievementsView(phones: phones)
+        }
+        .sheet(isPresented: $dialogManager.showingTimeline) {
+            PhoneTimelineView(phones: phones)
+        }
         // iOS/visionOS settings view
         #if !os(macOS)
         .sheet(isPresented: $dialogManager.showingSettings) {

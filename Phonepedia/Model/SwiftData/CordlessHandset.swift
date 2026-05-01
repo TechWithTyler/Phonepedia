@@ -513,6 +513,14 @@ final class CordlessHandset: BaseHandsetChargerColorManipulatable, ChargeLightCo
 
     // MARK: - Properties - Transient (Non-Persistent) Properties
 
+    // The age of the cordless device.
+    @Transient
+    var age: String {
+        let age = currentYear - releaseYear
+        let yearsSingularOrPlural = age == 1 ? "year" : "years"
+        return "\(age) \(yearsSingularOrPlural)"
+    }
+
     // The text to display for the cordless device's type.
     @Transient
     var cordlessDeviceTypeText: String {

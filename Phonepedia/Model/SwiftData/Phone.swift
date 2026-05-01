@@ -842,6 +842,14 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
 
     // MARK: - Properties - Transient (Non-Persistent) Properties
 
+    // The age of the phone.
+    @Transient
+    var age: String {
+        let age = currentYear - releaseYear
+        let yearsSingularOrPlural = age == 1 ? "year" : "years"
+        return "\(age) \(yearsSingularOrPlural) old"
+    }
+
     @Transient
     var mainColorRed: Double {
         get { baseMainColorRed }

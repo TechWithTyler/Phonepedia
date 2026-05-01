@@ -96,6 +96,9 @@ class DialogManager: ObservableObject {
     // Whether the phone collection achievements sheet should be/is being displayed.
     @Published var showingPhoneCollectionAchievements: Bool = false
 
+    // Whether the timeline sheet should be/is being displayed.
+    @Published var showingTimeline: Bool = false
+
     // Whether the frequencies explanation sheet should be/is being displayed.
     @Published var showingFrequenciesExplanation: Bool = false
 

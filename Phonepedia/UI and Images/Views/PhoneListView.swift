@@ -66,9 +66,7 @@ struct PhoneListView: View {
             } else if phoneFilterEnabled {
                 noPhonesText
             } else {
-                Text("No phones")
-                    .font(.largeTitle)
-                    .foregroundStyle(.secondary)
+                ListEmptyView()
             }
         }
         .onAppear {
@@ -101,12 +99,6 @@ struct PhoneListView: View {
             }
         } message: { phone in
             Text("This \(phone.brand) \(phone.model) will be deleted from this catalog.")
-        }
-        .sheet(isPresented: $dialogManager.showingPhoneCount) {
-            PhoneCountView(phones: phones)
-        }
-        .sheet(isPresented: $dialogManager.showingPhoneCollectionAchievements) {
-            PhoneCollectionAchievementsView(phones: phones)
         }
         .alert("Delete all phones from this catalog?", isPresented: $dialogManager.showingDeleteAllPhones) {
             Button(role: .destructive) {
@@ -263,6 +255,7 @@ struct PhoneListView: View {
                 PhoneCollectionAchievementsButton()
                 PhoneCountButton()
                     .badge(phones.count)
+                PhoneTimelineButton()
                 Menu("Phone List Detail") {
                     PhoneListDetailOptions(menu: true)
                 }

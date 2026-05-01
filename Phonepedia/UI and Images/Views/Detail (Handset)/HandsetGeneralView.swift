@@ -61,6 +61,10 @@ struct HandsetGeneralView: View {
                 .onChange(of: handset.releaseYear) { oldValue, newValue in
                     handset.releaseYearChanged(oldValue: oldValue, newValue: newValue)
                 }
+            HStack {
+                Spacer()
+                Text(handset.age)
+            }
             CountPicker("Acquisition/Purchase Year", selection: $handset.acquisitionYear, numberRange: handsetAcquisitionYearRange, usesGroupingSeparator: false, unknownTitle: handsetAcquisitionYearRange.count == 1 ? nil : "I Don't Remember")
             Button("Set to Release Year") {
                 phone.setAcquisitionYearToReleaseYear()
