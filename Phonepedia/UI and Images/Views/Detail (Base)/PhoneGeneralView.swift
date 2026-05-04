@@ -55,7 +55,8 @@ struct PhoneGeneralView: View {
     }
 
     var maxCordlessDevicesRange: ClosedRange<Int> {
-        return phone.cordlessDeviceLinkingMethod == 4 ? phone.numberOfIncludedCordlessHandsets...30 : 1...1
+        let includedHandsets = phone.numberOfIncludedCordlessHandsets == 0 ? 1 : phone.numberOfIncludedCordlessHandsets
+        return phone.cordlessDeviceLinkingMethod == 4 ? includedHandsets...30 : 1...1
     }
 
     // MARK: - Properties - Booleans
@@ -129,7 +130,7 @@ struct PhoneGeneralView: View {
                 .padding()
                 .font(.system(size: phoneDescriptionTextSize))
         }
-        CountPicker("Number of Included Cordless Devices", selection: $phone.numberOfIncludedCordlessHandsets, numberRange: 1...30, singularSuffix: "Cordless Device", pluralSuffix: "Cordless Devices", noneTitle: "Not Cordless")
+        CountPicker("Number of Included Cordless Devices", selection: $phone.numberOfIncludedCordlessHandsets, numberRange: 1...30, singularSuffix: "Cordless Device", pluralSuffix: "Cordless Devices", noneTitle: phone.isOptionalCordless ? "None" : "Not Cordless")
             .disabled(phone.handsetNumberDigit != nil)
             .onChange(of: phone.numberOfIncludedCordlessHandsets) { oldValue, newValue in
                 phone.numberOfIncludedCordlessHandsetsChanged(oldValue: oldValue, newValue: newValue)
@@ -165,6 +166,10 @@ struct PhoneGeneralView: View {
             }
         }
         if phone.isCordless || phone.basePhoneType == 0 {
+            if (phone.isPushButtonCorded && phone.takesACPower) || (phone.isCordless && phone.numberOfIncludedCordlessHandsets == 0) {
+                Toggle("Cordless Devices Optional", isOn: $phone.isOptionalCordless)
+                InfoText("Some corded/cordless business phones come only with a corded base. Some require an adaptor to make it cordless.")
+            }
             Picker("Doubles As", selection: $phone.doublesAs) {
                 Text("None").tag(0)
                 Divider()

@@ -292,6 +292,9 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
     // The number of included cordless devices. 0 = not cordless, 1 or higher = cordless phone with X included cordless devices.
     var numberOfIncludedCordlessHandsets: Int = 2
 
+    // Whether the phone is a corded/cordless phone that doesn't come with cordless devices.
+    var isOptionalCordless: Bool = false
+
     // The digit in the model number which indicates the number of included cordless handsets.
     var handsetNumberDigit: Int? = 2
 
@@ -1092,10 +1095,10 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
         return (cordedPhoneType == 2 && dialLocation == 1) || cordedPhoneType == 4
     }
 
-    // Whether the phone is cordless, which is true if it came with 1 or more cordless devices (handsets/headsets/speakerphones).
+    // Whether the phone is cordless, which is true if it came with 1 or more cordless devices (handsets/headsets/speakerphones), or is a corded/cordless phone that didn't come with any cordless devices.
     @Transient
     var isCordless: Bool {
-        return numberOfIncludedCordlessHandsets > 0
+        return numberOfIncludedCordlessHandsets > 0 || isOptionalCordless
     }
 
     // Whether the phone is a digital cordless phone, which means signals are transmitted/received as digital data.
