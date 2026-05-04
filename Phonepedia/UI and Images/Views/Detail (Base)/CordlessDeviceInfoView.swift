@@ -246,7 +246,7 @@ struct CordlessDeviceInfoView: View {
                     }
                     Divider()
                     Button {
-                        duplicateCordlessDevice(handset)
+                        phone.duplicateCordlessDevice(handset)
                     } label: {
                         Label("Duplicate", systemImage: "doc.on.doc")
                     }
@@ -301,7 +301,7 @@ struct CordlessDeviceInfoView: View {
                 }
                 .contextMenu {
                     Button {
-                        duplicateCharger(charger)
+                        phone.duplicateCharger(charger)
                     } label: {
                         Label("Duplicate", systemImage: "doc.on.doc")
                     }
@@ -357,27 +357,10 @@ struct CordlessDeviceInfoView: View {
         phone.cordlessHandsetsIHave.append(newCordlessDevice)
     }
 
-    // This method creates a copy of cordlessDevice and adds it to the phone's cordlessHandsetsIHave array.
-    func duplicateCordlessDevice(_ cordlessDevice: CordlessHandset) {
-        // 1. Create a duplicate of handset and set its number.
-        let newCordlessDeviceNumber = sortedCordlessDevices.endIndex
-        let newCordlessDevice = cordlessDevice.duplicate()
-        newCordlessDevice.handsetNumber = newCordlessDeviceNumber
-            if newCordlessDevice.handsetNumber + 1 > phone.maxCordlessHandsets {
-                newCordlessDevice.registeredTo = 1
-            } else if newCordlessDeviceNumber + 1 < phone.maxCordlessHandsets && newCordlessDeviceNumber + 1 > phone.desksetHandsetCount {
-                newCordlessDevice.registeredTo = 0
-            }
-        // 2. Insert the duplicate handset at the end of the array.
-        phone.cordlessHandsetsIHave.append(newCordlessDevice)
-        // 3. Move the duplicate handset to after the original.
-        moveCordlessDevices(source: IndexSet(integer: newCordlessDeviceNumber), destination: cordlessDevice.actualHandsetNumber)
-    }
-
     // This method duplicates the last cordless device in the list.
     func duplicateLastCordlessDevice() {
         guard let lastCordlessDevice = sortedCordlessDevices.last else { return }
-        duplicateCordlessDevice(lastCordlessDevice)
+        phone.duplicateCordlessDevice(lastCordlessDevice)
     }
 
     // This method moves the cordless device being dragged from the current (source) index set to the new (destination) index by creating a copy of the phone's cordlessHandsetsIHave array, performing the move on that copy, then setting the handsetNumber property of the original's cordless devices.
@@ -429,22 +412,10 @@ struct CordlessDeviceInfoView: View {
         phone.chargersIHave.append(newCharger)
     }
 
-    // This method creates a copy of charger and adds it to the phone's chargersIHave array.
-    func duplicateCharger(_ charger: CordlessHandsetCharger) {
-        // 1. Create a duplicate of charger.
-        let newChargerNumber = sortedChargers.endIndex
-        let newCharger = charger.duplicate()
-        newCharger.chargerNumber = newChargerNumber
-        // 2. Insert the duplicate charger at the end of the array.
-        phone.chargersIHave.append(newCharger)
-        // 3. Move the duplicate charger to after the original.
-        moveChargers(source: IndexSet(integer: newChargerNumber), destination: charger.actualChargerNumber)
-    }
-
     // This method duplicates the last charger in the list.
     func duplicateLastCharger() {
         guard let lastCharger = sortedChargers.last else { return }
-        duplicateCharger(lastCharger)
+        phone.duplicateCharger(lastCharger)
     }
 
     // This method moves the charger being dragged from the current (source) index set to the new (destination) index by creating a copy of the phone's chargersIHave array, performing the move on that copy, then setting the chargerNumber property of the original's chargers.

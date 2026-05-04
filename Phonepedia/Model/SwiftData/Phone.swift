@@ -2094,4 +2094,46 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
         }
     }
 
+    // MARK: - Duplicate Cordless Device
+
+    func duplicateCordlessDevice(_ cordlessDevice: CordlessHandset) {
+        // 1. Make sure the cordless device to be duplicated belongs to this phone.
+        guard cordlessDevice.phone == self else { return }
+        // 2. Get the number of the cordless device to be duplicated.
+        let originalNumber = cordlessDevice.handsetNumber
+        // 3. Shift existing cordless devices after the original.
+        for cordlessDevice in cordlessHandsetsIHave {
+            if cordlessDevice.handsetNumber > originalNumber {
+                cordlessDevice.handsetNumber += 1
+            }
+        }
+        // 4. Create a duplicate and place it right after the original.
+        let newCordlessDevice = cordlessDevice.duplicate()
+        newCordlessDevice.handsetNumber = originalNumber + 1
+        // 5. Insert newCordlessDevice after handset in the array.
+        if let index = cordlessHandsetsIHave.firstIndex(where: { $0.id == cordlessDevice.id }) {
+            cordlessHandsetsIHave.insert(newCordlessDevice, at: index + 1)
+        }
+    }
+
+    func duplicateCharger(_ charger: CordlessHandsetCharger) {
+        // 1. Make sure the charger to be duplicated belongs to this phone.
+        guard charger.phone == self else { return }
+        // 2. Get the number of the charger to be duplicated.
+        let originalNumber = charger.chargerNumber
+        // 3. Shift existing chargers after the original.
+        for charger in chargersIHave {
+            if charger.chargerNumber > originalNumber {
+                charger.chargerNumber += 1
+            }
+        }
+        // 4. Create a duplicate and place it right after the original.
+        let newCharger = charger.duplicate()
+        newCharger.chargerNumber = originalNumber + 1
+        // 5. Insert newHandset after handset in the array.
+        if let index = chargersIHave.firstIndex(where: { $0.id == charger.id }) {
+            chargersIHave.insert(newCharger, at: index + 1)
+        }
+    }
+
 }
