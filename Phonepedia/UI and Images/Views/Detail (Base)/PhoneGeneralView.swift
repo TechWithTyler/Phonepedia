@@ -143,16 +143,20 @@ struct PhoneGeneralView: View {
                 }
                 phone.isCordlessChanged(oldValue: oldValue, newValue: newValue)
             }
-            .alert("Make this phone corded-only?", isPresented: $dialogManager.showingMakeCordedOnly) {
-                Button("OK") {
+            .alert("Specify that this phone is corded-only, or specify that cordless devices are optional?", isPresented: $dialogManager.showingMakeCordedOnly) {
+                Button("Corded-Only") {
                     phone.makeCordedOnly()
+                    dialogManager.showingMakeCordedOnly = false
+                }
+                Button("Cordless Devices Optional") {
+                    phone.makeCordlessDevicesOptional()
                     dialogManager.showingMakeCordedOnly = false
                 }
                 Button("Cancel", role: .cancel) {
                     dialogManager.showingMakeCordedOnly = false
                 }
             } message: {
-                Text("This will delete all cordless devices (\(phone.cordlessHandsetsIHave.count)) and chargers \(phone.chargersIHave.count)!")
+                Text("Specifying that this phone is corded-only will delete all cordless devices (\(phone.cordlessHandsetsIHave.count)) and chargers \(phone.chargersIHave.count)!")
             }
         InfoText("\"Cordless device\" refers to a cordless handset, cordless deskset, cordless headset, or cordless speakerphone.")
         if !phone.isCordless {
@@ -166,8 +170,11 @@ struct PhoneGeneralView: View {
             }
         }
         if phone.isCordless || phone.basePhoneType == 0 {
-            if (phone.isPushButtonCorded && phone.takesACPower) || (phone.isCordless && phone.numberOfIncludedCordlessHandsets == 0) {
+            if phone.numberOfIncludedCordlessHandsets == 0 {
                 Toggle("Cordless Devices Optional", isOn: $phone.isOptionalCordless)
+                    .onChange(of: phone.isOptionalCordless) { oldValue, newValue in
+                        phone.isOptionalCordlessChanged(oldValue: oldValue, newValue: newValue)
+                    }
                 InfoText("Some corded/cordless business phones come only with a corded base. Some require an adaptor to make it cordless.")
             }
             Picker("Doubles As", selection: $phone.doublesAs) {

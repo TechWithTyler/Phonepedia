@@ -1490,6 +1490,12 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
         numberOfIncludedCordlessHandsets = 0
     }
 
+    // This method makes cordless devices optional.
+    func makeCordlessDevicesOptional() {
+        numberOfIncludedCordlessHandsets = 0
+        isOptionalCordless = true
+    }
+
     // MARK: - Set Key Color To Main
 
     // This method sets the key background color to the main color.
@@ -1664,6 +1670,16 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
             releaseYear = oldestWiFiHandsetYear
         } else if newValue == 2 && releaseYear < oldestCellularHandsetYear {
             releaseYear = oldestCellularHandsetYear
+        }
+    }
+
+    func isOptionalCordlessChanged(oldValue: Bool, newValue: Bool) {
+        if newValue {
+            if cordedPowerSource < 2 {
+                cordedPowerSource = 2
+            }
+            cordedPhoneType = 0
+            cordedRingerType = 1
         }
     }
 
