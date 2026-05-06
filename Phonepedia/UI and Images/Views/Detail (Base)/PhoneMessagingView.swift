@@ -53,19 +53,21 @@ struct PhoneMessagingView: View {
                     InfoText("Multi-line phones either have separate play and answer on/off buttons for each line, or one play and answer on/off button as well as a button which selects the line(s) those buttons will use.")
                 }
             }
-            Toggle("Allows Slowing Down Message Playback", isOn: $phone.canSlowDownMessagePlayback)
-            InfoText("On a digital answering system, message playback can be slowed down without affecting the pitch. On a tape answering system, the tape is driven slower, resulting in not only slower playback speed but also lower pitch.")
-            if phone.answeringSystemType == 1 {
-                Picker("All Message Deletion", selection: $phone.allMessageDeletion) {
-                    if phone.hasAnsweringSystem == 2 {
-                        Text("Not Supported").tag(0)
-                        Divider()
+            if phone.hasAnsweringSystem > 0 {
+                Toggle("Allows Slowing Down Message Playback", isOn: $phone.canSlowDownMessagePlayback)
+                InfoText("On a digital answering system, message playback can be slowed down without affecting the pitch. On a tape answering system, the tape is driven slower, resulting in not only slower playback speed but also lower pitch.")
+                if phone.answeringSystemType == 1 {
+                    Picker("All Message Deletion", selection: $phone.allMessageDeletion) {
+                        if phone.hasAnsweringSystem == 2 {
+                            Text("Not Supported").tag(0)
+                            Divider()
+                        }
+                        Text("All Messages").tag(1)
+                        Text("All Old Messages").tag(2)
+                        Text("When No New").tag(3)
                     }
-                    Text("All Messages").tag(1)
-                    Text("All Old Messages").tag(2)
-                    Text("When No New").tag(3)
+                    InfoText("• All Messages: All messages are deleted.\n• All Old Messages: New messages aren't deleted.\n• When No New: Deleting all old messages is only possible when there are no new messages.")
                 }
-                InfoText("• All Messages: All messages are deleted.\n• All Old Messages: New messages aren't deleted.\n• When No New: Deleting all old messages is only possible when there are no new messages.")
             }
             if phone.hasAnsweringSystem > 0 && phone.baseBluetoothCellPhonesSupported > 0 && phone.answeringSystemType == 1 {
                 Toggle("Answering System For Cell Lines", isOn: $phone.answeringSystemForCellLines)
