@@ -1759,12 +1759,12 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
                 cordlessDeviceLinkingMethod = baseChargesHandset ? 3 : 2
             }
             if maxCordlessHandsets > 1 {
-                maxCordlessHandsets = -1
+                maxCordlessHandsets = Int.max
             }
             locatorButtons = 0
             deregistration = 1
         }
-        if isDECTCordless && cordlessDeviceLinkingMethod < 4 {
+        if isDECTCordless && (cordlessDeviceLinkingMethod != 1 || cordlessDeviceLinkingMethod != 4) {
             cordlessDeviceLinkingMethod = 4
         }
     }
@@ -2109,10 +2109,12 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
         }
         // 4. Create a duplicate and place it right after the original.
         let newCordlessDevice = cordlessDevice.duplicate()
-        newCordlessDevice.handsetNumber = originalNumber + 1
+        let newCordlessDeviceNumber = originalNumber + 1
+        newCordlessDevice.handsetNumber = newCordlessDeviceNumber
         // 5. Insert newCordlessDevice after handset in the array.
         if let index = cordlessHandsetsIHave.firstIndex(where: { $0.id == cordlessDevice.id }) {
-            cordlessHandsetsIHave.insert(newCordlessDevice, at: index + 1)
+            let newIndex = index + 1
+            cordlessHandsetsIHave.insert(newCordlessDevice, at: newIndex)
         }
     }
 
@@ -2129,10 +2131,12 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
         }
         // 4. Create a duplicate and place it right after the original.
         let newCharger = charger.duplicate()
-        newCharger.chargerNumber = originalNumber + 1
+        let newChargerNumber = originalNumber + 1
+        newCharger.chargerNumber = newChargerNumber
         // 5. Insert newHandset after handset in the array.
         if let index = chargersIHave.firstIndex(where: { $0.id == charger.id }) {
-            chargersIHave.insert(newCharger, at: index + 1)
+            let newIndex = index + 1
+            chargersIHave.insert(newCharger, at: newIndex)
         }
     }
 

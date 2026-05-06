@@ -216,14 +216,12 @@ struct PhoneGeneralView: View {
             if phone.frequency == 0 {
                 WarningText("You may not be able to specify certain features/aspects of this phone without knowing its frequency! Try looking up the wireless frequency and communication technology (whether it's analog or digital) of the \(phone.brand) \(phone.model) and select the correct option above.")
             }
-            if !phone.isDECTCordless {
                 Picker("Cordless Device Linking Method", selection: $phone.cordlessDeviceLinkingMethod) {
                     if phone.frequency == Phone.CordlessFrequency.analog1_7MHz.rawValue || phone.frequency == Phone.CordlessFrequency.analog1_7MHzOver46MHz.rawValue {
                         Text("Not Required (Insecure)").tag(0)
                     }
-                    if !phone.baseChargesHandset {
                         Text("Factory-Linked (Fixed)").tag(1)
-                    } else {
+                    if !phone.isDECTCordless {
                         if phone.maxCordlessHandsets == Int.max {
                             Text("Security Code (Switches)").tag(2)
                         }
@@ -236,6 +234,8 @@ struct PhoneGeneralView: View {
                 if phone.cordlessDeviceLinkingMethod == 3 && phone.maxCordlessHandsets == 1 {
                     InfoText("Placing a handset on the base changes the digital security code and \"invalidates\" the previous handset.")
                 }
+            if phone.cordlessDeviceLinkingMethod == 1 {
+                WarningText("If either the handset or base/add-on cordless adaptor breaks, you'll need to replace both the handset and base/cordless adaptor.")
             }
             if phone.cordlessDeviceLinkingMethod > 2 {
                 CountPicker("Maximum Number of Cordless Devices", selection: $phone.maxCordlessHandsets, numberRange: maxCordlessDevicesRange, singularSuffix: "Cordless Device", pluralSuffix: "Cordless Devices", unlimitedTitle: "Unlimited")
