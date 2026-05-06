@@ -9,6 +9,7 @@
 // MARK: - Imports
 
 import SwiftUI
+import SheftAppsStylishUI
 
 struct PhoneTimelineView: View {
 
@@ -20,18 +21,47 @@ struct PhoneTimelineView: View {
         return phones.sorted { $0.releaseYear < $1.releaseYear }
     }
 
+    var activePhones: [Phone] {
+        return sortedPhones.filter { $0.storageOrSetup <= 1 }
+    }
+
+    var enumeratedPhones: [EnumeratedSequence<[Phone]>.Element] {
+        let array = showOnlyActive ? activePhones : sortedPhones
+        return Array(array.enumerated())
+    }
+
     // MARK: - Properties - Dismiss Action
 
     @Environment(\.dismiss) var dismiss
 
+    // MARK: - Properties - Horizontal Size Class
+
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+
+    // MARK: - Properties - Integers
+
+    var lastIndex: Int {
+        let array = showOnlyActive ? activePhones : sortedPhones
+        return array.count - 1
+    }
+
+    // MARK: - Properties - Booleans
+
+    @State var showOnlyActive: Bool = false
+
+    var noPhones: Bool {
+        return showOnlyActive ? activePhones.isEmpty : sortedPhones.isEmpty
+    }
 
     // MARK: - Body
 
     var body: some View {
         NavigationStack {
-            ZStack {
-                if phones.isEmpty {
+            VStack {
+                Toggle("Show Only Active Phones", isOn: $showOnlyActive)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
+                    .padding(.horizontal)
+                if noPhones {
                     HStack {
                         Spacer()
                         ListEmptyView()
@@ -74,11 +104,8 @@ struct PhoneTimelineView: View {
 
     @ViewBuilder
     var timeline: some View {
-        ForEach(Array(sortedPhones.enumerated()), id: \.element.id) { index, phone in
-            TimelineRowView(
-                phone: phone,
-                isLast: index == sortedPhones.count - 1
-            )
+        ForEach(enumeratedPhones, id: \.element.id) { index, phone in
+            TimelineRowView(phone: phone, isLast: index == lastIndex)
         }
     }
 
