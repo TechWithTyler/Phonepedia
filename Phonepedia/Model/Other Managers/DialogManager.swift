@@ -129,6 +129,15 @@ class DialogManager: ObservableObject {
         showingDeletePhone = true
     }
 
+    func checkForCordlessDevices(phone: Phone, newIsCordlessValue newValue: Bool) -> Bool {
+        if !newValue && (!phone.cordlessHandsetsIHave.isEmpty || !phone.chargersIHave.isEmpty) {
+            showingMakeCordedOnly = true
+            return true
+        } else {
+            return false
+        }
+    }
+
     func showUpdateCordlessDevicePlaceInCollection(phone: Phone) {
         guard phone.isCordless else { return }
         showingUpdateCordlessDevicePlaceInCollection = true

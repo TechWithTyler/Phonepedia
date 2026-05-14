@@ -136,12 +136,9 @@ struct PhoneGeneralView: View {
                 phone.numberOfIncludedCordlessHandsetsChanged(oldValue: oldValue, newValue: newValue)
             }
             .onChange(of: phone.isCordless) { oldValue, newValue in
-                if !newValue && (!phone.cordlessHandsetsIHave.isEmpty || !phone.chargersIHave.isEmpty) {
-                    dialogManager.showingMakeCordedOnly = true
-                    phone.numberOfIncludedCordlessHandsets = 1
-                    return
+                if !dialogManager.checkForCordlessDevices(phone: phone, newIsCordlessValue: newValue) {
+                    phone.isCordlessChanged(oldValue: oldValue, newValue: newValue)
                 }
-                phone.isCordlessChanged(oldValue: oldValue, newValue: newValue)
             }
             .alert("Specify that this phone is corded-only, or specify that cordless devices are optional?", isPresented: $dialogManager.showingMakeCordedOnly) {
                 Button("Corded-Only") {
@@ -152,7 +149,8 @@ struct PhoneGeneralView: View {
                     phone.makeCordlessDevicesOptional()
                     dialogManager.showingMakeCordedOnly = false
                 }
-                Button("Cancel", role: .cancel) {
+                Button("Cordless Devices Included", role: .cancel) {
+                    phone.makeCordlessDevicesIncluded()
                     dialogManager.showingMakeCordedOnly = false
                 }
             } message: {
@@ -200,7 +198,9 @@ struct PhoneGeneralView: View {
     @ViewBuilder
     var cordlessBasicsGroup: some View {
         Group {
-            HandsetNumberDigitView(phone: phone)
+            if !phone.isOptionalCordless {
+                HandsetNumberDigitView(phone: phone)
+            }
             Picker("Frequency", selection: $phone.frequency) {
                 ForEach(Phone.CordlessFrequency.allCases) { frequency in
                     if frequency.rawValue < 0 {

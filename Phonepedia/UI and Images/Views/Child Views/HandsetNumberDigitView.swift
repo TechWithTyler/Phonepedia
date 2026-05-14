@@ -60,7 +60,7 @@ struct HandsetNumberDigitView: View {
                 .buttonStyle(.borderless)
             }
         }
-        InfoText("The selected digit will be highlighted or underlined in the model number in the phone list. If the last \"+\" or \"-\" is selected, and all the following characters make up a number less than 29 or 30, they'll be highlighted/underlined. Select \"None\" if none of the digits in the model number are the number of included cordless devices.")
+        InfoText("The selected digit will be highlighted or underlined in the model number in the phone list. If the last \"+\" or \"-\" is selected, and all the following characters make up a number less than 29 or 30, they'll be highlighted/underlined. Select \"None\" if:\n• None of the digits of the model number indicate the number of included cordless devices.\n•One of the digits indirectly indicates the number of included cordless devices (i.e. higher digit indicates more included cordless devices but isn't that number of cordless devices). Example: M546 includes 1 cordless device and M547 includes 2.")
     }
 
     // MARK: - Digit At Index

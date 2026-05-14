@@ -1496,6 +1496,12 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
         isOptionalCordless = true
     }
 
+    // This method makes cordless devices included.
+    func makeCordlessDevicesIncluded() {
+        numberOfIncludedCordlessHandsets = 1
+        isOptionalCordless = false
+    }
+
     // MARK: - Set Corded Receiver Colors to Base Colors
 
     // This method sets the corded receiver outer color to the main color.
@@ -1755,7 +1761,10 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
     }
 
     func numberOfIncludedCordlessHandsetsChanged(oldValue: Int, newValue: Int) {
-        if newValue > maxCordlessHandsets && maxCordlessHandsets != -1 {
+        if newValue > 0 && isOptionalCordless {
+            isOptionalCordless = false
+        }
+        if newValue > maxCordlessHandsets {
             maxCordlessHandsets = newValue
         }
     }
