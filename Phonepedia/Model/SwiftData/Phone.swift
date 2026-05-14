@@ -1509,6 +1509,7 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
         cordedReceiverMainColorRed = baseMainColorRed
         cordedReceiverMainColorGreen = baseMainColorGreen
         cordedReceiverMainColorBlue = baseMainColorBlue
+        cordedReceiverMainColorAlpha = 1
     }
 
     // This method sets the corded receiver inner color to the secondary color.

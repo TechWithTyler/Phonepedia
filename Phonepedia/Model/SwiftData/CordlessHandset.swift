@@ -795,6 +795,7 @@ final class CordlessHandset: BaseHandsetChargerColorManipulatable, ChargeLightCo
         cordedReceiverMainColorRed = mainColorRed
         cordedReceiverMainColorGreen = mainColorGreen
         cordedReceiverMainColorBlue = mainColorBlue
+        cordedReceiverMainColorAlpha = 1
     }
 
     // This method sets the corded receiver inner color to the secondary color.
