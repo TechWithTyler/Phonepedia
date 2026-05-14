@@ -788,7 +788,30 @@ final class CordlessHandset: BaseHandsetChargerColorManipulatable, ChargeLightCo
         acquisitionYear = releaseYear
     }
 
-    // MARK: - Set Key Background Color To Main
+    // MARK: - Set Corded Receiver Colors to Deskset Colors
+
+    // This method sets the corded receiver outer color to the main color.
+    func setCordedReceiverOuterColorToMain() {
+        cordedReceiverMainColorRed = mainColorRed
+        cordedReceiverMainColorGreen = mainColorGreen
+        cordedReceiverMainColorBlue = mainColorBlue
+    }
+
+    // This method sets the corded receiver inner color to the secondary color.
+    func setCordedReceiverInnerColorToSecondary() {
+        cordedReceiverSecondaryColorRed = secondaryColorRed
+        cordedReceiverSecondaryColorGreen = secondaryColorGreen
+        cordedReceiverSecondaryColorBlue = secondaryColorBlue
+    }
+
+    // This method sets the corded receiver accent color to the deskset accent color.
+    func setCordedReceiverAccentColorToDesksetAccent() {
+        cordedReceiverAccentColorRed = accentColorRed
+        cordedReceiverAccentColorGreen = accentColorGreen
+        cordedReceiverAccentColorBlue = accentColorBlue
+    }
+
+    // MARK: - Set Key Background Color to Main
 
     // This method sets the key background color to the main color.
     func setKeyBackgroundColorToMain() {

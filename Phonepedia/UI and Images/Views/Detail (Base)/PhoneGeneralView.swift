@@ -180,11 +180,14 @@ struct PhoneGeneralView: View {
             Picker("Doubles As", selection: $phone.doublesAs) {
                 Text("None").tag(0)
                 Divider()
-                Text("Smart Home Hub").tag(1)
-                Text("Fax/Copier").tag(2)
-                Text("Printer With Fax").tag(3)
+                if phone.isCordless {
+                    Text("Smart Home Hub").tag(1)
+                    Text("Modem/Router").tag(2)
+                }
+                Text("Fax/Copier").tag(3)
+                Text("Printer With Fax").tag(4)
             }
-            InfoText("A phone that doubles as a smart home hub works as a smart home hub first, phone second, compared to a phone with smart home device capability which works as a phone first, smart home hub second, and lacks smartphone/tablet integration for smart home control.\nMany fax machines double as a phone. If a fax machine shares the same line as a phone, or it's a phone/fax, separate numbers can come in on a single line, with distinct ring patterns to distinguish a phone call from a fax call. Outgoing calls will always use the main number. Separate lines are necessary if the 2nd number must be used for outgoing faxes.")
+            InfoText("A cordless phone that doubles as a smart home hub works as a smart home hub first, cordless phone second, compared to a phone with smart home device capability which works as a phone first, smart home hub second, and lacks smartphone/tablet integration for smart home control.\nSome modem/router combos have built-in support for registering cordless handsets, combining the modem, router, and a transmit-only base into a single device.\nMany fax machines double as a phone. If a fax machine shares the same line as a phone, or it's a phone/fax, separate numbers can come in on a single line, with distinct ring patterns to distinguish a phone call from a fax call. Outgoing calls will always use the main number. Separate lines are necessary if the 2nd number must be used for outgoing faxes.")
         }
         Toggle("Allows Slowing Down Incoming Phone Call Audio", isOn: $phone.canSlowDownIncomingAudio)
         InfoText("Slowing down incoming audio during a call works by buffering the incoming audio as it's being received, then slowing down that buffered audio. Incoming audio might return to normal speed if the buffer can't keep up with the incoming audio stream.\nWith this feature enabled, incoming audio is about half a second old by the time it's played back due to the buffering and slowing down. The difference in timing can be heard if another phone is off-hook at the same time, or if you turn off the feature while audio is playing.")

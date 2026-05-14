@@ -1496,7 +1496,30 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
         isOptionalCordless = true
     }
 
-    // MARK: - Set Key Color To Main
+    // MARK: - Set Corded Receiver Colors to Base Colors
+
+    // This method sets the corded receiver outer color to the main color.
+    func setCordedReceiverOuterColorToMain() {
+        cordedReceiverMainColorRed = baseMainColorRed
+        cordedReceiverMainColorGreen = baseMainColorGreen
+        cordedReceiverMainColorBlue = baseMainColorBlue
+    }
+
+    // This method sets the corded receiver inner color to the secondary color.
+    func setCordedReceiverInnerColorToSecondary() {
+        cordedReceiverSecondaryColorRed = baseSecondaryColorRed
+        cordedReceiverSecondaryColorGreen = baseSecondaryColorGreen
+        cordedReceiverSecondaryColorBlue = baseSecondaryColorBlue
+    }
+
+    // This method sets the corded receiver accent color to the base accent color.
+    func setCordedReceiverAccentColorToBaseAccent() {
+        cordedReceiverAccentColorRed = baseAccentColorRed
+        cordedReceiverAccentColorGreen = baseAccentColorGreen
+        cordedReceiverAccentColorBlue = baseAccentColorBlue
+    }
+
+    // MARK: - Set Key Color to Main
 
     // This method sets the key background color to the main color.
     func setKeyBackgroundColorToMain() {
@@ -1505,7 +1528,7 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
         baseKeyBackgroundColorBlue = baseMainColorBlue
     }
 
-    // MARK: - Set Key Backlight Color To Display Backlight and Vice Versa
+    // MARK: - Set Key Backlight Color to Display Backlight and Vice Versa
 
     // This method sets the key backlight color to the display backlight color.
     func setKeyBacklightColorToDisplayBacklight() {
@@ -1705,6 +1728,9 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
             }
             basePhoneType = 0
         } else {
+            if doublesAs > 0 && doublesAs < 3 {
+                doublesAs = 0
+            }
             if cordedPowerSource == 0 && requiresACPowerOrBatteriesForVoicemailIndication {
                 voicemailIndication = 0
             }
