@@ -178,9 +178,10 @@ struct PhoneGeneralView: View {
             Picker("Doubles As", selection: $phone.doublesAs) {
                 Text("None").tag(0)
                 Divider()
-                if phone.isCordless {
+                if phone.isCordless && !phone.hasCordedReceiver {
                     Text("Smart Home Hub").tag(1)
                     Text("Modem/Router").tag(2)
+                    Divider()
                 }
                 Text("Fax/Copier").tag(3)
                 Text("Printer With Fax").tag(4)

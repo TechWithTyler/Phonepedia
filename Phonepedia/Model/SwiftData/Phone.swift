@@ -1734,9 +1734,6 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
             }
             basePhoneType = 0
         } else {
-            if doublesAs > 0 && doublesAs < 3 {
-                doublesAs = 0
-            }
             if cordedPowerSource == 0 && requiresACPowerOrBatteriesForVoicemailIndication {
                 voicemailIndication = 0
             }
@@ -2025,6 +2022,9 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
 
     func cordedReceiverColorChanged(oldValue: Color, newValue: Color) {
         if newValue != .clear {
+            if doublesAs > 0 && doublesAs < 3 {
+                doublesAs = 0
+            }
             for handset in cordlessHandsetsIHave {
                 handset.fitsOnBase = false
             }
