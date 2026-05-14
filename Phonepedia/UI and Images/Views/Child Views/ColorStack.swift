@@ -62,9 +62,9 @@ let platformColor = UIColor(color)
                         .stroke(.primary, lineWidth: 1)
                 )
                 .frame(width: 20, height: 20)
-
-            if !allColorsMatch {
-                Text(String(label.first!))
+            if let labelFirstCharacter = label.first, !allColorsMatch {
+                let charString = String(labelFirstCharacter)
+                Text(charString)
                     .font(.system(size: 15, weight: .bold))
                     .foregroundStyle(isDark ? .white : .black)
             }
