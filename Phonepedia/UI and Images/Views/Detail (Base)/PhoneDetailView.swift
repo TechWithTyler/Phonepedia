@@ -197,11 +197,6 @@ struct PhoneDetailView: View {
                 HStack {
                     Text("Backstory")
                     Spacer()
-                    HStack {
-                        Text("Edit")
-                        Image(systemName: "arrow.down")
-                    }
-                    .help("Go to the \(generalPageName) page to edit the backstory.")
                     Button("View") {
                         dialogManager.showPhoneBackstory(for: phone)
                     }
