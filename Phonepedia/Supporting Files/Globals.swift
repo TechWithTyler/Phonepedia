@@ -41,7 +41,7 @@ let chargerMissingPhoneText: String = "This charger's phone assignment is missin
 
 // MARK: - Properties - Integers
 
-// The current year to use as the default value of a phone or cordless device's release year/acquisition year.
+// The current year to use as the default value of a phone or cordless device's release year. The default acquisition year is set to the previous year as of version 2026.3 to prevent the "acquired in year of release" achievement alert from appearing upon adding a new phone.
 let currentYear = Calendar.current.component(.year, from: Date())
 
 // The earliest year of a phone, which is when Alexander Graham Bell invented the phone.

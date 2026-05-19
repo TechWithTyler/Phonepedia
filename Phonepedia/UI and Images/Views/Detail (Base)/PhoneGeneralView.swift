@@ -444,11 +444,6 @@ In most cases, if the base has a charge light/display message, the completion of
             }
             InfoText("Slim/wall phones with the ringer/electronics in the receiver use the base only for hanging up the phone and plugging in cords.")
         }
-        if phone.grade == 0 && phone.isCordlessOrPushButtonDesk {
-            Toggle("Supports PBX-Style Features Without PBX", isOn: $phone.supportsPBXFeatures)
-            InfoText("Some small-business phones can communicate with other compatible phones on the same line without a PBX. Each phone sends and receives audio signals on specific frequency bands over the analog line (think analog wireless but wired), allowing them to detect calls or intercom requests from each other. This provides PBX-like features such as intercom, even without a PBX. Extension numbers are set manually on each phone.\nThe more distance between phones, the weaker the signal can get, which can prevent these features from working.\nThis isn't necessary for cordless phones unless more handsets are needed than a single base can support, as most multi-handset systems already have these features. In both cases, going off-hook picks up an outside line, not an internal line.")
-
-        }
         if phone.cordedPhoneType == 0 {
             Toggle("Has Dual Receivers", isOn: $phone.hasDualReceivers)
             InfoText("A corded phone with dual receivers allows 2 people to use the phone at the same time without having to connect 2 separate phones to the same line. These kinds of phones are often used by those requiring a language interpreter.")
@@ -476,6 +471,11 @@ In most cases, if the base has a charge light/display message, the completion of
 
     @ViewBuilder
     var cordedCordlessGroup: some View {
+        if phone.grade == 0 && phone.isCordlessOrPushButtonDesk {
+            Toggle("Supports PBX-Style Features Without PBX", isOn: $phone.supportsPBXFeatures)
+            InfoText("Some small-business phones can communicate with other compatible phones on the same line without a PBX. Each phone sends and receives audio signals on specific frequency bands over the analog line (think analog wireless but wired), allowing them to detect calls or intercom requests from each other. This provides PBX-like features such as intercom, even without a PBX. The audio frequencies used for this communication are above the audible range. Extension numbers are set manually on each phone.\nThe more distance between phones, the weaker the signal can get, which can prevent these features from working.\nThis isn't necessary for multi-handset cordless phones unless more handsets are needed than a single base can support, as most multi-handset systems already have these features. In both cases, going off-hook picks up an outside line, not an internal line.")
+
+        }
         if (phone.isPushButtonCorded && phone.cordedPhoneType != 4) || phone.isCordedCordless {
             Picker("Earpiece Type", selection: $phone.cordedReceiverEarpieceType) {
                 Text("Standard").tag(0)

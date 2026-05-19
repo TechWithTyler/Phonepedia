@@ -41,6 +41,9 @@ struct BaseSpeakerphoneIntercomView: View {
         }
         if phone.isCordless {
             Section("Multi-Device Calls") {
+                if phone.supportsPBXFeatures {
+                    InfoText("The options in this section pertain to this phone and its cordless devices, not communication between other compatible phones on the same line.")
+                }
                 if phone.hasBaseSpeakerphone && phone.baseChargesHandset {
                     Toggle("Supports Pick Up to Switch", isOn: $phone.hasPickUpToSwitch)
                     InfoText("During a call on the base speakerphone with the handset placed on the base, you can pick up the handset to switch from the base speakerphone to the handset. This works in one of 3 ways:\n• If the base and handset both have 3 contacts (i.e., 2 charging contacts and a data contact), the call is immediately switched from the base to the handset since the presence of a call is passed through that data contact. The call will only switch over once the handset links to the base.\n• Through the charging contacts, the base detects that a handset is placed on it. When the handset is picked up, it links to the base, which then accepts the switchover since it's on speakerphone. If a handset is picked up from a charger (or a base it's not registered to), the handset will unlink and the call won't be switched, unless another handset is also being picked up from the base.\n• Through the charging contacts, both the base and handset detect that the handset is placed on the base, and picking up the handset switches the call to the handset. If the handset doesn't have a link to the base, an error tone may sound/an error message may be displayed and the call won't switch over.\nThe call will only switch over once the handset links to the base.")
