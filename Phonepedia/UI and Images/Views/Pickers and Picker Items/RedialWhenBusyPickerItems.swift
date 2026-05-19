@@ -16,6 +16,7 @@ struct RedialWhenBusyPickerItems: View {
 
     var body: some View {
         Text("Not Supported").tag(0)
+        Divider()
         Text("Press Redial Button").tag(1)
         Text("Auto-Redial").tag(2)
     }

@@ -20,21 +20,24 @@ struct NavigationButtonExampleView: View {
     // Whether the center button should be displayed.
     let showCenterButton: Bool
 
-    // Whether the navigation button is a joystick, which is represented by showing the center button as a circle in a circle.
+    // Whether the navigation button is a joystick, which is represented by showing the center as a circle in a circle.
     let isJoystick: Bool
 
     // MARK: - Properties - Floats
 
-    var upDownSpacing: CGFloat {
+    // The vertical spacing between the up and down arrows (up arrow, left arrow/center circle/right arrow horizontal stack, and down arrow if the center button and/or left/right arrows are shown).
+    var upDownVerticalSpacing: CGFloat {
         return showCenterButton || showLeftRight ? 15 : 20
     }
 
-    var leftCenterRightSpacing: CGFloat {
+    // The horizontal spacing between the left arrow, center circle, and right arrow.
+    var leftCenterRightHorizontalSpacing: CGFloat {
         return showCenterButton || isJoystick ? 15 : 50
     }
 
     // MARK: - Properties - Colors
 
+    // The color of the outer shape.
     let shapeColor: Color = .secondary.opacity(0.15)
 
     // MARK: - Body
@@ -44,10 +47,10 @@ struct NavigationButtonExampleView: View {
             Text("Navigation Button Example")
             ZStack {
                 shape
-                VStack(spacing: upDownSpacing) {
+                VStack(spacing: upDownVerticalSpacing) {
                     Image(systemName: "arrowtriangle.up.fill")
                         .accessibilityLabel("Up")
-                    HStack(alignment: .center, spacing: leftCenterRightSpacing) {
+                    HStack(alignment: .center, spacing: leftCenterRightHorizontalSpacing) {
                         if showLeftRight {
                             Image(systemName: "arrowtriangle.left.fill")
                                 .accessibilityLabel("Left")

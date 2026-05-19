@@ -31,11 +31,14 @@ extension Phone {
         // MARK: - Phone Type Definitions
         
         struct DictionaryEntry: Identifiable {
-            
+
+            // The ID of the dictionary entry.
             let id: UUID = UUID()
-            
+
+            // The term of the dictionary entry.
             let term: String
-            
+
+            // The definition of the dictionary entry.
             let definition: String
             
             init(_ term: String, definition: String) {

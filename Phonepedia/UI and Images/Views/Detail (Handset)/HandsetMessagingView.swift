@@ -41,6 +41,7 @@ struct HandsetMessagingView: View {
                 Section("Voicemail") {
                     Picker("Voicemail Quick Dial", selection: $handset.voicemailQuickDial) {
                         Text("None").tag(0)
+                        Divider()
                         Text("Button").tag(1)
                         Text("Speed Dial 1").tag(2)
                         if handset.displayType > 0 {

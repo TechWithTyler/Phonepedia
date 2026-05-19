@@ -37,6 +37,9 @@ class DialogManager: ObservableObject {
     // The cordless device to be reassigned to a different phone.
     @Published var handsetToReassign: CordlessHandset? = nil
 
+    // The phone whose backstory to show.
+    @Published var phoneToShowBackstory: Phone? = nil
+
     // MARK: - Properties - Booleans
 
     // Whether the "move failed" alert should be/is being displayed.
@@ -81,6 +84,9 @@ class DialogManager: ObservableObject {
     // Whether the "delete all chargers" alert should be/is being displayed.
     @Published var showingDeleteAllChargers: Bool = false
 
+    // Whether the phone backstory sheet should be/is being displayed.
+    @Published var showingPhoneBackstory: Bool = false
+
     // Whether the "make corded-only" alert should be/is being displayed.
     @Published var showingMakeCordedOnly: Bool = false
 
@@ -89,6 +95,9 @@ class DialogManager: ObservableObject {
 
     // Whether the phone collection achievements sheet should be/is being displayed.
     @Published var showingPhoneCollectionAchievements: Bool = false
+
+    // Whether the timeline sheet should be/is being displayed.
+    @Published var showingTimeline: Bool = false
 
     // Whether the frequencies explanation sheet should be/is being displayed.
     @Published var showingFrequenciesExplanation: Bool = false
@@ -120,7 +129,17 @@ class DialogManager: ObservableObject {
         showingDeletePhone = true
     }
 
+    func checkForCordlessDevices(phone: Phone, newIsCordlessValue newValue: Bool) -> Bool {
+        if !newValue && (!phone.cordlessHandsetsIHave.isEmpty || !phone.chargersIHave.isEmpty) {
+            showingMakeCordedOnly = true
+            return true
+        } else {
+            return false
+        }
+    }
+
     func showUpdateCordlessDevicePlaceInCollection(phone: Phone) {
+        guard phone.isCordless else { return }
         showingUpdateCordlessDevicePlaceInCollection = true
         phoneToUpdateCordlessDevicePlaceInCollection = phone
     }
@@ -140,6 +159,11 @@ class DialogManager: ObservableObject {
         showingReassignHandset = true
     }
 
+    func showPhoneBackstory(for phone: Phone) {
+        showingPhoneBackstory = true
+        phoneToShowBackstory = phone
+    }
+
     // MARK: - Dismiss Dialog
 
     func dismissDeleteHandset() {
@@ -150,6 +174,11 @@ class DialogManager: ObservableObject {
     func dismissDeleteCharger() {
         chargerToDelete = nil
         showingDeleteCharger = false
+    }
+
+    func dismissPhoneBackstory() {
+        phoneToShowBackstory = nil
+        showingPhoneBackstory = false
     }
 
 }

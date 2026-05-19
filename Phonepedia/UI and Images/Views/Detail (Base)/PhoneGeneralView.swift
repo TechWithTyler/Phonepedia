@@ -38,8 +38,25 @@ struct PhoneGeneralView: View {
 
     // MARK: - Properties - Integers
 
+    var releaseYearRange: ClosedRange<Int> {
+        if phone.isCordless {
+            return oldestHandsetYear...currentYear
+        } else if phone.basePhoneType == 1 {
+            return oldestWiFiHandsetYear...currentYear
+        } else if phone.basePhoneType == 2 {
+            return oldestCellularHandsetYear...currentYear
+        } else {
+            return oldestPhoneYear...currentYear
+        }
+    }
+
     var phoneAcquisitionYearRange: ClosedRange<Int> {
         return phone.releaseYear...currentYear
+    }
+
+    var maxCordlessDevicesRange: ClosedRange<Int> {
+        let includedHandsets = phone.numberOfIncludedCordlessHandsets == 0 ? 1 : phone.numberOfIncludedCordlessHandsets
+        return phone.cordlessDeviceLinkingMethod == 4 ? includedHandsets...30 : 1...1
     }
 
     // MARK: - Properties - Booleans
@@ -68,10 +85,14 @@ struct PhoneGeneralView: View {
 
     @ViewBuilder
     var basicsGroup: some View {
-        CountPicker("Release Year", selection: $phone.releaseYear, numberRange: oldestPhoneYear...currentYear, usesGroupingSeparator: false, unknownTitle: "Unknown")
+        CountPicker("Release Year", selection: $phone.releaseYear, numberRange: releaseYearRange, usesGroupingSeparator: false, unknownTitle: "Unknown")
             .onChange(of: phone.releaseYear) { oldValue, newValue in
                 phone.releaseYearChanged(oldValue: oldValue, newValue: newValue)
             }
+        HStack {
+            Spacer()
+            Text(phone.age)
+        }
         CountPicker("Acquisition/Purchase Year", selection: $phone.acquisitionYear, numberRange: phoneAcquisitionYearRange, usesGroupingSeparator: false, unknownTitle: phoneAcquisitionYearRange.count == 1 ? nil : "I Don't Remember")
         Button("Set to Release Year") {
             phone.setAcquisitionYearToReleaseYear()
@@ -103,35 +124,37 @@ struct PhoneGeneralView: View {
         VStack {
             Text("Write more about your phone (e.g., the story behind why you got it, when/where you got it, whether you had to replace broken parts) in the text area below.\nExample: \"\(phoneDescriptionSampleText)\"")
                 .lineLimit(nil)
-            Stepper("Font Size: \(Int(phoneDescriptionTextSize))", value: $phoneDescriptionTextSize)
+            Stepper("Font Size: \(Int(phoneDescriptionTextSize))pt", value: $phoneDescriptionTextSize)
             ContrastingTextEditor(text: $phone.phoneDescription)
                 .frame(minHeight: 300)
                 .padding()
                 .font(.system(size: phoneDescriptionTextSize))
         }
-        CountPicker("Number of Included Cordless Devices", selection: $phone.numberOfIncludedCordlessHandsets, numberRange: 1...30, singularSuffix: "Cordless Device", pluralSuffix: "Cordless Devices", noneTitle: "Not Cordless")
+        CountPicker("Number of Included Cordless Devices", selection: $phone.numberOfIncludedCordlessHandsets, numberRange: 1...30, singularSuffix: "Cordless Device", pluralSuffix: "Cordless Devices", noneTitle: phone.isOptionalCordless ? "None" : "Not Cordless")
             .disabled(phone.handsetNumberDigit != nil)
             .onChange(of: phone.numberOfIncludedCordlessHandsets) { oldValue, newValue in
                 phone.numberOfIncludedCordlessHandsetsChanged(oldValue: oldValue, newValue: newValue)
             }
             .onChange(of: phone.isCordless) { oldValue, newValue in
-                if !newValue && (!phone.cordlessHandsetsIHave.isEmpty || !phone.chargersIHave.isEmpty) {
-                    dialogManager.showingMakeCordedOnly = true
-                    phone.numberOfIncludedCordlessHandsets = 1
-                    return
+                if !dialogManager.checkForCordlessDevices(phone: phone, newIsCordlessValue: newValue) {
+                    phone.isCordlessChanged(oldValue: oldValue, newValue: newValue)
                 }
-                phone.isCordlessChanged(oldValue: oldValue, newValue: newValue)
             }
-            .alert("Make this phone corded-only?", isPresented: $dialogManager.showingMakeCordedOnly) {
-                Button("OK") {
+            .alert("Specify that this phone is corded-only, or specify that cordless devices are optional?", isPresented: $dialogManager.showingMakeCordedOnly) {
+                Button("Corded-Only") {
                     phone.makeCordedOnly()
                     dialogManager.showingMakeCordedOnly = false
                 }
-                Button("Cancel", role: .cancel) {
+                Button("Cordless Devices Optional") {
+                    phone.makeCordlessDevicesOptional()
+                    dialogManager.showingMakeCordedOnly = false
+                }
+                Button("Cordless Devices Included", role: .cancel) {
+                    phone.makeCordlessDevicesIncluded()
                     dialogManager.showingMakeCordedOnly = false
                 }
             } message: {
-                Text("This will delete all cordless devices (\(phone.cordlessHandsetsIHave.count)) and chargers \(phone.chargersIHave.count)!")
+                Text("Specifying that this phone is corded-only will delete all cordless devices (\(phone.cordlessHandsetsIHave.count)) and chargers \(phone.chargersIHave.count)!")
             }
         InfoText("\"Cordless device\" refers to a cordless handset, cordless deskset, cordless headset, or cordless speakerphone.")
         if !phone.isCordless {
@@ -140,7 +163,33 @@ struct PhoneGeneralView: View {
                 Text(Phone.PhoneType.wiFiHandset.rawValue).tag(1)
                 Text(Phone.PhoneType.cellularHandset.rawValue).tag(2)
             }
+            .onChange(of: phone.basePhoneType) { oldValue, newValue in
+                phone.basePhoneTypeChanged(oldValue: oldValue, newValue: newValue)
+            }
         }
+        if phone.isCordless || phone.basePhoneType == 0 {
+            if phone.numberOfIncludedCordlessHandsets == 0 {
+                Toggle("Cordless Devices Optional", isOn: $phone.isOptionalCordless)
+                    .onChange(of: phone.isOptionalCordless) { oldValue, newValue in
+                        phone.isOptionalCordlessChanged(oldValue: oldValue, newValue: newValue)
+                    }
+                InfoText("Some corded/cordless business phones come only with a corded base. Some require an adaptor to make it cordless.")
+            }
+            Picker("Doubles As", selection: $phone.doublesAs) {
+                Text("None").tag(0)
+                Divider()
+                if phone.isCordless && !phone.hasCordedReceiver {
+                    Text("Smart Home Hub").tag(1)
+                    Text("Modem/Router").tag(2)
+                    Divider()
+                }
+                Text("Fax/Copier").tag(3)
+                Text("Printer With Fax").tag(4)
+            }
+            InfoText("A cordless phone that doubles as a smart home hub works as a smart home hub first, cordless phone second, compared to a phone with smart home device capability which works as a phone first, smart home hub second, and lacks smartphone/tablet integration for smart home control.\nSome modem/router combos have built-in support for registering cordless handsets, combining the modem, router, and a transmit-only base into a single device.\nMany fax machines double as a phone. If a fax machine shares the same line as a phone, or it's a phone/fax, separate numbers can come in on a single line, with distinct ring patterns to distinguish a phone call from a fax call. Outgoing calls will always use the main number. Separate lines are necessary if the 2nd number must be used for outgoing faxes.")
+        }
+        Toggle("Allows Slowing Down Incoming Phone Call Audio", isOn: $phone.canSlowDownIncomingAudio)
+        InfoText("Slowing down incoming audio during a call works by buffering the incoming audio as it's being received, then slowing down that buffered audio. Incoming audio might return to normal speed if the buffer can't keep up with the incoming audio stream.\nWith this feature enabled, incoming audio is about half a second old by the time it's played back due to the buffering and slowing down. The difference in timing can be heard if another phone is off-hook at the same time, or if you turn off the feature while audio is playing.")
         if phone.hasBaseAccessibleAnsweringSystem {
             Toggle("Has Voice-Guided Setup", isOn: $phone.voiceGuidedSetup)
             InfoText("Voice-guided setup gives the user spoken instructions to help them set up the phone, either when first plugging in the base or later by selecting a menu option/pressing a sequence of buttons.")
@@ -150,7 +199,9 @@ struct PhoneGeneralView: View {
     @ViewBuilder
     var cordlessBasicsGroup: some View {
         Group {
-            HandsetNumberDigitView(phone: phone)
+            if !phone.isOptionalCordless {
+                HandsetNumberDigitView(phone: phone)
+            }
             Picker("Frequency", selection: $phone.frequency) {
                 ForEach(Phone.CordlessFrequency.allCases) { frequency in
                     if frequency.rawValue < 0 {
@@ -169,15 +220,13 @@ struct PhoneGeneralView: View {
             if phone.frequency == 0 {
                 WarningText("You may not be able to specify certain features/aspects of this phone without knowing its frequency! Try looking up the wireless frequency and communication technology (whether it's analog or digital) of the \(phone.brand) \(phone.model) and select the correct option above.")
             }
-            if !phone.isDECTCordless {
                 Picker("Cordless Device Linking Method", selection: $phone.cordlessDeviceLinkingMethod) {
                     if phone.frequency == Phone.CordlessFrequency.analog1_7MHz.rawValue || phone.frequency == Phone.CordlessFrequency.analog1_7MHzOver46MHz.rawValue {
                         Text("Not Required (Insecure)").tag(0)
                     }
-                    if !phone.baseChargesHandset {
                         Text("Factory-Linked (Fixed)").tag(1)
-                    } else {
-                        if phone.maxCordlessHandsets == -1 {
+                    if !phone.isDECTCordless {
+                        if phone.maxCordlessHandsets == Int.max {
                             Text("Security Code (Switches)").tag(2)
                         }
                         Text("Security Code (Place Handset On Base)").tag(3)
@@ -189,9 +238,11 @@ struct PhoneGeneralView: View {
                 if phone.cordlessDeviceLinkingMethod == 3 && phone.maxCordlessHandsets == 1 {
                     InfoText("Placing a handset on the base changes the digital security code and \"invalidates\" the previous handset.")
                 }
+            if phone.cordlessDeviceLinkingMethod == 1 {
+                WarningText("If either the handset or base/add-on cordless adaptor breaks, you'll need to replace both the handset and base/cordless adaptor.")
             }
             if phone.cordlessDeviceLinkingMethod > 2 {
-                CountPicker("Maximum Number of Cordless Devices", selection: $phone.maxCordlessHandsets, oneTo: phone.cordlessDeviceLinkingMethod == 4 ? 30 : 1, singularSuffix: "Cordless Device", pluralSuffix: "Cordless Devices", unlimitedTitle: "Unlimited")
+                CountPicker("Maximum Number of Cordless Devices", selection: $phone.maxCordlessHandsets, numberRange: maxCordlessDevicesRange, singularSuffix: "Cordless Device", pluralSuffix: "Cordless Devices", unlimitedTitle: "Unlimited")
                     .onChange(of: phone.maxCordlessHandsets) { oldValue, newValue in
                         phone.maxCordlessHandsetsChanged(oldValue: oldValue, newValue: newValue)
                     }
@@ -206,6 +257,7 @@ struct PhoneGeneralView: View {
             }
             Picker("Antenna(s)", selection: $phone.antennas) {
                 Text("Hidden").tag(0)
+                Divider()
                 Text("Telescopic").tag(1)
                 Text("Standard (Left)").tag(2)
                 Text("Standard (Right)").tag(3)
@@ -251,6 +303,7 @@ struct PhoneGeneralView: View {
                 if phone.wallMountability > 0 && phone.hasLayDownCharging {
                     Picker("Lay-Down Hook Type", selection: $phone.cordlessHandsetLayDownHookType) {
                         Text("None").tag(0)
+                        Divider()
                         Text("Fixed").tag(1)
                         Text("Flip/Rotate (Face/Back)").tag(2)
                         Text("Flip (Top)").tag(3)
@@ -297,6 +350,7 @@ In most cases, if the base has a charge light/display message, the completion of
             InfoText("Typically, with digital cordless phones, when a handset moves out of range from the base during a call, the call is dropped. With some cordless phones, the base can put the call on hold for a short time once it detects that the handset has gone out of range, to allow the call to continue if the handset moves back in range quickly enough. On analog cordless phones, the base can't know that the handset went out of range, so the phone will remain off-hook until the base is unplugged and plugged back in, or the handset goes back in range without having been hung up first (or for some single-handset models, placing a handset on the base).")
             Picker("ECO Mode", selection: $phone.ecoMode) {
                 Text("Not Supported").tag(0)
+                Divider()
                 Text("Reduced Power Only").tag(1)
                 Text("Reduced Power or No Transmit").tag(2)
             }
@@ -390,11 +444,6 @@ In most cases, if the base has a charge light/display message, the completion of
             }
             InfoText("Slim/wall phones with the ringer/electronics in the receiver use the base only for hanging up the phone and plugging in cords.")
         }
-        if phone.grade == 0 && phone.isCordlessOrPushButtonDesk {
-            Toggle("Supports PBX-Style Features Without PBX", isOn: $phone.supportsPBXFeatures)
-            InfoText("Some small-business phones can communicate with other compatible phones on the same line without a PBX. Each phone sends and receives audio signals on specific frequency bands over the analog line (think analog wireless but wired), allowing them to detect calls or intercom requests from each other. This provides PBX-like features such as intercom, even without a PBX. Extension numbers are set manually on each phone.\nThe more distance between phones, the weaker the signal can get, which can prevent these features from working.\nThis isn't necessary for cordless phones unless more handsets are needed than a single base can support, as most multi-handset systems already have these features. In both cases, going off-hook picks up an outside line, not an internal line.")
-
-        }
         if phone.cordedPhoneType == 0 {
             Toggle("Has Dual Receivers", isOn: $phone.hasDualReceivers)
             InfoText("A corded phone with dual receivers allows 2 people to use the phone at the same time without having to connect 2 separate phones to the same line. These kinds of phones are often used by those requiring a language interpreter.")
@@ -407,6 +456,7 @@ In most cases, if the base has a charge light/display message, the completion of
         }
         Picker("Corded Receiver Volume Adjustment", selection: $phone.cordedReceiverVolumeAdjustmentType) {
             Text("None").tag(0)
+            Divider()
             Text("Volume Switch/Dial").tag(1)
             Text("Volume Button(s)").tag(2)
         }
@@ -421,6 +471,11 @@ In most cases, if the base has a charge light/display message, the completion of
 
     @ViewBuilder
     var cordedCordlessGroup: some View {
+        if phone.grade == 0 && phone.isCordlessOrPushButtonDesk {
+            Toggle("Supports PBX-Style Features Without PBX", isOn: $phone.supportsPBXFeatures)
+            InfoText("Some small-business phones can communicate with other compatible phones on the same line without a PBX. Each phone sends and receives audio signals on specific frequency bands over the analog line (think analog wireless but wired), allowing them to detect calls or intercom requests from each other. This provides PBX-like features such as intercom, even without a PBX. The audio frequencies used for this communication are above the audible range. Extension numbers are set manually on each phone.\nThe more distance between phones, the weaker the signal can get, which can prevent these features from working.\nThis isn't necessary for multi-handset cordless phones unless more handsets are needed than a single base can support, as most multi-handset systems already have these features. In both cases, going off-hook picks up an outside line, not an internal line.")
+
+        }
         if (phone.isPushButtonCorded && phone.cordedPhoneType != 4) || phone.isCordedCordless {
             Picker("Earpiece Type", selection: $phone.cordedReceiverEarpieceType) {
                 Text("Standard").tag(0)
@@ -428,20 +483,13 @@ In most cases, if the base has a charge light/display message, the completion of
             }
             BoneConductionEarpieceInfoView()
             Picker("Switch Hook", selection: $phone.switchHookType) {
-                Text(phone.isSlimCordedWithBaseCircuitry ? "Press (On Base)" : "Press").tag(0)
-                if phone.isSlimCordedWithBaseCircuitry {
-                    Text("Press (On Receiver)").tag(1)
-                }
-                Text("Magnetic").tag(2)
-                Text("Contacts").tag(3)
+                SwitchHookTypePickerItems(slim: phone.isSlimCordedWithBaseCircuitry)
             }
-            InfoText("Most corded phones have a switch hook which presses, located on either the base (pressed by the receiver) or the receiver (pressed by the base). More advanced corded phones might have magnetic switch hooks, where magnets in the base and receiver trigger a magnetically-activated switch, called a reed switch. Some corded phones might use contacts like those found on cordless phones, instead of a switch hook. This is mostly seen on corded phones which are extensions of a cordless system, where placing the corded receiver on the cordless base registers the corded extension phone to the base.")
+            SwitchHookInfoView()
             Picker("Corded Receiver Hook Type", selection: $phone.cordedReceiverHookType) {
-                Text("Fixed").tag(0)
-                Text("Flip/Rotate").tag(1)
-                Text("Removable").tag(2)
+                CordedReceiverHookTypePickerItems()
             }
-            InfoText("The corded receiver hook holds it in place when the phone is wall-mounted, which prevents it from falling off the base. This is not to be confused with the switch hook, which is what tells the phone whether it's on or off-hook.\n• Fixed: The phone has a hook that slots into a hole on the corded receiver below the earpiece. On slim/wall phones where the switch hook is on the receiver instead of on the base, the switch hook is located directly below this hole and gets pressed by the hook on the base.\n• Flip/Rotate: The hook can be flipped or rotated so it sticks out when you want to mount the phone on the wall, or so it doesn't stick out when you don't want to mount it on the wall.\n• Removable: The phone has a removable hook which is inserted one way for desk use and another way for wall use. This is the most common type of corded receiver hook and has the risk of getting lost.")
+            CordedReceiverHookInfoView()
         }
     }
 

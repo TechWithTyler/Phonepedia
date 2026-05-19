@@ -13,19 +13,19 @@ import SheftAppsStylishUI
 import SheftAppsInternals
 
 struct HandsetGeneralView: View {
-
+    
     // MARK: - Properties - Handset
-
+    
     @Bindable var handset: CordlessHandset
-
+    
     // MARK: - Properties - Integers
-
+    
     var handsetAcquisitionYearRange: ClosedRange<Int> {
         return handset.releaseYear...currentYear
     }
-
+    
     // MARK: - Body
-
+    
     var body: some View {
         Section("Basic Info") {
             basicsGroup
@@ -47,14 +47,24 @@ struct HandsetGeneralView: View {
             }
         }
     }
-
+    
     @ViewBuilder
     var basicsGroup: some View {
         if let phone = handset.phone {
+            if let firstDeskset = phone.desksets.first, (handset.id != firstDeskset.id && handset.handsetNumber <= phone.maxCordlessHandsets) {
+                Picker("Registered To", selection: $handset.registeredTo) {
+                    Text("Base").tag(0)
+                    Text("Deskset").tag(1)
+                }
+            }
             CountPicker("Release Year", selection: $handset.releaseYear, numberRange: oldestHandsetYear...currentYear, usesGroupingSeparator: false, unknownTitle: "Unknown")
                 .onChange(of: handset.releaseYear) { oldValue, newValue in
                     handset.releaseYearChanged(oldValue: oldValue, newValue: newValue)
                 }
+            HStack {
+                Spacer()
+                Text(handset.age)
+            }
             CountPicker("Acquisition/Purchase Year", selection: $handset.acquisitionYear, numberRange: handsetAcquisitionYearRange, usesGroupingSeparator: false, unknownTitle: handsetAcquisitionYearRange.count == 1 ? nil : "I Don't Remember")
             Button("Set to Release Year") {
                 phone.setAcquisitionYearToReleaseYear()
@@ -82,7 +92,10 @@ struct HandsetGeneralView: View {
             .onChange(of: handset.cordlessDeviceType) { oldValue, newValue in
                 handset.cordlessDeviceTypeChanged(oldValue: oldValue, newValue: newValue)
             }
-            InfoText("A deskset is a phone that connects wirelessly to a main base and is treated like a handset. Desksets can have a corded receiver or a charging area for a cordless handset.\nA cordless headset/speakerphone can pick up the line and answer/join calls, but can't dial or use other features. If a cordless phone comes only with cordless headsets, it's often called a headset phone.")
+            if handset.cordlessDeviceType == 1 {
+                CountPicker("Cordless Devices Supported", selection: $handset.desksetCordlessHandsetsSupported, oneTo: 4, singularSuffix: "Cordless Device", pluralSuffix: "Cordless Devices", noneTitle: "None")
+                InfoText("Some business phones allow cordless devices to be registered to a deskset, allowing them to share the same extension number. When specifying details for the cordless devices that are registered to a deskset (e.g. whether it uses the base's phonebook), \"base\" refers to the deskset.")
+            }
             if handset.cordlessDeviceType < 2 && handset.handsetStyle < 3 {
                 Picker("Antenna", selection: $handset.antenna) {
                     Text("Hidden").tag(0)
@@ -96,6 +109,7 @@ struct HandsetGeneralView: View {
             }
             Picker("Visual Ringer", selection: $handset.visualRinger) {
                 Text("None").tag(0)
+                Divider()
                 Text("Ignore Ring Signal").tag(1)
                 Text("Follow Ring Signal").tag(2)
             }
@@ -123,20 +137,19 @@ struct HandsetGeneralView: View {
             Text(cordlessDeviceMissingPhoneText)
         }
     }
-
+    
     @ViewBuilder
     var handsetGroup: some View {
         if let phone = handset.phone {
             Picker("Handset Style", selection: $handset.handsetStyle) {
-                Text("Traditional").tag(0)
-                Text("Futuristic").tag(1)
-                Text("Cell Phone").tag(2)
-                Text("Smartphone").tag(3)
+                Text(CordlessHandset.Style.traditional.rawValue).tag(0)
+                Text(CordlessHandset.Style.futuristic.rawValue).tag(1)
+                Text(CordlessHandset.Style.cellPhone.rawValue).tag(2)
+                Text(CordlessHandset.Style.smartphone.rawValue).tag(3)
             }
             .onChange(of: handset.handsetStyle) { oldValue, newValue in
                 handset.handsetStyleChanged(oldValue: oldValue, newValue: newValue)
             }
-            InfoText("Futuristic handsets include design elements like curves and a seamless look when placed on the base or charger. For example, a base might resemble part of a ring, with a curved handset completing the ring when placed on the base.\nCell phone-style handsets flip or slide open like traditional cell phones.\nSmartphone-style handsets run a smartphone operating system and can run smartphone apps. Software and hardware is mostly identical to a smartphone, plus a cordless handset antenna and a specialized app for cordless phone features like base settings and answering system access. Some smartphone-style handsets can function as both a cordless handset and a smartphone.")
             if phone.baseChargesHandset && phone.isDigitalCordless {
                 Toggle("Fits On Base", isOn: $handset.fitsOnBase)
                 if !handset.fitsOnBase {
@@ -147,7 +160,7 @@ struct HandsetGeneralView: View {
             Text(cordlessDeviceMissingPhoneText)
         }
     }
-
+    
     @ViewBuilder
     var desksetGroup: some View {
         HStack {
@@ -158,19 +171,16 @@ struct HandsetGeneralView: View {
         if handset.hasCordedReceiver {
             Toggle("Is Slim Corded Deskset", isOn: $handset.isSlimCordedDeskset)
             Picker("Switch Hook", selection: $handset.switchHookType) {
-                Text(handset.isSlimCordedDeskset ? "Press (On Base)" : "Press").tag(0)
-                Text("Press (On Receiver)").tag(1)
+                SwitchHookTypePickerItems(slim: handset.isSlimCordedDeskset)
             }
-            Text("Magnetic").tag(2)
-            Text("Contacts").tag(3)
-        }
-        Picker("Corded Receiver Hook Type", selection: $handset.cordedReceiverHookType) {
-            Text("Fixed").tag(0)
-            Text("Flip/Rotate").tag(1)
-            Text("Removable").tag(2)
+            SwitchHookInfoView()
+            Picker("Corded Receiver Hook Type", selection: $handset.cordedReceiverHookType) {
+                CordedReceiverHookTypePickerItems()
+            }
+            CordedReceiverHookInfoView()
         }
     }
-
+    
 }
 
 // MARK: - Preview

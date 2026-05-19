@@ -26,6 +26,7 @@ struct PhoneOutgoingCallProtectionView: View {
         }
         Picker("Call Restriction", selection: $phone.callRestriction) {
             Text("None").tag(0)
+            Divider()
             Text("Disallow Specific Numbers").tag(1)
             Text("Emergency Calls Only").tag(2)
         }

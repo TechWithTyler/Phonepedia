@@ -71,7 +71,7 @@ class AudioManager: NSObject, ObservableObject, AVAudioPlayerDelegate {
         // The audio file for an analog cordless phone audio sample.
         case analogCordlessPhoneAudioSampleNormal = "analogCordlessPhoneAudioSampleNormal"
 
-        // The audio file for an analog cordless phone audio sample that has had its frequencies inverted.
+        // The audio file for an analog cordless phone audio sample that has had its frequencies inverted (frequency inversion voice scramble).
         case analogCordlessPhoneAudioSampleScrambled = "analogCordlessPhoneAudioSampleScrambled"
 
     }

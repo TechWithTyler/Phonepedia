@@ -53,10 +53,16 @@ struct HandsetColorView: View {
                 ClearSupportedColorPicker("Corded Receiver Outer Color", selection: handset.cordedReceiverMainColorBinding) {
                     Text("No Corded Receiver")
                 }
+                    Button("Use Deskset Main Color") {
+                        handset.setCordedReceiverOuterColorToMain()
+                    }
                     if handset.hasCordedReceiver {
                         ColorPicker("Corded Receiver Inner Color", selection: handset.cordedReceiverSecondaryColorBinding)
                         Button("Use Outer Color") {
                             handset.setCordedReceiverSecondaryColorToMain()
+                        }
+                        Button("Use Deskset Secondary Color") {
+                            handset.setCordedReceiverInnerColorToSecondary()
                         }
                         ColorPicker("Corded Receiver Accent Color", selection: handset.cordedReceiverAccentColorBinding)
                         Button("Use Outer Color") {
@@ -64,6 +70,9 @@ struct HandsetColorView: View {
                         }
                         Button("Use Inner Color") {
                             handset.setCordedReceiverAccentColorToSecondary()
+                        }
+                        Button("Use Deskset Accent Color") {
+                            handset.setCordedReceiverAccentColorToDesksetAccent()
                         }
                     }
                 }

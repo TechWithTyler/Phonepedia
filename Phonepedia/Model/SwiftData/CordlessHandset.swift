@@ -12,7 +12,7 @@ import SheftAppsStylishUI
 import SwiftData
 
 @Model
-final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatable, CordedReceiverColorManipulatable, KeyColorManipulatable {
+final class CordlessHandset: BaseHandsetChargerColorManipulatable, ChargeLightColorManipulatable, CordedReceiverColorManipulatable, KeyColorManipulatable {
 
     // MARK: - Cordless Device Type Enum
 
@@ -31,6 +31,20 @@ final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatab
 
     }
 
+    // MARK: - Cordless Handset Style Enum
+
+    enum Style : String {
+
+        case traditional = "Traditional"
+
+        case futuristic = "Futuristic"
+
+        case cellPhone = "Cell Phone-Style"
+
+        case smartphone = "Smartphone-Style"
+
+    }
+
     // MARK: - Properties - Mock Handset
 
     // The mock handset, which is used in Xcode previews and in the phone row preview in Settings. New cordless devices added to a phone use the phone's brand, the phone's main cordless device model number, and the phone's base colors.
@@ -44,304 +58,468 @@ final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatab
 
     // MARK: - Properties - Default Data
 
+    // The default model number of a cordless device.
     @Transient
     static var mockModel: String = "MH12"
 
     // MARK: - Properties - Persistent Data
-    
+
+    // The ID of the cordless device.
     var id = UUID()
-	
+
+    // The phone the cordless device is assigned to.
 	var phone: Phone?
-	
+
+    // The cordless device's brand.
 	var brand: String
-	
+
+    // The cordless device's model number.
 	var model: String
 
+    // The index of the cordless device.
     var handsetNumber: Int = 0
 
+    // The year the cordless device was released.
 	var releaseYear: Int = currentYear - 1
 
+    // The year the user purchased/acquired the cordless device.
     var acquisitionYear: Int = currentYear
 
+    // Where the user acquired the phone. 0 = included with base/set, 1 = thrift store/sale, 2 = electronics store (new), 3 = online (used), 4 = online (new), 5 = gift.
     var whereAcquired: Int = 0
 
+    // Whether the handset fits on the base.
 	var fitsOnBase: Bool = true
-	
+
+    // The maximum number of bases the cordless device can register to.
 	var maxBases: Int = 1
-	
+
+    // The type of cordless device. 0 = handset, 1 = deskset, 2 = headset/speakerphone.
 	var cordlessDeviceType: Int = 0
 
+    // The handset's style. 0 = traditional, 1 = futuristic, 2 = cell phone, 3 = smartphone.
     var handsetStyle: Int = 0
 
+    // The main color's red component.
     var mainColorRed: Double = 0
-    
+
+    // The main color's green component.
     var mainColorGreen: Double = 0
-    
+
+    // The main color's blue component.
     var mainColorBlue: Double = 0
-    
+
+    // The secondary color's red component.
     var secondaryColorRed: Double = 0
-    
+
+    // The secondary color's green component.
     var secondaryColorGreen: Double = 0
-    
+
+    // The secondary color's blue component.
     var secondaryColorBlue: Double = 0
 
+    // The accent color's red component.
     var accentColorRed: Double = 0
 
+    // The accent color's green component.
     var accentColorGreen: Double = 0
 
+    // The accent color's blue component.
     var accentColorBlue: Double = 0
 
+    // The display backlight color's red component.
     var displayBacklightColorRed: Double = 255
-    
+
+    // The display backlight color's green component.
     var displayBacklightColorGreen: Double = 255
-    
+
+    // The display backlight color's blue component.
     var displayBacklightColorBlue: Double = 255
-    
+
+    // The display backlight color's alpha component.
+    var displayBacklightColorAlpha: Double = 1
+
+    // The key foreground color's red component.
     var keyForegroundColorRed: Double = 255
-    
+
+    // The key foreground color's green component.
     var keyForegroundColorGreen: Double = 255
-    
+
+    // The key foreground color's blue component.
     var keyForegroundColorBlue: Double = 255
-    
+
+    // The key background color's red component.
     var keyBackgroundColorRed: Double = 0
-    
+
+    // The key background color's green component.
     var keyBackgroundColorGreen: Double = 0
-    
+
+    // The key background color's blue component.
     var keyBackgroundColorBlue: Double = 0
-    
+
+    // The corded receiver main color's red component.
     var cordedReceiverMainColorRed: Double = 0
-    
+
+    // The corded receiver main color's green component.
     var cordedReceiverMainColorGreen: Double = 0
-    
+
+    // The corded receiver main color's blue component.
     var cordedReceiverMainColorBlue: Double = 0
 
+    // The corded receiver main color's alpha component.
     var cordedReceiverMainColorAlpha: Double = 0
 
+    // The corded receiver secondary color's red component.
     var cordedReceiverSecondaryColorRed: Double = 0
-    
+
+    // The corded receiver secondary color's green component.
     var cordedReceiverSecondaryColorGreen: Double = 0
-    
+
+    // The corded receiver secondary color's blue component.
     var cordedReceiverSecondaryColorBlue: Double = 0
 
+    // The corded receiver accent color's red component.
     var cordedReceiverAccentColorRed: Double = 0
 
+    // The corded receiver accent color's green component.
     var cordedReceiverAccentColorGreen: Double = 0
 
+    // The corded receiver accent color's blue component.
     var cordedReceiverAccentColorBlue: Double = 0
 
+    // The key backlight color's red component.
     var keyBacklightColorRed: Double = 0
-    
+
+    // The key backlight color's green component.
     var keyBacklightColorGreen: Double = 255
 
+    // The key backlight color's blue component.
     var keyBacklightColorBlue: Double = 0
 
+    // The charge light charging state color's red component.
     var chargeLightColorChargingRed: Double = 255
 
+    // The charge light charging state color's green component.
     var chargeLightColorChargingGreen: Double = 0
 
+    // The charge light charging state color's blue component.
     var chargeLightColorChargingBlue: Double = 0
 
+    // The charge light charged state color's red component.
     var chargeLightColorChargedRed: Double = 0
 
+    // The charge light charged state color's green component.
     var chargeLightColorChargedGreen: Double = 255
 
+    // The charge light charged state color's blue component.
     var chargeLightColorChargedBlue: Double = 0
 
+    // The charge light charged state color's alpha component.
     var chargeLightColorChargedAlpha: Double = 1
 
+    // The cordless handset/deskset earpiece type.
     var earpieceType: Int = 0
 
+    // Whether the cordless device has a charge light.
     var hasChargeLight: Bool = false
 
+    // Whether the handset supports place-on-base power backup
     var supportsPlaceOnBasePowerBackup: Bool = true
 
+    // Whether it's possible to dial before placing the handset on the base for power backup.
     var canDialThenPlaceOnBase: Bool = false
 
+    // Whether the keys are locked on the handset placed on the base during a call when power returns.
     var keyLockWhenPowerReturns: Bool = false
 
+    // The button type.
 	var buttonType: Int = 0
 
+    // How the ringer volume is adjusted.
     var ringerVolumeAdjustmentType: Int = 1
 
+    // Whether the ringer can be turned off.
     var supportsRingerOff: Bool = true
 
+    // The clock display type.
     var clock: Int = 1
 
+    // Whether the cordless device backs up the time.
     var supportsTimeBackup: Bool = true
 
+    // How the volume is adjusted.
     var volumeAdjustmentType: Int = 1
 
+    // The display type.
 	var displayType: Int = 2
 
+    // Whether the display has brightness and/or contrast adjustment.
     var displayBrightnessContrastAdjustment: Int = 0
 
+    // The color themes available on the display.
     var displayColorThemes: Int = 0
 
+    // The location of the handset display. 0 = front, 1 = back, 2 = front and back.
     var displayLocation: Int = 0
 
+    // How base settings are changed on the cordless device. 0 = not supported, 1 = base settings menu, 2 = handset/deskset/base selection.
     var baseSettingsChangeMethod: Int = 0
 
+    // Whether the handset has dedicated answering system controls.
     var hasAnsweringSystemControls: Bool = false
 
+    // The maximum number of cordless devices that can be registered to the deskset.
+    var desksetCordlessHandsetsSupported: Int = 0
+
+    // Where the cordless device is registered. 0 = base, 1 = deskset.
+    var registeredTo: Int = 0
+
+    // Whether the deskset display can tilt.
     var desksetDisplayCanTilt: Bool = false
 
+    // Whether the handset/deskset shows multiple entries at once.
     var displayMultiEntries: Bool = false
 
+    // Whether the menu shows multiple items at once.
     var menuMultiItems: Bool = false
 
+    // The layout of the base main menu if menus show multiple items.
     var mainMenuLayout: Int = 0
 
+    // The type of battery. 0 = pack with plug, 1 = pack with contacts, 2 = standard rechargeable.
     var batteryType: Int = 0
-    
+
+    // Whether the deskset supports backup batteries.
     var desksetSupportsBackupBatteries: Bool = true
 
+    // Whether the deskset is a slim corded phone.
     var isSlimCordedDeskset: Bool = false
 
+    // The corded receiver switch hook type.
     var switchHookType: Int = 0
 
+    // The corded receiver hook type.
     var cordedReceiverHookType: Int = 0
 
+    // The menu update mode. 0 = menus are determined by the base the handset/deskset is registered to, 1 = update in real time based on available features.
 	var menuUpdateMode: Int = 0
-	
+
+    // Whether the cordless device has speakerphone.
 	var hasSpeakerphone: Bool = true
 
+    // The intercom auto-answer type.
     var intercomAutoAnswer: Int = 0
 
+    // Whether the handset supports direct communication with other registered handsets without needing the base.
     var hasDirectCommunication: Bool = false
 
+    // Whether the handset allows answering calls by simply picking it up off charge.
     var hasAutoAnswer: Bool = false
 
+    // What happens when the handset is put on charge during a call. 0 = auto-hangup, 1 = switch to speakerphone/stay on call.
     var chargeDuringCall: Int = 0
 
+    // Whether the handset sounds a tone when put on charge.
     var hasChargeTone: Bool = false
 
+    // Whether the handset can be turned on and off.
     var canPowerOff: Bool = false
 
+    // The type of line buttons. 0 = physical line buttons, 1 = soft keys.
 	var lineButtons: Int = 0
-	
+
+    // Whether the cordless device has a visual ringer. 0 = none, 1 = ignore ring signal, 2 = follow ring signal.
 	var visualRinger: Int = 0
-	
+
+    // The number of ringtones.
 	var ringtones: Int = 5
 
+    // The number of music/melody ringtones.
     var musicRingtones: Int = 5
 
+    // Whether the handset has a vibrator motor.
     var hasVibratorMotor: Bool = false
 
+    // The source for custom ringtones. 0 = not supported, 1 = recording only, 2 = audio files only, 3 = recording or audio files.
     var customRingtonesSource: Int = 0
 
+    // The ringtone used for intercom.
     var intercomRingtone: Int = 0
 
+    // Whether the handset rings when on the base of a single-handset "security code set by placing on base" phone with the base ringer turned on.
     var ringsOnBase: Bool = true
 
+    // The type of silent mode for the cordless device.
     var silentMode: Int = 0
 
+    // Whether a join/leave tone sounds when the base/another cordless device joins/leaves a call.
     var joinLeaveTone: Int = 0
 
+    // Whether phonebook entries/groups can break through silent mode.
     var supportsSilentModeBypass: Bool = false
 
+    // The number of one-touch dial buttons.
 	var oneTouchDialCapacity: Int = 0
 
+    // Whether the cordless device has one-touch emergency calling buttons.
     var hasOneTouchEmergencyCalling: Bool = false
 
+    // The number of speed dial locations.
 	var speedDialCapacity: Int = 0
-	
+
+    // The redial capacity.
 	var redialCapacity: Int = 5
 
+    // How the handset/deskset handles redial when the other end is busy.
     var busyRedialMode: Int = 0
 
+    // The number of soft keys below or above the display.
 	var softKeys: Int = 0
-    
+
+    // Whether the soft keys shown in standby are customizable.
     var standbySoftKeysCustomizable: Bool = false
-	
+
+    // The type of navigation button. 0 = none, 1 = up/down, 2 = up/down/left/right button, 3 = up/down/left/right joystick, 4 = up/down side buttons, left/right face buttons.
 	var navigatorKeyType: Int = 1
-	
+
+    // Whether the navigation button's up and down arrows function as the volume buttons.
 	var navigatorKeyUpDownVolume: Bool = true
-	
+
+    // Whether the navigation button has shortcuts in standby.
 	var navigatorKeyStandbyShortcuts: Bool = true
-	
+
+    // The function of the navigation button's center button. 0 = no center button, 1 = select, 2 = menu/select, 3 = middle soft key (if the handset/deskset has 3 soft keys), 4 = other function.
 	var navigatorKeyCenterButton: Int = 0
-	
+
+    // Whether the handset has side volume buttons.
 	var sideVolumeButtons: Bool = false
 
+    // What happens when buttons are pressed while on charge. 0 = locked, 1 = prompt to pick up, 2 = normal.
     var buttonPressOnChargeBehavior: Int = 0
 
+    // How many buttons are backlit.
 	var keyBacklightAmount: Int = 0
 
+    // The button layer that's backlit.
     var keyBacklightLayer: Int = 0
 
+    // Whether the handset/deskset supports wired headsets.
 	var supportsWiredHeadsets: Bool = false
-	
+
+    // The type of answering system menu. 0 = none, 1 = settings only, doesn't require link to base to access, 2 = settings only, requires link to base to access, 3 = full, doesn't require link to base to access, 4 = full, requires link to base to access.
 	var answeringSystemMenu: Int = 3
 
+    // Whether the handset has a message list.
     var hasMessageList: Bool = false
 
+    // Whether the handset has voicemail quick dial.
     var voicemailQuickDial: Int = 0
 
+    // The phonebook capacity.
 	var phonebookCapacity: Int = 0
 
+    // How many numbers can be saved per phonebook entry.
     var numbersPerPhonebookEntry: Int = 1
 
-    var supportsPhonebookRingtones: Bool = false
-
+    // Whether the phonebook supports groups.
     var supportsPhonebookGroups: Bool = false
 
+    // Whether ringtones can be assigned to phonebook entries/groups.
+    var supportsPhonebookRingtones: Bool = false
+
+    // The favorite entry capacity.
     var favoriteEntriesCapacity: Int = 0
 
+    // The caller ID list capacity.
+    var callerIDCapacity: Int = 0
+
+    // Whether a call from a phonebook entry shows with its name.
 	var callerIDPhonebookMatch: Bool = false
-	
+
+    // Whether the handset/deskset uses the base's phonebook instead of or in addition to its own.
 	var usesBasePhonebook: Bool = true
-	
+
+    // Whether the handset/deskset uses the base's caller ID list instead of its own.
 	var usesBaseCallerID: Bool = true
-	
+
+    // Whether the handset/deskset uses the base's speed dial entries instead of its own.
 	var usesBaseSpeedDial: Bool = false
-	
+
+    // Whether the handset/deskset uses the base's one-touch dial entries instead of its own.
 	var usesBaseOneTouchDial: Bool = false
-	
+
+    // How phonebook entries are assigned to speed dial/one-touch dial.
 	var speedDialPhonebookEntryMode: Int = 0
 
+    // Whether redial during a call redials the last number or shows the redial list.
     var redialDuringCall: Int = 1
 
+    // The name displayed in the redial list.
 	var redialNameDisplay: Int = 0
 
+    // Whether pressing the cell button in standby shows the redial list or prompts to dial the number. 0 = dial number, 1 = redial list.
     var standbyCellCallDialing: Int = 0
 
+    // Whether the handset/deskset prompts for a cell line selection.
     var cellLineSelection: Int = 0
 
+    // The maximum number of Bluetooth headphones that can be paired.
 	var bluetoothHeadphonesSupported: Int = 0
-	
+
+    // Whether the handset/deskset supports Bluetooth cell phonebook transfers.
 	var bluetoothPhonebookTransfers: Bool = false
-	
-	var callerIDCapacity: Int = 0
-	
+
+    // The maximum number of key finders that can be registered.
 	var keyFindersSupported: Int = 0
-	
+
+    // Whether the handset has an antenna. 0 = hidden, 1 = short antenna for style, 2 = long antenna for transmission, 3 = telescopic..
 	var antenna: Int = 0
 
+    // Whether the handset has an alarm. 0 = not supported, 1 = ringtone, 2 = ringtone or voice.
     var alarm: Int = 0
 
-	var hasTalkingCallerID: Bool = false
-
+    // Whether the keypad can be locked.
     var hasKeypadLock: Bool = false
 
-	var hasTalkingKeypad: Bool = false
-	
-	var hasTalkingPhonebook: Bool = false
+    // Whether the cordless device has talking caller ID.
+    var hasTalkingCallerID: Bool = false
 
+    // Whether digits dialed on the keypad are announced.
+    var hasTalkingKeypad: Bool = false
+
+    // Whether names or numbers in the phonebook are announced as they're scrolled through.
+    var hasTalkingPhonebook: Bool = false
+
+    // The type of audible low battery alert. 0 = beep during call, 1 = beep after hangup, 2 = beep in standby, 3 = beep or announce after hangup, 4 = beep or announce after hangup or in standby.
     var audibleLowBatteryAlert: Int = 0
 
+    // The type of talk/off buttons. 0 = single talk/off button or switch, 1 = talk and off, 2 = talk/flash and off, 3 = talk/speaker and off, 4 = line buttons + off.
     var talkOffButtonType = 1
-    
+
+    // The talk/off button layer that's colored. 0 = background, 1 = foreground.
     var talkOffColorLayer: Int = 1
-    
+
+    // The speakerphone button layer that's colored. 0 = background, 1 = foreground.
     var speakerphoneColorLayer: Int = 1
-    
+
+    // Whether the speakerphone button lights up when active.
     var hasSpeakerphoneButtonLight: Bool = false
-    
+
+    // Where the cordless device is in the user's collection.
     var storageOrSetup: Int = 0
-    
+
+    // Whether the 7 key has Q and the 9 key has Z.
     var hasQZ: Bool = true
 
     // MARK: - Properties - Transient (Non-Persistent) Properties
+
+    // The age of the cordless device.
+    @Transient
+    var age: String {
+        let age = currentYear - releaseYear
+        let yearsSingularOrPlural = age == 1 ? "year" : "years"
+        return "\(age) \(yearsSingularOrPlural)"
+    }
 
     // The text to display for the cordless device's type.
     @Transient
@@ -367,7 +545,7 @@ final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatab
         }
     }
 
-    // The actual number of this cordless device, which is handsetNumber (the index of the cordless device) + 1.
+    // The actual number of the cordless device, which is handsetNumber (the index of the cordless device) + 1.
     @Transient
     var actualHandsetNumber: Int {
         return handsetNumber + 1
@@ -552,10 +730,11 @@ final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatab
 
     @Transient
     var displayBacklightColorBinding: Binding<Color> {
-        Color.rgbBinding(get: { [self] in (displayBacklightColorRed, displayBacklightColorGreen, displayBacklightColorBlue) }, set: { [self] r, g, b in
+        Color.rgbaQuantizedAlphaBinding(get: { [self] in (displayBacklightColorRed, displayBacklightColorGreen, displayBacklightColorBlue, displayBacklightColorAlpha) }, set: { [self] r, g, b, a in
             displayBacklightColorRed = r
             displayBacklightColorGreen = g
             displayBacklightColorBlue = b
+            displayBacklightColorAlpha = a
         })
     }
     
@@ -609,7 +788,31 @@ final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatab
         acquisitionYear = releaseYear
     }
 
-    // MARK: - Set Key Background Color To Main
+    // MARK: - Set Corded Receiver Colors to Deskset Colors
+
+    // This method sets the corded receiver outer color to the main color.
+    func setCordedReceiverOuterColorToMain() {
+        cordedReceiverMainColorRed = mainColorRed
+        cordedReceiverMainColorGreen = mainColorGreen
+        cordedReceiverMainColorBlue = mainColorBlue
+        cordedReceiverMainColorAlpha = 1
+    }
+
+    // This method sets the corded receiver inner color to the secondary color.
+    func setCordedReceiverInnerColorToSecondary() {
+        cordedReceiverSecondaryColorRed = secondaryColorRed
+        cordedReceiverSecondaryColorGreen = secondaryColorGreen
+        cordedReceiverSecondaryColorBlue = secondaryColorBlue
+    }
+
+    // This method sets the corded receiver accent color to the deskset accent color.
+    func setCordedReceiverAccentColorToDesksetAccent() {
+        cordedReceiverAccentColorRed = accentColorRed
+        cordedReceiverAccentColorGreen = accentColorGreen
+        cordedReceiverAccentColorBlue = accentColorBlue
+    }
+
+    // MARK: - Set Key Background Color to Main
 
     // This method sets the key background color to the main color.
     func setKeyBackgroundColorToMain() {
@@ -618,7 +821,7 @@ final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatab
         keyBackgroundColorBlue = mainColorBlue
     }
 
-    // MARK: - Set Key Backlight Color To Display Backlight and Vice Versa
+    // MARK: - Set Key Backlight Color to Display Backlight and Vice Versa
 
     // This method sets the key backlight color to the display backlight color.
     func setKeyBacklightColorToDisplayBacklight() {
@@ -685,6 +888,9 @@ final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatab
             hasSpeakerphone = true
         }
         if newValue != 1 {
+            if let phone = phone {
+                phone.checkForRegisteredDesksets()
+            }
             cordedReceiverMainColorBinding.wrappedValue = .clear
             cordedReceiverSecondaryColorBinding.wrappedValue = .black
             desksetSupportsBackupBatteries = false
@@ -933,6 +1139,8 @@ final class CordlessHandset: BaseColorManipulatable, ChargeLightColorManipulatab
         newHandset.hasQZ = self.hasQZ
         newHandset.displayColorThemes = self.displayColorThemes
         newHandset.displayBrightnessContrastAdjustment = self.displayBrightnessContrastAdjustment
+        newHandset.desksetCordlessHandsetsSupported = self.desksetCordlessHandsetsSupported
+        newHandset.registeredTo = self.registeredTo
         // 4. Return the duplicated handset.
         return newHandset
     }

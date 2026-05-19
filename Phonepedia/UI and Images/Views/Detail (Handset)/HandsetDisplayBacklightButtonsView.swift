@@ -56,6 +56,7 @@ struct HandsetDisplayBacklightButtonsView: View {
                     if handset.hasTalkButton {
                         Picker("Talk/Off Button Coloring", selection: $handset.talkOffColorLayer) {
                             Text("None").tag(0)
+                            Divider()
                             Text("Foreground").tag(1)
                             Text("Background").tag(2)
                         }
@@ -136,11 +137,13 @@ struct HandsetDisplayBacklightButtonsView: View {
                         handset.swapKeyBackgroundAndForegroundColors()
                     }
                 }
+                ButtonColorInfoView()
             }
             Section("Display") {
                 Picker("Display Type", selection: $handset.displayType) {
                     if handset.handsetStyle < 2 {
                         Text("None").tag(0)
+                        Divider()
                         Text("Monochrome Display (Segmented)").tag(1)
                         Text("Monochrome Display (Traditional)").tag(2)
                         Text("Monochrome Display (Full-Dot w/ Status Items)").tag(3)
@@ -151,6 +154,19 @@ struct HandsetDisplayBacklightButtonsView: View {
                 }
                 .onChange(of: handset.displayType) { oldValue, newValue in
                     handset.displayTypeChanged(oldValue: oldValue, newValue: newValue)
+                }
+                InfoButton("About Display Types…") {
+                    dialogManager.showingAboutDisplayTypes = true
+                }
+                if handset.hasMonochromeDisplay {
+                    ClearSupportedColorPicker("Display Backlight Color", selection: handset.displayBacklightColorBinding) {
+                        Text("No Backlight")
+                    }
+                    if handset.keyBacklightAmount > 0 && handset.keyBacklightAmount < 6 {
+                        Button("Set To Button Backlight Color") {
+                            handset.setDisplayBacklightColorToKeyBacklight()
+                        }
+                    }
                 }
                 if handset.displayType == 0 {
                     ProgrammingWithoutDisplayInfoView()
@@ -180,6 +196,7 @@ struct HandsetDisplayBacklightButtonsView: View {
                     }
                     Picker("Base-Specific Settings On Handset", selection: $handset.baseSettingsChangeMethod) {
                         Text("None").tag(0)
+                        Divider()
                         Text("Base Settings Menu").tag(1)
                         Text("Handset/Base Selection").tag(2)
                     }
@@ -196,9 +213,6 @@ struct HandsetDisplayBacklightButtonsView: View {
                         Toggle("Supports Clock Backup", isOn: $handset.supportsTimeBackup)
                         InfoText("On a handset/deskset which displays a clock, clock backup allows it to store the clock settings for as long as it has power. This allows it to restore them to the base when power returns, since most bases don't preserve them when they lose power.")
                     }
-                }
-                InfoButton("About Display Types…") {
-                    dialogManager.showingAboutDisplayTypes = true
                 }
                 if handset.displayType >= 3 && handset.handsetStyle < 2 && handset.hasListsOfEntries {
                     Toggle("Allows Display of Multiple Entries", isOn: $handset.displayMultiEntries)
@@ -217,14 +231,6 @@ struct HandsetDisplayBacklightButtonsView: View {
                         }
                     }
                 }
-                if handset.hasMonochromeDisplay {
-                    ColorPicker("Display Backlight Color", selection: handset.displayBacklightColorBinding)
-                    if handset.keyBacklightAmount > 0 && handset.keyBacklightAmount < 6 {
-                        Button("Set To Button Backlight Color") {
-                            handset.setDisplayBacklightColorToKeyBacklight()
-                        }
-                    }
-                }
                 if handset.displayType > 0 {
                     Picker("Update Available Handset Menus", selection: $handset.menuUpdateMode) {
                         Text("Based on Registered Base").tag(0)
@@ -237,6 +243,7 @@ struct HandsetDisplayBacklightButtonsView: View {
                 if handset.handsetStyle < 2 {
                     Picker("Navigation Button Type", selection: $handset.navigatorKeyType) {
                         Text("None").tag(0)
+                        Divider()
                         Text("Up/Down Button").tag(1)
                         Text("Up/Down/Left/Right Button").tag(2)
                         Text("Up/Down/Left/Right Joystick").tag(3)
@@ -249,6 +256,7 @@ struct HandsetDisplayBacklightButtonsView: View {
                 if handset.navigatorKeyType > 0 {
                     Picker("Navigation Button Center Button", selection: $handset.navigatorKeyCenterButton) {
                         Text("None").tag(0)
+                        Divider()
                         Text("Select").tag(1)
                         Text("Menu/Select").tag(2)
                         if handset.softKeys == 3 {

@@ -16,6 +16,7 @@ struct JoinLeaveTonePickerItems: View {
 
     var body: some View {
         Text("None").tag(0)
+        Divider()
         Text("When Joining").tag(1)
         Text("When Joining/Leaving").tag(2)
     }

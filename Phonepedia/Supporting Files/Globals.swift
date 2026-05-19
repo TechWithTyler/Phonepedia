@@ -16,6 +16,14 @@ import SheftAppsInternals
 // The sample text to display above the phone description text view and when previewing the current font size in Settings.
 let phoneDescriptionSampleText: String = "I bought this phone at a thrift store in June 2023. I've always been wanting this model because of its stylish design."
 
+let generalPageName: String = "General"
+
+let mainLinePageName: String = "Main Line"
+
+let pbxSectionName: String = "PBX (Private Branch Exchange)"
+
+let connectionTypesDialogTitle: String = "About Connection Types/Devices"
+
 // The name of the PhoneTypeDefinitionsView section explaining the various cordless phone base types.
 let cordlessBaseTypeSectionName: String = "Cordless Phone Base Types"
 
@@ -33,7 +41,7 @@ let chargerMissingPhoneText: String = "This charger's phone assignment is missin
 
 // MARK: - Properties - Integers
 
-// The current year to use as the default value of a phone or cordless device's release year/acquisition year.
+// The current year to use as the default value of a phone or cordless device's release year. The default acquisition year is set to the previous year as of version 2026.3 to prevent the "acquired in year of release" achievement alert from appearing upon adding a new phone.
 let currentYear = Calendar.current.component(.year, from: Date())
 
 // The earliest year of a phone, which is when Alexander Graham Bell invented the phone.
@@ -41,6 +49,12 @@ let oldestPhoneYear: Int = 1876
 
 // The earliest year of a cordless device, which is when the first cordless phones were sold.
 let oldestHandsetYear: Int = 1978
+
+// The earliest year of a cordless handset-style Wi-Fi handset.
+let oldestWiFiHandsetYear: Int = 2006
+
+// The earliest year of a cordless handset-style cellular handset.
+let oldestCellularHandsetYear: Int = 2008
 
 // The default maximum number of cordless devices.
 let defaultMaxCordlessDevices: Int = 5

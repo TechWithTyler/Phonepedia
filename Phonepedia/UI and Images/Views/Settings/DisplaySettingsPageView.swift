@@ -60,7 +60,7 @@ struct DisplaySettingsPageView: View {
     var body: some View {
         Form {
             Section {
-                TextSizeSlider(labelText: "Phone Description Text Size", textSize: $phoneDescriptionTextSize, previewText: phoneDescriptionSampleText)
+                TextSizeSlider("Phone Backstory Text Size", textSize: $phoneDescriptionTextSize, previewText: phoneDescriptionSampleText)
                 HStack {
                     Text("Placeholder Image Style")
                     Spacer()

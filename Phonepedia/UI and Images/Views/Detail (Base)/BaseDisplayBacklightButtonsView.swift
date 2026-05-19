@@ -35,7 +35,7 @@ struct BaseDisplayBacklightButtonsView: View {
                     Toggle(isOn: $phone.hasBaseKeypad) {
                         Text(phone.isCordless ? "Has Base Keypad" : "Has User-Accessible Keypad")
                     }
-                    InfoText("Some cordless phones have a base speakerphone and keypad, which allows you to make calls if the handset isn't nearby or if it needs to charge. Bases with keypads are a great option for office spaces as they combine a cordless-only phone with the design people expect from an office phone.\nSome corded phones, such as those found in hotel lobbies, don't have a user-accessible keypad and are used only for answering calls, checking voicemail, or calling a specific number when picking it up. The keypad and other programming controls are hidden behind a removable faceplate or within the phone's casing. Some keypad-less phones have no programming at all and are designed only for lines which perform auto-dialing upon going off-hook.")
+                    InfoText("Some cordless phones have a base speakerphone and keypad, which allows you to make calls if the handset isn't nearby or if it needs to charge. Bases with keypads are a great option for office spaces as they combine a cordless-only phone with the design people expect from an office phone.\nSome corded phones, such as those found in hotel lobbies, don't have a user-accessible keypad and are used only for answering calls, checking voicemail, or calling a specific number when picking it up. The keypad and other programming controls are hidden behind a removable faceplate or within the phone's casing. Some keypad-less phones have no programming at all and are designed only for lines which perform auto-dialing upon going off-hook. Such phones with one-touch dial buttons have those buttons pre-programmed by the manufacturer.")
                     if phone.hasBaseKeypad {
                         Toggle(isOn: $phone.hasTalkingKeypad) {
                             Text("Talking Keypad")
@@ -101,6 +101,7 @@ struct BaseDisplayBacklightButtonsView: View {
                         phone.swapKeyBackgroundAndForegroundColors()
                     }
                 }
+                ButtonColorInfoView()
             }
             if phone.hasBaseSpeakerphone && phone.baseChargesHandset {
                 Toggle("Dial On Base While Using Handset", isOn: $phone.dialWithBaseDuringHandsetCall)
@@ -116,9 +117,11 @@ struct BaseDisplayBacklightButtonsView: View {
                 if phone.basePhoneType == 0 {
                     Picker(phone.isCordless ? "Display Type (Base)" : "Display Type", selection: $phone.baseDisplayType) {
                         Text("None").tag(0)
+                        Divider()
                         if phone.hasAnsweringSystem > 0 {
                             Text("LED Message Counter").tag(1)
                             Text("LCD Message Counter w/ Status Items").tag(2)
+                            Divider()
                         }
                         Text("Monochrome Display (Segmented)").tag(3)
                         Text("Monochrome Display (Traditional)").tag(4)
@@ -134,6 +137,19 @@ struct BaseDisplayBacklightButtonsView: View {
                     if phone.baseDisplayType < 3 && !phone.isCordless {
                         ProgrammingWithoutDisplayInfoView()
                     }
+                    if phone.basePhoneType > 0 || phone.baseDisplayIsMonochrome {
+                        ClearSupportedColorPicker(phone.isCordless ? "Base Display Backlight Color" : "Display Backlight Color", selection: phone.baseDisplayBacklightColorBinding) {
+                            Text("No Backlight")
+                        }
+                        if phone.baseKeyBacklightAmount > 0 && phone.baseKeyBacklightAmount < 6 {
+                            Button("Set To Button Backlight Color") {
+                                phone.setDisplayBacklightColorToKeyBacklight()
+                            }
+                        }
+                    }
+                    InfoButton("About Display Types…") {
+                        dialogManager.showingAboutDisplayTypes = true
+                    }
                     if phone.baseDisplayType >= 3 {
                         if !phone.baseDisplayIsMonochrome {
                             Picker("Base Display Background Color Themes", selection: $phone.baseDisplayColorThemes) {
@@ -148,9 +164,6 @@ struct BaseDisplayBacklightButtonsView: View {
                             ClockDisplayPickerItems()
                         }
                     }
-                    InfoButton("About Display Types…") {
-                        dialogManager.showingAboutDisplayTypes = true
-                    }
                     if phone.baseDisplayType >= 5 && phone.hasListsOfEntries {
                         Toggle("Allows Display of Multiple Entries", isOn: $phone.baseDisplayMultiEntries)
                         MultiEntryDisplayInfoView()
@@ -158,6 +171,7 @@ struct BaseDisplayBacklightButtonsView: View {
                     if phone.isCordless && phone.hasListsOfEntries && phone.baseDisplayType > 2 {
                         Picker("Base Menu Type", selection: $phone.cordlessBaseMenuType) {
                             Text("None").tag(0)
+                            Divider()
                             Text("Partial").tag(1)
                             Text("Full").tag(2)
                         }
@@ -177,16 +191,6 @@ struct BaseDisplayBacklightButtonsView: View {
                         }
                     }
                 }
-                if phone.basePhoneType > 0 || phone.baseDisplayIsMonochrome {
-                    ClearSupportedColorPicker(phone.isCordless ? "Base Display Backlight Color" : "Display Backlight Color", selection: phone.baseDisplayBacklightColorBinding) {
-                        Text("No Backlight")
-                    }
-                    if phone.baseKeyBacklightAmount > 0 && phone.baseKeyBacklightAmount < 6 {
-                        Button("Set To Button Backlight Color") {
-                            phone.setDisplayBacklightColorToKeyBacklight()
-                        }
-                    }
-                }
                 if phone.baseDisplayType >= 3 && phone.isCordlessOrPushButtonDesk && phone.hasAnsweringSystem > 0 {
                     Toggle("Base Has LED Message Counter In Addition To Display", isOn: $phone.baseHasDisplayAndMessageCounter)
                 }
@@ -198,6 +202,7 @@ struct BaseDisplayBacklightButtonsView: View {
                 Section("Navigation Button/Soft Keys") {
                     Picker("Base Navigation Button Type", selection: $phone.baseNavigatorKeyType) {
                         Text("None").tag(0)
+                        Divider()
                         Text("Up/Down").tag(1)
                         Text("Up/Down/Left/Right").tag(3)
                     }
@@ -210,6 +215,7 @@ struct BaseDisplayBacklightButtonsView: View {
                     if phone.baseNavigatorKeyType > 0 {
                         Picker("Base Navigation Button Center Button", selection: $phone.baseNavigatorKeyCenterButton) {
                             Text("None").tag(0)
+                            Divider()
                             Text("Select").tag(1)
                             Text("Menu/Select").tag(2)
                             if phone.hasBaseAccessibleAnsweringSystem {

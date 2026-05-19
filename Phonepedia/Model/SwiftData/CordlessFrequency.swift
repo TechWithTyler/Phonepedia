@@ -12,6 +12,7 @@ import Foundation
 
 extension Phone {
 
+    // The frequency's raw value is usually the lowest frequency in the range. For example, analog 900MHz is 900.0. If a frequency has multiple variants, the raw value is X.1, X.2, etc. If it's frequency 2/frequency 1 (e.g. 2.4GHz over 900MHz analog), it's X.Y, where Y represents the handset-to-base frequency.
     enum CordlessFrequency: Double, CaseIterable, Identifiable {
 
         // MARK: - Frequency Cases - Unknown
@@ -176,6 +177,12 @@ extension Phone {
             }
         }
 
+        // Returns the wave frequency in GHz.
+        var dectFrequency: String {
+            let waveFrequencyInGHz = waveFrequency / 1000
+            return "\(waveFrequencyInGHz)GHz"
+        }
+
         // The name of the frequency to display in the radio wave view.
         var waveName: String {
             switch self {
@@ -192,7 +199,7 @@ extension Phone {
             case .analog5_8GHz:
                 return "5.8GHz"
             case .southKoreaDECT, .taiwanDECT, .etsiDECT, .japanJDECT, .brazilDECT, .latinAmericaDECT, .northAmericaDECT6:
-                return name
+                return "\(dectFrequency) - \(name)"
             default: return String()
             }
         }
@@ -230,6 +237,13 @@ extension Phone {
                 return 1930
             default: return 0
             }
+        }
+
+        // MARK: - Properties - Booleans
+
+        // Whether the frequency is less than 30MHz.
+        var isLessThan30MHz: Bool {
+            return rawValue < 30
         }
 
         // MARK: - Properties - Default Frequency for Current Region

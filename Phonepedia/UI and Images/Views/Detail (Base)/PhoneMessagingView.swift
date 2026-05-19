@@ -53,17 +53,21 @@ struct PhoneMessagingView: View {
                     InfoText("Multi-line phones either have separate play and answer on/off buttons for each line, or one play and answer on/off button as well as a button which selects the line(s) those buttons will use.")
                 }
             }
-            if phone.answeringSystemType == 1 {
-                Picker("All Message Deletion", selection: $phone.allMessageDeletion) {
-                    if phone.hasAnsweringSystem == 2 {
-                        Text("Not Supported").tag(0)
-                        Divider()
+            if phone.hasAnsweringSystem > 0 {
+                Toggle("Allows Slowing Down Message Playback", isOn: $phone.canSlowDownMessagePlayback)
+                InfoText("On a digital answering system, message playback can be slowed down without affecting the pitch. On a tape answering system, the tape is driven slower, resulting in not only slower playback speed but also lower pitch.")
+                if phone.answeringSystemType == 1 {
+                    Picker("All Message Deletion", selection: $phone.allMessageDeletion) {
+                        if phone.hasAnsweringSystem == 2 {
+                            Text("Not Supported").tag(0)
+                            Divider()
+                        }
+                        Text("All Messages").tag(1)
+                        Text("All Old Messages").tag(2)
+                        Text("When No New").tag(3)
                     }
-                    Text("All Messages").tag(1)
-                    Text("All Old Messages").tag(2)
-                    Text("When No New").tag(3)
+                    InfoText("• All Messages: All messages are deleted.\n• All Old Messages: New messages aren't deleted.\n• When No New: Deleting all old messages is only possible when there are no new messages.")
                 }
-                InfoText("• All Messages: All messages are deleted.\n• All Old Messages: New messages aren't deleted.\n• When No New: Deleting all old messages is only possible when there are no new messages.")
             }
             if phone.hasAnsweringSystem > 0 && phone.baseBluetoothCellPhonesSupported > 0 && phone.answeringSystemType == 1 {
                 Toggle("Answering System For Cell Lines", isOn: $phone.answeringSystemForCellLines)
@@ -82,6 +86,7 @@ struct PhoneMessagingView: View {
             } else if phone.isCordless && phone.hasAnsweringSystem == 3 {
                 Picker("Answering System Menu (Base)", selection: $phone.answeringSystemMenuOnBase) {
                     Text("None").tag(0)
+                    Divider()
                     Text("Voice Prompts").tag(1)
                     if phone.baseDisplayType > 2 {
                         Text("Display Menu").tag(2)
@@ -120,6 +125,7 @@ struct PhoneMessagingView: View {
                 }
                 Picker("Message Day/Time Stamp", selection: $phone.answeringSystemMessageTimestamp) {
                     Text("None").tag(0)
+                    Divider()
                     Text("Before Message").tag(1)
                     Text("After Message").tag(2)
                 }
@@ -130,21 +136,25 @@ struct PhoneMessagingView: View {
                 }
                 Toggle("Has Message Alert by Call", isOn: $phone.hasMessageAlertByCall)
                 InfoText("This feature allows the answering system to call out to a stored phone number each time a new message is left, so you don't have to constantly be calling to check for new messages while you're away.")
+                Toggle("Marks Caller ID List Entries", isOn: $phone.answeringSystemMarksCallerIDListEntries)
+                InfoText("When a caller leaves a message, the entry in the caller ID list will be marked as having left a message. For phones with separate caller ID lists for each handset/deskset, the handset/deskset needs to have a link to the base at the time the message recording ends.")
                 Toggle("Can Record Voice Memos", isOn: $phone.canRecordVoiceMemos)
                 InfoText("Some answering systems allow you to record voice memos, which are saved like incoming messages but don't involve the phone line.")
                 Picker("Number of Mailboxes", selection: $phone.numberOfMailboxes) {
-                    Text(phone.numberOfLandlines == 1 ? "1" : "One For Each Line").tag(1)
-                    if phone.numberOfLandlines == 1 {
-                        Text("2").tag(2)
-                        Text("3").tag(3)
-                        Text("4").tag(4)
-                        Text("5").tag(5)
-                    }
+                    Text(phone.numberOfLandlines == 1 ? "1" : "1 For Each Line").tag(1)
+                    Text(phone.numberOfLandlines == 1 ? "2" : "2 For All Lines").tag(2)
+                    Text(phone.numberOfLandlines == 1 ? "3" : "3 For All Lines").tag(3)
+                    Text(phone.numberOfLandlines == 1 ? "4" : "4 For All Lines").tag(4)
+                    Text(phone.numberOfLandlines == 1 ? "5" : "5 For All Lines").tag(5)
                 }
-                InfoText("On single-line phones, mailboxes allow you to organize messages for different people or purposes. In your greeting, instruct callers to choose the desired mailbox. Example: \"For Jack, press 1, or just stay on the line. For Jill, press 2. For Jim, press 3.\"\nSome phones/answering systems designate one mailbox as the primary/general mailbox. When determining how many mailboxes your phone has, count the primary mailbox as one of those mailboxes in addition to mailbox 1, 2, etc.\nOn multi-line phones, each line has its own answering system, which can be independently turned on/off. Incoming messages will be stored in the answering system corresponding to the line receiving the call. On some phones, you can only remotely access the answering system of the line you're calling, while on others, you can access any line remotely no matter which line you're calling.")
+                InfoText("Mailboxes allow you to organize messages for different people or purposes. In your greeting, instruct callers to choose the desired mailbox by pressing the required digits. If a caller doesn't enter anything, the message goes into the first mailbox. Example: \"For Jack, press 1, or just stay on the line. For Jill, press 2. For Jim, press 3.\"\nMost multi-line phones have one mailbox for each line, but some have multiple mailboxes that are shared by all lines.\nSome phones/answering systems designate one mailbox as the primary/general mailbox, separate from the numbered mailboxes. When determining how many mailboxes your phone has, count the primary mailbox as one of those mailboxes in addition to mailbox 1, 2, etc. For example, if your phone has a general mailbox and 2 others, it has 3 total.\nOn multi-line phones, each line has its own answering system, which can be independently turned on/off. On most multi-line phones, incoming messages will be stored in the answering system corresponding to the line receiving the call. On some phones, you can only remotely access the answering system of the line you're calling, while on others, you can access any line remotely no matter which line you're calling. Some phones store memo messages separately from incoming messages, meaning they won't play if playing a specific line's messages.")
+                if phone.numberOfMailboxes > 1 && (phone.hasBaseKeypad || phone.hasAnsweringSystem == 2) {
+                    Toggle("Mailbox Password Protection", isOn: $phone.mailboxPasswordProtection)
+                    InfoText("Some people use specific mailboxes for private/confidential messages. Assigning a password to a mailbox used for this purpose prevents people from listening to or deleting its messages unless they have the password. The password isn't necessary for someone to leave messages in the mailbox.\nDepending on the phone, a mailbox's password can't be the same as that of another mailbox, or the remote access code.")
+                }
                 if phone.isBusinessCordedCordlessSystem {
                     Toggle("Auto Attendant/Personal Mailboxes", isOn: $phone.hasAutoAttendantAndPersonalMailboxes)
-                    InfoText("On a business phone with multiple cordless handsets/desksets, each handset/deskset can have its own mailbox, which can only be accessed by that handset/deskset or the base. There's also a main mailbox, often called the general delivery mailbox, for any messages not directed to a specific personal mailbox, that the base and all handsets/desksets can access.\nAn automated attendant system can route callers to a specific handset/deskset by asking callers to enter the handset's/deskset's extension number, which is the number assigned when the handset/deskset is registered to the base. If the call isn't answered, the caller can leave a message in the personal mailbox.\nMessages are stored in the base in the slot corresponding to the registered handset/deskset--you can't access the personal mailbox of a handset/deskset if it's out of range of the base.")
+                    InfoText("On a business phone with multiple cordless handsets/desksets, each handset/deskset can have its own mailbox, which can only be accessed by that handset/deskset or the base. There's also a main mailbox, often called the general delivery mailbox, for any messages not directed to a specific personal mailbox, that the base and all handsets/desksets can access.\nAn automated attendant system can route callers to a specific handset/deskset by asking callers to enter the handset's/deskset's extension number, which is the number assigned when the handset/deskset is registered to the base. If the call isn't answered, the caller can leave a message in that cordless device's personal mailbox.\nMessages are stored in the base in the slot corresponding to the registered handset/deskset--you can't access a handset's/deskset's personal mailbox from that cordless device if it's out of range of the base.")
                 }
                 Picker("Call Recording", selection: $phone.hasCallRecording) {
                     Text("Not Supported").tag(0)
@@ -153,22 +163,26 @@ struct PhoneMessagingView: View {
                     Text("Intermittent Beeps").tag(2)
                     Text("Spoken Notification").tag(3)
                 }
-                InfoText("Call recording allows you to record both sides of a phone call as an answering system message. Some phones won't record the DTMF tones of numbers you dial during a call (e.g., your voicemail password). In some areas, it's illegal to record calls without the other party's consent.\n• Without Notification: The caller isn't notified when call recording starts. It is your responsibility to tell the caller that you're recording the call.\n• Intermittent beeps: Both you and the caller hear a beep every 15 seconds or so, indicating call recording is in progress. It is your responsibility to tell the caller that you're recording the call.\n• Spoken Notification: A spoken notification is played to you and the caller (e.g., \"This call is being recorded.\") before recording starts. This takes care of the legal requirement to tell the caller that you're recording the call.")
+                InfoText("Call recording allows you to record both sides of a phone call as an answering system message. Some phones won't record the DTMF tones of numbers you dial during a call (e.g., your voicemail password). In some areas, it's illegal to record calls without the other party's consent.\n• Without Notification: The caller isn't notified when call recording starts. It's your responsibility to tell the caller that you're recording the call.\n• Intermittent Beeps: Both you and the caller hear a beep every 15 seconds or so, indicating call recording is in progress. It's your responsibility to tell the caller that you're recording the call.\n• Spoken Notification: A spoken notification is played to you and the caller (e.g., \"This call is being recorded.\") before recording starts. This takes care of the legal requirement to tell the caller that you're recording the call.")
             }
         }
         Section("Voicemail") {
             if phone.hasAnalogLineConnection {
                 Picker("\"New Voicemail\" Detection Method", selection: $phone.voicemailIndication) {
-                    Text("None").tag(0)
+                    Text("No Voicemail Indication").tag(0)
                     Divider()
-                    Text("1 - Frequency-Shift-Keying (FSK) Tones").tag(1)
-                    Text("2 - Listen For Stutter Dial Tones").tag(2)
+                    if !phone.isLinePoweredCorded {
+                        Text("1 - Frequency-Shift-Keying (FSK) Tones").tag(1)
+                        Text("2 - Listen For Stutter Dial Tones").tag(2)
+                    }
                     Text("3 - High Voltage (NEON)").tag(4)
                     Text("4 - Polarity Reversal").tag(5)
                     Divider()
-                    Text("1 and 2").tag(3)
-                    if phone.baseDisplayType > 2 {
-                        Text("1 and 3").tag(6)
+                    if !phone.isLinePoweredCorded {
+                        Text("1 and 2").tag(3)
+                        if phone.baseDisplayType > 2 {
+                            Text("1 and 3").tag(6)
+                        }
                     }
                     Text("Selectable").tag(7)
                 }
@@ -176,9 +190,9 @@ struct PhoneMessagingView: View {
 A phone's voicemail indicator works in one of the following ways:
 • 1: Your phone provider may send FSK tones to the phone whenever a new voicemail is left and when all new voicemails are played, to tell the phone to turn on or off its voicemail indicator.
 • 2: The phone may go off-hook for a few seconds periodically, or when you hang up or it stops ringing, to listen for a stutter dial tone ("bee-bee-bee-beeeeeeeep") which your phone provider may use as an audible indication of new voicemails. If you hear a stutter dial tone instead of just a continuous dial tone, there are new voicemails.
-• 3: A high voltage signal on the line turns on and off repeatedly, or stays on, as long as you have new voicemails. This voltage causes the phone's visual ringer to turn on or flash. If you use a device to listen in on the phone line without going off-hook, this signal sounds like purring or hissing. This is often used in conjunction with a constantly-pulsing dial tone.
+• 3: A high voltage signal on the line turns on and off repeatedly, or stays on, as long as you have new voicemails. This voltage causes the phone's visual ringer or dedicated voicemail light to turn on or flash, if it's connected directly to the line voltage. If you use a device to listen in on the phone line without going off-hook, this signal sounds like purring or hissing. This is often used in conjunction with a constantly-pulsing dial tone.
 • 4: The phone can use line polarity reversal to toggle the new voicemail indication on or off. This method is the least reliable as the provider and phone aren't guaranteed to be in sync (e.g. if the phone wasn't connected to the line when the expected indicator state changed).
-• 1 and 2: The phone can go off-hook to listen for a stutter dial tone, or respond to FSK tones. This allows the voicemail indicator to work when one of the 2 methods is unreliable (e.g. stutter dial tone detection only happens after going on-hook or the phone stops ringing, or the FSK tone isn't sent for some reason). The phone may have an option to disable stutter dial tone detection, which is useful if your provider only sends FSK tones.
+• 1 and 2: The phone can go off-hook to listen for a stutter dial tone, or respond to FSK tones. This allows the voicemail indicator to work when one of the 2 methods is unreliable (e.g. stutter dial tone detection only happens after going on-hook on this phone or this phone stops ringing, or the FSK tone isn't sent for some reason). The phone may have an option to disable stutter dial tone detection, which is useful if your provider only sends FSK tones.
 • 1 and 3: The phone can use FSK tones for a display indicator and NEON for a light.
 • Selectable: The phone can be set to use any of the above methods. This selectability is often present on hotel phones, since they're designed to be compatible with a wide range of hotel PBX systems which may not offer the same selectability.
 """)
@@ -189,6 +203,7 @@ A phone's voicemail indicator works in one of the following ways:
             if (!phone.isCordless || phone.hasBaseSpeakerphone) && (phone.voicemailIndication > 0 || phone.landlineConnectionType > 0) {
                 Picker("Voicemail Quick Dial", selection: $phone.voicemailQuickDial) {
                     Text("None").tag(0)
+                    Divider()
                     Text("Button").tag(1)
                     if phone.hasBaseKeypad {
                         Text("Speed Dial 1").tag(2)

@@ -66,9 +66,7 @@ struct PhoneListView: View {
             } else if phoneFilterEnabled {
                 noPhonesText
             } else {
-                Text("No phones")
-                    .font(.largeTitle)
-                    .foregroundStyle(.secondary)
+                ListEmptyView()
             }
         }
         .onAppear {
@@ -101,12 +99,6 @@ struct PhoneListView: View {
             }
         } message: { phone in
             Text("This \(phone.brand) \(phone.model) will be deleted from this catalog.")
-        }
-        .sheet(isPresented: $dialogManager.showingPhoneCount) {
-            PhoneCountView(phones: phones)
-        }
-        .sheet(isPresented: $dialogManager.showingPhoneCollectionAchievements) {
-            PhoneCollectionAchievementsView(phones: phones)
         }
         .alert("Delete all phones from this catalog?", isPresented: $dialogManager.showingDeleteAllPhones) {
             Button(role: .destructive) {
@@ -191,6 +183,12 @@ struct PhoneListView: View {
             PhoneRowView(phone: phone)
         }
         .contextMenu {
+            if !phone.phoneDescription.isEmpty {
+                Button("Show Backstory…") {
+                    dialogManager.showPhoneBackstory(for: phone)
+                }
+                Divider()
+            }
             PhonePlaceInCollectionPicker(phone: phone)
                 .pickerStyle(.menu)
                 .toggleStyle(.automatic)
@@ -257,6 +255,7 @@ struct PhoneListView: View {
                 PhoneCollectionAchievementsButton()
                 PhoneCountButton()
                     .badge(phones.count)
+                PhoneTimelineButton()
                 Menu("Phone List Detail") {
                     PhoneListDetailOptions(menu: true)
                 }
@@ -443,9 +442,7 @@ struct PhoneListView: View {
     private func deletePhones(at offsets: IndexSet) {
         guard let index = offsets.first else { return }
         let phone = phones[index]
-        withAnimation {
-            dialogManager.showDeletePhone(phone: phone)
-        }
+        dialogManager.showDeletePhone(phone: phone)
     }
 
     // This method deletes phone from the model context. A temporary snapshot of the phone to be deleted is created to assist with correcting the phoneNumberInCollection property of phones placed above the deleted one.
@@ -456,7 +453,9 @@ struct PhoneListView: View {
         dialogManager.phoneToDelete = nil
         phone.cordlessHandsetsIHave.removeAll()
         phone.chargersIHave.removeAll()
-        modelContext.delete(phone)
+        withAnimation {
+            modelContext.delete(phone)
+        }
         // 3. Clear the phone selection.
         selectedPhone = nil
         // 4. For any phone whose index is higher than the one that was just deleted, decrease phoneNumberInCollection by 1.
@@ -484,10 +483,13 @@ struct PhoneListView: View {
     func updateDataIfNeeded() {
         // 1. For updates from version 2024.11, set the numbers of each phone/cordless device/charger to the corresponding index. This is done by checking to see if the phoneNumberInCollection property of all phones is 0 (auto-set default for updates from version 2024.11).
         updateCatalogForNumbering()
-        // 2. For updates from version 2025.11 or earlier, change the "unlimited max cordless devices" value from -1 to Int.max.
+        // 2. For updates from version 2025.11 or earlier, change the "unlimited max cordless devices" value from -1 to Int.max, and set the cordless device linking method for DECT phones.
         for phone in phones {
             if phone.maxCordlessHandsets == -1 {
                 phone.maxCordlessHandsets = .max
+            }
+            if phone.isDECTCordless {
+                phone.cordlessDeviceLinkingMethod = 4
             }
         }
     }

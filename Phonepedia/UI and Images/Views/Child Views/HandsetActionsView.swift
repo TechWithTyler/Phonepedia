@@ -38,7 +38,7 @@ struct HandsetActionsView: View {
                     InfoText("This cordless device can be registered to up to \(handset.maxBases) bases. Choose the phone that's its primary base.")
                 }
             Button {
-                phone.cordlessHandsetsIHave.insert(handset.duplicate(), at: handset.handsetNumber)
+                phone.duplicateCordlessDevice(handset)
                 dismiss()
             } label: {
                 Label("Duplicate", systemImage: "doc.on.doc")

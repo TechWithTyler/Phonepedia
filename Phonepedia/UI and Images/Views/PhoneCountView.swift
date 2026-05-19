@@ -55,13 +55,13 @@ struct PhoneCountView: View {
         return count
     }
 
-    // The total number of Wi-Fi handsets. Though these look and feel like cordless phones, they're not counted as cordless phones since they're standalone wireless handsets.
+    // The total number of Wi-Fi handsets. Although these look and feel like cordless phones, they're not counted as cordless phones since they're standalone wireless handsets.
     var wiFiHandsetCount: Int {
         let count = phones.filter({ !$0.isCordless && $0.basePhoneType == 1 }).count
         return count
     }
 
-    // The total number of cellular handsets. Though these look and feel like cordless phones, they're not counted as cordless phones since they're standalone wireless handsets.
+    // The total number of cellular handsets. Although these look and feel like cordless phones, they're not counted as cordless phones since they're standalone wireless handsets.
     var cellularHandsetCount: Int {
         let count = phones.filter({ !$0.isCordless && $0.basePhoneType == 2 }).count
         return count
@@ -139,6 +139,26 @@ struct PhoneCountView: View {
         return count
     }
 
+    // MARK: - Properties - Doubles
+
+    // The average number of cordless handsets per cordless phone.
+    var averageHandsetsPerCordlessPhone: Double {
+        guard cordlessPhoneCount > 0 else { return 0 }
+        return Double(handsetCount) / Double(cordlessPhoneCount)
+    }
+
+    // The average number of cordless desksets per cordless phone.
+    var averageDesksetsPerCordlessPhone: Double {
+        guard cordlessPhoneCount > 0 else { return 0 }
+        return Double(desksetCount) / Double(cordlessPhoneCount)
+    }
+
+    // The average number of cordless headsets/speakerphones per cordless phone.
+    var averageHeadsetsPerCordlessPhone: Double {
+        guard cordlessPhoneCount > 0 else { return 0 }
+        return Double(headsetCount) / Double(cordlessPhoneCount)
+    }
+
     // MARK: - Properties - Strings
 
     // Brands of phones. Unlike the allBrands property in PhoneListView, this property is an array so a brand can exist more than once to count them.
@@ -169,6 +189,7 @@ struct PhoneCountView: View {
     var body: some View {
         NavigationStack {
             List {
+                PhoneCollectionStabilityView(phones: phones)
                 DisclosureGroup("Total (\(totalPhoneCount))") {
                     HStack {
                         VStack(alignment: .leading) {
@@ -234,31 +255,36 @@ struct PhoneCountView: View {
                             .multilineTextAlignment(.trailing)
                     }
                     HStack {
-                        Text("Total Cordless Handsets")
-                            .foregroundStyle(.primary)
-                            .multilineTextAlignment(.leading)
+                        VStack(alignment: .leading) {
+                            Text("Total Cordless Handsets")
+                                .foregroundStyle(.primary)
+                            averageText(averageHandsetsPerCordlessPhone)
+                        }
                         Spacer()
                         Text(handsetCount, format: .number)
                             .foregroundStyle(.secondary)
-                            .multilineTextAlignment(.trailing)
                     }
+
                     HStack {
-                        Text("Total Cordless Desksets")
-                            .foregroundStyle(.primary)
-                            .multilineTextAlignment(.leading)
+                        VStack(alignment: .leading) {
+                            Text("Total Cordless Desksets")
+                                .foregroundStyle(.primary)
+                            averageText(averageDesksetsPerCordlessPhone)
+                        }
                         Spacer()
                         Text(desksetCount, format: .number)
                             .foregroundStyle(.secondary)
-                            .multilineTextAlignment(.trailing)
                     }
+
                     HStack {
-                        Text("Total Cordless Headsets/Speakerphones")
-                            .foregroundStyle(.primary)
-                            .multilineTextAlignment(.leading)
+                        VStack(alignment: .leading) {
+                            Text("Total Cordless Headsets/Speakerphones")
+                                .foregroundStyle(.primary)
+                            averageText(averageHeadsetsPerCordlessPhone)
+                        }
                         Spacer()
                         Text(headsetCount, format: .number)
                             .foregroundStyle(.secondary)
-                            .multilineTextAlignment(.trailing)
                     }
                 }
                 DisclosureGroup("Active (\(activePhoneCount))") {
@@ -367,6 +393,16 @@ struct PhoneCountView: View {
 #if os(macOS)
         .frame(minWidth: 550, maxWidth: 550, minHeight: 350, maxHeight: 350)
 #endif
+    }
+
+    // MARK: - Average Text
+
+    @ViewBuilder
+    func averageText(_ value: Double) -> some View {
+        let roundedValue = value.rounded()
+        Text("Average \(Int(roundedValue)) per cordless phone")
+            .foregroundStyle(.secondary)
+            .font(.footnote)
     }
 
     // MARK: - "Excluding Handsets" Text

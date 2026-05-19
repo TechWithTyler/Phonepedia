@@ -27,6 +27,7 @@ struct ContentView: View {
     // Handles the import and export of phone photos.
     @StateObject var photoManager = PhonePhotoManager()
 
+    // Handles the display of phone collection achievements.
     @StateObject var achievementTrackerManager = PhoneCollectionAchievementTrackerManager()
 
     // MARK: - Properties - Phones
@@ -62,6 +63,9 @@ struct ContentView: View {
         .sheet(isPresented: $dialogManager.showingReassignHandset) {
             CordlessDeviceReassignmentView(phones: phones, selectedPhone: $selectedPhone)
         }
+        .sheet(isPresented: $dialogManager.showingPhoneBackstory) {
+            PhoneBackstoryView(phone: dialogManager.phoneToShowBackstory!)
+        }
         // Info views
         .sheet(isPresented: $dialogManager.showingPhoneTypeDefinitions) {
             PhoneTypeDefinitionsView()
@@ -90,6 +94,15 @@ struct ContentView: View {
         .sheet(isPresented: $dialogManager.showingAboutConnectionTypes) {
             AboutConnectionTypesView()
         }
+        .sheet(isPresented: $dialogManager.showingPhoneCount) {
+            PhoneCountView(phones: phones)
+        }
+        .sheet(isPresented: $dialogManager.showingPhoneCollectionAchievements) {
+            PhoneCollectionAchievementsView(phones: phones)
+        }
+        .sheet(isPresented: $dialogManager.showingTimeline) {
+            PhoneTimelineView(phones: phones)
+        }
         // iOS/visionOS settings view
         #if !os(macOS)
         .sheet(isPresented: $dialogManager.showingSettings) {
@@ -97,7 +110,7 @@ struct ContentView: View {
         }
         #endif
         .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
-        .formNumericTextFieldStepperVisibility(true)
+        .formNumericTextFieldStepperVisible(true)
         // Model objects
         .environmentObject(dialogManager)
         .focusedSceneObject(dialogManager)

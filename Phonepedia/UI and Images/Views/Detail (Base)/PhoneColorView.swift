@@ -54,10 +54,16 @@ struct PhoneColorView: View {
             .onChange(of: phone.cordedReceiverMainColorBinding.wrappedValue) { oldValue, newValue in
                 phone.cordedReceiverColorChanged(oldValue: oldValue, newValue: newValue)
             }
+            Button("Use Base Main Color") {
+                phone.setCordedReceiverOuterColorToMain()
+            }
             if phone.hasCordedReceiver {
                 ColorPicker("Corded Receiver Inner Color", selection: phone.cordedReceiverSecondaryColorBinding)
                 Button("Use Outer Color") {
                     phone.setCordedReceiverSecondaryColorToMain()
+                }
+                Button("Use Base Secondary Color") {
+                    phone.setCordedReceiverInnerColorToSecondary()
                 }
                 ColorPicker("Corded Receiver Accent Color", selection: phone.cordedReceiverAccentColorBinding)
                 Button("Use Outer Color") {
@@ -65,6 +71,9 @@ struct PhoneColorView: View {
                 }
                 Button("Use Inner Color") {
                     phone.setCordedReceiverAccentColorToSecondary()
+                }
+                Button("Use Base Accent Color") {
+                    phone.setCordedReceiverAccentColorToBaseAccent()
                 }
             }
         }
