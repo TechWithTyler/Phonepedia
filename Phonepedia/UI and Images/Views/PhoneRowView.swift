@@ -73,6 +73,10 @@ struct PhoneRowView: View {
             }
             Spacer()
             VStack {
+                Text(phone.releaseYear == -1 ? "Unknown release year" : String(phone.releaseYear))
+                    .font(.headline)
+                    .multilineTextAlignment(.center)
+                    .lineLimit(nil)
                 Text(phone.brand)
                     .font(.largeTitle)
                     .lineLimit(nil)
@@ -100,19 +104,11 @@ struct PhoneRowView: View {
     var phoneDetailStack: some View {
         if showYearsInList {
             if phone.acquiredInYearOfRelease {
-                Text("Released and acquired \(String(phone.acquisitionYear))")
-                    .font(.callout)
-                    .multilineTextAlignment(.center)
-                    .lineLimit(nil)
-                Text("Acquired in year of release!")
+                Text("Acquired in release year!")
                     .font(.callout)
                     .multilineTextAlignment(.center)
                     .lineLimit(nil)
             } else {
-                Text(phone.releaseYear == -1 ? "Unknown release year" : "Released \(String(phone.releaseYear))")
-                    .font(.callout)
-                    .multilineTextAlignment(.center)
-                    .lineLimit(nil)
                 Text(phone.acquisitionYear == -1 ? "Unknown acquisition year" : "Acquired \(String(phone.acquisitionYear))")
                     .font(.callout)
                     .multilineTextAlignment(.center)
