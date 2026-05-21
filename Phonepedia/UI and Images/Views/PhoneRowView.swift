@@ -73,10 +73,10 @@ struct PhoneRowView: View {
             }
             Spacer()
             VStack {
-                Text(phone.releaseYear == -1 ? "Unknown release year" : String(phone.releaseYear))
-                    .font(.headline)
-                    .multilineTextAlignment(.center)
-                    .lineLimit(nil)
+                if showYearsInList {
+                    Text(phone.releaseYear == -1 ? "Unknown release year" : String(phone.releaseYear))
+                        .font(.headline)
+                }
                 Text(phone.brand)
                     .font(.largeTitle)
                     .lineLimit(nil)

@@ -39,6 +39,7 @@ struct DisplaySettingsPageView: View {
         // 4. Add the handsets to the mock phone.
         phone.cordlessHandsetsIHave.append(handset)
         phone.cordlessHandsetsIHave.append(secondHandset)
+        phone.frequency = Phone.CordlessFrequency.defaultForCurrentRegion.rawValue
         // 5. Return the mock phone.
         return phone
     }
