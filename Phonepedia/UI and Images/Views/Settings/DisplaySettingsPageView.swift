@@ -17,7 +17,7 @@ struct DisplaySettingsPageView: View {
 
     // The phone to use for previewing the phone list detail settings.
     var samplePhone: Phone {
-        // 1. Create a mock phone and cordless handset.
+        // 1. Create a mock phone and cordless handset released in 2014 and acquired in 2023.
         let phone = Phone.mockPhone
         let handset = CordlessHandset.mockHandset
         phone.releaseYear = 2014
@@ -51,6 +51,10 @@ struct DisplaySettingsPageView: View {
     // MARK: - Properties - Booleans
 
     @AppStorage(UserDefaults.KeyNames.showAchievementAlerts) var showAchievementAlerts: Bool = true
+
+    #if os(macOS)
+    @AppStorage(UserDefaults.KeyNames.includeUsernameInExampleNames) var includeUsernameInExampleNames: Bool = false
+    #endif
 
     @AppStorage(UserDefaults.KeyNames.useDetailedPhoneImage) var useDetailedPhoneImage: Bool = false
 
@@ -98,6 +102,10 @@ struct DisplaySettingsPageView: View {
                 InfoText("Turn this on to show alerts when unlocking achievements (e.g. getting 10 phones, getting a phone in its release year).")
                 Toggle("Enable Backdrop", isOn: $backdropEnabled)
                 InfoText("Turn this on to show a large, blurred version of a phone's photo as the detail view background.")
+                #if os(macOS)
+                Toggle("Include Your Name In Example Names", isOn: $includeUsernameInExampleNames)
+                InfoText("Enabling this option will include your name, \(NSFullUserName()), in the example names shown in answering system greeting and caller ID examples.")
+                #endif
             }
             Section("Phone List Detail") {
                 PhoneListDetailOptions()
