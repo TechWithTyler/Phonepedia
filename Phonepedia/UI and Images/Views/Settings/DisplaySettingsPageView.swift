@@ -104,7 +104,7 @@ struct DisplaySettingsPageView: View {
                 InfoText("Turn this on to show a large, blurred version of a phone's photo as the detail view background.")
                 #if os(macOS)
                 Toggle("Include Your Name In Example Names", isOn: $includeUsernameInExampleNames)
-                InfoText("Enabling this option will include your name, \(NSFullUserName()), in the example names shown in answering system greeting and caller ID examples.")
+                InfoText("Enabling this option will include your macOS user account's full name, \(NSFullUserName()), in the example names shown in answering system greeting and caller ID examples.")
                 #endif
             }
             Section("Phone List Detail") {
