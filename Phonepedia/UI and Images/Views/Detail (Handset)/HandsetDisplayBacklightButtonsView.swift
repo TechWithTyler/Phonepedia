@@ -104,7 +104,7 @@ struct HandsetDisplayBacklightButtonsView: View {
                     ColorPicker("Button Lighting Color", selection: handset.keyBacklightColorBinding)
                     if handset.keyBacklightAmount < 6 {
                         if handset.hasMonochromeDisplay {
-                            Button("Set To Display Backlight Color") {
+                            Button("Set to Display Backlight Color") {
                                 handset.setKeyBacklightColorToDisplayBacklight()
                             }
                         }
@@ -128,8 +128,8 @@ struct HandsetDisplayBacklightButtonsView: View {
                 }
                 if handset.keyBacklightAmount == 0 || handset.keyBacklightAmount == 6 || handset.keyBacklightLayer == 1 {
                     ColorPicker("Button Background Color", selection: handset.keyBackgroundColorBinding)
-                    Button("Set To Main Color") {
-                        phone.setKeyBackgroundColorToMain()
+                    Button("Set to Main Color") {
+                        handset.setKeyBackgroundColorToMain()
                     }
                 }
                 if handset.keyBacklightAmount == 0 {
@@ -163,7 +163,7 @@ struct HandsetDisplayBacklightButtonsView: View {
                         Text("No Backlight")
                     }
                     if handset.keyBacklightAmount > 0 && handset.keyBacklightAmount < 6 {
-                        Button("Set To Button Backlight Color") {
+                        Button("Set to Button Backlight Color") {
                             handset.setDisplayBacklightColorToKeyBacklight()
                         }
                     }
@@ -242,7 +242,7 @@ struct HandsetDisplayBacklightButtonsView: View {
             Section("Navigation Button/Soft Keys") {
                 if handset.handsetStyle < 2 {
                     Picker("Navigation Button Type", selection: $handset.navigatorKeyType) {
-                        Text("None").tag(0)
+                        Text("None/Non-Standard Layout").tag(0)
                         Divider()
                         Text("Up/Down Button").tag(1)
                         Text("Up/Down/Left/Right Button").tag(2)

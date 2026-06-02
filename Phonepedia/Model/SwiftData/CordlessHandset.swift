@@ -978,7 +978,6 @@ final class CordlessHandset: BaseHandsetChargerColorManipulatable, ChargeLightCo
         if newValue == 0 {
             navigatorKeyCenterButton = 0
             navigatorKeyUpDownVolume = false
-            sideVolumeButtons = true
             navigatorKeyStandbyShortcuts = false
         }
     }

@@ -71,7 +71,7 @@ struct BaseDisplayBacklightButtonsView: View {
                     ColorPicker("Button Lighting Color", selection: phone.baseKeyBacklightColorBinding)
                     if phone.baseKeyBacklightAmount < 6 {
                         if phone.baseDisplayIsMonochrome {
-                            Button("Set To Display Backlight Color") {
+                            Button("Set to Display Backlight Color") {
                                 phone.setKeyBacklightColorToDisplayBacklight()
                             }
                         }
@@ -92,7 +92,7 @@ struct BaseDisplayBacklightButtonsView: View {
                 }
                 if phone.baseKeyBacklightAmount == 0 || phone.baseKeyBacklightAmount == 6 || phone.baseKeyBacklightLayer == 1 {
                     ColorPicker("Button Background Color", selection: phone.baseKeyBackgroundColorBinding)
-                    Button("Set To Main Color") {
+                    Button("Set to Main Color") {
                         phone.setKeyBackgroundColorToMain()
                     }
                 }
@@ -142,7 +142,7 @@ struct BaseDisplayBacklightButtonsView: View {
                             Text("No Backlight")
                         }
                         if phone.baseKeyBacklightAmount > 0 && phone.baseKeyBacklightAmount < 6 {
-                            Button("Set To Button Backlight Color") {
+                            Button("Set to Button Backlight Color") {
                                 phone.setDisplayBacklightColorToKeyBacklight()
                             }
                         }
@@ -201,7 +201,7 @@ struct BaseDisplayBacklightButtonsView: View {
             if phone.baseDisplayType > 2 {
                 Section("Navigation Button/Soft Keys") {
                     Picker("Base Navigation Button Type", selection: $phone.baseNavigatorKeyType) {
-                        Text("None").tag(0)
+                        Text("None/Non-Standard Layout").tag(0)
                         Divider()
                         Text("Up/Down").tag(1)
                         Text("Up/Down/Left/Right").tag(3)
@@ -211,8 +211,6 @@ struct BaseDisplayBacklightButtonsView: View {
                     }
                     if phone.baseNavigatorKeyType > 0 {
                         NavigationButtonExampleView(showLeftRight: phone.baseNavigatorKeyType == 3, showCenterButton: phone.baseNavigatorKeyCenterButton > 0, isJoystick: false)
-                    }
-                    if phone.baseNavigatorKeyType > 0 {
                         Picker("Base Navigation Button Center Button", selection: $phone.baseNavigatorKeyCenterButton) {
                             Text("None").tag(0)
                             Divider()
@@ -225,12 +223,12 @@ struct BaseDisplayBacklightButtonsView: View {
                             }
                             Text("Other Function").tag(6)
                         }
+                    }
                         Toggle("Base Navigation Button Up/Down for Volume", isOn: $phone.baseNavigatorKeyUpDownVolume)
                         if phone.hasBaseAccessibleAnsweringSystem && phone.baseNavigatorKeyType > 1 {
                             Toggle("Base Navigation Button Left/Right for Repeat/Skip", isOn: $phone.baseNavigatorKeyLeftRightRepeatSkip)
                         }
                         Toggle("Base Navigation Button Standby Shortcuts", isOn: $phone.baseNavigatorKeyStandbyShortcuts)
-                    }
                     if phone.baseDisplayType > 3 && phone.isCordlessOrPushButtonDesk {
                         CountPicker("Base Bottom Soft Keys", selection: $phone.baseSoftKeysBottom, oneTo: 6, singularSuffix: "Soft Key", pluralSuffix: "Soft Keys", noneTitle: "None")
                             .onChange(of: phone.baseSoftKeysBottom) { oldValue, newValue in
