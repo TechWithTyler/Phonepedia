@@ -55,6 +55,10 @@ struct PhoneListView: View {
         return PhoneFilterManager.allBrands(from: phones)
     }
 
+    var allAcquisitionYears: [Int] {
+        return PhoneFilterManager.allAcquisitionYears(from: phones)
+    }
+
     @Binding var selectedPhone: Phone?
 
     // MARK: - Body
@@ -335,6 +339,17 @@ struct PhoneListView: View {
                 }
                 .pickerStyle(.menu)
                 .toggleStyle(.automatic)
+                Picker("Acquisition Year (\(filterCriteria.acquisitionYear == 0 ? "Off" : "On"))", selection: $filterCriteria.acquisitionYear) {
+                    Text("Off").tag(0)
+                    Divider()
+                    Text("I Don't Remember").tag(-1)
+                    Divider()
+                    ForEach(allAcquisitionYears, id: \.self) { year in
+                        Text(String(year)).tag(year)
+                    }
+                }
+                .pickerStyle(.menu)
+                .toggleStyle(.automatic)
             }
             Divider()
             Button("Reset", systemImage: "arrow.clockwise") {
@@ -363,7 +378,7 @@ struct PhoneListView: View {
             newPhone.frequency = Phone.CordlessFrequency.defaultForCurrentRegion.rawValue
             // A phone's phoneNumberInCollection property is the index of the phone in the list, and as with any index, it starts at 0. The number of phones in the list before the new phone is added can be used as the phone's index without adding/subtracting 1.
             newPhone.phoneNumberInCollection = phones.count
-            // 3. Set defaults based on filters.
+            // 3. Set defaults based on all filters except the acquisition year filter.
             if filterCriteria.activeStatus == 2 {
                 newPhone.storageOrSetup = 2
             }

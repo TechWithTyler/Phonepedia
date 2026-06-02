@@ -107,12 +107,18 @@ struct PhoneRowView: View {
                 Text("Acquired in release year!")
                     .font(.callout)
                     .multilineTextAlignment(.center)
-                    .lineLimit(nil)
+                    .lineLimit(3)
             } else {
                 Text(phone.acquisitionYear == -1 ? "Unknown acquisition year" : "Acquired \(String(phone.acquisitionYear))")
                     .font(.callout)
                     .multilineTextAlignment(.center)
-                    .lineLimit(nil)
+                    .lineLimit(3)
+            }
+            if phone.replacesPhoneAcquiredInYear > 0 {
+                Text("Replaced a phone acquired in \(String(phone.replacesPhoneAcquiredInYear))")
+                    .font(.callout)
+                    .multilineTextAlignment(.center)
+                    .lineLimit(3)
             }
         }
         if showPhoneTypeInList {

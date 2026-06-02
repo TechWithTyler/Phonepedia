@@ -61,6 +61,9 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
     // The year the phone was purchased/acquired by the user.
     var acquisitionYear: Int = currentYear
 
+    // The year a phone that this one replaces was acquired.
+    var replacesPhoneAcquiredInYear: Int = 0
+
     // Where the user acquired the phone. 0 = thrift store/sale, 1 = electronics store (new), 2 = online (used), 3 = online (new), 4 = gift.
     var whereAcquired: Int = 0
 

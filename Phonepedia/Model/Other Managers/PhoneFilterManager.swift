@@ -34,9 +34,12 @@ class PhoneFilterManager {
         // The current setting of the "has Bluetooth cell linking" filter.
         var bluetoothCellLinking: Int = 0
 
+        // The current setting of the acquisition year filter.
+        var acquisitionYear: Int = 0
+
         // Whether any filter is active.
         var isEnabled: Bool {
-            return type != allItemsFilterOptionTag || activeStatus != 0 || brand != allItemsFilterOptionTag || numberOfCordlessDevices != 0 || answeringSystem != 0 || bluetoothCellLinking != 0
+            return type != allItemsFilterOptionTag || activeStatus != 0 || brand != allItemsFilterOptionTag || numberOfCordlessDevices != 0 || answeringSystem != 0 || bluetoothCellLinking != 0 || acquisitionYear != 0
         }
 
         // Whether the selected type filter allows cordless device count filtering (i.e. type is all or cordless).
@@ -58,6 +61,16 @@ class PhoneFilterManager {
         return Set(phones.map(\.brand)).sorted()
     }
 
+    // MARK: - Acquisition Years
+
+    // Returns all acquisition years from the given phones.
+    static func allAcquisitionYears(from phones: [Phone]) -> [Int] {
+        let acquisitionYearSet =  Set(phones.map(\.acquisitionYear)).filter { $0 > 0 }
+        let replacedPhoneAcquiredInYearSet = Set(phones.map(\.replacesPhoneAcquiredInYear)).filter { $0 > 0 }
+        let combinedSet = acquisitionYearSet.union(replacedPhoneAcquiredInYearSet)
+        return combinedSet.sorted()
+    }
+
     // MARK: - Filtering
 
     // This method applies all filters in sequence.
@@ -76,12 +89,14 @@ class PhoneFilterManager {
                 $0.numberOfIncludedCordlessHandsets == criteria.numberOfCordlessDevices
             }
         }
-        // 6. Filter by whether it has an answering system.
+        // 6. Filter by whether it has an answering system or Bluetooth cell phone linking.
         if criteria.typeIsNotStandaloneWireless {
             filteredPhones = filterByAnsweringSystemPresence(filteredPhones, answeringSystem: criteria.answeringSystem)
             filteredPhones = filterByBluetoothCellLinkingPresence(filteredPhones, bluetoothCellLinking: criteria.bluetoothCellLinking)
         }
-        // 7. Return the filtered phones array.
+        // 7. Filter by acquisition year.
+        filteredPhones = filterByAcquisitionYear(filteredPhones, acquisitionYear: criteria.acquisitionYear)
+        // 8. Return the filtered phones array.
         return filteredPhones
     }
 
@@ -150,6 +165,16 @@ class PhoneFilterManager {
         }
             // All
         default: return phones
+        }
+    }
+
+    // This method filters phones by acquisition year.
+    private static func filterByAcquisitionYear(_ phones: [Phone], acquisitionYear: Int) -> [Phone] {
+        switch acquisitionYear {
+            // All
+        case 0: return phones
+            // Specific acquisition year
+        default: return phones.filter { $0.acquisitionYear == acquisitionYear || $0.replacesPhoneAcquiredInYear == acquisitionYear }
         }
     }
 

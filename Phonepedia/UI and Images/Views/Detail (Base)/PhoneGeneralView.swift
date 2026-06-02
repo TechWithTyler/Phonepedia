@@ -54,6 +54,10 @@ struct PhoneGeneralView: View {
         return phone.releaseYear...currentYear
     }
 
+    var replacesPhoneAcquiredInYearRange: ClosedRange<Int> {
+        return releaseYearRange.lowerBound...phone.acquisitionYear
+    }
+
     var maxCordlessDevicesRange: ClosedRange<Int> {
         let includedHandsets = phone.numberOfIncludedCordlessHandsets == 0 ? 1 : phone.numberOfIncludedCordlessHandsets
         return phone.cordlessDeviceLinkingMethod == 4 ? includedHandsets...30 : 1...1
@@ -121,6 +125,7 @@ struct PhoneGeneralView: View {
         }
         Toggle("Needed One or More Non-Accessory Replacements", isOn: $phone.neededReplacements)
         InfoText("Sometimes, one or more parts of your phones may break or come broken and can't be fixed easily (e.g. broken base/handset speaker or display, corrupt memory on a base or handset that a factory reset can't fix, handsets unable to register/link to the base).\nYou can replace handsets easily just as you would purchase additional handsets, but you might end up with more parts than what you needed (e.g. you needed just a handset but also got a charger). To replace just a base or charger, you'll need to look on the used market or purchase an entire new phone set.\nIf you don't want to replace broken parts, you can try to send them to someone who can repair them, or if you know how to, repair it yourself.\nIn \(SABundleName), a \"non-accessory\" replacement refers to replacing a base, cordless device, or charger, not accessories like power cords, batteries/battery covers, and belt clips.")
+        CountPicker("Replaces Phone Acquired In", selection: $phone.replacesPhoneAcquiredInYear, numberRange: replacesPhoneAcquiredInYearRange, usesGroupingSeparator: false, unknownTitle: "I Don't Remember", noneTitle: "None")
         VStack {
             Text("Write more about your phone (e.g., the story behind why you got it, when/where you got it, whether you had to replace broken parts) in the text area below.\nExample: \"\(phoneDescriptionSampleText)\"")
                 .lineLimit(nil)
