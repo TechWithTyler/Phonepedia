@@ -159,6 +159,20 @@ struct PhoneCountView: View {
         return Double(headsetCount) / Double(cordlessPhoneCount)
     }
 
+    // Years that phones were acquired in.
+    var acquisitionYears: [Int] {
+        var yearCounts: [Int: Int] = [:]
+        for phone in phones {
+            if phone.acquisitionYear > 0 {
+                yearCounts[phone.acquisitionYear, default: 0] += 1
+            }
+            if phone.replacesPhoneAcquiredInYear > 0 {
+                yearCounts[phone.replacesPhoneAcquiredInYear, default: 0] += 1
+            }
+        }
+        return yearCounts.keys.sorted(by: >)
+    }
+
     // MARK: - Properties - Strings
 
     // Brands of phones. Unlike the allBrands property in PhoneListView, this property is an array so a brand can exist more than once to count them.
@@ -354,6 +368,19 @@ struct PhoneCountView: View {
                             .multilineTextAlignment(.trailing)
                     }
                 }
+                DisclosureGroup("Acquisition Years") {
+                    ForEach(acquisitionYears, id: \.self) { year in
+                        HStack {
+                            Text("Phones Acquired In \(formattedYear(year))")
+                                .foregroundStyle(.primary)
+                                .multilineTextAlignment(.leading)
+                            Spacer()
+                            Text(numberOfPhonesAcquiredInYear(year), format: .number)
+                                .foregroundStyle(.secondary)
+                                .multilineTextAlignment(.trailing)
+                        }
+                    }
+                }
                 DisclosureGroup("Brands (\(brands.count))") {
                     Picker("Sort By", selection: $brandSortMode) {
                         Text("Name").tag(0)
@@ -414,11 +441,33 @@ struct PhoneCountView: View {
             .font(.footnote)
     }
 
-    // MARK: - Number of Phones Of Brand
+    // MARK: - Formatted Year
+
+    // This method formats year as a String without a grouping separator.
+    func formattedYear(_ year: Int) -> String {
+        // 1. Convert the year to a string without formatting in case formatting returns nil.
+        let yearAsString = "\(year)"
+        // 2. Format the year.
+        let formatter = NumberFormatter()
+        formatter.usesGroupingSeparator = false
+        guard let formattedYear = formatter.string(from: year as NSNumber) else { return yearAsString }
+        // 3. Return the formatted year.
+        return formattedYear
+    }
+
+    // MARK: - Number of Phones Acquired In Year
+
+    // This method returns the number of phones acquired in year. The acquisitionYears array stores only the years--the number of phones acquired in each year is determined hear based on how many instances of year are in the array.
+    func numberOfPhonesAcquiredInYear(_ year: Int) -> Int {
+        let allPhonesAcquiredInYear = phones.filter { $0.acquisitionYear == year || $0.replacesPhoneAcquiredInYear == year }
+        return allPhonesAcquiredInYear.count
+    }
+
+    // MARK: - Number of Phones of Brand
 
     // This method returns the number of phones of brand. The brands array stores only the brand names--the number of phones of each brand is determined here based on how many instances of brand are in the array.
     func numberOfPhones(of brand: String) -> Int {
-        let allPhonesOfBrand = phones.filter({$0.brand == brand})
+        let allPhonesOfBrand = phones.filter { $0.brand == brand }
         return allPhonesOfBrand.count
     }
 
