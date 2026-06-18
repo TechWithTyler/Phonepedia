@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-struct ListEmptyView: View {
+struct NoPhonesView: View {
 
     // MARK: - Body
 
@@ -25,5 +25,5 @@ struct ListEmptyView: View {
 // MARK: - Preview
 
 #Preview {
-    ListEmptyView()
+    NoPhonesView()
 }

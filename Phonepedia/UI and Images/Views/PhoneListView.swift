@@ -23,6 +23,26 @@ struct PhoneListView: View {
 
     @EnvironmentObject var achievementTrackerManager: PhoneCollectionAchievementTrackerManager
 
+    @State var searchText: String = String()
+
+    var searchResults: [Phone] {
+        // 1. Specify the content to search.
+        let content = filteredPhones
+        // 2. If searchText is empty, return all phones.
+        if searchText.isEmpty {
+            return content
+        } else {
+            // 3. Return phones with brands, model numbers, or nicknames that contain all or part of the search text.
+            return content.filter { phone in
+                let brandRange = phone.brand.range(of: searchText, options: .caseInsensitive)
+                let modelRange = phone.model.range(of: searchText, options: .caseInsensitive)
+                let nicknameRange = phone.nickname.range(of: searchText, options: .caseInsensitive)
+                let textMatchesSearchTerm = brandRange != nil || modelRange != nil || nicknameRange != nil
+                return textMatchesSearchTerm
+            }
+        }
+    }
+
     // MARK: - Properties - Integers
 
     // The default selection to use for a new phone's "Analog Line Connected To" option.
@@ -65,14 +85,27 @@ struct PhoneListView: View {
 
     var body: some View {
         ZStack {
-            if !filteredPhones.isEmpty {
+            if !searchResults.isEmpty {
                 phoneList
             } else if phoneFilterEnabled {
                 noPhonesText
             } else {
-                ListEmptyView()
+                if !searchText.isEmpty {
+                    VStack {
+                        Text("No phones with brand names, model numbers, or nicknames containing \"\(searchText)\"")
+                            .font(.largeTitle)
+                            .foregroundStyle(.secondary)
+                            .multilineTextAlignment(.center)
+                        Text("Please check your search terms.")
+                            .font(.callout)
+                            .foregroundStyle(.tertiary)
+                    }
+                } else {
+                    NoPhonesView()
+                }
             }
         }
+        .searchable(text: $searchText)
         .onAppear {
             updateDataIfNeeded()
         }
@@ -166,12 +199,13 @@ struct PhoneListView: View {
     @ViewBuilder
     var phoneList: some View {
         List(selection: $selectedPhone) {
-            ForEach(filteredPhones) { phone in
+            ForEach(searchResults) { phone in
                 phoneRow(for: phone)
             }
             .onDelete(perform: deletePhones)
             .onMove(perform: movePhones)
         }
+        .animation(.linear, value: searchResults)
         .onAppear {
             achievementTrackerManager.evaluate(phones: phones, initialLoad: true)
         }
@@ -421,7 +455,9 @@ struct PhoneListView: View {
             }
             // 4. Insert the new phone into the model context.
             modelContext.insert(newPhone)
-            // 5. Select the new phone.
+            // 5. Clear the search text.
+            searchText.removeAll()
+            // 6. Select the new phone.
             selectedPhone = newPhone
         }
     }

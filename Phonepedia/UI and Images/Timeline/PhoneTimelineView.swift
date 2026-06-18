@@ -64,7 +64,7 @@ struct PhoneTimelineView: View {
                 if noPhones {
                     HStack {
                         Spacer()
-                        ListEmptyView()
+                        NoPhonesView()
                         Spacer()
                     }
                 } else {

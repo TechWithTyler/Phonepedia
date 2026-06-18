@@ -17,7 +17,7 @@
 		8D2385572FA53F5C0058B2D1 /* TimelineRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2385562FA53F5C0058B2D1 /* TimelineRowView.swift */; };
 		8D2385592FA53F830058B2D1 /* PhoneTimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2385582FA53F830058B2D1 /* PhoneTimelineView.swift */; };
 		8D23855B2FA541F90058B2D1 /* PhoneTimelineButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23855A2FA541F90058B2D1 /* PhoneTimelineButton.swift */; };
-		8D23855D2FA548A70058B2D1 /* ListEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23855C2FA548A70058B2D1 /* ListEmptyView.swift */; };
+		8D23855D2FA548A70058B2D1 /* NoPhonesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D23855C2FA548A70058B2D1 /* NoPhonesView.swift */; };
 		8D239BC82DF8D1C80022F0A4 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 8D239BC72DF8D1C80022F0A4 /* AppIcon.icon */; };
 		8D27B18D2D03AABB004B75E4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D27B18C2D03AABB004B75E4 /* SettingsView.swift */; };
 		8D27B1902D03AC3B004B75E4 /* UserDefaultsKeyNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D27B18F2D03AC3B004B75E4 /* UserDefaultsKeyNames.swift */; };
@@ -237,7 +237,7 @@
 		8D2385562FA53F5C0058B2D1 /* TimelineRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineRowView.swift; sourceTree = "<group>"; };
 		8D2385582FA53F830058B2D1 /* PhoneTimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneTimelineView.swift; sourceTree = "<group>"; };
 		8D23855A2FA541F90058B2D1 /* PhoneTimelineButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneTimelineButton.swift; sourceTree = "<group>"; };
-		8D23855C2FA548A70058B2D1 /* ListEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListEmptyView.swift; sourceTree = "<group>"; };
+		8D23855C2FA548A70058B2D1 /* NoPhonesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoPhonesView.swift; sourceTree = "<group>"; };
 		8D239BC72DF8D1C80022F0A4 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		8D27B18C2D03AABB004B75E4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		8D27B18F2D03AC3B004B75E4 /* UserDefaultsKeyNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeyNames.swift; sourceTree = "<group>"; };
@@ -756,7 +756,7 @@
 				8D41FE502F22CCB800281527 /* ColorStack.swift */,
 				8DA03DC92F61E74C00DC41A9 /* NavigationButtonExampleView.swift */,
 				8D71EE772F719E9800F323D6 /* BrandQuickPicker.swift */,
-				8D23855C2FA548A70058B2D1 /* ListEmptyView.swift */,
+				8D23855C2FA548A70058B2D1 /* NoPhonesView.swift */,
 			);
 			path = "Child Views";
 			sourceTree = "<group>";
@@ -1150,7 +1150,7 @@
 				8D32A5002D419FF100F606FC /* ProgrammingWithoutDisplayInfoView.swift in Sources */,
 				8D379CD12ED6524400F79D1C /* RedialWhenBusyPickerItems.swift in Sources */,
 				8DA844D12B72E1D7006CBCA7 /* CameraViewController.swift in Sources */,
-				8D23855D2FA548A70058B2D1 /* ListEmptyView.swift in Sources */,
+				8D23855D2FA548A70058B2D1 /* NoPhonesView.swift in Sources */,
 				8D38ED972CAF3E4C00CCC422 /* HandsetMessagingView.swift in Sources */,
 				8D38ED712CAF325200CCC422 /* PhonePowerView.swift in Sources */,
 				8D2385592FA53F830058B2D1 /* PhoneTimelineView.swift in Sources */,
