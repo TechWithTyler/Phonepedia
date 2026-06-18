@@ -476,9 +476,9 @@ In most cases, if the base has a charge light/display message, the completion of
 
     @ViewBuilder
     var cordedCordlessGroup: some View {
-        if phone.grade == 0 && phone.isCordlessOrPushButtonDesk {
+        if phone.grade == 0 && phone.isCordlessOrPushButtonDesk && phone.landlineConnectionType == 0 {
             Toggle("Supports PBX-Style Features Without PBX", isOn: $phone.supportsPBXFeatures)
-            InfoText("Some small-business phones can communicate with other compatible phones on the same line without a PBX. Each phone sends and receives audio signals on specific frequency bands over the analog line (think analog wireless but wired), allowing them to detect calls or intercom requests from each other. This provides PBX-like features such as intercom, even without a PBX. The audio frequencies used for this communication are above the audible range. Extension numbers are set manually on each phone.\nThe more distance between phones, the weaker the signal can get, which can prevent these features from working.\nThis isn't necessary for multi-handset cordless phones unless more handsets are needed than a single base can support, as most multi-handset systems already have these features. In both cases, going off-hook picks up an outside line, not an internal line.")
+            InfoText("Some small-business analog phones can communicate with other compatible phones on the same line without a PBX. Each phone sends and receives audio signals on specific frequency bands over the analog line (think analog wireless but wired), allowing them to detect calls or intercom requests from each other. This provides PBX-like features such as intercom, even without a PBX. The audio frequencies used for this communication are above the audible range. Extension numbers are set manually on each phone.\nThe more distance between phones, the weaker the signal can get, which can prevent these features from working.\nThis isn't necessary for multi-handset cordless phones unless more handsets are needed than a single base can support, as most multi-handset systems already have these features. In both cases, going off-hook picks up an outside line, not an internal line.")
 
         }
         if (phone.isPushButtonCorded && phone.cordedPhoneType != 4) || phone.isCordedCordless {

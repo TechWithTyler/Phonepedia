@@ -787,6 +787,9 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
     // The connection type for the landline. 0 = analog, 1 = digital, 2 = Ethernet VoIP, 3 = Wi-Fi VoIP, 4 = cellular, 5 = Ethernet/analog.
     var landlineConnectionType: Int = 0
 
+    // Whether cordless devices on a VoIP cordless phone all share the same line(s) (0), are assigned to a specific line/extension (1), or can be configured to use either (2).
+    var voIPCordlessDeviceLineBehavior: Int = 1
+
     // Whether the power and line connections are consolidated into a single cord for the base.
     var usesSingleLinePowerFeed: Bool = false
 
@@ -1258,7 +1261,7 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
     // Whether the base has a monochrome (i.e. non-color) display.
     @Transient
     var baseDisplayIsMonochrome: Bool {
-        return baseDisplayType == 8 || (baseDisplayType > 2 && baseDisplayType < 7)
+        return baseDisplayType == 8 || (baseDisplayType > 1 && baseDisplayType < 7)
     }
 
     // Whether the phone has an answering system that is accessible from the base.
@@ -1969,6 +1972,7 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
 
     func hasBaseSpeakerphoneChanged(oldValue: Bool, newValue: Bool) {
         if newValue {
+            voIPCordlessDeviceLineBehavior = 0
             hasBaseIntercom = true
         }
     }
@@ -1976,6 +1980,7 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
     func landlineConnectionTypeChanged(oldValue: Int, newValue: Int) {
         if newValue > 0 {
             dialMode = 1
+            supportsPBXFeatures = false
         }
         if newValue > 1 {
             if cordedPowerSource < 2 {

@@ -120,7 +120,7 @@ struct BaseDisplayBacklightButtonsView: View {
                         Divider()
                         if phone.hasAnsweringSystem > 0 {
                             Text("LED Message Counter").tag(1)
-                            Text("LCD Message Counter w/ Status Items").tag(2)
+                            Text("LCD Message Counter").tag(2)
                             Divider()
                         }
                         Text("Monochrome Display (Segmented)").tag(3)
