@@ -25,10 +25,12 @@ struct HandsetCallerIDView: View {
                 Toggle(isOn: $handset.callerIDPhonebookMatch) {
                     Text("Caller ID Name Uses Matching Phonebook Entry Name")
                 }
+                .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
             }
             Toggle(isOn: $handset.hasTalkingCallerID) {
                 Text("Talking Caller ID")
             }
+            .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
             if handset.hasTalkingCallerID {
                 if handset.callerIDPhonebookMatch {
                     ExampleAudioView(audioFile: .talkingCallerIDPhonebook)
@@ -49,6 +51,7 @@ struct HandsetCallerIDView: View {
             }
             if handset.callerIDCapacity == 0 || handset.handsetStyle == 3 {
                 Toggle("Uses Base Caller ID List", isOn: $handset.usesBaseCallerID)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
             }
             InfoText("When handsets use the base caller ID list instead of having their own, the caller ID list, and the indication/number of missed calls, is shared by the base and all handsets. Only one can access it at a time.")
         }

@@ -25,6 +25,7 @@ struct BaseSpeakerphoneIntercomView: View {
                 Toggle(isOn: $phone.hasBaseSpeakerphone) {
                     Text(phone.isCordless ? "Has Base Speakerphone" : "Has Speakerphone")
                 }
+                .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 .onChange(of: phone.hasBaseSpeakerphone) { oldValue, newValue in
                     phone.hasBaseSpeakerphoneChanged(oldValue: oldValue, newValue: newValue)
                 }
@@ -55,6 +56,7 @@ struct BaseSpeakerphoneIntercomView: View {
                 if phone.voIPCordlessDeviceLineBehavior != 1 || phone.landlineConnectionType < 2 || phone.landlineConnectionType > 3 {
                     if phone.hasBaseSpeakerphone && phone.baseChargesHandset {
                         Toggle("Supports Pick Up to Switch", isOn: $phone.hasPickUpToSwitch)
+                            .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                         InfoText("During a call on the base speakerphone with the handset placed on the base, you can pick up the handset to switch from the base speakerphone to the handset. This works in one of 3 ways:\n• If the base and handset both have 3 contacts (i.e., 2 charging contacts and a data contact), the call is immediately switched from the base to the handset since the presence of a call is passed through that data contact. The call will only switch over once the handset links to the base.\n• Through the charging contacts, the base detects that a handset is placed on it. When the handset is picked up, it links to the base, which then accepts the switchover since it's on speakerphone. If a handset is picked up from a charger (or a base it's not registered to), the handset will unlink and the call won't be switched, unless another handset is also being picked up from the base.\n• Through the charging contacts, both the base and handset detect that the handset is placed on the base, and picking up the handset switches the call to the handset. If the handset doesn't have a link to the base, an error tone may sound/an error message may be displayed and the call won't switch over.\nThe call will only switch over once the handset links to the base.")
                         if phone.hasPickUpToSwitch && phone.hasBaseIntercom {
                             Picker("Handset <-> Base Call Pickup Behavior", selection: $phone.handsetToBaseCallPickupBehavior) {
@@ -69,6 +71,7 @@ struct BaseSpeakerphoneIntercomView: View {
                     Toggle(isOn: $phone.hasIntercom) {
                         Text("Has Intercom")
                     }
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                     InfoText("Intercom allows you to have a conversation between 2 cordless devices/the base and a cordless device. It can also be used to transfer calls between cordless devices/the base and a cordless device, by allowing you to tell another person that you're transferring the call to them.\nManuals for cordless phones with intercom often use the term \"outside call\". This refers to regular calls made over the phone line/network or a paired Bluetooth cell phone.")
                     if phone.hasIntercom {
                         Picker("Call Transfer Type", selection: $phone.callTransferType) {
@@ -89,6 +92,7 @@ struct BaseSpeakerphoneIntercomView: View {
                         Toggle(isOn: $phone.hasBaseIntercom) {
                             Text("Has Base Intercom")
                         }
+                        .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                         .onChange(of: phone.hasBaseIntercom) { oldValue, newValue in
                             phone.hasBaseIntercomChanged(oldValue: oldValue, newValue: newValue)
                         }

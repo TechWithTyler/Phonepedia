@@ -48,7 +48,6 @@ struct SettingsView: View {
                     Label(SettingsPage.newPhones.title, systemImage: SettingsPage.Icons.newPhones.rawValue)
                 }
             }
-        .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
 #else
         // iOS/visionOS settings page
         NavigationStack {
@@ -84,8 +83,6 @@ struct SettingsView: View {
                 }
             }
         }
-        .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
-        .pickerStyle(.navigationLink)
 #endif
     }
 

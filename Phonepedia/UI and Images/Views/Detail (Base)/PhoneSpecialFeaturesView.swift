@@ -21,6 +21,7 @@ struct PhoneSpecialFeaturesView: View {
 
     var body: some View {
         Toggle("Plays Out-Of-Service Tone Upon Answering", isOn: $phone.outOfServiceToneOnAnswer)
+            .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
         InfoText("\"Not in service\" tones, also known as Special Information Tones or SIT tones, are the 3 rising tones you often hear when you call a number that's out of service or that can't be dialed. Some autodialers will remove any numbers that play SIT tones from their lists so they won't call them again. Because of this, some phones/devices were designed to play SIT tones when a phone on the line was answered, making autodialers remove your number from their list. However, most autodialers today no longer use SIT tone detection as they have other means of knowing what numbers are or aren't in service, and today's phones don't include this feature for many reasons including confused callers and desired automated calls having working numbers removed from their lists. SIT tones may also play when calling working numbers if the call can't be completed for another reason, which can also cause autodialers to remove working numbers from their lists. You may still hear these tones if you call an out-of-service number or when calls can't be completed, depending on the provider that serves the area or that formerly served the number, or depending on how your provider handles out-of-service numbers/when calls can't be completed.")
         if phone.isCordless {
             if phone.hasIntercom {
@@ -43,10 +44,12 @@ struct PhoneSpecialFeaturesView: View {
             CountPicker("Smart Home Devices Supported", selection: $phone.smartHomeDevicesSupported, skipCountingBy: 5, to: 100, singularSuffix: "Device", pluralSuffix: "Devices", noneTitle: "None")
             InfoText("Smart home devices registered to a cordless phone can notify the handset/base or outside phone when things happen and the handset/base can control these devices. For example, when someone rings a doorbell, the phone can sound a chime and color display handsets can show a live feed of the doorbell's video.")
             Toggle("Answer By Voice", isOn: $phone.answerByVoice)
+                .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
             InfoText("The base and compatible handsets can detect sound when landline/cell calls come in, allowing calls to be answered by voice. The phone either listens for any sound or is programmed to listen for a specific phrase.")
         }
         if phone.isPushButtonCorded {
             Toggle("Has Clock/Radio/Alarm", isOn: $phone.cordedPhoneHasClockRadioAlarm)
+                .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
             InfoText("Some corded phones have a clock/radio/alarm, which combines several nightstand devices (phone, clock, radio, and alarm) into one. With some clock/radio/alarm phones, the receiver connects directly to the line, with the base not involved with the phone part at all.")
         }
     }

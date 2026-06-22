@@ -25,6 +25,9 @@ final class CordlessHandsetCharger: BaseHandsetChargerColorManipulatable, Charge
     // The index of the charger.
     var chargerNumber: Int = 0
 
+    // The casing type. 0 = solid, 1 = transparent tinted, 2 = transparent clear
+    var casingType: Int = 0
+
     // The main color's red component.
     var mainColorRed: Double = 0
 

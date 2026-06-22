@@ -103,6 +103,9 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
     // The base accent color's blue component.
     var baseAccentColorBlue: Double = 0
 
+    // The base's casing type. 0 = solid, 1 = transparent tinted, 2 = transparent clear
+    var baseCasingType: Int = 0
+
     // The base display backlight color's red component.
     var baseDisplayBacklightColorRed: Double = 255
 
@@ -162,6 +165,9 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
 
     // The corded receiver accent color's blue component.
     var cordedReceiverAccentColorBlue: Double = 0
+
+    // The corded receiver's casing type. 0 = solid, 1 = transparent tinted, 2 = transparent clear
+    var cordedReceiverCasingType: Int = 0
 
     // The base LED message counter color's red component.
     var baseLEDMessageCounterColorRed: Double = 255
@@ -1320,6 +1326,16 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
         return baseCallerIDCapacity > 0 || !cordlessHandsetsIHave.filter({$0.callerIDCapacity > 0}).isEmpty
     }
 
+    // Whether the phone has a corded receiver if transparent.
+    @Transient
+    var transparentPhoneHasCordedReceiver: Binding<Bool> {
+        Binding<Bool> { [self] in
+            return cordedReceiverMainColorAlpha == 1
+        } set: { [self] newValue in
+            cordedReceiverMainColorAlpha = newValue ? 1 : 0
+        }
+    }
+
     // MARK: - Properties - Color Bindings
 
     // SwiftData can only store Codable types like String, Int, Double, and Bool, not complex types like Color. To allow ColorPicker to work with SwiftData, a custom Color binding is created, which gets and sets color component Double values stored in SwiftData.
@@ -2026,6 +2042,12 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
         if newValue > 0 {
             handsetLocatorUsesIntercom = true
             placeOnBaseAutoRegister = false
+        }
+    }
+
+    func cordedReceiverCasingTypeChanged(oldVale: Int, newValue: Int) {
+        if newValue > 0 {
+            cordedReceiverMainColorAlpha = 1
         }
     }
 

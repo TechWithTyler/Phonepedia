@@ -111,7 +111,6 @@ struct PhoneListView: View {
         }
         .contextMenu {
             PhoneListDetailOptions(menu: true)
-                .toggleStyle(.automatic)
         }
         .onChange(of: filteredPhones, { oldValue, newValue in
             if let phone = selectedPhone, !newValue.contains(phone) {
@@ -229,7 +228,6 @@ struct PhoneListView: View {
             }
             PhonePlaceInCollectionPicker(phone: phone)
                 .pickerStyle(.menu)
-                .toggleStyle(.automatic)
             Divider()
             Button(role: .destructive) {
                 dialogManager.showDeletePhone(phone: phone)
@@ -298,7 +296,6 @@ struct PhoneListView: View {
                     PhoneListDetailOptions(menu: true)
                 }
                 .pickerStyle(.menu)
-                .toggleStyle(.automatic)
                 Divider()
                 Button(role: .destructive) {
                     dialogManager.showingDeleteAllPhones = true
@@ -327,7 +324,6 @@ struct PhoneListView: View {
                 Text("Cellular Handsets").tag(Phone.PhoneType.cellularHandset.rawValue.lowercased())
             }
             .pickerStyle(.menu)
-            .toggleStyle(.automatic)
             Picker("Active Status (\(filterCriteria.activeStatus == 0 ? "Off" : "On"))", selection: $filterCriteria.activeStatus) {
                 Text("Off").tag(0)
                 Divider()
@@ -335,7 +331,6 @@ struct PhoneListView: View {
                 Text("Inactive").tag(2)
             }
             .pickerStyle(.menu)
-            .toggleStyle(.automatic)
             Picker("Brand (\(filterCriteria.brand == allItemsFilterOptionTag ? "Off" : "On"))", selection: $filterCriteria.brand) {
                 Text("All").tag(allItemsFilterOptionTag)
                 Divider()
@@ -344,7 +339,6 @@ struct PhoneListView: View {
                 }
             }
             .pickerStyle(.menu)
-            .toggleStyle(.automatic)
             if filterCriteria.type == allItemsFilterOptionTag || filterCriteria.type == Phone.PhoneType.cordless.rawValue.lowercased() {
                 Picker("No. of Incl. Cordless Devices (\(filterCriteria.numberOfCordlessDevices == 0 ? "Off" : "On"))", selection: $filterCriteria.numberOfCordlessDevices) {
                     Text("Any").tag(0)
@@ -354,7 +348,6 @@ struct PhoneListView: View {
                     }
                 }
                 .pickerStyle(.menu)
-                .toggleStyle(.automatic)
             }
             if filterCriteria.typeIsNotStandaloneWireless {
                 Picker("Answering Systems (\(filterCriteria.answeringSystem == 0 ? "Off" : "On"))", selection: $filterCriteria.answeringSystem) {
@@ -364,7 +357,6 @@ struct PhoneListView: View {
                     Text("Without Answering System").tag(2)
                 }
                 .pickerStyle(.menu)
-                .toggleStyle(.automatic)
                 Picker("Bluetooth Cell Linking (\(filterCriteria.bluetoothCellLinking == 0 ? "Off" : "On"))", selection: $filterCriteria.bluetoothCellLinking) {
                     Text("Off").tag(0)
                     Divider()
@@ -372,7 +364,6 @@ struct PhoneListView: View {
                     Text("Not Supported").tag(2)
                 }
                 .pickerStyle(.menu)
-                .toggleStyle(.automatic)
                 Picker("Acquisition Year (\(filterCriteria.acquisitionYear == 0 ? "Off" : "On"))", selection: $filterCriteria.acquisitionYear) {
                     Text("Off").tag(0)
                     Divider()
@@ -383,7 +374,6 @@ struct PhoneListView: View {
                     }
                 }
                 .pickerStyle(.menu)
-                .toggleStyle(.automatic)
             }
             Divider()
             Button("Reset", systemImage: "arrow.clockwise") {

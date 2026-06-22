@@ -31,6 +31,7 @@ struct HandsetAudioView: View {
                 }
                 if handset.cordlessDeviceType == 0 {
                     Toggle("Has Speakerphone", isOn: $handset.hasSpeakerphone)
+                        .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 }
                     if handset.hasSpeakerphone {
                         Picker("Speakerphone Button Coloring", selection: $handset.speakerphoneColorLayer) {
@@ -42,6 +43,7 @@ struct HandsetAudioView: View {
                         PhoneButtonLegendItem(button: .speakerphone, colorLayer: handset.speakerphoneColorLayer)
                         if handset.speakerphoneColorLayer > 0 {
                             Toggle("Speakerphone Button Light", isOn: $handset.hasSpeakerphoneButtonLight)
+                                .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                             InfoText("The speakerphone button lights up when speakerphone is on.")
                         }
                     } else {
@@ -51,6 +53,7 @@ struct HandsetAudioView: View {
             }
             Section("Headsets") {
                 Toggle("Supports Wired Headsets", isOn: $handset.supportsWiredHeadsets)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 if handset.handsetStyle < 3 {
                     CountPicker("Maximum Number of Bluetooth Headphones", selection: $handset.bluetoothHeadphonesSupported, startNumber: 1, multipliedBy: 2, endNumber: 4, singularSuffix: "Bluetooth Headphone", pluralSuffix: "Bluetooth Headphones", noneTitle: "None", unlimitedTitle: "Unlimited")
                 }
@@ -65,6 +68,7 @@ struct HandsetAudioView: View {
                     }
                     if handset.cordlessDeviceType == 0 && phone.maxCordlessHandsets != 1 {
                         Toggle("Supports Direct Communication Between Handsets", isOn: $handset.hasDirectCommunication)
+                            .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                         InfoText("Direct communication allows you to make calls between handsets registered to the same base without the base being involved, allowing you to do so while out of range of the base. This is done by finding a nearby handset that's registered to the same base with the handset number that was selected. When a handset is registered to a base, it stores information about the base, so it can compare that information to that stored in the selected handset to check if they're both registered to the same base. The handset either allows selection of any possible handset number (even those that aren't registered to the base) or gets the handset list from the base and stores it in the handset.\nIf the handset(s) is/are registered to more than one base, you must set both handsets to use the same base.\nHandsets in direct communication mode can't communicate with the base. If such handsets are deregistered from the base, the handset won't know that until direct communication mode is disabled and the handset finds the base. Deregistered handsets can't use this feature.")
                     }
                 }

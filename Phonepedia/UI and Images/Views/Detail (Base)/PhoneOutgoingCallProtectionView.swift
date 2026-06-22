@@ -22,6 +22,7 @@ struct PhoneOutgoingCallProtectionView: View {
     var body: some View {
         if phone.hasBaseKeypad {
             Toggle("Has Keypad Lock", isOn: $phone.hasKeypadLock)
+                .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
             KeypadLockInfoView()
         }
         Picker("Call Restriction", selection: $phone.callRestriction) {

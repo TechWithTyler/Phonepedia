@@ -55,6 +55,7 @@ struct PhoneMessagingView: View {
             }
             if phone.hasAnsweringSystem > 0 {
                 Toggle("Allows Slowing Down Message Playback", isOn: $phone.canSlowDownMessagePlayback)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 InfoText("On a digital answering system, message playback can be slowed down without affecting the pitch. On a tape answering system, the tape is driven slower, resulting in not only slower playback speed but also lower pitch.")
                 if phone.answeringSystemType == 1 {
                     Picker("All Message Deletion", selection: $phone.allMessageDeletion) {
@@ -71,6 +72,7 @@ struct PhoneMessagingView: View {
             }
             if phone.hasAnsweringSystem > 0 && phone.baseBluetoothCellPhonesSupported > 0 && phone.answeringSystemType == 1 {
                 Toggle("Answering System For Cell Lines", isOn: $phone.answeringSystemForCellLines)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 InfoText("On some Bluetooth cell phone-linking phones with answering system, the answering system can answer calls on the cell line.")
             }
             if phone.hasAnsweringSystem == 1 {
@@ -96,6 +98,7 @@ struct PhoneMessagingView: View {
             }
             if phone.hasBaseAccessibleAnsweringSystem {
                 Toggle("Switches For Basic Answering System Settings", isOn: $phone.answeringSystemSwitches)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
             }
             if phone.hasAnsweringSystem == 3 {
                 Picker("Greeting Management From", selection: $phone.greetingRecordingOnBaseOrHandset) {
@@ -109,8 +112,10 @@ struct PhoneMessagingView: View {
                 InfoText("The greeting, sometimes called the announcement or outgoing message (OGM), is the message the answering system plays to callers when it answers, before optionally allowing the caller to leave a message.\nExample: \"Hello. You have reached \(exampleName). I'm not available to take your call, so please \(AnsweringSystemGreetingComponents.leaveOrRecord()) \(AnsweringSystemGreetingComponents.aOrYour()) message after the \(AnsweringSystemGreetingComponents.beepOrTone()).\"")
                 ExampleAudioView(audioFile: .answeringSystemGreetingRecordMessage)
                 Toggle("Has Greeting Slots/Scheduled Greetings", isOn: $phone.greetingSlotsAndSchedules)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 InfoText("Greeting slots allow you to record multiple greetings and switch between them manually or on a schedule. For example, in a business setting, you might record a \"we're open\" greeting to play when the business is open, and a \"we're closed\" greeting to play when the business is closed. If you're away for an extended period (e.g. on vacation), you might record a \"we're away\" greeting in another \"record message\" greeting slot if available.")
                 Toggle("Has Greeting Only Mode", isOn: $phone.hasGreetingOnlyMode)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 InfoText("Greeting Only, sometimes called Announce Only or Answer Only, answers calls but doesn't accept incoming messages. Some phones allow you to record a separate greeting for both modes, allowing you to easily switch between modes without having to re-record your greeting each time. If the phone has greeting slots, greeting only is one of those slots rather than a dedicated mode.\nExample: \"Hello. You have reached \(exampleName). I'm not available to take your call, so please call \(AnsweringSystemGreetingComponents.againOrBack()) later.\"")
                 ExampleAudioView(audioFile: .answeringSystemGreetingAnswerOnly)
                 Picker("Remote Access Code Type", selection: $phone.remoteAccessCodeType) {
@@ -121,6 +126,7 @@ struct PhoneMessagingView: View {
                 InfoText("The remote access code is a numeric code (at least 2 digits) you dial during the greeting, sometimes with another digit entered first, to remotely access the answering system just as you would with a voicemail service.\nA fixed remote access code is programmed into the phone by the factory and is often unique to each instance of that phone. For example, one instance of a phone model might have the code 47, and another instance of that same model might have the code 26. The code is printed on the back or bottom of the phone.\nWith a partially-selectable remote access code, one or more digits are programmed into the phone by the factory, and you select the remaining digit(s). For example, one instance of a phone model might have the code 6x, and another instance of that same model might have the code 3x, with x representing the digit you can choose (e.g. 60-69 on one instance and 30-39 on another). The fixed portion of the code is printed on the back or bottom of the phone.\nA fully-selectable remote access code means that all digits of the code can be selected by the user, either by scrolling through numbers or by simply entering the desired code using the base/handset keypad.")
                 if phone.isMultiline {
                     Toggle("Remote Access Code Common to All Lines", isOn: $phone.remoteAccessCodeCommonToAllLines)
+                        .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                     InfoText("On multi-line phones, the answering system for each line either has a separate fixed remote access code or remote access code setting, or a single remote access code that applies to all lines.")
                 }
                 Picker("Message Day/Time Stamp", selection: $phone.answeringSystemMessageTimestamp) {
@@ -132,13 +138,17 @@ struct PhoneMessagingView: View {
                 InfoText("Messages are \"stamped\" with the day/time (or date/time) they're recorded, which is announced before or after each message. On tape answering systems, the day/time stamp is recorded onto the tape. Example: \"Wednesday, 12:30AM\"")
                 if phone.baseDisplayType > 3 && phone.answeringSystemType == 1 {
                     Toggle("Has Message List", isOn: $phone.hasMessageList)
+                        .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                     MessageListInfoView()
                 }
                 Toggle("Has Message Alert by Call", isOn: $phone.hasMessageAlertByCall)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 InfoText("This feature allows the answering system to call out to a stored phone number each time a new message is left, so you don't have to constantly be calling to check for new messages while you're away.")
                 Toggle("Marks Caller ID List Entries", isOn: $phone.answeringSystemMarksCallerIDListEntries)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 InfoText("When a caller leaves a message, the entry in the caller ID list will be marked as having left a message. For phones with separate caller ID lists for each handset/deskset, the handset/deskset needs to have a link to the base at the time the message recording ends.")
                 Toggle("Can Record Voice Memos", isOn: $phone.canRecordVoiceMemos)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 InfoText("Some answering systems allow you to record voice memos, which are saved like incoming messages but don't involve the phone line.")
                 Picker("Number of Mailboxes", selection: $phone.numberOfMailboxes) {
                     Text(phone.numberOfLandlines == 1 ? "1" : "1 For Each Line").tag(1)
@@ -150,10 +160,12 @@ struct PhoneMessagingView: View {
                 InfoText("Mailboxes allow you to organize messages for different people or purposes. In your greeting, instruct callers to choose the desired mailbox by pressing the required digits. If a caller doesn't enter anything, the message goes into the first mailbox. Example: \"For Jack, press 1, or just stay on the line. For Jill, press 2. For Jim, press 3.\"\nMost multi-line phones have one mailbox for each line, but some have multiple mailboxes that are shared by all lines.\nSome phones/answering systems designate one mailbox as the primary/general mailbox, separate from the numbered mailboxes. When determining how many mailboxes your phone has, count the primary mailbox as one of those mailboxes in addition to mailbox 1, 2, etc. For example, if your phone has a general mailbox and 2 others, it has 3 total.\nOn multi-line phones, each line has its own answering system, which can be independently turned on/off. On most multi-line phones, incoming messages will be stored in the answering system corresponding to the line receiving the call. On some phones, you can only remotely access the answering system of the line you're calling, while on others, you can access any line remotely no matter which line you're calling. Some phones store memo messages separately from incoming messages, meaning they won't play if playing a specific line's messages.")
                 if phone.numberOfMailboxes > 1 && (phone.hasBaseKeypad || phone.hasAnsweringSystem == 2) {
                     Toggle("Mailbox Password Protection", isOn: $phone.mailboxPasswordProtection)
+                        .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                     InfoText("Some people use specific mailboxes for private/confidential messages. Assigning a password to a mailbox used for this purpose prevents people from listening to or deleting its messages unless they have the password. The password isn't necessary for someone to leave messages in the mailbox.\nDepending on the phone, a mailbox's password can't be the same as that of another mailbox, or the remote access code.")
                 }
                 if phone.isBusinessCordedCordlessSystem {
                     Toggle("Auto Attendant/Personal Mailboxes", isOn: $phone.hasAutoAttendantAndPersonalMailboxes)
+                        .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                     InfoText("On a business phone with multiple cordless handsets/desksets, each handset/deskset can have its own mailbox, which can only be accessed by that handset/deskset or the base. There's also a main mailbox, often called the general delivery mailbox, for any messages not directed to a specific personal mailbox, that the base and all handsets/desksets can access.\nAn automated attendant system can route callers to a specific handset/deskset by asking callers to enter the handset's/deskset's extension number, which is the number assigned when the handset/deskset is registered to the base. If the call isn't answered, the caller can leave a message in that cordless device's personal mailbox.\nMessages are stored in the base in the slot corresponding to the registered handset/deskset--you can't access a handset's/deskset's personal mailbox from that cordless device if it's out of range of the base.")
                 }
                 Picker("Call Recording", selection: $phone.hasCallRecording) {
@@ -221,6 +233,7 @@ A phone's voicemail indicator works in one of the following ways:
             }
             if phone.voicemailQuickDial > 0 {
                 Toggle("Can Store Voicemail Feature Codes", isOn: $phone.voicemailFeatureCodes)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 InfoText("Storing voicemail feature codes allows you to, for example, play and delete messages using a button or menu item once you've dialed into voicemail, just like with built-in answering systems. Example: If your voicemail system's main menu asks you to press 1 to play messages, you can store \"1\" as the Play code and then quickly dial it using a button/menu item.")
             }
         }

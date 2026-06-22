@@ -35,16 +35,19 @@ struct BaseDisplayBacklightButtonsView: View {
                     Toggle(isOn: $phone.hasBaseKeypad) {
                         Text(phone.isCordless ? "Has Base Keypad" : "Has User-Accessible Keypad")
                     }
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                     InfoText("Some cordless phones have a base speakerphone and keypad, which allows you to make calls if the handset isn't nearby or if it needs to charge. Bases with keypads are a great option for office spaces as they combine a cordless-only phone with the design people expect from an office phone.\nSome corded phones, such as those found in hotel lobbies, don't have a user-accessible keypad and are used only for answering calls, checking voicemail, or calling a specific number when picking it up. The keypad and other programming controls are hidden behind a removable faceplate or within the phone's casing. Some keypad-less phones have no programming at all and are designed only for lines which perform auto-dialing upon going off-hook. Such phones with one-touch dial buttons have those buttons pre-programmed by the manufacturer.")
                     if phone.hasBaseKeypad {
                         Toggle(isOn: $phone.hasTalkingKeypad) {
                             Text("Talking Keypad")
                         }
+                        .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                         InfoText("The phone can announce the keys you press when dialing numbers. Sometimes, this announcement plays instead of the DTMF tones (the tones heard when you dial numbers) on your end.")
                     }
                 }
                 if phone.basePhoneType == 0 && (phone.hasBaseKeypad || phone.hasAnsweringSystem == 1 || phone.hasAnsweringSystem == 3) {
                     Toggle("Has Rotary Phone-Inspired Button Layout", isOn: $phone.hasRotaryInspiredButtonLayout)
+                        .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                     InfoText("Some phones have a rotary phone-inspired design, with the buttons arranged like a rotary dial. The display, if any, is often located in the center of the \"dial\".")
                 }
             }
@@ -105,10 +108,12 @@ struct BaseDisplayBacklightButtonsView: View {
             }
             if phone.hasBaseSpeakerphone && phone.baseChargesHandset {
                 Toggle("Dial On Base While Using Handset", isOn: $phone.dialWithBaseDuringHandsetCall)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 InfoText("During a call on a cordless handset, if the base isn't also on the call, you can use the base keypad to dial like on a corded phone.")
             }
             if (phone.hasBaseKeypad && phone.baseDisplayType == 0) || phone.cordedPhoneType == 2 {
                 Toggle("7 Has Q and 9 Has Z", isOn: $phone.hasQZ)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 PhoneNumberLetterInfoView()
             }
         }
@@ -160,12 +165,14 @@ struct BaseDisplayBacklightButtonsView: View {
                             BrightnessContrastAdjustmentPickerItems(colorDisplay: !phone.baseDisplayIsMonochrome)
                         }
                         Toggle("Base Display Can Tilt", isOn: $phone.baseDisplayCanTilt)
+                            .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                         Picker("Clock Display", selection: $phone.clock) {
                             ClockDisplayPickerItems()
                         }
                     }
                     if phone.baseDisplayType >= 5 && phone.hasListsOfEntries {
                         Toggle("Allows Display of Multiple Entries", isOn: $phone.baseDisplayMultiEntries)
+                            .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                         MultiEntryDisplayInfoView()
                     }
                     if phone.isCordless && phone.hasListsOfEntries && phone.baseDisplayType > 2 {
@@ -178,6 +185,7 @@ struct BaseDisplayBacklightButtonsView: View {
                         InfoText("None: The base doesn't have a menu. The display is only used for lists and other information.\nPartial: The base has a menu, but it doesn't contain many of the options found in the handset menu, requiring use of the handset to change certain settings.\nFull: The base has a menu that contains most of the options found in the handset menu.")
                         if phone.cordlessBaseMenuType > 0 {
                             Toggle("Menu Shows Multiple Items", isOn: $phone.baseMenuMultiItems)
+                                .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                             if phone.baseDisplayType >= 5 {
                                 if phone.baseMenuMultiItems {
                                     Picker("Main Menu Layout", selection: $phone.baseMainMenuLayout) {
@@ -192,7 +200,8 @@ struct BaseDisplayBacklightButtonsView: View {
                     }
                 }
                 if phone.baseDisplayType >= 3 && phone.isCordlessOrPushButtonDesk && phone.hasAnsweringSystem > 0 {
-                    Toggle("Base Has LED Message Counter In Addition To Display", isOn: $phone.baseHasDisplayAndMessageCounter)
+                    Toggle("Base Has LED Message Counter In Addition to Display", isOn: $phone.baseHasDisplayAndMessageCounter)
+                        .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 }
                 if phone.baseDisplayType == 1 || phone.baseHasDisplayAndMessageCounter {
                     ColorPicker("LED Message Counter Color", selection: phone.baseLEDMessageCounterColorBinding)
@@ -225,10 +234,13 @@ struct BaseDisplayBacklightButtonsView: View {
                         }
                     }
                         Toggle("Base Navigation Button Up/Down for Volume", isOn: $phone.baseNavigatorKeyUpDownVolume)
+                        .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                         if phone.hasBaseAccessibleAnsweringSystem && phone.baseNavigatorKeyType > 1 {
                             Toggle("Base Navigation Button Left/Right for Repeat/Skip", isOn: $phone.baseNavigatorKeyLeftRightRepeatSkip)
+                                .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                         }
                         Toggle("Base Navigation Button Standby Shortcuts", isOn: $phone.baseNavigatorKeyStandbyShortcuts)
+                        .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                     if phone.baseDisplayType > 3 && phone.isCordlessOrPushButtonDesk {
                         CountPicker("Base Bottom Soft Keys", selection: $phone.baseSoftKeysBottom, oneTo: 6, singularSuffix: "Soft Key", pluralSuffix: "Soft Keys", noneTitle: "None")
                             .onChange(of: phone.baseSoftKeysBottom) { oldValue, newValue in

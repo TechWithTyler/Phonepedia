@@ -45,6 +45,7 @@ struct CellPhoneLinkingView: View {
                 }
                 InfoText("• By Cell: Cell calls are transferred to the phone by selecting it in the audio device list. Upon doing this, the phone shows that the cell call is on hold and can be picked up. Attempting to pick up the call from the phone first may disconnect the current call.\n• By This Phone: The phone detects that the cell phone is on a call, and will pick it up when it tries to make a call from standby.")
                 Toggle("Allows Transferring Calls To Cell", isOn: $phone.supportsTransferToCell)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 InfoText("Some phones allow you to transfer a cell call to the cell phone from the phone. This will cause the cell phone to switch the audio to it or another connected Bluetooth device.")
                 Picker("Cell Line Only Behavior", selection: $phone.cellLineOnlyBehavior) {
                     Text("Optional \"No Line\" Alert").tag(0)
@@ -59,8 +60,10 @@ struct CellPhoneLinkingView: View {
                     CellLineSelectionInfoView()
                 }
                 Toggle("Supports Cell Phone Alerts", isOn: $phone.supportsCellAlerts)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 InfoText("The base and handsets can alert you when a paired cell phone receives a text message or other alerts by sounding a tone and/or displaying/announcing the alert.")
                 Toggle("Has Cell Phone Voice Control", isOn: $phone.hasCellPhoneVoiceControl)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 InfoText("You can talk to your cell phone voice assistant using the base or cordless devices.")
             }
         }

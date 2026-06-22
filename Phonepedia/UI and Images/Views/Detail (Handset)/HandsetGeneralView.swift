@@ -152,6 +152,7 @@ struct HandsetGeneralView: View {
             }
             if phone.baseChargesHandset && phone.isDigitalCordless {
                 Toggle("Fits On Base", isOn: $handset.fitsOnBase)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 if !handset.fitsOnBase {
                     InfoText("For a handset to \"fit on the base\", the charging contacts of the handset and base must be able to touch each other without having to force the handset into the base.\nA handset which doesn't fit on the base misses out on many features including place-on-base power backup and place-on-base auto-register.")
                 }
@@ -170,6 +171,7 @@ struct HandsetGeneralView: View {
         }
         if handset.hasCordedReceiver {
             Toggle("Is Slim Corded Deskset", isOn: $handset.isSlimCordedDeskset)
+                .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
             Picker("Switch Hook", selection: $handset.switchHookType) {
                 SwitchHookTypePickerItems(slim: handset.isSlimCordedDeskset)
             }

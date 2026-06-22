@@ -33,6 +33,7 @@ struct BaseSpeedDialView: View {
 
     var body: some View {
         Toggle("Has One-Touch Emergency Calling", isOn: $phone.hasOneTouchEmergencyCalling)
+            .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
         OneTouchEmergencyCallingInfoView()
         CountPicker(phone.isCordless ? "Dial-Key Speed Dial Slots (Base)" : "Dial-Key Speed Dial Locations", selection: $phone.baseSpeedDialCapacity, numberRange: baseSpeedDialRange, noneTitle: "None")
         InfoText("Speed dial is usually used by holding down the desired number key or by pressing a button (usually called \"Auto\", \"Mem\", or \"Memory\") followed by the desired number key. Slot 10 is usually used by pressing 0.\nFor phones with 11 or more slots, if the phone doesn't have a display, the slot is selected by pressing the memory button then entering the number (e.g. 05 for slot 5, 10 for slot 10, or 18 for slot 18). If the phone has a display, slot 11 and higher is selected by pressing the speed dial button then entering/scrolling to the desired slot number (e.g. press and hold 5 for slot 5, press and hold 0 for slot 10, or press the speed dial button and enter/scroll to slot number 18 for slot 18).")
@@ -53,10 +54,12 @@ struct BaseSpeedDialView: View {
             InfoText("Most phones with one-touch dial buttons have a paper card or faceplate where you can write the names/numbers stored to the corresponding buttons.\nMore advanced phones might instead have a display (independent of the main display if any) showing the names/numbers stored to the corresponding buttons.\nIn the case of hotel phones with paper faceplates, the hotel staff fill out worksheets with the desired one-touch dial names (e.g., Front Desk, Concierge, Room Service) and the desired dialing instructions (e.g. to dial 9 + 1 + area code + number for long-distance calls), then send them to the phone manufacturer when placing an order for one or more phones. Depending on the phone, programming is done by the manufacturer, in which case it can't be changed later, or the hotel staff can do it using buttons hidden beneath the faceplate.")
             if phone.isPushButtonDeskOrCordlessDialingBase {
                 Toggle("Supports Key Expansion Modules", isOn: $phone.baseOneTouchDialExpansionModulesSupported)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 InfoText("Key expansion modules are cards with additional one-touch dial buttons which attach to a phone.")
             }
             if phone.isCordless && (phone.hasBaseIntercom || phone.callTransferType > 0) {
                 Toggle("Base One-Touch/Memory Dial Supports Handset Numbers", isOn: $phone.oneTouchDialSupportsHandsetNumbers)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 InfoText("By assigning a handset number to a cordless or corded/cordless phone base's one-touch dial button, you can press it to quickly intercom/transfer a call to that handset, just like how one-touch dial buttons on a business/hotel phone system are often programmed to dial other extension numbers in the business/hotel.")
             }
         }

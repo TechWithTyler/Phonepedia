@@ -36,7 +36,11 @@ struct HandsetColorView: View {
     // MARK: - Body
 
     var body: some View {
-            Section {
+        Section {
+            Picker("Casing Type", selection: $handset.casingType) {
+                CasingTypePickerItems()
+            }
+            if handset.casingType == 0 {
                 ColorPicker("\(mainColorLocation) Color", selection: handset.mainColorBinding)
                 ColorPicker("\(secondaryColorLocation) Color", selection: handset.secondaryColorBinding)
                 Button("Use \(mainColorLocation) Color") {
@@ -50,9 +54,9 @@ struct HandsetColorView: View {
                     handset.setAccentColorToSecondary()
                 }
                 if handset.cordlessDeviceType == 1 {
-                ClearSupportedColorPicker("Corded Receiver Outer Color", selection: handset.cordedReceiverMainColorBinding) {
-                    Text("No Corded Receiver")
-                }
+                    ClearSupportedColorPicker("Corded Receiver Outer Color", selection: handset.cordedReceiverMainColorBinding) {
+                        Text("No Corded Receiver")
+                    }
                     Button("Use Deskset Main Color") {
                         handset.setCordedReceiverOuterColorToMain()
                     }
@@ -76,7 +80,16 @@ struct HandsetColorView: View {
                         }
                     }
                 }
+            } else {
+                if handset.casingType == 1 {
+                    ColorPicker("Tint Color", selection: handset.mainColorBinding)
+                }
+                if handset.cordlessDeviceType == 1 {
+                    Toggle("Has Corded Receiver", isOn: handset.transparentDesksetHasCordedReceiver)
+                        .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
+                }
             }
+        }
     }
 
 }

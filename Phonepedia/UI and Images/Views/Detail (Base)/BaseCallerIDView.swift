@@ -41,6 +41,7 @@ struct BaseCallerIDView: View {
             Toggle(isOn: $phone.callerIDPhonebookMatch) {
                 Text("Caller ID Name Uses Matching Phonebook Entry Name")
             }
+            .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
             InfoButton("About Caller ID Name Formatting…") {
                 dialogManager.showingAboutCallerIDNameFormatting = true
             }
@@ -49,6 +50,7 @@ struct BaseCallerIDView: View {
             Toggle(isOn: $phone.hasTalkingCallerID) {
                 Text("Talking Caller ID")
             }
+            .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
             InfoText("The phone can announce who's calling after each ring, so you don't have to look at the screen. Example: \"Call from \(exampleName)\" for a caller stored in the phonebook, \"Call from \(NameNumberExamples.cnamForName(exampleName))\" for a caller not stored in the phonebook, or \"Call from \(NameNumberExamples.formatPhoneNumber(areaCode: exampleAreaCode, centralExchange: exampleCentralExchange, localNumber: exampleLocalNumber, withFormat: .plain))\" when the caller's number is displayed instead of a name.")
             if phone.hasTalkingCallerID {
                 if phone.callerIDPhonebookMatch {
@@ -60,9 +62,11 @@ struct BaseCallerIDView: View {
         }
         if phone.hasAnalogLineConnection && phone.hasClock {
             Toggle("Caller ID Time Adjustment", isOn: $phone.callerIDTimeAdjust)
+                .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
             InfoText("Caller ID data may include not only the name and/or phone number, but also the date and time of the call. This data can be used to automatically set the phone's clock.\nCaller ID data doesn't include the year or day of the week. You may need to manually set the year after a power outage. For this reason, if the year isn't correct and there's a leap day, the date might be incorrect. For phones that store a day of the week, it either has a manually-set year which tells it which day of the week to use, or you need to manually set the day of the week.")
         }
         Toggle("Has Flash Button/Supports Call Waiting", isOn: $phone.supportsCallWaiting)
+            .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
         InfoText("Call waiting allows you to receive calls even when you are on the phone. Call waiting calls are answered by pressing the flash button or switch hook, and you can do the same to switch between 2 calls, start a new call (\"get a 2nd dial tone\"), or conference 2 calls to create a 3-way call. When pressing the flash button on analog phones, the phone goes on-hook for a split-second, then back off-hook, to signal to the provider device or central office that you wanted to do any of those actions. The term \"flash\" comes from the switchboard days where each line jack on the switchboard had a light next to it, and this brief \"on-and-off-hook\" would cause this light to flash.\nFlash can be used to put calls on hold at the provider level, and is different from the hold function on the phone itself if it has one, where the phone remains off-hook but the microphone and earpiece/speaker are muted.\nCall Waiting Caller ID (CWID) allows you to receive caller ID for the 2nd call. On analog phones, a high-pitched tone (2130Hz + 2750Hz), called the Customer Premises Equipment Alert Signal tone, will be played after the call waiting tone. This tone tells the phone to play a DTMF \"A\" or \"D\" tone (depending on the caller ID standards the phone supports), if it supports caller ID and is off-hook, to let the provider know it can send caller ID data for the call. Once the phone detects the Customer Premises Equipment Alert Signal tone, incoming audio is briefly muted to prevent the caller ID data tones from being heard and making you wonder \"What was that weird sound I just heard?\".")
         ExampleAudioView(audioFile: .callWaitingTone)
         ExampleAudioView(audioFile: .dtmfToneD)
@@ -74,6 +78,7 @@ struct BaseCallerIDView: View {
 #endif
             if phone.hasCallerIDList {
                 Toggle("One-Ring Scam Call Detection", isOn: $phone.scamCallDetection)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 InfoText("If a caller hangs up within 1 or 2 rings and caller ID is received, the phone can mark the call as a one-ring scam call when viewed in the caller ID list, and warn the user when trying to call that caller. One-ring scams often come from international numbers, which cost money to call.")
             }
         }

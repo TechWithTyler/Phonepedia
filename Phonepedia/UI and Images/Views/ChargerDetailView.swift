@@ -58,17 +58,26 @@ struct ChargerDetailView: View {
                         }
                     }
                     Section("Basic Info") {
-                        ColorPicker("Main Color", selection: charger.mainColorBinding)
-                        ColorPicker("Secondary/Accent Color", selection: charger.secondaryColorBinding)
-                        Button("Use Main Color") {
-                            charger.setSecondaryColorToMain()
+                        Picker("Casing Type", selection: $charger.casingType) {
+                            CasingTypePickerItems()
                         }
-                        ColorPicker("Accent Color", selection: charger.accentColorBinding)
-                        Button("Use Top Color") {
-                            charger.setAccentColorToMain()
-                        }
-                        Button("Use Bottom Color") {
-                            charger.setAccentColorToSecondary()
+                        if charger.casingType == 0 {
+                            ColorPicker("Main Color", selection: charger.mainColorBinding)
+                            ColorPicker("Secondary/Accent Color", selection: charger.secondaryColorBinding)
+                            Button("Use Main Color") {
+                                charger.setSecondaryColorToMain()
+                            }
+                            ColorPicker("Accent Color", selection: charger.accentColorBinding)
+                            Button("Use Top Color") {
+                                charger.setAccentColorToMain()
+                            }
+                            Button("Use Bottom Color") {
+                                charger.setAccentColorToSecondary()
+                            }
+                        } else {
+                            if charger.casingType == 1 {
+                                ColorPicker("Tint Color", selection: charger.mainColorBinding)
+                            }
                         }
                         if phone.basePhoneType == 0 {
                             Picker("Charger For", selection: $charger.type) {
@@ -77,6 +86,7 @@ struct ChargerDetailView: View {
                             }
                         }
                         Toggle("Has Charge Light", isOn: $charger.hasChargeLight)
+                            .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                         if charger.hasChargeLight {
                             ColorPicker("Charge Light Color (Charging)", selection: charger.chargeLightColorChargingBinding)
                             ClearSupportedColorPicker("Charge Light Color (Charged)", selection: charger.chargeLightColorChargedBinding) {
@@ -104,15 +114,18 @@ struct ChargerDetailView: View {
                                 Text("Bracket").tag(2)
                             }
                             Toggle("Has Hard-Wired AC Adaptor", isOn: $charger.hasHardWiredACAdaptor)
+                                .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                         }
                     }
                     if charger.type == 0 && phone.basePhoneType == 0 {
                         Section("Special Features") {
                             if phone.supportsRangeExtenders {
                                 Toggle("Has Built-In Range Extender", isOn: $charger.hasRangeExtender)
+                                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                                 InfoText("A charger with a built-in range extender allows you to have a range extender where you have a charger, without having to place a separate range extender.")
                             }
                             Toggle("Has Clock/Radio/Alarm", isOn: $charger.hasClockRadioAlarm)
+                                .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                             InfoText("Some chargers have a built-in clock/radio/alarm, which combines several nightstand devices (cordless handset charger, clock, radio, and alarm) into one.")
                         }
                     }

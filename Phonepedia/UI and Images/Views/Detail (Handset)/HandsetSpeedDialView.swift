@@ -21,12 +21,15 @@ struct HandsetSpeedDialView: View {
 
     var body: some View {
         Toggle("Has One-Touch Emergency Calling", isOn: $handset.hasOneTouchEmergencyCalling)
+            .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
         OneTouchEmergencyCallingInfoView()
         CountPicker("Dial-Key Speed Dial Capacity", selection: $handset.speedDialCapacity, oneTo: handset.voicemailQuickDial == 2 ? 9 : 10, noneTitle: "None")
         if handset.handsetStyle < 3 {
             Toggle("Uses Base Speed Dial", isOn: $handset.usesBaseSpeedDial)
+                .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
             CountPicker("One-Touch Dial Buttons", selection: $handset.oneTouchDialCapacity, oneTo: 4, noneTitle: "None")
         Toggle("Uses Base One-Touch Dials", isOn: $handset.usesBaseOneTouchDial)
+                .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
             InfoText("The handset can use the speed dials/one-touch dials stored in the base, or its own entries if the base doesn't share the entries between the base/handsets.")
             if handset.speedDialCapacity > 0 && handset.hasPhonebook {
                 Picker("Speed Dial Entry Mode", selection: $handset.speedDialPhonebookEntryMode) {

@@ -109,7 +109,6 @@ struct ContentView: View {
             SettingsView()
         }
         #endif
-        .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
         .formNumericTextFieldStepperVisible(true)
         // Model objects
         .environmentObject(dialogManager)

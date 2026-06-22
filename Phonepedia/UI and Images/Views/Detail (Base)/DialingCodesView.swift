@@ -36,15 +36,19 @@ struct DialingCodesView: View {
         if phone.hasPhonebook || phone.hasCallerIDList {
             if phone.baseBluetoothCellPhonesSupported > 0 {
                 Toggle("Can Add Area Code To 7-Digit Cell Calls", isOn: $phone.supportsAddingOfCellAreaCode)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 InfoText("Storing your cell area code allows you to:\n• For phones where transferred cell phonebook entries are stored separately from the home phonebook, edit the format of an entry to include the cell area code so it can be dialed on the landline if it requires 10-digit dialing.\n• Auto-add the cell area code to 7-digit numbers dialed on the cell line if your cell phone requires 10-digit dialing.\nThe available uses of the stored cell area code depends on the phone's features.")
             }
             Toggle("Supports Dialing Of International Code", isOn: $phone.supportsDialingOfInternationalCode)
+                .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
             InfoText("Storing your international code for automatic dialing includes the international dialing symbol (+) as one of the options for editing the format of a displayed phone number (e.g., in the caller ID list). For example, if a caller ID list entry's phone number is 44\(NameNumberExamples.exampleUKNumber) and sent without the international code, and you're in the US where the international code is 011, you can edit the format to include the international dialing prefix so it will be displayed as +44\(NameNumberExamples.exampleUKNumber) and dialed as 01144\(NameNumberExamples.exampleUKNumber).")
             if phone.bluetoothPhonebookTransfers > 0 {
                 Toggle("Can Store Dialing Codes For Phonebook Transfer", isOn: $phone.supportsPhonebookTransferDialingCodes)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
             }
         }
         Toggle("Can Add PBX Line Access Number", isOn: $phone.supportsAddingOfPBXLineAccessNumber)
+            .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
         InfoText("If you're using the phone on a PBX (private branch exchange) system which requires dialing one or more digits to access an outside line (called the PBX line access number), storing the line access number allows the phone to automatically dial it before the outside number you dialed. Depending on the PBX, it may be necessary to add one or more pauses after the line access number. On software-based VoIP PBX systems, a line access number typically isn't needed--the system uses the length of the dialed number to determine whether it's an internal call or an outside call.")
         InfoButton("About Dialing Codes…") {
             dialogManager.showingAboutDialingCodes = true

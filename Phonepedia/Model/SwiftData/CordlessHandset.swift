@@ -127,6 +127,9 @@ final class CordlessHandset: BaseHandsetChargerColorManipulatable, ChargeLightCo
     // The accent color's blue component.
     var accentColorBlue: Double = 0
 
+    // The casing type. 0 = solid, 1 = transparent tinted, 2 = transparent clear
+    var casingType: Int = 0
+
     // The display backlight color's red component.
     var displayBacklightColorRed: Double = 255
 
@@ -186,6 +189,9 @@ final class CordlessHandset: BaseHandsetChargerColorManipulatable, ChargeLightCo
 
     // The corded receiver accent color's blue component.
     var cordedReceiverAccentColorBlue: Double = 0
+
+    // The corded receiver's casing type. 0 = solid, 1 = transparent tinted, 2 = transparent clear
+    var cordedReceiverCasingType: Int = 0
 
     // The key backlight color's red component.
     var keyBacklightColorRed: Double = 0
@@ -652,6 +658,16 @@ final class CordlessHandset: BaseHandsetChargerColorManipulatable, ChargeLightCo
         return cordlessDeviceType == 0 || (cordlessDeviceType == 1 && desksetSupportsBackupBatteries)
     }
 
+    // Whether the deskset has a corded receiver if transparent.
+    @Transient
+    var transparentDesksetHasCordedReceiver: Binding<Bool> {
+        Binding<Bool> { [self] in
+            return cordedReceiverMainColorAlpha == 1
+        } set: { [self] newValue in
+            cordedReceiverMainColorAlpha = newValue ? 1 : 0
+        }
+    }
+
     // MARK: - Properties - Color Bindings
     
     @Transient
@@ -842,6 +858,12 @@ final class CordlessHandset: BaseHandsetChargerColorManipulatable, ChargeLightCo
     func brandChanged(oldValue: String, newValue: String) {
         if newValue.isEmpty {
             brand = Phone.mockBrand
+        }
+    }
+
+    func cordedReceiverCasingTypeChanged(oldValue: Int, newValue: Int) {
+        if newValue > 0 {
+            cordedReceiverMainColorAlpha = 1
         }
     }
 

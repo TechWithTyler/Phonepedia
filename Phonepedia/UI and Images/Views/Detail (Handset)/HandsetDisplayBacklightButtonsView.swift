@@ -32,11 +32,13 @@ struct HandsetDisplayBacklightButtonsView: View {
                     }
                     InfoText("• Locked: Button presses are ignored while the handset is on charge.\n• Prompt to Pick Up: Pressing any button while the handset is on charge prompts you to pick it up.\n• Normal: You can use the handset as normal while it's on charge. This is useful if you're trying to configure it but the battery is too low to use off charge.")
                     Toggle("Has Keypad Lock", isOn: $handset.hasKeypadLock)
+                        .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                     KeypadLockInfoView()
                 }
                 if handset.handsetStyle < 2 {
                     if handset.displayType == 0 {
                         Toggle("7 Has Q and 9 Has Z", isOn: $handset.hasQZ)
+                            .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                     }
                     PhoneNumberLetterInfoView()
                     if handset.cordlessDeviceType == 0 {
@@ -87,6 +89,7 @@ struct HandsetDisplayBacklightButtonsView: View {
                 Toggle(isOn: $handset.hasTalkingKeypad) {
                     Text("Talking Keypad")
                 }
+                .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 Picker("Button Lighting", selection: $handset.keyBacklightAmount) {
                     Text("None").tag(0)
                     Divider()
@@ -191,6 +194,7 @@ struct HandsetDisplayBacklightButtonsView: View {
                         InfoText("Some handsets have the display and menu/navigation-related buttons on the back to resemble a slim corded phone with caller ID.\nSome handsets have a display and buttons on both the front and back, with the back ones used for answering system controls and/or an extra set of caller ID navigation controls.")
                         if phone.hasAnsweringSystem > 1 {
                             Toggle("Has Answering System Controls", isOn: $handset.hasAnsweringSystemControls)
+                                .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                             InfoText("Dedicated answering system controls allow you to use the answering system from the handset in the same way you'd use it from a base. This is often seen on phones with an answering system but no base controls for it.")
                         }
                     }
@@ -204,6 +208,7 @@ struct HandsetDisplayBacklightButtonsView: View {
                 }
                 if handset.isDesksetWithDisplay {
                     Toggle("Display Can Tilt", isOn: $handset.desksetDisplayCanTilt)
+                        .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 }
                 if handset.displayType > 1 && (handset.handsetStyle < 2 || handset.cordlessDeviceType == 1) {
                     Picker("Clock Display", selection: $handset.clock) {
@@ -211,15 +216,18 @@ struct HandsetDisplayBacklightButtonsView: View {
                     }
                     if handset.clock > 0 {
                         Toggle("Supports Clock Backup", isOn: $handset.supportsTimeBackup)
+                            .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                         InfoText("On a handset/deskset which displays a clock, clock backup allows it to store the clock settings for as long as it has power. This allows it to restore them to the base when power returns, since most bases don't preserve them when they lose power.")
                     }
                 }
                 if handset.displayType >= 3 && handset.handsetStyle < 2 && handset.hasListsOfEntries {
                     Toggle("Allows Display of Multiple Entries", isOn: $handset.displayMultiEntries)
+                        .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                     MultiEntryDisplayInfoView()
                 }
                 if handset.displayType >= 2 && handset.handsetStyle < 2 {
                     Toggle("Menu Shows Multiple Items", isOn: $handset.menuMultiItems)
+                        .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                     if handset.displayType >= 3 {
                         if handset.menuMultiItems {
                             Picker("Main Menu Layout", selection: $handset.mainMenuLayout) {
@@ -272,8 +280,10 @@ struct HandsetDisplayBacklightButtonsView: View {
                     }
                     if handset.sideVolumeButtons {
                         Toggle("Navigation Button Up/Down for Volume", isOn: $handset.navigatorKeyUpDownVolume)
+                            .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                     }
                     Toggle("Navigation Button Standby Shortcuts", isOn: $handset.navigatorKeyStandbyShortcuts)
+                        .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 }
                 if handset.displayType > 1 {
                     CountPicker("Soft Keys", selection: $handset.softKeys, oneTo: 3, singularSuffix: "Soft Key", pluralSuffix: "Soft Keys", noneTitle: "None")
@@ -282,10 +292,12 @@ struct HandsetDisplayBacklightButtonsView: View {
                         }
                     SoftKeyExplanationView()
                     Toggle("Standby Soft Keys Customizable", isOn: $handset.standbySoftKeysCustomizable)
+                        .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                     InfoText("Some handsets offer the ability to customize the soft key functions that are available in standby.")
                 }
                 if handset.navigatorKeyType != 4 {
                     Toggle("Has Dedicated/Side Volume Buttons", isOn: $handset.sideVolumeButtons)
+                        .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                         .onChange(of: handset.sideVolumeButtons) { oldValue, newValue in
                             handset.sideVolumeButtonsChanged(oldValue: oldValue, newValue: newValue)
                         }

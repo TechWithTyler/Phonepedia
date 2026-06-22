@@ -32,6 +32,7 @@ struct HandsetPhonebookView: View {
                 MultiPhoneNumberInfoView()
         }
         Toggle("Uses Base Phonebook", isOn: $handset.usesBasePhonebook)
+            .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
         Text("Phonebook Type: \(handset.phonebookTypeText)")
         InfoText("\(CordlessHandset.HandsetPhonebookType.shared.rawValue): The phonebook is stored in the base and is shared by the base (if it has a display) and all registered handsets/desksets. Changes made to the phonebook on the base or any registered, shared phonebook-supported handset/deskset will apply to the base and all registered, shared phonebook-supported handsets/desksets, and only one can access the phonebook at a time.\n\(CordlessHandset.HandsetPhonebookType.individual.rawValue): The phonebook is stored in the base/each handset/deskset separately. On some phones, entries can be copied between the base and handsets/desksets.\n\(CordlessHandset.HandsetPhonebookType.sharedAndIndividual.rawValue): The handset/deskset has its own phonebook but can also access the shared phonebook. On some phones, entries can be copied between the shared phonebook and the individual phonebook of a handset/deskset. The phonebook on the base, if any, always uses the shared phonebook.")
         if handset.phonebookCapacity > 0 {
@@ -40,20 +41,25 @@ struct HandsetPhonebookView: View {
         }
         if handset.hasPhonebook {
             Toggle("Supports Groups", isOn: $handset.supportsPhonebookGroups)
+                .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
             PhonebookGroupInfoView()
             Toggle("Supports Phonebook Ringtones", isOn: $handset.supportsPhonebookRingtones)
+                .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
             if handset.silentMode > 0 {
                 Toggle("Supports Silent Mode Bypass", isOn: $handset.supportsSilentModeBypass)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
             }
             PhonebookRingtoneInfoView()
             if handset.handsetStyle < 3 {
                 Toggle(isOn: $handset.hasTalkingPhonebook) {
                     Text("Talking Phonebook")
                 }
+                .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
             }
         }
         if handset.phonebookCapacity >= phonebookTransferRequiredMaxCapacity && handset.handsetStyle < 3 {
             Toggle("Supports Bluetooth Phonebook Transfers", isOn: $handset.bluetoothPhonebookTransfers)
+                .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
         }
     }
 }

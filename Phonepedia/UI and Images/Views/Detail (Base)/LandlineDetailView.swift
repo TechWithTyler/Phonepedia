@@ -52,6 +52,7 @@ struct LandlineDetailView: View {
             }
             if phone.landlineConnectionType < 2 {
                 Toggle("Has Hard-Wired Line Cord", isOn: $phone.hasHardWiredLineCord)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 InfoText("Some old phones have hard-wired line cords, which means you'll need to have the phone repaired if the cord breaks.")
             }
             if phone.isCordless || phone.cordedPhoneType == 0 || phone.cordedPhoneType == 1 {
@@ -90,6 +91,7 @@ struct LandlineDetailView: View {
                 InfoText("When another phone on the same line is in use, the phone will indicate that the line is in use if it has line in use indication, by detecting a drop in line power. Some cordless phones indicate line in use only when that cordless phone is in use.")
                 if phone.hasLandlineInUseLight {
                     Toggle("Landline In Use Light Follows Ring Signal", isOn: $phone.landlineInUseVisualRingerFollowsRingSignal)
+                        .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                     VisualRingerInfoView()
                 }
             }
@@ -104,6 +106,7 @@ struct LandlineDetailView: View {
             }
             if phone.isCordless || phone.cordedPowerSource > 0 {
                 Toggle("Has \"No Line\" Alert", isOn: $phone.hasNoLineAlert)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 InfoText("If the line isn't connected, the no line alert, if available, will be displayed. This is done by detecting the line power dropping too much (or being nonexistent due to there being no line connection). As a result, this message may be displayed if too many phones are off-hook.\nThe phone will first detect \"line in use\" before detecting \"no line\", so you may briefly see it indicating \"line in use\" after disconnecting the line (or powering up the phone without a line connected). Some phones have a delay before the line in use indication to prevent such indication from briefly appearing before the no line alert. The status won't change the moment the line power drops, as the phone needs to wait for the line power to stabilize before indicating the proper status.")
             }
         }

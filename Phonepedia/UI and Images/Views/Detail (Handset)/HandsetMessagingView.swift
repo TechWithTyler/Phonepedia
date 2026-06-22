@@ -33,6 +33,7 @@ struct HandsetMessagingView: View {
                     AnsweringSystemMenuInfoView()
                     if phone.hasAnsweringSystem > 1 && handset.displayType > 1 {
                         Toggle("Has Message List", isOn: $handset.hasMessageList)
+                            .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                         MessageListInfoView()
                     }
                 }

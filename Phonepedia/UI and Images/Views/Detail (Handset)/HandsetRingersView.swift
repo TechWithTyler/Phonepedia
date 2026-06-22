@@ -37,6 +37,7 @@ struct HandsetRingersView: View {
             }
             if phone.cordlessDeviceLinkingMethod <= 3 && phone.baseChargesHandset && handset.fitsOnBase && phone.totalBaseRingtones > 0 {
                 Toggle("Rings On Base", isOn: $handset.ringsOnBase)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 InfoText("On many single-handset phones without registration, if the base has a ringer and it's turned on, the handset won't ring since its ringer is redundant.")
             }
             Picker("Silent Mode", selection: $handset.silentMode) {
@@ -67,9 +68,11 @@ struct HandsetRingersView: View {
                     Text("Volume Buttons/Menu").tag(1)
                 }
                 Toggle("Supports Ringer Off", isOn: $handset.supportsRingerOff)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
             }
             if handset.cordlessDeviceType == 0 {
                 Toggle("Has Vibrator Motor", isOn: $handset.hasVibratorMotor)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 InfoText("Some cordless handsets have vibrator motors like cell phones.")
             }
         } else {
