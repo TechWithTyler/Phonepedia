@@ -15,19 +15,29 @@ struct PhoneTimelineView: View {
 
     // MARK: - Properties - Phones
 
+    // All phones.
     let phones: [Phone]
 
+    // All phones, sorted from oldest release year to newest release year.
     var sortedPhones: [Phone] {
         return phones.sorted { $0.releaseYear < $1.releaseYear }
     }
 
+    // The sortedPhones array, filtered to only include active phones.
     var activePhones: [Phone] {
         return sortedPhones.filter { $0.storageOrSetup <= 1 }
     }
 
+    // The given array of phones returned as an array of index-phone pairs.
     var enumeratedPhones: [EnumeratedSequence<[Phone]>.Element] {
+        // 1. Choose which phones array to use.
         let array = showOnlyActive ? activePhones : sortedPhones
-        return Array(array.enumerated())
+        // 2. Enumerate through the array to get each phone and its index. In an enumerated sequence, the item comes after its index in the pair.
+        let enumeration = array.enumerated()
+        // 3. Convert the enumerated sequence (phone + index) to an array.
+        let enumerationAsArray = Array(enumeration)
+        // 4. Return the converted array.
+        return enumerationAsArray
     }
 
     // MARK: - Properties - Dismiss Action
@@ -40,15 +50,20 @@ struct PhoneTimelineView: View {
 
     // MARK: - Properties - Integers
 
-    var lastIndex: Int {
+    // The index of the newest phone in the timeline, which determines where to stop the line.
+    var indexOfNewestPhone: Int {
+        // 1. Choose which phones array to use.
         let array = showOnlyActive ? activePhones : sortedPhones
+        // 2. Subtract 1 from the number of phones to get the last index.
         return array.count - 1
     }
 
     // MARK: - Properties - Booleans
 
+    // Whether only active phones should be shown.
     @State var showOnlyActive: Bool = false
 
+    // Whether there are no phones to display.
     var noPhones: Bool {
         return showOnlyActive ? activePhones.isEmpty : sortedPhones.isEmpty
     }
@@ -105,7 +120,7 @@ struct PhoneTimelineView: View {
     @ViewBuilder
     var timeline: some View {
         ForEach(enumeratedPhones, id: \.element.id) { index, phone in
-            TimelineRowView(phone: phone, isLast: index == lastIndex)
+            TimelineRowView(phone: phone, isLast: index == indexOfNewestPhone)
         }
     }
 

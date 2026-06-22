@@ -36,8 +36,11 @@ struct PhoneCollectionAchievementTracker {
 
     // Whether the phones array contains at least 1 corded and at least 1 cordless phone.
     var hasCordedAndCordless: Bool {
+        // 1. Determine whether the phones array contains cordless phones.
         let hasCordless = phones.contains { $0.isCordless }
+        // 2. Determine whether the phones array contains corded phones.
         let hasCorded = phones.contains { !$0.isCordless }
+        // 3. Return whether the phones array contains both cordless and corded phones.
         return hasCordless && hasCorded
     }
 
@@ -55,7 +58,7 @@ struct PhoneCollectionAchievementTracker {
     var acquisitionYears: [Int] {
         // 1. Create an array of years.
         var years: [Int] = []
-        // 2. For each phone in phones, add their acquisition years to the array.
+        // 2. Loop through each phone in the phones array and add each year (when this phone was acquired and when the phone this one replaced, if any, was acquired) to the array. If the respective value is 0, don't add it to the array.
         for phone in phones {
             let acquisitionYear = phone.acquisitionYear
             let replacesPhoneAcquiredInYear = phone.replacesPhoneAcquiredInYear
@@ -63,7 +66,7 @@ struct PhoneCollectionAchievementTracker {
                 years.append(acquisitionYear)
             }
             if replacesPhoneAcquiredInYear > 0 {
-                years.append(phone.replacesPhoneAcquiredInYear)
+                years.append(replacesPhoneAcquiredInYear)
             }
         }
         // 3. Return the array.
@@ -117,6 +120,7 @@ struct PhoneCollectionAchievementTracker {
             PhoneCollectionAchievement(id: "count100Handsets", title: "Get 100 Cordless Devices Across All Phones", isUnlocked: reachedCordlessDeviceCount(100)),
             PhoneCollectionAchievement(id: "count150Handsets", title: "Get 150 Cordless Devices Across All Phones", isUnlocked: reachedCordlessDeviceCount(150)),
             PhoneCollectionAchievement(id: "count200Handsets", title: "Get 200 Cordless Devices Across All Phones", isUnlocked: reachedCordlessDeviceCount(200)),
+            // Phone Counts per Year
             PhoneCollectionAchievement(id: "acquired5PhonesInAYear", title: "Get 5 Phones In a Year", isUnlocked: reachedPhoneCountInAYear(5)),
             PhoneCollectionAchievement(id: "acquired10PhonesInAYear", title: "Get 10 Phones In a Year", isUnlocked: reachedPhoneCountInAYear(10))
         ]
@@ -129,7 +133,7 @@ struct PhoneCollectionAchievementTracker {
         return phones.count >= n
     }
 
-    // Returns whether n phones were acquired in at least one particular year.
+    // Returns whether the phones array contains at least n phones acquired in at least one particular year.
     func reachedPhoneCountInAYear(_ n: Int) -> Bool {
         // 1. Create a dictionary to store the year and count, where the key is the year and the value is the number of times the year exists in the array.
         var yearCounts: [Int : Int] = [:]
@@ -150,7 +154,7 @@ struct PhoneCollectionAchievementTracker {
             // 3. Add the phone's number of cordless devices to the total.
             totalCordlessDevices += phone.cordlessHandsetsIHave.count
         }
-        // 4. Compare the total to n.
+        // 4. Return whether totalCordlessDevices is greater than or equal to n.
         return totalCordlessDevices >= n
     }
 

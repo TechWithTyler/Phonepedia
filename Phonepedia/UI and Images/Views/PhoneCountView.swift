@@ -39,7 +39,11 @@ struct PhoneCountView: View {
 
     // The number of active phones, not counting the individual cordless devices on each cordless phone system.
     var activePhoneCount: Int {
-        let count = phones.filter({$0.storageOrSetup <= 1}).count
+        // 1. Filter the phones array to get all active phones (i.e. all phones where storageOrSetup is less than or equal to 1).
+        let activePhones = phones.filter({$0.storageOrSetup <= 1})
+        // 2. Get the number of active phones.
+        let count = activePhones.count
+        // 3. Return the count.
         return count
     }
 
@@ -51,91 +55,139 @@ struct PhoneCountView: View {
 
     // The total number of corded phones.
     var cordedPhoneCount: Int {
-        let count = phones.filter({ !$0.isCordless && $0.basePhoneType == 0 }).count
+        // 1. Filter the phones array to get all corded phones (i.e. non-cordless phones where the phone type is set to 0).
+        let cordedPhones = phones.filter({ !$0.isCordless && $0.basePhoneType == 0 })
+        // 2. Get the number of corded phones.
+        let count = cordedPhones.count
+        // 3. Return the count.
         return count
     }
 
     // The total number of Wi-Fi handsets. Although these look and feel like cordless phones, they're not counted as cordless phones since they're standalone wireless handsets.
     var wiFiHandsetCount: Int {
-        let count = phones.filter({ !$0.isCordless && $0.basePhoneType == 1 }).count
+        // 1. Filter the phones array to get all Wi-Fi handsets (i.e. non-cordless phones where the phone type is set to 1).
+        let wiFiHandsets = phones.filter({ !$0.isCordless && $0.basePhoneType == 1 })
+        // 2. Get the number of Wi-Fi handsets.
+        let count = wiFiHandsets.count
+        // 3. Return the count.
         return count
     }
 
     // The total number of cellular handsets. Although these look and feel like cordless phones, they're not counted as cordless phones since they're standalone wireless handsets.
     var cellularHandsetCount: Int {
-        let count = phones.filter({ !$0.isCordless && $0.basePhoneType == 2 }).count
+        // 1. Filter the phones array to get all cellular handsets (i.e. non-cordless phones where the phone type is set to 2).
+        let cellularHandsets = phones.filter({ !$0.isCordless && $0.basePhoneType == 2 })
+        // 2. Get the number of cellular handsets.
+        let count = cellularHandsets.count
+        // 3. Return the count.
         return count
     }
 
     // The total number of cordless handsets across all phones.
     var handsetCount: Int {
+        // 1. Create a variable to keep track of the total number of handsets.
         var totalHandsets = 0
+        // 2. Add the total number of handsets (cordless device type 0) the user has added to each cordless phone.
         for phone in cordlessPhones {
-            totalHandsets += phone.cordlessHandsetsIHave.filter({$0.cordlessDeviceType == 0}).count
+            let handsets = phone.cordlessHandsetsIHave.filter({$0.cordlessDeviceType == 0})
+            totalHandsets += handsets.count
         }
+        // 3. Return the count.
         return totalHandsets
     }
 
     // The number of active cordless handsets across all phones.
     var activeCordlessHandsetCount: Int {
-        var activeHandsets = 0
+        // 1. Create a variable to keep track of the total number of active handsets.
+        var activeHandsetCount = 0
+        // 2. Add the total number of active handsets the user has added to each cordless phone. This is done by filtering the phone's cordlessHandsetsIHave array to get only active cordless handsets (i.e. all cordless devices where storageOrSetup is less than or equal to 1 and cordlessDeviceType is 0).
         for phone in cordlessPhones {
-            activeHandsets += phone.cordlessHandsetsIHave.filter({$0.storageOrSetup <= 1 && $0.cordlessDeviceType == 0}).count
+            let activeHandsets = phone.cordlessHandsetsIHave.filter({$0.storageOrSetup <= 1 && $0.cordlessDeviceType == 0})
+            activeHandsetCount += activeHandsets.count
         }
-        return activeHandsets
+        // 3. Return the count.
+        return activeHandsetCount
     }
 
     // The total number of cordless desksets across all phones.
     var desksetCount: Int {
+        // 1. Create a variable to keep track of the total number of desksets.
         var totalDesksets = 0
+        // 2. Add the total number of desksets (cordless device type 1) the user has added to each cordless phone.
         for phone in cordlessPhones {
-            totalDesksets += phone.cordlessHandsetsIHave.filter({$0.cordlessDeviceType == 1}).count
+            let desksets = phone.cordlessHandsetsIHave.filter({$0.cordlessDeviceType == 1})
+            totalDesksets += desksets.count
         }
+        // 3. Return the count.
         return totalDesksets
     }
 
     // The number of active cordless desksets across all phones.
     var activeCordlessDesksetCount: Int {
-        var activeDesksets = 0
+        // 1. Create a variable to keep track of the total number of active desksets.
+        var activeDesksetCount = 0
+        // 2. Add the total number of active desksets the user has added to each cordless phone. This is done by filtering the phone's cordlessHandsetsIHave array to get only active cordless desksets (i.e. all cordless devices where storageOrSetup is less than or equal to 1 and cordlessDeviceType is 1).
         for phone in cordlessPhones {
-            activeDesksets += phone.cordlessHandsetsIHave.filter({$0.storageOrSetup <= 1 && $0.cordlessDeviceType == 1}).count
+            let activeDesksets = phone.cordlessHandsetsIHave.filter({$0.storageOrSetup <= 1 && $0.cordlessDeviceType == 1})
+            activeDesksetCount += activeDesksets.count
         }
-        return activeDesksets
+// 3. Return the count.
+        return activeDesksetCount
     }
 
     // The total number of cordless headsets/speakerphones across all phones.
     var headsetCount: Int {
+        // 1. Create a variable to keep track of the total number of headsets.
         var totalHeadsets = 0
+        // 2. Add the total number of headsets (cordless device type 2) the user has added to each cordless phone.
         for phone in cordlessPhones {
-            totalHeadsets += phone.cordlessHandsetsIHave.filter({$0.cordlessDeviceType == 2}).count
+            let headsets = phone.cordlessHandsetsIHave.filter({$0.cordlessDeviceType == 2})
+            totalHeadsets += headsets.count
         }
+        // 3. Return the count.
         return totalHeadsets
     }
 
     // The number of active cordless headsets/speakerphones across all phones.
     var activeCordlessHeadsetCount: Int {
-        var activeHeadsets = 0
+        // 1. Create a variable to keep track of the total number of active headsets.
+        var activeHeadsetCount = 0
+        // 2. Add the total number of active headsets the user has added to each cordless phone. This is done by filtering the phone's cordlessHandsetsIHave array to get only active cordless headsets (i.e. all cordless devices where storageOrSetup is less than or equal to 1 and cordlessDeviceType is 2).
         for phone in cordlessPhones {
-            activeHeadsets += phone.cordlessHandsetsIHave.filter({$0.storageOrSetup <= 1 && $0.cordlessDeviceType == 2}).count
+            let activeHeadsets = phone.cordlessHandsetsIHave.filter({$0.storageOrSetup <= 1 && $0.cordlessDeviceType == 2})
+            activeHeadsetCount += activeHeadsets.count
         }
-        return activeHeadsets
+// 3. Return the count.
+        return activeHeadsetCount
     }
 
     // The total number of phones with answering systems.
     var withAnsweringSystemsCount: Int {
-        let count = phones.filter({ $0.hasAnsweringSystem > 0 }).count
+        // 1. Filter the phones array to get all phones with answering systems.
+        let phonesWithAnsweringSystems = phones.filter({ $0.hasAnsweringSystem > 0 })
+        // 2. Get the number of phones with answering systems.
+        let count = phonesWithAnsweringSystems.count
+        // 3. Return the count.
         return count
     }
 
     // The total number of phones with Bluetooth cell phone linking.
     var withBluetoothCellPhoneLinkingCount: Int {
-        let count = phones.filter({ $0.baseBluetoothCellPhonesSupported > 0 }).count
+        // 1. Filter the phones array to get all phones with Bluetooth cell phone linking.
+        let bluetoothCellLinkingPhones = phones.filter({ $0.baseBluetoothCellPhonesSupported > 0 })
+        // 2. Get the number of phones with Bluetooth cell phone linking.
+        let count = bluetoothCellLinkingPhones.count
+        // 3. Return the count.
         return count
     }
 
     // The total number of phones acquired in their release year.
     var acquiredInReleaseYearCount: Int {
-        let count = phones.filter({$0.acquiredInYearOfRelease}).count
+        // 1. Filter the phones array to get all phones acquired in their release year.
+        let phonesAcquiredInReleaseYear = phones.filter({$0.acquiredInYearOfRelease})
+        // 2. Get the total number of phones acquired in their release year.
+        let count = phonesAcquiredInReleaseYear.count
+        // 3. Return the count.
         return count
     }
 
@@ -143,25 +195,39 @@ struct PhoneCountView: View {
 
     // The average number of cordless handsets per cordless phone.
     var averageHandsetsPerCordlessPhone: Double {
+        // 1. If there are no cordless phones, return 0.
         guard cordlessPhoneCount > 0 else { return 0 }
-        return Double(handsetCount) / Double(cordlessPhoneCount)
+        // 2. Divide the number of handsets by the number of cordless phones to get the average.
+        let average = Double(handsetCount) / Double(cordlessPhoneCount)
+        // 3. Return the average.
+        return average
     }
 
     // The average number of cordless desksets per cordless phone.
     var averageDesksetsPerCordlessPhone: Double {
+        // 1. If there are no cordless phones, return 0.
         guard cordlessPhoneCount > 0 else { return 0 }
-        return Double(desksetCount) / Double(cordlessPhoneCount)
+        // 2. Divide the number of desksets by the number of cordless phones to get the average.
+        let average = Double(desksetCount) / Double(cordlessPhoneCount)
+        // 3. Return the average.
+        return average
     }
 
     // The average number of cordless headsets/speakerphones per cordless phone.
     var averageHeadsetsPerCordlessPhone: Double {
+        // 1. If there are no cordless phones, return 0.
         guard cordlessPhoneCount > 0 else { return 0 }
-        return Double(headsetCount) / Double(cordlessPhoneCount)
+        // 2. Divide the number of headsets/speakerphones by the number of cordless phones to get the average.
+        let average = Double(headsetCount) / Double(cordlessPhoneCount)
+        // 3. Return the average.
+        return average
     }
 
     // Years that phones were acquired in.
     var acquisitionYears: [Int] {
-        var yearCounts: [Int: Int] = [:]
+        // 1. Create a dictionary to count the number of phones acquired in each year (only includes years when phones were acquired), where the key is the year and the value is the number of times the year exists in the array. This is only used for sorting--the counts themselves aren't returned here.
+        var yearCounts: [Int : Int] = [:]
+        // 2. Loop through each phone in the phones array and count the occurrences of each year (when this phone was acquired and when the phone this one replaced, if any, was acquired). If the respective value is 0, don't add it to the count.
         for phone in phones {
             if phone.acquisitionYear > 0 {
                 yearCounts[phone.acquisitionYear, default: 0] += 1
@@ -170,6 +236,7 @@ struct PhoneCountView: View {
                 yearCounts[phone.replacesPhoneAcquiredInYear, default: 0] += 1
             }
         }
+        // 3. Sort based on year.
         return yearCounts.keys.sorted(by: >)
     }
 
@@ -177,8 +244,8 @@ struct PhoneCountView: View {
 
     // Brands of phones. Unlike the allBrands property in PhoneListView, this property is an array so a brand can exist more than once to count them.
     var brands: [String] {
-        // 1. Create a dictionary to count the number of phones for each brand. This is only used for sorting--the counts themselves aren't returned here.
-        var brandCounts: [String: Int] = [:]
+        // 1. Create a dictionary to count the number of phones for each brand, where the key is the brand name and the value is the number of times the brand exists in the array. This is only used for sorting--the counts themselves aren't returned here.
+        var brandCounts: [String : Int] = [:]
         // 2. Loop through each phone in the phones array and count the occurrences of each brand.
         for phone in phones {
             brandCounts[phone.brand, default: 0] += 1
@@ -278,7 +345,6 @@ struct PhoneCountView: View {
                         Text(handsetCount, format: .number)
                             .foregroundStyle(.secondary)
                     }
-
                     HStack {
                         VStack(alignment: .leading) {
                             Text("Total Cordless Desksets")
@@ -289,7 +355,6 @@ struct PhoneCountView: View {
                         Text(desksetCount, format: .number)
                             .foregroundStyle(.secondary)
                     }
-
                     HStack {
                         VStack(alignment: .leading) {
                             Text("Total Cordless Headsets/Speakerphones")
@@ -457,18 +522,26 @@ struct PhoneCountView: View {
 
     // MARK: - Number of Phones Acquired In Year
 
-    // This method returns the number of phones acquired in year. The acquisitionYears array stores only the years--the number of phones acquired in each year is determined hear based on how many instances of year are in the array.
+    // This method returns the number of phones acquired in year. The acquisitionYears array stores only the years--the number of phones acquired in each year is determined here based on how many instances of year are in the array.
     func numberOfPhonesAcquiredInYear(_ year: Int) -> Int {
+        // 1. Filter the phones array to get all phones acquired in year.
         let allPhonesAcquiredInYear = phones.filter { $0.acquisitionYear == year || $0.replacesPhoneAcquiredInYear == year }
-        return allPhonesAcquiredInYear.count
+        // 2. Get the total number of phones acquired in year.
+        let count = allPhonesAcquiredInYear.count
+        // 3. Return the count.
+        return count
     }
 
     // MARK: - Number of Phones of Brand
 
     // This method returns the number of phones of brand. The brands array stores only the brand names--the number of phones of each brand is determined here based on how many instances of brand are in the array.
     func numberOfPhones(of brand: String) -> Int {
+        // 1. Filter the phones array to get all phones of brand.
         let allPhonesOfBrand = phones.filter { $0.brand == brand }
-        return allPhonesOfBrand.count
+        // 2. Get the total number of phones of brand.
+        let count = allPhonesOfBrand.count
+        // 3. Return the count.
+        return count
     }
 
 }
