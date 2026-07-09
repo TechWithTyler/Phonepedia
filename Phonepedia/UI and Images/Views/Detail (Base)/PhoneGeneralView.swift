@@ -180,7 +180,7 @@ struct PhoneGeneralView: View {
                     .onChange(of: phone.isOptionalCordless) { oldValue, newValue in
                         phone.isOptionalCordlessChanged(oldValue: oldValue, newValue: newValue)
                     }
-                InfoText("Some corded/cordless business phones come only with a corded base. Some require an adaptor to make it cordless.")
+                InfoText("Some corded/cordless business phones come only with a corded base. Some require an adaptor to make them cordless.")
             }
             Picker("Doubles As", selection: $phone.doublesAs) {
                 Text("None").tag(0)

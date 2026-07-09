@@ -109,6 +109,14 @@ struct PhonePowerView: View {
                     }
                 }
                 InfoText(phone.isCordless ? "• Full: All functionality, including cordless handsets, is supported.\n• Basic: Only the corded receiver can be used." : "• Full: All functionality is supported.\n• Basic: The speakerphone and display (if the phone has those) won't work.\n• Memory Retention Only: The batteries are used only to retain memory (e.g. speed dials, clock) when the power is out.")
+                if !phone.isCordless {
+                    Picker("When Out of Battery", selection: $phone.cordedBatteryBackupDepleted) {
+                        Text("No Power").tag(0)
+                        Text("Line Power (Outgoing Only)").tag(1)
+                        Text("Line Power (Incoming/Outgoing").tag(2)
+                    }
+                    InfoText("• No Power: The phone won't work at all once battery backup runs out or isn't installed.\n• Line Power (Outgoing Only): The phone will use line power, but doesn't have a separate piezo ringer, so it can't ring on line power.\n• Line Power (Incoming/Outgoing): The phone works as a standard line-powered corded phone.")
+                }
                 if phone.cordlessPowerBackupMode == 3 {
                     Picker("Type", selection: $phone.baseBackupBatteryType) {
                         Text("Pack with Plug").tag(0)

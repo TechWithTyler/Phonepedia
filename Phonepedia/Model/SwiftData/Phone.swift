@@ -605,6 +605,9 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
     // How functional the phone is on backup batteries if corded. 0 = memory retention only, 1 = basic, 2 = full.
     var cordedFunctionalityOnBackupBatteries: Int = 1
 
+    // Whether the phone works on line power once backup battery runs out. 0 = no power, 1 = line power for outgoing calls only, 2 = line power for incoming and outgoing calls.
+    var cordedBatteryBackupDepleted: Int = 2
+
     // What happens when power returns during place-on-base power backup. 0 = reboot, 1 = don't reboot.
     var cordlessPowerBackupReturnBehavior: Int = 0
 
@@ -792,6 +795,9 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
 
     // The connection type for the landline. 0 = analog, 1 = digital, 2 = Ethernet VoIP, 3 = Wi-Fi VoIP, 4 = cellular, 5 = Ethernet/analog.
     var landlineConnectionType: Int = 0
+
+    // Whether the phone uses a proprietary digital protocol which works only on compatible digital PBX systems.
+    var usesProprietaryDigitalProtocol: Bool = false
 
     // Whether cordless devices on a VoIP cordless phone all share the same line(s) (0), are assigned to a specific line/extension (1), or can be configured to use either (2).
     var voIPCordlessDeviceLineBehavior: Int = 1
