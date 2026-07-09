@@ -12,6 +12,10 @@ import SwiftUI
 
 struct PhoneRowView: View {
 
+    // MARK: - Properties - Phone
+
+    @Bindable var phone: Phone
+
     // MARK: - Properties - Booleans
 
     @AppStorage(UserDefaults.KeyNames.showPhoneTypeInList) var showPhoneTypeInList: Bool = true
@@ -31,6 +35,8 @@ struct PhoneRowView: View {
     // MARK: - Properties - Integers
 
     @AppStorage(UserDefaults.KeyNames.highlightHandsetNumberDigitInList) var highlightHandsetNumberDigitInList: Int = 2
+
+    var numberInCollection: Int
 
     // MARK: - Properties - Strings
 
@@ -52,16 +58,12 @@ struct PhoneRowView: View {
         }
     }
 
-    // MARK: - Properties - Phone
-
-    @Bindable var phone: Phone
-
     // MARK: - Body
 
     var body: some View {
         HStack {
             VStack {
-                Text("\(phone.actualPhoneNumberInCollection)")
+                Text("\(numberInCollection)")
                 if phone.acquiredInYearOfRelease {
                     Image(systemName: "sparkle")
                 }
@@ -226,6 +228,6 @@ struct PhoneRowView: View {
 // MARK: - Preview
 
 #Preview {
-    PhoneRowView(phone: Phone(brand: "Panasonic", model: "KX-TGF975"))
+    PhoneRowView(phone: Phone(brand: "Panasonic", model: "KX-TGF975"), numberInCollection: 1)
         .modelContainer(for: Phone.self, inMemory: true)
 }

@@ -17,6 +17,8 @@ extension UserDefaults {
 
         // MARK: - UserDefaults Key Names
 
+        static let phoneNumberInCollectionDisplay: String = "phoneNumberInCollectionDisplay"
+
         static let useDetailedPhoneImage: String = "useDetailedPhoneImage"
 
         static let backdropEnabled: String = "backdropEnabled"

@@ -23,27 +23,23 @@ struct PhoneListView: View {
 
     @EnvironmentObject var achievementTrackerManager: PhoneCollectionAchievementTrackerManager
 
+    // MARK: - Properties - Strings
+
     @State var searchText: String = String()
 
-    var searchResults: [Phone] {
-        // 1. Specify the content to search.
-        let content = filteredPhones
-        // 2. If searchText is empty, return all phones.
-        if searchText.isEmpty {
-            return content
-        } else {
-            // 3. Return phones with brands, model numbers, or nicknames that contain all or part of the search text.
-            return content.filter { phone in
-                let brandRange = phone.brand.range(of: searchText, options: .caseInsensitive)
-                let modelRange = phone.model.range(of: searchText, options: .caseInsensitive)
-                let nicknameRange = phone.nickname.range(of: searchText, options: .caseInsensitive)
-                let textMatchesSearchTerm = brandRange != nil || modelRange != nil || nicknameRange != nil
-                return textMatchesSearchTerm
-            }
-        }
+    // Brands of phones.
+    var allBrands: [String] {
+        return PhoneFilterManager.allBrands(from: phones)
     }
 
     // MARK: - Properties - Integers
+
+    var allAcquisitionYears: [Int] {
+        return PhoneFilterManager.allAcquisitionYears(from: phones)
+    }
+
+    // What the number displayed next to each phone in the list represents.
+    @AppStorage(UserDefaults.KeyNames.phoneNumberInCollectionDisplay) var phoneNumberInCollectionDisplay: Int = 1
 
     // The default selection to use for a new phone's "Analog Line Connected To" option.
     @AppStorage(UserDefaults.KeyNames.defaultAnalogPhoneConnectedToSelection) var defaultAnalogPhoneConnectedToSelection: Int = 2
@@ -70,13 +66,22 @@ struct PhoneListView: View {
         return PhoneFilterManager.filter(phones, with: filterCriteria)
     }
 
-    // Brands of phones.
-    var allBrands: [String] {
-        return PhoneFilterManager.allBrands(from: phones)
-    }
-
-    var allAcquisitionYears: [Int] {
-        return PhoneFilterManager.allAcquisitionYears(from: phones)
+    var searchResults: [Phone] {
+        // 1. Specify the content to search.
+        let content = filteredPhones
+        // 2. If searchText is empty, return all phones.
+        if searchText.isEmpty {
+            return content
+        } else {
+            // 3. Return phones with brands, model numbers, or nicknames that contain all or part of the search text.
+            return content.filter { phone in
+                let brandRange = phone.brand.range(of: searchText, options: .caseInsensitive)
+                let modelRange = phone.model.range(of: searchText, options: .caseInsensitive)
+                let nicknameRange = phone.nickname.range(of: searchText, options: .caseInsensitive)
+                let textMatchesSearchTerm = brandRange != nil || modelRange != nil || nicknameRange != nil
+                return textMatchesSearchTerm
+            }
+        }
     }
 
     @Binding var selectedPhone: Phone?
@@ -217,7 +222,7 @@ struct PhoneListView: View {
     @ViewBuilder
     func phoneRow(for phone: Phone) -> some View {
         NavigationLink(value: phone) {
-            PhoneRowView(phone: phone)
+            PhoneRowView(phone: phone, numberInCollection: numberInCollection(for: phone))
         }
         .contextMenu {
             if !phone.phoneDescription.isEmpty {
@@ -379,6 +384,28 @@ struct PhoneListView: View {
             Button("Reset", systemImage: "arrow.clockwise") {
                 resetPhoneFilter()
             }
+        }
+    }
+
+    // MARK: - Number In Collection
+
+    // This method returns the number of phone in the collection.
+    func numberInCollection(for phone: Phone) -> Int {
+        // 1. Get the actual number of this phone in the collection as a whole.
+        let actualNumber = phone.actualPhoneNumberInCollection
+        if phoneNumberInCollectionDisplay == 1 {
+            // 2. If set to number each phone based on only the displayed phones, get the array of filtered phones, reversing it so the phone at the bottom of the list is number 1.
+            let reversedPhones = Array(filteredPhones.reversed())
+            // 3. Make sure we can get this phone from the array.
+            if let index = reversedPhones.firstIndex(of: phone) {
+                return index + 1
+            } else {
+                // 4. If we can't use the actual number.
+                return actualNumber
+            }
+        } else {
+            // 5. Use the actual number if set to show it.
+            return actualNumber
         }
     }
 

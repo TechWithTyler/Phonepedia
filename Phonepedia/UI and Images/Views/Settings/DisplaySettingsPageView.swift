@@ -44,6 +44,10 @@ struct DisplaySettingsPageView: View {
         return phone
     }
 
+    // MARK: - Properties - Integers
+
+    @AppStorage(UserDefaults.KeyNames.phoneNumberInCollectionDisplay) var phoneNumberInCollectionDisplay: Int = 1
+
     // MARK: - Properties - Doubles
 
     @AppStorage(UserDefaults.KeyNames.phoneDescriptionTextSize) var phoneDescriptionTextSize: Double = SATextViewIdealMinFontSize
@@ -108,11 +112,16 @@ struct DisplaySettingsPageView: View {
                 #endif
             }
             Section("Phone List Detail") {
+                Picker("Phone Number In Collection Shows", selection: $phoneNumberInCollectionDisplay) {
+                    Text("Number In Collection").tag(0)
+                    Text("Number Matching Filters").tag(1)
+                }
+                InfoText("This setting determines whether the number displayed next to each phone in the phone list is the number of that phone in the collection overall, or whether it's the number of that phone that matches the selected filters.")
                 PhoneListDetailOptions()
             }
             Section("Phone List Display Example") {
                 List {
-                    PhoneRowView(phone: samplePhone)
+                    PhoneRowView(phone: samplePhone, numberInCollection: 1)
                 }
             }
         }

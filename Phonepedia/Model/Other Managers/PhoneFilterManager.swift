@@ -108,7 +108,7 @@ class PhoneFilterManager {
             return phones.filter { $0.isCordless || $0.isCordedCordless }
         case Phone.PhoneType.corded.rawValue.lowercased():
             // Corded
-            return phones.filter { $0.numberOfIncludedCordlessHandsets == 0 && $0.basePhoneType == 0 }
+            return phones.filter { !$0.isCordless && $0.basePhoneType == 0 }
         case Phone.PhoneType.wiFiHandset.rawValue.lowercased():
             // Wi-Fi handset
             return phones.filter { $0.basePhoneType == 1 }
