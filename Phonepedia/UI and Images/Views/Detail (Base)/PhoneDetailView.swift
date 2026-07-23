@@ -43,7 +43,7 @@ struct PhoneDetailView: View {
                     linesGroup
                 }
                 if phone.isCordless || phone.basePhoneType > 0 {
-                    CordlessDeviceInfoView(phone: phone)
+                    CordlessDeviceListView(phone: phone)
                 }
                 audioGroup
                 entriesGroup
