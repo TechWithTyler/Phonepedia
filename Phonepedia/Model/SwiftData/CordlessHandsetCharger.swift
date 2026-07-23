@@ -185,7 +185,7 @@ final class CordlessHandsetCharger: BaseHandsetChargerColorManipulatable, Charge
 
     // MARK: - Duplicate
 
-    // This method duplicates the charger.
+    // This method returns a duplicate of the charger.
     func duplicate() -> CordlessHandsetCharger {
         // 1. Initialize a new CordlessHandsetCharger, passing the original's properties to the initializer.
         let newCharger = CordlessHandsetCharger(

@@ -1012,7 +1012,7 @@ final class CordlessHandset: BaseHandsetChargerColorManipulatable, ChargeLightCo
 
     // MARK: - Duplicate
 
-    // This method duplicates the cordless device.
+    // This method returns a duplicate of the cordless device.
     func duplicate() -> CordlessHandset {
         // 1. Initialize a new CordlessHandset, passing the original's properties to the initializer.
         let newHandset = CordlessHandset(
