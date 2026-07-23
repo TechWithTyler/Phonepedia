@@ -240,9 +240,7 @@ struct PhoneGeneralView: View {
                         }
                         Text("Security Code (Place Handset On Base)").tag(3)
                     }
-                    if phone.isDigitalCordless {
-                        Text("Registration").tag(4)
-                    }
+                    Text("Registration").tag(4)
                 }
                 if phone.cordlessDeviceLinkingMethod == 3 && phone.maxCordlessHandsets == 1 {
                     InfoText("Placing a handset on the base changes the digital security code and \"invalidates\" the previous handset.")
