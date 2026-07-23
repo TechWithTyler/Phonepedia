@@ -103,11 +103,14 @@ struct DisplaySettingsPageView: View {
                 .buttonStyle(.borderless)
                 .foregroundStyle(.primary)
                 Toggle("Show Achievement Alerts" , isOn: $showAchievementAlerts)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 InfoText("Turn this on to show alerts when unlocking achievements (e.g. getting 10 phones, getting a phone in its release year).")
                 Toggle("Enable Backdrop", isOn: $backdropEnabled)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 InfoText("Turn this on to show a large, blurred version of a phone's photo as the detail view background.")
                 #if os(macOS)
                 Toggle("Include Your Name In Example Names", isOn: $includeUsernameInExampleNames)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 InfoText("Enabling this option will include your macOS user account's full name, \(NSFullUserName()), in the example names shown in answering system greeting and caller ID examples.\nYour name will only be included in caller ID name examples if it's only a first and last name.")
                 #endif
             }
@@ -118,6 +121,7 @@ struct DisplaySettingsPageView: View {
                 }
                 InfoText("This setting determines whether the number displayed next to each phone in the phone list is the number of that phone in the collection overall, or whether it's the number of that phone that matches the selected filters.")
                 PhoneListDetailOptions()
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
             }
             Section("Phone List Display Example") {
                 List {
