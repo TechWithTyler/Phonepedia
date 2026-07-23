@@ -155,12 +155,12 @@ struct PhoneListView: View {
         } message: {
             Text("All phones will be deleted from this catalog.")
         }
-        .alert("Rearranging the phone list isn't possible while one or more filters are enabled.", isPresented: $dialogManager.showingMoveFailed) {
+        .alert("Rearranging the phone list isn't possible while one or more filters are enabled or while searching.", isPresented: $dialogManager.showingMoveFailed) {
             Button("OK") {
                 dialogManager.showingMoveFailed = false
             }
         } message: {
-            Text("Please disable all filters and try again.")
+            Text("Please disable all filters and clear the search text and try again.")
         }
         .alert("Update the place in the collection for all cordless devices as well?", isPresented: $dialogManager.showingUpdateCordlessDevicePlaceInCollection, presenting: dialogManager.phoneToUpdateCordlessDevicePlaceInCollection) { phone in
             Button {
@@ -482,7 +482,7 @@ struct PhoneListView: View {
     // This method moves the phone being dragged from the current (source) index set to the new (destination) index by creating a copy of the phones array, performing the move on that copy, then setting the phoneNumberInCollection property of the original's phones.
     private func movePhones(source: IndexSet, destination: Int) {
         // 1. If the phone filter is enabled, show an alert and don't continue.
-        guard !phoneFilterEnabled else {
+        guard !phoneFilterEnabled && searchText.isEmpty else {
             dialogManager.showingMoveFailed = true
             return
         }
