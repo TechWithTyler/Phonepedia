@@ -208,10 +208,14 @@ struct PhoneGeneralView: View {
                 Text("Not Supported").tag(0)
                 Divider()
                 Text("Holes on Back").tag(1)
+                Divider()
                 Text("Optional Bracket").tag(2)
                 Text("Built-In Bracket").tag(3)
                 Text("Desk/Wall Bracket").tag(4)
+                Divider()
+                Text("Remove Stand").tag(5)
             }
+            InfoText("• Holes on Back: The phone can be wall mounted without a bracket.\n• Optional Bracket: A bracket is required for wall mounting but not for desk use.\n• Built-In Bracket: The bracket is built-in and can be moved between desk and wall position.\n• Desk/Wall Bracket: The bracket is removable, but is required for both desk and wall use.\n• Remove Stand: A stand is used for desk use and needs to be removed for wall mounting.")
         }
     }
 
