@@ -203,6 +203,16 @@ struct PhoneGeneralView: View {
                 .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
             InfoText("Voice-guided setup gives the user spoken instructions to help them set up the phone, either when first plugging in the base or later by selecting a menu option/pressing a sequence of buttons.")
         }
+        if phone.isCordlessOrPushButtonDesk {
+            Picker("Wall Mounting", selection: $phone.wallMountability) {
+                Text("Not Supported").tag(0)
+                Divider()
+                Text("Holes on Back").tag(1)
+                Text("Optional Bracket").tag(2)
+                Text("Built-In Bracket").tag(3)
+                Text("Desk/Wall Bracket").tag(4)
+            }
+        }
     }
 
     @ViewBuilder
@@ -278,14 +288,6 @@ struct PhoneGeneralView: View {
                     .onChange(of: phone.hasTransmitOnlyBase) { oldValue, newValue in
                         phone.transmitOnlyBaseChanged(oldValue: oldValue, newValue: newValue)
                     }
-                Picker("Wall Mounting", selection: $phone.wallMountability) {
-                    Text("Not Supported").tag(0)
-                    Divider()
-                    Text("Holes on Back").tag(1)
-                    Text("Optional Bracket").tag(2)
-                    Text("Built-In Bracket").tag(3)
-                    Text("Desk/Wall Bracket").tag(4)
-                }
                 if !phone.hasBaseKeypad && !phone.hasTransmitOnlyBase {
                     Toggle("Has Charger-Style Base", isOn: $phone.hasChargerSizeBase)
                         .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
@@ -506,10 +508,12 @@ In most cases, if the base has a charge light/display message, the completion of
                 SwitchHookTypePickerItems(slim: phone.isSlimCordedWithBaseCircuitry)
             }
             SwitchHookInfoView()
-            Picker("Corded Receiver Hook Type", selection: $phone.cordedReceiverHookType) {
-                CordedReceiverHookTypePickerItems()
+            if phone.wallMountability > 0 {
+                Picker("Corded Receiver Hook Type", selection: $phone.cordedReceiverHookType) {
+                    CordedReceiverHookTypePickerItems()
+                }
+                CordedReceiverHookInfoView()
             }
-            CordedReceiverHookInfoView()
         }
     }
 

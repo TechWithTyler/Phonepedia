@@ -2091,7 +2091,8 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
     }
 
     func cordedPhoneTypeChanged(oldValue: Int, newValue: Int) {
-        if newValue != 0 {
+        if newValue > 0 {
+            wallMountability = 1
             if baseOneTouchDialCard > 1 {
                 baseOneTouchDialCard = 0
             }
