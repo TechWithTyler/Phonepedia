@@ -394,13 +394,13 @@ struct PhoneListView: View {
         // 1. Get the actual number of this phone in the collection as a whole.
         let actualNumber = phone.actualPhoneNumberInCollection
         if phoneNumberInCollectionDisplay == 1 {
-            // 2. If set to number each phone based on only the displayed phones, get the array of filtered phones, reversing it so the phone at the bottom of the list is number 1.
+            // 2. If set to number each phone based on only the displayed phones, get the array of filtered phones, reversing it so the phone at the bottom of the list is number 1 as displayed to the user.
             let reversedPhones = Array(filteredPhones.reversed())
             // 3. Make sure we can get this phone from the array.
             if let index = reversedPhones.firstIndex(of: phone) {
                 return index + 1
             } else {
-                // 4. If we can't use the actual number.
+                // 4. If we can't, use the actual number.
                 return actualNumber
             }
         } else {
@@ -481,7 +481,7 @@ struct PhoneListView: View {
 
     // This method moves the phone being dragged from the current (source) index set to the new (destination) index by creating a copy of the phones array, performing the move on that copy, then setting the phoneNumberInCollection property of the original's phones.
     private func movePhones(source: IndexSet, destination: Int) {
-        // 1. If the phone filter is enabled, show an alert and don't continue.
+        // 1. If the phone filter is enabled or the search text isn't empty, show an alert and don't continue.
         guard !phoneFilterEnabled && searchText.isEmpty else {
             dialogManager.showingMoveFailed = true
             return
@@ -491,7 +491,7 @@ struct PhoneListView: View {
             var phonesCopy = phones
             // 3. Perform the move operation on the copy.
             phonesCopy.move(fromOffsets: source, toOffset: destination)
-            // 4. Use the copy's items and their indices to move the phones in the original array.
+            // 4. Use the copy's items and their indices to move the phones in the original array. This is done by comparing the ID of the original phone in the phones array and the phone in the phonesCopy array.
             for (index, phone) in phonesCopy.reversed().enumerated() {
                 if let originalPhone = phones.filter({ $0.id == phone.id}).first {
                     originalPhone.phoneNumberInCollection = index
@@ -556,7 +556,7 @@ struct PhoneListView: View {
             if phone.maxCordlessHandsets == -1 {
                 phone.maxCordlessHandsets = .max
             }
-            if phone.isDECTCordless {
+            if phone.isDECTCordless && phone.cordlessDeviceLinkingMethod == 0 {
                 phone.cordlessDeviceLinkingMethod = 4
             }
         }
@@ -567,7 +567,7 @@ struct PhoneListView: View {
         // 1. Check if the phoneNumberInCollection property of all phones is 0. This is the case for all phones in any catalog created in version 2024.11, as phone numbering/rearranging wasn't introduced until the following release, 2025.5.
         let allPhonesFirstInCollection = phones.allSatisfy({ $0.phoneNumberInCollection == 0 })
         if allPhonesFirstInCollection {
-            // 2. Go through each phone and set its phoneNumberInCollectionProperty to its corresponding index. For example, the phone at index 3 (the 4th phone in the catalog) have its phoneNumberInCollection property set to 3.
+            // 2. Go through each phone and set its phoneNumberInCollectionProperty to its corresponding index. For example, the phone at index 3 (the 4th phone in the catalog) has its phoneNumberInCollection property set to 3.
             for phone in phones {
                 phone.phoneNumberInCollection = phones.firstIndex(of: phone)!
                 // 3. Do the same for the phone's cordless devices and chargers, if any. Cordless device/charger numbering was introduced in the same version as phone numbering (2025.5), so if phones don't have assigned numbering, cordless devices and chargers don't either.
