@@ -265,6 +265,10 @@ struct PhoneCountView: View {
         }
     }
 
+    // MARK: - Properties - Booleans
+
+    @Environment(\.accessibilityReduceMotion) var reduceMotion
+
     // MARK: - Body
 
     var body: some View {
@@ -471,7 +475,7 @@ struct PhoneCountView: View {
                     }
                 }
             }
-            .animation(.linear, value: brandSortMode)
+            .animation(reduceMotion ? nil : .linear, value: brandSortMode)
             .navigationTitle("Phone Count")
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {

@@ -65,8 +65,7 @@ struct CordlessPhoneRadioWaveView: View {
             Text(selectedFrequency.waveName)
         }
         .onAppear {
-            isPlaying = !reduceMotion
-            selectedFrequencySliderValue = Double(availableFrequencies.firstIndex(of: Phone.CordlessFrequency.defaultForCurrentRegion) ?? 0)
+            configureWave()
         }
         .onDisappear {
             stopAnimation()
@@ -101,6 +100,15 @@ struct CordlessPhoneRadioWaveView: View {
             .frame(height: 100)
             .animation(isPlaying ? .linear(duration: 0.25) : nil, value: isPlaying ? phase : nil)
             .accessibilityLabel("\(selectedFrequency.waveName) Wave")
+    }
+
+    // MARK: - Wave Configuration
+
+    func configureWave() {
+        // 1. Start the wave animation if Reduce Motion is disabled in device accessibility settings.
+        isPlaying = !reduceMotion
+        // 2. Set the frequency slider to the default frequency.
+        selectedFrequencySliderValue = Double(availableFrequencies.firstIndex(of: Phone.CordlessFrequency.defaultForCurrentRegion) ?? 0)
     }
 
     // MARK: - Wave Animation

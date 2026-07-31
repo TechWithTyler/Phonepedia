@@ -9,6 +9,7 @@
 // MARK: - Imports
 
 import SwiftUI
+import SheftAppsStylishUI
 import PhotosUI
 
 class PhonePhotoManager: ObservableObject {
@@ -240,12 +241,7 @@ class PhonePhotoManager: ObservableObject {
             return
         }
         // 3. Try to create an image from that data. If it fails, show an error.
-#if os(macOS)
-        let image = NSImage(data: photoData)
-#else
-        let image = UIImage(data: photoData)
-#endif
-        guard let image = image else {
+        guard let image = PlatformImage(data: photoData) else {
             phonePhotoError = .exportFailed(reason: "Couldn't create image from photo data.")
             return
         }
@@ -272,6 +268,24 @@ class PhonePhotoManager: ObservableObject {
             // 3. If successful, show the export success alert.
             showingPhonePhotoExportSuccessfulAlert = true
         }
+    }
+
+    // MARK: - Decode to Thumbnail
+
+    // This method decodes phone's photo data to a PlatformImage of the appropriate size.
+    func decodePhonePhoto(for phone: Phone, to maxPixelSize: CGFloat) async -> PlatformImage? {
+        // 1. Make sure we can get the phone's photo data. Otherwise, return nil and use the placeholder photo.
+        guard let data = phone.photoData else { return nil }
+            // 2. Create an asynchronous background task which performs decoding.
+            let task = Task.detached(priority: .background) {
+                return await PlatformImage.decodedImage(
+                    from: data,
+                    maxPixelSize: maxPixelSize
+                )
+            }
+            // 3. The task's value is the PlatformImage the await expression returned, so return that as the phone photo.
+            let image = await task.value
+            return image
     }
 
 }

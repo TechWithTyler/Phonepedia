@@ -18,6 +18,8 @@ struct PhoneRowView: View {
 
     // MARK: - Properties - Booleans
 
+    @Environment(\.accessibilityReduceMotion) var reduceMotion
+
     @AppStorage(UserDefaults.KeyNames.showPhoneTypeInList) var showPhoneTypeInList: Bool = true
 
     @AppStorage(UserDefaults.KeyNames.showAnsweringSystemInList) var showAnsweringSystemInList: Bool = true
@@ -87,7 +89,7 @@ struct PhoneRowView: View {
                     .font(.title2)
                     .lineLimit(nil)
                     .multilineTextAlignment(.center)
-                    .animation(.linear, value: phone.handsetNumberDigitIndex)
+                    .animation(reduceMotion ? nil : .linear, value: phone.handsetNumberDigitIndex)
                 if !phone.nickname.isEmpty {
                     Text("\"\(phone.nickname)\"")
                         .font(.title3)

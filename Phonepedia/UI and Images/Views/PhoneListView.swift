@@ -47,6 +47,10 @@ struct PhoneListView: View {
     // The default selection to use for a new phone's "How I Got This" option.
     @AppStorage(UserDefaults.KeyNames.defaultAcquisitionMethod) var defaultAcquisitionMethod: Int = 2
 
+    // MARK: - Booleans
+
+    @Environment(\.accessibilityReduceMotion) var reduceMotion
+
     // MARK: - Properties - Filter
 
     // The current filter settings for the phone list.
@@ -209,7 +213,7 @@ struct PhoneListView: View {
             .onDelete(perform: deletePhones)
             .onMove(perform: movePhones)
         }
-        .animation(.linear, value: searchResults)
+        .animation(reduceMotion ? nil : .linear, value: searchResults)
         .onAppear {
             achievementTrackerManager.evaluate(phones: phones, initialLoad: true)
         }
