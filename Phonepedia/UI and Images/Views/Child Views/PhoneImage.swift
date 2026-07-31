@@ -46,7 +46,7 @@ struct PhoneImage: View, ImageMasterDetailable {
         switch displayMode {
         case .thumbnail: return 100
         case .full: return 300
-        case .backdrop: return 1000
+        case .backdrop: return .infinity
         }
 	}
 
