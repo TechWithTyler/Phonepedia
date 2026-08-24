@@ -17,6 +17,8 @@ struct SettingsView: View {
 
     @StateObject var dialogManager = DialogManager()
 
+    @StateObject var photoManager = PhonePhotoManager()
+
     // MARK: - Properties - Dismiss Action
 
     #if !os(macOS)
@@ -48,6 +50,7 @@ struct SettingsView: View {
                     Label(SettingsPage.newPhones.title, systemImage: SettingsPage.Icons.newPhones.rawValue)
                 }
             }
+            .environmentObject(photoManager)
 #else
         // iOS/visionOS settings page
         NavigationStack {
@@ -83,6 +86,7 @@ struct SettingsView: View {
                 }
             }
         }
+        .environmentObject(photoManager)
 #endif
     }
 
