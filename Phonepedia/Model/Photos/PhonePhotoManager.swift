@@ -74,6 +74,9 @@ class PhonePhotoManager: ObservableObject {
     // The type identifier for PNG image files.
     let pngTypeIdentifier = UTType.png.identifier
 
+    // The type identifier for image files in general.
+    let imageGeneralTypeIdentifier = UTType.image.identifier
+
     // MARK: - Phone Photo Update - Photos Picker Selection
 
     // This method handles selecting a photo in the photo picker.
@@ -134,7 +137,7 @@ class PhonePhotoManager: ObservableObject {
             return false
         }
         // 3. Try to have the provider load image data. If successful, check the photo for landline/VoIP phones. Ask the user for confirmation if no landline/VoIP phones could be detected. If unsuccessful, show an error.
-        let progress = provider.loadDataRepresentation(forTypeIdentifier: UTType.image.identifier) { [self] data, error in
+        let progress = provider.loadDataRepresentation(forTypeIdentifier: imageGeneralTypeIdentifier) { [self] data, error in
             handlePhonePhotoDropImportResult(from: data, error: error, phone: phone)
         }
         // 4. Start loading.
