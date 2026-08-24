@@ -38,15 +38,24 @@ struct LandlineDetailView: View {
             .onChange(of: phone.landlineConnectionType) { oldValue, newValue in
                 phone.landlineConnectionTypeChanged(oldValue: oldValue, newValue: newValue)
             }
-            if (phone.landlineConnectionType == 0 || phone.landlineConnectionType == 5) && phone.storageOrSetup <= 1 {
-                Picker("Analog Line Connected To", selection: $phone.landlineConnectedTo) {
-                    AnalogPhoneConnectedToPickerItems()
+            if (phone.landlineConnectionType == 0 || phone.landlineConnectionType == 5) {
+                if phone.storageOrSetup <= 1 {
+                    Picker("Analog Line Connected To", selection: $phone.landlineConnectedTo) {
+                        AnalogPhoneConnectedToPickerItems()
+                    }
+                    if phone.landlineConnectedTo == 0 {
+                        WarningText(phone.isCordless || phone.cordedPowerSource > 0 ? "It's recommended to connect your phone to a line to enjoy all of its features!" : "This phone needs a line to get power!")
+                    }
+                    InfoText("Select \"Multiple\" if you alternate between connection types (e.g. a phone line simulator for internal test calls and a VoIP modem for real calls) or each analog line on a multi-line phone is connected to a different one. You can use a phone line switcher for this.")
                 }
-                if phone.landlineConnectedTo == 0 {
-                    WarningText(phone.isCordless || phone.cordedPowerSource > 0 ? "It's recommended to connect your phone to a line to enjoy all of its features!" : "This phone needs a line to get power!")
+                Picker("Data Port", selection: $phone.dataPortType) {
+                    Text("None").tag(0)
+                    Divider()
+                    Text("Always Active (Passthrough)").tag(1)
+                    Text("Disabled While Off-Hook").tag(2)
                 }
+                InfoText("A data port, also known as an extension jack or passthrough, allows other landline devices (e.g. another phone, dial-up modem, fax machine, or answering system) to connect to the same line without having to use a line splitter or additional jack. It's often called a data port because connecting a dial-up modem or fax machine was the common use case for it.\nSome multi-line phones have a single data port, with a switch to select which line the data port should be connected to.\n• None: The phone doesn't have a data/passthrough port.\n• Always Active: The phone/device connected to the data port acts as if it was connected directly to the line or via a splitter.\n• Disabled While Off-Hook: The phone/device connected to the data port is disconnected from the line while this phone is off-hook. This ensures voice calls take priority and can also work with the phone's other privacy features if the data port is designed to work with them.")
             }
-            InfoText("Select \"Multiple\" if you alternate between connection types (e.g. a phone line simulator for internal test calls and a VoIP modem for real calls) or each analog line on a multi-line phone is connected to a different one. You can use a phone line switcher for this.")
             if phone.landlineConnectionType > 0 && phone.landlineConnectionType < 4 {
                 Toggle("Uses \(phone.brand) Proprietary Protocol", isOn: $phone.usesProprietaryDigitalProtocol)
                     .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))

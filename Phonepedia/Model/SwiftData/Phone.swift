@@ -796,6 +796,9 @@ final class Phone: CasingColorManipulatable, ChargeLightColorManipulatable, Cord
     // The connection type for the landline. 0 = analog, 1 = digital, 2 = Ethernet VoIP, 3 = Wi-Fi VoIP, 4 = cellular, 5 = Ethernet/analog.
     var landlineConnectionType: Int = 0
 
+    // Whether the phone has a data/passthrough port. 0 = none, 1 = always active, 2 = disabled while off-hook
+    var dataPortType: Int = 0
+
     // Whether the phone uses a proprietary digital protocol which works only on compatible digital PBX systems.
     var usesProprietaryDigitalProtocol: Bool = false
 
