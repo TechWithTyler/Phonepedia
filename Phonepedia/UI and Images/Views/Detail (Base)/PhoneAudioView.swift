@@ -105,7 +105,7 @@ struct PhoneAudioView: View {
                     .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 }
             }
-            InfoText("An audio codec determines the audio quality and bandwidth used for VoIP, cellular, and digital lines.\nYou may think that with the G.7XX codecs, the higher number means better quality, but the numbering order isn't tied to quality--it's just arbitrary.")
+            InfoText("A codec, short for encoder/decoder, is a method of converting one format of data to another. Digital and VoIP phones use codecs to convert audio data from one format to another, so that it can be transmitted over a network.\nYou may think that with the G.7XX codecs, the higher number means better quality, but the numbering order isn't tied to quality--it's just arbitrary.")
         }
     }
 
