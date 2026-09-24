@@ -217,6 +217,15 @@ struct PhoneGeneralView: View {
             }
             InfoText("• Holes on Back: The phone can be wall mounted without a bracket.\n• Optional Bracket: A bracket is required for wall mounting but not for desk use.\n• Built-In Bracket: The bracket is built-in and can be moved between desk and wall position.\n• Desk/Wall Bracket: The bracket is removable, but is required for both desk and wall use.\n• Remove Stand: A stand is used for desk use and needs to be removed for wall mounting.")
         }
+        if phone.isMultilineOrBluetoothCellLinking {
+            Picker("Switching Lines During Call", selection: $phone.switchingLinesDuringCallBehavior) {
+                Text("Not Supported").tag(0)
+                Divider()
+                Text("Hold").tag(1)
+                Text("Hang Up").tag(2)
+            }
+            InfoText("• Not Supported: Calls must be placed on hold first even if the phone has physical line buttons.\n• Hold: The current call is placed on hold when switching to another line.\n• Hang Up: The current call is hung up when switching to another line, so it must be placed on hold, if supported, if you don't want it to hang up.")
+        }
     }
 
     @ViewBuilder

@@ -389,6 +389,9 @@ final class Phone: CasingColorManipulatable, ChargeLightColorManipulatable, Cord
     // The number of lines.
     var numberOfLandlines: Int = 1
 
+    // Whether the phone supports switching to another line during a call without having to first put it on hold. 0 = not supported, 1 = place current call on hold, 2 = hang up current call.
+    var switchingLinesDuringCallBehavior: Int = 0
+
     // How the phone indicates that the line is in use. 0 = none, 1 = light, 2 = display, 3 = display and light.
     var landlineInUseStatusOnBase: Int = 0
 
@@ -406,6 +409,9 @@ final class Phone: CasingColorManipulatable, ChargeLightColorManipulatable, Cord
 
     // The maximum number of Bluetooth cell phones that can be paired.
     var baseBluetoothCellPhonesSupported: Int = 0
+
+    // Whether cell calls can only be received (0) or also placed (1).
+    var cellCallDirection: Int = 1
 
     // Whether the phone has a USB port.
     var hasUSBCharging: Bool = false
@@ -1235,6 +1241,12 @@ final class Phone: CasingColorManipulatable, ChargeLightColorManipulatable, Cord
     @Transient
     var isMultiline: Bool {
         return numberOfLandlines > 1 || landlineConnectionType == 5
+    }
+
+    // Whether the phone has multiple lines or supports Bluetooth cell phone linking.
+    @Transient
+    var isMultilineOrBluetoothCellLinking: Bool {
+        return isMultiline || (baseBluetoothCellPhonesSupported >= 1 && cellCallDirection == 1)
     }
 
     // Whether the phone has an analog line jack.

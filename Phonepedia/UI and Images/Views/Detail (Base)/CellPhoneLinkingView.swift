@@ -21,12 +21,17 @@ struct CellPhoneLinkingView: View {
 
     var body: some View {
         Section("Bluetooth Cell Phone Linking") {
-            CountPicker("Maximum Supported", selection: $phone.baseBluetoothCellPhonesSupported, numbers: [1, 2, 4, 5, 10, 15], singularSuffix: "Cell Phone", pluralSuffix: "Cell Phones", noneTitle: phone.basePhonebookCapacity >= phonebookTransferRequiredMaxCapacity ? "Phonebook Transfers Only" : "None")
-            .onChange(of: phone.baseBluetoothCellPhonesSupported) { oldValue, newValue in
+            CountPicker("Maximum Supported", selection: $phone.baseBluetoothCellPhonesSupported, oneTo: 15, singularSuffix: "Cell Phone", pluralSuffix: "Cell Phones", noneTitle: phone.basePhonebookCapacity >= phonebookTransferRequiredMaxCapacity ? "Phonebook Transfers Only" : "None")
+                .onChange(of: phone.baseBluetoothCellPhonesSupported) { oldValue, newValue in
                 phone.baseBluetoothCellPhonesSupportedChanged(oldValue: oldValue, newValue: newValue)
             }
-            InfoText("Pairing a cell phone to the base via Bluetooth allows you to make and receive cell calls on the base or cordless devices and transfer your cell phone contacts to the phonebook. Some phones support cell phonebook transfers but not full-on cell phone linking for calls.")
+            InfoText("Pairing a cell phone to the base via Bluetooth allows you to receive, or make and receive, cell calls on the base or cordless devices and transfer your cell phone contacts to the phonebook. Some phones support cell phonebook transfers but not full-on cell phone linking for calls.")
             if phone.baseBluetoothCellPhonesSupported > 0 {
+                Picker("Cell Call Direction", selection: $phone.cellCallDirection) {
+                    Text("Incoming Only").tag(0)
+                    Text("Incoming/Outgoing").tag(1)
+                }
+                InfoText("• Incoming Only: The phone can only be used to answer incoming cell calls and can't make outgoing cell calls.\n• Incoming/Outgoing: The phone can be used for both incoming and outgoing cell calls.")
                 Picker("Cell Line In Use Status On Base", selection: $phone.cellLineInUseStatusOnBase) {
                     Text("None").tag(0)
                     Divider()
@@ -36,7 +41,7 @@ struct CellPhoneLinkingView: View {
                         Text("Display and Light").tag(3)
                     }
                 }
-                InfoText("Cell line in use status indicates when the cell line on this phone is in use, not when the paired cell phone is in use. Using the cell phone separately from this phone may cause it to show as disconnected.")
+                InfoText("Cell line in use status indicates when the cell line on this phone is in use, not when the paired cell phone is in use. Using the cell phone separately from this phone may cause this phone to show the cell phone as disconnected.")
                 Picker("Call Transfer From Cell To Phone", selection: $phone.cellCallTransferToPhone) {
                     Text("Not Supported").tag(0)
                     Divider()
