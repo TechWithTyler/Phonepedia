@@ -122,9 +122,10 @@ extension Phone {
         // The name of the frequency to display in the frequency list. For separators, return an empty string. Separators use negative numbers.
         var name: String {
             switch self {
+                // Used only to place separators in the list.
             case .separator1, .separator2, .separator3, .separator4, .separator5:
                 return String()
-            case .unknown: return "Unknown"
+            case .unknown: return "I Don't Know"
                 // Older Frequencies
             case .analog1_7MHz: return "1.7MHz Analog"
             case .analog1_7MHzOver46MHz: return "1.7MHz/46MHz Analog"
@@ -178,7 +179,7 @@ extension Phone {
         }
 
         // Returns the wave frequency in GHz.
-        var dectFrequency: String {
+        var frequencyInGHz: String {
             let waveFrequencyInGHz = waveFrequency / 1000
             return "\(waveFrequencyInGHz)GHz"
         }
@@ -199,7 +200,7 @@ extension Phone {
             case .analog5_8GHz:
                 return "5.8GHz"
             case .southKoreaDECT, .taiwanDECT, .etsiDECT, .japanJDECT, .brazilDECT, .latinAmericaDECT, .northAmericaDECT6:
-                return "\(dectFrequency) - \(name)"
+                return "\(frequencyInGHz) (\(name))"
             default: return String()
             }
         }
@@ -225,10 +226,10 @@ extension Phone {
                 return 1786
             case .taiwanDECT:
                 return 1880
-            case .etsiDECT:
-                return 1890
             case .japanJDECT:
                 return 1893
+            case .etsiDECT:
+                return 1900
             case .brazilDECT:
                 return 1910
             case .latinAmericaDECT:
@@ -283,18 +284,24 @@ extension Phone {
 
         // MARK: - Properties - Booleans
 
+        // Whether this cordless phone frequency is digital.
         var isDigital: Bool {
             return (name.contains("Digital") || name.contains("DSS") /*Digital Spread Spectrum*/ || name.contains("FHSS") /*Frequency-Hopping Spread Spectrum, doesn't include digital in the name but is digital*/ || name.contains("DECT") /*Digital Enhanced Cordless Telecommunications*/) && !name.contains("Analog")
         }
 
+        // Whether this cordless phone frequency is DECT.
         var isDECT: Bool {
             return name.contains("DECT")
         }
 
         // MARK: - Frequency Name From Raw Value
 
+        // This method returns the name for the given frequency raw value.
         static func nameFromRawValue(_ rawValue: Double) -> String {
-            return (CordlessFrequency(rawValue: rawValue)?.name)!
+            guard let frequency = CordlessFrequency(rawValue: rawValue) else {
+                return "Unknown"
+            }
+            return frequency.name
         }
 
     }

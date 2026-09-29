@@ -61,19 +61,19 @@ struct FrequenciesExplanationView: View {
                     Text("DECT uses encryption, making it the most secure cordless phone frequency. Since it's dedicated to cordless phones, baby monitors, and other telecommunications-related devices, interference from other wireless technologies is minimal, and DECT devices rarely interfere with each other. Different countries use different frequencies for DECT.")
                     Text("1.786–1.792GHz (1786–1792MHz) is used in South Korea.")
                     Text("1.88–1.895GHz (1880–1895MHz) is used in Taiwan.")
-                    Text("1.88–1.90GHz (1880–190MHz) is used for DECT in Europe, the UK, Ireland, Australia, New Zealand, and the Middle East. Throughout \(SABundleName), it's referred to as ETSI DECT (ETSI standing for European Telecommunications Standards Institute). DECT originated from Europe, originally standing for Digital European Cordless Telecommunications before DECT was adopted by other countries.")
+                    Text("1.88–1.90GHz (1880–1900MHz) is used for DECT in Europe, the UK, Ireland, Australia, New Zealand, and the Middle East. Throughout \(SABundleName), it's referred to as ETSI DECT (ETSI standing for European Telecommunications Standards Institute). DECT originated from Europe, originally standing for Digital European Cordless Telecommunications before DECT was adopted by other countries.")
                     Text("J-DECT (1.893–1.906GHz or 1893–1906MHz) is used in Japan.")
                     Text("1.91–1.92GHz (1910–1920MHz) is used in Brazil.")
                     Text("1.91–1.93GHz (1910–1930MHz) is used in parts of Latin America.")
-                    Text("DECT 6.0 (1.92–1.93GHz or 1920–1930MHz) is used in the US, Canada, and Mexico.")
+                    Text("DECT 6.0 (1.92–1.93GHz or 1920–1930MHz) is used in North America.")
                 }
                 DisclosureGroup("Marketing vs Actual Frequency Range") {
                     Text("Some cordless phones only use a subset of their actual frequency band.")
                     Text("Some 1.7MHz cordless phones used 46MHz for handset-to-base.")
                     Text("46-49MHz cordless phones are often referred to as such because that's the frequency range they typically operate in, and is shown as such throughout \(SABundleName), although the actual frequency range is 43-46MHz base-to-handset and 48-49MHz handset-to-base.")
                     Text("The actual frequency range for 900MHz cordless phones is 902-928MHz. Rounding down for marketing/documentation makes it simpler to understand.")
-                    Text("The actual frequency range for 2.4GHz cordless phones is 2.400–2.4835GHz (2400-2483.5MHz). Rounding down for marketing/documentation makes it simpler to understand.")
-                    Text("The actual frequency range for 5.8GHz cordless phones is 5.725-5.850GHz (5725-5850MHz). Rounding up for marketing/documentation makes it simpler to understand.")
+                    Text("The actual frequency range for 2.4GHz cordless phones is 2.400–2.4835GHz (2400-2483.5MHz). Rounding down to \"2.4GHz\" for marketing/documentation makes it simpler to understand.")
+                    Text("The actual frequency range for 5.8GHz cordless phones is 5.725-5.850GHz (5725-5850MHz). Rounding up to \"5.8GHz\" for marketing/documentation makes it simpler to understand.")
                     Text("Dual-frequency phones (e.g., 2.4GHz/900MHz) are often marketed as being only one frequency and communication technology (e.g. \"2.4GHz DSS\"). As a result, those who don't look at the specifications in the manual or online may think it's only the advertised frequency and communication technology, even if that advertised frequency/communication technology is only used in one direction (usually base-to-handset).")
                     Text("DECT phones use different frequency ranges as explained in the above section, depending on the country the phone was designed for, and may be referred to as simply 1.7GHz, 1.8GHz, or 1.9GHz. DECT in North America is more commonly referred to as DECT 6.0 so people who think \"higher number is better\" will know DECT 6.0 is better than 5.8GHz, 2.4GHz, and 900MHz phones. It's incorrect to say that DECT 6.0 cordless phones are \"6.0GHz\", and no cordless phone has ever used 6.0GHz for its frequency. DECT in other countries may be referred to as DECT 6.0 depending on the manufacturer.")
                 }
