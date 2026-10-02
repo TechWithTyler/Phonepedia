@@ -70,7 +70,7 @@ struct FrequenciesExplanationView: View {
                 DisclosureGroup("Marketing vs Actual Frequency Range") {
                     Text("Some cordless phones only use a subset of their actual frequency band.")
                     Text("Some 1.7MHz cordless phones used 46MHz for handset-to-base.")
-                    Text("46-49MHz cordless phones are often referred to as such because that's the frequency range they typically operate in, and is shown as such throughout \(SABundleName), although the actual frequency range is 43-46MHz base-to-handset and 48-49MHz handset-to-base.")
+                    Text("46-49MHz cordless phones are often referred to as such (sometimes written as \"46/49\" instead of \"46-49\") because that's the frequency range they typically operate in, and is shown as such throughout \(SABundleName), although the actual frequency range is 43-46MHz base-to-handset and 48-49MHz handset-to-base.")
                     Text("The actual frequency range for 900MHz cordless phones is 902-928MHz. Rounding down for marketing/documentation makes it simpler to understand.")
                     Text("The actual frequency range for 2.4GHz cordless phones is 2.400–2.4835GHz (2400-2483.5MHz). Rounding down to \"2.4GHz\" for marketing/documentation makes it simpler to understand.")
                     Text("The actual frequency range for 5.8GHz cordless phones is 5.725-5.850GHz (5725-5850MHz). Rounding up to \"5.8GHz\" for marketing/documentation makes it simpler to understand.")
