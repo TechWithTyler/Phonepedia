@@ -132,10 +132,13 @@ struct PhoneMessagingView: View {
                 Picker("Message Day/Time Stamp", selection: $phone.answeringSystemMessageTimestamp) {
                     Text("None").tag(0)
                     Divider()
-                    Text("Before Message").tag(1)
-                    Text("After Message").tag(2)
+                    Text("Day/Time (Before Message)").tag(1)
+                    Text("Day/Time (After Message)").tag(2)
+                    Divider()
+                    Text("Date/Time (Before Message)").tag(3)
+                    Text("Date/Time (After Message").tag(4)
                 }
-                InfoText("Messages are \"stamped\" with the day/time (or date/time) they're recorded, which is announced before or after each message. On tape answering systems, the day/time stamp is recorded onto the tape. Example: \"Wednesday, 12:30AM\"")
+                InfoText("Messages are \"stamped\" with the day/time (or date/time) they're recorded, which is announced before or after each message. On tape answering systems, the day/time stamp is recorded onto the tape. Some answering systems stamp messages with the month and date, instead of or in addition to the day of the week.\nDay/Time Example: \"Thursday, 10:00AM\"\nDate/Time Example: \"Thursday, November 14, 10:00AM\"")
                 if phone.baseDisplayType > 3 && phone.answeringSystemType == 1 {
                     Toggle("Has Message List", isOn: $phone.hasMessageList)
                         .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
