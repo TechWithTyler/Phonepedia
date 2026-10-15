@@ -91,7 +91,7 @@ struct BaseDisplayBacklightButtonsView: View {
                 }
                 if phone.baseKeyBacklightAmount == 0 || phone.baseKeyBacklightAmount == 6 || phone.baseKeyBacklightLayer == 1 {
                     ColorPicker("Button Background Color", selection: phone.baseKeyBackgroundColorBinding)
-                    Button("Set to Main Color") {
+                    Button("Set to \(phone.mainColorLocation) Color") {
                         phone.setKeyBackgroundColorToMain()
                     }
                 }

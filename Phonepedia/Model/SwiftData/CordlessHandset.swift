@@ -540,6 +540,24 @@ final class CordlessHandset: CasingColorManipulatable, ChargeLightColorManipulat
         }
     }
 
+    // The text to display for the main color location.
+    @Transient
+    var mainColorLocation: String {
+        switch cordlessDeviceType {
+            case 1: return "Top"
+            default: return "Front"
+        }
+    }
+
+    // The text to display for the main color location.
+    @Transient
+    var secondaryColorLocation: String {
+        switch cordlessDeviceType {
+            case 1: return "Bottom"
+            default: return "Back"
+        }
+    }
+
     // The text to display for the cordless device's phonebook type.
     @Transient
     var phonebookTypeText: String {

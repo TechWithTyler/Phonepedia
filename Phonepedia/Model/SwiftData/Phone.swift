@@ -886,6 +886,24 @@ final class Phone: CasingColorManipulatable, ChargeLightColorManipulatable, Cord
         return "\(age) \(yearsSingularOrPlural) old"
     }
 
+    // The text to display for the main color location.
+    @Transient
+    var mainColorLocation: String {
+        switch basePhoneType {
+            case 1...2: return "Front"
+            default: return "Top"
+        }
+    }
+
+    // The text to display for the secondary color location.
+    @Transient
+    var secondaryColorLocation: String {
+        switch basePhoneType {
+            case 1...2: return "Back"
+            default: return "Bottom"
+        }
+    }
+
     @Transient
     var mainColorRed: Double {
         get { baseMainColorRed }

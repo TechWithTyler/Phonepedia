@@ -132,7 +132,7 @@ struct HandsetDisplayBacklightButtonsView: View {
                 }
                 if handset.keyBacklightAmount == 0 || handset.keyBacklightAmount == 6 || handset.keyBacklightLayer == 1 {
                     ColorPicker("Button Background Color", selection: handset.keyBackgroundColorBinding)
-                    Button("Set to Main Color") {
+                    Button("Set to \(handset.mainColorLocation) Color") {
                         handset.setKeyBackgroundColorToMain()
                     }
                 }

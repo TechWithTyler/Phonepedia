@@ -62,9 +62,9 @@ struct ChargerDetailView: View {
                             CasingTypePickerItems()
                         }
                         if charger.casingType == 0 {
-                            ColorPicker("Main Color", selection: charger.mainColorBinding)
-                            ColorPicker("Secondary/Accent Color", selection: charger.secondaryColorBinding)
-                            Button("Use Main Color") {
+                            ColorPicker("Top Color", selection: charger.mainColorBinding)
+                            ColorPicker("Bottom/Accent Color", selection: charger.secondaryColorBinding)
+                            Button("Use Top Color") {
                                 charger.setSecondaryColorToMain()
                             }
                             ColorPicker("Accent Color", selection: charger.accentColorBinding)

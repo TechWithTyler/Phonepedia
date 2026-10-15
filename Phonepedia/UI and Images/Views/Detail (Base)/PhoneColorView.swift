@@ -17,37 +17,21 @@ struct PhoneColorView: View {
 
     @Bindable var phone: Phone
 
-    // MARK: - Properties - Strings
-
-    var mainColorLocation: String {
-        switch phone.basePhoneType {
-        case 1...2: return "Front"
-        default: return "Top"
-        }
-    }
-
-    var secondaryColorLocation: String {
-        switch phone.basePhoneType {
-        case 1...2: return "Back"
-        default: return "Bottom"
-        }
-    }
-
     var body: some View {
         Picker("Casing Type", selection: $phone.baseCasingType) {
             CasingTypePickerItems()
         }
         if phone.baseCasingType == 0 {
-            ColorPicker(phone.basePhoneType > 0 ? "Top Color" : "Base Top Color", selection: phone.baseMainColorBinding)
-            ColorPicker(phone.basePhoneType > 0 ? "Bottom Color" : "Base Bottom Color", selection: phone.baseSecondaryColorBinding)
-            Button("Use Top Color") {
+            ColorPicker(phone.basePhoneType > 0 ? "\(phone.mainColorLocation) Color" : "Base \(phone.mainColorLocation) Color", selection: phone.baseMainColorBinding)
+            ColorPicker(phone.basePhoneType > 0 ? "\(phone.secondaryColorLocation) Color" : "Base \(phone.secondaryColorLocation) Color", selection: phone.baseSecondaryColorBinding)
+            Button("Use \(phone.mainColorLocation) Color") {
                 phone.setSecondaryColorToMain()
             }
             ColorPicker(phone.basePhoneType > 0 ? "Accent Color" : "Base Accent Color", selection: phone.baseAccentColorBinding)
-            Button("Use \(mainColorLocation) Color") {
+            Button("Use \(phone.mainColorLocation) Color") {
                 phone.setAccentColorToMain()
             }
-            Button("Use \(secondaryColorLocation) Color") {
+            Button("Use \(phone.secondaryColorLocation) Color") {
                 phone.setAccentColorToSecondary()
             }
             InfoText("The accent color is seen in various places, such as around the edges. Sometimes the bottom/back color is used as an additional accent color on the top/front.")
@@ -58,7 +42,7 @@ struct PhoneColorView: View {
                 .onChange(of: phone.cordedReceiverMainColorBinding.wrappedValue) { oldValue, newValue in
                     phone.cordedReceiverColorChanged(oldValue: oldValue, newValue: newValue)
                 }
-                Button("Use Base Main Color") {
+                Button("Use Base \(phone.mainColorLocation) Color") {
                     phone.setCordedReceiverOuterColorToMain()
                 }
                 if phone.hasCordedReceiver {
@@ -66,7 +50,7 @@ struct PhoneColorView: View {
                     Button("Use Outer Color") {
                         phone.setCordedReceiverSecondaryColorToMain()
                     }
-                    Button("Use Base Secondary Color") {
+                    Button("Use Base \(phone.secondaryColorLocation) Color") {
                         phone.setCordedReceiverInnerColorToSecondary()
                     }
                     ColorPicker("Corded Receiver Accent Color", selection: phone.cordedReceiverAccentColorBinding)

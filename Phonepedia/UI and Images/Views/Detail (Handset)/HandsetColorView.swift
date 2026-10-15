@@ -17,22 +17,6 @@ struct HandsetColorView: View {
 
     @Bindable var handset: CordlessHandset
 
-    // MARK: - Properties - Strings
-
-    var mainColorLocation: String {
-        switch handset.cordlessDeviceType {
-        case 1: return "Top"
-        default: return "Front"
-        }
-    }
-
-    var secondaryColorLocation: String {
-        switch handset.cordlessDeviceType {
-        case 1: return "Bottom"
-        default: return "Back"
-        }
-    }
-
     // MARK: - Body
 
     var body: some View {
@@ -41,16 +25,16 @@ struct HandsetColorView: View {
                 CasingTypePickerItems()
             }
             if handset.casingType == 0 {
-                ColorPicker("\(mainColorLocation) Color", selection: handset.mainColorBinding)
-                ColorPicker("\(secondaryColorLocation) Color", selection: handset.secondaryColorBinding)
-                Button("Use \(mainColorLocation) Color") {
+                ColorPicker("\(handset.mainColorLocation) Color", selection: handset.mainColorBinding)
+                ColorPicker("\(handset.secondaryColorLocation) Color", selection: handset.secondaryColorBinding)
+                Button("Use \(handset.mainColorLocation) Color") {
                     handset.setSecondaryColorToMain()
                 }
                 ColorPicker("Accent Color", selection: handset.accentColorBinding)
-                Button("Use \(mainColorLocation) Color") {
+                Button("Use \(handset.mainColorLocation) Color") {
                     handset.setAccentColorToMain()
                 }
-                Button("Use \(secondaryColorLocation) Color") {
+                Button("Use \(handset.secondaryColorLocation) Color") {
                     handset.setAccentColorToSecondary()
                 }
                 if handset.cordlessDeviceType == 1 {
