@@ -17,85 +17,122 @@ struct PhoneButtonLegendItem: View {
 
     enum PhoneButtonDescription: String {
 
+        // Talk (often called Home on Bluetooth cell phone linking-capable models with physical line buttons)
         case talk, home
 
+        // Cell
         case cell
 
+        // Off
         case off
 
+        // Speakerphone
         case speakerphone
 
         var title: String {
-            return rawValue.capitalized
+            switch self {
+                case .speakerphone: return "Speaker"
+                default:
+                    return rawValue.capitalized
+            }
         }
 
     }
 
     // MARK: - Properties - Phone Button Description
 
+    // The button example to show.
     var button: PhoneButtonDescription
 
     // MARK: - Properties - Integers
 
+    // The layer of the button to color.
     var colorLayer: Int
+
+    // MARK: - Properties - Floats
+
+    // The corner radius of background-colored button examples
+    var backgroundColorCornerRadius: CGFloat = 5
 
     // MARK: - Properties - Colors
 
+    // The foreground color of the talk button.
     var talkButtonForegroundColor: Color {
         switch colorLayer {
-        case 1:
-            return .green.opacity(0.75)
-        default:
-            return .primary
+            case 1, 3:
+                return .green.opacity(0.75)
+            default:
+                return .primary
         }
     }
-    
+
+    // The background color of the talk button.
     var talkButtonBackgroundColor: Color {
         switch colorLayer {
-        case 2:
-            return .green.opacity(0.75)
-        default:
-            return .clear
+            case 2, 4:
+                return .green.opacity(0.75)
+            default:
+                return .clear
         }
     }
-    
+
+    // The foreground color of the cell button.
     var cellButtonForegroundColor: Color {
-        return .blue.opacity(0.75)
+        switch colorLayer {
+            case 1, 3:
+                return .blue.opacity(0.75)
+            default:
+                return .primary
+        }
     }
-    
+
+    // The background color of the cell button.
+    var cellButtonBackgroundColor: Color {
+        switch colorLayer {
+            case 2, 4:
+                return .blue.opacity(0.75)
+            default:
+                return .clear
+        }
+    }
+
+    // The foreground color of the off button.
     var offButtonForegroundColor: Color {
         switch colorLayer {
-        case 1:
-            return .red.opacity(0.75)
-        default:
-            return .primary
+            case 1, 3:
+                return .red.opacity(0.75)
+            default:
+                return .primary
         }
     }
-    
+
+    // The background color of the off button.
     var offButtonBackgroundColor: Color {
         switch colorLayer {
-        case 2:
-            return .red.opacity(0.75)
-        default:
-            return .clear
+            case 2, 4:
+                return .red.opacity(0.75)
+            default:
+                return .clear
         }
     }
-    
+
+    // The foreground color of the speakerphone button.
     var speakerphoneButtonForegroundColor: Color {
         switch colorLayer {
-        case 1:
-            return .orange.opacity(0.75)
-        default:
-            return .primary
+            case 1:
+                return .orange.opacity(0.75)
+            default:
+                return .primary
         }
     }
-    
+
+    // The background color of the speakerphone button.
     var speakerphoneButtonBackgroundColor: Color {
         switch colorLayer {
-        case 2:
-            return .orange.opacity(0.75)
-        default:
-            return .clear
+            case 2:
+                return .orange.opacity(0.75)
+            default:
+                return .clear
         }
     }
 
@@ -112,16 +149,16 @@ struct PhoneButtonLegendItem: View {
         VStack(alignment: .leading) {
             Text("\(button.title) Button Label Example:")
             switch button {
-            case .talk:
-                talkButton
-            case .cell:
-                cellButton
-            case .home:
-                homeButton
-            case .off:
-                offButton
-            case .speakerphone:
-                speakerphoneButton
+                case .talk:
+                    talkButton
+                case .cell:
+                    cellButton
+                case .home:
+                    homeButton
+                case .off:
+                    offButton
+                case .speakerphone:
+                    speakerphoneButton
             }
             if colorLayer > 0 {
                 Text("The \(button.rawValue) button color scheme shown is an example--your handset may differ.")
@@ -130,6 +167,7 @@ struct PhoneButtonLegendItem: View {
             }
         }
         .dynamicTypeSize(.medium)
+
     }
 
     // MARK: - Talk/Home Button
@@ -141,11 +179,11 @@ struct PhoneButtonLegendItem: View {
             .foregroundStyle(talkButtonForegroundColor)
             .padding(.horizontal)
             .background(
-                RoundedRectangle(cornerRadius: 5)
+                RoundedRectangle(cornerRadius: backgroundColorCornerRadius)
                     .fill(talkButtonBackgroundColor)
             )
     }
-    
+
     @ViewBuilder
     var homeButton: some View {
         Label(PhoneButtonDescription.home.title, systemImage: "house.fill")
@@ -153,7 +191,7 @@ struct PhoneButtonLegendItem: View {
             .foregroundStyle(talkButtonForegroundColor)
             .padding(.horizontal)
             .background(
-                RoundedRectangle(cornerRadius: 5)
+                RoundedRectangle(cornerRadius: backgroundColorCornerRadius)
                     .fill(talkButtonBackgroundColor)
             )
     }
@@ -166,6 +204,10 @@ struct PhoneButtonLegendItem: View {
             .labelStyle(.topIconBottomTitle)
             .foregroundStyle(cellButtonForegroundColor)
             .padding(.horizontal)
+            .background(
+                RoundedRectangle(cornerRadius: backgroundColorCornerRadius)
+                    .fill(cellButtonBackgroundColor)
+            )
     }
 
     // MARK: - Off Button
@@ -177,7 +219,7 @@ struct PhoneButtonLegendItem: View {
             .foregroundStyle(offButtonForegroundColor)
             .padding(.horizontal)
             .background(
-                RoundedRectangle(cornerRadius: 5)
+                RoundedRectangle(cornerRadius: backgroundColorCornerRadius)
                     .fill(offButtonBackgroundColor)
             )
     }
@@ -186,16 +228,16 @@ struct PhoneButtonLegendItem: View {
 
     @ViewBuilder
     var speakerphoneButton: some View {
-        Label("Speakerphone", systemImage: "speaker.fill")
+        Label(PhoneButtonDescription.speakerphone.title, systemImage: "speaker.fill")
             .labelStyle(.topIconBottomTitle)
             .foregroundStyle(speakerphoneButtonForegroundColor)
             .padding(.horizontal)
             .background(
-                RoundedRectangle(cornerRadius: 5)
+                RoundedRectangle(cornerRadius: backgroundColorCornerRadius)
                     .fill(speakerphoneButtonBackgroundColor)
             )
     }
-    
+
 }
 
 // MARK: - Preview

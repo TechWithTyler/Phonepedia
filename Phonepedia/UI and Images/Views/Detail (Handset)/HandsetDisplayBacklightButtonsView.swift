@@ -61,8 +61,13 @@ struct HandsetDisplayBacklightButtonsView: View {
                             Divider()
                             Text("Foreground").tag(1)
                             Text("Background").tag(2)
+                            Divider()
+                            if handset.keyBacklightAmount > 1 {
+                                Text("Backlight Provides Color (Foreground)").tag(3)
+                                Text("Backlight Provides Color (Background)").tag(4)
+                            }
                         }
-                        InfoText("Foreground: The text/icon is colored.\nBackground: The button is filled with the color.")
+                        InfoText("• Foreground: The text/icon is colored.\n• Background: The button is filled with the color.\n• Backlight Provides Color: The button backlight provides the talk/off button coloring instead of the buttons themselves being colored (no color when the backlight is off).\nOn most handsets where the talk/off buttons themselves are colored, their backlight color is the same as the other buttons.")
                         PhoneButtonLegendItem(button: handset.hasPhysicalCellButton ? .home : .talk, colorLayer: handset.talkOffColorLayer)
                         PhoneButtonLegendItem(button: .off, colorLayer: handset.talkOffColorLayer)
                     }
@@ -79,13 +84,9 @@ struct HandsetDisplayBacklightButtonsView: View {
                     PhoneButtonLegendItem(button: .cell, colorLayer: 1)
                 }
                 Picker("Button Type", selection: $handset.buttonType) {
-                    Text("Spaced").tag(0)
-                    Text("Spaced with Click Feel").tag(1)
-                    Text("Some Spaced, Some Diamond-Cut").tag(2)
-                    Text("Some Spaced with Click Feel, Some Diamond-Cut").tag(3)
-                    Text("Diamond-Cut (No Space Between Buttons, Click Feel)").tag(4)
-                    Text("Touch Button Panel").tag(5)
+                    ButtonTypePickerItems()
                 }
+                ButtonTypeInfoView()
                 Toggle(isOn: $handset.hasTalkingKeypad) {
                     Text("Talking Keypad")
                 }
@@ -141,6 +142,10 @@ struct HandsetDisplayBacklightButtonsView: View {
                     }
                 }
                 ButtonColorInfoView()
+                if handset.cordlessDeviceType < 2 && handset.displayType > 0 {
+                    Toggle("Allows One-Touch Call to Preset Number", isOn: $handset.supportsOneTouchCallToPresetNumber)
+                    OneTouchCallInfoView()
+                }
             }
             Section("Display") {
                 Picker("Display Type", selection: $handset.displayType) {

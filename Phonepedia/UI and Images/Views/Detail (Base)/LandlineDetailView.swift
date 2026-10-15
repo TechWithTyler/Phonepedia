@@ -56,6 +56,13 @@ struct LandlineDetailView: View {
                 }
                 InfoText("A data port, also known as an extension jack or passthrough, allows other landline devices (e.g. another phone, dial-up modem, fax machine, or answering system) to connect to the same line without having to use a line splitter or additional jack. It's often called a data port because connecting a dial-up modem or fax machine was the common use case for it.\nSome multi-line phones have a single data port, with a switch to select which line the data port should be connected to.\n• None: The phone doesn't have a data/passthrough port.\n• Always Active: The phone/device connected to the data port acts as if it was connected directly to the line or via a splitter.\n• Disabled While Off-Hook: The phone/device connected to the data port is disconnected from the line while this phone is off-hook. This ensures voice calls take priority and can also work with the phone's other privacy features if the data port is designed to work with them.")
             }
+            Picker("Phone Provider Feature Menus/Options", selection: $phone.phoneProviderFeatureMenuOptions) {
+                Text("Not Available").tag(0)
+                Divider()
+                Text("Factory-Set").tag(1)
+                Text("Customizable").tag(2)
+            }
+            InfoText("Some phones have menu options which serve as an easy way to access certain phone provider features such as to dial a number as anonymous for one call only. Depending on the phone, these features may be factory-set to dial feature codes defined by the telephony standards for the country the phone is designed to be used in (or for phones with a country setting, the country that's selected). These options won't work if used with a provider which doesn't adopt the regional telephony standards or on a PBX which uses different codes/doesn't support the features, or if these codes change later. For phones where these codes are customizable, simply set them as required.\nFor VoIP phones, these options may send SIP requests to the provider/PBX instead of dialing feature codes.")
             if phone.landlineConnectionType > 0 && phone.landlineConnectionType < 4 {
                 Toggle("Uses \(phone.brand) Proprietary Protocol", isOn: $phone.usesProprietaryDigitalProtocol)
                     .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))

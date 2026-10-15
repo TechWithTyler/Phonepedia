@@ -24,13 +24,9 @@ struct BaseDisplayBacklightButtonsView: View {
         Section("Buttons") {
             if phone.isCordless || phone.cordedPhoneType == 0 || phone.basePhoneType > 0 {
                 Picker("Button Type", selection: $phone.buttonType) {
-                    Text("Spaced").tag(0)
-                    Text("Spaced with Click Feel").tag(1)
-                    Text("Some Spaced, Some Diamond-Cut").tag(2)
-                    Text("Some Spaced with Click Feel, Some Diamond-Cut").tag(3)
-                    Text("Diamond-Cut (No Space Between Buttons, Click Feel)").tag(4)
-                    Text("Touch Button Panel").tag(5)
+                    ButtonTypePickerItems()
                 }
+                ButtonTypeInfoView()
                 if phone.basePhoneType == 0 && ((!phone.isCordless && (phone.isPushButtonCorded)) || (phone.isCordless && phone.hasBaseSpeakerphone)) {
                     Toggle(isOn: $phone.hasBaseKeypad) {
                         Text(phone.isCordless ? "Has Base Keypad" : "Has User-Accessible Keypad")
@@ -105,6 +101,10 @@ struct BaseDisplayBacklightButtonsView: View {
                     }
                 }
                 ButtonColorInfoView()
+            }
+            if phone.hasBaseKeypad && phone.hasBaseSpeakerphone && phone.baseDisplayType > 2 {
+                Toggle("Allows One-Touch Call to Preset Number", isOn: $phone.supportsOneTouchCallToPresetNumber)
+                OneTouchCallInfoView()
             }
             if phone.hasBaseSpeakerphone && phone.baseChargesHandset {
                 Toggle("Dial On Base While Using Handset", isOn: $phone.dialWithBaseDuringHandsetCall)

@@ -241,6 +241,9 @@ final class CordlessHandset: CasingColorManipulatable, ChargeLightColorManipulat
     // The button type.
 	var buttonType: Int = 0
 
+    // Whether the handset/deskset can be set so pressing any button calls a preset number.
+    var supportsOneTouchCallToPresetNumber: Bool = false
+
     // How the ringer volume is adjusted.
     var ringerVolumeAdjustmentType: Int = 1
 
@@ -502,10 +505,10 @@ final class CordlessHandset: CasingColorManipulatable, ChargeLightColorManipulat
     // The type of talk/off buttons. 0 = single talk/off button or switch, 1 = talk and off, 2 = talk/flash and off, 3 = talk/speaker and off, 4 = line buttons + off.
     var talkOffButtonType = 1
 
-    // The talk/off button layer that's colored. 0 = background, 1 = foreground.
+    // The talk/off button layer that's colored. 0 = none, 1 = foreground, 2 = background, 3 = foreground backlight provides color, 4 = background backlight provides color.
     var talkOffColorLayer: Int = 1
 
-    // The speakerphone button layer that's colored. 0 = background, 1 = foreground.
+    // The speakerphone button layer that's colored. 0 = none, 1 = foreground, 2 = background.
     var speakerphoneColorLayer: Int = 1
 
     // Whether the speakerphone button lights up when active.

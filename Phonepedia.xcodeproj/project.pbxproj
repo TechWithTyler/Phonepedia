@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8D043216307047B200C1B27E /* OneTouchCallInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D043215307047B200C1B27E /* OneTouchCallInfoView.swift */; };
 		8D1299232CE3F4C4009240EC /* PhonepediaCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1299222CE3F4C4009240EC /* PhonepediaCommands.swift */; };
 		8D19F0BD2D07962A00C3B67C /* PhoneListDetailOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D19F0BC2D07962A00C3B67C /* PhoneListDetailOptions.swift */; };
 		8D1F3D952F0C402C00FA12FE /* SheftAppsInternals.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D1F3D942F0C402C00FA12FE /* SheftAppsInternals.framework */; };
@@ -187,6 +188,8 @@
 		8DD3A2942D2C7BDC00595AB3 /* SettingsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD3A2932D2C7BDC00595AB3 /* SettingsPage.swift */; };
 		8DD3A2962D2C7CB200595AB3 /* NewPhonesSettingsPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD3A2952D2C7CB200595AB3 /* NewPhonesSettingsPageView.swift */; };
 		8DD3A2982D2C7D5100595AB3 /* DisplaySettingsPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD3A2972D2C7D5100595AB3 /* DisplaySettingsPageView.swift */; };
+		8DD9A9313080235E00702BAB /* ButtonTypePickerItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD9A9303080235E00702BAB /* ButtonTypePickerItems.swift */; };
+		8DD9A9333080239A00702BAB /* ButtonTypeInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD9A9323080239A00702BAB /* ButtonTypeInfoView.swift */; };
 		8DDE4E4B2CFFAA4D000C3D46 /* HandsetNumberDigitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDE4E4A2CFFAA4D000C3D46 /* HandsetNumberDigitView.swift */; };
 		8DE6B9662AA905CF00C42E02 /* PhonepediaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE6B9652AA905CF00C42E02 /* PhonepediaTests.swift */; };
 		8DE9F4272D32343E002B4EB4 /* NameNumberExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE9F4262D32343E002B4EB4 /* NameNumberExamples.swift */; };
@@ -229,6 +232,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8D043215307047B200C1B27E /* OneTouchCallInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneTouchCallInfoView.swift; sourceTree = "<group>"; };
 		8D1299222CE3F4C4009240EC /* PhonepediaCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhonepediaCommands.swift; sourceTree = "<group>"; };
 		8D19F0BC2D07962A00C3B67C /* PhoneListDetailOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneListDetailOptions.swift; sourceTree = "<group>"; };
 		8D1F3D942F0C402C00FA12FE /* SheftAppsInternals.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SheftAppsInternals.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -412,6 +416,8 @@
 		8DD3A2932D2C7BDC00595AB3 /* SettingsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPage.swift; sourceTree = "<group>"; };
 		8DD3A2952D2C7CB200595AB3 /* NewPhonesSettingsPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPhonesSettingsPageView.swift; sourceTree = "<group>"; };
 		8DD3A2972D2C7D5100595AB3 /* DisplaySettingsPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplaySettingsPageView.swift; sourceTree = "<group>"; };
+		8DD9A9303080235E00702BAB /* ButtonTypePickerItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTypePickerItems.swift; sourceTree = "<group>"; };
+		8DD9A9323080239A00702BAB /* ButtonTypeInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTypeInfoView.swift; sourceTree = "<group>"; };
 		8DDE4E4A2CFFAA4D000C3D46 /* HandsetNumberDigitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandsetNumberDigitView.swift; sourceTree = "<group>"; };
 		8DE6B9632AA905CF00C42E02 /* PhonepediaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhonepediaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DE6B9652AA905CF00C42E02 /* PhonepediaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhonepediaTests.swift; sourceTree = "<group>"; };
@@ -570,6 +576,7 @@
 				8D2EBE552F84516900519D81 /* SwitchHookTypePickerItems.swift */,
 				8D2EBE572F84524800519D81 /* CordedReceiverHookTypePickerItems.swift */,
 				8D2971E82FE9D95B0028AA10 /* CasingTypePickerItems.swift */,
+				8DD9A9303080235E00702BAB /* ButtonTypePickerItems.swift */,
 			);
 			path = "Pickers and Picker Items";
 			sourceTree = "<group>";
@@ -740,6 +747,8 @@
 				8D2EBE592F84533A00519D81 /* SwitchHookInfoView.swift */,
 				8D2EBE5B2F84537F00519D81 /* CordedReceiverHookInfoView.swift */,
 				8D2EBE5D2F859AC500519D81 /* ButtonColorInfoView.swift */,
+				8D043215307047B200C1B27E /* OneTouchCallInfoView.swift */,
+				8DD9A9323080239A00702BAB /* ButtonTypeInfoView.swift */,
 			);
 			path = Info;
 			sourceTree = "<group>";
@@ -1123,6 +1132,7 @@
 				8D4E2A582B8FD4E600FF4FE5 /* PhoneNumberLetterInfoView.swift in Sources */,
 				8DC69A6B2EC7DB7600BFCA58 /* MultiPhoneNumberInfoView.swift in Sources */,
 				8D2BAF532CD188380016C61E /* ChargeContactPlacementPickerItems.swift in Sources */,
+				8D043216307047B200C1B27E /* OneTouchCallInfoView.swift in Sources */,
 				8D38ED892CAF38EB00CCC422 /* BaseSpeedDialView.swift in Sources */,
 				8D842D5B2D3F060F00F50F32 /* ExampleAudioView.swift in Sources */,
 				8DD3A2942D2C7BDC00595AB3 /* SettingsPage.swift in Sources */,
@@ -1164,6 +1174,7 @@
 				8D94EE0C2B912B9E00B04EBF /* CordlessPhoneRadioWaveView.swift in Sources */,
 				8DA844DC2B72E1D7006CBCA7 /* CordlessDeviceListView.swift in Sources */,
 				8D94AA962EF0B33C00F23F14 /* CellLineSelectionInfoView.swift in Sources */,
+				8DD9A9313080235E00702BAB /* ButtonTypePickerItems.swift in Sources */,
 				8D38ED852CAF382C00CCC422 /* BasePhonebookView.swift in Sources */,
 				8DA844F02B72E1D7006CBCA7 /* LandlineOrNotV1.mlmodel in Sources */,
 				8D2EBE562F84516900519D81 /* SwitchHookTypePickerItems.swift in Sources */,
@@ -1212,6 +1223,7 @@
 				8D53EBAB2E7A026300B71D8C /* RedialWhenBusyInfoView.swift in Sources */,
 				8DA844D32B72E1D7006CBCA7 /* HandsetDetailView.swift in Sources */,
 				8DA844E12B72E1D7006CBCA7 /* ContentView.swift in Sources */,
+				8DD9A9333080239A00702BAB /* ButtonTypeInfoView.swift in Sources */,
 				8D38ED7B2CAF365B00CCC422 /* PhoneAudioView.swift in Sources */,
 				8D380B252C3DD35D00505B89 /* PhoneCountView.swift in Sources */,
 				8DD3A2982D2C7D5100595AB3 /* DisplaySettingsPageView.swift in Sources */,

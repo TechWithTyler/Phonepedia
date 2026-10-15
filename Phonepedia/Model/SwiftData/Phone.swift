@@ -533,6 +533,9 @@ final class Phone: CasingColorManipulatable, ChargeLightColorManipulatable, Cord
     // Whether the base has a keypad.
     var hasBaseKeypad: Bool = false
 
+    // Whether the phone can be set so pressing any button calls a preset number.
+    var supportsOneTouchCallToPresetNumber: Bool = false
+
     // Whether the keypad can be locked.
     var hasKeypadLock: Bool = false
 
@@ -810,6 +813,9 @@ final class Phone: CasingColorManipulatable, ChargeLightColorManipulatable, Cord
 
     // Whether cordless devices on a VoIP cordless phone all share the same line(s) (0), are assigned to a specific line/extension (1), or can be configured to use either (2).
     var voIPCordlessDeviceLineBehavior: Int = 1
+    
+    // Whether phone provider features (e.g. dial next call as an anonymous call, disable call waiting for this call) can be accessed via menus. 0 = not available, 1 = fixed to the country it's designed for, 2 = customizable
+    var phoneProviderFeatureMenuOptions: Int = 0
 
     // Whether the power and line connections are consolidated into a single cord for the base.
     var usesSingleLinePowerFeed: Bool = false
