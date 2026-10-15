@@ -242,7 +242,7 @@ struct BaseDisplayBacklightButtonsView: View {
                         Toggle("Base Navigation Button Standby Shortcuts", isOn: $phone.baseNavigatorKeyStandbyShortcuts)
                         .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                     if phone.baseDisplayType > 3 && phone.isCordlessOrPushButtonDesk {
-                        CountPicker("Base Bottom Soft Keys", selection: $phone.baseSoftKeysBottom, oneTo: 6, singularSuffix: "Soft Key", pluralSuffix: "Soft Keys", noneTitle: "None")
+                        CountPicker("Base Bottom Soft Keys", selection: $phone.baseSoftKeysBottom, numberRange: 2...6, singularSuffix: "Soft Key", pluralSuffix: "Soft Keys", noneTitle: "None")
                             .onChange(of: phone.baseSoftKeysBottom) { oldValue, newValue in
                                 phone.baseSoftKeysBottomChanged(oldValue: oldValue, newValue: newValue)
                             }
