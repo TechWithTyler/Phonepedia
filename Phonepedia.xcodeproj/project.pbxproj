@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8D043216307047B200C1B27E /* OneTouchCallInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D043215307047B200C1B27E /* OneTouchCallInfoView.swift */; };
+		8D092F393081766A007EF091 /* HeadsetPlugSizePickerItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D092F383081766A007EF091 /* HeadsetPlugSizePickerItems.swift */; };
 		8D1299232CE3F4C4009240EC /* PhonepediaCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1299222CE3F4C4009240EC /* PhonepediaCommands.swift */; };
 		8D19F0BD2D07962A00C3B67C /* PhoneListDetailOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D19F0BC2D07962A00C3B67C /* PhoneListDetailOptions.swift */; };
 		8D1F3D952F0C402C00FA12FE /* SheftAppsInternals.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D1F3D942F0C402C00FA12FE /* SheftAppsInternals.framework */; };
@@ -233,6 +234,7 @@
 
 /* Begin PBXFileReference section */
 		8D043215307047B200C1B27E /* OneTouchCallInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneTouchCallInfoView.swift; sourceTree = "<group>"; };
+		8D092F383081766A007EF091 /* HeadsetPlugSizePickerItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadsetPlugSizePickerItems.swift; sourceTree = "<group>"; };
 		8D1299222CE3F4C4009240EC /* PhonepediaCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhonepediaCommands.swift; sourceTree = "<group>"; };
 		8D19F0BC2D07962A00C3B67C /* PhoneListDetailOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneListDetailOptions.swift; sourceTree = "<group>"; };
 		8D1F3D942F0C402C00FA12FE /* SheftAppsInternals.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SheftAppsInternals.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -577,6 +579,7 @@
 				8D2EBE572F84524800519D81 /* CordedReceiverHookTypePickerItems.swift */,
 				8D2971E82FE9D95B0028AA10 /* CasingTypePickerItems.swift */,
 				8DD9A9303080235E00702BAB /* ButtonTypePickerItems.swift */,
+				8D092F383081766A007EF091 /* HeadsetPlugSizePickerItems.swift */,
 			);
 			path = "Pickers and Picker Items";
 			sourceTree = "<group>";
@@ -1132,6 +1135,7 @@
 				8D4E2A582B8FD4E600FF4FE5 /* PhoneNumberLetterInfoView.swift in Sources */,
 				8DC69A6B2EC7DB7600BFCA58 /* MultiPhoneNumberInfoView.swift in Sources */,
 				8D2BAF532CD188380016C61E /* ChargeContactPlacementPickerItems.swift in Sources */,
+				8D092F393081766A007EF091 /* HeadsetPlugSizePickerItems.swift in Sources */,
 				8D043216307047B200C1B27E /* OneTouchCallInfoView.swift in Sources */,
 				8D38ED892CAF38EB00CCC422 /* BaseSpeedDialView.swift in Sources */,
 				8D842D5B2D3F060F00F50F32 /* ExampleAudioView.swift in Sources */,

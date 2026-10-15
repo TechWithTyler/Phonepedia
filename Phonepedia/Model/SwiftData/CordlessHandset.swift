@@ -415,6 +415,9 @@ final class CordlessHandset: CasingColorManipulatable, ChargeLightColorManipulat
     // Whether the handset/deskset supports wired headsets.
 	var supportsWiredHeadsets: Bool = false
 
+    // The headset plug size, 2.5mm or 3.5mm.
+    var wiredHeadsetPlugSize: Double = 2.5
+
     // The type of answering system menu. 0 = none, 1 = settings only, doesn't require link to base to access, 2 = settings only, requires link to base to access, 3 = full, doesn't require link to base to access, 4 = full, requires link to base to access.
 	var answeringSystemMenu: Int = 3
 

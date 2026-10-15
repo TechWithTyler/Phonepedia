@@ -25,7 +25,12 @@ struct PhoneAudioView: View {
                 Toggle(phone.isCordless ? "Base Supports Wired Headsets" : "Supports Wired Headsets", isOn: $phone.baseSupportsWiredHeadsets)
                     .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
             }
-            InfoText("Corded phones with a standard 2.5mm headset jack require the corded receiver to be picked up to use the headset. If a cordless headset phone base is connected to the headset jack, a lifter needs to be placed under the corded receiver and connected to the cordless headset phone base. This allows the corded receiver to be lifted or hung up when the cordless headset is turned on or off. A ring detector also needs to be placed on the speaker if it isn't located under the corded receiver. A ring detector tells the cordless headset to ring when it detects sound.\nMany modern VoIP corded phones use a technology called Electronic Hook Switch (EHS), where the headset jack doesn't carry a standard audio signal but instead carries control signals.")
+            if phone.baseSupportsWiredHeadsets {
+                Picker("Headset Plug Size", selection: $phone.baseWiredHeadsetPlugSize) {
+                    HeadsetPlugSizePickerItems()
+                }
+            }
+            InfoText("Corded phones with a headset jack require the corded receiver to be picked up to use the headset. If a cordless headset phone base is connected to the headset jack, a lifter needs to be placed under the corded receiver and connected to the cordless headset phone base. This allows the corded receiver to be lifted or hung up when the cordless headset is turned on or off. A ring detector also needs to be placed on the speaker if it isn't located under the corded receiver. A ring detector tells the cordless headset to ring when it detects sound.\nMany modern VoIP corded phones use a technology called Electronic Hook Switch (EHS), where the headset jack doesn't carry a standard audio signal but instead carries control signals.")
             CountPicker(phone.isCordless ? "Maximum Number of Bluetooth Headphones (Base)" : "Maximum Number of Bluetooth Headphones", selection: $phone.baseBluetoothHeadphonesSupported, startNumber: 1, multipliedBy: 2, endNumber: 4, singularSuffix: "Bluetooth Headphone", pluralSuffix: "Bluetooth Headphones", noneTitle: "None", unlimitedTitle: "Unlimited")
         }
         if phone.landlineConnectionType > 0 {

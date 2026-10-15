@@ -404,6 +404,9 @@ final class Phone: CasingColorManipulatable, ChargeLightColorManipulatable, Cord
     // Whether the phone supports wired headsets.
     var baseSupportsWiredHeadsets: Bool = false
 
+    // The headset plug size, 2.5mm or 3.5mm.
+    var baseWiredHeadsetPlugSize: Double = 2.5
+
     // The maximum number of Bluetooth headphones that can be paired.
     var baseBluetoothHeadphonesSupported: Int = 0
 
