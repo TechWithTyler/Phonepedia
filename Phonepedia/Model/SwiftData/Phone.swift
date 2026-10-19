@@ -467,6 +467,15 @@ final class Phone: CasingColorManipulatable, ChargeLightColorManipulatable, Cord
     // Whether the remote access code is common to all lines.
     var remoteAccessCodeCommonToAllLines: Bool = false
 
+    // How many digits the remote access code is.
+    var remoteAccessCodeLength: Int = 2
+
+    // The digit, if any, that must be entered before the remote access code.
+    var digitBeforeRemoteAccessCode: String = String()
+
+    // Whether a voice menu is played when entering remote answering system operation.
+    var remoteAccessVoiceMenu: Bool = true
+
     // When the answering system plays a message day/time stamp. 0 = never (no clock), 1 = before message, 2 = after message.
     var answeringSystemMessageTimestamp: Int = 2
 

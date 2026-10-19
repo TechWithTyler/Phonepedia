@@ -124,6 +124,25 @@ struct PhoneMessagingView: View {
                     Text("Fully-Selectable").tag(2)
                 }
                 InfoText("The remote access code is a numeric code (at least 2 digits) you dial during the greeting, sometimes with another digit entered first, to remotely access the answering system just as you would with a voicemail service.\nA fixed remote access code is programmed into the phone by the factory and is often unique to each instance of that phone. For example, one instance of a phone model might have the code 47, and another instance of that same model might have the code 26. The code is printed on the back or bottom of the phone.\nWith a partially-selectable remote access code, one or more digits are programmed into the phone by the factory, and you select the remaining digit(s). For example, one instance of a phone model might have the code 6x, and another instance of that same model might have the code 3x, with x representing the digit you can choose (e.g. 60-69 on one instance and 30-39 on another). The fixed portion of the code is printed on the back or bottom of the phone.\nA fully-selectable remote access code means that all digits of the code can be selected by the user, either by scrolling through numbers or by simply entering the desired code using the base/handset keypad.")
+                CountPicker("Remote Access Code Length", selection: $phone.remoteAccessCodeLength, numberRange: 2...5, suffix: "Digits")
+                Picker("Required Digit Before Remote Access Code", selection: $phone.digitBeforeRemoteAccessCode) {
+                    Text("None").tag(String())
+                    Divider()
+                    Text("1").tag("1")
+                    Text("2").tag("2")
+                    Text("3").tag("3")
+                    Text("4").tag("4")
+                    Text("5").tag("5")
+                    Text("6").tag("6")
+                    Text("7").tag("7")
+                    Text("8").tag("8")
+                    Text("9").tag("9")
+                    Text("Star").tag("star")
+                    Text("0").tag("0")
+                    Text("Pound").tag("pound")
+                }
+                Toggle("Remote Access Voice Menu", isOn: $phone.remoteAccessVoiceMenu)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 if phone.isMultiline {
                     Toggle("Remote Access Code Common to All Lines", isOn: $phone.remoteAccessCodeCommonToAllLines)
                         .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))

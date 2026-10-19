@@ -235,6 +235,12 @@ struct PhoneListView: View {
                 }
                 Divider()
             }
+            if phone.hasAnsweringSystem > 0 {
+                Button("Show Answering System Remote Access Instructions…") {
+                    dialogManager.showAnsweringSystemRemoteAccessInstructions(for: phone)
+                }
+                Divider()
+            }
             PhonePlaceInCollectionPicker(phone: phone)
                 .pickerStyle(.menu)
             Divider()

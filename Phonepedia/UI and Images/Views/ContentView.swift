@@ -66,6 +66,9 @@ struct ContentView: View {
         .sheet(isPresented: $dialogManager.showingPhoneBackstory) {
             PhoneBackstoryView(phone: dialogManager.phoneToShowBackstory!)
         }
+        .sheet(isPresented: $dialogManager.showingAnsweringSystemRemoteAccessInstructions) {
+            AnsweringSystemRemoteAccessInstructionsView(phone: dialogManager.phoneToShowAnsweringSystemRemoteAccessInstructions!)
+        }
         // Info views
         .sheet(isPresented: $dialogManager.showingPhoneTypeDefinitions) {
             PhoneTypeDefinitionsView()
