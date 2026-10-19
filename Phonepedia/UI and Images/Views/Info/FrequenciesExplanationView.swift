@@ -63,8 +63,8 @@ struct FrequenciesExplanationView: View {
                     Text("1.88–1.895GHz (1880–1895MHz) is used in Taiwan.")
                     Text("1.88–1.90GHz (1880–1900MHz) is used for DECT in Europe, the UK, Ireland, Australia, New Zealand, and the Middle East. Throughout \(SABundleName), it's referred to as ETSI DECT (ETSI standing for European Telecommunications Standards Institute). DECT originated from Europe, originally standing for Digital European Cordless Telecommunications before DECT was adopted by other countries.")
                     Text("J-DECT (1.893–1.906GHz or 1893–1906MHz) is used in Japan.")
-                    Text("1.91–1.92GHz (1910–1920MHz) is used in Brazil.")
                     Text("1.91–1.93GHz (1910–1930MHz) is used in parts of Latin America.")
+                    Text("1.91–1.98GHz (1910–1980MHz) is used in Brazil.")
                     Text("DECT 6.0 (1.92–1.93GHz or 1920–1930MHz) is used in North America.")
                 }
                 DisclosureGroup("Marketing vs Actual Frequency Range") {

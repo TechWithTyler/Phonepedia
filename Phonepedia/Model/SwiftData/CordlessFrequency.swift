@@ -213,7 +213,7 @@ extension Phone {
             case .analog1_7MHz:
                 return 1.7
             case .analog30_39MHz:
-                return 30
+                    return 30
             case .analog46_49MHz:
                 return 46
             case .analog900MHz:
