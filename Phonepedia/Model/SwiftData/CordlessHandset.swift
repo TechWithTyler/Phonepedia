@@ -530,7 +530,7 @@ final class CordlessHandset: CasingColorManipulatable, ChargeLightColorManipulat
     var age: String {
         let age = currentYear - releaseYear
         let yearsSingularOrPlural = age == 1 ? "year" : "years"
-        return "\(age) \(yearsSingularOrPlural)"
+        return "\(age) \(yearsSingularOrPlural) old"
     }
 
     // The text to display for the cordless device's type.

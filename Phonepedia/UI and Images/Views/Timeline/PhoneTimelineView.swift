@@ -84,7 +84,7 @@ struct PhoneTimelineView: View {
                     }
                 } else {
                     if horizontalSizeClass == .compact {
-                        ScrollView {
+                        ScrollView(.vertical) {
                             LazyVStack(alignment: .leading) {
                                 timeline
                             }

@@ -31,7 +31,6 @@ struct AnsweringSystemRemoteAccessInstructionsView: View {
                     Text("• \(phone.remoteAccessVoiceMenu ? "Follow the voice menu" : "Refer to the manual for the required keys to press") to play your messages.")
             }
             .navigationTitle("Ans. Sys. Remote Acc. Instructions")
-            .navigationSubtitle("For \(phone.brand) \(phone.model)")
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button {

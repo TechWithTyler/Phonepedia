@@ -52,7 +52,7 @@ struct HandsetGeneralView: View {
     var basicsGroup: some View {
         if let phone = handset.phone {
             if let firstDeskset = phone.desksets.first, (handset.id != firstDeskset.id && handset.handsetNumber <= phone.maxCordlessHandsets) {
-                Picker("Registered To", selection: $handset.registeredTo) {
+                Picker("Registered to", selection: $handset.registeredTo) {
                     Text("Base").tag(0)
                     Text("Deskset").tag(1)
                 }
