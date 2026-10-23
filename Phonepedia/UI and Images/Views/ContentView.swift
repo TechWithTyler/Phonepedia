@@ -44,7 +44,7 @@ struct ContentView: View {
         NavigationSplitView {
             PhoneListView(phones: phones, selectedPhone: $selectedPhone)
                 .navigationTitle("Phone List")
-                .navigationSplitViewColumnWidth(min: 300, ideal: 350, max: 400)
+                .navigationSplitViewColumnWidth(min: 300, ideal: 350)
                 #if !os(macOS)
                 .navigationBarTitleDisplayMode(.inline)
                 #endif
@@ -59,17 +59,31 @@ struct ContentView: View {
                 EmptyView()
             }
         }
+        // Phone count sheet
+        .sheet(isPresented: $dialogManager.showingPhoneCount) {
+            PhoneCountView(phones: phones)
+        }
+        // Phone collection achievements sheet
+        .sheet(isPresented: $dialogManager.showingPhoneCollectionAchievements) {
+            PhoneCollectionAchievementsView(phones: phones)
+        }
+        // Timeline sheet
+        .sheet(isPresented: $dialogManager.showingTimeline) {
+            PhoneTimelineView(phones: phones)
+        }
         // Cordless device reassignment sheet
         .sheet(isPresented: $dialogManager.showingReassignHandset) {
             CordlessDeviceReassignmentView(phones: phones, selectedPhone: $selectedPhone)
         }
+        // Phone backstory sheet
         .sheet(isPresented: $dialogManager.showingPhoneBackstory) {
             PhoneBackstoryView(phone: dialogManager.phoneToShowBackstory!)
         }
+        // Answering system remote access instruction sheet
         .sheet(isPresented: $dialogManager.showingAnsweringSystemRemoteAccessInstructions) {
             AnsweringSystemRemoteAccessInstructionsView(phone: dialogManager.phoneToShowAnsweringSystemRemoteAccessInstructions!)
         }
-        // Info views
+        // Info sheets
         .sheet(isPresented: $dialogManager.showingPhoneTypeDefinitions) {
             PhoneTypeDefinitionsView()
         }
@@ -97,16 +111,7 @@ struct ContentView: View {
         .sheet(isPresented: $dialogManager.showingAboutConnectionTypes) {
             AboutConnectionTypesView()
         }
-        .sheet(isPresented: $dialogManager.showingPhoneCount) {
-            PhoneCountView(phones: phones)
-        }
-        .sheet(isPresented: $dialogManager.showingPhoneCollectionAchievements) {
-            PhoneCollectionAchievementsView(phones: phones)
-        }
-        .sheet(isPresented: $dialogManager.showingTimeline) {
-            PhoneTimelineView(phones: phones)
-        }
-        // iOS/visionOS settings view
+        // iOS/visionOS settings sheet
         #if !os(macOS)
         .sheet(isPresented: $dialogManager.showingSettings) {
             SettingsView()

@@ -18,22 +18,27 @@ struct DocumentLaunchPhonesAccessoryView: View {
 
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
 
-    // MARK: - Properties - Size
+    // MARK: - Properties - Geometry Proxy
 
-    @State private var size: CGSize = CGSize()
+    @State var geometry: DocumentLaunchGeometryProxy? = nil
+
+    var frame: CGRect {
+        if let geometry = geometry {
+            return geometry.titleViewFrame
+        } else {
+            return CGRect()
+        }
+    }
 
     // MARK: - Body
 
     var body: some View {
         if horizontalSizeClass == .regular {
             ZStack {
-                DocumentLaunchPhoneView(xOffset: size.width / 2 - 500, yOffset: size.height / 2 - 250)
-                DocumentLaunchPhoneView(xOffset: size.width / 2 + 300, yOffset: size.height / 2 - 250)
-            }
-            .onGeometryChange(for: CGSize.self) { proxy in
-                proxy.size
-            } action: { proxySize in
-                size = proxySize
+                DocumentLaunchPhoneView(xOffset: frame.width - 250, yOffset: frame.maxY - 200)
+                DocumentLaunchPhoneView(xOffset: frame.width + 250, yOffset: frame.maxY - 200)
+                DocumentLaunchPhoneView(xOffset: frame.width - 250, yOffset: frame.minY + 200)
+                DocumentLaunchPhoneView(xOffset: frame.width + 250, yOffset: frame.minY + 200)
             }
         }
     }
