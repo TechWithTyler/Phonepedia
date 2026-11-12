@@ -130,13 +130,13 @@ struct PhoneGeneralView: View {
         VStack {
             Text("Write more about your phone (e.g., the story behind why you got it, when/where you got it, whether you had to replace broken parts) in the text area below.\nExample: \"\(phoneDescriptionSampleText)\"")
                 .lineLimit(nil)
-            Stepper("Font Size: \(Int(phoneDescriptionTextSize))pt", value: $phoneDescriptionTextSize)
+            Stepper("Font Size: \(Int(phoneDescriptionTextSize))pt", value: $phoneDescriptionTextSize, in: SATextViewIdealFontSizeRange)
             ContrastingTextEditor(text: $phone.phoneDescription)
                 .frame(minHeight: 300)
                 .padding()
                 .font(.system(size: phoneDescriptionTextSize))
         }
-        CountPicker("Number of Included Cordless Devices", selection: $phone.numberOfIncludedCordlessHandsets, numberRange: 1...30, singularSuffix: "Cordless Device", pluralSuffix: "Cordless Devices", noneTitle: phone.isOptionalCordless ? "None" : "Not Cordless")
+        CountPicker("Number of Included Cordless Devices", selection: $phone.numberOfIncludedCordlessHandsets, oneTo: 30, singularSuffix: "Cordless Device", pluralSuffix: "Cordless Devices", noneTitle: phone.isOptionalCordless ? "None" : "Not Cordless")
             .disabled(phone.handsetNumberDigit != nil)
             .onChange(of: phone.numberOfIncludedCordlessHandsets) { oldValue, newValue in
                 phone.numberOfIncludedCordlessHandsetsChanged(oldValue: oldValue, newValue: newValue)
