@@ -63,6 +63,14 @@ struct PhoneGeneralView: View {
         return phone.cordlessDeviceLinkingMethod == 4 ? includedHandsets...30 : 1...1
     }
 
+    var maxCordlessDevicesOptions: [Int] {
+        let registration =
+        Array(1...30) +
+        Array(stride(from: 100, through: 1000, by: 100)) +
+        Array(stride(from: 2000, through: 16000, by: 1000))
+        return phone.cordlessDeviceLinkingMethod == 4 ? registration : [1]
+    }
+
     // MARK: - Properties - Booleans
 
     @AppStorage(UserDefaults.KeyNames.phoneDescriptionTextSize) var phoneDescriptionTextSize: Double = SATextViewIdealMinFontSize
@@ -272,7 +280,7 @@ struct PhoneGeneralView: View {
                 WarningText("If either the handset or base/add-on cordless adaptor breaks, you'll need to replace both the handset and base/cordless adaptor.")
             }
             if phone.cordlessDeviceLinkingMethod > 2 {
-                CountPicker("Maximum Number of Cordless Devices", selection: $phone.maxCordlessHandsets, numberRange: maxCordlessDevicesRange, singularSuffix: "Cordless Device", pluralSuffix: "Cordless Devices", unlimitedTitle: "Unlimited")
+                MaxCordlessDevicesOptionsView(phone: phone)
                     .onChange(of: phone.maxCordlessHandsets) { oldValue, newValue in
                         phone.maxCordlessHandsetsChanged(oldValue: oldValue, newValue: newValue)
                     }
