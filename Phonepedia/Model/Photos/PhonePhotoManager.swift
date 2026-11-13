@@ -252,7 +252,9 @@ class PhonePhotoManager: ObservableObject {
         PHPhotoLibrary.shared().performChanges {
             PHAssetChangeRequest.creationRequestForAsset(from: image)
         } completionHandler: { [self] success, error in
-            handlePhonePhotoExportToLibrarySuccess(success: success, error: error)
+            DispatchQueue.main.async { [self] in
+                handlePhonePhotoExportToLibrarySuccess(success: success, error: error)
+            }
         }
     }
 
