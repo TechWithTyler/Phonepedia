@@ -33,11 +33,11 @@ struct PhoneTimelineView: View {
         // 1. Choose which phones array to use.
         let array = showOnlyActive ? activePhones : sortedPhones
         // 2. Enumerate through the array to get each phone and its index. In an enumerated sequence, the item comes after its index in the pair.
-        let enumeration = array.enumerated()
+        let indexPhonePairs = array.enumerated()
         // 3. Convert the enumerated sequence (phone + index) to an array.
-        let enumerationAsArray = Array(enumeration)
+        let indexPhonePairsAsArray = Array(indexPhonePairs)
         // 4. Return the converted array.
-        return enumerationAsArray
+        return indexPhonePairsAsArray
     }
 
     // MARK: - Properties - Dismiss Action

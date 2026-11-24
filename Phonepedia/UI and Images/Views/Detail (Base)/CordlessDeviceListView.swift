@@ -374,8 +374,10 @@ struct CordlessDeviceListView: View {
             var cordlessDevicesCopy = sortedCordlessDevices
             // 3. Perform the move operation on the copy.
             cordlessDevicesCopy.move(fromOffsets: source, toOffset: destination)
-            // 4. Use the copy's items and their indices to move the cordless devices in the original Dearray.
-            for (index, cordlessDevice) in cordlessDevicesCopy.enumerated() {
+            // 4. Use the copy's items and their indices to move the cordless devices in the original array.
+            let reversedCordlessDevices = cordlessDevicesCopy.reversed()
+            let indexDevicePairs = reversedCordlessDevices.enumerated()
+            for (index, cordlessDevice) in indexDevicePairs {
                 if let originalCordlessDevice = sortedCordlessDevices.filter({ $0.id == cordlessDevice.id}).first {
                     originalCordlessDevice.handsetNumber = index
                 }
@@ -425,7 +427,9 @@ struct CordlessDeviceListView: View {
             // 2. Perform the move operation on the copy.
             chargersCopy.move(fromOffsets: source, toOffset: destination)
             // 3. Use the copy's items and their indices to move the chargers in the original array.
-            for (index, charger) in chargersCopy.enumerated() {
+            let reversedChargers = chargersCopy.reversed()
+            let indexChargerPairs = reversedChargers.enumerated()
+            for (index, charger) in indexChargerPairs {
                 if let originalCharger = sortedChargers.filter({ $0.id == charger.id}).first {
                     originalCharger.chargerNumber = index
                 }

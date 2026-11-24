@@ -502,7 +502,9 @@ struct PhoneListView: View {
             // 3. Perform the move operation on the copy.
             phonesCopy.move(fromOffsets: source, toOffset: destination)
             // 4. Use the copy's items and their indices to move the phones in the original array. This is done by comparing the ID of the original phone in the phones array and the phone in the phonesCopy array.
-            for (index, phone) in phonesCopy.reversed().enumerated() {
+            let reversedPhones = phonesCopy.reversed()
+            let indexPhonePairs = reversedPhones.enumerated()
+            for (index, phone) in indexPhonePairs {
                 if let originalPhone = phones.filter({ $0.id == phone.id}).first {
                     originalPhone.phoneNumberInCollection = index
                 }
