@@ -12,7 +12,13 @@ import SwiftUI
 
 struct PhoneRowView: View {
 
+    // MARK: - Properties - Phone
+
+    @Bindable var phone: Phone
+
     // MARK: - Properties - Booleans
+
+    @Environment(\.accessibilityReduceMotion) var reduceMotion
 
     @AppStorage(UserDefaults.KeyNames.showPhoneTypeInList) var showPhoneTypeInList: Bool = true
 
@@ -31,6 +37,8 @@ struct PhoneRowView: View {
     // MARK: - Properties - Integers
 
     @AppStorage(UserDefaults.KeyNames.highlightHandsetNumberDigitInList) var highlightHandsetNumberDigitInList: Int = 2
+
+    var numberInCollection: Int
 
     // MARK: - Properties - Strings
 
@@ -52,16 +60,12 @@ struct PhoneRowView: View {
         }
     }
 
-    // MARK: - Properties - Phone
-
-    @Bindable var phone: Phone
-
     // MARK: - Body
 
     var body: some View {
         HStack {
             VStack {
-                Text("\(phone.actualPhoneNumberInCollection)")
+                Text("\(numberInCollection)")
                 if phone.acquiredInYearOfRelease {
                     Image(systemName: "sparkle")
                 }
@@ -73,6 +77,10 @@ struct PhoneRowView: View {
             }
             Spacer()
             VStack {
+                if showYearsInList {
+                    Text(phone.releaseYear == -1 ? "Unknown release year" : String(phone.releaseYear))
+                        .font(.headline)
+                }
                 Text(phone.brand)
                     .font(.largeTitle)
                     .lineLimit(nil)
@@ -81,7 +89,7 @@ struct PhoneRowView: View {
                     .font(.title2)
                     .lineLimit(nil)
                     .multilineTextAlignment(.center)
-                    .animation(.linear, value: phone.handsetNumberDigitIndex)
+                    .animation(reduceMotion ? nil : .linear, value: phone.handsetNumberDigitIndex)
                 if !phone.nickname.isEmpty {
                     Text("\"\(phone.nickname)\"")
                         .font(.title3)
@@ -100,23 +108,21 @@ struct PhoneRowView: View {
     var phoneDetailStack: some View {
         if showYearsInList {
             if phone.acquiredInYearOfRelease {
-                Text("Released and acquired \(String(phone.acquisitionYear))")
+                Text("Acquired in release year!")
                     .font(.callout)
                     .multilineTextAlignment(.center)
-                    .lineLimit(nil)
-                Text("Acquired in year of release!")
-                    .font(.callout)
-                    .multilineTextAlignment(.center)
-                    .lineLimit(nil)
+                    .lineLimit(3)
             } else {
-                Text(phone.releaseYear == -1 ? "Unknown release year" : "Released \(String(phone.releaseYear))")
-                    .font(.callout)
-                    .multilineTextAlignment(.center)
-                    .lineLimit(nil)
                 Text(phone.acquisitionYear == -1 ? "Unknown acquisition year" : "Acquired \(String(phone.acquisitionYear))")
                     .font(.callout)
                     .multilineTextAlignment(.center)
-                    .lineLimit(nil)
+                    .lineLimit(3)
+            }
+            if phone.replacesPhoneAcquiredInYear > 0 {
+                Text("Replaced a phone acquired in \(String(phone.replacesPhoneAcquiredInYear))")
+                    .font(.callout)
+                    .multilineTextAlignment(.center)
+                    .lineLimit(3)
             }
         }
         if showPhoneTypeInList {
@@ -224,6 +230,6 @@ struct PhoneRowView: View {
 // MARK: - Preview
 
 #Preview {
-    PhoneRowView(phone: Phone(brand: "Panasonic", model: "KX-TGF975"))
+    PhoneRowView(phone: Phone(brand: "Panasonic", model: "KX-TGF975"), numberInCollection: 1)
         .modelContainer(for: Phone.self, inMemory: true)
 }

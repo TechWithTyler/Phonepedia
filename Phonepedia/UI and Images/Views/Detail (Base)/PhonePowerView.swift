@@ -23,6 +23,7 @@ struct PhonePowerView: View {
         Section("General") {
             if phone.landlineConnectionType == 2 {
                 Toggle("Supports Power-over-Ethernet (PoE)", isOn: $phone.supportsPoE)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 InfoText("For phones that only use PoE, if the network hardware doesn't support PoE, you'll need to connect a PoE injector between the network and the phone. If you don't want to use it on a network, simply connect the PoE injector to the phone.")
                     .onChange(of: phone.supportsPoE) { oldValue, newValue in
                         phone.supportsPoEChanged(oldValue: oldValue, newValue: newValue)
@@ -51,10 +52,12 @@ struct PhonePowerView: View {
             }
             if phone.landlineConnectionType < 2 && phone.takesACPower {
                 Toggle("Uses Single Line + Power Feed", isOn: $phone.usesSingleLinePowerFeed)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 InfoText("A single line + power feed means the line and power connections are combined into a single cable which plugs into the phone. These kinds of phones often use an RJ45-style jack/cable.\nYou can tell if the phone is analog/digital or VoIP by unplugging it and plugging it back in, or by looking at the other end of the cable. If it takes a minute or so to boot up, or the other end of the cable connects to Ethernet, it's a VoIP phone with PoE. If it boots up immediately, or the other end of the cable connects to a splitter or brick with a phone jack on it, it's an analog/digital phone.\nYou MUST make sure you don't plug a line + power feed into a PoE-supported jack or vice versa otherwise equipment can be damaged!")
             }
             if phone.baseBluetoothCellPhonesSupported > 0 && phone.takesACPower {
                 Toggle("Has USB Port(s) for Cell Charging", isOn: $phone.hasUSBCharging)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 if !phone.supportsPoE {
                     InfoText("The USB port(s) is/are powered separately from the base to prevent electrical interference, since the USB port(s) is/are for charging only, and require(s) different voltage/current amounts from the base. An RJ-style power cord feeds the base and USB port power using 2 separate sets of 2 contacts. As a result, the USB port(s) won't work during power backup. This design also allows the same circuitry to be shared with a model without USB ports but otherwise-identical features.\nThe power brick for this style of power cord is larger than normal, since it contains 2 separate step-down transformers, one for the base and one for the USB port(s).")
                 }
@@ -106,6 +109,14 @@ struct PhonePowerView: View {
                     }
                 }
                 InfoText(phone.isCordless ? "• Full: All functionality, including cordless handsets, is supported.\n• Basic: Only the corded receiver can be used." : "• Full: All functionality is supported.\n• Basic: The speakerphone and display (if the phone has those) won't work.\n• Memory Retention Only: The batteries are used only to retain memory (e.g. speed dials, clock) when the power is out.")
+                if !phone.isCordless {
+                    Picker("When Out of Battery", selection: $phone.cordedBatteryBackupDepleted) {
+                        Text("No Power").tag(0)
+                        Text("Line Power (Outgoing Only)").tag(1)
+                        Text("Line Power (Incoming/Outgoing").tag(2)
+                    }
+                    InfoText("• No Power: The phone won't work at all once battery backup runs out or isn't installed.\n• Line Power (Outgoing Only): The phone will use line power, but doesn't have a separate piezo ringer, so it can't ring on line power.\n• Line Power (Incoming/Outgoing): The phone works as a standard line-powered corded phone.")
+                }
                 if phone.cordlessPowerBackupMode == 3 {
                     Picker("Type", selection: $phone.baseBackupBatteryType) {
                         Text("Pack with Plug").tag(0)

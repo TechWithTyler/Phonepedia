@@ -18,6 +18,7 @@ struct TimelineRowView: View {
 
     // MARK: - Properties - Strings
 
+    // The phone's release year formatted as a number without a grouping separator.
     var formattedReleaseYear: String {
         let formatter = NumberFormatter()
         formatter.usesGroupingSeparator = false
@@ -55,7 +56,7 @@ struct TimelineRowView: View {
                     .font(.body)
             }
             .frame(width: 120)
-            .accessibilityLabel("Phone \(phone.actualPhoneNumberInCollection), \(phone.brand) \(phone.model), released \(formattedReleaseYear)")
+            .accessibilityLabel("Phone \(phone.actualPhoneNumberInCollection): \(phone.brand) \(phone.model) released in \(formattedReleaseYear)")
         }
         .padding(.horizontal, 8)
     }

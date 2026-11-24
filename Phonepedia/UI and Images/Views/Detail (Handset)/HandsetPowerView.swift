@@ -24,8 +24,10 @@ struct HandsetPowerView: View {
             if handset.cordlessDeviceType == 0 {
                 Section("On/Off/Charging/Picking Up") {
                     Toggle("Can Power Off", isOn: $handset.canPowerOff)
+                        .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                     InfoText("Some handsets allow you to turn them off, just like a cell phone. This allows you to save battery or transport the handset powered off without removing the battery/ies. If the handset doesn't turn on when inserting charged batteries and it doesn't have the ability to turn on/off, it can be placed on charge to turn on.")
                     Toggle("Has Charge Light", isOn: $handset.hasChargeLight)
+                        .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                     if handset.hasChargeLight {
                         ColorPicker("Charge Light Color (Charging)", selection: handset.chargeLightColorChargingBinding)
                         ClearSupportedColorPicker("Charge Light Color (Charged)", selection: handset.chargeLightColorChargedBinding) {
@@ -36,8 +38,10 @@ struct HandsetPowerView: View {
                         }
                     }
                     Toggle("Has Auto-Answer", isOn: $handset.hasAutoAnswer)
+                        .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                     InfoText("Auto-answer, sometimes called auto talk, allows you to answer calls by simply picking up the handset from charge without having to press any buttons.")
                     Toggle("Has Charge Tone", isOn: $handset.hasChargeTone)
+                        .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                     InfoText("A charge tone sounds when the handset is placed on charge.")
                     if (handset.hasSpeakerphone || handset.talkOffButtonType == 0) && handset.handsetStyle < 2 {
                         Picker("Charge During Call", selection: $handset.chargeDuringCall) {
@@ -53,12 +57,15 @@ struct HandsetPowerView: View {
                 if handset.fitsOnBase && handset.hasSpeakerphone && phone.cordlessPowerBackupMode == 1 && phone.baseChargesHandset {
                     Section("Place-On-Base Power Backup") {
                         Toggle("Supported", isOn: $handset.supportsPlaceOnBasePowerBackup)
+                            .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                         InfoText("Even if a handset with speakerphone can fit on the base and that base has place-on-base power backup, it doesn't mean the handset supports it. If a handset doesn't come with any models with place-on-base power backup, the feature is often left out of the handset since it wouldn't work on the base it came with.")
                         if handset.supportsPlaceOnBasePowerBackup {
                             Toggle("Can Dial Before Placing On Base", isOn: $handset.canDialThenPlaceOnBase)
+                                .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                             InfoText("If you must use the handset that's powering the base (e.g. you only have 1 handset), you can pick up the handset, dial a number or select it from a list, then place the handset back on the base. This makes it easier to make a call without the handset's charge contacts unexpectedly disconnecting from the base's charge contacts. As soon as the handset finds the base, the call is placed using the speakerphone.")
                             if handset.buttonPressOnChargeBehavior == 0 {
                                 Toggle("Keypad Locked If Power Returns During Call", isOn: $handset.keyLockWhenPowerReturns)
+                                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                                 InfoText("If power returns during a call on the handset that's powering the base, the handset's keypad may be locked just as it is while charging. Depending on the phone and other items around you (e.g. lights in the room turning back on or the handset's prompt to not pick it up disappearing), you can see that it's safe to pick up the handset to continue the call normally.")
                             }
                         }
@@ -68,6 +75,7 @@ struct HandsetPowerView: View {
             Section("Batteries") {
                 if handset.cordlessDeviceType == 1 {
                     Toggle("Supports Backup Batteries", isOn: $handset.desksetSupportsBackupBatteries)
+                        .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 }
                 if handset.takesBatteries {
                     Picker(handset.cordlessDeviceType == 0 ? "Battery Type" : "Backup Battery Type", selection: $handset.batteryType) {

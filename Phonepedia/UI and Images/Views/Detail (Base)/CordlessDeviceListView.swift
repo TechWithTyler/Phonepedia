@@ -1,5 +1,5 @@
 //
-//  CordlessDeviceInfoView.swift
+//  CordlessDeviceListView.swift
 //  Phonepedia
 //
 //  Created by Tyler Sheft on 6/19/23.
@@ -12,7 +12,7 @@ import SwiftData
 import SwiftUI
 import SheftAppsStylishUI
 
-struct CordlessDeviceInfoView: View {
+struct CordlessDeviceListView: View {
 
     // MARK: - Properties - Phone
 
@@ -237,7 +237,6 @@ struct CordlessDeviceInfoView: View {
                 .contextMenu {
                     HandsetPlaceInCollectionPicker(handset: handset)
                         .pickerStyle(.menu)
-                        .toggleStyle(.automatic)
                     Divider()
                     Button {
                         dialogManager.showReassignHandset(handset: handset)
@@ -375,8 +374,10 @@ struct CordlessDeviceInfoView: View {
             var cordlessDevicesCopy = sortedCordlessDevices
             // 3. Perform the move operation on the copy.
             cordlessDevicesCopy.move(fromOffsets: source, toOffset: destination)
-            // 4. Use the copy's items and their indices to move the cordless devices in the original Dearray.
-            for (index, cordlessDevice) in cordlessDevicesCopy.enumerated() {
+            // 4. Use the copy's items and their indices to move the cordless devices in the original array.
+            let reversedCordlessDevices = cordlessDevicesCopy.reversed()
+            let indexDevicePairs = reversedCordlessDevices.enumerated()
+            for (index, cordlessDevice) in indexDevicePairs {
                 if let originalCordlessDevice = sortedCordlessDevices.filter({ $0.id == cordlessDevice.id}).first {
                     originalCordlessDevice.handsetNumber = index
                 }
@@ -426,7 +427,9 @@ struct CordlessDeviceInfoView: View {
             // 2. Perform the move operation on the copy.
             chargersCopy.move(fromOffsets: source, toOffset: destination)
             // 3. Use the copy's items and their indices to move the chargers in the original array.
-            for (index, charger) in chargersCopy.enumerated() {
+            let reversedChargers = chargersCopy.reversed()
+            let indexChargerPairs = reversedChargers.enumerated()
+            for (index, charger) in indexChargerPairs {
                 if let originalCharger = sortedChargers.filter({ $0.id == charger.id}).first {
                     originalCharger.chargerNumber = index
                 }
@@ -454,7 +457,7 @@ struct CordlessDeviceInfoView: View {
 
 #Preview {
     Form {
-        CordlessDeviceInfoView(phone: Phone(brand: "Panasonic", model: "KX-TGD892"))
+        CordlessDeviceListView(phone: Phone(brand: "Panasonic", model: "KX-TGD892"))
     }
     .formStyle(.grouped)
     .environmentObject(DialogManager())

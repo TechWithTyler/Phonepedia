@@ -24,7 +24,7 @@ struct PhonepediaApp: App {
         } background: {
             DocumentLaunchBackgroundView()
         } overlayAccessoryView: { geometry in
-            DocumentLaunchPhonesAccessoryView()
+            DocumentLaunchPhonesAccessoryView(geometry: geometry)
         }
 #endif
         DocumentGroup(editing: .phonepediaCatalog, migrationPlan: PhonepediaMigrationPlan.self) {

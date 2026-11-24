@@ -31,10 +31,12 @@ struct CallBlockView: View {
             InfoText("When a call from a blocked number is received, the phone answers the call after the caller ID is received. The caller will hear silence, a busy tone, or a voice message.")
             if phone.callBlockCapacity > 0 {
                 Toggle("Can Block Numberless Calls", isOn: $phone.canBlockNumberlessCalls)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 InfoText("Numberless calls are those from private or unknown callers. Since you won't know who these callers are until you answer, you may wish to block them.")
                 Toggle(isOn: $phone.callBlockSupportsPrefixes) {
                     Text("Can Block Number Prefixes")
                 }
+                .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 InfoText("When a number prefix (e.g. an area code) is stored in the call block list as a number prefix, all numbers beginning with that prefix are blocked.")
                 Picker("Auto-Deletes Oldest Entry", selection: $phone.callBlockAutoDeletesOldestEntry) {
                     Text("Never").tag(0)
@@ -44,12 +46,14 @@ struct CallBlockView: View {
                 InfoText("Never: The phone will never delete entries from the call block list automatically.\nWithout Protection: The phone will delete the oldest entry when the list is full and a new one is added.\nWith Protection: Entries can be specified as protected, which prevents them from being deleted when the list is full. In this case, the oldest non-protected entry will be deleted when the list is full and a new one is added. If the list is full and all entries are protected, the auto-delete feature is effectively disabled.")
                 if phone.basePhonebookCapacity > 0 {
                     Toggle("Can Block Everyone Not In Phonebook", isOn: $phone.canBlockEveryoneNotInPhonebook)
+                        .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                     InfoText("Enabling the option to block everyone not in the phonebook will block all calls except those from numbers stored in the phonebook. For phones without call block pre-screening, this is your next best option to make sure only calls from people you know ring through.")
                 }
                 if phone.callBlockPreScreening == 0 {
                     Toggle(isOn: $phone.hasFirstRingSuppression) {
                         Text("Has First Ring Suppression")
                     }
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                     InfoText("""
 Suppressing the first ring means the phone won't ring:
 • Until allowed caller ID is received.
@@ -72,6 +76,7 @@ When the first ring is suppressed, the number of rings you hear will be one less
                 Toggle(isOn: $phone.hasOneTouchCallBlock) {
                     Text("Has One-Touch/Quick Call Block")
                 }
+                .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 InfoText("One-touch/quick call block allows you to press the dedicated call block button or select the call block menu item to block an incoming call as it rings or while talking on the phone. On most phones, if it's not a soft key or menu option, it can also be used to access the call block menu in standby.")
             FormNumericTextField("Pre-Blocked", value: $phone.callBlockPreProgrammedDatabaseEntryCount, valueRange: 0...Int.max, singularSuffix: "number", pluralSuffix: "numbers")
 #if !os(visionOS)
@@ -111,12 +116,14 @@ When the first ring is suppressed, the number of rings you hear will be one less
                         InfoText("Calls can't go to a voicemail service once answered by a call block pre-screening system.")
                     }
                     Toggle("Supports Custom Greeting", isOn: $phone.callBlockPreScreeningCustomGreeting)
+                        .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                     FormNumericTextField("Allowed Numbers Capacity", value: $phone.callBlockPreScreeningAllowedNumberCapacity, valueRange: 0...Int.max, singularSuffix: "entry", pluralSuffix: "entries")
 #if !os(visionOS)
                         .scrollDismissesKeyboard(.interactively)
 #endif
                     if phone.callBlockPreScreeningAllowedNumberCapacity > 0 {
                         Toggle("Allowed Numbers List Visible To User", isOn: $phone.callBlockPreScreeningAllowedNumberListVisible)
+                            .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                     }
                     InfoText("Numbers saved to the allowed numbers list will always ring through. If you want to be able to quickly dial these numbers or give them a name or ringtone, save them to the phonebook instead.")
                     FormNumericTextField("Allowed Names Capacity", value: $phone.callBlockPreScreeningAllowedNameCapacity, valueRange: 0...Int.max, singularSuffix: "entry", pluralSuffix: "entries")

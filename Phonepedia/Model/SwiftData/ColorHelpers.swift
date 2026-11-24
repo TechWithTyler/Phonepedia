@@ -13,7 +13,7 @@ import SheftAppsStylishUI
 // MARK: - Color Manipulation Protocols/Extensions
 
 // Protocol for types that store colors as separate RGB component properties and need basic color manipulation helpers.
-protocol BaseHandsetChargerColorManipulatable: AnyObject {
+protocol CasingColorManipulatable: AnyObject {
 
     var mainColorRed: Double { get set }
 
@@ -42,7 +42,7 @@ protocol BaseHandsetChargerColorManipulatable: AnyObject {
 }
 
 // To define a method that all conforming types have access to, without having to implement them, it must be declared in an extension to the protocol.
-extension BaseHandsetChargerColorManipulatable {
+extension CasingColorManipulatable {
 
     // This method copies the main color components to the secondary color.
     func setSecondaryColorToMain() {

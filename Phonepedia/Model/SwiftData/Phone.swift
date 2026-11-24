@@ -14,7 +14,7 @@ import SwiftData
 // The structure of a SwiftData model class is very simple--a Swift class with @Model before its declaration. Any property not marked with @Transient is a persistent property which will be stored to the underlying Core Data persistent store SQLite file. @Model does 2 things: makes this class conform to PersistentModel and Observable, and internally adds @_PersistedProperty to the beginning of persistent properties.
 // A final class is a class that can't be subclassed.
 @Model
-final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipulatable, CordedReceiverColorManipulatable, KeyColorManipulatable {
+final class Phone: CasingColorManipulatable, ChargeLightColorManipulatable, CordedReceiverColorManipulatable, KeyColorManipulatable {
 
     // MARK: - Properties - Mock Phone
 
@@ -61,6 +61,9 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
     // The year the phone was purchased/acquired by the user.
     var acquisitionYear: Int = currentYear
 
+    // The year a phone that this one replaces was acquired.
+    var replacesPhoneAcquiredInYear: Int = 0
+
     // Where the user acquired the phone. 0 = thrift store/sale, 1 = electronics store (new), 2 = online (used), 3 = online (new), 4 = gift.
     var whereAcquired: Int = 0
 
@@ -99,6 +102,9 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
 
     // The base accent color's blue component.
     var baseAccentColorBlue: Double = 0
+
+    // The base's casing type. 0 = solid, 1 = transparent tinted, 2 = transparent clear
+    var baseCasingType: Int = 0
 
     // The base display backlight color's red component.
     var baseDisplayBacklightColorRed: Double = 255
@@ -159,6 +165,9 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
 
     // The corded receiver accent color's blue component.
     var cordedReceiverAccentColorBlue: Double = 0
+
+    // The corded receiver's casing type. 0 = solid, 1 = transparent tinted, 2 = transparent clear
+    var cordedReceiverCasingType: Int = 0
 
     // The base LED message counter color's red component.
     var baseLEDMessageCounterColorRed: Double = 255
@@ -380,6 +389,9 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
     // The number of lines.
     var numberOfLandlines: Int = 1
 
+    // Whether the phone supports switching to another line during a call without having to first put it on hold. 0 = not supported, 1 = place current call on hold, 2 = hang up current call.
+    var switchingLinesDuringCallBehavior: Int = 0
+
     // How the phone indicates that the line is in use. 0 = none, 1 = light, 2 = display, 3 = display and light.
     var landlineInUseStatusOnBase: Int = 0
 
@@ -392,11 +404,17 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
     // Whether the phone supports wired headsets.
     var baseSupportsWiredHeadsets: Bool = false
 
+    // The headset plug size, 2.5mm or 3.5mm.
+    var baseWiredHeadsetPlugSize: Double = 2.5
+
     // The maximum number of Bluetooth headphones that can be paired.
     var baseBluetoothHeadphonesSupported: Int = 0
 
     // The maximum number of Bluetooth cell phones that can be paired.
     var baseBluetoothCellPhonesSupported: Int = 0
+
+    // Whether cell calls can only be received (0) or also placed (1).
+    var cellCallDirection: Int = 1
 
     // Whether the phone has a USB port.
     var hasUSBCharging: Bool = false
@@ -448,6 +466,15 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
 
     // Whether the remote access code is common to all lines.
     var remoteAccessCodeCommonToAllLines: Bool = false
+
+    // How many digits the remote access code is.
+    var remoteAccessCodeLength: Int = 2
+
+    // The digit, if any, that must be entered before the remote access code.
+    var digitBeforeRemoteAccessCode: String = String()
+
+    // Whether a voice menu is played when entering remote answering system operation.
+    var remoteAccessVoiceMenu: Bool = true
 
     // When the answering system plays a message day/time stamp. 0 = never (no clock), 1 = before message, 2 = after message.
     var answeringSystemMessageTimestamp: Int = 2
@@ -517,6 +544,9 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
 
     // Whether the base has a keypad.
     var hasBaseKeypad: Bool = false
+
+    // Whether the phone can be set so pressing any button calls a preset number.
+    var supportsOneTouchCallToPresetNumber: Bool = false
 
     // Whether the keypad can be locked.
     var hasKeypadLock: Bool = false
@@ -595,6 +625,9 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
 
     // How functional the phone is on backup batteries if corded. 0 = memory retention only, 1 = basic, 2 = full.
     var cordedFunctionalityOnBackupBatteries: Int = 1
+
+    // Whether the phone works on line power once backup battery runs out. 0 = no power, 1 = line power for outgoing calls only, 2 = line power for incoming and outgoing calls.
+    var cordedBatteryBackupDepleted: Int = 2
 
     // What happens when power returns during place-on-base power backup. 0 = reboot, 1 = don't reboot.
     var cordlessPowerBackupReturnBehavior: Int = 0
@@ -784,6 +817,18 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
     // The connection type for the landline. 0 = analog, 1 = digital, 2 = Ethernet VoIP, 3 = Wi-Fi VoIP, 4 = cellular, 5 = Ethernet/analog.
     var landlineConnectionType: Int = 0
 
+    // Whether the phone has a data/passthrough port. 0 = none, 1 = always active, 2 = disabled while off-hook
+    var dataPortType: Int = 0
+
+    // Whether the phone uses a proprietary digital protocol which works only on compatible digital PBX systems.
+    var usesProprietaryDigitalProtocol: Bool = false
+
+    // Whether cordless devices on a VoIP cordless phone all share the same line(s) (0), are assigned to a specific line/extension (1), or can be configured to use either (2).
+    var voIPCordlessDeviceLineBehavior: Int = 1
+    
+    // Whether phone provider features (e.g. dial next call as an anonymous call, disable call waiting for this call) can be accessed via menus. 0 = not available, 1 = fixed to the country it's designed for, 2 = customizable
+    var phoneProviderFeatureMenuOptions: Int = 0
+
     // Whether the power and line connections are consolidated into a single cord for the base.
     var usesSingleLinePowerFeed: Bool = false
 
@@ -851,6 +896,24 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
         let age = currentYear - releaseYear
         let yearsSingularOrPlural = age == 1 ? "year" : "years"
         return "\(age) \(yearsSingularOrPlural) old"
+    }
+
+    // The text to display for the main color location.
+    @Transient
+    var mainColorLocation: String {
+        switch basePhoneType {
+            case 1...2: return "Front"
+            default: return "Top"
+        }
+    }
+
+    // The text to display for the secondary color location.
+    @Transient
+    var secondaryColorLocation: String {
+        switch basePhoneType {
+            case 1...2: return "Back"
+            default: return "Bottom"
+        }
     }
 
     @Transient
@@ -1216,6 +1279,12 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
         return numberOfLandlines > 1 || landlineConnectionType == 5
     }
 
+    // Whether the phone has multiple lines or supports Bluetooth cell phone linking.
+    @Transient
+    var isMultilineOrBluetoothCellLinking: Bool {
+        return isMultiline || (baseBluetoothCellPhonesSupported >= 1 && cellCallDirection == 1)
+    }
+
     // Whether the phone has an analog line jack.
     @Transient
     var hasAnalogLineConnection: Bool {
@@ -1255,7 +1324,7 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
     // Whether the base has a monochrome (i.e. non-color) display.
     @Transient
     var baseDisplayIsMonochrome: Bool {
-        return baseDisplayType == 8 || (baseDisplayType > 2 && baseDisplayType < 7)
+        return baseDisplayType == 8 || (baseDisplayType > 1 && baseDisplayType < 7)
     }
 
     // Whether the phone has an answering system that is accessible from the base.
@@ -1312,6 +1381,16 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
     @Transient
     var hasCallerIDList: Bool {
         return baseCallerIDCapacity > 0 || !cordlessHandsetsIHave.filter({$0.callerIDCapacity > 0}).isEmpty
+    }
+
+    // Whether the phone has a corded receiver if transparent.
+    @Transient
+    var transparentPhoneHasCordedReceiver: Binding<Bool> {
+        Binding<Bool> { [self] in
+            return cordedReceiverMainColorAlpha == 1
+        } set: { [self] newValue in
+            cordedReceiverMainColorAlpha = newValue ? 1 : 0
+        }
     }
 
     // MARK: - Properties - Color Bindings
@@ -1966,6 +2045,7 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
 
     func hasBaseSpeakerphoneChanged(oldValue: Bool, newValue: Bool) {
         if newValue {
+            voIPCordlessDeviceLineBehavior = 0
             hasBaseIntercom = true
         }
     }
@@ -1973,6 +2053,7 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
     func landlineConnectionTypeChanged(oldValue: Int, newValue: Int) {
         if newValue > 0 {
             dialMode = 1
+            supportsPBXFeatures = false
         }
         if newValue > 1 {
             if cordedPowerSource < 2 {
@@ -2021,6 +2102,12 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
         }
     }
 
+    func cordedReceiverCasingTypeChanged(oldVale: Int, newValue: Int) {
+        if newValue > 0 {
+            cordedReceiverMainColorAlpha = 1
+        }
+    }
+
     func cordedReceiverColorChanged(oldValue: Color, newValue: Color) {
         if newValue != .clear {
             if doublesAs > 0 && doublesAs < 3 {
@@ -2055,7 +2142,8 @@ final class Phone: BaseHandsetChargerColorManipulatable, ChargeLightColorManipul
     }
 
     func cordedPhoneTypeChanged(oldValue: Int, newValue: Int) {
-        if newValue != 0 {
+        if newValue > 0 {
+            wallMountability = 1
             if baseOneTouchDialCard > 1 {
                 baseOneTouchDialCard = 0
             }

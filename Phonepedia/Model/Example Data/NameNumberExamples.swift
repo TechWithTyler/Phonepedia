@@ -8,9 +8,13 @@
 
 // MARK: - Imports
 
-import Foundation
+import SwiftUI
 
 struct NameNumberExamples {
+
+    #if os(macOS)
+    @AppStorage(UserDefaults.KeyNames.includeUsernameInExampleNames) static var includeUsernameInExampleNames: Bool = false
+    #endif
 
     // MARK: - Phone Number Format Enum
 
@@ -28,16 +32,28 @@ struct NameNumberExamples {
     // MARK: - Properties - Arrays
 
     // Names to use for the answering system greeting/talking caller ID examples
-    static var names: [String] = [
+    static var names: [String] {
+        // 1. Create an array of names.
+        var names = [
         // Answering system greeting examples only
         "TechWithTyler",
         // Answering system greeting and caller ID name examples
         "John Smith",
-        "Pat Fleet",
-        "Allison Smith",
         "John Doe",
+        "Bob Davidson",
+        "Joe Smith",
         "Charlie Johnson"
-    ]
+        ]
+        // 2. If this is the macOS version, append the current user's full name if it isn't one of the example names and the option to include the username is enabled.
+        #if os(macOS)
+        let username = NSFullUserName()
+        if !names.contains(username) && includeUsernameInExampleNames {
+            names.append(username)
+        }
+        #endif
+        // 3. Return the name array.
+        return names
+    }
 
     // The example names filtered to only include those with two components (first and last name).
     static var callerIDNames: [String] {

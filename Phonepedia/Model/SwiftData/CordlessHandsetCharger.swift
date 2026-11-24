@@ -12,7 +12,7 @@ import SheftAppsStylishUI
 import SwiftData
 
 @Model
-final class CordlessHandsetCharger: BaseHandsetChargerColorManipulatable, ChargeLightColorManipulatable {
+final class CordlessHandsetCharger: CasingColorManipulatable, ChargeLightColorManipulatable {
     
     // MARK: - Properties - Persistent Data
 
@@ -24,6 +24,9 @@ final class CordlessHandsetCharger: BaseHandsetChargerColorManipulatable, Charge
 
     // The index of the charger.
     var chargerNumber: Int = 0
+
+    // The casing type. 0 = solid, 1 = transparent tinted, 2 = transparent clear
+    var casingType: Int = 0
 
     // The main color's red component.
     var mainColorRed: Double = 0
@@ -182,7 +185,7 @@ final class CordlessHandsetCharger: BaseHandsetChargerColorManipulatable, Charge
 
     // MARK: - Duplicate
 
-    // This method duplicates the charger.
+    // This method returns a duplicate of the charger.
     func duplicate() -> CordlessHandsetCharger {
         // 1. Initialize a new CordlessHandsetCharger, passing the original's properties to the initializer.
         let newCharger = CordlessHandsetCharger(

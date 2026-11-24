@@ -17,7 +17,7 @@ extension UserDefaults {
 
         // MARK: - UserDefaults Key Names
 
-        static let selectedSettingsPage: String = "selectedSettingsPage"
+        static let phoneNumberInCollectionDisplay: String = "phoneNumberInCollectionDisplay"
 
         static let useDetailedPhoneImage: String = "useDetailedPhoneImage"
 
@@ -48,6 +48,12 @@ extension UserDefaults {
         static let showFrequencyInList: String = "showFrequencyInList"
 
         static let brandSortMode: String = "brandSortMode"
+
+        #if os(macOS)
+        static let includeUsernameInExampleNames: String = "includeUsernameInExampleNames"
+
+        static let selectedSettingsPage: String = "selectedSettingsPage"
+        #endif
 
     }
 

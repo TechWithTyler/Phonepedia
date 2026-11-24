@@ -17,7 +17,7 @@ struct DisplaySettingsPageView: View {
 
     // The phone to use for previewing the phone list detail settings.
     var samplePhone: Phone {
-        // 1. Create a mock phone and cordless handset.
+        // 1. Create a mock phone and cordless handset released in 2014 and acquired in 2023.
         let phone = Phone.mockPhone
         let handset = CordlessHandset.mockHandset
         phone.releaseYear = 2014
@@ -39,9 +39,14 @@ struct DisplaySettingsPageView: View {
         // 4. Add the handsets to the mock phone.
         phone.cordlessHandsetsIHave.append(handset)
         phone.cordlessHandsetsIHave.append(secondHandset)
+        phone.frequency = Phone.CordlessFrequency.defaultForCurrentRegion.rawValue
         // 5. Return the mock phone.
         return phone
     }
+
+    // MARK: - Properties - Integers
+
+    @AppStorage(UserDefaults.KeyNames.phoneNumberInCollectionDisplay) var phoneNumberInCollectionDisplay: Int = 1
 
     // MARK: - Properties - Doubles
 
@@ -50,6 +55,10 @@ struct DisplaySettingsPageView: View {
     // MARK: - Properties - Booleans
 
     @AppStorage(UserDefaults.KeyNames.showAchievementAlerts) var showAchievementAlerts: Bool = true
+
+    #if os(macOS)
+    @AppStorage(UserDefaults.KeyNames.includeUsernameInExampleNames) var includeUsernameInExampleNames: Bool = false
+    #endif
 
     @AppStorage(UserDefaults.KeyNames.useDetailedPhoneImage) var useDetailedPhoneImage: Bool = false
 
@@ -94,16 +103,29 @@ struct DisplaySettingsPageView: View {
                 .buttonStyle(.borderless)
                 .foregroundStyle(.primary)
                 Toggle("Show Achievement Alerts" , isOn: $showAchievementAlerts)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 InfoText("Turn this on to show alerts when unlocking achievements (e.g. getting 10 phones, getting a phone in its release year).")
                 Toggle("Enable Backdrop", isOn: $backdropEnabled)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 InfoText("Turn this on to show a large, blurred version of a phone's photo as the detail view background.")
+                #if os(macOS)
+                Toggle("Include Your Name In Example Names", isOn: $includeUsernameInExampleNames)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
+                InfoText("Enabling this option will include your macOS user account's full name, \(NSFullUserName()), in the example names shown in answering system greeting and caller ID examples.\nYour name will only be included in caller ID name examples if it's only a first and last name.")
+                #endif
             }
             Section("Phone List Detail") {
+                Picker("Phone Number In Collection Shows", selection: $phoneNumberInCollectionDisplay) {
+                    Text("Number In Collection").tag(0)
+                    Text("Number Matching Filters").tag(1)
+                }
+                InfoText("This setting determines whether the number displayed next to each phone in the phone list is the number of that phone in the collection overall, or whether it's the number of that phone that matches the selected filters.")
                 PhoneListDetailOptions()
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
             }
             Section("Phone List Display Example") {
                 List {
-                    PhoneRowView(phone: samplePhone)
+                    PhoneRowView(phone: samplePhone, numberInCollection: 1)
                 }
             }
         }

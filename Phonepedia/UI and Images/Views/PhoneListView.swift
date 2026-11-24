@@ -23,13 +23,33 @@ struct PhoneListView: View {
 
     @EnvironmentObject var achievementTrackerManager: PhoneCollectionAchievementTrackerManager
 
+    // MARK: - Properties - Strings
+
+    @State var searchText: String = String()
+
+    // Brands of phones.
+    var allBrands: [String] {
+        return PhoneFilterManager.allBrands(from: phones)
+    }
+
     // MARK: - Properties - Integers
+
+    var allAcquisitionYears: [Int] {
+        return PhoneFilterManager.allAcquisitionYears(from: phones)
+    }
+
+    // What the number displayed next to each phone in the list represents.
+    @AppStorage(UserDefaults.KeyNames.phoneNumberInCollectionDisplay) var phoneNumberInCollectionDisplay: Int = 1
 
     // The default selection to use for a new phone's "Analog Line Connected To" option.
     @AppStorage(UserDefaults.KeyNames.defaultAnalogPhoneConnectedToSelection) var defaultAnalogPhoneConnectedToSelection: Int = 2
 
     // The default selection to use for a new phone's "How I Got This" option.
     @AppStorage(UserDefaults.KeyNames.defaultAcquisitionMethod) var defaultAcquisitionMethod: Int = 2
+
+    // MARK: - Booleans
+
+    @Environment(\.accessibilityReduceMotion) var reduceMotion
 
     // MARK: - Properties - Filter
 
@@ -50,9 +70,22 @@ struct PhoneListView: View {
         return PhoneFilterManager.filter(phones, with: filterCriteria)
     }
 
-    // Brands of phones.
-    var allBrands: [String] {
-        return PhoneFilterManager.allBrands(from: phones)
+    var searchResults: [Phone] {
+        // 1. Specify the content to search.
+        let content = filteredPhones
+        // 2. If searchText is empty, return all phones.
+        if searchText.isEmpty {
+            return content
+        } else {
+            // 3. Return phones with brands, model numbers, or nicknames that contain all or part of the search text.
+            return content.filter { phone in
+                let brandRange = phone.brand.range(of: searchText, options: .caseInsensitive)
+                let modelRange = phone.model.range(of: searchText, options: .caseInsensitive)
+                let nicknameRange = phone.nickname.range(of: searchText, options: .caseInsensitive)
+                let textMatchesSearchTerm = brandRange != nil || modelRange != nil || nicknameRange != nil
+                return textMatchesSearchTerm
+            }
+        }
     }
 
     @Binding var selectedPhone: Phone?
@@ -61,20 +94,32 @@ struct PhoneListView: View {
 
     var body: some View {
         ZStack {
-            if !filteredPhones.isEmpty {
+            if !searchResults.isEmpty {
                 phoneList
             } else if phoneFilterEnabled {
                 noPhonesText
             } else {
-                ListEmptyView()
+                if !searchText.isEmpty {
+                    VStack {
+                        Text("No phones with brand names, model numbers, or nicknames containing \"\(searchText)\"")
+                            .font(.largeTitle)
+                            .foregroundStyle(.secondary)
+                            .multilineTextAlignment(.center)
+                        Text("Please check your search terms.")
+                            .font(.callout)
+                            .foregroundStyle(.tertiary)
+                    }
+                } else {
+                    NoPhonesView()
+                }
             }
         }
+        .searchable(text: $searchText)
         .onAppear {
             updateDataIfNeeded()
         }
         .contextMenu {
             PhoneListDetailOptions(menu: true)
-                .toggleStyle(.automatic)
         }
         .onChange(of: filteredPhones, { oldValue, newValue in
             if let phone = selectedPhone, !newValue.contains(phone) {
@@ -114,12 +159,12 @@ struct PhoneListView: View {
         } message: {
             Text("All phones will be deleted from this catalog.")
         }
-        .alert("Rearranging the phone list isn't possible while one or more filters are enabled.", isPresented: $dialogManager.showingMoveFailed) {
+        .alert("Rearranging the phone list isn't possible while one or more filters are enabled or while searching.", isPresented: $dialogManager.showingMoveFailed) {
             Button("OK") {
                 dialogManager.showingMoveFailed = false
             }
         } message: {
-            Text("Please disable all filters and try again.")
+            Text("Please disable all filters and clear the search text and try again.")
         }
         .alert("Update the place in the collection for all cordless devices as well?", isPresented: $dialogManager.showingUpdateCordlessDevicePlaceInCollection, presenting: dialogManager.phoneToUpdateCordlessDevicePlaceInCollection) { phone in
             Button {
@@ -162,12 +207,13 @@ struct PhoneListView: View {
     @ViewBuilder
     var phoneList: some View {
         List(selection: $selectedPhone) {
-            ForEach(filteredPhones) { phone in
+            ForEach(searchResults) { phone in
                 phoneRow(for: phone)
             }
             .onDelete(perform: deletePhones)
             .onMove(perform: movePhones)
         }
+        .animation(reduceMotion ? nil : .linear, value: searchResults)
         .onAppear {
             achievementTrackerManager.evaluate(phones: phones, initialLoad: true)
         }
@@ -180,7 +226,7 @@ struct PhoneListView: View {
     @ViewBuilder
     func phoneRow(for phone: Phone) -> some View {
         NavigationLink(value: phone) {
-            PhoneRowView(phone: phone)
+            PhoneRowView(phone: phone, numberInCollection: numberInCollection(for: phone))
         }
         .contextMenu {
             if !phone.phoneDescription.isEmpty {
@@ -189,9 +235,14 @@ struct PhoneListView: View {
                 }
                 Divider()
             }
+            if phone.hasAnsweringSystem > 0 {
+                Button("Show Answering System Remote Access Instructions…") {
+                    dialogManager.showAnsweringSystemRemoteAccessInstructions(for: phone)
+                }
+                Divider()
+            }
             PhonePlaceInCollectionPicker(phone: phone)
                 .pickerStyle(.menu)
-                .toggleStyle(.automatic)
             Divider()
             Button(role: .destructive) {
                 dialogManager.showDeletePhone(phone: phone)
@@ -260,7 +311,6 @@ struct PhoneListView: View {
                     PhoneListDetailOptions(menu: true)
                 }
                 .pickerStyle(.menu)
-                .toggleStyle(.automatic)
                 Divider()
                 Button(role: .destructive) {
                     dialogManager.showingDeleteAllPhones = true
@@ -289,7 +339,6 @@ struct PhoneListView: View {
                 Text("Cellular Handsets").tag(Phone.PhoneType.cellularHandset.rawValue.lowercased())
             }
             .pickerStyle(.menu)
-            .toggleStyle(.automatic)
             Picker("Active Status (\(filterCriteria.activeStatus == 0 ? "Off" : "On"))", selection: $filterCriteria.activeStatus) {
                 Text("Off").tag(0)
                 Divider()
@@ -297,7 +346,6 @@ struct PhoneListView: View {
                 Text("Inactive").tag(2)
             }
             .pickerStyle(.menu)
-            .toggleStyle(.automatic)
             Picker("Brand (\(filterCriteria.brand == allItemsFilterOptionTag ? "Off" : "On"))", selection: $filterCriteria.brand) {
                 Text("All").tag(allItemsFilterOptionTag)
                 Divider()
@@ -306,7 +354,6 @@ struct PhoneListView: View {
                 }
             }
             .pickerStyle(.menu)
-            .toggleStyle(.automatic)
             if filterCriteria.type == allItemsFilterOptionTag || filterCriteria.type == Phone.PhoneType.cordless.rawValue.lowercased() {
                 Picker("No. of Incl. Cordless Devices (\(filterCriteria.numberOfCordlessDevices == 0 ? "Off" : "On"))", selection: $filterCriteria.numberOfCordlessDevices) {
                     Text("Any").tag(0)
@@ -316,7 +363,6 @@ struct PhoneListView: View {
                     }
                 }
                 .pickerStyle(.menu)
-                .toggleStyle(.automatic)
             }
             if filterCriteria.typeIsNotStandaloneWireless {
                 Picker("Answering Systems (\(filterCriteria.answeringSystem == 0 ? "Off" : "On"))", selection: $filterCriteria.answeringSystem) {
@@ -326,7 +372,6 @@ struct PhoneListView: View {
                     Text("Without Answering System").tag(2)
                 }
                 .pickerStyle(.menu)
-                .toggleStyle(.automatic)
                 Picker("Bluetooth Cell Linking (\(filterCriteria.bluetoothCellLinking == 0 ? "Off" : "On"))", selection: $filterCriteria.bluetoothCellLinking) {
                     Text("Off").tag(0)
                     Divider()
@@ -334,12 +379,43 @@ struct PhoneListView: View {
                     Text("Not Supported").tag(2)
                 }
                 .pickerStyle(.menu)
-                .toggleStyle(.automatic)
+                Picker("Acquisition Year (\(filterCriteria.acquisitionYear == 0 ? "Off" : "On"))", selection: $filterCriteria.acquisitionYear) {
+                    Text("Off").tag(0)
+                    Divider()
+                    Text("I Don't Remember").tag(-1)
+                    Divider()
+                    ForEach(allAcquisitionYears, id: \.self) { year in
+                        Text(String(year)).tag(year)
+                    }
+                }
+                .pickerStyle(.menu)
             }
             Divider()
             Button("Reset", systemImage: "arrow.clockwise") {
                 resetPhoneFilter()
             }
+        }
+    }
+
+    // MARK: - Number In Collection
+
+    // This method returns the number of phone in the collection.
+    func numberInCollection(for phone: Phone) -> Int {
+        // 1. Get the actual number of this phone in the collection as a whole.
+        let actualNumber = phone.actualPhoneNumberInCollection
+        if phoneNumberInCollectionDisplay == 1 {
+            // 2. If set to number each phone based on only the displayed phones, get the array of filtered phones, reversing it so the phone at the bottom of the list is number 1 as displayed to the user.
+            let reversedPhones = Array(filteredPhones.reversed())
+            // 3. Make sure we can get this phone from the array.
+            if let index = reversedPhones.firstIndex(of: phone) {
+                return index + 1
+            } else {
+                // 4. If we can't, use the actual number.
+                return actualNumber
+            }
+        } else {
+            // 5. Use the actual number if set to show it.
+            return actualNumber
         }
     }
 
@@ -363,7 +439,7 @@ struct PhoneListView: View {
             newPhone.frequency = Phone.CordlessFrequency.defaultForCurrentRegion.rawValue
             // A phone's phoneNumberInCollection property is the index of the phone in the list, and as with any index, it starts at 0. The number of phones in the list before the new phone is added can be used as the phone's index without adding/subtracting 1.
             newPhone.phoneNumberInCollection = phones.count
-            // 3. Set defaults based on filters.
+            // 3. Set defaults based on all filters except the acquisition year filter.
             if filterCriteria.activeStatus == 2 {
                 newPhone.storageOrSetup = 2
             }
@@ -406,15 +482,17 @@ struct PhoneListView: View {
             }
             // 4. Insert the new phone into the model context.
             modelContext.insert(newPhone)
-            // 5. Select the new phone.
+            // 5. Clear the search text.
+            searchText.removeAll()
+            // 6. Select the new phone.
             selectedPhone = newPhone
         }
     }
 
     // This method moves the phone being dragged from the current (source) index set to the new (destination) index by creating a copy of the phones array, performing the move on that copy, then setting the phoneNumberInCollection property of the original's phones.
     private func movePhones(source: IndexSet, destination: Int) {
-        // 1. If the phone filter is enabled, show an alert and don't continue.
-        guard !phoneFilterEnabled else {
+        // 1. If the phone filter is enabled or the search text isn't empty, show an alert and don't continue.
+        guard !phoneFilterEnabled && searchText.isEmpty else {
             dialogManager.showingMoveFailed = true
             return
         }
@@ -423,8 +501,10 @@ struct PhoneListView: View {
             var phonesCopy = phones
             // 3. Perform the move operation on the copy.
             phonesCopy.move(fromOffsets: source, toOffset: destination)
-            // 4. Use the copy's items and their indices to move the phones in the original array.
-            for (index, phone) in phonesCopy.reversed().enumerated() {
+            // 4. Use the copy's items and their indices to move the phones in the original array. This is done by comparing the ID of the original phone in the phones array and the phone in the phonesCopy array.
+            let reversedPhones = phonesCopy.reversed()
+            let indexPhonePairs = reversedPhones.enumerated()
+            for (index, phone) in indexPhonePairs {
                 if let originalPhone = phones.filter({ $0.id == phone.id}).first {
                     originalPhone.phoneNumberInCollection = index
                 }
@@ -488,7 +568,7 @@ struct PhoneListView: View {
             if phone.maxCordlessHandsets == -1 {
                 phone.maxCordlessHandsets = .max
             }
-            if phone.isDECTCordless {
+            if phone.isDECTCordless && phone.cordlessDeviceLinkingMethod == 0 {
                 phone.cordlessDeviceLinkingMethod = 4
             }
         }
@@ -499,7 +579,7 @@ struct PhoneListView: View {
         // 1. Check if the phoneNumberInCollection property of all phones is 0. This is the case for all phones in any catalog created in version 2024.11, as phone numbering/rearranging wasn't introduced until the following release, 2025.5.
         let allPhonesFirstInCollection = phones.allSatisfy({ $0.phoneNumberInCollection == 0 })
         if allPhonesFirstInCollection {
-            // 2. Go through each phone and set its phoneNumberInCollectionProperty to its corresponding index. For example, the phone at index 3 (the 4th phone in the catalog) have its phoneNumberInCollection property set to 3.
+            // 2. Go through each phone and set its phoneNumberInCollectionProperty to its corresponding index. For example, the phone at index 3 (the 4th phone in the catalog) has its phoneNumberInCollection property set to 3.
             for phone in phones {
                 phone.phoneNumberInCollection = phones.firstIndex(of: phone)!
                 // 3. Do the same for the phone's cordless devices and chargers, if any. Cordless device/charger numbering was introduced in the same version as phone numbering (2025.5), so if phones don't have assigned numbering, cordless devices and chargers don't either.

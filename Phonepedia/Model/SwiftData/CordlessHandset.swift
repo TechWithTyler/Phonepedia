@@ -12,7 +12,7 @@ import SheftAppsStylishUI
 import SwiftData
 
 @Model
-final class CordlessHandset: BaseHandsetChargerColorManipulatable, ChargeLightColorManipulatable, CordedReceiverColorManipulatable, KeyColorManipulatable {
+final class CordlessHandset: CasingColorManipulatable, ChargeLightColorManipulatable, CordedReceiverColorManipulatable, KeyColorManipulatable {
 
     // MARK: - Cordless Device Type Enum
 
@@ -127,6 +127,9 @@ final class CordlessHandset: BaseHandsetChargerColorManipulatable, ChargeLightCo
     // The accent color's blue component.
     var accentColorBlue: Double = 0
 
+    // The casing type. 0 = solid, 1 = transparent tinted, 2 = transparent clear
+    var casingType: Int = 0
+
     // The display backlight color's red component.
     var displayBacklightColorRed: Double = 255
 
@@ -187,6 +190,9 @@ final class CordlessHandset: BaseHandsetChargerColorManipulatable, ChargeLightCo
     // The corded receiver accent color's blue component.
     var cordedReceiverAccentColorBlue: Double = 0
 
+    // The corded receiver's casing type. 0 = solid, 1 = transparent tinted, 2 = transparent clear
+    var cordedReceiverCasingType: Int = 0
+
     // The key backlight color's red component.
     var keyBacklightColorRed: Double = 0
 
@@ -234,6 +240,9 @@ final class CordlessHandset: BaseHandsetChargerColorManipulatable, ChargeLightCo
 
     // The button type.
 	var buttonType: Int = 0
+
+    // Whether the handset/deskset can be set so pressing any button calls a preset number.
+    var supportsOneTouchCallToPresetNumber: Bool = false
 
     // How the ringer volume is adjusted.
     var ringerVolumeAdjustmentType: Int = 1
@@ -406,6 +415,9 @@ final class CordlessHandset: BaseHandsetChargerColorManipulatable, ChargeLightCo
     // Whether the handset/deskset supports wired headsets.
 	var supportsWiredHeadsets: Bool = false
 
+    // The headset plug size, 2.5mm or 3.5mm.
+    var wiredHeadsetPlugSize: Double = 2.5
+
     // The type of answering system menu. 0 = none, 1 = settings only, doesn't require link to base to access, 2 = settings only, requires link to base to access, 3 = full, doesn't require link to base to access, 4 = full, requires link to base to access.
 	var answeringSystemMenu: Int = 3
 
@@ -496,10 +508,10 @@ final class CordlessHandset: BaseHandsetChargerColorManipulatable, ChargeLightCo
     // The type of talk/off buttons. 0 = single talk/off button or switch, 1 = talk and off, 2 = talk/flash and off, 3 = talk/speaker and off, 4 = line buttons + off.
     var talkOffButtonType = 1
 
-    // The talk/off button layer that's colored. 0 = background, 1 = foreground.
+    // The talk/off button layer that's colored. 0 = none, 1 = foreground, 2 = background, 3 = foreground backlight provides color, 4 = background backlight provides color.
     var talkOffColorLayer: Int = 1
 
-    // The speakerphone button layer that's colored. 0 = background, 1 = foreground.
+    // The speakerphone button layer that's colored. 0 = none, 1 = foreground, 2 = background.
     var speakerphoneColorLayer: Int = 1
 
     // Whether the speakerphone button lights up when active.
@@ -518,7 +530,7 @@ final class CordlessHandset: BaseHandsetChargerColorManipulatable, ChargeLightCo
     var age: String {
         let age = currentYear - releaseYear
         let yearsSingularOrPlural = age == 1 ? "year" : "years"
-        return "\(age) \(yearsSingularOrPlural)"
+        return "\(age) \(yearsSingularOrPlural) old"
     }
 
     // The text to display for the cordless device's type.
@@ -528,6 +540,24 @@ final class CordlessHandset: BaseHandsetChargerColorManipulatable, ChargeLightCo
         case 1: return CordlessDeviceType.deskset.rawValue
         case 2: return CordlessDeviceType.headset.rawValue
         default: return CordlessDeviceType.handset.rawValue
+        }
+    }
+
+    // The text to display for the main color location.
+    @Transient
+    var mainColorLocation: String {
+        switch cordlessDeviceType {
+            case 1: return "Top"
+            default: return "Front"
+        }
+    }
+
+    // The text to display for the main color location.
+    @Transient
+    var secondaryColorLocation: String {
+        switch cordlessDeviceType {
+            case 1: return "Bottom"
+            default: return "Back"
         }
     }
 
@@ -650,6 +680,16 @@ final class CordlessHandset: BaseHandsetChargerColorManipulatable, ChargeLightCo
     @Transient
     var takesBatteries: Bool {
         return cordlessDeviceType == 0 || (cordlessDeviceType == 1 && desksetSupportsBackupBatteries)
+    }
+
+    // Whether the deskset has a corded receiver if transparent.
+    @Transient
+    var transparentDesksetHasCordedReceiver: Binding<Bool> {
+        Binding<Bool> { [self] in
+            return cordedReceiverMainColorAlpha == 1
+        } set: { [self] newValue in
+            cordedReceiverMainColorAlpha = newValue ? 1 : 0
+        }
     }
 
     // MARK: - Properties - Color Bindings
@@ -845,6 +885,12 @@ final class CordlessHandset: BaseHandsetChargerColorManipulatable, ChargeLightCo
         }
     }
 
+    func cordedReceiverCasingTypeChanged(oldValue: Int, newValue: Int) {
+        if newValue > 0 {
+            cordedReceiverMainColorAlpha = 1
+        }
+    }
+
     func phonebookCapacityChanged(oldValue: Int, newValue: Int) {
         if newValue < phonebookTransferRequiredMaxCapacity {
             bluetoothPhonebookTransfers = false
@@ -978,7 +1024,6 @@ final class CordlessHandset: BaseHandsetChargerColorManipulatable, ChargeLightCo
         if newValue == 0 {
             navigatorKeyCenterButton = 0
             navigatorKeyUpDownVolume = false
-            sideVolumeButtons = true
             navigatorKeyStandbyShortcuts = false
         }
     }
@@ -991,7 +1036,7 @@ final class CordlessHandset: BaseHandsetChargerColorManipulatable, ChargeLightCo
 
     // MARK: - Duplicate
 
-    // This method duplicates the cordless device.
+    // This method returns a duplicate of the cordless device.
     func duplicate() -> CordlessHandset {
         // 1. Initialize a new CordlessHandset, passing the original's properties to the initializer.
         let newHandset = CordlessHandset(

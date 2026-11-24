@@ -52,7 +52,7 @@ struct HandsetGeneralView: View {
     var basicsGroup: some View {
         if let phone = handset.phone {
             if let firstDeskset = phone.desksets.first, (handset.id != firstDeskset.id && handset.handsetNumber <= phone.maxCordlessHandsets) {
-                Picker("Registered To", selection: $handset.registeredTo) {
+                Picker("Registered to", selection: $handset.registeredTo) {
                     Text("Base").tag(0)
                     Text("Deskset").tag(1)
                 }
@@ -82,7 +82,7 @@ struct HandsetGeneralView: View {
             HandsetPlaceInCollectionPicker(handset: handset)
             if phone.isDigitalCordless {
                 CountPicker("Maximum Number of Bases", selection: $handset.maxBases, oneTo: 4, singularSuffix: "Base", pluralSuffix: "Bases")
-                InfoText("Registering a cordless device to more than one base allows you to extend the coverage area and access the answering system, shared lists, etc. of multiple bases without having to register the device to one of those bases at a time. You can select a specific base for the handset to always connect to, or have it automatically choose the base with the strongest signal. In \(SABundleName), the base of the phone this cordless device is assigned to is considered its primary base.\nIf you want extended range but the same lines/shared lists/base features, and/or you don't want calls to disconnect when the device decides to communicate with a different base, use range extenders instead of multiple bases.\nTo use intercom, room monitor, and other multi-handset features, you must select the same base on both handsets or make sure they're connecting to the same base in auto mode.\nFor multi-cell systems, \"base\" here refers to all the bases in a system.")
+                InfoText("Registering a cordless device to more than one base allows you to extend the coverage area and access the answering system, shared lists, etc. of multiple bases without having to register the device to one of those bases at a time. You can select a specific base for the handset to always connect to, or have it automatically choose the base with the strongest signal. In \(SABundleName), the base of the phone this cordless device is assigned to is considered its primary base.\nIf you want extended range but the same lines/shared lists/base features, and/or you don't want calls to disconnect when the device decides to communicate with a different base, use range extenders instead of multiple bases if the base supports them.\nTo use intercom, room monitor, and other multi-handset features, you must select the same base on both handsets or make sure they're connecting to the same base in auto mode.\nFor multi-cell systems, \"base\" here refers to all the bases (cells) in a system.")
             }
             Picker("Cordless Device Type", selection: $handset.cordlessDeviceType) {
                 Text(CordlessHandset.CordlessDeviceType.handset.rawValue).tag(0)
@@ -152,6 +152,7 @@ struct HandsetGeneralView: View {
             }
             if phone.baseChargesHandset && phone.isDigitalCordless {
                 Toggle("Fits On Base", isOn: $handset.fitsOnBase)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 if !handset.fitsOnBase {
                     InfoText("For a handset to \"fit on the base\", the charging contacts of the handset and base must be able to touch each other without having to force the handset into the base.\nA handset which doesn't fit on the base misses out on many features including place-on-base power backup and place-on-base auto-register.")
                 }
@@ -170,6 +171,7 @@ struct HandsetGeneralView: View {
         }
         if handset.hasCordedReceiver {
             Toggle("Is Slim Corded Deskset", isOn: $handset.isSlimCordedDeskset)
+                .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
             Picker("Switch Hook", selection: $handset.switchHookType) {
                 SwitchHookTypePickerItems(slim: handset.isSlimCordedDeskset)
             }

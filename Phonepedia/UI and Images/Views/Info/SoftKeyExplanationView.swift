@@ -53,7 +53,7 @@ struct SoftKeyExplanationView: View {
             Spacer()
             VStack {
                 Text("Examples of soft key designs")
-                ConditionalHVStack {
+                ConditionalHVStack { _ in
                     VStack {
                         Text("MENU")
                         Image(systemName: "minus.rectangle")

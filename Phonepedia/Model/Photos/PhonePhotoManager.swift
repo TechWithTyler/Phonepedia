@@ -9,6 +9,7 @@
 // MARK: - Imports
 
 import SwiftUI
+import SheftAppsStylishUI
 import PhotosUI
 
 class PhonePhotoManager: ObservableObject {
@@ -73,6 +74,9 @@ class PhonePhotoManager: ObservableObject {
     // The type identifier for PNG image files.
     let pngTypeIdentifier = UTType.png.identifier
 
+    // The type identifier for image files in general.
+    let imageGeneralTypeIdentifier = UTType.image.identifier
+
     // MARK: - Phone Photo Update - Photos Picker Selection
 
     // This method handles selecting a photo in the photo picker.
@@ -133,7 +137,7 @@ class PhonePhotoManager: ObservableObject {
             return false
         }
         // 3. Try to have the provider load image data. If successful, check the photo for landline/VoIP phones. Ask the user for confirmation if no landline/VoIP phones could be detected. If unsuccessful, show an error.
-        let progress = provider.loadDataRepresentation(forTypeIdentifier: UTType.image.identifier) { [self] data, error in
+        let progress = provider.loadDataRepresentation(forTypeIdentifier: imageGeneralTypeIdentifier) { [self] data, error in
             handlePhonePhotoDropImportResult(from: data, error: error, phone: phone)
         }
         // 4. Start loading.
@@ -240,12 +244,7 @@ class PhonePhotoManager: ObservableObject {
             return
         }
         // 3. Try to create an image from that data. If it fails, show an error.
-#if os(macOS)
-        let image = NSImage(data: photoData)
-#else
-        let image = UIImage(data: photoData)
-#endif
-        guard let image = image else {
+        guard let image = PlatformImage(data: photoData) else {
             phonePhotoError = .exportFailed(reason: "Couldn't create image from photo data.")
             return
         }
@@ -253,7 +252,9 @@ class PhonePhotoManager: ObservableObject {
         PHPhotoLibrary.shared().performChanges {
             PHAssetChangeRequest.creationRequestForAsset(from: image)
         } completionHandler: { [self] success, error in
-            handlePhonePhotoExportToLibrarySuccess(success: success, error: error)
+            DispatchQueue.main.async { [self] in
+                handlePhonePhotoExportToLibrarySuccess(success: success, error: error)
+            }
         }
     }
 
@@ -272,6 +273,24 @@ class PhonePhotoManager: ObservableObject {
             // 3. If successful, show the export success alert.
             showingPhonePhotoExportSuccessfulAlert = true
         }
+    }
+
+    // MARK: - Decode to Thumbnail
+
+    // This method decodes phone's photo data to a PlatformImage of the appropriate size.
+    func decodePhonePhoto(for phone: Phone, to maxPixelSize: CGFloat) async -> PlatformImage? {
+        // 1. Make sure we can get the phone's photo data. Otherwise, return nil and use the placeholder photo.
+        guard let data = phone.photoData else { return nil }
+            // 2. Create an asynchronous background task which performs decoding.
+            let task = Task.detached(priority: .background) {
+                return await PlatformImage.decodedImage(
+                    from: data,
+                    maxPixelSize: maxPixelSize
+                )
+            }
+            // 3. The task's value is the PlatformImage the await expression returned, so return that as the phone photo.
+            let image = await task.value
+            return image
     }
 
 }

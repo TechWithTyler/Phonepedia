@@ -17,42 +17,30 @@ struct HandsetColorView: View {
 
     @Bindable var handset: CordlessHandset
 
-    // MARK: - Properties - Strings
-
-    var mainColorLocation: String {
-        switch handset.cordlessDeviceType {
-        case 1: return "Top"
-        default: return "Front"
-        }
-    }
-
-    var secondaryColorLocation: String {
-        switch handset.cordlessDeviceType {
-        case 1: return "Bottom"
-        default: return "Back"
-        }
-    }
-
     // MARK: - Body
 
     var body: some View {
-            Section {
-                ColorPicker("\(mainColorLocation) Color", selection: handset.mainColorBinding)
-                ColorPicker("\(secondaryColorLocation) Color", selection: handset.secondaryColorBinding)
-                Button("Use \(mainColorLocation) Color") {
+        Section {
+            Picker("Casing Type", selection: $handset.casingType) {
+                CasingTypePickerItems()
+            }
+            if handset.casingType == 0 {
+                ColorPicker("\(handset.mainColorLocation) Color", selection: handset.mainColorBinding)
+                ColorPicker("\(handset.secondaryColorLocation) Color", selection: handset.secondaryColorBinding)
+                Button("Use \(handset.mainColorLocation) Color") {
                     handset.setSecondaryColorToMain()
                 }
                 ColorPicker("Accent Color", selection: handset.accentColorBinding)
-                Button("Use \(mainColorLocation) Color") {
+                Button("Use \(handset.mainColorLocation) Color") {
                     handset.setAccentColorToMain()
                 }
-                Button("Use \(secondaryColorLocation) Color") {
+                Button("Use \(handset.secondaryColorLocation) Color") {
                     handset.setAccentColorToSecondary()
                 }
                 if handset.cordlessDeviceType == 1 {
-                ClearSupportedColorPicker("Corded Receiver Outer Color", selection: handset.cordedReceiverMainColorBinding) {
-                    Text("No Corded Receiver")
-                }
+                    ClearSupportedColorPicker("Corded Receiver Outer Color", selection: handset.cordedReceiverMainColorBinding) {
+                        Text("No Corded Receiver")
+                    }
                     Button("Use Deskset Main Color") {
                         handset.setCordedReceiverOuterColorToMain()
                     }
@@ -76,7 +64,16 @@ struct HandsetColorView: View {
                         }
                     }
                 }
+            } else {
+                if handset.casingType == 1 {
+                    ColorPicker("Tint Color", selection: handset.mainColorBinding)
+                }
+                if handset.cordlessDeviceType == 1 {
+                    Toggle("Has Corded Receiver", isOn: handset.transparentDesksetHasCordedReceiver)
+                        .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
+                }
             }
+        }
     }
 
 }

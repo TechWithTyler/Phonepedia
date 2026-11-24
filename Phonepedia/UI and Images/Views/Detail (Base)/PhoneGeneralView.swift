@@ -54,9 +54,21 @@ struct PhoneGeneralView: View {
         return phone.releaseYear...currentYear
     }
 
+    var replacesPhoneAcquiredInYearRange: ClosedRange<Int> {
+        return releaseYearRange.lowerBound...phone.acquisitionYear
+    }
+
     var maxCordlessDevicesRange: ClosedRange<Int> {
         let includedHandsets = phone.numberOfIncludedCordlessHandsets == 0 ? 1 : phone.numberOfIncludedCordlessHandsets
         return phone.cordlessDeviceLinkingMethod == 4 ? includedHandsets...30 : 1...1
+    }
+
+    var maxCordlessDevicesOptions: [Int] {
+        let registration =
+        Array(1...30) +
+        Array(stride(from: 100, through: 1000, by: 100)) +
+        Array(stride(from: 2000, through: 16000, by: 1000))
+        return phone.cordlessDeviceLinkingMethod == 4 ? registration : [1]
     }
 
     // MARK: - Properties - Booleans
@@ -120,17 +132,19 @@ struct PhoneGeneralView: View {
             }
         }
         Toggle("Needed One or More Non-Accessory Replacements", isOn: $phone.neededReplacements)
+            .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
         InfoText("Sometimes, one or more parts of your phones may break or come broken and can't be fixed easily (e.g. broken base/handset speaker or display, corrupt memory on a base or handset that a factory reset can't fix, handsets unable to register/link to the base).\nYou can replace handsets easily just as you would purchase additional handsets, but you might end up with more parts than what you needed (e.g. you needed just a handset but also got a charger). To replace just a base or charger, you'll need to look on the used market or purchase an entire new phone set.\nIf you don't want to replace broken parts, you can try to send them to someone who can repair them, or if you know how to, repair it yourself.\nIn \(SABundleName), a \"non-accessory\" replacement refers to replacing a base, cordless device, or charger, not accessories like power cords, batteries/battery covers, and belt clips.")
+        CountPicker("Replaces Phone Acquired In", selection: $phone.replacesPhoneAcquiredInYear, numberRange: replacesPhoneAcquiredInYearRange, usesGroupingSeparator: false, unknownTitle: "I Don't Remember", noneTitle: "None")
         VStack {
             Text("Write more about your phone (e.g., the story behind why you got it, when/where you got it, whether you had to replace broken parts) in the text area below.\nExample: \"\(phoneDescriptionSampleText)\"")
                 .lineLimit(nil)
-            Stepper("Font Size: \(Int(phoneDescriptionTextSize))pt", value: $phoneDescriptionTextSize)
+            Stepper("Font Size: \(Int(phoneDescriptionTextSize))pt", value: $phoneDescriptionTextSize, in: SATextViewIdealFontSizeRange)
             ContrastingTextEditor(text: $phone.phoneDescription)
                 .frame(minHeight: 300)
                 .padding()
                 .font(.system(size: phoneDescriptionTextSize))
         }
-        CountPicker("Number of Included Cordless Devices", selection: $phone.numberOfIncludedCordlessHandsets, numberRange: 1...30, singularSuffix: "Cordless Device", pluralSuffix: "Cordless Devices", noneTitle: phone.isOptionalCordless ? "None" : "Not Cordless")
+        CountPicker("Number of Included Cordless Devices", selection: $phone.numberOfIncludedCordlessHandsets, oneTo: 30, singularSuffix: "Cordless Device", pluralSuffix: "Cordless Devices", noneTitle: phone.isOptionalCordless ? "None" : "Not Cordless")
             .disabled(phone.handsetNumberDigit != nil)
             .onChange(of: phone.numberOfIncludedCordlessHandsets) { oldValue, newValue in
                 phone.numberOfIncludedCordlessHandsetsChanged(oldValue: oldValue, newValue: newValue)
@@ -170,10 +184,11 @@ struct PhoneGeneralView: View {
         if phone.isCordless || phone.basePhoneType == 0 {
             if phone.numberOfIncludedCordlessHandsets == 0 {
                 Toggle("Cordless Devices Optional", isOn: $phone.isOptionalCordless)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                     .onChange(of: phone.isOptionalCordless) { oldValue, newValue in
                         phone.isOptionalCordlessChanged(oldValue: oldValue, newValue: newValue)
                     }
-                InfoText("Some corded/cordless business phones come only with a corded base. Some require an adaptor to make it cordless.")
+                InfoText("Some corded/cordless business phones come only with a corded base. Some require an adaptor to make them cordless.")
             }
             Picker("Doubles As", selection: $phone.doublesAs) {
                 Text("None").tag(0)
@@ -189,10 +204,35 @@ struct PhoneGeneralView: View {
             InfoText("A cordless phone that doubles as a smart home hub works as a smart home hub first, cordless phone second, compared to a phone with smart home device capability which works as a phone first, smart home hub second, and lacks smartphone/tablet integration for smart home control.\nSome modem/router combos have built-in support for registering cordless handsets, combining the modem, router, and a transmit-only base into a single device.\nMany fax machines double as a phone. If a fax machine shares the same line as a phone, or it's a phone/fax, separate numbers can come in on a single line, with distinct ring patterns to distinguish a phone call from a fax call. Outgoing calls will always use the main number. Separate lines are necessary if the 2nd number must be used for outgoing faxes.")
         }
         Toggle("Allows Slowing Down Incoming Phone Call Audio", isOn: $phone.canSlowDownIncomingAudio)
+            .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
         InfoText("Slowing down incoming audio during a call works by buffering the incoming audio as it's being received, then slowing down that buffered audio. Incoming audio might return to normal speed if the buffer can't keep up with the incoming audio stream.\nWith this feature enabled, incoming audio is about half a second old by the time it's played back due to the buffering and slowing down. The difference in timing can be heard if another phone is off-hook at the same time, or if you turn off the feature while audio is playing.")
         if phone.hasBaseAccessibleAnsweringSystem {
             Toggle("Has Voice-Guided Setup", isOn: $phone.voiceGuidedSetup)
+                .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
             InfoText("Voice-guided setup gives the user spoken instructions to help them set up the phone, either when first plugging in the base or later by selecting a menu option/pressing a sequence of buttons.")
+        }
+        if phone.isCordlessOrPushButtonDesk {
+            Picker("Wall Mounting", selection: $phone.wallMountability) {
+                Text("Not Supported").tag(0)
+                Divider()
+                Text("Holes on Back").tag(1)
+                Divider()
+                Text("Optional Bracket").tag(2)
+                Text("Built-In Bracket").tag(3)
+                Text("Desk/Wall Bracket").tag(4)
+                Divider()
+                Text("Remove Stand").tag(5)
+            }
+            InfoText("• Holes on Back: The phone can be wall mounted without a bracket.\n• Optional Bracket: A bracket is required for wall mounting but not for desk use.\n• Built-In Bracket: The bracket is built-in and can be moved between desk and wall position.\n• Desk/Wall Bracket: The bracket is removable, but is required for both desk and wall use.\n• Remove Stand: A stand is used for desk use and needs to be removed for wall mounting.")
+        }
+        if phone.isMultilineOrBluetoothCellLinking {
+            Picker("Switching Lines During Call", selection: $phone.switchingLinesDuringCallBehavior) {
+                Text("Not Supported").tag(0)
+                Divider()
+                Text("Hold").tag(1)
+                Text("Hang Up").tag(2)
+            }
+            InfoText("• Not Supported: Calls must be placed on hold first even if the phone has physical line buttons.\n• Hold: The current call is placed on hold when switching to another line.\n• Hang Up: The current call is hung up when switching to another line, so it must be placed on hold, if supported, if you don't want it to hang up.")
         }
     }
 
@@ -231,9 +271,7 @@ struct PhoneGeneralView: View {
                         }
                         Text("Security Code (Place Handset On Base)").tag(3)
                     }
-                    if phone.isDigitalCordless {
-                        Text("Registration").tag(4)
-                    }
+                    Text("Registration").tag(4)
                 }
                 if phone.cordlessDeviceLinkingMethod == 3 && phone.maxCordlessHandsets == 1 {
                     InfoText("Placing a handset on the base changes the digital security code and \"invalidates\" the previous handset.")
@@ -242,7 +280,7 @@ struct PhoneGeneralView: View {
                 WarningText("If either the handset or base/add-on cordless adaptor breaks, you'll need to replace both the handset and base/cordless adaptor.")
             }
             if phone.cordlessDeviceLinkingMethod > 2 {
-                CountPicker("Maximum Number of Cordless Devices", selection: $phone.maxCordlessHandsets, numberRange: maxCordlessDevicesRange, singularSuffix: "Cordless Device", pluralSuffix: "Cordless Devices", unlimitedTitle: "Unlimited")
+                MaxCordlessDevicesOptionsView(phone: phone)
                     .onChange(of: phone.maxCordlessHandsets) { oldValue, newValue in
                         phone.maxCordlessHandsetsChanged(oldValue: oldValue, newValue: newValue)
                     }
@@ -253,6 +291,7 @@ struct PhoneGeneralView: View {
             }
             if phone.frequency == Phone.CordlessFrequency.analog1_7MHz.rawValue || phone.frequency == Phone.CordlessFrequency.analog1_7MHzOver46MHz.rawValue {
                 Toggle("Base-to-Handset Uses Power Line", isOn: $phone.baseTransmitThroughPowerLine)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 InfoText("Some early cordless phones used the building's electrical wiring as the base's transmit antenna, with the actual antenna only used for receive. This design might cause issues on modern electrical systems.")
             }
             Picker("Antenna(s)", selection: $phone.antennas) {
@@ -266,24 +305,19 @@ struct PhoneGeneralView: View {
             AntennaInfoView()
             if !phone.isCordedCordless {
                 Toggle("Base Is Transmit-Only", isOn: $phone.hasTransmitOnlyBase)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                     .onChange(of: phone.hasTransmitOnlyBase) { oldValue, newValue in
                         phone.transmitOnlyBaseChanged(oldValue: oldValue, newValue: newValue)
                     }
-                Picker("Wall Mounting", selection: $phone.wallMountability) {
-                    Text("Not Supported").tag(0)
-                    Divider()
-                    Text("Holes on Back").tag(1)
-                    Text("Optional Bracket").tag(2)
-                    Text("Built-In Bracket").tag(3)
-                    Text("Desk/Wall Bracket").tag(4)
-                }
                 if !phone.hasBaseKeypad && !phone.hasTransmitOnlyBase {
                     Toggle("Has Charger-Style Base", isOn: $phone.hasChargerSizeBase)
+                        .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                     InfoText("Some cordless phone bases look similar to/have a similar size to chargers. In some cases, such as when the base has no answering system controls, they can be easily mistaken for chargers, although a base is always slightly bigger than a charger.\nThese kinds of bases are ideal for those who want a small-footprint base. The differentiating factor between a charger-style base vs a standard base is that the handset charging area is in the same horizontal position as that of the charger (usually the center).\nTip: The main base has at least a phone jack or handset locator button. Chargers just plug into power.")
                 }
             }
             if phone.baseChargesHandset {
                 Toggle("Has Charge Light", isOn: $phone.hasChargeLight)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 if phone.hasChargeLight {
                     ColorPicker("Charge Light Color (Charging)", selection: phone.chargeLightColorChargingBinding)
                     ClearSupportedColorPicker("Charge Light Color (Charged)", selection: phone.chargeLightColorChargedBinding) {
@@ -320,6 +354,7 @@ struct PhoneGeneralView: View {
                 }
                 ChargingContactInfoView()
                 Toggle("Base Has Separate Data Contact", isOn: $phone.baseHasSeparateDataContact)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 InfoText("""
 Most modern cordless phones pass data through the 2 charging contacts for various features including the following. However, many older cordless phones, especially 46-49MHz and 900MHz models, used a separate, 3rd contact for these features.
 • Detecting the handset being placed on the base for registration (place-on-base auto-register).
@@ -344,9 +379,11 @@ In most cases, if the base has a charge light/display message, the completion of
         if phone.isDigitalCordless {
             if phone.cordlessDeviceLinkingMethod == 4 {
                 Toggle("Supports Range Extenders", isOn: $phone.supportsRangeExtenders)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 InfoText("A range extender, also known as a repeater, extends the range (or \"repeats the signal\") of the base it's registered to. Devices communicating with the base choose the base or a range extender based on which has the strongest signal, just like devices connected to a mesh Wi-Fi network.\nIf you register 2 or more range extenders, they can be \"daisy-chained\" (one can communicate with the base via another) to create a larger useable coverage area.\nWhen a cordless device moves between the base or range extender(s), your call may briefly cut out.\nIf a handset is communicating with a range extender and that range extender loses power or its link to the base, the handset will also lose its link to the base for a few seconds, which will cause the handset to either connect to the base or another range extender, or drop the call entirely.")
             }
             Toggle("Briefly Holds Ongoing Call When Out Of Range", isOn: $phone.holdForOutOfRange)
+                .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
             InfoText("Typically, with digital cordless phones, when a handset moves out of range from the base during a call, the call is dropped. With some cordless phones, the base can put the call on hold for a short time once it detects that the handset has gone out of range, to allow the call to continue if the handset moves back in range quickly enough. On analog cordless phones, the base can't know that the handset went out of range, so the phone will remain off-hook until the base is unplugged and plugged back in, or the handset goes back in range without having been hung up first (or for some single-handset models, placing a handset on the base).")
             Picker("ECO Mode", selection: $phone.ecoMode) {
                 Text("Not Supported").tag(0)
@@ -362,6 +399,7 @@ In most cases, if the base has a charge light/display message, the completion of
     var cordlessLocatorRegistrationGroup: some View {
         if phone.locatorButtons == 0 || phone.cordlessDeviceLinkingMethod < 3 {
             Toggle("Handset Locator Uses Intercom", isOn: $phone.handsetLocatorUsesIntercom)
+                .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
             InfoText("Some phones use intercom as the means of locating handsets, even if the base doesn't have intercom. This means that the handset locator and intercom from the base are the same feature, and therefore, the handset may indicate \"call from base\" instead of \"paging\".")
         }
         if phone.cordlessDeviceLinkingMethod == 4 {
@@ -379,6 +417,7 @@ In most cases, if the base has a charge light/display message, the completion of
             }
             if !phone.isCordedCordless && !phone.hasTransmitOnlyBase && phone.deregistration > 0 && phone.locatorButtons == 0 {
                 Toggle("Place-On-Base Auto-Register", isOn: $phone.placeOnBaseAutoRegister)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 InfoText("The base can detect an unregistered handset being placed on it, which will put it into registration mode. Aside from putting the base into registration mode, data isn't exchanged through the contacts like it is on phones using the \"place handset on base to set digital security code\" method. Manually putting the base in registration mode is still available for re-registering handsets or for registering handsets which don't fit on the base.")
                 if phone.placeOnBaseAutoRegister && phone.noFittingHandsets {
                     WarningText("This feature can't be used since you don't have any handsets which fit on the base!")
@@ -435,6 +474,7 @@ In most cases, if the base has a charge light/display message, the completion of
         InfoText("Most push-button phones send tones made up of a low and high frequency, called Dual-Tone Multi-Frequency (DTMF) tones, when numbers are dialed. Most phone services today only support tone dialing, so a pulse-to-tone converter is required if you want to use a rotary phone or pulse-only push-button phone on your line. A pulse-to-tone converter detects the number of pulses and then sends out the corresponding DTMF tone through the line.\nRotary phones use a dial with numbers on it. You place your finger on the desired number and turn it until it stops, hence the phrase \"dialing a number\". When you release the dial, springs and gears return it to its resting position, causing the phone to go on and off-hook very quickly a certain number of times, corresponding to the number you put your finger on. This quick \"on and off-hook\" is called a pulse. Push-button phones can also send pulses instead of tones. For line-powered push-button phones with button lighting, the light will flash with each pulse.\nOn most corded phones, you can quickly press the switch hook to simulate a pulse dial. This is called \"switch hook dialing\".")
         if phone.isCordedWallPhone {
             Toggle("Is Payphone", isOn: $phone.isPayphone)
+                .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
             InfoText("A payphone is a phone where the caller needs to insert coins for the call to be completed. In the beginning, coins were handled mechanically by the operator. Later payphones would play tones through the line when inserting coins, which tells the provider what kind of coin was inserted. This method wasn't foolproof--you could play the tones through the microphone to trick the provider into thinking you inserted a coin. Today's payphones perform coin detection locally, with prompts like \"Please deposit 5 cents for the next 3 minutes\" stored in the phone itself rather than being played by the provider. Tone detection told the payphone whether to keep or return the coins.\nIf you connect an older payphone to a regular line, the phone works as a regular phone. However, modern payphones which handle coins locally will still work like a payphone.")
         }
         if (phone.cordedRingerType == 1 || phone.totalBaseRingtones > 1) && phone.cordedPhoneType == 2 {
@@ -446,6 +486,7 @@ In most cases, if the base has a charge light/display message, the completion of
         }
         if phone.cordedPhoneType == 0 {
             Toggle("Has Dual Receivers", isOn: $phone.hasDualReceivers)
+                .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
             InfoText("A corded phone with dual receivers allows 2 people to use the phone at the same time without having to connect 2 separate phones to the same line. These kinds of phones are often used by those requiring a language interpreter.")
         }
         if phone.isSlimCordedWithBaseCircuitry {
@@ -465,15 +506,17 @@ In most cases, if the base has a charge light/display message, the completion of
         }
         if phone.cordedPhoneType != 4 {
             Toggle("Has Hard-Wired Corded Receiver", isOn: $phone.hasHardWiredCordedReceiver)
+                .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
             InfoText("Some old phones have hard-wired corded receivers, which means you'll need to have the phone repaired if the cord breaks.")
         }
     }
 
     @ViewBuilder
     var cordedCordlessGroup: some View {
-        if phone.grade == 0 && phone.isCordlessOrPushButtonDesk {
+        if phone.grade == 0 && phone.isCordlessOrPushButtonDesk && phone.landlineConnectionType == 0 {
             Toggle("Supports PBX-Style Features Without PBX", isOn: $phone.supportsPBXFeatures)
-            InfoText("Some small-business phones can communicate with other compatible phones on the same line without a PBX. Each phone sends and receives audio signals on specific frequency bands over the analog line (think analog wireless but wired), allowing them to detect calls or intercom requests from each other. This provides PBX-like features such as intercom, even without a PBX. The audio frequencies used for this communication are above the audible range. Extension numbers are set manually on each phone.\nThe more distance between phones, the weaker the signal can get, which can prevent these features from working.\nThis isn't necessary for multi-handset cordless phones unless more handsets are needed than a single base can support, as most multi-handset systems already have these features. In both cases, going off-hook picks up an outside line, not an internal line.")
+                .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
+            InfoText("Some small-business analog phones can communicate with other compatible phones on the same line without a PBX. Each phone sends and receives audio signals on specific frequency bands over the analog line (think analog wireless but wired), allowing them to detect calls or intercom requests from each other. This provides PBX-like features such as intercom, even without a PBX. The audio frequencies used for this communication are above the audible range. Extension numbers are set manually on each phone.\nThe more distance between phones, the weaker the signal can get, which can prevent these features from working.\nThis isn't necessary for multi-handset cordless phones unless more handsets are needed than a single base can support, as most multi-handset systems already have these features. In both cases, going off-hook picks up an outside line, not an internal line.")
 
         }
         if (phone.isPushButtonCorded && phone.cordedPhoneType != 4) || phone.isCordedCordless {
@@ -486,10 +529,12 @@ In most cases, if the base has a charge light/display message, the completion of
                 SwitchHookTypePickerItems(slim: phone.isSlimCordedWithBaseCircuitry)
             }
             SwitchHookInfoView()
-            Picker("Corded Receiver Hook Type", selection: $phone.cordedReceiverHookType) {
-                CordedReceiverHookTypePickerItems()
+            if phone.wallMountability > 0 {
+                Picker("Corded Receiver Hook Type", selection: $phone.cordedReceiverHookType) {
+                    CordedReceiverHookTypePickerItems()
+                }
+                CordedReceiverHookInfoView()
             }
-            CordedReceiverHookInfoView()
         }
     }
 

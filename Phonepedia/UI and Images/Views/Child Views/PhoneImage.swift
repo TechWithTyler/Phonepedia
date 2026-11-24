@@ -13,9 +13,16 @@ import SheftAppsStylishUI
 
 struct PhoneImage: View, ImageMasterDetailable {
 
-    // MARK: - Properties - Phone
+    // MARK: - Properties - Objects
 
 	@Bindable var phone: Phone
+
+    @EnvironmentObject var phonePhotoManager: PhonePhotoManager
+
+    // MARK: - Properties - Current Phone Photo
+
+    // The current phone photo decoded from phone's photo data.
+    @State private var currentPhonePhoto: PlatformImage? = nil
 
     // MARK: - Properties - Image Mode
 
@@ -39,32 +46,26 @@ struct PhoneImage: View, ImageMasterDetailable {
         switch displayMode {
         case .thumbnail: return 100
         case .full: return 300
-        case .backdrop: return 1000
+        case .backdrop: return 3000
         }
 	}
-    
+
+    var maxPixelSize: CGFloat {
+        switch displayMode {
+        case .thumbnail:
+            return 200
+        case .full:
+            return 800
+        case .backdrop:
+            return 2500
+        }
+    }
+
     // MARK: - Body
 
     var body: some View {
-        if displayMode == .backdrop {
             image
-                .renderingMode(phone.photoData == nil && !useDetailedPhoneImage ? .template : .original)
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .clipShape(RoundedRectangle(cornerRadius: 0))
-                .accessibilityLabel("\(phone.brand) \(phone.model)")
-                .opacity(isAnimating ? 1 : 0)
-                .blur(radius: isAnimating ? 0 : 100)
-                // Use the animation modifier with a value to animate a view when a property changes.
-                .animation(.easeIn(duration: reduceMotion ? 0 : 0.5), value: isAnimating)
-                .animation(.easeInOut(duration: 1.0), value: phone.photoData)
-                .onAppear {
-                    isAnimating = true
-                }
-        } else {
-            image
-                .renderingMode(phone.photoData == nil && !useDetailedPhoneImage ? .template : .original)
+                .renderingMode(currentPhonePhoto == nil && !useDetailedPhoneImage ? .template : .original)
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(width: size, height: size)
@@ -73,30 +74,41 @@ struct PhoneImage: View, ImageMasterDetailable {
                 .opacity(isAnimating ? 1 : 0)
                 .blur(radius: isAnimating ? 0 : 100)
                 // Use the animation modifier with a value to animate a view when a property changes.
-                .animation(.easeIn(duration: reduceMotion ? 0 : 0.5), value: isAnimating)
-                .animation(.easeInOut(duration: 1.0), value: phone.photoData)
+                .animation(reduceMotion ? nil : .easeIn(duration: 0.5), value: isAnimating)
+                .animation(reduceMotion ? nil : .easeInOut(duration: 1.0), value: currentPhonePhoto)
                 .onAppear {
-                    isAnimating = true
+                    loadPhonePhoto()
                 }
-        }
+                .onChange(of: phone.photoData, { oldValue, newValue in
+                    if newValue == nil {
+                        currentPhonePhoto = nil
+                    } else {
+                        loadPhonePhoto()
+                    }
+                })
     }
 
     // MARK: - Image
 
     var image: Image {
-        if let photoData = phone.photoData {
-            #if os(macOS)
-            Image(nsImage: NSImage(data: photoData)!)
-            #else
-            Image(uiImage: UIImage(data: photoData)!)
-            #endif
+        if let currentPhonePhoto {
+            Image(platformImage: currentPhonePhoto)
         } else {
             if useDetailedPhoneImage {
-                Image(displayMode == .thumbnail ? .phoneDetailedThumbnail : .phoneDetailed)
+                Image(displayMode == .thumbnail
+                      ? .phoneDetailedThumbnail
+                      : .phoneDetailed)
             } else {
                 Image(.phone)
             }
         }
+    }
+
+    func loadPhonePhoto() {
+        Task {
+            currentPhonePhoto = await phonePhotoManager.decodePhonePhoto(for: phone, to: maxPixelSize)
+            isAnimating = true
+            }
     }
 
 }

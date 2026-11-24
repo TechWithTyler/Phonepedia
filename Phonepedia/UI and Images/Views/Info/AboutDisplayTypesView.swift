@@ -38,7 +38,7 @@ struct AboutDisplayTypesView: View {
                     Text("Full-Dot/Dot-Matrix Monochrome")
                 }
                 DisclosureGroup {
-                    Text("A color display is an LCD display that can display colors. These displays are often found on high-end phones and often have soft keys. In addition to the features offered by full-dot monochrome displays, menus can have a color scheme (e.g., white background, black text, blue highlight), and pictures can be assigned to phonebook entries to display when they call, or as the standby display wallpaper.")
+                    Text("A color display is an LCD display that can display colors. These displays are often found on high-end phones and often have soft keys. In addition to the features offered by full-dot monochrome displays, menus can have a color scheme (e.g., white background, black text, blue highlight), and on many color display phones, pictures can be assigned to phonebook entries to display when they call, or as the standby display wallpaper.")
                 } label: {
                     Text("Color")
                 }
@@ -55,7 +55,7 @@ struct AboutDisplayTypesView: View {
                 DisclosureGroup {
                     Text(
                         """
-                        Any information displayed on a dual 7-segment display is abbreviated. Examples:
+                        Any information displayed on a dual 7-segment display is abbreviated. Examples of common displays:
                         • OF (looks like 0F): Off
                         • Y: Yes
                         • tS (looks like t5): Toll saver

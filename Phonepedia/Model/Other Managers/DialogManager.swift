@@ -40,6 +40,9 @@ class DialogManager: ObservableObject {
     // The phone whose backstory to show.
     @Published var phoneToShowBackstory: Phone? = nil
 
+    // The phone whose answering system remote access instructions to show.
+    @Published var phoneToShowAnsweringSystemRemoteAccessInstructions: Phone? = nil
+
     // MARK: - Properties - Booleans
 
     // Whether the "move failed" alert should be/is being displayed.
@@ -86,6 +89,9 @@ class DialogManager: ObservableObject {
 
     // Whether the phone backstory sheet should be/is being displayed.
     @Published var showingPhoneBackstory: Bool = false
+
+    // Whether the answering system remote access instruction sheet should be/is being displayed.
+    @Published var showingAnsweringSystemRemoteAccessInstructions: Bool = false
 
     // Whether the "make corded-only" alert should be/is being displayed.
     @Published var showingMakeCordedOnly: Bool = false
@@ -164,6 +170,11 @@ class DialogManager: ObservableObject {
         phoneToShowBackstory = phone
     }
 
+    func showAnsweringSystemRemoteAccessInstructions(for phone: Phone) {
+        showingAnsweringSystemRemoteAccessInstructions = true
+        phoneToShowAnsweringSystemRemoteAccessInstructions = phone
+    }
+
     // MARK: - Dismiss Dialog
 
     func dismissDeleteHandset() {
@@ -174,11 +185,6 @@ class DialogManager: ObservableObject {
     func dismissDeleteCharger() {
         chargerToDelete = nil
         showingDeleteCharger = false
-    }
-
-    func dismissPhoneBackstory() {
-        phoneToShowBackstory = nil
-        showingPhoneBackstory = false
     }
 
 }

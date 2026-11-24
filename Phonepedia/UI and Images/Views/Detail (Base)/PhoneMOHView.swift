@@ -21,9 +21,12 @@ struct PhoneMOHView: View {
 
     var body: some View {
         Toggle("Preset Audio", isOn: $phone.musicOnHoldPreset)
+            .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
         Toggle("User-Recorded", isOn: $phone.musicOnHoldRecord)
+            .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
         if phone.supportsWiredHeadsets {
             Toggle("Live Input", isOn: $phone.musicOnHoldLive)
+                .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
         }
         InfoText("When a call is put on hold using the phone's hold option, the caller can hear music or a message, which can be audio built into the phone, recorded by the user, or a live feed of a connected audio device for phones that support wired headsets. For phones without MOH, the caller just hears silence.\nNote: When placing a call on hold on an analog phone, the provider isn't sent the \"hold\" signal. To place the call on hold at the provider level, press the flash button or switch hook. Depending on the provider, hanging up while on hold may cause the phone to \"ring back\" to let you know there's a call on hold.")
     }

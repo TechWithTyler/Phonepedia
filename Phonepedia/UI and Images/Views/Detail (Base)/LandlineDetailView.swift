@@ -38,25 +38,47 @@ struct LandlineDetailView: View {
             .onChange(of: phone.landlineConnectionType) { oldValue, newValue in
                 phone.landlineConnectionTypeChanged(oldValue: oldValue, newValue: newValue)
             }
-            if (phone.landlineConnectionType == 0 || phone.landlineConnectionType == 5) && phone.storageOrSetup <= 1 {
-                Picker("Analog Line Connected To", selection: $phone.landlineConnectedTo) {
-                    AnalogPhoneConnectedToPickerItems()
+            if (phone.landlineConnectionType == 0 || phone.landlineConnectionType == 5) {
+                if phone.storageOrSetup <= 1 {
+                    Picker("Analog Line Connected To", selection: $phone.landlineConnectedTo) {
+                        AnalogPhoneConnectedToPickerItems()
+                    }
+                    if phone.landlineConnectedTo == 0 {
+                        WarningText(phone.isCordless || phone.cordedPowerSource > 0 ? "It's recommended to connect your phone to a line to enjoy all of its features!" : "This phone needs a line to get power!")
+                    }
+                    InfoText("Select \"Multiple\" if you alternate between connection types (e.g. a phone line simulator for internal test calls and a VoIP modem for real calls) or each analog line on a multi-line phone is connected to a different one. You can use a phone line switcher for this.")
                 }
-                if phone.landlineConnectedTo == 0 {
-                    WarningText("It's recommended to connect your phone to a line to enjoy all of its features!")
+                Picker("Data Port", selection: $phone.dataPortType) {
+                    Text("None").tag(0)
+                    Divider()
+                    Text("Always Active (Passthrough)").tag(1)
+                    Text("Disabled While Off-Hook").tag(2)
                 }
+                InfoText("A data port, also known as an extension jack or passthrough, allows other landline devices (e.g. another phone, dial-up modem, fax machine, or answering system) to connect to the same line without having to use a line splitter or additional jack. It's often called a data port because connecting a dial-up modem or fax machine was the common use case for it.\nSome multi-line phones have a single data port, with a switch to select which line the data port should be connected to.\n• None: The phone doesn't have a data/passthrough port.\n• Always Active: The phone/device connected to the data port acts as if it was connected directly to the line or via a splitter.\n• Disabled While Off-Hook: The phone/device connected to the data port is disconnected from the line while this phone is off-hook. This ensures voice calls take priority and can also work with the phone's other privacy features if the data port is designed to work with them.")
             }
-            InfoText("Select \"Multiple\" if you alternate between connection types (e.g. a phone line simulator for internal test calls and a VoIP modem for real calls) or each analog line on a multi-line phone is connected to a different one. You can use a phone line switcher for this.")
+            Picker("Phone Provider Feature Menus/Options", selection: $phone.phoneProviderFeatureMenuOptions) {
+                Text("Not Available").tag(0)
+                Divider()
+                Text("Factory-Set").tag(1)
+                Text("Customizable").tag(2)
+            }
+            InfoText("Some phones have menu options which serve as an easy way to access certain phone provider features such as to dial a number as anonymous for one call only. Depending on the phone, these features may be factory-set to dial feature codes defined by the telephony standards for the country the phone is designed to be used in (or for phones with a country setting, the country that's selected). These options won't work if used with a provider which doesn't adopt the regional telephony standards or on a PBX which uses different codes/doesn't support the features, or if these codes change later. For phones where these codes are customizable, simply set them as required.\nFor VoIP phones, these options may send SIP requests to the provider/PBX instead of dialing feature codes.")
+            if phone.landlineConnectionType > 0 && phone.landlineConnectionType < 4 {
+                Toggle("Uses \(phone.brand) Proprietary Protocol", isOn: $phone.usesProprietaryDigitalProtocol)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
+                InfoText("Some digital/VoIP phones use proprietary protocols which only work on a compatible digital PBX. Non-proprietary digital protocols include ISDN (Integrated Services Digital Network), T1, T3, and E1. SIP (Session Initiation Protocol) is required for a VoIP phone to be compatible with other providers/PBXs.")
+            }
             InfoButton("About Connection Types/Devices…") {
                 dialogManager.showingAboutConnectionTypes = true
             }
             if phone.landlineConnectionType < 2 {
                 Toggle("Has Hard-Wired Line Cord", isOn: $phone.hasHardWiredLineCord)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 InfoText("Some old phones have hard-wired line cords, which means you'll need to have the phone repaired if the cord breaks.")
             }
             if phone.isCordless || phone.cordedPhoneType == 0 || phone.cordedPhoneType == 1 {
                 FormNumericTextField("Number of Lines", value: $phone.numberOfLandlines, valueRange: 1...100, singularSuffix: "line", pluralSuffix: "lines")
-                InfoText(phone.landlineConnectionType < 2 ? "On a 2- or 4-line phone, you can either plug each line into a separate jack, or use a single jack for 2 lines. For example, to plug a 2-line phone into a single 2-line jack, you would plug into the line 1/2 jack, or to plug into 2 single-line jacks, you would plug into both the line 1 and line 2 jacks. To use the one-jack-for-both-lines method, you need to make sure the phone cord has 4 copper contacts instead of just 2. With some phones, the included line cords are color-coded so you can easily tell which line they're for (e.g. black for line 1 and green for line 2). At least one of the included line cords will have 4 copper contacts--use this one for the one-jack-for-both-lines method.\nMulti-line phones have buttons/soft keys to choose the desired line. Some phones have the ability to select the primary line, which will be used when picking up the phone/going off-hook. This option usually defaults to auto, which means the first line that's not in use (free line) will be selected. Selecting a specific line may prevent you from answering a call coming in on another line without pressing that line's button." : "Business-grade VoIP phones often have support for more than 4 lines. Lines can be registered as extensions on the same VoIP system, or as separate lines/extensions on different VoIP systems.\nOn Ethernet VoIP phones, the number of lines DOES NOT determine how many Ethernet jacks the phone has. A single Ethernet cable connects the phone to the network, and the phone's software determines how many lines it can support. Additional Ethernet jacks, if any, are used to connect additional devices to the same network as the phone.")
+                InfoText(phone.landlineConnectionType < 2 ? "On a 2- or 4-line phone, you can either plug each line into a separate jack, or use a single jack for 2 lines. For example, to plug a 2-line phone into a single 2-line jack, you would plug into the line 1/2 jack, or to plug into 2 single-line jacks, you would plug into both the line 1 and line 2 jacks. To use the one-jack-for-both-lines method, you need to make sure the phone cord has 4 copper contacts instead of just 2. With some phones, the included line cords are color-coded so you can easily tell which line they're for (e.g. black for line 1 and green for line 2). At least one of the included line cords will have 4 copper contacts--use this one for the one-jack-for-both-lines method.\nMulti-line phones have buttons/soft keys to choose the desired line. Some phones have the ability to select the primary line, which will be used when picking up the phone/going off-hook. This option usually defaults to auto, which means the first line that's not in use (free line) will be selected. Selecting a specific line may prevent you from answering a call coming in on another line without pressing that line's button." : "Business-grade VoIP phones often have support for more than 4 lines. Lines can be registered as extensions on the same VoIP system, or as separate lines/extensions on different VoIP systems.\nOn Ethernet VoIP phones, the number of lines DOES NOT determine how many Ethernet jacks the phone has. A single Ethernet cable connects the phone to the network, and the phone's software determines how many lines it can support. Additional Ethernet jacks, if any, are used to connect additional devices to the same network as the phone.\nThe number of lines that can be used might be less if the phone is being used on a 3rd-party VoIP provider/PBX.")
             }
             if phone.hasAnalogLineConnection {
                 Picker(phone.landlineConnectionType == 5 ? "Analog Line Dial Mode" : "Dial Mode", selection: $phone.dialMode) {
@@ -90,6 +112,7 @@ struct LandlineDetailView: View {
                 InfoText("When another phone on the same line is in use, the phone will indicate that the line is in use if it has line in use indication, by detecting a drop in line power. Some cordless phones indicate line in use only when that cordless phone is in use.")
                 if phone.hasLandlineInUseLight {
                     Toggle("Landline In Use Light Follows Ring Signal", isOn: $phone.landlineInUseVisualRingerFollowsRingSignal)
+                        .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                     VisualRingerInfoView()
                 }
             }
@@ -104,6 +127,7 @@ struct LandlineDetailView: View {
             }
             if phone.isCordless || phone.cordedPowerSource > 0 {
                 Toggle("Has \"No Line\" Alert", isOn: $phone.hasNoLineAlert)
+                    .toggleStyle(.stateLabelCheckbox(stateLabelPair: .yesNo))
                 InfoText("If the line isn't connected, the no line alert, if available, will be displayed. This is done by detecting the line power dropping too much (or being nonexistent due to there being no line connection). As a result, this message may be displayed if too many phones are off-hook.\nThe phone will first detect \"line in use\" before detecting \"no line\", so you may briefly see it indicating \"line in use\" after disconnecting the line (or powering up the phone without a line connected). Some phones have a delay before the line in use indication to prevent such indication from briefly appearing before the no line alert. The status won't change the moment the line power drops, as the phone needs to wait for the line power to stabilize before indicating the proper status.")
             }
         }
